@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cos&#x27;è un ransomware e come ci si prepara? – FabGPT-FAQ</title>
+<meta name="description" content="Un ransomware cifra i tuoi dati e chiede un riscatto per la chiave; le gang moderne fanno doppia estorsione – prima esfiltrano, poi cifrano, così pagare non…">
+<link rel="canonical" href="https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-un-ransomware/">
+<link rel="stylesheet" href="../../style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Cos'è un ransomware e come ci si prepara?", "acceptedAnswer": {"@type": "Answer", "text": "Un ransomware cifra i tuoi dati e chiede un riscatto per la chiave; le gang moderne fanno doppia estorsione – prima esfiltrano, poi cifrano, così pagare non chiude comunque la partita. L'ingresso tipico: phishing, RDP esposto, VPN senza patch, o una [supply chain compromessa](q/cos-e-la-supply-chain-security/). La preparazione vale più della reazione: backup [3-2-1](q/backup-3-2-1/) con almeno una copia offline o immutabile – su Proxmox, [PBS](q/cos-e-proxmox-backup-server/) con retention e verify patch veloci sul perimetro, [MFA](q/cos-e-autenticazione-due-fattori-mfa/) ovunque, [minimo privilegio](q/principio-del-minimo-privilegio/) e segmentazione per limitare il movimento laterale log centralizzati per accorgersene presto (Wildbox) Pagare? Sconsigliato da tutte le autorità: finanzia il prossimo attacco e la chiave non è garantita."}}]}</script>
+<style>
+  .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
+  .page h1 { font-size: 26px; line-height: 1.3; margin: 8px 0 20px; }
+  .page .answer a { color: var(--link); }
+  .page .vertical { font-size: 13px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }
+  .page .answer ul { padding-left: 22px; }
+  .page .answer code { background: var(--code-bg); border-radius: 5px; padding: 1px 5px; font-size: 0.9em; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+  .page .ask { display: inline-block; margin-top: 24px; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 9px 18px; text-decoration: none; font-weight: 600; }
+  .page .related { margin-top: 36px; border-top: 1px solid var(--border); padding-top: 18px; }
+  .page .related h2 { font-size: 16px; }
+  .page .related a { color: var(--link); text-decoration: none; }
+  .page .related a:hover { text-decoration: underline; }
+  .page .related li { margin: 6px 0; }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="../../" style="text-decoration:none;color:inherit">
+    <span class="brand-dot">F</span>
+    <span class="brand-name">FabGPT-FAQ</span>
+  </a>
+</header>
+<main class="page">
+  <div class="vertical">Cybersecurity</div>
+  <h1>Cos&#x27;è un ransomware e come ci si prepara?</h1>
+  <div class="answer"><p>Un <strong>ransomware</strong> cifra i tuoi dati e chiede un riscatto per la chiave; le gang moderne fanno <strong>doppia estorsione</strong> – prima esfiltrano, poi cifrano, così pagare non chiude comunque la partita. L&#x27;ingresso tipico: phishing, RDP esposto, VPN senza patch, o una <a href="../cos-e-la-supply-chain-security/">supply chain compromessa</a>.</p><p>La preparazione vale più della reazione:</p><ul><li><strong>backup <a href="../backup-3-2-1/">3-2-1</a></strong> con almeno una copia offline o immutabile – su Proxmox, <a href="../cos-e-proxmox-backup-server/">PBS</a> con retention e verify</li><li>patch veloci sul perimetro, <a href="../cos-e-autenticazione-due-fattori-mfa/">MFA</a> ovunque, <a href="../principio-del-minimo-privilegio/">minimo privilegio</a> e segmentazione per limitare il movimento laterale</li><li>log centralizzati per accorgersene presto (<a href="https://github.com/fabriziosalmi/wildbox" target="_blank" rel="noopener">Wildbox</a>)</li></ul><p>Pagare? Sconsigliato da tutte le autorità: finanzia il prossimo attacco e la chiave non è garantita.</p></div>
+  <a class="ask" href="../../?q=ransomware">Chiedilo a FabGPT-FAQ →</a>
+  <div class="related">
+    <h2>Altre domande</h2>
+    <ul><li><a href="../cos-e-un-waf-web-application-firewall/">Cos&#x27;è un WAF (Web Application Firewall) e a cosa serve?</a></li><li><a href="../cos-e-un-reverse-proxy/">Cos&#x27;è un reverse proxy e a cosa serve?</a></li><li><a href="../come-funziona-lets-encrypt-acme/">Come funziona Let&#x27;s Encrypt e il protocollo ACME?</a></li><li><a href="../certificato-tls-scaduto-cosa-fare/">Certificato TLS scaduto: perché succede e come evitarlo?</a></li><li><a href="../cos-e-un-siem-e-un-soar/">Cos&#x27;è un SIEM e cos&#x27;è un SOAR?</a></li><li><a href="../nis2-chi-deve-adeguarsi-italia/">Chi deve adeguarsi alla NIS2 in Italia e cosa rischia?</a></li></ul>
+  </div>
+</main>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Come si gestiscono i secrets (e perché mai in git)? – FabGPT-FAQ</title>
+<meta name="description" content="Un secret committato è un secret compromesso: la storia di git non dimentica (il rebase non basta, va considerato ruotato), i fork lo moltiplicano e i bot…">
+<link rel="canonical" href="https://fabriziosalmi.github.io/fabgpt-faq/q/come-gestire-i-secrets/">
+<link rel="stylesheet" href="../../style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Come si gestiscono i secrets (e perché mai in git)?", "acceptedAnswer": {"@type": "Answer", "text": "Un secret committato è un secret compromesso: la storia di git non dimentica (il rebase non basta, va considerato ruotato), i fork lo moltiplicano e i bot scandagliano GitHub in tempo reale a caccia di chiavi AWS – i primi tentativi di abuso arrivano in minuti. La scala di maturità: livello base: file .env fuori dal versionamento (in .gitignore dal primo commit) + un .env.example senza valori livello serio: secret manager – Vault, SOPS con age per cifrarli dentro il repo, o i secret nativi di CI/CD e container igiene: rotazione periodica, [scope minimi](q/principio-del-minimo-privilegio/), un segreto per servizio (mai il super-token condiviso), scanner pre-commit (gitleaks) in CI Angolo AI del problema: le credenziali incollate nei prompt finiscono nei log di qualcun altro – è esattamente ciò che aidlp intercetta prima che accada."}}]}</script>
+<style>
+  .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
+  .page h1 { font-size: 26px; line-height: 1.3; margin: 8px 0 20px; }
+  .page .answer a { color: var(--link); }
+  .page .vertical { font-size: 13px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }
+  .page .answer ul { padding-left: 22px; }
+  .page .answer code { background: var(--code-bg); border-radius: 5px; padding: 1px 5px; font-size: 0.9em; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+  .page .ask { display: inline-block; margin-top: 24px; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 9px 18px; text-decoration: none; font-weight: 600; }
+  .page .related { margin-top: 36px; border-top: 1px solid var(--border); padding-top: 18px; }
+  .page .related h2 { font-size: 16px; }
+  .page .related a { color: var(--link); text-decoration: none; }
+  .page .related a:hover { text-decoration: underline; }
+  .page .related li { margin: 6px 0; }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="../../" style="text-decoration:none;color:inherit">
+    <span class="brand-dot">F</span>
+    <span class="brand-name">FabGPT-FAQ</span>
+  </a>
+</header>
+<main class="page">
+  <div class="vertical">Cybersecurity</div>
+  <h1>Come si gestiscono i secrets (e perché mai in git)?</h1>
+  <div class="answer"><p>Un secret committato è un secret <strong>compromesso</strong>: la storia di git non dimentica (il rebase non basta, va considerato ruotato), i fork lo moltiplicano e i bot scandagliano GitHub in tempo reale a caccia di chiavi AWS – i primi tentativi di abuso arrivano in <em>minuti</em>.</p><p>La scala di maturità:</p><ul><li><strong>livello base</strong>: file <code>.env</code> fuori dal versionamento (in <code>.gitignore</code> dal primo commit) + un <code>.env.example</code> senza valori</li><li><strong>livello serio</strong>: secret manager – Vault, SOPS con age per cifrarli <em>dentro</em> il repo, o i secret nativi di CI/CD e container</li><li><strong>igiene</strong>: rotazione periodica, <a href="../principio-del-minimo-privilegio/">scope minimi</a>, un segreto per servizio (mai il super-token condiviso), scanner pre-commit (gitleaks) in CI</li></ul><p>Angolo AI del problema: le credenziali incollate nei prompt finiscono nei log di qualcun altro – è esattamente ciò che <a href="https://github.com/fabriziosalmi/aidlp" target="_blank" rel="noopener">aidlp</a> intercetta prima che accada.</p></div>
+  <a class="ask" href="../../?q=gestione-secrets">Chiedilo a FabGPT-FAQ →</a>
+  <div class="related">
+    <h2>Altre domande</h2>
+    <ul><li><a href="../cos-e-un-waf-web-application-firewall/">Cos&#x27;è un WAF (Web Application Firewall) e a cosa serve?</a></li><li><a href="../cos-e-un-reverse-proxy/">Cos&#x27;è un reverse proxy e a cosa serve?</a></li><li><a href="../come-funziona-lets-encrypt-acme/">Come funziona Let&#x27;s Encrypt e il protocollo ACME?</a></li><li><a href="../certificato-tls-scaduto-cosa-fare/">Certificato TLS scaduto: perché succede e come evitarlo?</a></li><li><a href="../cos-e-un-siem-e-un-soar/">Cos&#x27;è un SIEM e cos&#x27;è un SOAR?</a></li><li><a href="../nis2-chi-deve-adeguarsi-italia/">Chi deve adeguarsi alla NIS2 in Italia e cosa rischia?</a></li></ul>
+  </div>
+</main>
+</body>
+</html>

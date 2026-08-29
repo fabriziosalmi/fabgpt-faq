@@ -523,7 +523,6 @@
         "due fattori",
         "autenticazione a due fattori",
         "totp",
-        "passkey",
         "authenticator",
         "fido2"
       ],
@@ -557,7 +556,6 @@
       "vertical": "security",
       "keywords": [
         "security header",
-        "hsts",
         "x-frame-options",
         "x-content-type-options",
         "referrer-policy",
@@ -1405,6 +1403,1151 @@
       ]
     },
     {
+      "id": "phishing",
+      "slug": "cos-e-il-phishing",
+      "question": "Cos'è il phishing (e lo spear phishing)?",
+      "vertical": "security",
+      "keywords": [
+        "phishing",
+        "spear phishing",
+        "email truffa",
+        "mail sospetta",
+        "link sospetto",
+        "smishing",
+        "vishing",
+        "esca"
+      ],
+      "answers": [
+        "Il **phishing** è l'arte di farsi consegnare credenziali e dati fingendosi qualcun altro: la mail della \"banca\" che chiede di verificare il conto, il corriere con il pacco fermo, il collega che ha urgenza di un bonifico. Lo **spear phishing** è la versione su misura: l'attaccante studia la vittima e confeziona un'esca credibile proprio per lei – è così che cadono anche i tecnici.\n\nDifese che funzionano: **passkey/FIDO2** (su un sito clone semplicemente non scattano, a differenza dei codici SMS), verifica dei link prima del click, e canali separati per confermare le richieste di denaro. Lato infrastruttura: [SPF, DKIM e DMARC](q/spf-dkim-dmarc/) impediscono che qualcuno spedisca a nome del tuo dominio, e le blocklist come [blacklists](https://github.com/fabriziosalmi/blacklists) tagliano i domini di phishing noti a livello DNS."
+      ]
+    },
+    {
+      "id": "ransomware",
+      "slug": "cos-e-un-ransomware",
+      "question": "Cos'è un ransomware e come ci si prepara?",
+      "vertical": "security",
+      "keywords": [
+        "ransomware",
+        "riscatto",
+        "file cifrati",
+        "cryptolocker",
+        "lockbit",
+        "doppia estorsione",
+        "pagare il riscatto"
+      ],
+      "answers": [
+        "Un **ransomware** cifra i tuoi dati e chiede un riscatto per la chiave; le gang moderne fanno **doppia estorsione** – prima esfiltrano, poi cifrano, così pagare non chiude comunque la partita. L'ingresso tipico: phishing, RDP esposto, VPN senza patch, o una [supply chain compromessa](q/cos-e-la-supply-chain-security/).\n\nLa preparazione vale più della reazione:\n\n- **backup [3-2-1](q/backup-3-2-1/)** con almeno una copia offline o immutabile – su Proxmox, [PBS](q/cos-e-proxmox-backup-server/) con retention e verify\n- patch veloci sul perimetro, [MFA](q/cos-e-autenticazione-due-fattori-mfa/) ovunque, [minimo privilegio](q/principio-del-minimo-privilegio/) e segmentazione per limitare il movimento laterale\n- log centralizzati per accorgersene presto ([Wildbox](https://github.com/fabriziosalmi/wildbox))\n\nPagare? Sconsigliato da tutte le autorità: finanzia il prossimo attacco e la chiave non è garantita."
+      ]
+    },
+    {
+      "id": "honeypot",
+      "slug": "cos-e-un-honeypot",
+      "question": "Cos'è un honeypot?",
+      "vertical": "security",
+      "keywords": [
+        "honeypot",
+        "esca per hacker",
+        "trappola",
+        "canary",
+        "honeytoken",
+        "finto servizio"
+      ],
+      "answers": [
+        "Un **honeypot** è un bersaglio finto messo lì apposta: un servizio SSH fasullo, un database civetta, un file \"password.xlsx\" che nessuno dovrebbe aprire. Non ha traffico legittimo, quindi **qualsiasi interazione è un segnale d'allarme quasi privo di falsi positivi** – il contrario dei log normali, dove il segnale annega nel rumore.\n\nVarianti utili anche in piccolo: gli **honeytoken** (credenziali finte sparse nei posti giusti: se qualcuno le usa, sai che è entrato e da dove), porte civetta che alimentano i ban automatici, e honeypot di ricerca per studiare gli attaccanti. Due cautele: l'honeypot va **isolato** (non deve diventare un trampolino verso i sistemi veri) e monitorato – un allarme che nessuno ascolta è arredamento."
+      ]
+    },
+    {
+      "id": "cos-e-un-soc",
+      "slug": "cos-e-un-soc-security-operations-center",
+      "question": "Cos'è un SOC (Security Operations Center)?",
+      "vertical": "security",
+      "keywords": [
+        "soc",
+        "security operations center",
+        "centro operativo sicurezza",
+        "analisti sicurezza",
+        "soc as a service",
+        "turni monitoraggio"
+      ],
+      "answers": [
+        "Il **SOC** è la sala di controllo della sicurezza: le persone, i processi e gli strumenti che monitorano l'infrastruttura, riconoscono gli incidenti e coordinano la risposta – idealmente 24/7, perché gli attaccanti apprezzano i weekend. Gli strumenti tipici sono il [SIEM per correlare gli eventi e il SOAR per automatizzare le risposte](q/cos-e-un-siem-e-un-soar/), più threat intelligence ed EDR sugli endpoint.\n\nPer una PMI il SOC interno è quasi sempre fuori portata: le opzioni realistiche sono il **SOC as a Service** (esternalizzato, con il compromesso di mandare fuori i propri log) o un presidio ridotto costruito su strumenti open source self-hosted – [Wildbox](https://github.com/fabriziosalmi/wildbox) unifica SIEM, SOAR e WAF proprio per abbassare quella soglia d'ingresso."
+      ]
+    },
+    {
+      "id": "edr-xdr",
+      "slug": "differenza-edr-xdr-antivirus",
+      "question": "EDR, XDR, antivirus: che differenza c'è?",
+      "vertical": "security",
+      "keywords": [
+        "edr",
+        "xdr",
+        "antivirus",
+        "endpoint detection",
+        "endpoint",
+        "difesa endpoint",
+        "mdr"
+      ],
+      "answers": [
+        "Tre generazioni della stessa idea:\n\n- **antivirus** – riconosce il malware *noto* per firme e euristiche: necessario, non più sufficiente\n- **EDR** (Endpoint Detection and Response) – registra il **comportamento** degli endpoint (processi, rete, registro) e rileva le tecniche d'attacco anche senza firma: PowerShell che scarica ed esegue, escalation sospette; permette anche la risposta remota (isolare la macchina, uccidere il processo)\n- **XDR** (eXtended DR) – la stessa telemetria estesa **oltre l'endpoint**: identità, email, cloud, rete, correlate in un unico quadro\n\nC'è anche l'**MDR**: l'EDR/XDR gestito da analisti esterni, per chi non ha un [SOC](q/cos-e-un-soc-security-operations-center/). Nel mondo open source la correlazione centrale è il territorio del [SIEM](q/cos-e-un-siem-e-un-soar/): agenti sugli host + [Wildbox](https://github.com/fabriziosalmi/wildbox) come cervello."
+      ]
+    },
+    {
+      "id": "threat-intelligence",
+      "slug": "cos-e-la-threat-intelligence",
+      "question": "Cos'è la threat intelligence?",
+      "vertical": "security",
+      "keywords": [
+        "threat intelligence",
+        "threat intel",
+        "ioc",
+        "indicatori di compromissione",
+        "feed minacce",
+        "ttp",
+        "mitre attack"
+      ],
+      "answers": [
+        "La **threat intelligence** è conoscenza azionabile sulle minacce: chi attacca, come, con quali infrastrutture. Si consuma a tre livelli – **IoC** (indicatori concreti: IP, domini, hash malevoli, da bloccare in automatico), **TTP** (le tecniche degli avversari, catalogate in MITRE ATT&CK, per orientare i rilevamenti) e intelligence strategica per decidere le priorità.\n\nIl valore sta nella freschezza e nell'integrazione: un feed di IoC che nessun sistema consuma è solo lettura. Esempi operativi nel portfolio: [blacklists](https://github.com/fabriziosalmi/blacklists) aggrega ogni giorno 46 fonti in una blocklist DNS pronta all'uso, [fqdn-model](https://github.com/fabriziosalmi/fqdn-model) prova a *predire* i domini malevoli che nessun feed conosce ancora, e [NASO](https://github.com/fabriziosalmi/naso) copre il lato esposizione: cosa si dice di te nei posti sbagliati."
+      ]
+    },
+    {
+      "id": "cve-cvss",
+      "slug": "cos-e-una-cve-e-il-cvss",
+      "question": "Cos'è una CVE (e il punteggio CVSS)?",
+      "vertical": "security",
+      "keywords": [
+        "cve",
+        "cvss",
+        "vulnerabilita nota",
+        "nvd",
+        "epss",
+        "gravita vulnerabilita",
+        "patch tuesday",
+        "zero day"
+      ],
+      "answers": [
+        "Una **CVE** (Common Vulnerabilities and Exposures) è l'identificatore univoco di una vulnerabilità pubblica – `CVE-2026-45321` è la stessa falla per tutti, dal vendor allo scanner. Il **CVSS** ne misura la gravità tecnica da 0 a 10 (vettore d'attacco, complessità, impatto).\n\nLa trappola classica: ordinare le patch solo per CVSS. Un 9.8 mai sfruttato in rete conta meno di un 7.5 con exploit pubblico usato attivamente – per questo si affiancano l'**EPSS** (probabilità di sfruttamento) e il catalogo **KEV** delle vulnerabilità sfruttate note. E uno **zero-day** è una falla per cui la patch non esiste ancora: lì contano solo le difese in profondità. Per sapere di quali CVE ti devi preoccupare serve prima l'inventario: non puoi patchare ciò che non sai di avere."
+      ]
+    },
+    {
+      "id": "va-vs-pentest",
+      "slug": "vulnerability-assessment-vs-penetration-test",
+      "question": "Vulnerability assessment e penetration test: che differenza c'è?",
+      "vertical": "security",
+      "keywords": [
+        "penetration test",
+        "pentest",
+        "vulnerability assessment",
+        "scansione vulnerabilita",
+        "test di intrusione",
+        "red team",
+        "ethical hacking"
+      ],
+      "answers": [
+        "Si confondono spesso, ma sono servizi diversi con prezzi diversi:\n\n- il **vulnerability assessment** è una scansione **ampia e automatizzata**: inventaria le vulnerabilità note di sistemi e applicazioni e le classifica. Costa poco, si ripete spesso, trova il noto.\n- il **penetration test** è un attacco **manuale e mirato**: una persona competente prova davvero a entrare, concatenando debolezze che nessuno scanner collega (una password debole + un permesso largo + un servizio interno = dominio compromesso). Costa di più, si fa una-due volte l'anno o dopo cambi grossi.\n- il **red team** è il livello sopra: obiettivi realistici, lunga durata, anche ingegneria sociale.\n\nOrdine sensato: prima sistemare ciò che il VA trova, poi pagare un pentest – farsi dire da un professionista che hai le patch arretrate è un uso costoso del suo tempo. E per i software esposti, un programma di [bug bounty](q/cos-e-un-bug-bounty/) completa il quadro."
+      ]
+    },
+    {
+      "id": "bug-bounty",
+      "slug": "cos-e-un-bug-bounty",
+      "question": "Cos'è un bug bounty (e come funziona HackerOne)?",
+      "vertical": "security",
+      "keywords": [
+        "bug bounty",
+        "hackerone",
+        "bugcrowd",
+        "ricompensa bug",
+        "responsible disclosure",
+        "vdp",
+        "segnalare vulnerabilita"
+      ],
+      "answers": [
+        "Un **bug bounty** è un invito permanente: \"trova vulnerabilità nei nostri sistemi, segnalale in modo responsabile, e ti paghiamo\". Piattaforme come **HackerOne** e Bugcrowd fanno da intermediari – definiscono il perimetro (scope), gestiscono le segnalazioni, arbitrano le ricompense, che vanno da poche centinaia a centinaia di migliaia di euro per le falle critiche.\n\nPer le aziende è un modo di comprare migliaia di occhi esperti pagando solo i risultati; il fratello minore è il **VDP** (vulnerability disclosure program): niente ricompense, ma un canale legale e chiaro per chi trova qualcosa – la sua assenza è il motivo per cui tante falle finiscono su Twitter invece che nella tua inbox. Lato ricercatore è un mestiere vero: Fabrizio è su HackerOne come [fabriziosalmi](https://hackerone.com/fabriziosalmi)."
+      ]
+    },
+    {
+      "id": "osint",
+      "slug": "cos-e-l-osint",
+      "question": "Cos'è l'OSINT (Open Source Intelligence)?",
+      "vertical": "security",
+      "keywords": [
+        "osint",
+        "open source intelligence",
+        "fonti aperte",
+        "informazioni pubbliche",
+        "footprinting",
+        "ricognizione",
+        "google dorking"
+      ],
+      "answers": [
+        "L'**OSINT** è raccogliere intelligence da fonti aperte: registri pubblici, social, DNS, certificati in Certificate Transparency, repository, metadati dei documenti, archive.org. Nessuna intrusione – solo ciò che è già visibile, messo insieme con metodo. È la prima fase di ogni attacco serio *e* di ogni difesa seria: quello che un attaccante può scoprire su di te gratis è esattamente quello che dovresti sapere per primo.\n\nLato difensivo si chiama gestione della superficie d'attacco: che domini, servizi e dati espongo senza saperlo? Strumenti a tema nel portfolio: [NASO](https://github.com/fabriziosalmi/naso) monitorizza breach, paste site e canali underground per l'esposizione della tua organizzazione, [DomainMate](https://github.com/fabriziosalmi/domainmate) tiene d'occhio ciò che i tuoi domini raccontano al mondo (DNS, certificati, header)."
+      ]
+    },
+    {
+      "id": "firewall-vs-waf",
+      "slug": "differenza-firewall-e-waf",
+      "question": "Firewall di rete e WAF: che differenza c'è?",
+      "vertical": "security",
+      "keywords": [
+        "firewall di rete",
+        "firewall o waf",
+        "differenza firewall waf",
+        "livello 7",
+        "layer 7",
+        "pacchetti",
+        "porte"
+      ],
+      "answers": [
+        "Operano a livelli diversi della pila:\n\n- il **firewall di rete** ragiona su IP, porte e protocolli (L3/L4): \"la porta 443 è aperta, la 22 solo da questi IP\". Non guarda *dentro* il traffico – per lui una SQL injection su HTTPS è solo un pacchetto legittimo verso la 443.\n- il **[WAF](q/cos-e-un-waf-web-application-firewall/)** ragiona sul contenuto delle richieste HTTP (L7): riconosce injection, XSS, bot e abusi applicativi. Non sa nulla, invece, del traffico non-web.\n\nNon sono alternativi: servono **entrambi**, in fila. Il firewall chiude tutto tranne il necessario; il WAF ispeziona il necessario. Sul primo fronte bastano nftables/pf o il firewall del cloud; sul secondo ci sono [caddy-waf](https://github.com/fabriziosalmi/caddy-waf), [patterns](https://github.com/fabriziosalmi/patterns) per Nginx/Apache/Traefik/HAProxy, o [zion](https://github.com/fabriziosalmi/zion) che unisce proxy e WAF in un binario."
+      ]
+    },
+    {
+      "id": "vpn-vs-proxy",
+      "slug": "differenza-vpn-e-proxy",
+      "question": "VPN e proxy: cosa cambia?",
+      "vertical": "security",
+      "keywords": [
+        "vpn",
+        "vpn o proxy",
+        "differenza vpn proxy",
+        "wireguard",
+        "openvpn",
+        "navigare anonimi",
+        "ip nascosto"
+      ],
+      "answers": [
+        "Entrambi mettono un intermediario tra te e la destinazione, ma a profondità diverse:\n\n- un **proxy** lavora per applicazione (di solito il browser): inoltra le richieste HTTP/SOCKS e cambia l'IP visto dal sito. Configurabile per-app, niente cifratura aggiuntiva di suo.\n- una **VPN** incapsula e cifra **tutto il traffico del dispositivo** a livello di rete (WireGuard, OpenVPN): ogni app ci passa, il provider locale vede solo un tunnel cifrato.\n\nMiti da sfatare: la VPN commerciale non ti rende \"anonimo\" – sposta la fiducia dal tuo ISP al fornitore VPN, che il traffico lo vede eccome. E per l'accesso aziendale la VPN classica che apre l'intera rete interna è il modello che [Zero Trust](q/cos-e-il-modello-zero-trust/) sta mandando in pensione. Curiosità di portfolio: su Mac, [Proxymate](https://github.com/fabriziosalmi/proxymate) porta il modello proxy al livello successivo, con WAF e controlli integrati."
+      ]
+    },
+    {
+      "id": "minimo-privilegio",
+      "slug": "principio-del-minimo-privilegio",
+      "question": "Cos'è il principio del minimo privilegio?",
+      "vertical": "security",
+      "keywords": [
+        "minimo privilegio",
+        "least privilege",
+        "privilegi minimi",
+        "permessi minimi",
+        "admin per tutti",
+        "accessi eccessivi",
+        "escalation"
+      ],
+      "answers": [
+        "Il **principio del minimo privilegio**: ogni persona, processo o servizio deve avere **solo** i permessi indispensabili al suo compito, e solo per il tempo necessario. È la regola con il miglior rapporto costo/beneficio di tutta la sicurezza, perché limita il danno di *qualsiasi* compromissione: l'account phishato che non è admin, il servizio bucato che non può leggere il database degli utenti, l'[agente AI](q/cos-e-un-agente-ai/) che può leggere ma non cancellare.\n\nIn pratica: niente admin quotidiano (si eleva quando serve), account di servizio dedicati e ristretti, token con scope minimi e scadenza, revisione periodica di chi-può-cosa – i permessi crescono da soli, vanno potati. È anche un pilastro di [Zero Trust](q/cos-e-il-modello-zero-trust/) e un requisito esplicito di NIS2 e ISO 27001."
+      ]
+    },
+    {
+      "id": "ids-ips",
+      "slug": "cosa-sono-ids-e-ips",
+      "question": "Cosa sono IDS e IPS?",
+      "vertical": "security",
+      "keywords": [
+        "ids",
+        "ips",
+        "intrusion detection",
+        "intrusion prevention",
+        "suricata",
+        "snort",
+        "rilevamento intrusioni"
+      ],
+      "answers": [
+        "Sono sensori di rete per riconoscere gli attacchi in transito:\n\n- l'**IDS** (Intrusion Detection System) osserva una copia del traffico e **segnala**: firma nota, protocollo anomalo, beacon verso un C2. Non tocca nulla – zero rischio di bloccare traffico buono, ma qualcuno deve leggere gli allarmi.\n- l'**IPS** (Prevention) sta **in linea** e può bloccare in tempo reale ciò che riconosce. Più protezione, più rischio: un falso positivo qui è un disservizio.\n\nGli open source di riferimento sono **Suricata** e Snort (e Zeek per l'analisi). Da soli producono rumore: il valore arriva quando gli eventi finiscono in un [SIEM](q/cos-e-un-siem-e-un-soar/) che li correla col resto – è il ruolo di [Wildbox](https://github.com/fabriziosalmi/wildbox) in uno stack self-hosted. Nota di confine: il [WAF](q/cos-e-un-waf-web-application-firewall/) è di fatto un IPS specializzato nel solo traffico HTTP."
+      ]
+    },
+    {
+      "id": "defense-in-depth",
+      "slug": "cos-e-la-defense-in-depth",
+      "question": "Cos'è la defense in depth (difesa in profondità)?",
+      "vertical": "security",
+      "keywords": [
+        "defense in depth",
+        "difesa in profondita",
+        "difesa a strati",
+        "strati di sicurezza",
+        "layered security",
+        "singolo punto di fallimento"
+      ],
+      "answers": [
+        "La **defense in depth** è l'assunzione che ogni singola difesa, prima o poi, fallirà – e la risposta è metterle **in serie**, così un fallimento non è la partita. Il phishing supera il filtro email? C'è l'[MFA](q/cos-e-autenticazione-due-fattori-mfa/). L'MFA viene aggirata? L'account ha [privilegi minimi](q/principio-del-minimo-privilegio/). Il servizio viene bucato? La rete è segmentata. I dati vengono cifrati? Il [backup è offline](q/backup-3-2-1/).\n\nL'errore che questo principio previene è il \"castello con il fossato\": tutto l'investimento sul perimetro e il burro all'interno. Una traccia concreta per un'infrastruttura web: firewall → [rate limiting](q/configurare-rate-limiting-web-server/) → [WAF](q/cos-e-un-waf-web-application-firewall/) → ban automatici ([caddy-mib](https://github.com/fabriziosalmi/caddy-mib)) → applicazione aggiornata → log correlati ([Wildbox](https://github.com/fabriziosalmi/wildbox)) → backup verificati. Sette inciampi tra l'attaccante e i tuoi dati."
+      ]
+    },
+    {
+      "id": "mitm",
+      "slug": "cos-e-un-attacco-man-in-the-middle",
+      "question": "Cos'è un attacco man-in-the-middle?",
+      "vertical": "security",
+      "keywords": [
+        "man in the middle",
+        "mitm",
+        "intercettazione",
+        "wifi pubblico",
+        "arp spoofing",
+        "evil twin",
+        "traffico intercettato"
+      ],
+      "answers": [
+        "Nel **man-in-the-middle** l'attaccante si mette tra te e la destinazione e osserva – o altera – il traffico, mentre entrambe le parti credono di parlarsi direttamente. Le tecniche classiche: ARP spoofing sulla rete locale, un access point \"evil twin\" che imita il Wi-Fi del bar, il [DNS avvelenato](q/cos-e-il-dns-spoofing/) che ti manda dal server sbagliato.\n\nLa buona notizia: il **TLS moderno ha ridimensionato il problema** – con [HTTPS](q/differenza-http-https-tls/) ovunque e [HSTS](q/cos-e-hsts-e-il-preload/), l'attaccante in mezzo vede solo cifratura, e i tentativi di downgrade producono errori vistosi (che non vanno mai ignorati con un click su \"continua comunque\"). Restano esposti i protocolli in chiaro, le reti interne \"fidate\" e i certificati accettati alla leggera – e per le API machine-to-machine la cintura in più è il [mutual TLS](q/cos-e-mtls/)."
+      ]
+    },
+    {
+      "id": "dns-spoofing",
+      "slug": "cos-e-il-dns-spoofing",
+      "question": "Cos'è il DNS spoofing (cache poisoning)?",
+      "vertical": "security",
+      "keywords": [
+        "dns spoofing",
+        "cache poisoning",
+        "dns poisoning",
+        "avvelenamento dns",
+        "dns falsificato",
+        "risposte dns false"
+      ],
+      "answers": [
+        "Il **DNS spoofing** (o cache poisoning) consiste nel far accettare a un resolver una risposta DNS falsa: da quel momento chi chiede `banca.it` riceve l'IP dell'attaccante, e la cache avvelenata distribuisce l'inganno a tutti gli utenti di quel resolver. Varianti locali: router compromessi che cambiano i DNS, file hosts modificati dal malware.\n\nLe difese, per strato: **[DNSSEC](q/cos-e-dnssec/)** firma le risposte per le zone che lo adottano (l'autenticità diventa verificabile), **[DoH/DoT](q/cos-e-doh-dns-over-https/)** cifra il tragitto verso il resolver (niente manomissioni in transito), e il [TLS](q/differenza-http-https-tls/) fa da ultima rete: anche arrivando al server sbagliato, il certificato di `banca.it` l'attaccante non ce l'ha – salvo utenti che cliccano \"procedi comunque\". Per chi gestisce domini: DNSSEC si abilita dal provider, e [la configurazione versionata](q/cos-e-gitops/) evita i pasticci."
+      ]
+    },
+    {
+      "id": "brute-force",
+      "slug": "cos-e-un-attacco-brute-force",
+      "question": "Cos'è un attacco brute force (e il credential stuffing)?",
+      "vertical": "security",
+      "keywords": [
+        "brute force",
+        "forza bruta",
+        "credential stuffing",
+        "password spraying",
+        "tentativi di accesso",
+        "indovinare password",
+        "dizionario"
+      ],
+      "answers": [
+        "Tre attacchi imparentati ma diversi:\n\n- **brute force** – provare le password una per una (o da dizionario) contro un account: rumoroso, lento, funziona solo su password deboli e login senza protezioni\n- **credential stuffing** – provare **coppie email+password rubate altrove**: silenzioso ed efficacissimo, perché la gente riusa le password; è il motivo per cui un breach qualsiasi ti riguarda ([controlla la tua esposizione](q/scoprire-dati-in-un-data-breach/))\n- **password spraying** – una password ovvia (`Estate2026!`) provata su *tutti* gli account: aggira i blocchi per-account\n\nDifese: [MFA](q/cos-e-autenticazione-due-fattori-mfa/) (annulla quasi tutto), [rate limiting](q/configurare-rate-limiting-web-server/) e lockout progressivi, password uniche via [password manager](q/perche-usare-un-password-manager/), e ban automatici di chi insiste – su Caddy è il mestiere di [caddy-mib](https://github.com/fabriziosalmi/caddy-mib), su SSH [le chiavi al posto delle password](q/mettere-in-sicurezza-ssh/) chiudono il discorso."
+      ]
+    },
+    {
+      "id": "botnet",
+      "slug": "cos-e-una-botnet",
+      "question": "Cos'è una botnet?",
+      "vertical": "security",
+      "keywords": [
+        "botnet",
+        "bot infetti",
+        "zombie",
+        "command and control",
+        "c2",
+        "mirai",
+        "dispositivi compromessi"
+      ],
+      "answers": [
+        "Una **botnet** è un esercito di dispositivi compromessi – PC, server, ma sempre più spesso telecamere, router e IoT con credenziali di fabbrica – controllati da un'infrastruttura di **command and control (C2)**. Il proprietario non si accorge di nulla; l'attaccante affitta la potenza aggregata per [DDoS](q/cos-e-un-attacco-ddos/), spam, credential stuffing, mining e proxy per altri crimini. Mirai, costruita su IoT con password di default, resta il caso di scuola.\n\nDue prospettive di difesa: **non entrarci** (aggiornamenti, credenziali cambiate, niente servizi esposti per pigrizia – il tuo NAS non vuole fare carriera nel crimine) e **riconoscerne il traffico**: i beacon verso i C2 si intercettano con blocklist DNS aggiornate ([blacklists](https://github.com/fabriziosalmi/blacklists) le aggrega ogni giorno) e con un occhio sull'[egress della rete](q/secure-web-gateway-self-hosted/)."
+      ]
+    },
+    {
+      "id": "typosquatting",
+      "slug": "cos-e-il-typosquatting",
+      "question": "Cos'è il typosquatting?",
+      "vertical": "security",
+      "keywords": [
+        "typosquatting",
+        "domini simili",
+        "squatting",
+        "dominio contraffatto",
+        "goggle",
+        "errore di battitura dominio",
+        "brand protection"
+      ],
+      "answers": [
+        "Il **typosquatting** è registrare nomi a un refuso di distanza da quelli veri – `gooogle.com`, `paypa1.com` – per intercettare chi sbaglia a digitare o non guarda bene un link di phishing. Il fenomeno ha due fronti moderni:\n\n- **pacchetti software**: `requets` invece di `requests` su PyPI/npm – e la variante AI, lo **slopsquatting**: registrare i [nomi di pacchetti che gli LLM inventano](q/allucinazioni-llm-dipendenze-inventate/), aspettando che qualcuno li installi. In CI lo blocca [ai-dependency-guard](https://github.com/fabriziosalmi/ai-dependency-guard).\n- **domini del tuo brand**: monitorare le registrazioni simili al proprio nome è brand protection di base – e un classificatore come [fqdn-model](https://github.com/fabriziosalmi/fqdn-model) aiuta a valutare i nuovi domini sospetti su scala.\n\nPer i domini propri: registrare le varianti ovvie costa meno che litigarsele dopo."
+      ]
+    },
+    {
+      "id": "passkey",
+      "slug": "cosa-sono-le-passkey",
+      "question": "Cosa sono le passkey (e sostituiranno le password)?",
+      "vertical": "security",
+      "keywords": [
+        "passkey",
+        "webauthn",
+        "senza password",
+        "passwordless",
+        "chiave di accesso",
+        "face id login",
+        "yubikey"
+      ],
+      "answers": [
+        "Una **passkey** è una coppia di chiavi crittografiche al posto della password: la chiave privata resta sul tuo dispositivo (protetta da biometria o PIN), il sito conserva solo la pubblica. Al login il dispositivo firma una challenge **legata al dominio vero** – standard WebAuthn/FIDO2.\n\nPerché è un salto di categoria: **niente da rubare** sul server (il database di chiavi pubbliche non interessa a nessuno), **niente da phishare** (su un sito clone la firma non parte proprio: il dominio non corrisponde), niente da riusare. Le passkey si sincronizzano nel portachiavi di piattaforma (iCloud, Google) o nei [password manager](q/perche-usare-un-password-manager/); le chiavi hardware (YubiKey) restano la variante più paranoica.\n\nSostituiranno le password? Sui servizi grandi stanno già davanti; la coda lunga di siti legacy garantisce alle password una lunga, immeritata pensione. Intanto: attivale dove ci sono."
+      ]
+    },
+    {
+      "id": "password-manager",
+      "slug": "perche-usare-un-password-manager",
+      "question": "Perché usare un password manager?",
+      "vertical": "security",
+      "keywords": [
+        "password manager",
+        "gestore di password",
+        "password",
+        "bitwarden",
+        "keepass",
+        "vaultwarden",
+        "password uniche",
+        "riuso password"
+      ],
+      "answers": [
+        "Il problema non è la password debole: è la password **riusata**. Un breach qualunque (e [ne succedono in continuazione](q/scoprire-dati-in-un-data-breach/)) trasforma la tua password del forum di cucina nella chiave della tua email – è il [credential stuffing](q/cos-e-un-attacco-brute-force/). Nessun cervello umano regge centinaia di password uniche e robuste; un **password manager** sì: tu ricordi una passphrase sola, lui genera e compila il resto.\n\nBonus poco noto: fa anche da **anti-phishing** – su un dominio clone il completamento automatico non scatta, e quel silenzio è un allarme. Le opzioni serie: Bitwarden (anche self-hosted con Vaultwarden, per la scuola del [tenersi i dati in casa](q/self-hosting-pro-e-contro/)), KeePassXC per la via locale pura, o quelli integrati nelle piattaforme. Qualsiasi scelta, protetta da [MFA](q/cos-e-autenticazione-due-fattori-mfa/), batte il riuso. E il futuro è [senza password](q/cosa-sono-le-passkey/)."
+      ]
+    },
+    {
+      "id": "crittografia-e2e",
+      "slug": "cos-e-la-crittografia-end-to-end",
+      "question": "Cos'è la crittografia end-to-end?",
+      "vertical": "security",
+      "keywords": [
+        "end to end",
+        "e2e",
+        "e2ee",
+        "crittografia end to end",
+        "signal",
+        "chi legge i messaggi",
+        "cifratura messaggi"
+      ],
+      "answers": [
+        "**End-to-end** significa che solo i due estremi della conversazione possono leggere: la cifratura avviene sul dispositivo del mittente, la decifratura su quello del destinatario, e **il fornitore del servizio in mezzo vede solo dati cifrati** – non può leggerli nemmeno se costretto, perché non ha le chiavi.\n\nÈ una garanzia diversa dal [TLS](q/differenza-http-https-tls/): il TLS protegge il *tragitto* fino al server, ma sul server i dati sono in chiaro per chi lo gestisce. Signal e le chat cifrate funzionano E2E; l'email tradizionale no (il provider legge tutto). I limiti onesti: i **metadati** (chi parla con chi, quando) spesso restano visibili, e la sicurezza si sposta sugli **endpoint** – un telefono compromesso legge i messaggi prima della cifratura. Il resto della famiglia crittografica: [simmetrica vs asimmetrica](q/crittografia-simmetrica-e-asimmetrica/)."
+      ]
+    },
+    {
+      "id": "crittografia-sym-asym",
+      "slug": "crittografia-simmetrica-e-asimmetrica",
+      "question": "Crittografia simmetrica e asimmetrica: che differenza c'è?",
+      "vertical": "security",
+      "keywords": [
+        "crittografia",
+        "simmetrica",
+        "asimmetrica",
+        "chiave pubblica",
+        "chiave privata",
+        "aes",
+        "rsa",
+        "scambio di chiavi",
+        "cifrare"
+      ],
+      "answers": [
+        "Due famiglie, due compiti:\n\n- **simmetrica** (AES, ChaCha20) – la stessa chiave cifra e decifra: velocissima, perfetta per i dati in massa. Problema: come consegni la chiave all'altra parte senza che qualcuno la intercetti?\n- **asimmetrica** (RSA, curve ellittiche) – due chiavi legate matematicamente: ciò che la **pubblica** cifra, solo la **privata** apre; e ciò che la privata firma, chiunque lo verifica con la pubblica. Lenta, ma risolve proprio lo scambio e l'identità.\n\nIn pratica si usano **insieme**: nel [TLS](q/differenza-http-https-tls/) l'asimmetrica autentica il server (il certificato) e concorda una chiave di sessione, la simmetrica cifra poi tutto il traffico. Stessa accoppiata in Signal, SSH, nelle [passkey](q/cosa-sono-le-passkey/) e nelle [firme del software](q/come-si-firma-il-codice/). Capitolo a parte, spesso confuso con la cifratura: l'[hashing](q/cos-e-l-hashing/), che non è reversibile per design."
+      ]
+    },
+    {
+      "id": "hashing",
+      "slug": "cos-e-l-hashing",
+      "question": "Cos'è l'hashing (e perché bcrypt/argon2 per le password)?",
+      "vertical": "security",
+      "keywords": [
+        "hashing",
+        "hash",
+        "bcrypt",
+        "argon2",
+        "sha256",
+        "md5",
+        "salt",
+        "impronta",
+        "password in chiaro",
+        "bcrypt password"
+      ],
+      "answers": [
+        "Un **hash** è l'impronta digitale di un dato: una funzione trasforma qualsiasi input in una stringa di lunghezza fissa, in modo **non reversibile** e sensibilissimo (un bit cambiato = impronta completamente diversa). Usi: verificare l'integrità dei file, [le firme](q/come-si-firma-il-codice/), le strutture dati – e le password.\n\nSulle password, il punto delicato: il database non deve contenere password ma hash, così un breach non le rivela. Ma gli hash *veloci* (MD5, SHA-256) qui sono un errore: una GPU ne prova miliardi al secondo. Servono funzioni **volutamente lente e costose in memoria** – **argon2** (lo standard attuale) o **bcrypt** – con un **salt** unico per utente che neutralizza le tabelle precalcolate. Nota storica: MD5 e SHA-1 sono rotti anche per l'integrità; per tutto il resto, SHA-256 in su – è la catena di hash che rende [tamper-evident i log di RainLogs](https://github.com/fabriziosalmi/rainlogs)."
+      ]
+    },
+    {
+      "id": "wildcard-san",
+      "slug": "certificato-wildcard-e-san",
+      "question": "Cos'è un certificato wildcard (e i SAN)?",
+      "vertical": "security",
+      "keywords": [
+        "wildcard",
+        "certificato wildcard",
+        "san",
+        "subject alternative name",
+        "multidominio",
+        "asterisco dominio",
+        "sottodomini certificato"
+      ],
+      "answers": [
+        "Un certificato **wildcard** copre tutti i sottodomini di primo livello di un dominio: `*.example.com` vale per `www`, `api`, `mail` – ma non per `example.com` nudo né per `a.b.example.com` (l'asterisco copre un solo livello). I **SAN** (Subject Alternative Names) sono la lista di nomi che un certificato copre: ogni certificato moderno è tecnicamente un certificato SAN, e può mescolare domini diversi e wildcard insieme.\n\nTrade-off del wildcard: comodo (un certificato per tutto) ma **una sola chiave privata per tutto** – se la rubano da un server marginale, coprono anche i sottodomini critici. Dettaglio operativo: Let's Encrypt emette wildcard **solo con challenge [DNS-01](q/come-funziona-lets-encrypt-acme/)**, quindi serve l'automazione DNS – con 29 provider supportati, è il pane quotidiano di [CertMate](https://github.com/fabriziosalmi/certmate), che tiene anche l'inventario di *quali* nomi copre ogni certificato in giro per l'infrastruttura."
+      ]
+    },
+    {
+      "id": "mtls",
+      "slug": "cos-e-mtls",
+      "question": "Cos'è mTLS (mutual TLS)?",
+      "vertical": "security",
+      "keywords": [
+        "mtls",
+        "mutual tls",
+        "tls reciproco",
+        "certificato client",
+        "autenticazione reciproca",
+        "service mesh",
+        "api interne"
+      ],
+      "answers": [
+        "Nel TLS normale solo il server si presenta con un certificato; il client resta anonimo e si autentica dopo, con password o token. In **mTLS** anche il **client presenta un certificato**: le due parti si verificano a vicenda durante l'handshake, prima che passi un solo byte applicativo.\n\nÈ lo standard di fatto per il **machine-to-machine**: microservizi che si parlano (le service mesh lo automatizzano), API interne, agenti che riportano a un server centrale, dispositivi verso il cloud. Niente credenziali da rubare o riusare: o hai la chiave giusta, o l'handshake muore lì – [Zero Trust](q/cos-e-il-modello-zero-trust/) applicato al traffico.\n\nIl prezzo è la **gestione dei certificati client**: emissione, rotazione, revoca per ogni servizio – ingestibile a mano, ragionevole con una [CA privata](q/errore-err-cert-authority-invalid/) automatizzata come quella di [CertMate](https://github.com/fabriziosalmi/certmate) (e mTLS su scala è uno dei mestieri di CertMate-ng, la versione enterprise)."
+      ]
+    },
+    {
+      "id": "hsts-preload",
+      "slug": "cos-e-hsts-e-il-preload",
+      "question": "Cos'è HSTS (e la preload list)?",
+      "vertical": "security",
+      "keywords": [
+        "hsts",
+        "preload",
+        "strict transport security",
+        "forzare https",
+        "downgrade",
+        "primo accesso http"
+      ],
+      "answers": [
+        "**HSTS** (Strict-Transport-Security) è l'header con cui un sito dice al browser: \"parlami **solo in HTTPS** per i prossimi N mesi\" – da quel momento il browser riscrive da solo ogni tentativo HTTP e **rifiuta** le connessioni con certificati invalidi, senza offrire il click \"procedi comunque\". Chiude i downgrade attack e i [MITM](q/cos-e-un-attacco-man-in-the-middle/) da primo accesso.\n\nResta però scoperto proprio il *primissimo* accesso (il browser non ha ancora visto l'header): lo risolve la **preload list** – l'elenco compilato dentro Chrome/Firefox/Safari dei domini da trattare HTTPS-only *da sempre*. Ci si iscrive su hstspreload.org con `max-age` lungo, `includeSubDomains` e `preload`.\n\nAttenzione: il preload è **quasi irreversibile** (uscire dalla lista richiede mesi) e `includeSubDomains` vincola *tutti* i sottodomini, anche quel vecchio servizio interno solo-HTTP. Verifica che l'header ci sia e sia sensato: [DomainMate](https://github.com/fabriziosalmi/domainmate) lo controlla di mestiere."
+      ]
+    },
+    {
+      "id": "dnssec",
+      "slug": "cos-e-dnssec",
+      "question": "Cos'è DNSSEC?",
+      "vertical": "security",
+      "keywords": [
+        "dnssec",
+        "firma dns",
+        "record ds",
+        "rrsig",
+        "dns firmato",
+        "autenticita dns"
+      ],
+      "answers": [
+        "**DNSSEC** aggiunge firme crittografiche al DNS: le risposte della tua zona arrivano firmate (record RRSIG), i resolver le verificano risalendo una catena di fiducia che passa dal **record DS** presso il registrar e arriva alla root. Risultato: una risposta falsificata – il [cache poisoning](q/cos-e-il-dns-spoofing/) – viene scartata invece che creduta.\n\nCosa DNSSEC **non** fa, per sgombrare equivoci: non cifra nulla (le query restano leggibili – per quello c'è [DoH/DoT](q/cos-e-doh-dns-over-https/)) e non certifica che il sito sia \"buono\": garantisce solo che la risposta DNS sia quella autentica.\n\nOperativamente: si abilita dal pannello del provider DNS (due click sui gestori moderni) più il DS al registrar. L'errore tipico è **migrare provider dimenticando il DS vecchio**: la zona diventa irraggiungibile per i resolver validanti. Motivo in più per tenere i DNS [versionati e sotto controllo](q/cos-e-gitops/)."
+      ]
+    },
+    {
+      "id": "doh-dot",
+      "slug": "cos-e-doh-dns-over-https",
+      "question": "Cosa sono DNS-over-HTTPS (DoH) e DNS-over-TLS (DoT)?",
+      "vertical": "security",
+      "keywords": [
+        "doh",
+        "dot",
+        "dns over https",
+        "dns over tls",
+        "dns cifrato",
+        "porta 853",
+        "resolver cifrato",
+        "privacy dns"
+      ],
+      "answers": [
+        "Le query DNS classiche viaggiano **in chiaro**: chiunque sul percorso (Wi-Fi pubblico, ISP) vede ogni dominio che risolvi – una cronologia di navigazione gratuita. **DoT** (porta 853) e **DoH** (dentro HTTPS sulla 443) cifrano il tragitto fino al resolver; DoH in più si mimetizza nel traffico web normale, il che lo rende difficile da bloccare – caratteristica apprezzata dagli utenti e maledetta dagli amministratori di rete.\n\nDa sapere: la privacy non si crea, **si sposta** – l'ISP non vede più le query, il resolver scelto (Cloudflare, Google, Quad9…) sì: la scelta del resolver è la vera decisione. E in una rete con [Pi-hole o blocklist DNS](q/come-bloccare-domini-malevoli/), il DoH dei singoli dispositivi **scavalca i filtri**: va intercettato o disabilitato, facendo passare tutti dal resolver di casa – che può a sua volta parlare DoH verso l'esterno. Completa il quadro dell'autenticità: [DNSSEC](q/cos-e-dnssec/)."
+      ]
+    },
+    {
+      "id": "air-gap",
+      "slug": "cos-e-un-air-gap",
+      "question": "Cos'è un air gap?",
+      "vertical": "security",
+      "keywords": [
+        "air gap",
+        "air gapped",
+        "isolamento fisico",
+        "rete isolata",
+        "offline",
+        "scollegato da internet"
+      ],
+      "answers": [
+        "Un sistema **air-gapped** è fisicamente scollegato da ogni rete: l'unico modo di toccarlo è esserci davanti. È la difesa estrema per ciò che non deve uscire mai – chiavi di firma, [backup anti-ransomware](q/cos-e-un-ransomware/), sistemi industriali critici. Stuxnet ha dimostrato che nemmeno l'air gap è invalicabile (una USB basta), ma alza il costo dell'attacco di ordini di grandezza.\n\nIl concetto si è esteso oltre il cavo staccato: backup *logicamente* air-gapped (immutabili, credenziali separate), e superfici web **air-gapped per design** – siti statici che non fanno **nessuna chiamata verso terzi**: niente CDN, niente analytics, niente beacon. Quest'ultima proprietà si può *dimostrare*, non solo dichiarare: è la ragione di vita di [agssh](https://github.com/fabriziosalmi/agssh), che la verifica in modo deterministico e fail-closed contro il deployment live, standard AGSSH-STD-001 alla mano."
+      ]
+    },
+    {
+      "id": "steganografia",
+      "slug": "cos-e-la-steganografia",
+      "question": "Cos'è la steganografia?",
+      "vertical": "security",
+      "keywords": [
+        "steganografia",
+        "nascondere dati",
+        "messaggi nascosti",
+        "dati nelle immagini",
+        "steghide",
+        "canale nascosto"
+      ],
+      "answers": [
+        "La crittografia nasconde il **contenuto** di un messaggio; la **steganografia** nasconde la sua **esistenza**: i dati vengono annidati dentro un contenitore innocuo – i bit meno significativi dei pixel di una foto, le frequenze di un audio, gli spazi di un testo. Chi guarda vede solo una foto di gatti.\n\nUsi legittimi e no: il **watermarking** è steganografia a fin di bene – marchiare un contenuto in modo invisibile per dimostrarne la provenienza o tracciare chi lo fa trapelare, come fa [open-video-watermark](https://github.com/fabriziosalmi/open-video-watermark) nel dominio DCT dei video; sul fronte opposto, il malware la usa per esfiltrare dati in canali che i controlli non guardano. Cugino curioso del tema, al confine con lo storage: [b2v](https://github.com/fabriziosalmi/b2v), che archivia file arbitrari dentro video standard – non per nasconderli, ma il principio di fondo è parente stretto."
+      ]
+    },
+    {
+      "id": "hardening-linux",
+      "slug": "hardening-server-linux",
+      "question": "Come si fa l'hardening di un server Linux appena installato?",
+      "vertical": "security",
+      "keywords": [
+        "hardening",
+        "hardening linux",
+        "server nuovo",
+        "mettere in sicurezza server",
+        "server appena installato",
+        "checklist server",
+        "debian sicuro"
+      ],
+      "answers": [
+        "La prima ora di vita di un server decide molto. In ordine:\n\n- **aggiorna tutto** e attiva gli aggiornamenti di sicurezza automatici (`unattended-upgrades`)\n- utente non-root con sudo, poi [SSH blindato](q/mettere-in-sicurezza-ssh/): solo chiavi, niente root login\n- **firewall default-deny**: nftables/ufw con aperte solo le porte che servono davvero\n- ban automatici sui servizi esposti ([fail2ban o equivalenti](q/fail2ban-e-alternative/))\n- servizi non necessari spenti: ogni demone in ascolto è superficie d'attacco\n- log che vanno anche **altrove** (un attaccante bravo pulisce quelli locali): [syslog centralizzato](q/security-logging-fatto-bene/)\n- [backup provati](q/backup-3-2-1/), non solo configurati\n\nPer i servizi web davanti a tutto: reverse proxy con [WAF](q/cos-e-un-waf-web-application-firewall/) e [rate limiting](q/configurare-rate-limiting-web-server/). E il monitoraggio esterno che ti avvisa quando qualcosa cambia: [websites-monitor](https://github.com/fabriziosalmi/websites-monitor) o [DomainMate](https://github.com/fabriziosalmi/domainmate)."
+      ]
+    },
+    {
+      "id": "https-nginx",
+      "slug": "configurare-https-su-nginx",
+      "question": "Come si configura HTTPS su Nginx?",
+      "vertical": "security",
+      "keywords": [
+        "https su nginx",
+        "ssl nginx",
+        "certbot nginx",
+        "nginx 443",
+        "configurare certificato nginx"
+      ],
+      "answers": [
+        "La via rapida è **certbot** con il plugin nginx: `certbot --nginx -d example.com` ottiene il certificato da Let's Encrypt ([come funziona](q/come-funziona-lets-encrypt-acme/)), riscrive la configurazione e installa il rinnovo automatico. Fine, per un sito singolo.\n\nSe preferisci il controllo, i pezzi nel server block sono: `listen 443 ssl http2`, `ssl_certificate` (il **fullchain**, non il solo certificato: la [catena incompleta](q/errore-err-cert-authority-invalid/) è l'errore classico), `ssl_certificate_key`, protocolli TLS 1.2+, e il redirect 301 dal blocco sulla 80. Aggiungi [HSTS](q/cos-e-hsts-e-il-preload/) quando sei sicuro, e le [regole WAF di patterns](https://github.com/fabriziosalmi/patterns) per la protezione applicativa.\n\nOltre pochi domini, la gestione manuale dei certificati non scala: [CertMate](https://github.com/fabriziosalmi/certmate) centralizza emissione, rinnovo e deploy anche verso Nginx. E se puoi scegliere il server: [Caddy fa tutto questo da solo](q/configurare-https-su-caddy/)."
+      ]
+    },
+    {
+      "id": "https-caddy",
+      "slug": "configurare-https-su-caddy",
+      "question": "Come si configura HTTPS su Caddy?",
+      "vertical": "security",
+      "keywords": [
+        "https su caddy",
+        "caddy automatico",
+        "caddyfile",
+        "caddy certificati",
+        "https automatico"
+      ],
+      "answers": [
+        "Non si configura: **è il default**. Un Caddyfile minimo –\n\n`example.com {`\n`  reverse_proxy 127.0.0.1:3000`\n`}`\n\n– e Caddy ottiene da solo il certificato da Let's Encrypt/ZeroSSL, lo rinnova, fa il redirect da HTTP e serve HTTPS con impostazioni moderne (TLS 1.3, HTTP/2 e HTTP/3, OCSP stapling). L'unico prerequisito: DNS che punta al server e porte 80/443 raggiungibili. Per i wildcard o le macchine non esposte si passa alla [challenge DNS](q/come-funziona-lets-encrypt-acme/) col plugin del proprio provider.\n\nÈ il motivo per cui Caddy è la scelta più amata nel self-hosting: la parte che su altri server è una checklist qui è assenza di configurazione. Cosa NON è incluso: la protezione applicativa – per quella si aggiungono [caddy-waf](https://github.com/fabriziosalmi/caddy-waf) (WAF completo) e [caddy-mib](https://github.com/fabriziosalmi/caddy-mib) (ban degli insistenti)."
+      ]
+    },
+    {
+      "id": "anti-scraping",
+      "slug": "difendere-un-sito-dallo-scraping",
+      "question": "Come si difende un sito dallo scraping?",
+      "vertical": "security",
+      "keywords": [
+        "scraping",
+        "scraper",
+        "anti scraping",
+        "copiano i contenuti",
+        "furto contenuti",
+        "bot che copiano",
+        "proteggere contenuti"
+      ],
+      "answers": [
+        "Premessa onesta: contro uno scraper determinato non esiste il muro perfetto – ciò che un browser può leggere, un bot può leggerlo. L'obiettivo realistico è **alzare il costo** finché non vale più la pena:\n\n- **[rate limiting](q/configurare-rate-limiting-web-server/)** per IP e per percorso: gli scraper hanno fretta, i lettori no\n- **liste di bad bot** aggiornate ([patterns](https://github.com/fabriziosalmi/patterns) le rigenera ogni giorno per Nginx, Apache, Traefik e HAProxy)\n- ban comportamentali: chi genera [404 a raffica](q/bannare-ip-brute-force-caddy/) o naviga a velocità disumana ([caddy-mib](https://github.com/fabriziosalmi/caddy-mib))\n- challenge sui percorsi sensibili ([Turnstile](q/cos-e-cloudflare-turnstile/)) e trappole: link invisibili agli umani che marchiano i bot\n\nCapitolo a parte: i [crawler AI](q/bloccare-crawler-ai-gptbot/), dove il blocco è una scelta strategica, non solo tecnica. E ricorda che scraper legittimi (Google) e molesti si separano per **comportamento**, non per dichiarazione."
+      ]
+    },
+    {
+      "id": "gestione-secrets",
+      "slug": "come-gestire-i-secrets",
+      "question": "Come si gestiscono i secrets (e perché mai in git)?",
+      "vertical": "security",
+      "keywords": [
+        "secrets",
+        "segreti",
+        "api key",
+        "chiavi api",
+        "credenziali nel codice",
+        "env",
+        "vault",
+        "token nel repository",
+        "dotenv",
+        "committato",
+        "token github"
+      ],
+      "answers": [
+        "Un secret committato è un secret **compromesso**: la storia di git non dimentica (il rebase non basta, va considerato ruotato), i fork lo moltiplicano e i bot scandagliano GitHub in tempo reale a caccia di chiavi AWS – i primi tentativi di abuso arrivano in *minuti*.\n\nLa scala di maturità:\n\n- **livello base**: file `.env` fuori dal versionamento (in `.gitignore` dal primo commit) + un `.env.example` senza valori\n- **livello serio**: secret manager – Vault, SOPS con age per cifrarli *dentro* il repo, o i secret nativi di CI/CD e container\n- **igiene**: rotazione periodica, [scope minimi](q/principio-del-minimo-privilegio/), un segreto per servizio (mai il super-token condiviso), scanner pre-commit (gitleaks) in CI\n\nAngolo AI del problema: le credenziali incollate nei prompt finiscono nei log di qualcun altro – è esattamente ciò che [aidlp](https://github.com/fabriziosalmi/aidlp) intercetta prima che accada."
+      ]
+    },
+    {
+      "id": "backup-321",
+      "slug": "backup-3-2-1",
+      "question": "Come si fa un backup con la regola 3-2-1?",
+      "vertical": "security",
+      "keywords": [
+        "backup",
+        "3-2-1",
+        "regola backup",
+        "copia offsite",
+        "backup offline",
+        "strategia backup",
+        "restore",
+        "immutabile"
+      ],
+      "answers": [
+        "La regola **3-2-1**: **tre** copie dei dati (l'originale più due), su **due** supporti diversi, di cui **una fuori sede**. Copre i tre disastri tipici – guasto, errore umano/ransomware, evento fisico (furto, incendio).\n\nLe estensioni moderne che contano: una copia **offline o immutabile** (il [ransomware](q/cos-e-un-ransomware/) cerca e cifra anche i backup raggiungibili: WORM, snapshot bloccati o il disco staccato sono l'assicurazione) e soprattutto il **restore provato** – un backup mai ripristinato è una speranza, non un backup. Metti in agenda il test, non solo il job.\n\nAttrezzi: su Proxmox [PBS](q/cos-e-proxmox-backup-server/) fa incrementali deduplicati con verify programmati e sync remota (la copia fuori sede); per file e database restic/borg verso storage S3 europeo; e ricordati la [differenza tra snapshot e backup](q/differenza-snapshot-e-backup/) – confonderli si paga una volta sola."
+      ]
+    },
+    {
+      "id": "password-compromessa",
+      "slug": "verificare-password-compromessa",
+      "question": "Come si verifica se una password è stata compromessa?",
+      "vertical": "security",
+      "keywords": [
+        "password compromessa",
+        "password rubata",
+        "have i been pwned",
+        "pwned",
+        "email compromessa",
+        "sono stato hackerato",
+        "controllo breach"
+      ],
+      "answers": [
+        "Il punto di partenza è **Have I Been Pwned** (haveibeenpwned.com): inserisci l'email e vedi in quali breach noti compare; la verifica delle password usa k-anonymity – al servizio arriva solo un frammento dell'hash, mai la password. I [password manager](q/perche-usare-un-password-manager/) seri integrano lo stesso controllo e segnalano da soli le credenziali finite nei dump.\n\nSe risulti compromesso: cambia la password **su quel servizio e ovunque l'avessi riusata** (è il riuso il vero danno – [credential stuffing](q/cos-e-un-attacco-brute-force/)), attiva l'[MFA](q/cos-e-autenticazione-due-fattori-mfa/), e occhio ai phishing a tema \"sicurezza\" nei giorni successivi: i truffatori leggono gli stessi dump.\n\nPer un'**organizzazione** il controllo one-shot non basta: serve monitoraggio continuo di breach, paste site e canali underground sulla propria superficie – self-hosted, senza regalare a terzi la lista dei propri punti deboli: è il mestiere di [NASO](https://github.com/fabriziosalmi/naso)."
+      ]
+    },
+    {
+      "id": "vlan-segmentazione",
+      "slug": "segmentare-la-rete-con-vlan",
+      "question": "Come si segmenta una rete con le VLAN?",
+      "vertical": "security",
+      "keywords": [
+        "vlan",
+        "segmentazione",
+        "segmentare rete",
+        "rete piatta",
+        "iot separato",
+        "rete ospiti",
+        "trunk",
+        "subnet"
+      ],
+      "answers": [
+        "In una rete piatta, la lampadina IoT compromessa parla direttamente col NAS dei backup. Le **VLAN** spezzano questa promiscuità: reti logiche separate sullo stesso hardware, con un firewall che decide chi può parlare con chi.\n\nUno schema domestico/lab sensato: VLAN per i dispositivi fidati, una per l'**IoT** (che di default non raggiunge nulla, se non internet dove serve), una per gli **ospiti**, una per il **management** (Proxmox, switch, IPMI – raggiungibile solo da postazioni precise) e una per i **server**. Regola di default-deny tra le VLAN, aperture puntuali e loggate.\n\nServono switch e access point VLAN-aware (802.1Q) e un router/firewall che faccia da arbitro – OPNsense/pfSense o un Mikrotik. È [defense in depth](q/cos-e-la-defense-in-depth/) applicata alla LAN: il breach resta confinato nel suo recinto. Nell'[homelab con Proxmox](q/cos-e-proxmox-ve/), le VLAN si portano fin dentro i bridge delle VM."
+      ]
+    },
+    {
+      "id": "tunnel-senza-porte",
+      "slug": "esporre-servizi-senza-aprire-porte",
+      "question": "Come si espone un servizio self-hosted senza aprire porte?",
+      "vertical": "security",
+      "keywords": [
+        "tunnel",
+        "aprire porte",
+        "port forwarding",
+        "cloudflare tunnel",
+        "tailscale",
+        "wireguard",
+        "cgnat",
+        "esporre servizio",
+        "accesso remoto casa",
+        "senza aprire porte"
+      ],
+      "answers": [
+        "Aprire porte sul router di casa significa esporre il servizio agli scanner di tutto il pianeta (e col CGNAT di molti provider non puoi comunque). Le alternative moderne:\n\n- **tunnel in uscita** (Cloudflare Tunnel e simili): un connettore sul tuo server apre una connessione *verso* l'edge, e il traffico pubblico arriva da lì – niente porte in ingresso, IP di casa nascosto. Contropartita: il fornitore del tunnel vede/termina il tuo traffico – [scegliere consapevolmente](q/cos-e-la-sovranita-digitale/).\n- **overlay network private** (Tailscale/WireGuard, Netbird): i *tuoi* dispositivi si raggiungono su una rete cifrata peer-to-peer; il servizio non è pubblico affatto – per il 90% dei casi self-hosted è la risposta giusta: il NAS non ha bisogno di essere su internet, ha bisogno di essere raggiungibile *da te*\n- via di mezzo: un **VPS economico** che fa da frontend pubblico e inoltra via WireGuard verso casa, con [reverse proxy + WAF](q/cos-e-un-reverse-proxy/) tuoi ([zion](https://github.com/fabriziosalmi/zion) o Caddy) – massimo controllo, zero dipendenze"
+      ]
+    },
+    {
+      "id": "code-signing",
+      "slug": "come-si-firma-il-codice",
+      "question": "Come si firma il codice (e perché)?",
+      "vertical": "security",
+      "keywords": [
+        "firmare il codice",
+        "code signing",
+        "firma codice",
+        "gpg",
+        "sigstore firma",
+        "release firmate",
+        "verificare download",
+        "attestazione build"
+      ],
+      "answers": [
+        "Firmare il codice risponde a una domanda che i download non fanno mai da soli: **questo artefatto viene davvero da chi dice, ed è arrivato intatto?** Un hash pubblicato accanto al file verifica l'integrità ma non l'origine (chi altera il file altera anche l'hash); la **firma crittografica** lega l'artefatto a un'identità.\n\nGli strumenti per strato: **GPG** per commit e tag git (il badge \"verified\"), **sigstore/cosign** per container e release – con la novità che ha sbloccato l'adozione: le firme *keyless* legate all'identità OIDC della build, niente chiavi private da custodire per sempre – e le **attestazioni di provenance** (SLSA) che certificano *come* e *da quale* pipeline l'artefatto è nato.\n\nNel portfolio si pratica ciò che si predica: [zion](https://github.com/fabriziosalmi/zion) è SLSA L3, [proxxx](https://github.com/fabriziosalmi/proxxx) firma con sigstore e pubblica SBOM, [tanstack-compromise-checker](https://github.com/fabriziosalmi/tanstack-compromise-checker) si verifica con `gh attestation` prima dell'uso. Contesto completo: [supply chain security](q/cos-e-la-supply-chain-security/)."
+      ]
+    },
+    {
+      "id": "security-logging",
+      "slug": "security-logging-fatto-bene",
+      "question": "Come si fa security logging fatto bene?",
+      "vertical": "security",
+      "keywords": [
+        "security logging",
+        "logging",
+        "syslog",
+        "centralizzare log",
+        "log centralizzati",
+        "audit trail",
+        "log immutabili",
+        "cosa loggare"
+      ],
+      "answers": [
+        "I log sono la scatola nera dell'incidente che non hai ancora avuto. I principi:\n\n- **centralizza**: i log devono lasciare la macchina che li produce (syslog/agent verso un collettore) – l'attaccante che pulisce le tracce locali è il caso normale, non l'eccezione\n- **logga le cose giuste**: autenticazioni (riuscite *e* fallite), uso di privilegi, modifiche a configurazioni e permessi, errori applicativi anomali; con **timestamp NTP-sincronizzati**, o la ricostruzione diventa archeologia\n- **integrità**: per i log che contano (audit, compliance) serve la prova che nessuno li abbia ritoccati – hash chaining e storage WORM, come fa [RainLogs](https://github.com/fabriziosalmi/rainlogs) per i log Cloudflare e l'audit log HMAC di [proxxx](https://github.com/fabriziosalmi/proxxx)\n- **retention deliberata**: né \"per sempre\" né \"finché c'è spazio\" – [il GDPR ha opinioni in merito](q/conservazione-log-gdpr/)\n\nE raccogliere senza guardare è metà del lavoro: la correlazione è il mestiere del [SIEM](q/cos-e-un-siem-e-un-soar/) ([Wildbox](https://github.com/fabriziosalmi/wildbox), self-hosted)."
+      ]
+    },
+    {
+      "id": "incident-response",
+      "slug": "incident-response-le-prime-ore",
+      "question": "Come si risponde a un incidente di sicurezza: le prime ore",
+      "vertical": "security",
+      "keywords": [
+        "incident response",
+        "incidente",
+        "risposta incidente",
+        "siamo stati hackerati",
+        "compromissione",
+        "cosa fare subito",
+        "contenimento",
+        "postmortem"
+      ],
+      "answers": [
+        "Le prime ore decidono se è un brutto giorno o un disastro. La sequenza:\n\n- **non spegnere tutto d'istinto**: spegnere distrugge la memoria volatile e avvisa l'attaccante. **Contieni** invece: isola le macchine sospette dalla rete (staccale, non spegnerle), revoca credenziali e sessioni, blocca gli accessi che l'attaccante sta usando\n- **preserva le prove**: snapshot dei sistemi, copia dei [log](q/security-logging-fatto-bene/) verso un posto sicuro, cronologia scritta di ogni azione con orario – servirà per capire, e per [le notifiche di legge](q/notifica-data-breach-garante/)\n- **capisci l'estensione prima di bonificare**: rimuovere l'attaccante da una macchina mentre ne controlla altre tre insegna solo a nascondersi meglio\n- comunica su **canali fuori banda** (l'attaccante potrebbe leggere la tua email) e attiva chi di dovere: management, legale, eventuale assicurazione, [Garante e ACN nei termini previsti](q/notifica-data-breach-garante/)\n\nDopo: bonifica da fonte pulita, [restore verificato](q/backup-3-2-1/), e postmortem **senza colpevoli** – i processi si migliorano, le persone si difendono. Playbook pronti per il contesto NIS2: [nis2-public](https://github.com/fabriziosalmi/nis2-public)."
+      ]
+    },
+    {
+      "id": "disaster-recovery",
+      "slug": "piano-di-disaster-recovery-minimo",
+      "question": "Come si scrive un piano di disaster recovery minimo?",
+      "vertical": "security",
+      "keywords": [
+        "disaster recovery",
+        "piano dr",
+        "rto",
+        "rpo",
+        "continuita operativa",
+        "business continuity",
+        "ripartire dopo disastro"
+      ],
+      "answers": [
+        "Un piano DR minimo sta su poche pagine e risponde a tre domande: **cosa** deve ripartire per primo, **quanto** tempo di fermo reggi (RTO), **quanti** dati puoi perdere (RPO). Quei due numeri, decisi *a mente fredda* servizio per servizio, guidano tutto il resto: un RPO di 15 minuti richiede replica continua, uno di 24 ore basta il backup notturno – costi diversissimi.\n\nIl contenuto essenziale:\n\n- inventario dei servizi in ordine di priorità, con dipendenze (il gestionale non parte senza il database, il database senza lo storage…)\n- dove sono i [backup](q/backup-3-2-1/) e la **procedura di restore passo-passo**, scritta per la persona più stanca alle 3 di notte\n- contatti e decisori fuori banda, credenziali di emergenza in cassaforte (fisica o [manager](q/perche-usare-un-password-manager/) separato)\n\nE la parte che quasi nessuno fa: **provarlo** – una game day l'anno in cui si finge il disastro e si cronometra. Per NIS2 il piano non è più un optional: fa parte delle misure dell'Art. 21 tracciate da [nis2-public](https://github.com/fabriziosalmi/nis2-public)."
+      ]
+    },
+    {
+      "id": "errore-403",
+      "slug": "errore-403-forbidden",
+      "question": "Errore 403 Forbidden: le cause tipiche",
+      "vertical": "security",
+      "keywords": [
+        "403",
+        "forbidden",
+        "errore 403",
+        "accesso negato",
+        "permission denied web",
+        "vietato"
+      ],
+      "answers": [
+        "Il **403** significa: il server ti ha capito benissimo, e la risposta è no. Le cause in ordine di frequenza:\n\n- **permessi dei file** sbagliati sul server (l'utente del web server non può leggerli) o assenza dell'index con directory listing disabilitato\n- **il WAF ti ha bloccato**: una regola ha classificato la richiesta come attacco – capita ai falsi positivi, si diagnostica nei log del [WAF](q/cos-e-un-waf-web-application-firewall/) e si risolve con un'eccezione mirata, non spegnendo tutto\n- **blocco per IP o geografia**: sei in una blocklist, dietro una VPN sgradita, o il [ban automatico](q/bannare-ip-brute-force-caddy/) ti ha scambiato per uno scanner\n- regole applicative: hotlinking negato, user-agent filtrati, [bot AI esclusi](q/bloccare-crawler-ai-gptbot/)\n\nLato amministratore, il log dice sempre *quale* regola ha sparato. Lato visitatore: se un sito ti dà 403 ingiustamente da una VPN, è il prezzo della cattiva reputazione dell'IP condiviso – [succede anche alle email](q/perche-email-in-spam/)."
+      ]
+    },
+    {
+      "id": "errore-handshake",
+      "slug": "errore-ssl-handshake-failure",
+      "question": "Errore SSL handshake failure: cosa significa?",
+      "vertical": "security",
+      "keywords": [
+        "handshake",
+        "handshake failure",
+        "ssl error",
+        "no cypher overlap",
+        "err ssl protocol error",
+        "tls handshake fallito",
+        "cifrari"
+      ],
+      "answers": [
+        "L'**handshake failure** avviene prima che passi qualsiasi dato: client e server non trovano un accordo su come cifrare. Cause tipiche:\n\n- **nessun protocollo in comune**: il server accetta solo TLS 1.2+ e il client è antico (Java vecchio, sistemi embedded, XP…) – o viceversa, il server è il fossile\n- **nessun cifrario in comune** (`SSL_ERROR_NO_CYPHER_OVERLAP`): suite troppo ristrette da un lato o obsolete dall'altro\n- **SNI mancante**: client datati non dichiarano il nome host e ricevono il certificato sbagliato su server multi-dominio\n- intercettazioni di mezzo: proxy aziendali o antivirus che fanno [MITM dichiarato](q/cos-e-un-attacco-man-in-the-middle/) e lo fanno male\n\nDiagnosi in un comando: `openssl s_client -connect host:443 -servername host` dice esattamente dove muore la trattativa; il test SSL Labs dà il quadro completo. La regola per chi gestisce server: TLS 1.2+1.3 con le suite raccomandate – né trofei vintage, né restrizioni da collezionista che tagliano fuori client legittimi."
+      ]
+    },
+    {
+      "id": "errore-redirect-loop",
+      "slug": "err-too-many-redirects",
+      "question": "ERR_TOO_MANY_REDIRECTS: come si esce dal loop?",
+      "vertical": "security",
+      "keywords": [
+        "too many redirects",
+        "err too many redirects",
+        "loop di redirect",
+        "reindirizzamento continuo",
+        "redirect infinito",
+        "pagina che ricarica"
+      ],
+      "answers": [
+        "Il browser ha seguito una catena di redirect che torna su se stessa e si è arreso. Il colpevole numero uno, di gran lunga: **Cloudflare in modalità SSL \"Flexible\" davanti a un'origine che forza HTTPS** – Cloudflare parla HTTP con la tua origine, l'origine reindirizza a HTTPS, il visitatore torna a Cloudflare, da capo per sempre. Soluzione: modalità **Full (strict)** e un certificato valido sull'origine ([gratis, con ACME](q/come-funziona-lets-encrypt-acme/)).\n\nAltre cause classiche: il redirect HTTP→HTTPS configurato **sia** sul proxy che sull'applicazione (WordPress con l'URL del sito in http:// dietro un proxy che termina TLS: serve rispettare `X-Forwarded-Proto`), regole di redirect www/apex che si rincorrono, cookie di sessione che rimbalzano tra loop di login.\n\nDiagnosi: `curl -IL https://example.com` mostra l'intera catena di `Location` – il punto in cui la catena si morde la coda è lì, leggibile."
+      ]
+    },
+    {
+      "id": "sito-lento",
+      "slug": "il-sito-e-lento-come-si-diagnostica",
+      "question": "Il sito è lento: come si diagnostica (davvero)?",
+      "vertical": "tools",
+      "keywords": [
+        "sito lento",
+        "lento",
+        "lentezza",
+        "sito ci mette tanto",
+        "performance sito",
+        "diagnosi lentezza"
+      ],
+      "answers": [
+        "\"È lento\" non è un sintomo, è una nebbia. La diagnosi è una catena da percorrere in ordine:\n\n- **lento per tutti o per alcuni?** Se solo per alcuni: geografia (serve [cache/CDN](q/cos-e-una-cdn/)?), rete loro, o device modesti che soffrono il JavaScript\n- **lento a generare o a caricare?** Il TTFB alto punta al server: applicazione, query al database, niente cache – è il territorio del profiling backend (e su WordPress, di [SpeedMate](https://github.com/fabriziosalmi/speedmate)). TTFB buono ma pagina pigra = frontend: immagini enormi, script bloccanti, font – il territorio dei [Core Web Vitals](q/cosa-sono-i-core-web-vitals/)\n- **sempre o a ondate?** A ondate: picchi di traffico, backup che partono in orario di punta, [scraper voraci](q/difendere-un-sito-dallo-scraping/) – i log degli accessi li smascherano\n\nStrumenti: la tab Network del browser per la verità sul singolo caricamento, PageSpeed per i dati degli utenti reali, e un [monitoraggio esterno continuo](q/monitorare-siti-web-con-github-actions/) che ti dica *da quando* – perché \"è lento\" ha sempre una data d'inizio, e quella data ha un deploy vicino."
+      ]
+    },
+    {
+      "id": "safe-browsing",
+      "slug": "uscire-da-google-safe-browsing",
+      "question": "\"Sito ingannevole in vista\": come si esce dalla blocklist di Google?",
+      "vertical": "security",
+      "keywords": [
+        "sito ingannevole",
+        "safe browsing",
+        "blocklist google",
+        "deceptive site",
+        "sito segnalato",
+        "avviso rosso chrome",
+        "rimozione blacklist google"
+      ],
+      "answers": [
+        "L'interstitial rosso di Chrome significa che Google Safe Browsing ha classificato il sito come pericoloso – quasi sempre perché è stato **davvero compromesso**: malware iniettato, pagine di phishing caricate in una cartella, redirect malevoli. Prima regola: non chiedere la rimozione prima di aver pulito, ogni richiesta respinta allunga i tempi.\n\nLa sequenza:\n\n- **Search Console** → Problemi di sicurezza: dice *cosa* ha trovato e dove\n- trova e chiudi la porta d'ingresso: plugin/CMS non aggiornati, [credenziali rubate](q/verificare-password-compromessa/), upload permissivi – e bonifica da [backup pulito](q/backup-3-2-1/), non a occhio\n- ruota tutte le credenziali, aggiorna tutto, metti un [WAF](q/cos-e-un-waf-web-application-firewall/) davanti\n- poi, da Search Console, **richiedi la revisione**: in genere si risolve in ore-giorni\n\nPer non tornarci: aggiornamenti automatici, monitoraggio che controlli anche blacklist e contenuti ([websites-monitor](https://github.com/fabriziosalmi/websites-monitor) lo fa da GitHub Actions, [DomainMate](https://github.com/fabriziosalmi/domainmate) tiene d'occhio le RBL)."
+      ]
+    },
+    {
+      "id": "dora",
+      "slug": "cos-e-dora-regolamento",
+      "question": "Cos'è DORA (Digital Operational Resilience Act)?",
+      "vertical": "security",
+      "keywords": [
+        "dora",
+        "resilienza operativa",
+        "settore finanziario",
+        "banche",
+        "fornitori ict",
+        "2554",
+        "resilienza digitale finanza"
+      ],
+      "answers": [
+        "**DORA** (Reg. UE 2022/2554, applicabile dal **17 gennaio 2025**) è la NIS2 del settore finanziario, ma più prescrittiva: si applica a banche, assicurazioni, SIM, fondi, istituti di pagamento, exchange cripto – e, novità storica, **direttamente ai fornitori ICT critici** che li servono, sorvegliati dalle autorità europee.\n\nI cinque pilastri: gestione del rischio ICT, **segnalazione degli incidenti** con classificazioni e tempistiche armonizzate, **test di resilienza** (fino ai threat-led penetration test per i soggetti maggiori), gestione del **rischio di terze parti** (registro contrattuale dei fornitori ICT compreso), e condivisione di informazioni sulle minacce.\n\nSe sei un fornitore software/cloud con clienti finanziari, DORA ti arriva addosso **via contratto**: clausole di audit, exit strategy, [resilienza dimostrabile](q/piano-di-disaster-recovery-minimo/). Le fondamenta tecniche sono le stesse di NIS2: [log integri](q/security-logging-fatto-bene/), [incident response provata](q/incident-response-le-prime-ore/), inventari aggiornati."
+      ]
+    },
+    {
+      "id": "gdpr-sito-web",
+      "slug": "gdpr-cosa-serve-a-un-sito-web",
+      "question": "GDPR: cosa serve davvero a un sito web (cookie e privacy policy)?",
+      "vertical": "security",
+      "keywords": [
+        "cookie",
+        "privacy policy",
+        "banner cookie",
+        "consenso",
+        "informativa privacy",
+        "gdpr sito",
+        "cookie tecnici",
+        "adempimenti sito"
+      ],
+      "answers": [
+        "Il minimo sindacale per un sito conforme, senza cargo cult:\n\n- **privacy policy** che dica in chiaro cosa raccogli, perché, per quanto, con quali fornitori (hosting, analytics, form) – va scritta sulla realtà del sito, non copiata\n- **banner cookie solo se serve**: i **cookie tecnici** non richiedono consenso; quelli di profilazione e i tracker di terzi sì – con un rifiuto facile quanto l'accetto (il Garante è intervenuto sui banner-labirinto)\n- attenzione ai **servizi terzi impliciti**: font da CDN, video incorporati, analytics inviano dati (e IP) a terzi anche senza cookie – ogni chiamata esterna è un trattamento da giustificare\n\nLa strada elegante è **strutturale**: un sito statico self-hosted senza terze parti – niente tracker, niente trasferimenti, niente banner, perché non c'è nulla da acconsentire. È la filosofia [air-gapped delle superfici web](q/cos-e-un-air-gap/) che [agssh](https://github.com/fabriziosalmi/agssh) sa certificare: **zero chiamate esterne, dimostrato**. La privacy come proprietà del sistema, non come pop-up."
+      ]
+    },
+    {
+      "id": "dpo",
+      "slug": "quando-serve-un-dpo",
+      "question": "Cos'è un DPO e quando è obbligatorio?",
+      "vertical": "security",
+      "keywords": [
+        "dpo",
+        "data protection officer",
+        "responsabile protezione dati",
+        "nomina dpo",
+        "quando serve dpo",
+        "rpd"
+      ],
+      "answers": [
+        "Il **DPO** (Data Protection Officer) è il garante interno della protezione dati: consiglia il titolare, sorveglia la conformità GDPR, fa da ponte con il Garante e con gli interessati. Dev'essere **indipendente** (niente conflitti: non può essere chi decide *come* si trattano i dati, tipo l'IT manager o il responsabile marketing), competente, e può essere esterno.\n\nÈ obbligatorio in tre casi: **enti pubblici**; organizzazioni il cui core business è il **monitoraggio regolare e sistematico su larga scala** (profilazione, ad-tech, geolocalizzazione); e trattamento su larga scala di **dati particolari** (salute, biometria, giudiziari) – quindi ospedali, assicurazioni sanitarie, piattaforme con profilazione spinta. La PMI tipica non è obbligata, ma se tratta dati delicati la nomina volontaria (spesso esterna, a canone) compra competenza e credibilità verso clienti e auditor. In ogni caso: la nomina va comunicata al Garante e il contatto pubblicato nella [privacy policy](q/gdpr-cosa-serve-a-un-sito-web/)."
+      ]
+    },
+    {
+      "id": "registro-trattamenti",
+      "slug": "registro-dei-trattamenti",
+      "question": "Cos'è il registro dei trattamenti e chi deve tenerlo?",
+      "vertical": "security",
+      "keywords": [
+        "registro dei trattamenti",
+        "articolo 30",
+        "mappatura dati",
+        "censimento trattamenti"
+      ],
+      "answers": [
+        "Il **registro dei trattamenti** (art. 30 GDPR) è l'inventario di *tutti* i modi in cui l'organizzazione usa dati personali: per ogni trattamento – paghe, clienti, newsletter, videosorveglianza, log dei sistemi – finalità, categorie di dati e interessati, destinatari, trasferimenti extra-UE, tempi di conservazione, misure di sicurezza.\n\nSulla carta è obbligatorio sopra i 250 dipendenti, ma l'eccezione è mangiata dalle sue eccezioni (trattamenti non occasionali, dati particolari…): **in pratica serve a quasi tutti**, e il Garante lo chiede come prima cosa in ogni ispezione. È il documento di accountability per eccellenza: senza, non puoi dimostrare nulla del resto.\n\nIl lato utile, oltre l'obbligo: compilarlo costringe a *scoprire* cosa si tratta davvero – i fogli Excel dimenticati, [i log conservati per sempre](q/conservazione-log-gdpr/), il fornitore mai censito. Formato libero: una tabella tenuta aggiornata batte il faldone perfetto e fossile."
+      ]
+    },
+    {
+      "id": "notifica-garante",
+      "slug": "notifica-data-breach-garante",
+      "question": "Data breach: entro quanto va notificato al Garante?",
+      "vertical": "security",
+      "keywords": [
+        "notifica garante",
+        "72 ore",
+        "notificare data breach",
+        "violazione dati",
+        "comunicazione interessati",
+        "obbligo notifica",
+        "garante privacy"
+      ],
+      "answers": [
+        "Il GDPR (art. 33) dà **72 ore** dalla *conoscenza* della violazione per notificare al Garante – weekend compresi. Non tutte le violazioni vanno notificate: solo quelle con **rischio** per gli interessati (il laptop cifrato smarrito può non esserlo; il database clienti esfiltrato lo è). Se il rischio è **elevato**, scatta anche la comunicazione **agli interessati** (art. 34), senza ritardo ingiustificato.\n\nLe 72 ore sono poche se ci si organizza durante l'incendio: serve la procedura *prima* – chi valuta, chi decide, chi scrive, con i [log](q/security-logging-fatto-bene/) e la [cronologia dell'incidente](q/incident-response-le-prime-ore/) già in ordine, perché la notifica richiede natura della violazione, dati e persone coinvolte, misure prese. Si può notificare **per fasi** se non si sa ancora tutto: meglio una notifica preliminare nei termini che una completa in ritardo. E chi è nel perimetro NIS2 ha *anche* i termini ACN (early warning **24 ore**, notifica 72): due binari paralleli – [nis2-public](https://github.com/fabriziosalmi/nis2-public) tiene il workflow degli incidenti allineato all'Art. 23."
+      ]
+    },
+    {
+      "id": "iso-27001",
+      "slug": "cos-e-iso-27001",
+      "question": "Cos'è la ISO 27001 (e come si lega a NIS2)?",
+      "vertical": "security",
+      "keywords": [
+        "iso 27001",
+        "27001",
+        "isms",
+        "sgsi",
+        "certificazione sicurezza",
+        "annex a",
+        "statement of applicability",
+        "certificarsi"
+      ],
+      "answers": [
+        "La **ISO/IEC 27001** è lo standard internazionale per i sistemi di gestione della sicurezza delle informazioni (ISMS): non certifica che sei \"sicuro\", certifica che gestisci la sicurezza con **metodo** – analisi dei rischi, controlli scelti e motivati (i 93 dell'Annex A nella versione 2022: dalla crittografia alla formazione), miglioramento continuo, audit di terza parte.\n\nPerché farla: sempre più spesso **la chiedono i clienti** enterprise nei questionari fornitori – è il lasciapassare commerciale. E si incastra bene con [NIS2](q/nis2-chi-deve-adeguarsi-italia/): le misure dell'Art. 21 ricalcano in gran parte i controlli ISO, quindi un ISMS ben fatto copre gran parte del percorso (non l'equivalenza legale: NIS2 resta legge con obblighi propri, [notifiche in testa](q/notifica-data-breach-garante/)).\n\nOnestà sui costi: certificarsi è un progetto di mesi tra consulenza, implementazione e audit. L'alternativa per chi è piccolo: adottarne il metodo senza il bollino, e dimostrarlo con [postura continua](https://github.com/fabriziosalmi/nis2-public) invece che con faldoni."
+      ]
+    },
+    {
+      "id": "soc2",
+      "slug": "cos-e-soc-2",
+      "question": "Cos'è SOC 2?",
+      "vertical": "security",
+      "keywords": [
+        "soc 2",
+        "soc2",
+        "trust service criteria",
+        "type ii",
+        "report soc",
+        "audit americano",
+        "vendere in usa"
+      ],
+      "answers": [
+        "**SOC 2** è il framework di audit americano (AICPA) per i fornitori di servizi che gestiscono dati altrui – di fatto il pedaggio per vendere SaaS negli USA: i clienti enterprise chiedono \"il SOC 2\" come in Europa chiedono la [ISO 27001](q/cos-e-iso-27001/).\n\nCome funziona: un auditor valuta i controlli rispetto ai **Trust Service Criteria** (sicurezza sempre; disponibilità, integrità, confidenzialità e privacy se pertinenti). Il **Type I** fotografa i controlli a una data; il **Type II** – quello che conta davvero – verifica che abbiano *funzionato* per un periodo di 3-12 mesi. Il risultato non è un certificato ma un **report** riservato da condividere sotto NDA.\n\nISO vs SOC 2 in una riga: la ISO certifica il sistema di gestione (mercato europeo/internazionale), SOC 2 attesta l'efficacia operativa dei controlli (mercato USA). Chi vende su entrambe le sponde spesso finisce per fare entrambi – la buona notizia è che i controlli sottostanti ([logging](q/security-logging-fatto-bene/), [accessi](q/principio-del-minimo-privilegio/), [backup](q/backup-3-2-1/)) sono in gran parte gli stessi."
+      ]
+    },
+    {
+      "id": "schrems",
+      "slug": "trasferimento-dati-extra-ue-schrems",
+      "question": "Trasferimento dati extra-UE: cosa dice Schrems II?",
+      "vertical": "security",
+      "keywords": [
+        "schrems",
+        "schrems ii",
+        "trasferimento dati",
+        "extra ue",
+        "privacy shield",
+        "data privacy framework",
+        "scc",
+        "clausole contrattuali",
+        "dati negli usa"
+      ],
+      "answers": [
+        "**Schrems II** (Corte di Giustizia UE, 2020) ha invalidato il Privacy Shield: trasferire dati personali negli USA non era più coperto, perché la sorveglianza americana (FISA 702, [CLOUD Act](q/cos-e-la-sovranita-digitale/)) confligge con i diritti UE. Da lì anni di limbo: le **SCC** (clausole contrattuali standard) restavano valide ma con obbligo di *valutazione caso per caso* (TIA) e misure supplementari – cifratura con chiavi in mano europea in testa.\n\nOggi c'è il **Data Privacy Framework** (2023): l'adeguatezza è tornata per i fornitori USA certificati. Ma la storia insegna: è il **terzo** accordo della serie, i primi due sono caduti in tribunale, e il ricorso è già in cantiere – chi costruisce oggi architetture dipendenti dall'adeguatezza USA accetta un rischio regolatorio ricorrente.\n\nLa risposta strutturale è ridurre i trasferimenti alla radice: fornitori UE, [self-hosting](q/self-hosting-pro-e-contro/), dati che restano dove nasce la legge che li protegge – [flareover](https://github.com/fabriziosalmi/flareover) e [RainLogs](https://github.com/fabriziosalmi/rainlogs) esistono esattamente per questo."
+      ]
+    },
+    {
+      "id": "modsecurity-alternative",
+      "slug": "modsecurity-e-alternative-moderne",
+      "question": "ModSecurity è morto? Le alternative moderne",
+      "vertical": "security",
+      "keywords": [
+        "modsecurity",
+        "modsec",
+        "waf open source",
+        "alternative modsecurity",
+        "coraza",
+        "fine vita modsecurity",
+        "waf moderno"
+      ],
+      "answers": [
+        "**ModSecurity** è stato *il* WAF open source per vent'anni, ma la storia recente parla chiaro: Trustwave ne ha annunciato il fine supporto (2024) e il progetto vive di manutenzione residua. Le regole **OWASP CRS** – il vero patrimonio – sono vive e vegete; è il motore a essere in pensione.\n\nLe strade moderne:\n\n- **Coraza**: il successore spirituale in Go, compatibile con le regole CRS, si integra con Caddy e proxy moderni – la scelta di continuità\n- **il WAF nel proxy**: [caddy-waf](https://github.com/fabriziosalmi/caddy-waf) per Caddy, o [zion](https://github.com/fabriziosalmi/zion) che integra un WAF zero-regex direttamente nel reverse proxy Rust\n- **le CRS senza motore**: [patterns](https://github.com/fabriziosalmi/patterns) converte ogni giorno le regole OWASP nella sintassi *nativa* di Nginx, Apache, Traefik e HAProxy – niente modulo da compilare, niente motore da mantenere\n\nChi ha ancora ModSecurity in produzione non deve correre nel panico, ma la migrazione va messa a piano: un WAF senza aggiornamenti invecchia male."
+      ]
+    },
+    {
+      "id": "pihole-vs-adguard",
+      "slug": "pi-hole-vs-adguard-home",
+      "question": "Pi-hole o AdGuard Home: quale scegliere?",
+      "vertical": "security",
+      "keywords": [
+        "pi-hole vs adguard",
+        "pihole o adguard",
+        "adguard home",
+        "quale dns filtro",
+        "blocco pubblicita rete",
+        "dns filtrante casa",
+        "pihole",
+        "adguard"
+      ],
+      "answers": [
+        "Fanno lo stesso mestiere – DNS filtrante per tutta la rete: pubblicità, tracker e [domini malevoli](q/come-bloccare-domini-malevoli/) spariscono a livello di risoluzione, per ogni dispositivo senza configurare nulla. Le differenze oneste:\n\n- **Pi-hole**: il veterano, comunità enorme, ecosistema di script e integrazioni; DHCP incluso; il [DNS cifrato in uscita](q/cos-e-doh-dns-over-https/) richiede un componente in più (unbound/cloudflared)\n- **AdGuard Home**: più moderno out-of-the-box – DoH/DoT nativi sia in ingresso che in uscita, filtri per-client più comodi, un solo binario Go\n\nVerdetto pragmatico: per un nuovo setup AdGuard Home fa meno attrito; chi ha già un Pi-hole rodato non ha motivi di migrare. Entrambi valgono quanto le **liste** che li alimentano: [blacklists](https://github.com/fabriziosalmi/blacklists) (5M+ domini, aggiornata ogni giorno, con whitelist curata) si carica identica su tutti e due. E su [Proxmox](q/cos-e-proxmox-ve/), un LXC da mezza CPU li ospita alla grande."
+      ]
+    },
+    {
+      "id": "cloudflare-vs-selfhosted",
+      "slug": "cloudflare-o-self-hosted",
+      "question": "Cloudflare o self-hosted: il confronto onesto",
+      "vertical": "cloudflare",
+      "keywords": [
+        "cloudflare vs",
+        "meglio cloudflare",
+        "conviene cloudflare",
+        "alternativa a cloudflare",
+        "alternative cloudflare",
+        "dipendenza da cloudflare",
+        "pro e contro cloudflare",
+        "cloudflare o self hosted",
+        "confronto"
+      ],
+      "answers": [
+        "Il confronto senza tifoserie:\n\n- **Cloudflare dà** tanto, spesso gratis: [DDoS](q/cos-e-un-attacco-ddos/) assorbiti da una rete che non potrai mai replicare, CDN, WAF gestito, certificati, DNS veloce. Per un sito che può finire sotto attacco volumetrico, è difficile dire di no.\n- **il prezzo non è in euro**: tutto il tuo traffico passa (e viene decifrato) da un'infrastruttura terza americana – [sovranità](q/cos-e-la-sovranita-digitale/) e [Schrems](q/trasferimento-dati-extra-ue-schrems/) permettendo –, il lock-in cresce silenzioso ([Workers](q/cosa-sono-i-cloudflare-workers/), regole, DNS), e quando l'edge globale ha un problema, ce l'ha anche il tuo sito.\n- **il self-hosted restituisce** controllo e riservatezza: [reverse proxy con WAF](q/cos-e-un-reverse-proxy/) tuoi ([zion](https://github.com/fabriziosalmi/zion), Caddy + [caddy-waf](https://github.com/fabriziosalmi/caddy-waf)), [regole aggiornate](https://github.com/fabriziosalmi/patterns) – al costo della manutenzione e senza lo scudo anti-DDoS planetario.\n\nVia di mezzo legittima: Cloudflare solo dove serve davvero, resto in casa. E se decidi di uscire, [flareover](https://github.com/fabriziosalmi/flareover) rende la migrazione deterministica invece che eroica."
+      ]
+    },
+    {
+      "id": "nginx-caddy-traefik",
+      "slug": "nginx-caddy-o-traefik",
+      "question": "Nginx, Caddy o Traefik: quale scegliere?",
+      "vertical": "security",
+      "keywords": [
+        "nginx o caddy",
+        "caddy o traefik",
+        "quale reverse proxy",
+        "quale web server",
+        "confronto web server",
+        "traefik o nginx",
+        "server web migliore"
+      ],
+      "answers": [
+        "Tre attrezzi eccellenti con tre indoli diverse:\n\n- **Nginx** – lo standard di fatto: prestazioni note, documentazione oceanica, ogni problema è già stato risolto da qualcuno. Contro: configurazione verbosa e [HTTPS da montare a mano](q/configurare-https-su-nginx/). Regole WAF pronte: [patterns](https://github.com/fabriziosalmi/patterns).\n- **Caddy** – la developer experience: [HTTPS automatico](q/configurare-https-su-caddy/), Caddyfile leggibile, HTTP/3 di serie. La scelta più felice per self-hosting e progetti piccoli-medi; con [caddy-waf](https://github.com/fabriziosalmi/caddy-waf) e [caddy-mib](https://github.com/fabriziosalmi/caddy-mib) diventa anche presidio di sicurezza.\n- **Traefik** – nato per i container: scopre i servizi da Docker/Kubernetes via label, i certificati si gestiscono da soli. In un ambiente compose/k8s dinamico non ha rivali; fuori, è complessità non ripagata.\n\nRegola pratica: infrastruttura container dinamica → Traefik; tutto il resto → Caddy, salvo esigenze di tuning estremo o legacy → Nginx. E per chi vuole un solo binario Rust con WAF e cache dentro: [zion](https://github.com/fabriziosalmi/zion), la quarta via."
+      ]
+    },
+    {
+      "id": "wazuh-wildbox-elk",
+      "slug": "wazuh-wildbox-o-elk",
+      "question": "Wazuh, Wildbox o stack ELK per il monitoraggio sicurezza?",
+      "vertical": "security",
+      "keywords": [
+        "wazuh",
+        "elk",
+        "elastic",
+        "graylog",
+        "quale siem",
+        "siem open source",
+        "confronto siem",
+        "security onion",
+        "stack elk"
+      ],
+      "answers": [
+        "Tre filosofie per lo stesso bisogno – [vedere cosa succede](q/cos-e-un-siem-e-un-soar/) nella propria infrastruttura:\n\n- **Wazuh** – il SIEM open source più adottato: agent maturi (FIM, vulnerabilità, compliance PCI/CIS), regole pronte, comunità grande. Contro: architettura pesante (sotto c'è comunque un cluster di indicizzazione) e tuning iniziale impegnativo.\n- **stack ELK/OpenSearch** – non un SIEM ma un motore di ricerca su log: flessibilità totale, ci costruisci *qualsiasi* cosa – a patto di costruirla. Le funzioni di detection pronte all'uso sono il pezzo che manca o si paga.\n- **[Wildbox](https://github.com/fabriziosalmi/wildbox)** – la scommessa del portfolio: SIEM, SOAR e WAF **unificati** in una piattaforma self-hosted pensata per abbassare la soglia d'ingresso – meno potente dell'artiglieria enterprise, ma un'installazione invece di tre progetti d'integrazione.\n\nCriterio di scelta: team dedicato e requisiti di compliance → Wazuh; ingegneri che amano costruire → ELK; una persona sola che deve coprire tutto → l'integrato. Qualunque strada: senza [log fatti bene](q/security-logging-fatto-bene/) a monte, nessun SIEM salva nessuno."
+      ]
+    },
+    {
       "id": "certmate",
       "slug": "cos-e-certmate-gestione-certificati-tls",
       "question": "Cos'è CertMate e come gestisce i certificati TLS/SSL?",
@@ -1995,7 +3138,8 @@
         "errori ripetuti",
         "404 ripetuti",
         "scanner",
-        "fail2ban"
+        "fail2ban",
+        "caddy"
       ],
       "answers": [
         "[caddy-mib](https://github.com/fabriziosalmi/caddy-mib) (Middleware IP Ban) è il fail2ban nativo di Caddy: traccia gli IP che generano **errori ripetitivi** – 404 a raffica da chi cerca `/wp-admin.php` su un sito che non è WordPress, 500 da chi fuzza – e li banna automaticamente al superamento della soglia.\n\n- soglie e codici di errore **configurabili** (404, 500, quello che vuoi)\n- durata del ban in formato leggibile (`5s`, `10m`, `1h`) con **crescita esponenziale** per i recidivi\n- finestra scorrevole: gli errori si azzerano dopo un periodo di buona condotta\n\nÈ il complemento perfetto di [caddy-waf](https://github.com/fabriziosalmi/caddy-waf): il WAF blocca le richieste malevole, MIB elimina alla radice chi insiste."
@@ -2288,7 +3432,6 @@
         "velocizzare",
         "cache wordpress",
         "performance wordpress",
-        "sito lento",
         "webp",
         "core web vitals",
         "pagespeed"

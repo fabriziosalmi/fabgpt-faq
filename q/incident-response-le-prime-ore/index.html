@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Come si risponde a un incidente di sicurezza: le prime ore – FabGPT-FAQ</title>
+<meta name="description" content="Le prime ore decidono se è un brutto giorno o un disastro. La sequenza: non spegnere tutto d&#x27;istinto: spegnere distrugge la memoria volatile e avvisa…">
+<link rel="canonical" href="https://fabriziosalmi.github.io/fabgpt-faq/q/incident-response-le-prime-ore/">
+<link rel="stylesheet" href="../../style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Come si risponde a un incidente di sicurezza: le prime ore", "acceptedAnswer": {"@type": "Answer", "text": "Le prime ore decidono se è un brutto giorno o un disastro. La sequenza: non spegnere tutto d'istinto: spegnere distrugge la memoria volatile e avvisa l'attaccante. Contieni invece: isola le macchine sospette dalla rete (staccale, non spegnerle), revoca credenziali e sessioni, blocca gli accessi che l'attaccante sta usando preserva le prove: snapshot dei sistemi, copia dei [log](q/security-logging-fatto-bene/) verso un posto sicuro, cronologia scritta di ogni azione con orario – servirà per capire, e per [le notifiche di legge](q/notifica-data-breach-garante/) capisci l'estensione prima di bonificare: rimuovere l'attaccante da una macchina mentre ne controlla altre tre insegna solo a nascondersi meglio comunica su canali fuori banda (l'attaccante potrebbe leggere la tua email) e attiva chi di dovere: management, legale, eventuale assicurazione, [Garante e ACN nei termini previsti](q/notifica-data-breach-garante/) Dopo: bonifica da fonte pulita, [restore verificato](q/backup-3-2-1/), e postmortem senza colpevoli – i processi si migliorano, le persone si difendono. Playbook pronti per il contesto NIS2: nis2-public."}}]}</script>
+<style>
+  .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
+  .page h1 { font-size: 26px; line-height: 1.3; margin: 8px 0 20px; }
+  .page .answer a { color: var(--link); }
+  .page .vertical { font-size: 13px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }
+  .page .answer ul { padding-left: 22px; }
+  .page .answer code { background: var(--code-bg); border-radius: 5px; padding: 1px 5px; font-size: 0.9em; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+  .page .ask { display: inline-block; margin-top: 24px; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 9px 18px; text-decoration: none; font-weight: 600; }
+  .page .related { margin-top: 36px; border-top: 1px solid var(--border); padding-top: 18px; }
+  .page .related h2 { font-size: 16px; }
+  .page .related a { color: var(--link); text-decoration: none; }
+  .page .related a:hover { text-decoration: underline; }
+  .page .related li { margin: 6px 0; }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="../../" style="text-decoration:none;color:inherit">
+    <span class="brand-dot">F</span>
+    <span class="brand-name">FabGPT-FAQ</span>
+  </a>
+</header>
+<main class="page">
+  <div class="vertical">Cybersecurity</div>
+  <h1>Come si risponde a un incidente di sicurezza: le prime ore</h1>
+  <div class="answer"><p>Le prime ore decidono se è un brutto giorno o un disastro. La sequenza:</p><ul><li><strong>non spegnere tutto d&#x27;istinto</strong>: spegnere distrugge la memoria volatile e avvisa l&#x27;attaccante. <strong>Contieni</strong> invece: isola le macchine sospette dalla rete (staccale, non spegnerle), revoca credenziali e sessioni, blocca gli accessi che l&#x27;attaccante sta usando</li><li><strong>preserva le prove</strong>: snapshot dei sistemi, copia dei <a href="../security-logging-fatto-bene/">log</a> verso un posto sicuro, cronologia scritta di ogni azione con orario – servirà per capire, e per <a href="../notifica-data-breach-garante/">le notifiche di legge</a></li><li><strong>capisci l&#x27;estensione prima di bonificare</strong>: rimuovere l&#x27;attaccante da una macchina mentre ne controlla altre tre insegna solo a nascondersi meglio</li><li>comunica su <strong>canali fuori banda</strong> (l&#x27;attaccante potrebbe leggere la tua email) e attiva chi di dovere: management, legale, eventuale assicurazione, <a href="../notifica-data-breach-garante/">Garante e ACN nei termini previsti</a></li></ul><p>Dopo: bonifica da fonte pulita, <a href="../backup-3-2-1/">restore verificato</a>, e postmortem <strong>senza colpevoli</strong> – i processi si migliorano, le persone si difendono. Playbook pronti per il contesto NIS2: <a href="https://github.com/fabriziosalmi/nis2-public" target="_blank" rel="noopener">nis2-public</a>.</p></div>
+  <a class="ask" href="../../?q=incident-response">Chiedilo a FabGPT-FAQ →</a>
+  <div class="related">
+    <h2>Altre domande</h2>
+    <ul><li><a href="../cos-e-un-waf-web-application-firewall/">Cos&#x27;è un WAF (Web Application Firewall) e a cosa serve?</a></li><li><a href="../cos-e-un-reverse-proxy/">Cos&#x27;è un reverse proxy e a cosa serve?</a></li><li><a href="../come-funziona-lets-encrypt-acme/">Come funziona Let&#x27;s Encrypt e il protocollo ACME?</a></li><li><a href="../certificato-tls-scaduto-cosa-fare/">Certificato TLS scaduto: perché succede e come evitarlo?</a></li><li><a href="../cos-e-un-siem-e-un-soar/">Cos&#x27;è un SIEM e cos&#x27;è un SOAR?</a></li><li><a href="../nis2-chi-deve-adeguarsi-italia/">Chi deve adeguarsi alla NIS2 in Italia e cosa rischia?</a></li></ul>
+  </div>
+</main>
+</body>
+</html>

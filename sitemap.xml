@@ -77,6 +77,69 @@
   <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-una-daw/</loc></url>
   <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/cosa-sono-i-plugin-vst/</loc></url>
   <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/come-funziona-vinile-timecode-dvs/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-il-phishing/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-un-ransomware/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-un-honeypot/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-un-soc-security-operations-center/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/differenza-edr-xdr-antivirus/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-la-threat-intelligence/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-una-cve-e-il-cvss/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/vulnerability-assessment-vs-penetration-test/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-un-bug-bounty/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-l-osint/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/differenza-firewall-e-waf/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/differenza-vpn-e-proxy/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/principio-del-minimo-privilegio/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/cosa-sono-ids-e-ips/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-la-defense-in-depth/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-un-attacco-man-in-the-middle/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-il-dns-spoofing/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-un-attacco-brute-force/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-una-botnet/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-il-typosquatting/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/cosa-sono-le-passkey/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/perche-usare-un-password-manager/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-la-crittografia-end-to-end/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/crittografia-simmetrica-e-asimmetrica/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-l-hashing/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/certificato-wildcard-e-san/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-mtls/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-hsts-e-il-preload/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-dnssec/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-doh-dns-over-https/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-un-air-gap/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-la-steganografia/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/hardening-server-linux/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/configurare-https-su-nginx/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/configurare-https-su-caddy/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/difendere-un-sito-dallo-scraping/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/come-gestire-i-secrets/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/backup-3-2-1/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/verificare-password-compromessa/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/segmentare-la-rete-con-vlan/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/esporre-servizi-senza-aprire-porte/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/come-si-firma-il-codice/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/security-logging-fatto-bene/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/incident-response-le-prime-ore/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/piano-di-disaster-recovery-minimo/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/errore-403-forbidden/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/errore-ssl-handshake-failure/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/err-too-many-redirects/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/il-sito-e-lento-come-si-diagnostica/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/uscire-da-google-safe-browsing/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-dora-regolamento/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/gdpr-cosa-serve-a-un-sito-web/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/quando-serve-un-dpo/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/registro-dei-trattamenti/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/notifica-data-breach-garante/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-iso-27001/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-soc-2/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/trasferimento-dati-extra-ue-schrems/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/modsecurity-e-alternative-moderne/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/pi-hole-vs-adguard-home/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/cloudflare-o-self-hosted/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/nginx-caddy-o-traefik/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/wazuh-wildbox-o-elk/</loc></url>
   <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-certmate-gestione-certificati-tls/</loc></url>
   <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/come-aggiungere-un-waf-a-caddy/</loc></url>
   <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/bloccare-bad-bot-nginx-apache-traefik-haproxy/</loc></url>

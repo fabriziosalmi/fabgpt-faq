@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Come si scrive un piano di disaster recovery minimo? – FabGPT-FAQ</title>
+<meta name="description" content="Un piano DR minimo sta su poche pagine e risponde a tre domande: cosa deve ripartire per primo, quanto tempo di fermo reggi (RTO), quanti dati puoi perdere…">
+<link rel="canonical" href="https://fabriziosalmi.github.io/fabgpt-faq/q/piano-di-disaster-recovery-minimo/">
+<link rel="stylesheet" href="../../style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Come si scrive un piano di disaster recovery minimo?", "acceptedAnswer": {"@type": "Answer", "text": "Un piano DR minimo sta su poche pagine e risponde a tre domande: cosa deve ripartire per primo, quanto tempo di fermo reggi (RTO), quanti dati puoi perdere (RPO). Quei due numeri, decisi a mente fredda servizio per servizio, guidano tutto il resto: un RPO di 15 minuti richiede replica continua, uno di 24 ore basta il backup notturno – costi diversissimi. Il contenuto essenziale: inventario dei servizi in ordine di priorità, con dipendenze (il gestionale non parte senza il database, il database senza lo storage…) dove sono i [backup](q/backup-3-2-1/) e la procedura di restore passo-passo, scritta per la persona più stanca alle 3 di notte contatti e decisori fuori banda, credenziali di emergenza in cassaforte (fisica o [manager](q/perche-usare-un-password-manager/) separato) E la parte che quasi nessuno fa: provarlo – una game day l'anno in cui si finge il disastro e si cronometra. Per NIS2 il piano non è più un optional: fa parte delle misure dell'Art. 21 tracciate da nis2-public."}}]}</script>
+<style>
+  .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
+  .page h1 { font-size: 26px; line-height: 1.3; margin: 8px 0 20px; }
+  .page .answer a { color: var(--link); }
+  .page .vertical { font-size: 13px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }
+  .page .answer ul { padding-left: 22px; }
+  .page .answer code { background: var(--code-bg); border-radius: 5px; padding: 1px 5px; font-size: 0.9em; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+  .page .ask { display: inline-block; margin-top: 24px; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 9px 18px; text-decoration: none; font-weight: 600; }
+  .page .related { margin-top: 36px; border-top: 1px solid var(--border); padding-top: 18px; }
+  .page .related h2 { font-size: 16px; }
+  .page .related a { color: var(--link); text-decoration: none; }
+  .page .related a:hover { text-decoration: underline; }
+  .page .related li { margin: 6px 0; }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="../../" style="text-decoration:none;color:inherit">
+    <span class="brand-dot">F</span>
+    <span class="brand-name">FabGPT-FAQ</span>
+  </a>
+</header>
+<main class="page">
+  <div class="vertical">Cybersecurity</div>
+  <h1>Come si scrive un piano di disaster recovery minimo?</h1>
+  <div class="answer"><p>Un piano DR minimo sta su poche pagine e risponde a tre domande: <strong>cosa</strong> deve ripartire per primo, <strong>quanto</strong> tempo di fermo reggi (RTO), <strong>quanti</strong> dati puoi perdere (RPO). Quei due numeri, decisi <em>a mente fredda</em> servizio per servizio, guidano tutto il resto: un RPO di 15 minuti richiede replica continua, uno di 24 ore basta il backup notturno – costi diversissimi.</p><p>Il contenuto essenziale:</p><ul><li>inventario dei servizi in ordine di priorità, con dipendenze (il gestionale non parte senza il database, il database senza lo storage…)</li><li>dove sono i <a href="../backup-3-2-1/">backup</a> e la <strong>procedura di restore passo-passo</strong>, scritta per la persona più stanca alle 3 di notte</li><li>contatti e decisori fuori banda, credenziali di emergenza in cassaforte (fisica o <a href="../perche-usare-un-password-manager/">manager</a> separato)</li></ul><p>E la parte che quasi nessuno fa: <strong>provarlo</strong> – una game day l&#x27;anno in cui si finge il disastro e si cronometra. Per NIS2 il piano non è più un optional: fa parte delle misure dell&#x27;Art. 21 tracciate da <a href="https://github.com/fabriziosalmi/nis2-public" target="_blank" rel="noopener">nis2-public</a>.</p></div>
+  <a class="ask" href="../../?q=disaster-recovery">Chiedilo a FabGPT-FAQ →</a>
+  <div class="related">
+    <h2>Altre domande</h2>
+    <ul><li><a href="../cos-e-un-waf-web-application-firewall/">Cos&#x27;è un WAF (Web Application Firewall) e a cosa serve?</a></li><li><a href="../cos-e-un-reverse-proxy/">Cos&#x27;è un reverse proxy e a cosa serve?</a></li><li><a href="../come-funziona-lets-encrypt-acme/">Come funziona Let&#x27;s Encrypt e il protocollo ACME?</a></li><li><a href="../certificato-tls-scaduto-cosa-fare/">Certificato TLS scaduto: perché succede e come evitarlo?</a></li><li><a href="../cos-e-un-siem-e-un-soar/">Cos&#x27;è un SIEM e cos&#x27;è un SOAR?</a></li><li><a href="../nis2-chi-deve-adeguarsi-italia/">Chi deve adeguarsi alla NIS2 in Italia e cosa rischia?</a></li></ul>
+  </div>
+</main>
+</body>
+</html>

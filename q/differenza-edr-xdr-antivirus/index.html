@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EDR, XDR, antivirus: che differenza c&#x27;è? – FabGPT-FAQ</title>
+<meta name="description" content="Tre generazioni della stessa idea: antivirus – riconosce il malware noto per firme e euristiche: necessario, non più sufficiente EDR (Endpoint Detection and…">
+<link rel="canonical" href="https://fabriziosalmi.github.io/fabgpt-faq/q/differenza-edr-xdr-antivirus/">
+<link rel="stylesheet" href="../../style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "EDR, XDR, antivirus: che differenza c'è?", "acceptedAnswer": {"@type": "Answer", "text": "Tre generazioni della stessa idea: antivirus – riconosce il malware noto per firme e euristiche: necessario, non più sufficiente EDR (Endpoint Detection and Response) – registra il comportamento degli endpoint (processi, rete, registro) e rileva le tecniche d'attacco anche senza firma: PowerShell che scarica ed esegue, escalation sospette; permette anche la risposta remota (isolare la macchina, uccidere il processo) XDR (eXtended DR) – la stessa telemetria estesa oltre l'endpoint: identità, email, cloud, rete, correlate in un unico quadro C'è anche l'MDR: l'EDR/XDR gestito da analisti esterni, per chi non ha un [SOC](q/cos-e-un-soc-security-operations-center/). Nel mondo open source la correlazione centrale è il territorio del [SIEM](q/cos-e-un-siem-e-un-soar/): agenti sugli host + Wildbox come cervello."}}]}</script>
+<style>
+  .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
+  .page h1 { font-size: 26px; line-height: 1.3; margin: 8px 0 20px; }
+  .page .answer a { color: var(--link); }
+  .page .vertical { font-size: 13px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }
+  .page .answer ul { padding-left: 22px; }
+  .page .answer code { background: var(--code-bg); border-radius: 5px; padding: 1px 5px; font-size: 0.9em; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+  .page .ask { display: inline-block; margin-top: 24px; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 9px 18px; text-decoration: none; font-weight: 600; }
+  .page .related { margin-top: 36px; border-top: 1px solid var(--border); padding-top: 18px; }
+  .page .related h2 { font-size: 16px; }
+  .page .related a { color: var(--link); text-decoration: none; }
+  .page .related a:hover { text-decoration: underline; }
+  .page .related li { margin: 6px 0; }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="../../" style="text-decoration:none;color:inherit">
+    <span class="brand-dot">F</span>
+    <span class="brand-name">FabGPT-FAQ</span>
+  </a>
+</header>
+<main class="page">
+  <div class="vertical">Cybersecurity</div>
+  <h1>EDR, XDR, antivirus: che differenza c&#x27;è?</h1>
+  <div class="answer"><p>Tre generazioni della stessa idea:</p><ul><li><strong>antivirus</strong> – riconosce il malware <em>noto</em> per firme e euristiche: necessario, non più sufficiente</li><li><strong>EDR</strong> (Endpoint Detection and Response) – registra il <strong>comportamento</strong> degli endpoint (processi, rete, registro) e rileva le tecniche d&#x27;attacco anche senza firma: PowerShell che scarica ed esegue, escalation sospette; permette anche la risposta remota (isolare la macchina, uccidere il processo)</li><li><strong>XDR</strong> (eXtended DR) – la stessa telemetria estesa <strong>oltre l&#x27;endpoint</strong>: identità, email, cloud, rete, correlate in un unico quadro</li></ul><p>C&#x27;è anche l&#x27;<strong>MDR</strong>: l&#x27;EDR/XDR gestito da analisti esterni, per chi non ha un <a href="../cos-e-un-soc-security-operations-center/">SOC</a>. Nel mondo open source la correlazione centrale è il territorio del <a href="../cos-e-un-siem-e-un-soar/">SIEM</a>: agenti sugli host + <a href="https://github.com/fabriziosalmi/wildbox" target="_blank" rel="noopener">Wildbox</a> come cervello.</p></div>
+  <a class="ask" href="../../?q=edr-xdr">Chiedilo a FabGPT-FAQ →</a>
+  <div class="related">
+    <h2>Altre domande</h2>
+    <ul><li><a href="../cos-e-un-waf-web-application-firewall/">Cos&#x27;è un WAF (Web Application Firewall) e a cosa serve?</a></li><li><a href="../cos-e-un-reverse-proxy/">Cos&#x27;è un reverse proxy e a cosa serve?</a></li><li><a href="../come-funziona-lets-encrypt-acme/">Come funziona Let&#x27;s Encrypt e il protocollo ACME?</a></li><li><a href="../certificato-tls-scaduto-cosa-fare/">Certificato TLS scaduto: perché succede e come evitarlo?</a></li><li><a href="../cos-e-un-siem-e-un-soar/">Cos&#x27;è un SIEM e cos&#x27;è un SOAR?</a></li><li><a href="../nis2-chi-deve-adeguarsi-italia/">Chi deve adeguarsi alla NIS2 in Italia e cosa rischia?</a></li></ul>
+  </div>
+</main>
+</body>
+</html>

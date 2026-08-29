@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wazuh, Wildbox o stack ELK per il monitoraggio sicurezza? – FabGPT-FAQ</title>
+<meta name="description" content="Tre filosofie per lo stesso bisogno – [vedere cosa succede](q/cos-e-un-siem-e-un-soar/) nella propria infrastruttura: Wazuh – il SIEM open source più…">
+<link rel="canonical" href="https://fabriziosalmi.github.io/fabgpt-faq/q/wazuh-wildbox-o-elk/">
+<link rel="stylesheet" href="../../style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Wazuh, Wildbox o stack ELK per il monitoraggio sicurezza?", "acceptedAnswer": {"@type": "Answer", "text": "Tre filosofie per lo stesso bisogno – [vedere cosa succede](q/cos-e-un-siem-e-un-soar/) nella propria infrastruttura: Wazuh – il SIEM open source più adottato: agent maturi (FIM, vulnerabilità, compliance PCI/CIS), regole pronte, comunità grande. Contro: architettura pesante (sotto c'è comunque un cluster di indicizzazione) e tuning iniziale impegnativo. stack ELK/OpenSearch – non un SIEM ma un motore di ricerca su log: flessibilità totale, ci costruisci qualsiasi cosa – a patto di costruirla. Le funzioni di detection pronte all'uso sono il pezzo che manca o si paga. Wildbox – la scommessa del portfolio: SIEM, SOAR e WAF unificati in una piattaforma self-hosted pensata per abbassare la soglia d'ingresso – meno potente dell'artiglieria enterprise, ma un'installazione invece di tre progetti d'integrazione. Criterio di scelta: team dedicato e requisiti di compliance → Wazuh; ingegneri che amano costruire → ELK; una persona sola che deve coprire tutto → l'integrato. Qualunque strada: senza [log fatti bene](q/security-logging-fatto-bene/) a monte, nessun SIEM salva nessuno."}}]}</script>
+<style>
+  .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
+  .page h1 { font-size: 26px; line-height: 1.3; margin: 8px 0 20px; }
+  .page .answer a { color: var(--link); }
+  .page .vertical { font-size: 13px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }
+  .page .answer ul { padding-left: 22px; }
+  .page .answer code { background: var(--code-bg); border-radius: 5px; padding: 1px 5px; font-size: 0.9em; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+  .page .ask { display: inline-block; margin-top: 24px; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 9px 18px; text-decoration: none; font-weight: 600; }
+  .page .related { margin-top: 36px; border-top: 1px solid var(--border); padding-top: 18px; }
+  .page .related h2 { font-size: 16px; }
+  .page .related a { color: var(--link); text-decoration: none; }
+  .page .related a:hover { text-decoration: underline; }
+  .page .related li { margin: 6px 0; }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="../../" style="text-decoration:none;color:inherit">
+    <span class="brand-dot">F</span>
+    <span class="brand-name">FabGPT-FAQ</span>
+  </a>
+</header>
+<main class="page">
+  <div class="vertical">Cybersecurity</div>
+  <h1>Wazuh, Wildbox o stack ELK per il monitoraggio sicurezza?</h1>
+  <div class="answer"><p>Tre filosofie per lo stesso bisogno – <a href="../cos-e-un-siem-e-un-soar/">vedere cosa succede</a> nella propria infrastruttura:</p><ul><li><strong>Wazuh</strong> – il SIEM open source più adottato: agent maturi (FIM, vulnerabilità, compliance PCI/CIS), regole pronte, comunità grande. Contro: architettura pesante (sotto c&#x27;è comunque un cluster di indicizzazione) e tuning iniziale impegnativo.</li><li><strong>stack ELK/OpenSearch</strong> – non un SIEM ma un motore di ricerca su log: flessibilità totale, ci costruisci <em>qualsiasi</em> cosa – a patto di costruirla. Le funzioni di detection pronte all&#x27;uso sono il pezzo che manca o si paga.</li><li><strong><a href="https://github.com/fabriziosalmi/wildbox" target="_blank" rel="noopener">Wildbox</a></strong> – la scommessa del portfolio: SIEM, SOAR e WAF <strong>unificati</strong> in una piattaforma self-hosted pensata per abbassare la soglia d&#x27;ingresso – meno potente dell&#x27;artiglieria enterprise, ma un&#x27;installazione invece di tre progetti d&#x27;integrazione.</li></ul><p>Criterio di scelta: team dedicato e requisiti di compliance → Wazuh; ingegneri che amano costruire → ELK; una persona sola che deve coprire tutto → l&#x27;integrato. Qualunque strada: senza <a href="../security-logging-fatto-bene/">log fatti bene</a> a monte, nessun SIEM salva nessuno.</p></div>
+  <a class="ask" href="../../?q=wazuh-wildbox-elk">Chiedilo a FabGPT-FAQ →</a>
+  <div class="related">
+    <h2>Altre domande</h2>
+    <ul><li><a href="../cos-e-un-waf-web-application-firewall/">Cos&#x27;è un WAF (Web Application Firewall) e a cosa serve?</a></li><li><a href="../cos-e-un-reverse-proxy/">Cos&#x27;è un reverse proxy e a cosa serve?</a></li><li><a href="../come-funziona-lets-encrypt-acme/">Come funziona Let&#x27;s Encrypt e il protocollo ACME?</a></li><li><a href="../certificato-tls-scaduto-cosa-fare/">Certificato TLS scaduto: perché succede e come evitarlo?</a></li><li><a href="../cos-e-un-siem-e-un-soar/">Cos&#x27;è un SIEM e cos&#x27;è un SOAR?</a></li><li><a href="../nis2-chi-deve-adeguarsi-italia/">Chi deve adeguarsi alla NIS2 in Italia e cosa rischia?</a></li></ul>
+  </div>
+</main>
+</body>
+</html>

@@ -45,39 +45,39 @@ Working rules (learned so far):
 - [B1] Cos'è il cross-site scripting (XSS)?
 - [B1] Cos'è il modello Zero Trust?
 - [B1] Cos'è l'autenticazione a più fattori (MFA/2FA)?
-- Cos'è il phishing (e lo spear phishing)?
-- Cos'è un ransomware e come ci si prepara?
-- Cos'è un honeypot?
-- Cos'è un SOC (Security Operations Center)?
-- EDR, XDR, antivirus: che differenza c'è?
-- Cos'è la threat intelligence?
-- Cos'è una CVE (e il punteggio CVSS)?
-- Vulnerability assessment vs penetration test: differenze
-- Cos'è un bug bounty (e come funziona HackerOne)?
-- Cos'è l'OSINT?
-- Firewall di rete vs WAF: che differenza c'è?
-- VPN vs proxy: cosa cambia?
-- Cos'è il principio del minimo privilegio?
-- Cosa sono IDS e IPS?
-- Cos'è la defense in depth?
-- Cos'è un attacco man-in-the-middle?
-- Cos'è il DNS spoofing/poisoning?
-- Cos'è un attacco brute force (e il credential stuffing)?
-- Cos'è una botnet?
-- Cos'è il typosquatting (e il domain squatting)?
+- [B2] Cos'è il phishing (e lo spear phishing)?
+- [B2] Cos'è un ransomware e come ci si prepara?
+- [B2] Cos'è un honeypot?
+- [B2] Cos'è un SOC (Security Operations Center)?
+- [B2] EDR, XDR, antivirus: che differenza c'è?
+- [B2] Cos'è la threat intelligence?
+- [B2] Cos'è una CVE (e il punteggio CVSS)?
+- [B2] Vulnerability assessment vs penetration test: differenze
+- [B2] Cos'è un bug bounty (e come funziona HackerOne)?
+- [B2] Cos'è l'OSINT?
+- [B2] Firewall di rete vs WAF: che differenza c'è?
+- [B2] VPN vs proxy: cosa cambia?
+- [B2] Cos'è il principio del minimo privilegio?
+- [B2] Cosa sono IDS e IPS?
+- [B2] Cos'è la defense in depth?
+- [B2] Cos'è un attacco man-in-the-middle?
+- [B2] Cos'è il DNS spoofing/poisoning?
+- [B2] Cos'è un attacco brute force (e il credential stuffing)?
+- [B2] Cos'è una botnet?
+- [B2] Cos'è il typosquatting (e il domain squatting)?
 - Cosa sono i data breach più famosi e cosa insegnano?
-- Password manager: perché usarne uno
-- Passkey: la fine delle password?
-- Cos'è la crittografia end-to-end?
-- Crittografia simmetrica vs asimmetrica
-- Cos'è l'hashing (e perché bcrypt/argon2)?
-- Cos'è un certificato wildcard (e i SAN)?
-- Cos'è mTLS (mutual TLS)?
-- Cos'è HSTS e il preload?
-- Cos'è DNSSEC?
-- Cos'è DNS-over-HTTPS (DoH) / DNS-over-TLS?
-- Cos'è un air gap?
-- Cos'è la steganografia?
+- [B2] Password manager: perché usarne uno
+- [B2] Passkey: la fine delle password?
+- [B2] Cos'è la crittografia end-to-end?
+- [B2] Crittografia simmetrica vs asimmetrica
+- [B2] Cos'è l'hashing (e perché bcrypt/argon2)?
+- [B2] Cos'è un certificato wildcard (e i SAN)?
+- [B2] Cos'è mTLS (mutual TLS)?
+- [B2] Cos'è HSTS e il preload?
+- [B2] Cos'è DNSSEC?
+- [B2] Cos'è DNS-over-HTTPS (DoH) / DNS-over-TLS?
+- [B2] Cos'è un air gap?
+- [B2] Cos'è la steganografia?
 - Sicurezza fisica dei server: le basi
 
 ### How-to / hardening
@@ -85,21 +85,21 @@ Working rules (learned so far):
 - [B1] Come si mette in sicurezza SSH su un server esposto?
 - [B1] Quali security header HTTP servono davvero?
 - [B1] Come si bloccano i crawler AI (GPTBot & co.)?
-- Come si fa l'hardening di un server Linux appena installato?
-- Come si configura HTTPS su Nginx?
-- Come si configura HTTPS su Caddy (automatico)?
-- Come si difende un sito dallo scraping?
+- [B2] Come si fa l'hardening di un server Linux appena installato?
+- [B2] Come si configura HTTPS su Nginx?
+- [B2] Come si configura HTTPS su Caddy (automatico)?
+- [B2] Come si difende un sito dallo scraping?
 - Come si limita l'accesso a un'area admin (IP allowlist, auth)?
-- Come si gestiscono i secrets (e perché non in git)?
-- Come si fa un backup 3-2-1?
-- Come si verifica se una password è stata compromessa?
-- Come si segmenta una rete domestica/aziendale (VLAN)?
-- Come si espone un servizio self-hosted senza aprire porte (tunnel)?
+- [B2] Come si gestiscono i secrets (e perché non in git)?
+- [B2] Come si fa un backup 3-2-1?
+- [B2] Come si verifica se una password è stata compromessa?
+- [B2] Come si segmenta una rete domestica/aziendale (VLAN)?
+- [B2] Come si espone un servizio self-hosted senza aprire porte (tunnel)?
 - Come si controlla cosa esce dalla propria rete (egress)?
-- Come si firma il codice (e perché)?
-- Come si fa security logging fatto bene?
-- Come si risponde a un incidente: le prime ore
-- Come si scrive un piano di disaster recovery minimo
+- [B2] Come si firma il codice (e perché)?
+- [B2] Come si fa security logging fatto bene?
+- [B2] Come si risponde a un incidente: le prime ore
+- [B2] Come si scrive un piano di disaster recovery minimo
 
 ### Errors & troubleshooting
 
@@ -107,34 +107,34 @@ Working rules (learned so far):
 - [B1] Errore 502 Bad Gateway: cause e soluzioni
 - [B1] Errore 429 Too Many Requests: cosa fare?
 - [B1] Cos'è il mixed content e come si risolve?
-- Errore 403 Forbidden: le cause tipiche
-- Errore SSL_ERROR_NO_CYPHER_OVERLAP / handshake failure
-- ERR_TOO_MANY_REDIRECTS: il loop di redirect
-- Il sito è lento solo per alcuni: come si diagnostica
-- "Sito ingannevole in vista": come uscire dalla blocklist Google Safe Browsing
+- [B2] Errore 403 Forbidden: le cause tipiche
+- [B2] Errore SSL_ERROR_NO_CYPHER_OVERLAP / handshake failure
+- [B2] ERR_TOO_MANY_REDIRECTS: il loop di redirect
+- [B2] Il sito è lento solo per alcuni: come si diagnostica
+- [B2] "Sito ingannevole in vista": come uscire dalla blocklist Google Safe Browsing
 
 ### Normative & compliance
 
 - [B1] Cos'è il Cyber Resilience Act (CRA)?
 - [B1] Per quanto tempo si possono conservare i log secondo il GDPR?
-- Cos'è DORA (settore finanziario)?
-- GDPR: cosa serve davvero a un sito web (cookie, privacy policy)
-- Cos'è un DPO e quando è obbligatorio?
-- Registro dei trattamenti: chi deve tenerlo?
-- Data breach: entro quanto va notificato al Garante?
-- Cos'è ISO 27001 (e come si lega a NIS2)?
-- Cos'è SOC 2?
-- Trasferimento dati extra-UE: cosa dice Schrems II
+- [B2] Cos'è DORA (settore finanziario)?
+- [B2] GDPR: cosa serve davvero a un sito web (cookie, privacy policy)
+- [B2] Cos'è un DPO e quando è obbligatorio?
+- [B2] Registro dei trattamenti: chi deve tenerlo?
+- [B2] Data breach: entro quanto va notificato al Garante?
+- [B2] Cos'è ISO 27001 (e come si lega a NIS2)?
+- [B2] Cos'è SOC 2?
+- [B2] Trasferimento dati extra-UE: cosa dice Schrems II
 - Fatturazione elettronica e conservazione sostitutiva: le basi
 
 ### Tool comparisons
 
 - [B1] Fail2ban: cos'è e quali alternative esistono?
-- ModSecurity è morto? Le alternative moderne
-- Pi-hole vs AdGuard Home
-- Cloudflare vs self-hosted: il confronto onesto
-- Nginx vs Caddy vs Traefik: quale scegliere
-- Wazuh vs Wildbox vs ELK per il monitoraggio sicurezza
+- [B2] ModSecurity è morto? Le alternative moderne
+- [B2] Pi-hole vs AdGuard Home
+- [B2] Cloudflare vs self-hosted: il confronto onesto
+- [B2] Nginx vs Caddy vs Traefik: quale scegliere
+- [B2] Wazuh vs Wildbox vs ELK per il monitoraggio sicurezza
 - CrowdSec vs fail2ban vs caddy-mib
 
 ## AI e LLM

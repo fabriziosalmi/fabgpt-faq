@@ -718,5 +718,265 @@
   {
     "q": "vibe-check la github action anti slop",
     "expect": "ai-code-quality"
+  },
+  {
+    "q": "ho ricevuto una mail sospetta della banca",
+    "expect": "phishing"
+  },
+  {
+    "q": "i miei file sono stati cifrati chiedono un riscatto",
+    "expect": "ransomware"
+  },
+  {
+    "q": "cosè un honeypot",
+    "expect": "honeypot"
+  },
+  {
+    "q": "cosè un soc",
+    "expect": "cos-e-un-soc"
+  },
+  {
+    "q": "differenza tra edr e antivirus",
+    "expect": "edr-xdr"
+  },
+  {
+    "q": "cosa sono gli ioc e la threat intelligence",
+    "expect": "threat-intelligence"
+  },
+  {
+    "q": "cosè una cve e come si legge il cvss",
+    "expect": "cve-cvss"
+  },
+  {
+    "q": "meglio un pentest o un vulnerability assessment",
+    "expect": "va-vs-pentest"
+  },
+  {
+    "q": "come funziona un bug bounty su hackerone",
+    "expect": "bug-bounty"
+  },
+  {
+    "q": "cosè l osint",
+    "expect": "osint"
+  },
+  {
+    "q": "differenza tra firewall e waf",
+    "expect": "firewall-vs-waf"
+  },
+  {
+    "q": "meglio vpn o proxy",
+    "expect": "vpn-vs-proxy"
+  },
+  {
+    "q": "cosè il minimo privilegio",
+    "expect": "minimo-privilegio"
+  },
+  {
+    "q": "differenza tra ids e ips",
+    "expect": "ids-ips"
+  },
+  {
+    "q": "cosè la difesa in profondità",
+    "expect": "defense-in-depth"
+  },
+  {
+    "q": "attacco man in the middle sul wifi pubblico",
+    "expect": "mitm"
+  },
+  {
+    "q": "cosè il dns cache poisoning",
+    "expect": "dns-spoofing"
+  },
+  {
+    "q": "cosè il credential stuffing",
+    "expect": "brute-force"
+  },
+  {
+    "q": "cosè una botnet",
+    "expect": "botnet"
+  },
+  {
+    "q": "hanno registrato un dominio simile al mio",
+    "expect": "typosquatting"
+  },
+  {
+    "q": "conviene usare un password manager",
+    "expect": "password-manager"
+  },
+  {
+    "q": "cosa sono le passkey",
+    "expect": "passkey"
+  },
+  {
+    "q": "cosè la crittografia end to end",
+    "expect": "crittografia-e2e"
+  },
+  {
+    "q": "differenza tra crittografia simmetrica e asimmetrica",
+    "expect": "crittografia-sym-asym"
+  },
+  {
+    "q": "perche usare bcrypt per le password",
+    "expect": "hashing"
+  },
+  {
+    "q": "cosè un certificato wildcard",
+    "expect": "wildcard-san"
+  },
+  {
+    "q": "cosè il mutual tls",
+    "expect": "mtls"
+  },
+  {
+    "q": "come funziona hsts e il preload",
+    "expect": "hsts-preload"
+  },
+  {
+    "q": "a cosa serve dnssec",
+    "expect": "dnssec"
+  },
+  {
+    "q": "cosè il dns over https",
+    "expect": "doh-dot"
+  },
+  {
+    "q": "cosè un sistema air gapped",
+    "expect": "air-gap"
+  },
+  {
+    "q": "nascondere dati dentro un immagine",
+    "expect": "steganografia"
+  },
+  {
+    "q": "checklist per mettere in sicurezza un server nuovo",
+    "expect": "hardening-linux"
+  },
+  {
+    "q": "configurare https su nginx con certbot",
+    "expect": "https-nginx"
+  },
+  {
+    "q": "https automatico con caddy",
+    "expect": "https-caddy"
+  },
+  {
+    "q": "mi copiano i contenuti del sito con gli scraper",
+    "expect": "anti-scraping"
+  },
+  {
+    "q": "ho committato una api key su github",
+    "expect": "gestione-secrets"
+  },
+  {
+    "q": "come funziona la regola 3-2-1 dei backup",
+    "expect": "backup-321"
+  },
+  {
+    "q": "come controllo se la mia password è stata rubata",
+    "expect": "password-compromessa"
+  },
+  {
+    "q": "separare la rete iot con le vlan",
+    "expect": "vlan-segmentazione"
+  },
+  {
+    "q": "esporre un servizio senza aprire porte sul router",
+    "expect": "tunnel-senza-porte"
+  },
+  {
+    "q": "a cosa serve firmare il codice con sigstore",
+    "expect": "code-signing"
+  },
+  {
+    "q": "come centralizzare i log di sicurezza",
+    "expect": "security-logging"
+  },
+  {
+    "q": "siamo stati hackerati cosa facciamo subito",
+    "expect": "incident-response"
+  },
+  {
+    "q": "cosa sono rto e rpo",
+    "expect": "disaster-recovery"
+  },
+  {
+    "q": "il sito mi da errore 403 forbidden",
+    "expect": "errore-403"
+  },
+  {
+    "q": "errore ssl handshake failure",
+    "expect": "errore-handshake"
+  },
+  {
+    "q": "err_too_many_redirects con cloudflare",
+    "expect": "errore-redirect-loop"
+  },
+  {
+    "q": "il mio sito è lento come capisco perche",
+    "expect": "sito-lento"
+  },
+  {
+    "q": "chrome dice sito ingannevole in vista",
+    "expect": "safe-browsing"
+  },
+  {
+    "q": "cosa prevede dora per le banche",
+    "expect": "dora"
+  },
+  {
+    "q": "serve il banner dei cookie sul mio sito?",
+    "expect": "gdpr-sito-web"
+  },
+  {
+    "q": "quando è obbligatorio il dpo",
+    "expect": "dpo"
+  },
+  {
+    "q": "chi deve tenere il registro dei trattamenti",
+    "expect": "registro-trattamenti"
+  },
+  {
+    "q": "entro quanto notificare un data breach al garante",
+    "expect": "notifica-garante"
+  },
+  {
+    "q": "a cosa serve la iso 27001",
+    "expect": "iso-27001"
+  },
+  {
+    "q": "cosè il soc 2 type ii",
+    "expect": "soc2"
+  },
+  {
+    "q": "posso mandare dati personali negli usa?",
+    "expect": "schrems"
+  },
+  {
+    "q": "modsecurity è ancora supportato?",
+    "expect": "modsecurity-alternative"
+  },
+  {
+    "q": "meglio pi-hole o adguard home",
+    "expect": "pihole-vs-adguard"
+  },
+  {
+    "q": "conviene mettere il sito dietro cloudflare?",
+    "expect": "cloudflare-vs-selfhosted"
+  },
+  {
+    "q": "meglio nginx caddy o traefik",
+    "expect": "nginx-caddy-traefik"
+  },
+  {
+    "q": "quale siem open source scegliere",
+    "expect": "wazuh-wildbox-elk"
+  },
+  {
+    "q": "meglio pi-hole o adguard?",
+    "expect": "pihole-vs-adguard"
+  },
+  {
+    "q": "ho committato un token su github",
+    "expect": "gestione-secrets"
   }
 ]

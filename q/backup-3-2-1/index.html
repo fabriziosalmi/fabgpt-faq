@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Come si fa un backup con la regola 3-2-1? – FabGPT-FAQ</title>
+<meta name="description" content="La regola 3-2-1: tre copie dei dati (l&#x27;originale più due), su due supporti diversi, di cui una fuori sede. Copre i tre disastri tipici – guasto, errore…">
+<link rel="canonical" href="https://fabriziosalmi.github.io/fabgpt-faq/q/backup-3-2-1/">
+<link rel="stylesheet" href="../../style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Come si fa un backup con la regola 3-2-1?", "acceptedAnswer": {"@type": "Answer", "text": "La regola 3-2-1: tre copie dei dati (l'originale più due), su due supporti diversi, di cui una fuori sede. Copre i tre disastri tipici – guasto, errore umano/ransomware, evento fisico (furto, incendio). Le estensioni moderne che contano: una copia offline o immutabile (il [ransomware](q/cos-e-un-ransomware/) cerca e cifra anche i backup raggiungibili: WORM, snapshot bloccati o il disco staccato sono l'assicurazione) e soprattutto il restore provato – un backup mai ripristinato è una speranza, non un backup. Metti in agenda il test, non solo il job. Attrezzi: su Proxmox [PBS](q/cos-e-proxmox-backup-server/) fa incrementali deduplicati con verify programmati e sync remota (la copia fuori sede); per file e database restic/borg verso storage S3 europeo; e ricordati la [differenza tra snapshot e backup](q/differenza-snapshot-e-backup/) – confonderli si paga una volta sola."}}]}</script>
+<style>
+  .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
+  .page h1 { font-size: 26px; line-height: 1.3; margin: 8px 0 20px; }
+  .page .answer a { color: var(--link); }
+  .page .vertical { font-size: 13px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }
+  .page .answer ul { padding-left: 22px; }
+  .page .answer code { background: var(--code-bg); border-radius: 5px; padding: 1px 5px; font-size: 0.9em; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+  .page .ask { display: inline-block; margin-top: 24px; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 9px 18px; text-decoration: none; font-weight: 600; }
+  .page .related { margin-top: 36px; border-top: 1px solid var(--border); padding-top: 18px; }
+  .page .related h2 { font-size: 16px; }
+  .page .related a { color: var(--link); text-decoration: none; }
+  .page .related a:hover { text-decoration: underline; }
+  .page .related li { margin: 6px 0; }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="../../" style="text-decoration:none;color:inherit">
+    <span class="brand-dot">F</span>
+    <span class="brand-name">FabGPT-FAQ</span>
+  </a>
+</header>
+<main class="page">
+  <div class="vertical">Cybersecurity</div>
+  <h1>Come si fa un backup con la regola 3-2-1?</h1>
+  <div class="answer"><p>La regola <strong>3-2-1</strong>: <strong>tre</strong> copie dei dati (l&#x27;originale più due), su <strong>due</strong> supporti diversi, di cui <strong>una fuori sede</strong>. Copre i tre disastri tipici – guasto, errore umano/ransomware, evento fisico (furto, incendio).</p><p>Le estensioni moderne che contano: una copia <strong>offline o immutabile</strong> (il <a href="../cos-e-un-ransomware/">ransomware</a> cerca e cifra anche i backup raggiungibili: WORM, snapshot bloccati o il disco staccato sono l&#x27;assicurazione) e soprattutto il <strong>restore provato</strong> – un backup mai ripristinato è una speranza, non un backup. Metti in agenda il test, non solo il job.</p><p>Attrezzi: su Proxmox <a href="../cos-e-proxmox-backup-server/">PBS</a> fa incrementali deduplicati con verify programmati e sync remota (la copia fuori sede); per file e database restic/borg verso storage S3 europeo; e ricordati la <a href="../differenza-snapshot-e-backup/">differenza tra snapshot e backup</a> – confonderli si paga una volta sola.</p></div>
+  <a class="ask" href="../../?q=backup-321">Chiedilo a FabGPT-FAQ →</a>
+  <div class="related">
+    <h2>Altre domande</h2>
+    <ul><li><a href="../cos-e-un-waf-web-application-firewall/">Cos&#x27;è un WAF (Web Application Firewall) e a cosa serve?</a></li><li><a href="../cos-e-un-reverse-proxy/">Cos&#x27;è un reverse proxy e a cosa serve?</a></li><li><a href="../come-funziona-lets-encrypt-acme/">Come funziona Let&#x27;s Encrypt e il protocollo ACME?</a></li><li><a href="../certificato-tls-scaduto-cosa-fare/">Certificato TLS scaduto: perché succede e come evitarlo?</a></li><li><a href="../cos-e-un-siem-e-un-soar/">Cos&#x27;è un SIEM e cos&#x27;è un SOAR?</a></li><li><a href="../nis2-chi-deve-adeguarsi-italia/">Chi deve adeguarsi alla NIS2 in Italia e cosa rischia?</a></li></ul>
+  </div>
+</main>
+</body>
+</html>

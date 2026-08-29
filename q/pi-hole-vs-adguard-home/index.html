@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pi-hole o AdGuard Home: quale scegliere? – FabGPT-FAQ</title>
+<meta name="description" content="Fanno lo stesso mestiere – DNS filtrante per tutta la rete: pubblicità, tracker e [domini malevoli](q/come-bloccare-domini-malevoli/) spariscono a livello…">
+<link rel="canonical" href="https://fabriziosalmi.github.io/fabgpt-faq/q/pi-hole-vs-adguard-home/">
+<link rel="stylesheet" href="../../style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Pi-hole o AdGuard Home: quale scegliere?", "acceptedAnswer": {"@type": "Answer", "text": "Fanno lo stesso mestiere – DNS filtrante per tutta la rete: pubblicità, tracker e [domini malevoli](q/come-bloccare-domini-malevoli/) spariscono a livello di risoluzione, per ogni dispositivo senza configurare nulla. Le differenze oneste: Pi-hole: il veterano, comunità enorme, ecosistema di script e integrazioni; DHCP incluso; il [DNS cifrato in uscita](q/cos-e-doh-dns-over-https/) richiede un componente in più (unbound/cloudflared) AdGuard Home: più moderno out-of-the-box – DoH/DoT nativi sia in ingresso che in uscita, filtri per-client più comodi, un solo binario Go Verdetto pragmatico: per un nuovo setup AdGuard Home fa meno attrito; chi ha già un Pi-hole rodato non ha motivi di migrare. Entrambi valgono quanto le liste che li alimentano: blacklists (5M+ domini, aggiornata ogni giorno, con whitelist curata) si carica identica su tutti e due. E su [Proxmox](q/cos-e-proxmox-ve/), un LXC da mezza CPU li ospita alla grande."}}]}</script>
+<style>
+  .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
+  .page h1 { font-size: 26px; line-height: 1.3; margin: 8px 0 20px; }
+  .page .answer a { color: var(--link); }
+  .page .vertical { font-size: 13px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }
+  .page .answer ul { padding-left: 22px; }
+  .page .answer code { background: var(--code-bg); border-radius: 5px; padding: 1px 5px; font-size: 0.9em; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+  .page .ask { display: inline-block; margin-top: 24px; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 9px 18px; text-decoration: none; font-weight: 600; }
+  .page .related { margin-top: 36px; border-top: 1px solid var(--border); padding-top: 18px; }
+  .page .related h2 { font-size: 16px; }
+  .page .related a { color: var(--link); text-decoration: none; }
+  .page .related a:hover { text-decoration: underline; }
+  .page .related li { margin: 6px 0; }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="../../" style="text-decoration:none;color:inherit">
+    <span class="brand-dot">F</span>
+    <span class="brand-name">FabGPT-FAQ</span>
+  </a>
+</header>
+<main class="page">
+  <div class="vertical">Cybersecurity</div>
+  <h1>Pi-hole o AdGuard Home: quale scegliere?</h1>
+  <div class="answer"><p>Fanno lo stesso mestiere – DNS filtrante per tutta la rete: pubblicità, tracker e <a href="../come-bloccare-domini-malevoli/">domini malevoli</a> spariscono a livello di risoluzione, per ogni dispositivo senza configurare nulla. Le differenze oneste:</p><ul><li><strong>Pi-hole</strong>: il veterano, comunità enorme, ecosistema di script e integrazioni; DHCP incluso; il <a href="../cos-e-doh-dns-over-https/">DNS cifrato in uscita</a> richiede un componente in più (unbound/cloudflared)</li><li><strong>AdGuard Home</strong>: più moderno out-of-the-box – DoH/DoT nativi sia in ingresso che in uscita, filtri per-client più comodi, un solo binario Go</li></ul><p>Verdetto pragmatico: per un nuovo setup AdGuard Home fa meno attrito; chi ha già un Pi-hole rodato non ha motivi di migrare. Entrambi valgono quanto le <strong>liste</strong> che li alimentano: <a href="https://github.com/fabriziosalmi/blacklists" target="_blank" rel="noopener">blacklists</a> (5M+ domini, aggiornata ogni giorno, con whitelist curata) si carica identica su tutti e due. E su <a href="../cos-e-proxmox-ve/">Proxmox</a>, un LXC da mezza CPU li ospita alla grande.</p></div>
+  <a class="ask" href="../../?q=pihole-vs-adguard">Chiedilo a FabGPT-FAQ →</a>
+  <div class="related">
+    <h2>Altre domande</h2>
+    <ul><li><a href="../cos-e-un-waf-web-application-firewall/">Cos&#x27;è un WAF (Web Application Firewall) e a cosa serve?</a></li><li><a href="../cos-e-un-reverse-proxy/">Cos&#x27;è un reverse proxy e a cosa serve?</a></li><li><a href="../come-funziona-lets-encrypt-acme/">Come funziona Let&#x27;s Encrypt e il protocollo ACME?</a></li><li><a href="../certificato-tls-scaduto-cosa-fare/">Certificato TLS scaduto: perché succede e come evitarlo?</a></li><li><a href="../cos-e-un-siem-e-un-soar/">Cos&#x27;è un SIEM e cos&#x27;è un SOAR?</a></li><li><a href="../nis2-chi-deve-adeguarsi-italia/">Chi deve adeguarsi alla NIS2 in Italia e cosa rischia?</a></li></ul>
+  </div>
+</main>
+</body>
+</html>

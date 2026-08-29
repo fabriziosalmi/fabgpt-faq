@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cos&#x27;è DNSSEC? – FabGPT-FAQ</title>
+<meta name="description" content="DNSSEC aggiunge firme crittografiche al DNS: le risposte della tua zona arrivano firmate (record RRSIG), i resolver le verificano risalendo una catena di…">
+<link rel="canonical" href="https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-dnssec/">
+<link rel="stylesheet" href="../../style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Cos'è DNSSEC?", "acceptedAnswer": {"@type": "Answer", "text": "DNSSEC aggiunge firme crittografiche al DNS: le risposte della tua zona arrivano firmate (record RRSIG), i resolver le verificano risalendo una catena di fiducia che passa dal record DS presso il registrar e arriva alla root. Risultato: una risposta falsificata – il [cache poisoning](q/cos-e-il-dns-spoofing/) – viene scartata invece che creduta. Cosa DNSSEC non fa, per sgombrare equivoci: non cifra nulla (le query restano leggibili – per quello c'è [DoH/DoT](q/cos-e-doh-dns-over-https/)) e non certifica che il sito sia \"buono\": garantisce solo che la risposta DNS sia quella autentica. Operativamente: si abilita dal pannello del provider DNS (due click sui gestori moderni) più il DS al registrar. L'errore tipico è migrare provider dimenticando il DS vecchio: la zona diventa irraggiungibile per i resolver validanti. Motivo in più per tenere i DNS [versionati e sotto controllo](q/cos-e-gitops/)."}}]}</script>
+<style>
+  .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
+  .page h1 { font-size: 26px; line-height: 1.3; margin: 8px 0 20px; }
+  .page .answer a { color: var(--link); }
+  .page .vertical { font-size: 13px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }
+  .page .answer ul { padding-left: 22px; }
+  .page .answer code { background: var(--code-bg); border-radius: 5px; padding: 1px 5px; font-size: 0.9em; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+  .page .ask { display: inline-block; margin-top: 24px; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 9px 18px; text-decoration: none; font-weight: 600; }
+  .page .related { margin-top: 36px; border-top: 1px solid var(--border); padding-top: 18px; }
+  .page .related h2 { font-size: 16px; }
+  .page .related a { color: var(--link); text-decoration: none; }
+  .page .related a:hover { text-decoration: underline; }
+  .page .related li { margin: 6px 0; }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="../../" style="text-decoration:none;color:inherit">
+    <span class="brand-dot">F</span>
+    <span class="brand-name">FabGPT-FAQ</span>
+  </a>
+</header>
+<main class="page">
+  <div class="vertical">Cybersecurity</div>
+  <h1>Cos&#x27;è DNSSEC?</h1>
+  <div class="answer"><p><strong>DNSSEC</strong> aggiunge firme crittografiche al DNS: le risposte della tua zona arrivano firmate (record RRSIG), i resolver le verificano risalendo una catena di fiducia che passa dal <strong>record DS</strong> presso il registrar e arriva alla root. Risultato: una risposta falsificata – il <a href="../cos-e-il-dns-spoofing/">cache poisoning</a> – viene scartata invece che creduta.</p><p>Cosa DNSSEC <strong>non</strong> fa, per sgombrare equivoci: non cifra nulla (le query restano leggibili – per quello c&#x27;è <a href="../cos-e-doh-dns-over-https/">DoH/DoT</a>) e non certifica che il sito sia &quot;buono&quot;: garantisce solo che la risposta DNS sia quella autentica.</p><p>Operativamente: si abilita dal pannello del provider DNS (due click sui gestori moderni) più il DS al registrar. L&#x27;errore tipico è <strong>migrare provider dimenticando il DS vecchio</strong>: la zona diventa irraggiungibile per i resolver validanti. Motivo in più per tenere i DNS <a href="../cos-e-gitops/">versionati e sotto controllo</a>.</p></div>
+  <a class="ask" href="../../?q=dnssec">Chiedilo a FabGPT-FAQ →</a>
+  <div class="related">
+    <h2>Altre domande</h2>
+    <ul><li><a href="../cos-e-un-waf-web-application-firewall/">Cos&#x27;è un WAF (Web Application Firewall) e a cosa serve?</a></li><li><a href="../cos-e-un-reverse-proxy/">Cos&#x27;è un reverse proxy e a cosa serve?</a></li><li><a href="../come-funziona-lets-encrypt-acme/">Come funziona Let&#x27;s Encrypt e il protocollo ACME?</a></li><li><a href="../certificato-tls-scaduto-cosa-fare/">Certificato TLS scaduto: perché succede e come evitarlo?</a></li><li><a href="../cos-e-un-siem-e-un-soar/">Cos&#x27;è un SIEM e cos&#x27;è un SOAR?</a></li><li><a href="../nis2-chi-deve-adeguarsi-italia/">Chi deve adeguarsi alla NIS2 in Italia e cosa rischia?</a></li></ul>
+  </div>
+</main>
+</body>
+</html>

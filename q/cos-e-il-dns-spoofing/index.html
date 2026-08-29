@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cos&#x27;è il DNS spoofing (cache poisoning)? – FabGPT-FAQ</title>
+<meta name="description" content="Il DNS spoofing (o cache poisoning) consiste nel far accettare a un resolver una risposta DNS falsa: da quel momento chi chiede banca.it riceve l&#x27;IP…">
+<link rel="canonical" href="https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-il-dns-spoofing/">
+<link rel="stylesheet" href="../../style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Cos'è il DNS spoofing (cache poisoning)?", "acceptedAnswer": {"@type": "Answer", "text": "Il DNS spoofing (o cache poisoning) consiste nel far accettare a un resolver una risposta DNS falsa: da quel momento chi chiede banca.it riceve l'IP dell'attaccante, e la cache avvelenata distribuisce l'inganno a tutti gli utenti di quel resolver. Varianti locali: router compromessi che cambiano i DNS, file hosts modificati dal malware. Le difese, per strato: [DNSSEC](q/cos-e-dnssec/) firma le risposte per le zone che lo adottano (l'autenticità diventa verificabile), [DoH/DoT](q/cos-e-doh-dns-over-https/) cifra il tragitto verso il resolver (niente manomissioni in transito), e il [TLS](q/differenza-http-https-tls/) fa da ultima rete: anche arrivando al server sbagliato, il certificato di banca.it l'attaccante non ce l'ha – salvo utenti che cliccano \"procedi comunque\". Per chi gestisce domini: DNSSEC si abilita dal provider, e [la configurazione versionata](q/cos-e-gitops/) evita i pasticci."}}]}</script>
+<style>
+  .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
+  .page h1 { font-size: 26px; line-height: 1.3; margin: 8px 0 20px; }
+  .page .answer a { color: var(--link); }
+  .page .vertical { font-size: 13px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }
+  .page .answer ul { padding-left: 22px; }
+  .page .answer code { background: var(--code-bg); border-radius: 5px; padding: 1px 5px; font-size: 0.9em; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+  .page .ask { display: inline-block; margin-top: 24px; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 9px 18px; text-decoration: none; font-weight: 600; }
+  .page .related { margin-top: 36px; border-top: 1px solid var(--border); padding-top: 18px; }
+  .page .related h2 { font-size: 16px; }
+  .page .related a { color: var(--link); text-decoration: none; }
+  .page .related a:hover { text-decoration: underline; }
+  .page .related li { margin: 6px 0; }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="../../" style="text-decoration:none;color:inherit">
+    <span class="brand-dot">F</span>
+    <span class="brand-name">FabGPT-FAQ</span>
+  </a>
+</header>
+<main class="page">
+  <div class="vertical">Cybersecurity</div>
+  <h1>Cos&#x27;è il DNS spoofing (cache poisoning)?</h1>
+  <div class="answer"><p>Il <strong>DNS spoofing</strong> (o cache poisoning) consiste nel far accettare a un resolver una risposta DNS falsa: da quel momento chi chiede <code>banca.it</code> riceve l&#x27;IP dell&#x27;attaccante, e la cache avvelenata distribuisce l&#x27;inganno a tutti gli utenti di quel resolver. Varianti locali: router compromessi che cambiano i DNS, file hosts modificati dal malware.</p><p>Le difese, per strato: <strong><a href="../cos-e-dnssec/">DNSSEC</a></strong> firma le risposte per le zone che lo adottano (l&#x27;autenticità diventa verificabile), <strong><a href="../cos-e-doh-dns-over-https/">DoH/DoT</a></strong> cifra il tragitto verso il resolver (niente manomissioni in transito), e il <a href="../differenza-http-https-tls/">TLS</a> fa da ultima rete: anche arrivando al server sbagliato, il certificato di <code>banca.it</code> l&#x27;attaccante non ce l&#x27;ha – salvo utenti che cliccano &quot;procedi comunque&quot;. Per chi gestisce domini: DNSSEC si abilita dal provider, e <a href="../cos-e-gitops/">la configurazione versionata</a> evita i pasticci.</p></div>
+  <a class="ask" href="../../?q=dns-spoofing">Chiedilo a FabGPT-FAQ →</a>
+  <div class="related">
+    <h2>Altre domande</h2>
+    <ul><li><a href="../cos-e-un-waf-web-application-firewall/">Cos&#x27;è un WAF (Web Application Firewall) e a cosa serve?</a></li><li><a href="../cos-e-un-reverse-proxy/">Cos&#x27;è un reverse proxy e a cosa serve?</a></li><li><a href="../come-funziona-lets-encrypt-acme/">Come funziona Let&#x27;s Encrypt e il protocollo ACME?</a></li><li><a href="../certificato-tls-scaduto-cosa-fare/">Certificato TLS scaduto: perché succede e come evitarlo?</a></li><li><a href="../cos-e-un-siem-e-un-soar/">Cos&#x27;è un SIEM e cos&#x27;è un SOAR?</a></li><li><a href="../nis2-chi-deve-adeguarsi-italia/">Chi deve adeguarsi alla NIS2 in Italia e cosa rischia?</a></li></ul>
+  </div>
+</main>
+</body>
+</html>
