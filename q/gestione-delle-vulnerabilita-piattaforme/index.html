@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Come si gestiscono le vulnerabilità su scala (DefectDojo, Dependency-Track)? – FabGPT-FAQ</title>
+<meta name="description" content="Trovare vulnerabilità è facile (ogni scanner ne sputa a migliaia); gestirle è il problema vero: deduplicare i risultati di dieci scanner diversi, dare…">
+<link rel="canonical" href="https://fabriziosalmi.github.io/fabgpt-faq/q/gestione-delle-vulnerabilita-piattaforme/">
+<link rel="stylesheet" href="../../style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Come si gestiscono le vulnerabilità su scala (DefectDojo, Dependency-Track)?", "acceptedAnswer": {"@type": "Answer", "text": "Trovare vulnerabilità è facile (ogni scanner ne sputa a migliaia); gestirle è il problema vero: deduplicare i risultati di dieci scanner diversi, dare priorità sensate, assegnare, tracciare fino alla chiusura, e dimostrare all'auditor che il processo esiste. È il ruolo delle piattaforme di vulnerability management: DefectDojo – orchestratore open source: ingerisce l'output di decine di scanner ([SAST/DAST/SCA](q/sicurezza-nella-pipeline-cicd/), immagini), deduplica, gestisce il ciclo di vita del finding (triage → assegnazione → verifica → chiusura), e produce metriche e report per la compliance Dependency-Track – specializzato sulla supply chain: consuma gli [SBOM](q/cos-e-la-supply-chain-security/) dei tuoi progetti e ti avvisa quando una CVE nuova colpisce una dipendenza che già usi – il monitoraggio continuo che il singolo scan al momento del build non dà Il principio che le rende utili: la priorità non è il [CVSS nudo](q/cos-e-una-cve-e-il-cvss/) ma il rischio nel tuo contesto – exploitability (EPSS/KEV), esposizione, criticità dell'asset (che esce dalla [BIA](q/business-impact-analysis-bia/)). E il VEX (Vulnerability Exploitability eXchange) permette di dichiarare formalmente \"questa CVE non ci tocca, perché...\", tagliando il rumore. Per una PMI, DefectDojo su [un LXC](q/differenza-container-lxc-e-vm/) trasforma il caos degli scanner in un processo tracciabile – che è metà di ciò che [NIS2 e ISO](q/cos-e-iso-27001/) chiedono di dimostrare."}}]}</script>
+<style>
+  .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
+  .page h1 { font-size: 26px; line-height: 1.3; margin: 8px 0 20px; }
+  .page .answer a { color: var(--link); }
+  .page .vertical { font-size: 13px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }
+  .page .answer ul { padding-left: 22px; }
+  .page .answer code { background: var(--code-bg); border-radius: 5px; padding: 1px 5px; font-size: 0.9em; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+  .page .ask { display: inline-block; margin-top: 24px; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 9px 18px; text-decoration: none; font-weight: 600; }
+  .page .related { margin-top: 36px; border-top: 1px solid var(--border); padding-top: 18px; }
+  .page .related h2 { font-size: 16px; }
+  .page .related a { color: var(--link); text-decoration: none; }
+  .page .related a:hover { text-decoration: underline; }
+  .page .related li { margin: 6px 0; }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="../../" style="text-decoration:none;color:inherit">
+    <span class="brand-dot">F</span>
+    <span class="brand-name">FabGPT-FAQ</span>
+  </a>
+</header>
+<main class="page">
+  <div class="vertical">Cybersecurity</div>
+  <h1>Come si gestiscono le vulnerabilità su scala (DefectDojo, Dependency-Track)?</h1>
+  <div class="answer"><p>Trovare vulnerabilità è facile (ogni scanner ne sputa a migliaia); <strong>gestirle</strong> è il problema vero: deduplicare i risultati di dieci scanner diversi, dare priorità sensate, assegnare, tracciare fino alla chiusura, e dimostrare all&#x27;auditor che il processo esiste. È il ruolo delle piattaforme di <strong>vulnerability management</strong>:</p><ul><li><strong>DefectDojo</strong> – orchestratore open source: ingerisce l&#x27;output di decine di scanner (<a href="../sicurezza-nella-pipeline-cicd/">SAST/DAST/SCA</a>, immagini), <strong>deduplica</strong>, gestisce il ciclo di vita del finding (triage → assegnazione → verifica → chiusura), e produce metriche e report per la compliance</li><li><strong>Dependency-Track</strong> – specializzato sulla <strong>supply chain</strong>: consuma gli <a href="../cos-e-la-supply-chain-security/">SBOM</a> dei tuoi progetti e ti avvisa quando una CVE <em>nuova</em> colpisce una dipendenza che <em>già usi</em> – il monitoraggio continuo che il singolo scan al momento del build non dà</li></ul><p>Il principio che le rende utili: la priorità non è il <a href="../cos-e-una-cve-e-il-cvss/">CVSS nudo</a> ma il <strong>rischio nel tuo contesto</strong> – exploitability (EPSS/KEV), esposizione, criticità dell&#x27;asset (che esce dalla <a href="../business-impact-analysis-bia/">BIA</a>). E il <strong>VEX</strong> (Vulnerability Exploitability eXchange) permette di dichiarare formalmente &quot;questa CVE non ci tocca, perché...&quot;, tagliando il rumore. Per una PMI, DefectDojo su <a href="../differenza-container-lxc-e-vm/">un LXC</a> trasforma il caos degli scanner in un processo tracciabile – che è metà di ciò che <a href="../cos-e-iso-27001/">NIS2 e ISO</a> chiedono di dimostrare.</p></div>
+  <a class="ask" href="../../?q=vuln-management">Chiedilo a FabGPT-FAQ →</a>
+  <div class="related">
+    <h2>Altre domande</h2>
+    <ul><li><a href="../cos-e-un-waf-web-application-firewall/">Cos&#x27;è un WAF (Web Application Firewall) e a cosa serve?</a></li><li><a href="../cos-e-un-reverse-proxy/">Cos&#x27;è un reverse proxy e a cosa serve?</a></li><li><a href="../come-funziona-lets-encrypt-acme/">Come funziona Let&#x27;s Encrypt e il protocollo ACME?</a></li><li><a href="../certificato-tls-scaduto-cosa-fare/">Certificato TLS scaduto: perché succede e come evitarlo?</a></li><li><a href="../cos-e-un-siem-e-un-soar/">Cos&#x27;è un SIEM e cos&#x27;è un SOAR?</a></li><li><a href="../nis2-chi-deve-adeguarsi-italia/">Chi deve adeguarsi alla NIS2 in Italia e cosa rischia?</a></li></ul>
+  </div>
+</main>
+</body>
+</html>

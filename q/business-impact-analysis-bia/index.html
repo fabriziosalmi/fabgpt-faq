@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cos&#x27;è la Business Impact Analysis (BIA)? – FabGPT-FAQ</title>
+<meta name="description" content="La Business Impact Analysis è il passo che rende sensato tutto il resto della [continuità operativa](q/piano-di-disaster-recovery-minimo/): prima di…">
+<link rel="canonical" href="https://fabriziosalmi.github.io/fabgpt-faq/q/business-impact-analysis-bia/">
+<link rel="stylesheet" href="../../style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Cos'è la Business Impact Analysis (BIA)?", "acceptedAnswer": {"@type": "Answer", "text": "La Business Impact Analysis è il passo che rende sensato tutto il resto della [continuità operativa](q/piano-di-disaster-recovery-minimo/): prima di decidere come proteggere, si stabilisce cosa conta e quanto. Si mappano i processi aziendali, si stima il danno del loro fermo nel tempo (economico, reputazionale, legale) e da lì si ricavano, processo per processo, i due numeri che guidano ogni investimento: RTO (quanto a lungo posso stare fermo) e RPO (quanti dati posso perdere). Perché è la BIA a venire prima: senza, si finisce per proteggere tutto uguale – spendendo troppo sul marginale e troppo poco sul vitale. La BIA dice che il gestionale che fattura ha RTO di ore e il blog aziendale di giorni, e i [backup, la ridondanza, i piani](q/backup-3-2-1/) si dimensionano di conseguenza. Rivela anche le dipendenze nascoste: il processo critico che dipende da un fornitore [terzo](q/cos-e-dora-regolamento/), da un'unica persona, da un sistema che nessuno sa più configurare. È un requisito esplicito di [ISO 27001](q/cos-e-iso-27001/), NIS2 e [DORA](q/cos-e-dora-regolamento/), ma il valore è prima di tutto pratico: è l'analisi che trasforma \"dobbiamo essere resilienti\" (slogan) in \"questi cinque processi, con questi numeri, con questi soldi\" (piano). Si fa parlando con chi i processi li vive, non a tavolino."}}]}</script>
+<style>
+  .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
+  .page h1 { font-size: 26px; line-height: 1.3; margin: 8px 0 20px; }
+  .page .answer a { color: var(--link); }
+  .page .vertical { font-size: 13px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }
+  .page .answer ul { padding-left: 22px; }
+  .page .answer code { background: var(--code-bg); border-radius: 5px; padding: 1px 5px; font-size: 0.9em; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+  .page .ask { display: inline-block; margin-top: 24px; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 9px 18px; text-decoration: none; font-weight: 600; }
+  .page .related { margin-top: 36px; border-top: 1px solid var(--border); padding-top: 18px; }
+  .page .related h2 { font-size: 16px; }
+  .page .related a { color: var(--link); text-decoration: none; }
+  .page .related a:hover { text-decoration: underline; }
+  .page .related li { margin: 6px 0; }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="../../" style="text-decoration:none;color:inherit">
+    <span class="brand-dot">F</span>
+    <span class="brand-name">FabGPT-FAQ</span>
+  </a>
+</header>
+<main class="page">
+  <div class="vertical">Cybersecurity</div>
+  <h1>Cos&#x27;è la Business Impact Analysis (BIA)?</h1>
+  <div class="answer"><p>La <strong>Business Impact Analysis</strong> è il passo che rende sensato tutto il resto della <a href="../piano-di-disaster-recovery-minimo/">continuità operativa</a>: prima di decidere <em>come</em> proteggere, si stabilisce <em>cosa</em> conta e <em>quanto</em>. Si mappano i processi aziendali, si stima il <strong>danno del loro fermo nel tempo</strong> (economico, reputazionale, legale) e da lì si ricavano, processo per processo, i due numeri che guidano ogni investimento: <strong>RTO</strong> (quanto a lungo posso stare fermo) e <strong>RPO</strong> (quanti dati posso perdere).</p><p>Perché è la BIA a venire prima: senza, si finisce per proteggere tutto uguale – spendendo troppo sul marginale e troppo poco sul vitale. La BIA dice che il gestionale che fattura ha RTO di ore e il blog aziendale di giorni, e i <a href="../backup-3-2-1/">backup, la ridondanza, i piani</a> si dimensionano di conseguenza. Rivela anche le <strong>dipendenze nascoste</strong>: il processo critico che dipende da un fornitore <a href="../cos-e-dora-regolamento/">terzo</a>, da un&#x27;unica persona, da un sistema che nessuno sa più configurare.</p><p>È un requisito esplicito di <a href="../cos-e-iso-27001/">ISO 27001</a>, NIS2 e <a href="../cos-e-dora-regolamento/">DORA</a>, ma il valore è prima di tutto pratico: è l&#x27;analisi che trasforma &quot;dobbiamo essere resilienti&quot; (slogan) in &quot;questi cinque processi, con questi numeri, con questi soldi&quot; (piano). Si fa parlando con chi i processi li vive, non a tavolino.</p></div>
+  <a class="ask" href="../../?q=bia">Chiedilo a FabGPT-FAQ →</a>
+  <div class="related">
+    <h2>Altre domande</h2>
+    <ul><li><a href="../cos-e-un-waf-web-application-firewall/">Cos&#x27;è un WAF (Web Application Firewall) e a cosa serve?</a></li><li><a href="../cos-e-un-reverse-proxy/">Cos&#x27;è un reverse proxy e a cosa serve?</a></li><li><a href="../come-funziona-lets-encrypt-acme/">Come funziona Let&#x27;s Encrypt e il protocollo ACME?</a></li><li><a href="../certificato-tls-scaduto-cosa-fare/">Certificato TLS scaduto: perché succede e come evitarlo?</a></li><li><a href="../cos-e-un-siem-e-un-soar/">Cos&#x27;è un SIEM e cos&#x27;è un SOAR?</a></li><li><a href="../nis2-chi-deve-adeguarsi-italia/">Chi deve adeguarsi alla NIS2 in Italia e cosa rischia?</a></li></ul>
+  </div>
+</main>
+</body>
+</html>

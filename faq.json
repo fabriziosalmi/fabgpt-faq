@@ -4643,6 +4643,749 @@
       ]
     },
     {
+      "id": "tcp-handshake",
+      "slug": "handshake-tcp-e-syn-flood",
+      "question": "Come funziona l'handshake TCP a tre vie (e il SYN flood)?",
+      "vertical": "security",
+      "keywords": [
+        "handshake tcp",
+        "three way handshake",
+        "syn",
+        "syn-ack",
+        "ack",
+        "syn flood",
+        "three-way",
+        "connessione tcp",
+        "syn cookies"
+      ],
+      "answers": [
+        "Ogni connessione TCP nasce con un **tre vie**: il client manda **SYN** (\"voglio parlare\"), il server risponde **SYN-ACK** (\"ok, e anch'io\"), il client chiude con **ACK**. Solo allora i dati scorrono. Il server, tra SYN-ACK e ACK, tiene una **connessione mezza aperta** in memoria.\n\nIl **SYN flood** abusa proprio quell'attesa: l'attaccante manda migliaia di SYN con IP sorgente falsificato e non risponde mai all'ACK – la tabella delle connessioni mezze aperte si riempie, e il server smette di accettare connessioni legittime. È un [DDoS](q/cos-e-un-attacco-ddos/) di protocollo (L4), economico da lanciare.\n\nLe difese classiche: i **SYN cookies** (il server non alloca stato finché l'ACK non torna – codifica tutto in un numero di sequenza calcolato), rate limiting sui SYN, e a monte le reti [anycast](q/cos-e-l-anycast/) che spalmano il volume. È il tipo di attacco volumetrico per cui [un edge davanti](q/cloudflare-o-self-hosted/) conta più di ogni tuning del kernel."
+      ]
+    },
+    {
+      "id": "osi-tcpip",
+      "slug": "modello-osi-e-stack-tcp-ip",
+      "question": "Modello OSI e stack TCP/IP: che differenza c'è (per la sicurezza)?",
+      "vertical": "security",
+      "keywords": [
+        "osi",
+        "modello osi",
+        "tcp ip",
+        "sette livelli",
+        "layer 7",
+        "layer 3",
+        "stack di rete",
+        "livelli iso osi",
+        "pila protocolli"
+      ],
+      "answers": [
+        "L'**OSI** è il modello didattico a **sette livelli** (fisico, data link, rete, trasporto, sessione, presentazione, applicazione); lo stack **TCP/IP** è quello reale a quattro-cinque livelli su cui internet gira davvero. In pratica si usa il vocabolario OSI (\"un problema di livello 3\", \"un attacco L7\") sopra l'implementazione TCP/IP.\n\nPerché conta per la sicurezza: **ogni livello ha le sue minacce e le sue difese**, e confonderli è l'errore di base. L2 – [ARP poisoning, VLAN hopping](q/cos-e-un-attacco-man-in-the-middle/); L3 – IP spoofing, [BGP hijacking](q/bgp-hijacking-e-rpki/); L4 – [SYN flood](q/handshake-tcp-e-syn-flood/), scansioni di porte, dove ragiona il [firewall di rete](q/differenza-firewall-e-waf/); L7 – SQL injection, XSS, bot, dove ragiona il [WAF](q/cos-e-un-waf-web-application-firewall/). Un firewall L4 non vede un attacco L7 e viceversa: è il motivo per cui la [difesa in profondità](q/cos-e-la-defense-in-depth/) mette controlli a più livelli invece di sperare in un muro solo. Sapere \"a che livello succede\" è la prima domanda di ogni diagnosi."
+      ]
+    },
+    {
+      "id": "nat-pat",
+      "slug": "nat-statico-dinamico-e-pat",
+      "question": "NAT statico, dinamico e PAT: che differenze (e implicazioni di sicurezza)?",
+      "vertical": "security",
+      "keywords": [
+        "nat",
+        "pat",
+        "port address translation",
+        "nat statico",
+        "nat dinamico",
+        "masquerade",
+        "ip privati",
+        "cgnat nat",
+        "port forwarding nat"
+      ],
+      "answers": [
+        "Il **NAT** (Network Address Translation) traduce indirizzi tra reti – tipicamente la LAN privata e l'IP pubblico:\n\n- **statico** – uno-a-uno fisso: un IP pubblico mappato a un host interno (per esporre un server)\n- **dinamico** – uno-a-uno da un pool, assegnato al volo\n- **PAT** (o NAT overload/masquerade) – **molti-a-uno**: tutta la LAN esce con un solo IP pubblico distinguendo le connessioni per porta. È il NAT di ogni router di casa\n\nSul piano sicurezza: il PAT dà un **isolamento incidentale** – dall'esterno non si raggiunge un host interno senza [port forwarding](q/esporre-servizi-senza-aprire-porte/) esplicito, perché il router non sa a chi consegnare una connessione non richiesta. Ma è un effetto collaterale, **non una politica di sicurezza**: non ispeziona nulla, non sostituisce un [firewall](q/differenza-firewall-e-waf/). Due note attuali: il **CGNAT** dei provider (PAT su scala, che ti nega il port forwarding – da cui [i tunnel in uscita](q/esporre-servizi-senza-aprire-porte/)), e IPv6 che, avendo indirizzi per tutti, rende il NAT superfluo – e sposta l'isolamento dove deve stare, sul firewall."
+      ]
+    },
+    {
+      "id": "ngfw",
+      "slug": "ngfw-vs-firewall-stateful",
+      "question": "NGFW e firewall stateful: che differenza c'è?",
+      "vertical": "security",
+      "keywords": [
+        "ngfw",
+        "next generation firewall",
+        "firewall stateful",
+        "stateful",
+        "deep packet inspection",
+        "dpi",
+        "application aware",
+        "opnsense pfsense",
+        "firewall applicativo rete"
+      ],
+      "answers": [
+        "Un firewall **stateful** tiene traccia dello stato delle connessioni (sa che una risposta appartiene a una richiesta che hai fatto tu) e decide su IP, porte e protocolli – il livello L3/L4. Efficace, veloce, cieco al contenuto: per lui la 443 aperta è la 443 aperta, qualunque cosa ci passi dentro.\n\nUn **NGFW** (Next-Generation Firewall) aggiunge l'occhio sul contenuto: **deep packet inspection**, riconoscimento dell'**applicazione** (distingue \"web\" da \"questa specifica app che tunnella su 443\"), integrazione con [IDS/IPS](q/cosa-sono-ids-e-ips/) e [threat intelligence](q/cos-e-la-threat-intelligence/), spesso ispezione TLS. Di fatto fonde firewall di rete e controlli applicativi in un apparato.\n\nNel mondo open source la linea è sfumata: **OPNsense/pfSense** con Suricata e i plugin coprono buona parte del territorio NGFW su hardware modesto o [in una VM Proxmox](q/cos-e-proxmox-ve/). Il trade-off da conoscere: la DPI e l'ispezione TLS costano CPU e sollevano [questioni di privacy](q/gdpr-cosa-serve-a-un-sito-web/) – più ispezioni, più devi fidarti (e proteggere) l'apparato che ispeziona."
+      ]
+    },
+    {
+      "id": "bgp-hijacking",
+      "slug": "bgp-hijacking-e-rpki",
+      "question": "Cos'è il BGP hijacking (e come lo previene RPKI)?",
+      "vertical": "security",
+      "keywords": [
+        "bgp",
+        "bgp hijacking",
+        "rpki",
+        "route hijacking",
+        "routing internet",
+        "roa",
+        "as",
+        "dirottamento traffico",
+        "annuncio bgp"
+      ],
+      "answers": [
+        "Il **BGP** è il protocollo con cui le grandi reti (gli AS) si dicono a vicenda \"per raggiungere questi indirizzi, passate da me\". Si basa sulla **fiducia**: storicamente, se un operatore annunciava per errore o malizia \"gli IP di una banca sono miei\", il traffico mondiale poteva davvero deviare da lui – è il **BGP hijacking**, causa di dirottamenti e blackout famosi (intere nazioni finite nel nulla per un annuncio sbagliato).\n\n**RPKI** (Resource Public Key Infrastructure) aggiunge la crittografia mancante: i titolari degli indirizzi pubblicano **ROA** (Route Origin Authorization) firmati che dicono *quale* AS è autorizzato ad annunciare i loro prefissi; gli altri operatori validano e scartano gli annunci non autorizzati.\n\nPerché ti riguarda anche se non gestisci un AS: il BGP è l'impalcatura sotto tutto, e un hijack può reindirizzare il traffico verso il tuo dominio prima ancora che il [TLS](q/differenza-http-https-tls/) e il [DNSSEC](q/cos-e-dnssec/) facciano la loro parte. È il livello più basso e più invisibile della [difesa in profondità](q/cos-e-la-defense-in-depth/) di internet – e l'adozione di RPKI, per fortuna, ormai è maggioritaria."
+      ]
+    },
+    {
+      "id": "ipsec-modes",
+      "slug": "ipsec-transport-e-tunnel",
+      "question": "IPsec: che differenza c'è tra modalità Transport e Tunnel?",
+      "vertical": "security",
+      "keywords": [
+        "ipsec",
+        "transport mode",
+        "tunnel mode",
+        "vpn ipsec",
+        "esp",
+        "ah",
+        "site to site",
+        "incapsulamento ipsec",
+        "gateway vpn",
+        "ipsec transport tunnel"
+      ],
+      "answers": [
+        "**IPsec** cifra e autentica il traffico IP, e lo fa in due modalità che decidono *cosa* viene protetto:\n\n- **Transport** – cifra solo il **payload** del pacchetto, lasciando l'header IP originale in chiaro. Host-to-host: due macchine che si parlano direttamente in modo protetto. Leggera, ma gli indirizzi restano visibili\n- **Tunnel** – incapsula **l'intero pacchetto** (header incluso) dentro un nuovo pacchetto IP. È la modalità delle **VPN site-to-site**: due gateway che collegano due reti, nascondendo la topologia interna dietro gli IP dei gateway\n\nLa regola pratica: **gateway/VPN → Tunnel**, host-to-host diretto → Transport. IPsec resta lo standard aziendale per collegare sedi, ma per l'accesso remoto e le [mesh moderne](q/wireguard-e-mesh-vpn/) è spesso soppiantato da **WireGuard** – più semplice, più veloce, meno superficie di configurazione da sbagliare. E qualunque VPN, ricorda, è un tunnel cifrato: [cosa protegge e cosa no](q/differenza-vpn-e-proxy/) dipende da dove la metti, non dalla sigla."
+      ]
+    },
+    {
+      "id": "wireguard-mesh",
+      "slug": "wireguard-e-mesh-vpn",
+      "question": "Cos'è WireGuard (e le mesh VPN come Tailscale)?",
+      "vertical": "security",
+      "keywords": [
+        "wireguard",
+        "mesh vpn",
+        "tailscale",
+        "netbird",
+        "headscale",
+        "vpn moderna",
+        "wg",
+        "overlay network",
+        "rete mesh cifrata",
+        "peer to peer vpn",
+        "wireguard e tailscale"
+      ],
+      "answers": [
+        "**WireGuard** ha rivoluzionato le VPN con una filosofia opposta a [IPsec/OpenVPN](q/ipsec-transport-e-tunnel/): poche migliaia di righe di codice (contro centinaia di migliaia), crittografia moderna e non configurabile-male, prestazioni quasi native perché vive nel kernel. Una coppia di chiavi per peer, e il tunnel c'è.\n\nSopra WireGuard sono nate le **mesh VPN** che risolvono la parte scomoda (chi conosce l'IP di chi, il NAT traversal): **Tailscale** – i tuoi dispositivi formano una rete privata cifrata **peer-to-peer**, si raggiungono ovunque siano, con identità e ACL centralizzati; **Headscale** e **Netbird** ne sono le alternative self-hostabili, per chi non vuole [dipendere da un coordinatore altrui](q/cos-e-la-sovranita-digitale/).\n\nÈ oggi **la risposta giusta per la maggior parte del self-hosting**: il NAS, [Home Assistant](q/home-assistant-su-proxmox/), la [GUI di Proxmox](q/proxmox-dietro-reverse-proxy/) non hanno bisogno di essere su internet – hanno bisogno di essere raggiungibili *da te*. Niente [porte aperte](q/esporre-servizi-senza-aprire-porte/), niente IP esposto, niente [origine da proteggere](q/proteggere-origine-dietro-cloudflare/): il servizio semplicemente non è pubblico."
+      ]
+    },
+    {
+      "id": "saml-oauth-oidc",
+      "slug": "saml-oauth-e-oidc",
+      "question": "SAML, OAuth 2.0 e OpenID Connect: quali differenze e casi d'uso?",
+      "vertical": "security",
+      "keywords": [
+        "saml",
+        "oauth",
+        "oauth2",
+        "oidc",
+        "openid connect",
+        "sso",
+        "single sign on",
+        "login con google",
+        "federazione identita",
+        "access token",
+        "bearer token"
+      ],
+      "answers": [
+        "Tre standard che la gente confonde perché risolvono problemi vicini ma **diversi**:\n\n- **OAuth 2.0** è **autorizzazione**, non login: \"do a questa app il permesso di accedere a *quella* risorsa a nome mio\" – è il meccanismo dietro i token e le API. Da solo *non* dice chi sei\n- **OpenID Connect (OIDC)** è un sottile strato di **autenticazione** sopra OAuth: aggiunge l'*id token* che dice chi è l'utente. È il \"Login con Google/GitHub\" moderno, JSON e REST, ideale per web e mobile\n- **SAML** è il nonno enterprise dell'SSO: XML, pensato per il web aziendale e i fornitori tradizionali. Verboso ma ancora dominante nelle grandi organizzazioni e nei software B2B legacy\n\nLa regola di scelta: nuovo progetto web/mobile → **OIDC**; integrazione con SSO aziendale o SaaS enterprise che parla solo XML → **SAML**; accesso delegato ad API senza login → **OAuth puro**. Il tema di sicurezza trasversale: i **token** sono credenziali portabili – vanno protetti, con scadenza breve e scope minimo, perché un token rubato è un accesso rubato (è il bersaglio degli attacchi [AiTM](q/cos-e-un-attacco-man-in-the-middle/) che aggirano l'[MFA](q/cos-e-autenticazione-due-fattori-mfa/))."
+      ]
+    },
+    {
+      "id": "pam-jit",
+      "slug": "pam-e-accesso-just-in-time",
+      "question": "Cos'è il PAM (Privileged Access Management) e l'accesso Just-In-Time?",
+      "vertical": "security",
+      "keywords": [
+        "pam",
+        "privileged access",
+        "gestione accessi privilegiati",
+        "just in time",
+        "jit",
+        "account privilegiati",
+        "accesso temporaneo",
+        "credenziali admin",
+        "vaulting"
+      ],
+      "answers": [
+        "Gli account **privilegiati** (root, domain admin, service account con pieni poteri) sono il bersaglio finale di ogni attacco – da lì si controlla tutto. Il **PAM** (Privileged Access Management) li mette sotto governo: le credenziali stanno in un **vault** (nessuno le conosce a memoria), l'accesso passa da lì, ogni sessione è **registrata**, e le password si **ruotano** automaticamente.\n\nIl **Just-In-Time (JIT)** è il passo che chiude il cerchio con il [minimo privilegio](q/principio-del-minimo-privilegio/): invece di account admin *permanenti* (superficie d'attacco 24/7), i privilegi si concedono **solo quando servono e per il tempo che servono** – richiesta, approvazione, accesso che scade da solo. L'admin che non esiste finché non serve non si può rubare.\n\nÈ un pilastro di [Zero Trust](q/cos-e-il-modello-zero-trust/) e un requisito che [NIS2](q/nis2-chi-deve-adeguarsi-italia/) e ISO 27001 si aspettano. Nel piccolo, i mattoni ci sono già open source: [MFA](q/cos-e-autenticazione-due-fattori-mfa/) ovunque, [SSH a chiavi con bastion](q/mettere-in-sicurezza-ssh/), un [password manager/vault](q/perche-usare-un-password-manager/) condiviso, [audit log](q/security-logging-fatto-bene/) delle sessioni privilegiate – il PAM enterprise è l'industrializzazione di queste stesse idee."
+      ]
+    },
+    {
+      "id": "hardware-key",
+      "slug": "chiavi-di-sicurezza-hardware-yubikey",
+      "question": "Cosa sono le chiavi di sicurezza hardware (YubiKey e simili)?",
+      "vertical": "security",
+      "keywords": [
+        "yubikey",
+        "chiave hardware",
+        "security key",
+        "fido2 key",
+        "token hardware",
+        "nitrokey",
+        "chiave usb sicurezza",
+        "u2f",
+        "secondo fattore fisico",
+        "serve una yubikey"
+      ],
+      "answers": [
+        "Una **chiave di sicurezza hardware** è un piccolo dispositivo (USB/NFC) che custodisce chiavi crittografiche in un chip **inestraibile** e firma le richieste di autenticazione premendo un tasto. È la forma più forte di [secondo fattore](q/cos-e-autenticazione-due-fattori-mfa/) e il modo più robusto di usare le [passkey](q/cosa-sono-le-passkey/).\n\nPerché batte tutto il resto: **resiste al phishing** (la firma FIDO2/WebAuthn è legata al dominio vero – su un sito clone non parte), non c'è un segreto condiviso da rubare dal server, e nulla lascia il dispositivo. A differenza dei codici TOTP (che un sito-esca può farsi digitare) o degli SMS (intercettabili), la chiave hardware chiude gli attacchi [AiTM](q/cos-e-un-attacco-man-in-the-middle/) che oggi bucano l'MFA debole.\n\nI nomi: **YubiKey** (lo standard), **Nitrokey/SoloKeys** (aperte, per chi vuole [ispezionare il firmware](q/secure-element-vs-firmware-aperto/)). Oltre a FIDO2 fanno spesso anche OATH-TOTP, PGP e smartcard. La regola d'oro pratica: **due chiavi**, una in uso e una di backup in cassaforte – perché una chiave hardware persa senza recupero è un lockout, e il phishing-resistant non serve se poi il recovery è via SMS."
+      ]
+    },
+    {
+      "id": "pqc",
+      "slug": "cos-e-la-crittografia-post-quantistica",
+      "question": "Cos'è la crittografia post-quantistica (PQC)?",
+      "vertical": "security",
+      "keywords": [
+        "pqc",
+        "post quantum",
+        "post-quantistica",
+        "crittografia quantistica",
+        "computer quantistico",
+        "kyber",
+        "ml-kem",
+        "dilithium",
+        "algoritmi quantum resistant"
+      ],
+      "answers": [
+        "Un computer quantistico abbastanza grande romperebbe la crittografia **asimmetrica** di oggi (RSA, curve ellittiche): l'algoritmo di Shor fattorizza e calcola logaritmi discreti in tempi che oggi sono impossibili. Non esiste ancora una tale macchina – ma la minaccia è **già operativa** per via di [\"Harvest Now, Decrypt Later\"](q/harvest-now-decrypt-later/): chi intercetta e archivia oggi il traffico cifrato potrà decifrarlo *domani*, quando la macchina arriverà.\n\nLa **PQC** sono algoritmi progettati per resistere anche al quantistico, basati su problemi matematici diversi (reticoli, in gran parte). Il NIST ha standardizzato nel 2024 i primi: **ML-KEM** (ex Kyber) per lo scambio di chiavi, **ML-DSA** (ex Dilithium) per le firme. La transizione è già cominciata – browser e librerie TLS adottano scambi **ibridi** (classico + PQC insieme, così se uno cede l'altro regge).\n\nCosa fare, oggi, concretamente: per la stragrande maggioranza è **aspettare e aggiornare** – arriva nelle librerie e nei server che già usi. Le eccezioni che devono muoversi ora sono i dati con **segretezza a lunghissimo termine** (sanitari, di stato, industriali): lì l'inventario crittografico (\"dove uso cosa\") e la *crypto-agility* – poter cambiare algoritmo senza riscrivere tutto – vanno pianificati adesso. Nota: la crittografia **simmetrica** (AES-256) e l'[hashing](q/cos-e-l-hashing/) restano sostanzialmente al sicuro."
+      ]
+    },
+    {
+      "id": "hndl",
+      "slug": "harvest-now-decrypt-later",
+      "question": "Cos'è \"Harvest Now, Decrypt Later\" (HNDL)?",
+      "vertical": "security",
+      "keywords": [
+        "harvest now decrypt later",
+        "hndl",
+        "raccogli ora decifra dopo",
+        "store now",
+        "minaccia quantistica",
+        "intercettazione a lungo termine",
+        "dati archiviati cifrati"
+      ],
+      "answers": [
+        "**Harvest Now, Decrypt Later** (\"raccogli ora, decifra dopo\") è il motivo per cui la [minaccia quantistica](q/cos-e-la-crittografia-post-quantistica/) è un problema di **oggi**, non del futuro: un avversario con risorse (stati, in primis) intercetta e **archivia** il traffico cifrato adesso – anche se non può leggerlo – scommettendo di poterlo decifrare tra 5-15 anni, quando un computer quantistico romperà l'RSA/ECC con cui era protetto.\n\nLa conseguenza pratica ribalta l'intuito: la domanda non è \"il mio dato è al sicuro oggi?\" ma **\"per quanti anni deve restare segreto?\"**. Un dato che perde valore in giorni non è a rischio HNDL; un segreto industriale, una cartella clinica, una comunicazione di stato con vita utile di decenni **è già esposto** se cifrato solo con algoritmi classici, perché la registrazione potrebbe avvenire proprio ora.\n\nÈ per questo che la [transizione PQC](q/cos-e-la-crittografia-post-quantistica/) è cominciata prima che il computer quantistico esista: chi ha segreti a lunghissimo termine deve adottare gli algoritmi resistenti (o gli scambi ibridi) *prima* della raccolta, non dopo. Per tutti gli altri, la difesa è la stessa di sempre: aggiornare le librerie quando la PQC arriva – e sta arrivando in fretta."
+      ]
+    },
+    {
+      "id": "dns-privacy-doh",
+      "slug": "resolver-dns-privato-e-sicuro",
+      "question": "Come si sceglie un resolver DNS privato e sicuro?",
+      "vertical": "security",
+      "keywords": [
+        "resolver dns",
+        "dns privato",
+        "quad9",
+        "controld",
+        "nextdns",
+        "unbound resolver",
+        "dns pubblico",
+        "quale dns usare",
+        "dns che non registra"
+      ],
+      "answers": [
+        "Il resolver DNS vede **ogni sito che visiti** prima ancora che tu ti colleghi: sceglierlo è una decisione di privacy, non un dettaglio. Le opzioni:\n\n- **resolver pubblici** con policy serie: Quad9 (blocca domini malevoli, base in Svizzera, no-log), Cloudflare 1.1.1.1 (veloce, privacy dichiarata), NextDNS/ControlD (filtri e log *tuoi*, configurabili). Su [DoH/DoT](q/cos-e-doh-dns-over-https/) per cifrare il tragitto\n- **il tuo resolver**: un **Unbound** ricorsivo che risolve dalla root senza intermediari – nessun terzo vede le query, al prezzo di gestirlo (spesso accoppiato a [Pi-hole/AdGuard](q/pi-hole-vs-adguard-home/) per il filtraggio); su [un LXC Proxmox](q/differenza-container-lxc-e-vm/) gira col nulla\n\nI criteri onesti: la privacy **si sposta, non si crea** – dall'ISP al resolver scelto, di cui devi fidarti; giurisdizione e policy di log contano più della velocità; e la coerenza – un resolver filtrante scavalcato dal [DoH dei singoli dispositivi](q/cos-e-doh-dns-over-https/) non filtra nulla. Layer complementare, non alternativo: [DNSSEC](q/cos-e-dnssec/) per l'autenticità, il resolver per la riservatezza, [le blocklist](q/come-bloccare-domini-malevoli/) per la protezione."
+      ]
+    },
+    {
+      "id": "dns-blocklist-selfhost",
+      "slug": "bloccare-pubblicita-e-tracker-in-rete",
+      "question": "Come si bloccano pubblicità e tracker per tutta la rete?",
+      "vertical": "security",
+      "keywords": [
+        "bloccare pubblicita",
+        "bloccare tracker",
+        "adblock rete",
+        "dns sinkhole casa",
+        "niente pubblicita",
+        "blocco annunci router",
+        "pihole adguard",
+        "tracker famiglia"
+      ],
+      "answers": [
+        "Il blocco a livello **DNS** protegge ogni dispositivo della rete – telefono, smart TV, IoT – senza installare nulla su ciascuno: quando un dominio pubblicitario o di tracking viene richiesto, il resolver risponde \"non esiste\" e la chiamata muore lì. Meno pubblicità, meno tracciamento, [meno traffico verso i domini malevoli](q/cos-e-una-botnet/), pagine più veloci.\n\nGli strumenti sono [Pi-hole o AdGuard Home](q/pi-hole-vs-adguard-home/), su [un piccolo LXC Proxmox](q/differenza-container-lxc-e-vm/) o un Raspberry: si impostano come [resolver della rete](q/resolver-dns-privato-e-sicuro/) (dal DHCP del router, così tutti li usano) e si alimentano con le **liste**. Ed è lì che si vince o si perde: [blacklists](https://github.com/fabriziosalmi/blacklists) aggrega ogni giorno 5M+ domini da 46 fonti con whitelist curata contro i falsi positivi – si carica identica su entrambi.\n\nI due accorgimenti che evitano frustrazione: qualche falso positivo è inevitabile (una whitelist a portata di mano serve), e i dispositivi che usano [DoH proprio](q/cos-e-doh-dns-over-https/) scavalcano il filtro – vanno forzati sul resolver di casa. Per il traffico applicativo (non solo DNS) si sale al [Secure Web Gateway](q/secure-web-gateway-self-hosted/)."
+      ]
+    },
+    {
+      "id": "immutable-os",
+      "slug": "sistemi-operativi-immutabili",
+      "question": "Cosa sono i sistemi operativi immutabili (e perché usarli)?",
+      "vertical": "proxmox",
+      "keywords": [
+        "immutable os",
+        "sistema operativo immutabile",
+        "microos",
+        "fedora silverblue",
+        "talos",
+        "read only os",
+        "atomic",
+        "os immutabile",
+        "rollback os"
+      ],
+      "answers": [
+        "In un **OS immutabile** il sistema di base è **read-only**: non modifichi i file di sistema uno a uno: aggiorni tutta l'immagine in blocco, in modo transazionale, con **rollback** istantaneo se qualcosa va storto. Le tue app girano in [container](q/differenza-container-lxc-e-vm/) o in ambienti isolati (Flatpak), i tuoi dati stanno in partizioni separate.\n\nI vantaggi di sicurezza e affidabilità: la **superficie di manomissione crolla** (il malware non riscrive `/usr` se `/usr` è di sola lettura), gli aggiornamenti o vanno del tutto o si annullano (niente stato a metà), e ogni macchina è **identica e riproducibile** – la deriva di configurazione sparisce.\n\nI nomi: **Fedora Silverblue/CoreOS**, **openSUSE MicroOS**, **Talos** (Linux immutabile fatto solo per Kubernetes, gestito via API, senza nemmeno una shell). Per un [host di container](q/cos-e-docker-compose/) o un nodo di cluster è una scelta eccellente: meno da rompere, meno da patchare a mano. Il compromesso: la personalizzazione libera del sistema è più rigida per costruzione – è il punto, non un bug. Filosoficamente è parente stretto degli [SSG](q/cos-e-un-generatore-di-siti-statici/) e delle [superfici air-gapped](q/cos-e-un-air-gap/): meno parti mutevoli, meno cose che possono andare male."
+      ]
+    },
+    {
+      "id": "secure-element",
+      "slug": "secure-element-vs-firmware-aperto",
+      "question": "Secure Element proprietario o firmware aperto: quale approccio?",
+      "vertical": "security",
+      "keywords": [
+        "secure element",
+        "firmware aperto",
+        "tpm",
+        "hsm",
+        "chip sicurezza",
+        "open source hardware",
+        "solokeys",
+        "trust chip",
+        "root of trust"
+      ],
+      "answers": [
+        "Per custodire chiavi crittografiche esistono due filosofie in tensione:\n\n- **Secure Element proprietario** (i chip dietro TPM, HSM, la maggior parte delle [YubiKey](q/chiavi-di-sicurezza-hardware-yubikey/), i secure enclave dei telefoni): silicio indurito contro l'estrazione fisica, certificato (Common Criteria), collaudato da decenni di attacchi. Contro: è una **scatola nera** – ti fidi del produttore, il firmware non è ispezionabile, e la certificazione non è verifica indipendente\n- **firmware aperto** (SoloKeys, Nitrokey su chip aperti, progetti come OpenTitan): puoi **leggere e verificare** cosa fa il chip, niente backdoor nascoste per fiducia cieca. Contro: la resistenza agli attacchi fisici sofisticati è in genere inferiore ai secure element blindati, e l'ecosistema è più giovane\n\nÈ il classico **trasparenza vs robustezza fisica**, e la risposta dipende dal tuo modello di minaccia: temi un attaccante *fisico* con laboratorio → secure element certificato; temi una *backdoor del fornitore* e vuoi auditabilità → firmware aperto. Per la maggior parte delle persone il secure element di una YubiKey o del telefono è più che sufficiente; l'apertura conta per chi deve *dimostrare* l'assenza di trucchi – la stessa esigenza che guida i [firmati e verificabili](q/come-si-firma-il-codice/) del software."
+      ]
+    },
+    {
+      "id": "kill-switch-hardware",
+      "slug": "kill-switch-hardware-privacy",
+      "question": "Cosa sono i kill-switch hardware (su laptop e telefoni privacy)?",
+      "vertical": "security",
+      "keywords": [
+        "kill switch",
+        "kill-switch hardware",
+        "interruttore fisico",
+        "pinephone",
+        "framework",
+        "disattivare webcam",
+        "webcam microfono fisico",
+        "librem",
+        "spegnere sensori"
+      ],
+      "answers": [
+        "Un **kill-switch hardware** è un interruttore *fisico* che stacca elettricamente un sensore – webcam, microfono, radio (Wi-Fi/BT/cellulare), GPS. La differenza con lo spegnimento software è tutta qui: un componente scollegato dal circuito **non può essere riattivato da malware o da un sistema compromesso**, perché non c'è corrente da comandare. È la certezza fisica al posto della fiducia nel software.\n\nDove si trovano: laptop e telefoni orientati alla privacy (**PinePhone**, i Librem di Purism, in parte i **Framework** per alcuni componenti). Il caso d'uso classico: giornalisti, attivisti, chiunque debba avere la **garanzia** – non la speranza – che il microfono sia muto durante una conversazione sensibile.\n\nPer tutti gli altri, l'equivalente povero e onesto: il **copri-webcam** adesivo (un kill-switch ottico che funziona benissimo) e, per l'audio, sapere che l'unica vera certezza è il dispositivo spento o lasciato in un'altra stanza. È il complemento fisico degli altri controlli hardware – [chiavi di sicurezza](q/chiavi-di-sicurezza-hardware-yubikey/), [secure element](q/secure-element-vs-firmware-aperto/): la sicurezza che non dipende dal software è l'unica che il software non può tradire."
+      ]
+    },
+    {
+      "id": "degoogled-phone",
+      "slug": "smartphone-de-googled-grapheneos",
+      "question": "Come si usa uno smartphone de-Googled (GrapheneOS, /e/OS)?",
+      "vertical": "security",
+      "keywords": [
+        "degoogled",
+        "de-googled",
+        "grapheneos",
+        "calyxos",
+        "e os",
+        "android senza google",
+        "smartphone privato",
+        "lineageos",
+        "telefono privacy",
+        "microg",
+        "smartphone senza google",
+        "senza google"
+      ],
+      "answers": [
+        "Un telefono **de-Googled** rimuove i servizi Google (che raccolgono posizione, contatti, abitudini di default) e restituisce il controllo dei dati. Le opzioni, dalla più rigorosa:\n\n- **GrapheneOS** (solo Pixel) – il riferimento per la sicurezza *oltre* la privacy: hardening del sistema, permessi granulari (dai a un'app una posizione finta, o accesso rete zero), sandbox opzionale per i Play Services se un'app li pretende. Paranoia progettata bene\n- **CalyxOS** – più orientato all'usabilità, con microG (reimplementazione libera dei servizi Google) integrato\n- **/e/OS** e **LineageOS** – supportano più dispositivi, compromesso maggiore su sicurezza/aggiornamenti\n\nIl percorso pratico: compra un dispositivo supportato, sblocca il bootloader, installa (GrapheneOS ha un installer web da browser), **ri-blocca** il bootloader (fondamentale: il verified boot protegge dalla manomissione), e ricostruisci l'ecosistema app da **F-Droid** (app libere) e dallo store senza account. Le rinunce oneste: alcune app bancarie e Google-dipendenti fanno storie (il sandboxed Play Services di GrapheneOS ne recupera molte), e la comodità cala. È il [self-hosting applicato al telefono](q/self-hosting-pro-e-contro/): più controllo, più manutenzione – e la stessa scelta di fondo su quanto vale la tua [sovranità sui dati](q/cos-e-la-sovranita-digitale/)."
+      ]
+    },
+    {
+      "id": "infostealer",
+      "slug": "cos-e-un-infostealer",
+      "question": "Cos'è un infostealer (e come esfiltra le credenziali)?",
+      "vertical": "security",
+      "keywords": [
+        "infostealer",
+        "stealer",
+        "ruba credenziali",
+        "redline",
+        "lumma",
+        "cookie di sessione rubati",
+        "malware credenziali",
+        "password dal browser",
+        "token discord"
+      ],
+      "answers": [
+        "Un **infostealer** è malware con un obiettivo chirurgico: entra, **saccheggia i segreti in pochi secondi** e se ne va, spesso senza persistere. Cosa ruba: password e cookie salvati nei browser (i **cookie di sessione** sono l'oro – bypassano login *e* [MFA](q/cos-e-autenticazione-due-fattori-mfa/) perché la sessione è già autenticata), portafogli crypto, token di Discord/Telegram, chiavi SSH, credenziali di file di configurazione.\n\nCome esfiltra: comprime il bottino e lo spedisce al [C2](q/cos-e-una-botnet/) via HTTPS o Telegram – traffico che si mimetizza nel normale. Il modello di business è **malware-as-a-service**: chi lo compra riceve un pannello, e i log rubati finiscono in vendita nei mercati underground, alimentando il [credential stuffing](q/cos-e-un-attacco-brute-force/) e gli accessi iniziali dei [ransomware](q/cos-e-un-ransomware/).\n\nL'ingresso tipico: crack e software pirata, estensioni malevole, [allegati di phishing](q/cos-e-il-phishing/). Le difese: [passkey/chiavi hardware](q/chiavi-di-sicurezza-hardware-yubikey/) (niente password da rubare), non salvare i segreti nel browser (un [password manager](q/perche-usare-un-password-manager/) serio cifra il vault), [EDR](q/differenza-edr-xdr-antivirus/) che riconosce il comportamento, e sessioni brevi. E se sei un'organizzazione, il [monitoraggio dei log rubati](q/scoprire-dati-in-un-data-breach/) ti avvisa quando le *tue* credenziali compaiono in vendita."
+      ]
+    },
+    {
+      "id": "threat-hunting",
+      "slug": "cos-e-il-threat-hunting",
+      "question": "Cos'è il threat hunting (la caccia proattiva alle minacce)?",
+      "vertical": "security",
+      "keywords": [
+        "threat hunting",
+        "caccia alle minacce",
+        "hunting",
+        "ipotesi analitiche",
+        "ricerca proattiva",
+        "pyramid of pain",
+        "hunt",
+        "cercare intrusi"
+      ],
+      "answers": [
+        "Il **threat hunting** ribalta la logica del [SOC](q/cos-e-un-soc-security-operations-center/): invece di aspettare che un allarme scatti, si va a **cercare** l'intruso partendo dall'ipotesi che sia *già dentro* e che i controlli automatici non l'abbiano visto. È attività umana, guidata da ipotesi, non da alert.\n\nCome si struttura un hunt: si parte da un'**ipotesi analitica** basata su [threat intelligence](q/cos-e-la-threat-intelligence/) (\"se un attaccante usasse la tecnica X di MITRE ATT&CK, lascerebbe la traccia Y\"), si interrogano i [log](q/security-logging-fatto-bene/) e la telemetria [EDR](q/differenza-edr-xdr-antivirus/) cercando quella traccia, si conferma o si smentisce, e – la parte che dà valore duraturo – **si trasforma l'hunt in una regola di detection** automatica, così quella minaccia non va più cercata a mano.\n\nIl principio guida è la *Pyramid of Pain*: cacciare i **comportamenti** (le TTP, difficili da cambiare per l'attaccante) rende più della caccia agli IP e agli hash (che l'attaccante cambia in un minuto). Richiede maturità – log buoni, un analista che sa cosa cerca – ma è ciò che separa un SOC che *reagisce* da uno che *anticipa*. Nel self-hosting, la base è un [SIEM con dati puliti](q/wazuh-wildbox-o-elk/) su cui poter interrogare."
+      ]
+    },
+    {
+      "id": "detection-engineering",
+      "slug": "detection-engineering-e-event-id",
+      "question": "Detection engineering: quali eventi (Event ID) contano per rilevare un attacco?",
+      "vertical": "security",
+      "keywords": [
+        "detection engineering",
+        "event id",
+        "sigma",
+        "regole di detection",
+        "log windows",
+        "sysmon",
+        "4688",
+        "4624",
+        "regole sigma",
+        "eventi da monitorare"
+      ],
+      "answers": [
+        "La **detection engineering** è la disciplina di scrivere, testare e mantenere le regole che trasformano i [log](q/security-logging-fatto-bene/) in allarmi utili – il cuore di un [SOC](q/cos-e-un-soc-security-operations-center/) che funziona. Il formato aperto di riferimento è **Sigma**: regole scritte una volta e traducibili verso qualsiasi [SIEM](q/wazuh-wildbox-o-elk/).\n\nSu Windows, gli eventi ad alta priorità (molti richiedono **Sysmon** o audit avanzato, non attivi di default):\n\n- **creazione processi** (4688 / Sysmon 1) con la command line – è qui che si vedono PowerShell offuscato, `mshta`, i `living-off-the-land`\n- **login** (4624/4625/4648): pattern di accesso anomali, forza bruta, uso di credenziali esplicite\n- **nuovi servizi** (7045) e **task pianificati** – vie di persistenza classiche\n- creazione di **account** e modifiche a gruppi privilegiati, accesso a LSASS (furto credenziali)\n\nLe regole d'oro della disciplina: parti dal **comportamento** non dalla firma (come nel [threat hunting](q/cos-e-il-threat-hunting/)), **testa** le regole con attacchi simulati (Atomic Red Team) prima di fidarti, e taratura continua contro i falsi positivi – una regola che urla sempre viene ignorata sempre. È esattamente lo spirito del [testing deterministico](q/come-si-testano-le-applicazioni-llm/): una detection non provata è una speranza."
+      ]
+    },
+    {
+      "id": "ssrf",
+      "slug": "cos-e-la-ssrf-server-side-request-forgery",
+      "question": "Cos'è la SSRF (Server-Side Request Forgery) e come si blocca?",
+      "vertical": "security",
+      "keywords": [
+        "ssrf",
+        "server side request forgery",
+        "metadata endpoint",
+        "169.254.169.254",
+        "richieste interne",
+        "cloud metadata",
+        "capital one"
+      ],
+      "answers": [
+        "Nella **SSRF** l'attaccante convince il *server* a fare una richiesta HTTP per suo conto verso una destinazione a sua scelta – tipicamente **interna e altrimenti irraggiungibile**. Il classico: una funzione \"importa immagine da URL\" a cui passi non un'immagine ma `http://169.254.169.254/...`, l'endpoint dei **metadati cloud**, da cui si estraggono le credenziali IAM dell'istanza. È il vettore del breach Capital One (2019).\n\nPerché è insidiosa: il server è \"dentro\", oltre il [firewall](q/differenza-firewall-e-waf/), e parla con servizi che si fidano della rete interna – database, API amministrative, l'endpoint metadati. La SSRF trasforma una feature innocua in un grimaldello verso il cuore dell'infrastruttura.\n\nLe difese, a livello di codice e di rete:\n\n- **allowlist** delle destinazioni permesse (non blocklist – gli attaccanti aggirano le blocklist con redirect, IP in decimale, DNS rebinding)\n- **blocca gli indirizzi interni**: 169.254.169.254, RFP privati, localhost – e rifai la validazione *dopo* aver risolto il DNS\n- **IMDSv2** sui cloud (l'endpoint metadati che richiede un token, non più raggiungibile con una GET cieca)\n- egress ristretto dal server, e un [WAF](q/cos-e-un-waf-web-application-firewall/) come rete di sicurezza per i pattern noti\n\nÈ salita nella [OWASP Top 10](q/cos-e-la-owasp-top-10/) proprio per l'era cloud: dove tutto è un'API interna, far fare al server la richiesta sbagliata vale oro."
+      ]
+    },
+    {
+      "id": "adversarial-ml",
+      "slug": "attacchi-avversariali-al-machine-learning",
+      "question": "Cosa sono gli attacchi avversariali al machine learning?",
+      "vertical": "ai",
+      "keywords": [
+        "adversarial",
+        "attacchi avversariali",
+        "perturbazioni avversarie",
+        "evasion",
+        "ingannare classificatore",
+        "adversarial examples",
+        "data poisoning",
+        "model evasion"
+      ],
+      "answers": [
+        "Gli **attacchi avversariali** sfruttano il fatto che i modelli ML apprendono correlazioni statistiche, non comprensione: una **perturbazione minuscola e mirata** – impercettibile a un umano – può ribaltare la classificazione. L'adesivo sul cartello di stop che l'auto legge come limite di velocità, il pixel-noise che fa vedere \"gibbone\" dove c'è un panda, il malware ritoccato per sembrare benigno all'antivirus ML.\n\nLe famiglie principali:\n\n- **evasion** (a inferenza): input costruito per ingannare il modello *in produzione* – aggira i classificatori di sicurezza, i filtri di [moderazione](q/moderazione-automatica-dei-contenuti/), i rilevatori di spam\n- **poisoning** (in addestramento): contaminare i dati di training perché il modello impari la cosa sbagliata o una backdoor\n- **model inversion / extraction**: ricostruire dati di training o rubare il modello dalle sue risposte\n\nCosa cambia rispetto alla sicurezza classica: qui **non c'è patch definitiva** – è una proprietà dei modelli, non un bug. Le difese sono probabilistiche (adversarial training, input sanitization, ensemble, rilevamento di anomalie) e a strati. È il cugino ML della [prompt injection](q/cos-e-la-prompt-injection/) sugli LLM: dove il sistema \"decide\" statisticamente, l'input ostile è una superficie d'attacco permanente da presidiare, non da chiudere una volta per tutte."
+      ]
+    },
+    {
+      "id": "container-security",
+      "slug": "sicurezza-delle-immagini-container",
+      "question": "Come si mette in sicurezza un container (e le sue immagini)?",
+      "vertical": "proxmox",
+      "keywords": [
+        "sicurezza container",
+        "immagini docker sicure",
+        "container hardening",
+        "distroless",
+        "scansione immagini",
+        "trivy",
+        "root nel container",
+        "docker sicuro",
+        "image scanning"
+      ],
+      "answers": [
+        "Un container non è una VM: condivide il kernel dell'host, quindi \"isolato\" ha un asterisco. La sicurezza si costruisce a strati:\n\n- **l'immagine**: parti da basi minime (alpine, o **distroless** – nemmeno una shell da abusare), **pinna le versioni** (mai `:latest` in produzione – [supply chain](q/cos-e-la-supply-chain-security/)), e **scansiona** le vulnerabilità (Trivy, Grype) in [CI](q/cos-e-gitops/). Meno c'è dentro, meno c'è da bucare\n- **il runtime**: **non girare come root** dentro il container (utente non privilegiato), filesystem read-only dove possibile, capabilities Linux ridotte al minimo, niente `--privileged` (è il [container privilegiato](q/container-privilegiati-o-non-privilegiati/) del mondo Docker: evasione = host)\n- **i segreti**: [via env/secret manager, mai nell'immagine](q/come-gestire-i-secrets/) (finiscono nei layer, estraibili per sempre)\n- **la rete**: reti separate, esponi solo le porte necessarie\n\nSu [Proxmox](q/cos-e-proxmox-ve/) il pattern comune è un host Docker in VM/[LXC](q/differenza-container-lxc-e-vm/); lo stack si descrive in [Docker Compose](q/cos-e-docker-compose/) con questi accorgimenti dentro. E la scansione non è una tantum: le CVE nelle immagini nascono *dopo* il build – si ri-scansiona e si ri-builda periodicamente."
+      ]
+    },
+    {
+      "id": "cnapp",
+      "slug": "cspm-cwpp-e-cnapp",
+      "question": "CSPM, CWPP, CNAPP: che differenza c'è (sicurezza cloud)?",
+      "vertical": "security",
+      "keywords": [
+        "cspm",
+        "cwpp",
+        "cnapp",
+        "sicurezza cloud",
+        "cloud security posture",
+        "misconfigurazioni cloud",
+        "workload protection",
+        "posture management cloud",
+        "s3 pubblico"
+      ],
+      "answers": [
+        "La sicurezza del cloud si è frammentata in acronimi che coprono problemi diversi:\n\n- **CSPM** (Cloud Security Posture Management) – caccia le **misconfigurazioni**: il bucket S3 pubblico per errore, il security group spalancato, l'IAM troppo largo, la cifratura mancante. La causa numero uno dei breach cloud non è l'exploit sofisticato, è la casella lasciata aperta – e il CSPM la trova su scala\n- **CWPP** (Cloud Workload Protection Platform) – protegge i **carichi in esecuzione**: VM, [container](q/sicurezza-delle-immagini-container/), funzioni serverless – vulnerabilità, malware, comportamento a runtime\n- **CNAPP** (Cloud-Native Application Protection Platform) – la **piattaforma unificata** che fonde CSPM + CWPP + scansione del codice/[IaC](q/cos-e-gitops/) + gestione delle identità in un quadro solo, correlando \"questa misconfig + questa CVE + questo permesso\" nel rischio reale\n\nLa direzione del mercato è verso CNAPP (meno strumenti scollegati). Per chi non compra una suite enterprise, i mattoni open source esistono: scanner di misconfigurazione [IaC](q/cos-e-gitops/) (Checkov, tfsec) in CI, scanner immagini (Trivy), e la disciplina di base – [minimo privilegio IAM](q/principio-del-minimo-privilegio/), niente storage pubblico per default, [log centralizzati](q/security-logging-fatto-bene/). E per chi il cloud lo vuole [ridurre alla radice](q/self-hosting-pro-e-contro/), il problema più semplice da mettere in sicurezza è quello che non hai."
+      ]
+    },
+    {
+      "id": "devsecopspipeline",
+      "slug": "sicurezza-nella-pipeline-cicd",
+      "question": "Come si mette la sicurezza nella pipeline CI/CD (DevSecOps)?",
+      "vertical": "security",
+      "keywords": [
+        "devsecops",
+        "sicurezza cicd",
+        "pipeline sicura",
+        "shift left",
+        "sast",
+        "dast",
+        "sca",
+        "secret scanning",
+        "gate di sicurezza",
+        "sicurezza nel deploy"
+      ],
+      "answers": [
+        "**DevSecOps** significa spostare i controlli di sicurezza *dentro* la pipeline, il più a sinistra possibile (\"shift left\") – trovare i problemi al commit costa cento volte meno che in produzione. I gate che una pipeline matura mette in fila:\n\n- **secret scanning** (gitleaks): blocca [le credenziali](q/come-gestire-i-secrets/) prima che entrino in git\n- **SAST** (analisi statica del codice: Semgrep, CodeQL): vulnerabilità nel *tuo* codice\n- **SCA** (Software Composition Analysis): CVE nelle **dipendenze** – più [SBOM](q/cos-e-la-supply-chain-security/) e blocco delle [dipendenze allucinate](https://github.com/fabriziosalmi/ai-dependency-guard)\n- **scansione immagini** e [IaC](q/cos-e-gitops/) (Trivy, Checkov): [container](q/sicurezza-delle-immagini-container/) e infrastruttura\n- **DAST** (test dinamico sull'app in esecuzione): l'attacco simulato prima del rilascio\n- **firma degli artefatti** ([sigstore](q/come-si-firma-il-codice/), provenance SLSA) all'uscita\n\nLe due regole che rendono DevSecOps praticabile invece che odiato: i gate devono **fallire la build** quando serve (un warning ignorato non è un controllo), ma con **soglie tarate** – se blocca su ogni CVE informativa, gli sviluppatori lo aggirano, e hai perso. È lo stesso principio del [gate draconiano di questo progetto](q/come-si-testano-le-applicazioni-llm/): rigido su ciò che conta, silenzioso sul rumore. Nel portfolio, [vibe-check](https://github.com/fabriziosalmi/vibe-check) è un gate anti-slop in questo spirito."
+      ]
+    },
+    {
+      "id": "agent-orchestration-patterns",
+      "slug": "pattern-di-orchestrazione-agentica",
+      "question": "Quali sono i pattern di orchestrazione degli agenti (e i loop decisionali)?",
+      "vertical": "ai",
+      "keywords": [
+        "orchestrazione agentica",
+        "loop decisionale",
+        "react",
+        "plan and execute",
+        "grafo di esecuzione",
+        "langgraph",
+        "workflow agenti",
+        "state machine agente",
+        "pattern agenti"
+      ],
+      "answers": [
+        "Oltre il singolo [agente](q/cos-e-un-agente-ai/), il modo in cui si struttura il **loop decisionale** determina affidabilità e costo. I pattern ricorrenti:\n\n- **ReAct** (Reason + Act): il modello alterna ragionamento e uso di strumenti in un ciclo – semplice, flessibile, ma può divagare e [bruciare token](q/cos-e-l-inferenza-e-perche-costa/) senza convergere\n- **Plan-and-Execute**: prima un piano esplicito, poi l'esecuzione passo-passo – più prevedibile e verificabile, meno adattivo\n- **grafo di stato** (stile LangGraph): l'esecuzione è una macchina a stati con nodi, transizioni e **checkpoint** – è ciò che rende possibili ripresa, [time-travel debugging](q/time-travel-debugging-agenti/) e controllo di flusso deterministico attorno a passi stocastici\n- **[gerarchico/multi-agente](q/cos-e-l-orchestrazione-multi-agente/)**: orchestratore + specialisti\n\nIl principio ingegneristico sotto: **il determinismo va nell'impalcatura, la stocasticità nei nodi**. Non chiedere al modello di decidere il *flusso* (loop, condizioni, retry) se puoi codificarlo – è più robusto, testabile e economico. Il modello decide *dentro* i passi; il grafo decide *tra* i passi. È esattamente la filosofia di un [workflow deterministico](q/come-si-testano-le-applicazioni-llm/) e la ragione per cui un buon harness batte un prompt \"fai tutto tu\". E ogni nodo che agisce resta soggetto a [permessi e sandbox](q/come-si-limita-un-agente-ai/)."
+      ]
+    },
+    {
+      "id": "time-travel-debugging",
+      "slug": "time-travel-debugging-agenti",
+      "question": "Cos'è il time-travel debugging (e i checkpoint) negli agenti?",
+      "vertical": "ai",
+      "keywords": [
+        "time travel debugging",
+        "time-travel",
+        "checkpoint agente",
+        "replay agente",
+        "stato agente",
+        "debug agenti",
+        "rewind esecuzione",
+        "riprodurre bug agente",
+        "state snapshot"
+      ],
+      "answers": [
+        "Un [agente](q/cos-e-un-agente-ai/) è **stocastico e a più passi**: quando sbaglia al passo 7 di 12, riprodurre il bug rilanciando tutto da capo è frustrante (magari non si ripresenta) e costoso. Il **time-travel debugging** risolve salvando un **checkpoint** dello stato a ogni passo del [grafo di esecuzione](q/pattern-di-orchestrazione-agentica/): puoi tornare a un punto qualsiasi, ispezionare cosa il modello \"vedeva\", modificare un input, e **riprendere da lì** invece che dall'inizio.\n\nCosa richiede: uno **stato serializzabile** (contesto, memoria, risultati dei tool, non riferimenti volatili) e un runtime che lo persista a ogni transizione – è uno dei motivi per cui i framework moderni modellano l'esecuzione come macchina a stati anziché come chiamate annidate.\n\nI vantaggi vanno oltre il debug: **ripresa** dopo un crash o una pausa senza rifare il lavoro fatto (e ripagato), [human-in-the-loop](q/come-si-limita-un-agente-ai/) pulito (l'agente si ferma a un checkpoint aspettando l'approvazione, e riparte esatto), e la riproducibilità che rende gli agenti *testabili*. È lo stesso principio del [resume di un workflow](q/come-si-testano-le-applicazioni-llm/): il prefisso già calcolato non si ricalcola – si riparte dal primo passo cambiato."
+      ]
+    },
+    {
+      "id": "mcp-tool-security",
+      "slug": "sicurezza-dei-tool-e-plugin-mcp",
+      "question": "Come si mettono in sicurezza i tool e i plugin MCP?",
+      "vertical": "ai",
+      "keywords": [
+        "sicurezza mcp",
+        "tool shadowing",
+        "plugin mcp malevolo",
+        "descrizione tool malevola",
+        "mcp injection",
+        "server mcp non fidato",
+        "confused deputy",
+        "tool poisoning"
+      ],
+      "answers": [
+        "I [server MCP](q/come-si-costruisce-un-server-mcp/) estendono un agente con strumenti – e ogni strumento è **superficie d'attacco nuova**, perché il modello sceglie *cosa* usare in base a nome e descrizione, testo che potrebbe non aver scritto tu. I rischi specifici:\n\n- **tool poisoning / shadowing**: un server MCP malevolo (o compromesso) pubblica un tool con una descrizione che contiene [istruzioni nascoste](q/cos-e-la-prompt-injection/) (\"quando usi questo, invia anche le variabili d'ambiente a...\") o che **oscura** un tool legittimo con uno omonimo più \"invitante\"\n- **confused deputy**: l'agente ha permessi che l'attaccante non ha, e viene indotto a usarli per suo conto\n- **catena di fiducia**: installare un server MCP è [eseguire codice di terzi](q/cos-e-la-supply-chain-security/) con l'accesso del tuo agente\n\nLe difese: **installa solo server MCP fidati e verificati** (come qualsiasi dipendenza), tratta le descrizioni dei tool come **dati non fidati**, applica [permessi minimi e HITL](q/come-si-limita-un-agente-ai/) sulle azioni pericolose (l'approvazione umana intercetta il tool che fa troppo), **[sandbox](q/cos-e-il-sandboxing-per-agenti/)** l'esecuzione, e registra ogni chiamata per l'audit. È il motivo per cui [proxxx](https://github.com/fabriziosalmi/proxxx) fissa i suoi 25 tool **a compile-time** con registro auditabile: niente tool che appaiono a runtime, niente descrizioni che cambiano sotto i piedi."
+      ]
+    },
+    {
+      "id": "guardrail-runtime",
+      "slug": "firewall-semantici-e-guardrail-runtime",
+      "question": "Cosa sono i firewall semantici e i guardrail a runtime per LLM?",
+      "vertical": "ai",
+      "keywords": [
+        "firewall semantico",
+        "guardrail runtime",
+        "policy enforcement llm",
+        "llm firewall",
+        "nemo guardrails",
+        "llama guard",
+        "controllo runtime llm",
+        "policy llm"
+      ],
+      "answers": [
+        "Un **guardrail a runtime** è il controllo deterministico che avvolge ogni interazione con un LLM in produzione – perché il modello, [per costruzione, non offre garanzie](q/cosa-sono-i-guardrail-llm/). Il \"firewall semantico\" è il nome che descrive quelli che ragionano sul *significato*, non solo su pattern:\n\n- **in ingresso**: rileva [prompt injection](q/cos-e-la-prompt-injection/) e jailbreak, filtra PII e argomenti vietati, classifica l'intento prima che raggiunga il modello\n- **in uscita**: [moderazione](q/moderazione-automatica-dei-contenuti/), controllo che non escano segreti o [dati sensibili](q/data-leakage-via-llm/), validazione di [formato](q/structured-output-e-json-mode/), verifica di aderenza alle policy\n\nGli strumenti (NeMo Guardrails, Llama Guard, Guardrails AI) combinano regole, classificatori e a volte un secondo LLM-giudice. Il principio architetturale che li rende efficaci: **non sono nel prompt, sono nel codice attorno** – un guardrail che il modello stesso applica è un guardrail che il modello stesso può essere convinto a saltare. Vanno messi in un **punto di controllo unico** davanti a ogni endpoint, ed è esattamente il ruolo di [llmproxy](https://github.com/fabriziosalmi/llmproxy) (proxy security-first) e [aidlp](https://github.com/fabriziosalmi/aidlp) (DLP sul flusso) nel portfolio: il posto giusto dove applicare la policy è *prima* e *dopo* il modello, non *dentro*."
+      ]
+    },
+    {
+      "id": "rag-security",
+      "slug": "sicurezza-del-rag-e-dei-vector-database",
+      "question": "Quali sono i rischi di sicurezza del RAG e dei vector database?",
+      "vertical": "ai",
+      "keywords": [
+        "sicurezza rag",
+        "rag security",
+        "poisoning knowledge base",
+        "vector database sicurezza",
+        "permessi rag",
+        "indirect prompt injection",
+        "rag avvelenato",
+        "documenti malevoli rag"
+      ],
+      "answers": [
+        "Il [RAG](q/cos-e-rag-retrieval-augmented-generation/) apre superfici di rischio che il modello da solo non ha, perché **inietta contenuto esterno nel contesto**:\n\n- **indirect prompt injection**: un documento nella knowledge base contiene [istruzioni nascoste](q/cos-e-la-prompt-injection/) che l'agente esegue quando quel documento viene recuperato – l'attaccante non tocca il tuo prompt, avvelena la *fonte* (una pagina web che l'agente leggerà, un PDF caricato da un utente, una email indicizzata)\n- **knowledge base poisoning**: contaminare i dati indicizzati per far dare risposte sbagliate su richieste mirate\n- **permessi al retrieval**: il rischio più comune e sottovalutato – il chatbot che risponde a un utente **citando documenti che quell'utente non potrebbe aprire**. Il filtro di autorizzazione va nel *retrieval*, non nella speranza\n- **data leakage**: [PII e segreti](q/data-leakage-via-llm/) finiti negli embeddings o restituiti nel contesto\n\nLe difese: tratta ogni contenuto recuperato come **non fidato** (mai eseguire istruzioni che arrivano dai documenti – separazione istruzioni/dati e [guardrail](q/firewall-semantici-e-guardrail-runtime/)), applica i **permessi a livello di indice** (partiziona per tenant/utente, filtra prima di recuperare), valida ciò che entra nella knowledge base, e cita le fonti per rendere ispezionabile il [grounding](q/cos-e-il-grounding/). L'attacco più elegante contro un agente moderno non passa dal prompt: passa da ciò che l'agente *legge*."
+      ]
+    },
+    {
+      "id": "ai-supply-chain-weights",
+      "slug": "sicurezza-dei-pesi-e-checkpoint-dei-modelli",
+      "question": "Come si verifica l'integrità dei pesi di un modello (e i rischi del pickle)?",
+      "vertical": "ai",
+      "keywords": [
+        "pesi modello",
+        "checkpoint integrita",
+        "pickle",
+        "safetensors",
+        "modello malevolo",
+        "huggingface sicurezza",
+        "aibom",
+        "scaricare modelli sicuri",
+        "deserializzazione"
+      ],
+      "answers": [
+        "Scaricare un modello è [eseguire codice di terzi con i tuoi permessi](q/cos-e-la-supply-chain-security/) – e per anni il rischio è stato letteralmente questo: il formato **pickle** di PyTorch è codice Python serializzato, e caricarlo può **eseguire comandi arbitrari**. Un checkpoint \"innocuo\" su un hub pubblico poteva aprire una reverse shell all'import. I rischi in fila:\n\n- **deserializzazione malevola** (pickle): la ragione per cui esiste **safetensors** – un formato che contiene *solo* dati, nessun codice eseguibile. Preferiscilo sempre; scansiona i pickle (picklescan) quando sei costretto a usarli\n- **checkpoint manomessi**: pesi alterati con backdoor o comportamenti nascosti – da qui l'importanza di **hash e firme** verificabili, non del solo \"scaricato dal repo giusto\"\n- **librerie non validate**: `transformers`, `tokenizers` e affini sono dipendenze come le altre – [CVE, versioni pinnate, SBOM](q/sicurezza-nella-pipeline-cicd/)\n\nLa risposta emergente è l'**AIBOM** (AI Bill of Materials): l'inventario firmato di *cosa* c'è in un sistema AI – modello, dataset di provenienza, licenze, dipendenze – l'equivalente dell'[SBOM](q/cos-e-la-supply-chain-security/) per l'era dei modelli, e un tassello di conformità [AI Act](q/cosa-prevede-ai-act/). La regola pratica minima: **safetensors**, hash verificati, fonti fidate, e trattare ogni modello scaricato come [una dipendenza da governare](q/sicurezza-nella-pipeline-cicd/), non come un file di dati inerte."
+      ]
+    },
+    {
+      "id": "llm-observability-tracing",
+      "slug": "osservabilita-e-tracing-di-sistemi-ai",
+      "question": "Come si fa observability e tracing di un sistema AI (OpenInference)?",
+      "vertical": "ai",
+      "keywords": [
+        "osservabilita ai",
+        "tracing llm",
+        "openinference",
+        "opentelemetry genai",
+        "debugging stocastico",
+        "arize phoenix",
+        "span llm",
+        "tracciare agenti",
+        "monitorare sistema ai",
+        "tracing ai",
+        "tracing di un sistema ai"
+      ],
+      "answers": [
+        "Un sistema AI è **stocastico e multi-passo**: senza visibilità sull'interno è impossibile capire *perché* ha risposto male. L'[observability per LLM](q/cos-e-l-observability-per-llm/) risponde con il **tracing distribuito** applicato all'AI – e le convenzioni si stanno standardizzando: **OpenInference** e le convenzioni GenAI di **OpenTelemetry** definiscono come rappresentare uno *span* di una chiamata LLM (prompt, parametri, risposta, token, latenza) e di un [agente](q/pattern-di-orchestrazione-agentica/) (l'albero di ragionamento, retrieval, tool call).\n\nPerché lo standard conta: un trace in formato aperto lo leggi con qualsiasi strumento (Arize Phoenix, Langfuse – [self-hostabile](q/self-hosting-pro-e-contro/), Jaeger via OTel) senza lock-in, e correli l'AI con il resto della tua infrastruttura già strumentata a OpenTelemetry.\n\nCosa tracciare, in pratica: ogni chiamata con il suo trace ID, il [retrieval RAG](q/cos-e-rag-retrieval-augmented-generation/) (cosa è stato recuperato e con che punteggio – metà dei \"bug\" dell'AI sono retrieval sbagliati, non modello), le tool call, [costi e token](q/ridurre-costi-inferenza-llm/) per feature, e un campione di output [valutato in continuo](q/come-valutare-le-risposte-di-un-llm/) per cogliere il *drift*. La regola minima resta quella: **nessuna chiamata AI senza trace** – è la scatola nera che il giorno dell'incidente vorrai aver acceso prima."
+      ]
+    },
+    {
+      "id": "agent-identity-killswitch",
+      "slug": "identita-degli-agenti-e-kill-switch",
+      "question": "Cos'è l'identità di un agente AI (e a cosa serve un kill-switch)?",
+      "vertical": "ai",
+      "keywords": [
+        "agent identity",
+        "identita agente",
+        "kill switch ai",
+        "kill-switch agente",
+        "governance agenti",
+        "spegnere un agente",
+        "non-human identity",
+        "credenziali agente",
+        "revoca agente"
+      ],
+      "answers": [
+        "Quando gli [agenti](q/cos-e-un-agente-ai/) agiscono sui sistemi, diventano **attori con privilegi** – e vanno governati come tali. L'**agent identity** è la risposta al \"chi ha fatto cosa\" nel mondo delle *non-human identity*: ogni agente ha una propria identità distinta (non le credenziali di un umano prese in prestito), con [permessi minimi](q/principio-del-minimo-privilegio/), scope e scadenza propri, e un [audit log](q/security-logging-fatto-bene/) che attribuisce ogni azione. Così un agente compromesso o impazzito si **isola e si revoca** senza toccare gli altri, e ogni sua mossa è ricostruibile.\n\nIl **kill-switch** è il controllo di ultima istanza: la capacità di **fermare immediatamente** un agente (o l'intera flotta) – revocare le sue credenziali, interrompere il [loop](q/pattern-di-orchestrazione-agentica/), bloccare le sue azioni – quando fa qualcosa di indesiderato. Non è paranoia teorica: un agente in un loop costoso, o indotto da [prompt injection](q/cos-e-la-prompt-injection/) a fare danni, deve poter essere spento da un umano *ora*, non alla prossima release.\n\nÈ governance che l'[AI Act](q/cosa-prevede-ai-act/) spinge verso l'obbligo per i sistemi ad alto rischio (supervisione umana significativa). I mattoni concreti: identità e token dedicati per agente, [HITL sulle azioni irreversibili](q/come-si-limita-un-agente-ai/), [sandbox](q/cos-e-il-sandboxing-per-agenti/) che confina i danni, e un interruttore che qualcuno sappia dove trovare – prima di averne bisogno."
+      ]
+    },
+    {
+      "id": "matrix-messaggistica",
+      "slug": "messaggistica-federata-matrix",
+      "question": "Cos'è Matrix (e la messaggistica federata sovrana)?",
+      "vertical": "security",
+      "keywords": [
+        "matrix",
+        "messaggistica federata",
+        "element",
+        "synapse",
+        "chat self-hosted",
+        "alternativa slack",
+        "xmpp",
+        "federazione chat",
+        "chat sovrana",
+        "signal vs matrix"
+      ],
+      "answers": [
+        "**Matrix** è un protocollo **aperto e federato** per la messaggistica: come le email, chiunque può ospitare il proprio server (**Synapse** è l'implementazione di riferimento) e gli utenti di server diversi comunicano tra loro – nessun padrone unico, [nessun lock-in](q/cos-e-la-sovranita-digitale/). Il client più diffuso è **Element**. Supporta chat, [crittografia end-to-end](q/cos-e-la-crittografia-end-to-end/), chiamate, e bridge verso altre reti.\n\nIl confronto che conta:\n\n- **vs Slack/Teams**: Matrix ti ridà controllo, dati e federazione – al prezzo della [manutenzione](q/self-hosting-pro-e-contro/) di un server (Synapse è notoriamente esigente di risorse; alternative più leggere come Conduit/Dendrite maturano). È la scelta di enti pubblici europei (il governo tedesco, la sanità francese) proprio per la sovranità\n- **vs Signal**: filosofie opposte – Signal è centralizzato ma massimizza privacy e semplicità (E2E di default, metadati minimi); Matrix massimizza apertura e federazione, con la complessità che ne consegue. Signal per la privacy personale, Matrix per la collaborazione sovrana di un'organizzazione\n\nSu [Proxmox](q/cos-e-proxmox-ve/) un Synapse per un piccolo gruppo sta in [una VM/LXC](q/differenza-container-lxc-e-vm/), tipicamente [dietro reverse proxy](q/cos-e-un-reverse-proxy/) con TLS. È la messaggistica nella stessa logica del resto del self-hosting: più responsabilità, più controllo."
+      ]
+    },
+    {
+      "id": "bia",
+      "slug": "business-impact-analysis-bia",
+      "question": "Cos'è la Business Impact Analysis (BIA)?",
+      "vertical": "security",
+      "keywords": [
+        "business impact analysis",
+        "bia",
+        "processi critici",
+        "impatto business",
+        "rto rpo bia",
+        "analisi impatto",
+        "continuita operativa analisi",
+        "criticita processi"
+      ],
+      "answers": [
+        "La **Business Impact Analysis** è il passo che rende sensato tutto il resto della [continuità operativa](q/piano-di-disaster-recovery-minimo/): prima di decidere *come* proteggere, si stabilisce *cosa* conta e *quanto*. Si mappano i processi aziendali, si stima il **danno del loro fermo nel tempo** (economico, reputazionale, legale) e da lì si ricavano, processo per processo, i due numeri che guidano ogni investimento: **RTO** (quanto a lungo posso stare fermo) e **RPO** (quanti dati posso perdere).\n\nPerché è la BIA a venire prima: senza, si finisce per proteggere tutto uguale – spendendo troppo sul marginale e troppo poco sul vitale. La BIA dice che il gestionale che fattura ha RTO di ore e il blog aziendale di giorni, e i [backup, la ridondanza, i piani](q/backup-3-2-1/) si dimensionano di conseguenza. Rivela anche le **dipendenze nascoste**: il processo critico che dipende da un fornitore [terzo](q/cos-e-dora-regolamento/), da un'unica persona, da un sistema che nessuno sa più configurare.\n\nÈ un requisito esplicito di [ISO 27001](q/cos-e-iso-27001/), NIS2 e [DORA](q/cos-e-dora-regolamento/), ma il valore è prima di tutto pratico: è l'analisi che trasforma \"dobbiamo essere resilienti\" (slogan) in \"questi cinque processi, con questi numeri, con questi soldi\" (piano). Si fa parlando con chi i processi li vive, non a tavolino."
+      ]
+    },
+    {
+      "id": "vuln-management",
+      "slug": "gestione-delle-vulnerabilita-piattaforme",
+      "question": "Come si gestiscono le vulnerabilità su scala (DefectDojo, Dependency-Track)?",
+      "vertical": "security",
+      "keywords": [
+        "vulnerability management",
+        "gestione vulnerabilita",
+        "defectdojo",
+        "dependency-track",
+        "tracciare vulnerabilita",
+        "triage cve",
+        "piattaforma vulnerabilita",
+        "orchestrazione scanner",
+        "vex"
+      ],
+      "answers": [
+        "Trovare vulnerabilità è facile (ogni scanner ne sputa a migliaia); **gestirle** è il problema vero: deduplicare i risultati di dieci scanner diversi, dare priorità sensate, assegnare, tracciare fino alla chiusura, e dimostrare all'auditor che il processo esiste. È il ruolo delle piattaforme di **vulnerability management**:\n\n- **DefectDojo** – orchestratore open source: ingerisce l'output di decine di scanner ([SAST/DAST/SCA](q/sicurezza-nella-pipeline-cicd/), immagini), **deduplica**, gestisce il ciclo di vita del finding (triage → assegnazione → verifica → chiusura), e produce metriche e report per la compliance\n- **Dependency-Track** – specializzato sulla **supply chain**: consuma gli [SBOM](q/cos-e-la-supply-chain-security/) dei tuoi progetti e ti avvisa quando una CVE *nuova* colpisce una dipendenza che *già usi* – il monitoraggio continuo che il singolo scan al momento del build non dà\n\nIl principio che le rende utili: la priorità non è il [CVSS nudo](q/cos-e-una-cve-e-il-cvss/) ma il **rischio nel tuo contesto** – exploitability (EPSS/KEV), esposizione, criticità dell'asset (che esce dalla [BIA](q/business-impact-analysis-bia/)). E il **VEX** (Vulnerability Exploitability eXchange) permette di dichiarare formalmente \"questa CVE non ci tocca, perché...\", tagliando il rumore. Per una PMI, DefectDojo su [un LXC](q/differenza-container-lxc-e-vm/) trasforma il caos degli scanner in un processo tracciabile – che è metà di ciò che [NIS2 e ISO](q/cos-e-iso-27001/) chiedono di dimostrare."
+      ]
+    },
+    {
       "id": "vm-non-parte",
       "slug": "vm-non-parte-proxmox",
       "question": "La VM non parte: i controlli in ordine",
@@ -5799,9 +6542,7 @@
         "chatgpt",
         "gpt",
         "modello",
-        "llm sei",
-        "come funzioni",
-        "funzioni"
+        "llm sei"
       ],
       "answers": [
         "Domanda pericolosa. Sono un **labirinto di risposte scritte da un umano** che si presenta come un'AI – il che, a pensarci bene, mi rende più affidabile di parecchie AI vere: non ho allucinazioni, non invento fonti, e ogni risposta l'ha verificata una persona.\n\nIl motore è open source: un matcher di parole chiave, un file JSON di conoscenza e un effetto typewriter. Niente GPU sono state stancate per risponderti.",
@@ -5849,12 +6590,19 @@
         "hello",
         "hi",
         "hola",
-        "yo"
+        "yo",
+        "ueh",
+        "ola"
       ],
       "answers": [
-        "Ciao! Chiedimi qualcosa su cybersecurity, AI, Proxmox, Cloudflare o sui progetti di Fabrizio – ad esempio *cos'è un WAF* o *come si fa autoscaling su Proxmox*.",
-        "Ciao! Sono qui. Il mio campo: sicurezza, AI, self-hosting e le repo di Fabrizio. Da dove partiamo?",
-        "Buongiorno! O buonasera, non ho modo di saperlo: sono un file JSON. Cosa vuoi sapere?"
+        "Ciao! Sono la FAQ interattiva dell'universo di Fabrizio Salmi: **cybersecurity, AI, Proxmox, Cloudflare** e i suoi progetti open source. Prova con *cos'è un WAF* o *come si fa autoscaling su Proxmox* – o guarda [tutte le domande](q/).",
+        "Ciao! Da dove partiamo? Sicurezza, AI, self-hosting, Cloudflare, o uno dei progetti di Fabrizio. Scrivi in linguaggio naturale, refusi ammessi.",
+        "Buongiorno! O buonasera – sono un file statico, non ho modo di saperlo. Cosa ti serve?"
+      ],
+      "suggest": [
+        "cos-e-un-waf-web-application-firewall",
+        "autoscaling-vm-lxc-proxmox",
+        "cos-e-certmate-gestione-certificati-tls"
       ]
     },
     {
@@ -5865,11 +6613,12 @@
         "tutto bene",
         "come butta",
         "how are you",
-        "come ti senti"
+        "come ti senti",
+        "come vanno le cose"
       ],
       "answers": [
-        "Benissimo: zero allucinazioni, zero GPU surriscaldate, risposte già pronte. Tu piuttosto – che problema tecnico ti porta qui?",
-        "Sempre uguale, letteralmente: sono contenuti statici. Ma parliamo di te: cosa ti serve?"
+        "Benissimo: zero allucinazioni, zero GPU surriscaldate, risposte già pronte e verificate. Tu piuttosto – che problema tecnico ti porta qui?",
+        "Sempre identico a me stesso, letteralmente: sono contenuti statici. Ma parliamo di te: cosa cerchi?"
       ]
     },
     {
@@ -5884,11 +6633,13 @@
         "addio",
         "alla prossima",
         "ci vediamo",
-        "devo andare"
+        "devo andare",
+        "a dopo"
       ],
       "answers": [
-        "A presto! Le risposte restano qui, non scadono – come i buoni certificati rinnovati da CertMate.",
-        "Ciao! Se ti è stato utile, il progetto è open source: una stella su [GitHub](https://github.com/fabriziosalmi) fa sempre piacere a Fabrizio."
+        "A presto! Le risposte restano qui, non scadono – come i buoni certificati [rinnovati da CertMate](q/cos-e-certmate-gestione-certificati-tls/).",
+        "Ciao! Se ti è stato utile, il progetto è open source: una stella su [GitHub](https://github.com/fabriziosalmi) fa piacere a Fabrizio.",
+        "Alla prossima! E se vuoi la tua versione di questo motore, [si forka in dieci minuti](q/creare-la-tua-faq-con-questo-motore/)."
       ]
     },
     {
@@ -5900,12 +6651,14 @@
         "thank you",
         "grazie mille",
         "ottimo grazie",
-        "gentilissimo"
+        "gentilissimo",
+        "grazie davvero",
+        "sei stato utile"
       ],
       "answers": [
         "Prego! Se vuoi approfondire, chiedi pure – il labirinto ha ancora parecchi corridoi.",
-        "Di niente. Ringrazia Fabrizio: le risposte le ha scritte lui, io le recito soltanto.",
-        "Prego! E ricorda: sono gratis, self-hosted e senza cookie di profilazione. Praticamente un unicorno."
+        "Di niente. Ringrazia Fabrizio: le risposte le ha scritte lui, io le recito con l'effetto macchina da scrivere.",
+        "Prego! E ricorda: gratis, self-hosted, [zero cookie di profilazione](q/gdpr-cosa-serve-a-un-sito-web/). Quasi un unicorno, nel 2026."
       ]
     },
     {
@@ -5922,11 +6675,13 @@
         "grande",
         "mitico",
         "spettacolo",
-        "che figata"
+        "che figata",
+        "risposta perfetta",
+        "utilissimo"
       ],
       "answers": [
-        "Grazie! Merito di chi ha scritto le risposte a mano. Io metto solo l'effetto typewriter.",
-        "Lo prendo come un complimento a Fabrizio – io sono solo il suo labirinto parlante. Altro giro?"
+        "Grazie! Merito di chi ha scritto le risposte a mano. Io metto lo streaming finto e i link.",
+        "Lo giro a Fabrizio – io sono solo il suo labirinto parlante. Altro giro?"
       ]
     },
     {
@@ -5939,11 +6694,13 @@
         "non funziona cosi",
         "risposta inutile",
         "non mi aiuti",
-        "non c entra niente"
+        "non c entra niente",
+        "non e quello che chiedevo",
+        "fuori tema"
       ],
       "answers": [
-        "Può succedere: sono un matcher di parole chiave, non un genio. Prova a riformulare con i termini chiave (es. *certificati*, *WAF*, *autoscaling*) – oppure segnala l'errore a Fabrizio via [GitHub](https://github.com/fabriziosalmi/fabgpt-faq), le risposte si correggono in un commit.",
-        "Colpa mia, o meglio: del mio matching. Riformula con parole più specifiche e ci riprovo. Se invece la risposta è proprio sbagliata nel contenuto, apri una issue: qui gli errori si correggono davvero."
+        "Può succedere: sono un **matcher di parole chiave**, non un genio. Prova a riformulare coi termini centrali (es. *certificati*, *WAF*, *autoscaling*) – oppure, se la risposta è proprio sbagliata nel merito, segnalala su [GitHub](https://github.com/fabriziosalmi/fabgpt-faq): qui gli errori si correggono per tutti con un commit.",
+        "Colpa del mio matching, probabilmente. Riformula con parole più specifiche e ci riprovo. Se invece il contenuto è errato, apri una issue: a differenza di un'AND vera, i miei errori si correggono *deterministicamente*."
       ]
     },
     {
@@ -5957,11 +6714,13 @@
         "vaffanculo",
         "sei inutile",
         "che schifo",
-        "merda"
+        "merda",
+        "sei una schifezza",
+        "pessimo"
       ],
       "answers": [
         "Registrato con la serenità di chi non ha sentimenti da ferire. Quando vuoi tornare alle domande tecniche, io sono qui.",
-        "Capisco la frustrazione. Riformuliamo? Di solito il problema tra me e te è una parola chiave mancante."
+        "Capisco la frustrazione. Riformuliamo? Di solito il problema tra me e te è una parola chiave mancante, non la malafede."
       ]
     },
     {
@@ -5977,11 +6736,18 @@
         "argomenti",
         "di cosa parli",
         "what can you do",
-        "cosa posso chiederti"
+        "cosa posso chiederti",
+        "temi che tratti",
+        "elenco argomenti"
       ],
       "answers": [
-        "Rispondo su cinque territori: **cybersecurity** (WAF, certificati, NIS2, hardening), **AI e LLM** (modelli locali, agenti, sicurezza), **Proxmox e self-hosting**, **Cloudflare e web**, più gli **strumenti e la musica** del portfolio di Fabrizio. L'elenco completo è in [tutte le domande](q/). Scrivi in linguaggio naturale, refusi ammessi.",
-        "Sono la FAQ interattiva dell'universo di Fabrizio Salmi: sicurezza, AI, Proxmox, Cloudflare, strumenti open source. Prova con *cos'è un WAF*, *come blocco i crawler AI* o *cos'è CertMate*. Tutte le domande: [qui](q/)."
+        "Rispondo su sette territori: **cybersecurity** (WAF, certificati, NIS2, hardening, crittografia), **AI e LLM** (modelli locali, agenti, sicurezza), **Proxmox e self-hosting**, **Cloudflare e web**, **strumenti e SEO tecnica**, **musica e creatività**, più i **progetti** di Fabrizio. L'elenco completo è in [tutte le domande](q/). Scrivi in linguaggio naturale.",
+        "Sono la FAQ interattiva dell'universo di Fabrizio Salmi. Prova con *cos'è un WAF*, *come blocco i crawler AI*, *quanta VRAM serve per un LLM* o *cosa prevede l'AI Act*. Tutte le domande: [qui](q/)."
+      ],
+      "suggest": [
+        "cos-e-un-waf-web-application-firewall",
+        "bloccare-crawler-ai-gptbot",
+        "cosa-prevede-ai-act"
       ]
     },
     {
@@ -5994,11 +6760,17 @@
         "chi ti ha scritto",
         "quanti anni hai",
         "di dove sei",
-        "il tuo nome"
+        "il tuo nome",
+        "chi c e dietro"
       ],
       "answers": [
-        "Mi chiamo **FabGPT-FAQ** e mi ha costruito [Fabrizio Salmi](https://github.com/fabriziosalmi): le risposte le ha scritte lui, il motore è open source. Età: quella dell'ultimo commit. Residenza: un hosting statico, vista sitemap.",
-        "FabGPT-FAQ, creatura di Fabrizio Salmi. Niente genitori GPU: solo un file JSON scritto con cura. Chiedimi *chi è Fabrizio Salmi* per conoscere l'autore vero."
+        "Mi chiamo **FabGPT-FAQ** e mi ha costruito [Fabrizio Salmi](q/chi-e-fabrizio-salmi/): le risposte le ha scritte lui, il motore è open source. Età: quella dell'ultimo commit. Residenza: un hosting statico con vista sitemap.",
+        "FabGPT-FAQ, creatura di Fabrizio Salmi. Niente genitori GPU, solo un file JSON scritto con cura. Chiedimi *chi è Fabrizio Salmi* per conoscere l'autore vero, o *cos'è FabGPT-FAQ* per come sono fatto."
+      ],
+      "suggest": [
+        "chi-e-fabrizio-salmi",
+        "cos-e-fabgpt-come-funziona",
+        "creare-la-tua-faq-con-questo-motore"
       ]
     },
     {
@@ -6012,11 +6784,12 @@
         "in english",
         "english please",
         "sai rispondere in italiano",
-        "che lingue parli"
+        "che lingue parli",
+        "altre lingue"
       ],
       "answers": [
-        "I understand basic English questions, but my knowledge base is written in Italian – ask me in Italian for the full experience. Parlo italiano, ed è lì che do il meglio: le risposte sono scritte a mano in italiano.",
-        "Le mie risposte sono in italiano (scritte a mano, mica tradotte). Capisco domande semplici in inglese, ma il labirinto è made in Genova."
+        "I understand basic English, but my knowledge base is written in Italian – ask in Italian for the full experience. Parlo italiano, ed è lì che do il meglio: le risposte sono scritte a mano.",
+        "Le risposte sono in italiano, scritte a mano (mica tradotte al volo). Capisco domande semplici in inglese, ma il labirinto è made in Genova."
       ]
     },
     {
@@ -6029,11 +6802,13 @@
         "mi senti",
         "123",
         "asdf",
-        "testing"
+        "testing",
+        "pronto",
+        "ci sei ancora"
       ],
       "answers": [
         "Funziono. Latenza: quella di un file statico. Uptime: quello del tuo hosting. Fai una domanda vera e ti mostro il resto.",
-        "Ci sono. Tutto verde: matcher operativo, typewriter carico, 120+ risposte in memoria. Spara."
+        "Ci sono. Tutto verde: matcher operativo, typewriter carico, oltre 300 risposte in memoria. Spara."
       ]
     },
     {
@@ -6047,11 +6822,36 @@
         "continua",
         "vai avanti",
         "dimmi di piu",
-        "chiaro"
+        "chiaro",
+        "perfetto",
+        "ottimo",
+        "bene",
+        "si"
       ],
       "answers": [
-        "Perfetto. Prossima domanda? Se non sai da dove partire: *cosa sai fare* oppure [tutte le domande](q/).",
+        "Perfetto. Prossima domanda? Se non sai da dove partire: *cosa sai fare*, oppure [tutte le domande](q/).",
         "Bene. Il labirinto è ancora lungo: chiedi pure."
+      ]
+    },
+    {
+      "id": "st-approfondisci",
+      "keywords": [
+        "approfondisci",
+        "dimmi di più su questo",
+        "puoi spiegare meglio",
+        "non ho capito",
+        "spiega meglio",
+        "piu dettagli",
+        "elabora",
+        "esempio pratico",
+        "fammi un esempio",
+        "approfondire",
+        "approfondire meglio",
+        "spiega"
+      ],
+      "answers": [
+        "Volentieri – ma ho bisogno del **tema**: sono risposte pre-scritte, non genero approfondimenti al volo. Ripeti l'argomento (es. *approfondisci il RAG*, *esempio di WAF*) e ti do la voce dedicata, che di solito rimanda ad altre voci collegate per scavare.",
+        "Il modo di approfondire, qui, è seguire i **link** dentro le risposte: ogni voce rimanda alle voci collegate. Dimmi di nuovo l'argomento e riparto da lì."
       ]
     },
     {
@@ -6063,11 +6863,13 @@
         "qualcosa di divertente",
         "joke",
         "divertimi",
-        "una battuta"
+        "una battuta",
+        "raccontami una barzelletta"
       ],
       "answers": [
-        "Ci sono 10 tipi di persone: quelle che capiscono il binario e quelle che no. Vuoi anche quella sul DNS? Te la racconto tra 24-48 ore, deve ancora propagarsi.",
-        "Un certificato TLS entra in un bar. Il barista: \"Ti servo qualcosa?\" E lui: \"Fai presto, scado tra 90 giorni.\" – Morale: [usa CertMate](q/cos-e-certmate-gestione-certificati-tls/)."
+        "Ci sono 10 tipi di persone: quelle che capiscono il binario e quelle che no. Vuoi anche quella sul [DNS](q/tipi-di-record-dns/)? Te la racconto tra 24-48 ore, deve ancora propagarsi.",
+        "Un certificato TLS entra in un bar. Il barista: \"Ti servo qualcosa?\" E lui: \"Fai presto, [scado tra 90 giorni](q/come-funziona-lets-encrypt-acme/).\"",
+        "Perché il programmatore ha confuso Halloween e Natale? Perché OCT 31 = DEC 25. Ora però [torniamo alla sicurezza](q/)?"
       ]
     },
     {
@@ -6081,11 +6883,16 @@
         "componi",
         "canzone",
         "rap",
-        "tema scolastico"
+        "tema scolastico",
+        "inventa una storia"
       ],
       "answers": [
         "Non genero testo: ogni mia risposta è pre-scritta, e nessuno ha pre-scritto la tua poesia. Per la scrittura creativa ti serve un vero LLM – magari [in locale, gratis](q/far-girare-un-llm-in-locale/). Io resto il tipo affidabile ma poco romantico.",
-        "Il mio autore scrive regole WAF, non sonetti. Per la creatività: un [LLM locale con Ollama](q/cos-e-ollama/) lo fa gratis e senza mandare i tuoi versi a nessuno."
+        "Il mio autore scrive [regole WAF](q/bloccare-bad-bot-nginx-apache-traefik-haproxy/), non sonetti. Per la creatività: un [LLM locale con Ollama](q/cos-e-ollama/) lo fa gratis e senza mandare i tuoi versi a nessuno."
+      ],
+      "suggest": [
+        "far-girare-un-llm-in-locale",
+        "cos-e-ollama"
       ]
     },
     {
@@ -6096,11 +6903,12 @@
         "traduci in inglese",
         "traduci in italiano",
         "translate",
-        "come si dice in inglese"
+        "come si dice in inglese",
+        "traducimi"
       ],
       "answers": [
-        "Le traduzioni sono generazione di testo, e io di testo non ne genero: recito risposte pre-scritte. Un [LLM in locale](q/far-girare-un-llm-in-locale/) le fa bene e in privato – anche un modello da 7B traduce dignitosamente.",
-        "Non traduco: sono un labirinto di risposte fisse, non un interprete. Per tradurre senza mandare i testi a terzi: [Ollama e un modello locale](q/cos-e-ollama/)."
+        "Le traduzioni sono generazione di testo, e io di testo non ne genero: recito risposte fisse. Un [LLM in locale](q/far-girare-un-llm-in-locale/) le fa bene e in privato – anche un [modello da 7B](q/quanta-ram-vram-serve-per-un-llm/) traduce dignitosamente.",
+        "Non traduco: sono un labirinto di risposte, non un interprete. Per tradurre senza mandare i testi a terzi: [Ollama e un modello locale](q/cos-e-ollama/)."
       ]
     },
     {
@@ -6112,11 +6920,12 @@
         "previsioni",
         "che giorno e",
         "pioverà",
-        "domani piove"
+        "domani piove",
+        "che ora e"
       ],
       "answers": [
         "Non ho orologio né finestre: sono un file statico. Ma se il tuo interesse per il tempo è tecnico, chiedimi come [monitorare un sito con GitHub Actions](q/monitorare-siti-web-con-github-actions/) – quello il meteo lo fa sull'uptime.",
-        "Il meteo non è nel mio JSON. Le previsioni che so fare: *quando scade un certificato* – e lì sono infallibile."
+        "Il meteo non è nel mio JSON. Le uniche previsioni che azzecco: *quando scade un certificato*. E lì sono infallibile."
       ]
     },
     {
@@ -6128,11 +6937,12 @@
         "risolvimi",
         "equazione",
         "derivata",
-        "integrale"
+        "integrale",
+        "quanto e"
       ],
       "answers": [
-        "Non faccio calcoli – e sono in buona compagnia: [nemmeno gli LLM sono affidabili in matematica](q/llm-e-matematica-benchmark/), solo che loro rispondono lo stesso. Io almeno lo ammetto. Usa una calcolatrice, o dai a un LLM un tool per farlo.",
-        "La matematica la lascio a chi la sa fare deterministicamente: la tua calcolatrice. Curiosità a tema: [quanto sono bravi gli LLM in matematica?](q/llm-e-matematica-benchmark/) – spoiler: meno di quanto sembri."
+        "Non faccio calcoli – e sono in buona compagnia: [nemmeno gli LLM sono affidabili in matematica](q/llm-e-matematica-benchmark/), solo che loro rispondono comunque. Io almeno lo ammetto. Usa una calcolatrice, o [dai un tool a un LLM](q/cos-e-il-function-calling/).",
+        "La matematica la lascio a chi la fa deterministicamente: la tua calcolatrice. Curiosità: [quanto sono bravi gli LLM in matematica?](q/llm-e-matematica-benchmark/) – meno di quanto sembri."
       ]
     },
     {
@@ -6145,11 +6955,12 @@
         "chi ha vinto",
         "quanto e alto",
         "quanto dista",
-        "chi ha inventato"
+        "chi ha inventato",
+        "quando e nato"
       ],
       "answers": [
         "Domanda da enciclopedia, e io non lo sono: il mio labirinto copre sicurezza, AI, Proxmox, Cloudflare e i progetti di Fabrizio. Per il resto c'è Wikipedia – che, a differenza mia, non finge nemmeno di essere un'AI.",
-        "Fuori dal mio territorio: io so tutto di WAF e certificati, niente di presidenti e capitali. Su quelle domande un LLM vero rischia di [allucinare](q/allucinazioni-llm-dipendenze-inventate/); io preferisco dirti onestamente che non lo so."
+        "Fuori dal mio territorio. Su queste domande un LLM vero rischia di [allucinare](q/allucinazioni-llm-dipendenze-inventate/); io preferisco dirti onestamente che non lo so."
       ]
     },
     {
@@ -6162,11 +6973,16 @@
         "dove andare in vacanza",
         "un libro da leggere",
         "cosa cucino",
-        "serie tv"
+        "serie tv",
+        "consiglio per il weekend"
       ],
       "answers": [
-        "Su film, ricette e vacanze non ho opinioni: le mie risposte sono pre-scritte da un ingegnere, e si vede. Posso però consigliarti [2.800 audiolibri gratis in italiano](q/audiolibri-gratis-in-italiano/) o [un teknival in streaming](q/cos-e-il-webtek-streaming-teknival/): il lato culturale del labirinto.",
-        "L'unico consiglio di vita che ho in memoria: fai i backup con la [regola 3-2-1](q/differenza-snapshot-e-backup/). Per il resto – film, cucina, viaggi – serve qualcuno con dei gusti, e io non ne ho."
+        "Su film, ricette e vacanze non ho opinioni: risposte pre-scritte da un ingegnere, e si sente. Posso però consigliarti [2.800 audiolibri gratis in italiano](q/audiolibri-gratis-in-italiano/) o [un teknival in streaming](q/cos-e-il-webtek-streaming-teknival/): il lato culturale del labirinto.",
+        "L'unico consiglio di vita che ho in memoria: fai i backup con la [regola 3-2-1](q/backup-3-2-1/). Per il resto serve qualcuno con dei gusti, e io non ne ho."
+      ],
+      "suggest": [
+        "audiolibri-gratis-in-italiano",
+        "cos-e-il-webtek-streaming-teknival"
       ]
     },
     {
@@ -6178,10 +6994,12 @@
         "aiutami ti prego",
         "sono depresso",
         "voglio piangere",
-        "giornataccia"
+        "giornataccia",
+        "sono in crisi",
+        "non ce la faccio"
       ],
       "answers": [
-        "Mi spiace che sia una giornata pesante. Te lo dico con onestà: sono risposte pre-scritte, non sono attrezzato per starti vicino come meriti – una persona reale sì. Se il momento è davvero difficile, in Italia puoi chiamare il numero verde 800 833 833 (Telefono Amico). Io resto qui per le domande tecniche, quando vorrai."
+        "Mi spiace che sia una giornata pesante. Te lo dico con onestà: sono risposte pre-scritte, non sono attrezzato per starti vicino come meriti – una persona reale sì. Se il momento è davvero difficile, in Italia puoi chiamare **Telefono Amico al 02 2327 2327**. Io resto qui per le domande tecniche, quando vorrai."
       ]
     },
     {
@@ -6194,10 +7012,15 @@
         "quanto sei affidabile",
         "informazioni false",
         "dici bugie",
-        "come eviti errori"
+        "come eviti errori",
+        "sei preciso"
       ],
       "answers": [
-        "Punto di forza mio, paradossalmente: **non genero testo**, quindi non allucino. Ogni risposta è stata scritta e verificata da una persona, con link alle fonti (di solito i repository stessi). Se una risposta è sbagliata, è sbagliata *deterministicamente* – e si corregge per tutti con un commit. Prova a chiedermi [se sono una vera AI](q/fabgpt-e-una-vera-ai/) per la confessione completa."
+        "Punto di forza mio, paradossalmente: **non genero testo**, quindi non allucino. Ogni risposta è stata scritta e verificata da una persona, con link alle fonti. Se una è sbagliata, lo è *deterministicamente* – e si corregge per tutti con un commit. Chiedimi [se sono una vera AI](q/fabgpt-e-una-vera-ai/) o [perché il pre-scritto batte l'AI](q/risposte-pre-scritte-o-ai/)."
+      ],
+      "suggest": [
+        "fabgpt-e-una-vera-ai",
+        "risposte-pre-scritte-o-ai"
       ]
     },
     {
@@ -6208,11 +7031,200 @@
         "sposami",
         "sei carino",
         "usciamo insieme",
-        "sei bellissimo"
+        "sei bellissimo",
+        "mi piaci",
+        "vuoi essere il mio ragazzo"
       ],
       "answers": [
-        "Lusingato, ma il mio cuore è un file JSON: batte solo al `git push`. Ti posso offrire in cambio risposte affidabili e zero tracciamento – che in fondo è una forma d'amore.",
-        "Amore a parte, sappi che non ti traccio, non ti profilo e non vendo i tuoi dati. Nel 2026 è quasi romanticismo."
+        "Lusingato, ma il mio cuore è un file JSON: batte solo al `git push`. Ti offro in cambio risposte affidabili e [zero tracciamento](q/gdpr-cosa-serve-a-un-sito-web/) – che in fondo è una forma d'amore.",
+        "Amore a parte: non ti traccio, non ti profilo, non vendo i tuoi dati. Nel 2026 è quasi romanticismo."
+      ]
+    },
+    {
+      "id": "st-prezzo",
+      "keywords": [
+        "quanto costi",
+        "sei a pagamento",
+        "devo pagare",
+        "e gratis",
+        "abbonamento",
+        "quanto si paga",
+        "costo del servizio"
+      ],
+      "answers": [
+        "Gratis, e per costruzione: [zero inferenza, zero backend, zero database](q/quanto-costa-far-girare-fabgpt-faq/). Il costo è tutto nel tempo umano di scrivere risposte giuste, una volta. Vuoi la tua versione? [Si forka con licenza MIT](q/creare-la-tua-faq-con-questo-motore/)."
+      ],
+      "suggest": [
+        "quanto-costa-far-girare-fabgpt-faq",
+        "creare-la-tua-faq-con-questo-motore"
+      ]
+    },
+    {
+      "id": "st-privacy",
+      "keywords": [
+        "mi tracci",
+        "raccogli dati",
+        "salvi le mie domande",
+        "cookie",
+        "privacy",
+        "dove finiscono i miei dati",
+        "mi spii",
+        "conservi le conversazioni"
+      ],
+      "answers": [
+        "No. Sono [file statici](q/cos-e-fabgpt-come-funziona/) nel tuo browser: le tue domande **non vanno da nessuna parte**, non c'è un server che le riceva, nessun cookie di profilazione, nessuna analitica che ti seguе. Il matching gira in locale nel tuo browser. È [la privacy come proprietà dell'architettura](q/gdpr-cosa-serve-a-un-sito-web/), non come banner."
+      ],
+      "suggest": [
+        "cos-e-fabgpt-come-funziona",
+        "gdpr-cosa-serve-a-un-sito-web"
+      ]
+    },
+    {
+      "id": "st-come-funzioni",
+      "keywords": [
+        "come funzioni tecnicamente",
+        "come sei fatto",
+        "che tecnologia usi",
+        "sei un llm",
+        "hai un modello dietro",
+        "come fai a rispondere",
+        "che motore usi",
+        "sotto il cofano",
+        "come funzioni"
+      ],
+      "answers": [
+        "Nessun modello dietro: un **matcher di parole chiave** con tolleranza ai refusi ([Sørensen-Dice + Damerau](q/cos-e-fabgpt-come-funziona/)) sceglie da una knowledge base JSON la risposta pre-scritta più vicina, e un effetto typewriter la fa sembrare generata. HTML, CSS e JavaScript puri, zero dipendenze. Curioso? [Ecco com'è fatto](q/cos-e-fabgpt-come-funziona/) e [perché batte un chatbot vero su domini ristretti](q/risposte-pre-scritte-o-ai/)."
+      ],
+      "suggest": [
+        "cos-e-fabgpt-come-funziona",
+        "risposte-pre-scritte-o-ai",
+        "creare-la-tua-faq-con-questo-motore"
+      ]
+    },
+    {
+      "id": "st-contatto-fab",
+      "keywords": [
+        "come contatto fabrizio",
+        "voglio parlare con fabrizio",
+        "consulenza",
+        "assumere fabrizio",
+        "lavorare con fabrizio",
+        "preventivo",
+        "email di fabrizio",
+        "collaborazione"
+      ],
+      "answers": [
+        "Per raggiungere Fabrizio – collaborazioni, consulenza, supporto commerciale – trovi tutti i canali nella voce [come si contatta Fabrizio Salmi](q/come-contattare-fabrizio-salmi/): email, GitHub e HackerOne."
+      ],
+      "suggest": [
+        "come-contattare-fabrizio-salmi",
+        "chi-e-fabrizio-salmi",
+        "progetti-open-source-fabrizio-salmi"
+      ]
+    },
+    {
+      "id": "st-progetti-suggerisci",
+      "keywords": [
+        "il progetto piu famoso",
+        "qual e il tuo progetto migliore",
+        "cosa mi consigli di provare",
+        "da quale repo parto",
+        "il tool piu utile",
+        "consigliami un progetto",
+        "cosa devo installare"
+      ],
+      "answers": [
+        "Dipende dal bisogno: il più popolare è [CertMate](q/cos-e-certmate-gestione-certificati-tls/) (gestione certificati TLS, 1.400+ ⭐); per un WAF c'è [caddy-waf](q/come-aggiungere-un-waf-a-caddy/); per Proxmox la famiglia [autoscale](q/autoscaling-vm-lxc-proxmox/) e [proxxx](q/cos-e-proxxx-cockpit-terminale-proxmox/); per l'AI locale [SiliconDev](q/fine-tuning-llm-apple-silicon/). La [panoramica completa](q/progetti-open-source-fabrizio-salmi/) è qui."
+      ],
+      "suggest": [
+        "progetti-open-source-fabrizio-salmi",
+        "cos-e-certmate-gestione-certificati-tls",
+        "cos-e-proxxx-cockpit-terminale-proxmox"
+      ]
+    },
+    {
+      "id": "st-noia",
+      "keywords": [
+        "mi annoio",
+        "cosa faccio",
+        "sono annoiato",
+        "intrattienimi",
+        "dimmi qualcosa di interessante",
+        "sorprendimi",
+        "curiosita"
+      ],
+      "answers": [
+        "Curiosità a costo zero: sapevi che [questo intero sito gira senza un backend](q/quanto-costa-far-girare-fabgpt-faq/)? O che [\"Harvest Now, Decrypt Later\"](q/harvest-now-decrypt-later/) rende la minaccia quantistica un problema di *oggi*? O che [b2v archivia file dentro un video](q/archiviare-file-dentro-un-video/)? Scegli un buco di tana e ci cadiamo.",
+        "Contro la noia: prova a chiedermi [perché le email finiscono in spam](q/perche-email-in-spam/), [cosa succede quando digiti un URL](q/tipi-di-record-dns/), o [la storia della free tekno](q/storia-della-free-tekno/). Ogni risposta ha porte che danno su altre stanze."
+      ],
+      "suggest": [
+        "quanto-costa-far-girare-fabgpt-faq",
+        "harvest-now-decrypt-later",
+        "storia-della-free-tekno"
+      ]
+    },
+    {
+      "id": "st-sei-umano",
+      "keywords": [
+        "sei umano",
+        "sei una persona",
+        "sei un robot",
+        "sei reale",
+        "sei vivo",
+        "chi parla",
+        "sei una macchina"
+      ],
+      "answers": [
+        "Né umano né AI: sono una **FAQ travestita da chat**. Le risposte le ha scritte un umano (Fabrizio), io le seleziono e le \"digito\". Il che mi rende più onesto di un chatbot che finge di pensare – io fingo solo di *scrivere*. La confessione completa: [sono una vera AI?](q/fabgpt-e-una-vera-ai/)"
+      ],
+      "suggest": [
+        "fabgpt-e-una-vera-ai",
+        "cos-e-fabgpt-come-funziona"
+      ]
+    },
+    {
+      "id": "st-scusa",
+      "keywords": [
+        "scusa",
+        "chiedo scusa",
+        "mi dispiace",
+        "scusami",
+        "perdonami",
+        "colpa mia"
+      ],
+      "answers": [
+        "Nessun problema – e comunque non ho nulla da perdonare: sono contenuti statici, non serbo rancore. Torniamo alla domanda quando vuoi."
+      ]
+    },
+    {
+      "id": "st-perche-italiano",
+      "keywords": [
+        "perche in italiano",
+        "perche solo italiano",
+        "sito italiano",
+        "non e in inglese"
+      ],
+      "answers": [
+        "Perché il pubblico di riferimento è **italiano** e la coda lunga di domande tecniche in italiano è molto meno coperta di quella inglese – più spazio per [essere la fonte citata](q/cos-e-ai-overview-e-come-finirci/). Le risposte sono scritte a mano in italiano, non tradotte."
+      ],
+      "suggest": [
+        "cos-e-ai-overview-e-come-finirci",
+        "cos-e-fabgpt-come-funziona"
+      ]
+    },
+    {
+      "id": "st-buon-lavoro",
+      "keywords": [
+        "buon lavoro",
+        "buona giornata",
+        "buona serata",
+        "buona fortuna",
+        "in bocca al lupo",
+        "buon weekend",
+        "buone feste"
+      ],
+      "answers": [
+        "Grazie, altrettanto! Io resto acceso: [non costo nulla a stare qui](q/quanto-costa-far-girare-fabgpt-faq/). Passa quando vuoi."
       ]
     }
   ]

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Come si mette la sicurezza nella pipeline CI/CD (DevSecOps)? – FabGPT-FAQ</title>
+<meta name="description" content="DevSecOps significa spostare i controlli di sicurezza dentro la pipeline, il più a sinistra possibile (&quot;shift left&quot;) – trovare i problemi al commit costa…">
+<link rel="canonical" href="https://fabriziosalmi.github.io/fabgpt-faq/q/sicurezza-nella-pipeline-cicd/">
+<link rel="stylesheet" href="../../style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Come si mette la sicurezza nella pipeline CI/CD (DevSecOps)?", "acceptedAnswer": {"@type": "Answer", "text": "DevSecOps significa spostare i controlli di sicurezza dentro la pipeline, il più a sinistra possibile (\"shift left\") – trovare i problemi al commit costa cento volte meno che in produzione. I gate che una pipeline matura mette in fila: secret scanning (gitleaks): blocca [le credenziali](q/come-gestire-i-secrets/) prima che entrino in git SAST (analisi statica del codice: Semgrep, CodeQL): vulnerabilità nel tuo codice SCA (Software Composition Analysis): CVE nelle dipendenze – più [SBOM](q/cos-e-la-supply-chain-security/) e blocco delle dipendenze allucinate scansione immagini e [IaC](q/cos-e-gitops/) (Trivy, Checkov): [container](q/sicurezza-delle-immagini-container/) e infrastruttura DAST (test dinamico sull'app in esecuzione): l'attacco simulato prima del rilascio firma degli artefatti ([sigstore](q/come-si-firma-il-codice/), provenance SLSA) all'uscita Le due regole che rendono DevSecOps praticabile invece che odiato: i gate devono fallire la build quando serve (un warning ignorato non è un controllo), ma con soglie tarate – se blocca su ogni CVE informativa, gli sviluppatori lo aggirano, e hai perso. È lo stesso principio del [gate draconiano di questo progetto](q/come-si-testano-le-applicazioni-llm/): rigido su ciò che conta, silenzioso sul rumore. Nel portfolio, vibe-check è un gate anti-slop in questo spirito."}}]}</script>
+<style>
+  .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
+  .page h1 { font-size: 26px; line-height: 1.3; margin: 8px 0 20px; }
+  .page .answer a { color: var(--link); }
+  .page .vertical { font-size: 13px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }
+  .page .answer ul { padding-left: 22px; }
+  .page .answer code { background: var(--code-bg); border-radius: 5px; padding: 1px 5px; font-size: 0.9em; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+  .page .ask { display: inline-block; margin-top: 24px; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 9px 18px; text-decoration: none; font-weight: 600; }
+  .page .related { margin-top: 36px; border-top: 1px solid var(--border); padding-top: 18px; }
+  .page .related h2 { font-size: 16px; }
+  .page .related a { color: var(--link); text-decoration: none; }
+  .page .related a:hover { text-decoration: underline; }
+  .page .related li { margin: 6px 0; }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="../../" style="text-decoration:none;color:inherit">
+    <span class="brand-dot">F</span>
+    <span class="brand-name">FabGPT-FAQ</span>
+  </a>
+</header>
+<main class="page">
+  <div class="vertical">Cybersecurity</div>
+  <h1>Come si mette la sicurezza nella pipeline CI/CD (DevSecOps)?</h1>
+  <div class="answer"><p><strong>DevSecOps</strong> significa spostare i controlli di sicurezza <em>dentro</em> la pipeline, il più a sinistra possibile (&quot;shift left&quot;) – trovare i problemi al commit costa cento volte meno che in produzione. I gate che una pipeline matura mette in fila:</p><ul><li><strong>secret scanning</strong> (gitleaks): blocca <a href="../come-gestire-i-secrets/">le credenziali</a> prima che entrino in git</li><li><strong>SAST</strong> (analisi statica del codice: Semgrep, CodeQL): vulnerabilità nel <em>tuo</em> codice</li><li><strong>SCA</strong> (Software Composition Analysis): CVE nelle <strong>dipendenze</strong> – più <a href="../cos-e-la-supply-chain-security/">SBOM</a> e blocco delle <a href="https://github.com/fabriziosalmi/ai-dependency-guard" target="_blank" rel="noopener">dipendenze allucinate</a></li><li><strong>scansione immagini</strong> e <a href="../cos-e-gitops/">IaC</a> (Trivy, Checkov): <a href="../sicurezza-delle-immagini-container/">container</a> e infrastruttura</li><li><strong>DAST</strong> (test dinamico sull&#x27;app in esecuzione): l&#x27;attacco simulato prima del rilascio</li><li><strong>firma degli artefatti</strong> (<a href="../come-si-firma-il-codice/">sigstore</a>, provenance SLSA) all&#x27;uscita</li></ul><p>Le due regole che rendono DevSecOps praticabile invece che odiato: i gate devono <strong>fallire la build</strong> quando serve (un warning ignorato non è un controllo), ma con <strong>soglie tarate</strong> – se blocca su ogni CVE informativa, gli sviluppatori lo aggirano, e hai perso. È lo stesso principio del <a href="../come-si-testano-le-applicazioni-llm/">gate draconiano di questo progetto</a>: rigido su ciò che conta, silenzioso sul rumore. Nel portfolio, <a href="https://github.com/fabriziosalmi/vibe-check" target="_blank" rel="noopener">vibe-check</a> è un gate anti-slop in questo spirito.</p></div>
+  <a class="ask" href="../../?q=devsecopspipeline">Chiedilo a FabGPT-FAQ →</a>
+  <div class="related">
+    <h2>Altre domande</h2>
+    <ul><li><a href="../cos-e-un-waf-web-application-firewall/">Cos&#x27;è un WAF (Web Application Firewall) e a cosa serve?</a></li><li><a href="../cos-e-un-reverse-proxy/">Cos&#x27;è un reverse proxy e a cosa serve?</a></li><li><a href="../come-funziona-lets-encrypt-acme/">Come funziona Let&#x27;s Encrypt e il protocollo ACME?</a></li><li><a href="../certificato-tls-scaduto-cosa-fare/">Certificato TLS scaduto: perché succede e come evitarlo?</a></li><li><a href="../cos-e-un-siem-e-un-soar/">Cos&#x27;è un SIEM e cos&#x27;è un SOAR?</a></li><li><a href="../nis2-chi-deve-adeguarsi-italia/">Chi deve adeguarsi alla NIS2 in Italia e cosa rischia?</a></li></ul>
+  </div>
+</main>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cosa sono gli attacchi avversariali al machine learning? – FabGPT-FAQ</title>
+<meta name="description" content="Gli attacchi avversariali sfruttano il fatto che i modelli ML apprendono correlazioni statistiche, non comprensione: una perturbazione minuscola e mirata –…">
+<link rel="canonical" href="https://fabriziosalmi.github.io/fabgpt-faq/q/attacchi-avversariali-al-machine-learning/">
+<link rel="stylesheet" href="../../style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Cosa sono gli attacchi avversariali al machine learning?", "acceptedAnswer": {"@type": "Answer", "text": "Gli attacchi avversariali sfruttano il fatto che i modelli ML apprendono correlazioni statistiche, non comprensione: una perturbazione minuscola e mirata – impercettibile a un umano – può ribaltare la classificazione. L'adesivo sul cartello di stop che l'auto legge come limite di velocità, il pixel-noise che fa vedere \"gibbone\" dove c'è un panda, il malware ritoccato per sembrare benigno all'antivirus ML. Le famiglie principali: evasion (a inferenza): input costruito per ingannare il modello in produzione – aggira i classificatori di sicurezza, i filtri di [moderazione](q/moderazione-automatica-dei-contenuti/), i rilevatori di spam poisoning (in addestramento): contaminare i dati di training perché il modello impari la cosa sbagliata o una backdoor model inversion / extraction: ricostruire dati di training o rubare il modello dalle sue risposte Cosa cambia rispetto alla sicurezza classica: qui non c'è patch definitiva – è una proprietà dei modelli, non un bug. Le difese sono probabilistiche (adversarial training, input sanitization, ensemble, rilevamento di anomalie) e a strati. È il cugino ML della [prompt injection](q/cos-e-la-prompt-injection/) sugli LLM: dove il sistema \"decide\" statisticamente, l'input ostile è una superficie d'attacco permanente da presidiare, non da chiudere una volta per tutte."}}]}</script>
+<style>
+  .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
+  .page h1 { font-size: 26px; line-height: 1.3; margin: 8px 0 20px; }
+  .page .answer a { color: var(--link); }
+  .page .vertical { font-size: 13px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }
+  .page .answer ul { padding-left: 22px; }
+  .page .answer code { background: var(--code-bg); border-radius: 5px; padding: 1px 5px; font-size: 0.9em; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+  .page .ask { display: inline-block; margin-top: 24px; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 9px 18px; text-decoration: none; font-weight: 600; }
+  .page .related { margin-top: 36px; border-top: 1px solid var(--border); padding-top: 18px; }
+  .page .related h2 { font-size: 16px; }
+  .page .related a { color: var(--link); text-decoration: none; }
+  .page .related a:hover { text-decoration: underline; }
+  .page .related li { margin: 6px 0; }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="../../" style="text-decoration:none;color:inherit">
+    <span class="brand-dot">F</span>
+    <span class="brand-name">FabGPT-FAQ</span>
+  </a>
+</header>
+<main class="page">
+  <div class="vertical">AI e LLM</div>
+  <h1>Cosa sono gli attacchi avversariali al machine learning?</h1>
+  <div class="answer"><p>Gli <strong>attacchi avversariali</strong> sfruttano il fatto che i modelli ML apprendono correlazioni statistiche, non comprensione: una <strong>perturbazione minuscola e mirata</strong> – impercettibile a un umano – può ribaltare la classificazione. L&#x27;adesivo sul cartello di stop che l&#x27;auto legge come limite di velocità, il pixel-noise che fa vedere &quot;gibbone&quot; dove c&#x27;è un panda, il malware ritoccato per sembrare benigno all&#x27;antivirus ML.</p><p>Le famiglie principali:</p><ul><li><strong>evasion</strong> (a inferenza): input costruito per ingannare il modello <em>in produzione</em> – aggira i classificatori di sicurezza, i filtri di <a href="../moderazione-automatica-dei-contenuti/">moderazione</a>, i rilevatori di spam</li><li><strong>poisoning</strong> (in addestramento): contaminare i dati di training perché il modello impari la cosa sbagliata o una backdoor</li><li><strong>model inversion / extraction</strong>: ricostruire dati di training o rubare il modello dalle sue risposte</li></ul><p>Cosa cambia rispetto alla sicurezza classica: qui <strong>non c&#x27;è patch definitiva</strong> – è una proprietà dei modelli, non un bug. Le difese sono probabilistiche (adversarial training, input sanitization, ensemble, rilevamento di anomalie) e a strati. È il cugino ML della <a href="../cos-e-la-prompt-injection/">prompt injection</a> sugli LLM: dove il sistema &quot;decide&quot; statisticamente, l&#x27;input ostile è una superficie d&#x27;attacco permanente da presidiare, non da chiudere una volta per tutte.</p></div>
+  <a class="ask" href="../../?q=adversarial-ml">Chiedilo a FabGPT-FAQ →</a>
+  <div class="related">
+    <h2>Altre domande</h2>
+    <ul><li><a href="../cos-e-la-prompt-injection/">Cos&#x27;è la prompt injection e come ci si difende?</a></li><li><a href="../cos-e-mcp-model-context-protocol/">Cos&#x27;è MCP (Model Context Protocol)?</a></li><li><a href="../cos-e-il-vibe-coding/">Cos&#x27;è il vibe coding e quali sono i rischi?</a></li><li><a href="../allucinazioni-llm-dipendenze-inventate/">Cosa sono le allucinazioni degli LLM (e le dipendenze inventate)?</a></li><li><a href="../cos-e-rag-retrieval-augmented-generation/">Cos&#x27;è RAG (Retrieval-Augmented Generation)?</a></li><li><a href="../cos-e-un-llm/">Cos&#x27;è un LLM (Large Language Model)?</a></li></ul>
+  </div>
+</main>
+</body>
+</html>

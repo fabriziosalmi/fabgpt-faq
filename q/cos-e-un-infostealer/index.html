@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cos&#x27;è un infostealer (e come esfiltra le credenziali)? – FabGPT-FAQ</title>
+<meta name="description" content="Un infostealer è malware con un obiettivo chirurgico: entra, saccheggia i segreti in pochi secondi e se ne va, spesso senza persistere. Cosa ruba: password…">
+<link rel="canonical" href="https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-un-infostealer/">
+<link rel="stylesheet" href="../../style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Cos'è un infostealer (e come esfiltra le credenziali)?", "acceptedAnswer": {"@type": "Answer", "text": "Un infostealer è malware con un obiettivo chirurgico: entra, saccheggia i segreti in pochi secondi e se ne va, spesso senza persistere. Cosa ruba: password e cookie salvati nei browser (i cookie di sessione sono l'oro – bypassano login e [MFA](q/cos-e-autenticazione-due-fattori-mfa/) perché la sessione è già autenticata), portafogli crypto, token di Discord/Telegram, chiavi SSH, credenziali di file di configurazione. Come esfiltra: comprime il bottino e lo spedisce al [C2](q/cos-e-una-botnet/) via HTTPS o Telegram – traffico che si mimetizza nel normale. Il modello di business è malware-as-a-service: chi lo compra riceve un pannello, e i log rubati finiscono in vendita nei mercati underground, alimentando il [credential stuffing](q/cos-e-un-attacco-brute-force/) e gli accessi iniziali dei [ransomware](q/cos-e-un-ransomware/). L'ingresso tipico: crack e software pirata, estensioni malevole, [allegati di phishing](q/cos-e-il-phishing/). Le difese: [passkey/chiavi hardware](q/chiavi-di-sicurezza-hardware-yubikey/) (niente password da rubare), non salvare i segreti nel browser (un [password manager](q/perche-usare-un-password-manager/) serio cifra il vault), [EDR](q/differenza-edr-xdr-antivirus/) che riconosce il comportamento, e sessioni brevi. E se sei un'organizzazione, il [monitoraggio dei log rubati](q/scoprire-dati-in-un-data-breach/) ti avvisa quando le tue credenziali compaiono in vendita."}}]}</script>
+<style>
+  .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
+  .page h1 { font-size: 26px; line-height: 1.3; margin: 8px 0 20px; }
+  .page .answer a { color: var(--link); }
+  .page .vertical { font-size: 13px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }
+  .page .answer ul { padding-left: 22px; }
+  .page .answer code { background: var(--code-bg); border-radius: 5px; padding: 1px 5px; font-size: 0.9em; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+  .page .ask { display: inline-block; margin-top: 24px; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 9px 18px; text-decoration: none; font-weight: 600; }
+  .page .related { margin-top: 36px; border-top: 1px solid var(--border); padding-top: 18px; }
+  .page .related h2 { font-size: 16px; }
+  .page .related a { color: var(--link); text-decoration: none; }
+  .page .related a:hover { text-decoration: underline; }
+  .page .related li { margin: 6px 0; }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="../../" style="text-decoration:none;color:inherit">
+    <span class="brand-dot">F</span>
+    <span class="brand-name">FabGPT-FAQ</span>
+  </a>
+</header>
+<main class="page">
+  <div class="vertical">Cybersecurity</div>
+  <h1>Cos&#x27;è un infostealer (e come esfiltra le credenziali)?</h1>
+  <div class="answer"><p>Un <strong>infostealer</strong> è malware con un obiettivo chirurgico: entra, <strong>saccheggia i segreti in pochi secondi</strong> e se ne va, spesso senza persistere. Cosa ruba: password e cookie salvati nei browser (i <strong>cookie di sessione</strong> sono l&#x27;oro – bypassano login <em>e</em> <a href="../cos-e-autenticazione-due-fattori-mfa/">MFA</a> perché la sessione è già autenticata), portafogli crypto, token di Discord/Telegram, chiavi SSH, credenziali di file di configurazione.</p><p>Come esfiltra: comprime il bottino e lo spedisce al <a href="../cos-e-una-botnet/">C2</a> via HTTPS o Telegram – traffico che si mimetizza nel normale. Il modello di business è <strong>malware-as-a-service</strong>: chi lo compra riceve un pannello, e i log rubati finiscono in vendita nei mercati underground, alimentando il <a href="../cos-e-un-attacco-brute-force/">credential stuffing</a> e gli accessi iniziali dei <a href="../cos-e-un-ransomware/">ransomware</a>.</p><p>L&#x27;ingresso tipico: crack e software pirata, estensioni malevole, <a href="../cos-e-il-phishing/">allegati di phishing</a>. Le difese: <a href="../chiavi-di-sicurezza-hardware-yubikey/">passkey/chiavi hardware</a> (niente password da rubare), non salvare i segreti nel browser (un <a href="../perche-usare-un-password-manager/">password manager</a> serio cifra il vault), <a href="../differenza-edr-xdr-antivirus/">EDR</a> che riconosce il comportamento, e sessioni brevi. E se sei un&#x27;organizzazione, il <a href="../scoprire-dati-in-un-data-breach/">monitoraggio dei log rubati</a> ti avvisa quando le <em>tue</em> credenziali compaiono in vendita.</p></div>
+  <a class="ask" href="../../?q=infostealer">Chiedilo a FabGPT-FAQ →</a>
+  <div class="related">
+    <h2>Altre domande</h2>
+    <ul><li><a href="../cos-e-un-waf-web-application-firewall/">Cos&#x27;è un WAF (Web Application Firewall) e a cosa serve?</a></li><li><a href="../cos-e-un-reverse-proxy/">Cos&#x27;è un reverse proxy e a cosa serve?</a></li><li><a href="../come-funziona-lets-encrypt-acme/">Come funziona Let&#x27;s Encrypt e il protocollo ACME?</a></li><li><a href="../certificato-tls-scaduto-cosa-fare/">Certificato TLS scaduto: perché succede e come evitarlo?</a></li><li><a href="../cos-e-un-siem-e-un-soar/">Cos&#x27;è un SIEM e cos&#x27;è un SOAR?</a></li><li><a href="../nis2-chi-deve-adeguarsi-italia/">Chi deve adeguarsi alla NIS2 in Italia e cosa rischia?</a></li></ul>
+  </div>
+</main>
+</body>
+</html>

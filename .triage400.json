@@ -1,0 +1,2402 @@
+[
+ {
+  "theme": "Fondamenti di Rete e Sicurezza dell'Infrastruttura",
+  "q": "Come funziona l'handshake a tre vie TCP (SYN, SYN-ACK, ACK) e in che modo viene abusato in un attacco SYN Flood?",
+  "hit": "errore-handshake",
+  "score": 1.0
+ },
+ {
+  "theme": "Fondamenti di Rete e Sicurezza dell'Infrastruttura",
+  "q": "Quali sono le differenze operative di sicurezza tra il modello OSI e lo stack TCP/IP?",
+  "hit": "scegliere-modello",
+  "score": 1.8
+ },
+ {
+  "theme": "Fondamenti di Rete e Sicurezza dell'Infrastruttura",
+  "q": "Come protegge il protocollo DNSSEC contro gli attacchi di DNS Cache Poisoning e Spoofing?",
+  "hit": "dns-spoofing",
+  "score": 6.0
+ },
+ {
+  "theme": "Fondamenti di Rete e Sicurezza dell'Infrastruttura",
+  "q": "Qual è la differenza concettuale e di esposizione tra NAT statico, dinamico e PAT (Port Address Translation)?",
+  "hit": "naso",
+  "score": 1.0
+ },
+ {
+  "theme": "Fondamenti di Rete e Sicurezza dell'Infrastruttura",
+  "q": "Quali sono le differenze tra un firewall stateful tradizionale e un Next-Generation Firewall (NGFW)?",
+  "hit": "caddy-waf",
+  "score": 1.0
+ },
+ {
+  "theme": "Fondamenti di Rete e Sicurezza dell'Infrastruttura",
+  "q": "Come funzionano le tecniche di attacco Layer 2 come VLAN Hopping e ARP Poisoning, e quali controlli le mitigano?",
+  "hit": "cloudflare-automation",
+  "score": 1.34
+ },
+ {
+  "theme": "Fondamenti di Rete e Sicurezza dell'Infrastruttura",
+  "q": "In che modo il Border Gateway Protocol (BGP) viene protetto tramite RPKI per prevenire il BGP Hijacking?",
+  "hit": "errore-502",
+  "score": 1.0
+ },
+ {
+  "theme": "Fondamenti di Rete e Sicurezza dell'Infrastruttura",
+  "q": "Qual è la differenza di incapsulamento tra la modalità Transport e la modalità Tunnel in IPsec?",
+  "hit": "tunnel-senza-porte",
+  "score": 1.0
+ },
+ {
+  "theme": "Fondamenti di Rete e Sicurezza dell'Infrastruttura",
+  "q": "Come si progetta e applica l'isolamento della rete tramite micro-segmentazione definita dal software?",
+  "hit": "sdn-proxmox",
+  "score": 2.0
+ },
+ {
+  "theme": "Fondamenti di Rete e Sicurezza dell'Infrastruttura",
+  "q": "Quali sono le differenze architetturali tra un Network IDS (passivo/TAP) e un Network IPS (inline)?",
+  "hit": "ids-ips",
+  "score": 2.0
+ },
+ {
+  "theme": "Architettura Zero Trust e Gestione delle Identità (IAM / PAM)",
+  "q": "Quali sono i principi fondamentali del modello Zero Trust definiti dal NIST SP 800-207?",
+  "hit": "zero-trust",
+  "score": 2.0
+ },
+ {
+  "theme": "Architettura Zero Trust e Gestione delle Identità (IAM / PAM)",
+  "q": "In che modo il modello Zero Trust Network Access (ZTNA) sostituisce architetturalmente le VPN legacy?",
+  "hit": "zero-trust",
+  "score": 2.0
+ },
+ {
+  "theme": "Architettura Zero Trust e Gestione delle Identità (IAM / PAM)",
+  "q": "Quali sono le differenze architetturali e i casi d'uso tra SAML, OAuth 2.0 e OpenID Connect (OIDC)?",
+  "hit": null,
+  "score": 0.0
+ },
+ {
+  "theme": "Architettura Zero Trust e Gestione delle Identità (IAM / PAM)",
+  "q": "Come operano gli attacchi Adversary-in-the-Middle (AiTM) per intercettare sessioni e bypassare l'MFA tradizionale?",
+  "hit": "mitm",
+  "score": 1.48
+ },
+ {
+  "theme": "Architettura Zero Trust e Gestione delle Identità (IAM / PAM)",
+  "q": "Perché i protocolli di autenticazione FIDO2/WebAuthn e le passkey sono intrinsecamente phishing-resistant?",
+  "hit": "phishing",
+  "score": 2.41
+ },
+ {
+  "theme": "Architettura Zero Trust e Gestione delle Identità (IAM / PAM)",
+  "q": "Qual è il ruolo del Privileged Access Management (PAM) e come funziona l'accesso Just-In-Time (JIT)?",
+  "hit": "container-privilegiati",
+  "score": 1.52
+ },
+ {
+  "theme": "Architettura Zero Trust e Gestione delle Identità (IAM / PAM)",
+  "q": "Come si configurano e valutano le policy di Conditional Access basate su segnali di rischio in tempo reale?",
+  "hit": "ai-policy",
+  "score": 1.0
+ },
+ {
+  "theme": "Architettura Zero Trust e Gestione delle Identità (IAM / PAM)",
+  "q": "Cos'è l'Identity Threat Detection and Response (ITDR) e perché è prioritaria rispetto al monitoraggio endpoint?",
+  "hit": "edr-xdr",
+  "score": 3.0
+ },
+ {
+  "theme": "Architettura Zero Trust e Gestione delle Identità (IAM / PAM)",
+  "q": "Come si proteggono i token di sessione contro il furto tramite Continuous Access Evaluation (CAE)?",
+  "hit": "token-context",
+  "score": 1.0
+ },
+ {
+  "theme": "Architettura Zero Trust e Gestione delle Identità (IAM / PAM)",
+  "q": "Quali sono le differenze tra i modelli di controllo degli accessi RBAC, ABAC e Policy-Based Access Control (PBAC)?",
+  "hit": "minimo-privilegio",
+  "score": 1.68
+ },
+ {
+  "theme": "Cloud, Container e DevSecOps",
+  "q": "Come varia il Modello di Responsabilità Condivisa (Shared Responsibility) tra IaaS, PaaS e SaaS?",
+  "hit": "st-come-stai",
+  "score": 2.0
+ },
+ {
+  "theme": "Cloud, Container e DevSecOps",
+  "q": "Quali sono le differenze funzionali e d'integrazione tra strumenti CSPM, CWPP e piattaforme CNAPP?",
+  "hit": null,
+  "score": 0.71
+ },
+ {
+  "theme": "Cloud, Container e DevSecOps",
+  "q": "Come si implementa l'isolamento dei carichi di lavoro in Kubernetes tramite Pod Security Standards (PSS) e Network Policies?",
+  "hit": "modsecurity-alternative",
+  "score": 0.78
+ },
+ {
+  "theme": "Cloud, Container e DevSecOps",
+  "q": "Cos'è una Software Bill of Materials (SBOM) e come viene impiegata per tracciare vulnerabilità della supply chain software?",
+  "hit": "supply-chain-security",
+  "score": 3.0
+ },
+ {
+  "theme": "Cloud, Container e DevSecOps",
+  "q": "Quali sono le differenze tra SAST, DAST, IAST e SCA all'interno di una pipeline CI/CD DevSecOps?",
+  "hit": "hashing",
+  "score": 0.8
+ },
+ {
+  "theme": "Cloud, Container e DevSecOps",
+  "q": "Come si gestiscono in modo sicuro i segreti applicativi (API key, certificati) senza hardcoding nel codice sorgente?",
+  "hit": "gestione-secrets",
+  "score": 3.0
+ },
+ {
+  "theme": "Cloud, Container e DevSecOps",
+  "q": "Quali controlli prevengono la misconfiguration e l'esposizione pubblica accidentale di bucket S3 e storage cloud?",
+  "hit": "storage-proxmox",
+  "score": 2.8
+ },
+ {
+  "theme": "Cloud, Container e DevSecOps",
+  "q": "Come opera il mutual TLS (mTLS) all'interno di un Service Mesh (es. Istio o Linkerd)?",
+  "hit": "mtls",
+  "score": 5.0
+ },
+ {
+  "theme": "Cloud, Container e DevSecOps",
+  "q": "Cos'è l'Infrastructure as Code (IaC) Security e quali strumenti statici analizzano template Terraform prima del deploy?",
+  "hit": "cos-e-gitops",
+  "score": 3.0
+ },
+ {
+  "theme": "Cloud, Container e DevSecOps",
+  "q": "Come si rileva e previene un tentativo di Container Breakout verso l'host kernel sottostante?",
+  "hit": "proxmox-lxc-autoscale",
+  "score": 1.0
+ },
+ {
+  "theme": "Sicurezza dell'Intelligenza Artificiale (AI / LLM Security)",
+  "q": "Quali sono le vulnerabilità critiche mappate dall'OWASP Top 10 for Large Language Models?",
+  "hit": "owasp-top10",
+  "score": 5.0
+ },
+ {
+  "theme": "Sicurezza dell'Intelligenza Artificiale (AI / LLM Security)",
+  "q": "Qual è la differenza tra un attacco di Direct Prompt Injection e uno di Indirect Prompt Injection?",
+  "hit": "cos-e-prompt-injection",
+  "score": 2.0
+ },
+ {
+  "theme": "Sicurezza dell'Intelligenza Artificiale (AI / LLM Security)",
+  "q": "Come opera l'attacco di Data Poisoning durante le fasi di pre-training o fine-tuning di un modello AI?",
+  "hit": "pretraining",
+  "score": 2.78
+ },
+ {
+  "theme": "Sicurezza dell'Intelligenza Artificiale (AI / LLM Security)",
+  "q": "In che modo l'AI generativa viene impiegata per automatizzare campagne di spear-phishing e creare deepfake iper-realistici?",
+  "hit": "phishing",
+  "score": 4.41
+ },
+ {
+  "theme": "Sicurezza dell'Intelligenza Artificiale (AI / LLM Security)",
+  "q": "Cosa sono e come funzionano gli attacchi di Model Inversion e Membership Inference?",
+  "hit": "inferenza",
+  "score": 1.71
+ },
+ {
+  "theme": "Sicurezza dell'Intelligenza Artificiale (AI / LLM Security)",
+  "q": "Come funzionano le perturbazioni avversarie (Adversarial Attacks) volte a ingannare i classificatori di sicurezza?",
+  "hit": null,
+  "score": 0.71
+ },
+ {
+  "theme": "Sicurezza dell'Intelligenza Artificiale (AI / LLM Security)",
+  "q": "Come si protegge un'architettura RAG (Retrieval-Augmented Generation) dall'iniezione di vettori malevoli nella knowledge base?",
+  "hit": "cos-e-rag",
+  "score": 3.0
+ },
+ {
+  "theme": "Sicurezza dell'Intelligenza Artificiale (AI / LLM Security)",
+  "q": "Quali sono i requisiti di sicurezza introdotti da framework come il NIST AI Risk Management Framework (AI RMF)?",
+  "hit": "nis2",
+  "score": 0.8
+ },
+ {
+  "theme": "Sicurezza dell'Intelligenza Artificiale (AI / LLM Security)",
+  "q": "In che modo il machine learning riduce i falsi positivi nei motori di User and Entity Behavior Analytics (UEBA)?",
+  "hit": "nginx-waf-ai",
+  "score": 2.0
+ },
+ {
+  "theme": "Sicurezza dell'Intelligenza Artificiale (AI / LLM Security)",
+  "q": "Quali rischi di sicurezza emergono dall'autorizzazione di tool execution e chiamate API aperte per agenti AI autonomi?",
+  "hit": "ai-agent",
+  "score": 2.41
+ },
+ {
+  "theme": "Minacce Avanzate, Malware e Tattiche Offesive",
+  "q": "Come funziona il modello di business Ransomware-as-a-Service (RaaS) e le strategie di doppia/tripla estorsione?",
+  "hit": "ransomware",
+  "score": 3.0
+ },
+ {
+  "theme": "Minacce Avanzate, Malware e Tattiche Offesive",
+  "q": "Cos'è un attacco Living-off-the-Land (LotL) e perché elude le firme antivirus tradizionali?",
+  "hit": "edr-xdr",
+  "score": 1.0
+ },
+ {
+  "theme": "Minacce Avanzate, Malware e Tattiche Offesive",
+  "q": "Come funzionano le tecniche di Process Injection, DLL Sideloading e Reflective DLL Loading?",
+  "hit": "sql-injection",
+  "score": 1.0
+ },
+ {
+  "theme": "Minacce Avanzate, Malware e Tattiche Offesive",
+  "q": "In che modo la matrice MITRE ATT&CK struttura le relazioni tra Tattiche, Tecniche e Procedure (TTPs)?",
+  "hit": "http-vs-https",
+  "score": 0.81
+ },
+ {
+  "theme": "Minacce Avanzate, Malware e Tattiche Offesive",
+  "q": "In cosa consistono gli attacchi Dependency Confusion e Typosquatting nei repository pubblici di codice?",
+  "hit": "panoramica-repo",
+  "score": 1.0
+ },
+ {
+  "theme": "Minacce Avanzate, Malware e Tattiche Offesive",
+  "q": "Come operano le tecniche di attacco Active Directory come Kerberoasting e AS-REP Roasting?",
+  "hit": "storage-proxmox",
+  "score": 1.0
+ },
+ {
+  "theme": "Minacce Avanzate, Malware e Tattiche Offesive",
+  "q": "Cos'è un attacco Pass-the-Hash (PtH) e come viene mitigato dall'eliminazione dei protocolli legacy come NTLM?",
+  "hit": "hashing",
+  "score": 1.0
+ },
+ {
+  "theme": "Minacce Avanzate, Malware e Tattiche Offesive",
+  "q": "Come comunicano i malware con i server Command and Control (C2) tramite Domain Fronting e DNS Tunneling?",
+  "hit": "botnet",
+  "score": 3.0
+ },
+ {
+  "theme": "Minacce Avanzate, Malware e Tattiche Offesive",
+  "q": "Qual è la struttura operativa di un infostealer moderno e come esfiltra credenziali dai browser?",
+  "hit": null,
+  "score": 0.0
+ },
+ {
+  "theme": "Minacce Avanzate, Malware e Tattiche Offesive",
+  "q": "Come si caratterizza e rileva un insider threat (minaccia interna intenzionale o accidentale)?",
+  "hit": "nginx-waf-ai",
+  "score": 1.52
+ },
+ {
+  "theme": "SOC, Detection Engineering, SIEM ed EDR/XDR",
+  "q": "Quali sono le differenze funzionali tra un SIEM, una piattaforma SOAR e una soluzione XDR?",
+  "hit": "cos-e-siem-soar",
+  "score": 2.0
+ },
+ {
+  "theme": "SOC, Detection Engineering, SIEM ed EDR/XDR",
+  "q": "Come si definiscono e testano regole di detection utilizzando standard standardizzati come Sigma e YARA?",
+  "hit": "patterns",
+  "score": 1.0
+ },
+ {
+  "theme": "SOC, Detection Engineering, SIEM ed EDR/XDR",
+  "q": "Qual è la differenza sostanziale tra un Indicatore di Compromissione (IoC) e un Indicatore di Attacco (IoA)?",
+  "hit": "threat-intelligence",
+  "score": 2.84
+ },
+ {
+  "theme": "SOC, Detection Engineering, SIEM ed EDR/XDR",
+  "q": "Quali strategie si implementano in un Security Operations Center per abbattere l'Alert Fatigue?",
+  "hit": "cos-e-siem-soar",
+  "score": 2.0
+ },
+ {
+  "theme": "SOC, Detection Engineering, SIEM ed EDR/XDR",
+  "q": "Come si struttura una sessione di Threat Hunting proattivo guidata da ipotesi analitiche?",
+  "hit": null,
+  "score": 0.0
+ },
+ {
+  "theme": "SOC, Detection Engineering, SIEM ed EDR/XDR",
+  "q": "Come si integrano e automatizzano i feed di Threat Intelligence tramite protocolli STIX e TAXII?",
+  "hit": "threat-intelligence",
+  "score": 4.0
+ },
+ {
+  "theme": "SOC, Detection Engineering, SIEM ed EDR/XDR",
+  "q": "Quali eventi di sicurezza Windows (Event ID) sono prioritari per rilevare la creazione di nuovi processi e servizi?",
+  "hit": null,
+  "score": 0.69
+ },
+ {
+  "theme": "SOC, Detection Engineering, SIEM ed EDR/XDR",
+  "q": "In che modo il Network Detection and Response (NDR) identifica anomalie nel traffico cifrato tramite fingerprinting JA3/JA4?",
+  "hit": "ddos",
+  "score": 1.73
+ },
+ {
+  "theme": "SOC, Detection Engineering, SIEM ed EDR/XDR",
+  "q": "Come si misurano e ottimizzano le metriche operative SOC come MTTD (Mean Time to Detect) e MTTR (Mean Time to Respond)?",
+  "hit": "cos-e-un-soc",
+  "score": 1.0
+ },
+ {
+  "theme": "SOC, Detection Engineering, SIEM ed EDR/XDR",
+  "q": "Come si progetta un playbook SOAR per l'isolamento automatico di un endpoint sospetto di infezione malware?",
+  "hit": "cos-e-siem-soar",
+  "score": 1.0
+ },
+ {
+  "theme": "Incident Response, Digital Forensics e Resilienza",
+  "q": "Quali sono le 6 fasi del ciclo di vita di gestione degli incidenti secondo lo standard NIST SP 800-61?",
+  "hit": "nis2",
+  "score": 1.8
+ },
+ {
+  "theme": "Incident Response, Digital Forensics e Resilienza",
+  "q": "Come si preserva formalmente la Catena di Custodia (Chain of Custody) durante l'acquisizione di prove forensi?",
+  "hit": "st-test",
+  "score": 0.8
+ },
+ {
+  "theme": "Incident Response, Digital Forensics e Resilienza",
+  "q": "Qual è la procedura corretta per l'acquisizione e l'analisi forense della memoria volatile (RAM)?",
+  "hit": "l0-memory",
+  "score": 1.0
+ },
+ {
+  "theme": "Incident Response, Digital Forensics e Resilienza",
+  "q": "Quali artefatti Windows (MFT, Shimcache, Amcache, Prefetch) permettono di stabilire l'esecuzione temporale di file?",
+  "hit": "cache-status",
+  "score": 0.76
+ },
+ {
+  "theme": "Incident Response, Digital Forensics e Resilienza",
+  "q": "Qual è la distinzione operativa tra Recovery Point Objective (RPO) e Recovery Time Objective (RTO)?",
+  "hit": "disaster-recovery",
+  "score": 2.0
+ },
+ {
+  "theme": "Incident Response, Digital Forensics e Resilienza",
+  "q": "Come si proteggono le copie di backup aziendali da cancellazione tramite storage immutabile (WORM) e architetture air-gapped?",
+  "hit": "air-gap",
+  "score": 4.0
+ },
+ {
+  "theme": "Incident Response, Digital Forensics e Resilienza",
+  "q": "Come si pianifica ed esegue un Tabletop Exercise di simulazione crisi cyber per il top management?",
+  "hit": "panoramica-repo",
+  "score": 1.0
+ },
+ {
+  "theme": "Incident Response, Digital Forensics e Resilienza",
+  "q": "Quali sono i passaggi prioritari per il contenimento di emergenza in caso di compromissione del Domain Controller?",
+  "hit": "incident-response",
+  "score": 2.0
+ },
+ {
+  "theme": "Incident Response, Digital Forensics e Resilienza",
+  "q": "Come si gestisce la divulgazione controllata e la comunicazione di crisi senza compromettere le investigazioni in corso?",
+  "hit": null,
+  "score": 0.0
+ },
+ {
+  "theme": "Incident Response, Digital Forensics e Resilienza",
+  "q": "Quali criteri di convalida e test devono essere soddisfatti prima di reintrodurre sistemi bonificati nella rete produttiva?",
+  "hit": "st-test",
+  "score": 1.0
+ },
+ {
+  "theme": "Crittografia e Transizione Post-Quantistica (PQC)",
+  "q": "Quali sono le differenze prestazionali e operative tra crittografia a chiave simmetrica (AES) e asimmetrica (RSA, ECC)?",
+  "hit": "crittografia-sym-asym",
+  "score": 5.0
+ },
+ {
+  "theme": "Crittografia e Transizione Post-Quantistica (PQC)",
+  "q": "In che modo l'algoritmo quantistico di Shor compromette la sicurezza degli algoritmi asimmetrici attuali?",
+  "hit": "crittografia-sym-asym",
+  "score": 1.65
+ },
+ {
+  "theme": "Crittografia e Transizione Post-Quantistica (PQC)",
+  "q": "Quali sono i principali standard di crittografia post-quantistica selezionati dal NIST (es. ML-KEM/Kyber, ML-DSA/Dilithium)?",
+  "hit": "crittografia-sym-asym",
+  "score": 1.0
+ },
+ {
+  "theme": "Crittografia e Transizione Post-Quantistica (PQC)",
+  "q": "In cosa consiste la minaccia strategica \"Harvest Now, Decrypt Later\" (HNDL)?",
+  "hit": null,
+  "score": 0.69
+ },
+ {
+  "theme": "Crittografia e Transizione Post-Quantistica (PQC)",
+  "q": "Qual è l'impatto dell'algoritmo quantistico di Grover sulla crittografia simmetrica e perché richiede l'uso di AES-256?",
+  "hit": "crittografia-sym-asym",
+  "score": 3.9
+ },
+ {
+  "theme": "Crittografia e Transizione Post-Quantistica (PQC)",
+  "q": "Quali sono le differenze tra la crittografia post-quantistica (algoritmica) e il Quantum Key Distribution (hardware)?",
+  "hit": "crittografia-sym-asym",
+  "score": 1.0
+ },
+ {
+  "theme": "Crittografia e Transizione Post-Quantistica (PQC)",
+  "q": "In che modo TLS 1.3 ottimizza l'handshake crittografico ed elimina le ciphersuite deboli rispetto a TLS 1.2?",
+  "hit": "zion",
+  "score": 2.0
+ },
+ {
+  "theme": "Crittografia e Transizione Post-Quantistica (PQC)",
+  "q": "Cos'è la Fully Homomorphic Encryption (FHE) e quali casi d'uso abilita per l'elaborazione sicura su dati cifrati?",
+  "hit": "errore-handshake",
+  "score": 0.8
+ },
+ {
+  "theme": "Crittografia e Transizione Post-Quantistica (PQC)",
+  "q": "Quali elementi crittografici garantiscono le proprietà di integrità, autenticità e non ripudio in una firma digitale?",
+  "hit": "crittografia-sym-asym",
+  "score": 0.83
+ },
+ {
+  "theme": "Crittografia e Transizione Post-Quantistica (PQC)",
+  "q": "Cosa si intende per \"Crypto-Agility\" e come si progetta un'architettura pronta alla transizione verso nuovi algoritmi?",
+  "hit": "hashing",
+  "score": 1.55
+ },
+ {
+  "theme": "Sicurezza Applicativa e OWASP Top 10",
+  "q": "Come si manifesta una vulnerabilità Server-Side Request Forgery (SSRF) e come si blocca a livello di codice e rete?",
+  "hit": null,
+  "score": 0.0
+ },
+ {
+  "theme": "Sicurezza Applicativa e OWASP Top 10",
+  "q": "Quali sono le differenze architetturali tra Cross-Site Scripting (XSS) Stored, Reflected e DOM-based?",
+  "hit": "xss",
+  "score": 3.0
+ },
+ {
+  "theme": "Sicurezza Applicativa e OWASP Top 10",
+  "q": "Come funziona un attacco Cross-Site Request Forgery (CSRF) e come lo mitigano i flag SameSite e i token anti-CSRF?",
+  "hit": "token-context",
+  "score": 2.71
+ },
+ {
+  "theme": "Sicurezza Applicativa e OWASP Top 10",
+  "q": "Qual è la differenza strutturale tra Insecure Direct Object References (IDOR) e Broken Object Level Authorization (BOLA)?",
+  "hit": "inferenza",
+  "score": 1.34
+ },
+ {
+  "theme": "Sicurezza Applicativa e OWASP Top 10",
+  "q": "Come funziona una Blind SQL Injection (time-based o boolean-based) e perché le query parametrizzate la neutralizzano?",
+  "hit": "sql-injection",
+  "score": 3.0
+ },
+ {
+  "theme": "Sicurezza Applicativa e OWASP Top 10",
+  "q": "Quali controlli di autorizzazione proteggono le API REST da vulnerabilità di Mass Assignment?",
+  "hit": "cloudflare-automation",
+  "score": 1.34
+ },
+ {
+  "theme": "Sicurezza Applicativa e OWASP Top 10",
+  "q": "Come si implementano i meccanismi di Content Security Policy (CSP) per mitigare l'iniezione di script non attendibili?",
+  "hit": "agssh",
+  "score": 3.0
+ },
+ {
+  "theme": "Sicurezza Applicativa e OWASP Top 10",
+  "q": "Quali sono le best practice per la configurazione dei flag HTTP sui cookie di sessione (HttpOnly, Secure, SameSite)?",
+  "hit": "http-vs-https",
+  "score": 1.81
+ },
+ {
+  "theme": "Sicurezza Applicativa e OWASP Top 10",
+  "q": "In che modo una deserializzazione insicura di oggetti non fidati può portare all'esecuzione di codice remoto (RCE)?",
+  "hit": "dimensionare-nodo",
+  "score": 0.8
+ },
+ {
+  "theme": "Sicurezza Applicativa e OWASP Top 10",
+  "q": "Quali falle di validazione nei redirect degli authorization flow OAuth 2.0 consentono l'esfiltrazione dell'authorization code?",
+  "hit": "registrar",
+  "score": 1.81
+ },
+ {
+  "theme": "Governance, Risk Management e Normative UE",
+  "q": "Quali sono i requisiti tecnici e organizzativi minimi imposti dalla Direttiva UE NIS2 per i soggetti essenziali e importanti?",
+  "hit": "nis2-chi-deve",
+  "score": 4.0
+ },
+ {
+  "theme": "Governance, Risk Management e Normative UE",
+  "q": "Quali sono le tempistiche di notifica degli incidenti cyber previste dalla NIS2 (Early Warning entro 24 ore, notifica entro 72 ore)?",
+  "hit": "notifica-garante",
+  "score": 2.0
+ },
+ {
+  "theme": "Governance, Risk Management e Normative UE",
+  "q": "Come si struttura il framework di gestione del rischio informatico previsto dal regolamento DORA per il settore finanziario?",
+  "hit": "dora",
+  "score": 3.0
+ },
+ {
+  "theme": "Governance, Risk Management e Normative UE",
+  "q": "Quali obblighi di Security-by-Design e gestione del ciclo di vita del software introduce il Cyber Resilience Act (CRA)?",
+  "hit": "cra",
+  "score": 3.0
+ },
+ {
+  "theme": "Governance, Risk Management e Normative UE",
+  "q": "Quali condizioni definiscono l'obbligo di notifica di un data breach al Garante Privacy e agli interessati secondo il GDPR (Art. 33/34)?",
+  "hit": "notifica-garante",
+  "score": 7.89
+ },
+ {
+  "theme": "Governance, Risk Management e Normative UE",
+  "q": "Come si effettua una valutazione quantitativa vs qualitativa del rischio cyber secondo gli standard ISO/IEC 27001:2022 o NIST CSF 2.0?",
+  "hit": "iso-27001",
+  "score": 3.0
+ },
+ {
+  "theme": "Governance, Risk Management e Normative UE",
+  "q": "Come si strutturano le verifiche di Third-Party Risk Management (TPRM) per valutare la postura di sicurezza dei fornitori?",
+  "hit": "nis2",
+  "score": 1.8
+ },
+ {
+  "theme": "Governance, Risk Management e Normative UE",
+  "q": "Come funziona l'esecuzione di un Threat-Led Penetration Testing (TLPT) secondo il framework europeo TIBER-EU?",
+  "hit": "va-vs-pentest",
+  "score": 2.0
+ },
+ {
+  "theme": "Governance, Risk Management e Normative UE",
+  "q": "Quali differenze sostanziali sussistono tra un audit formale di conformità, un vulnerability assessment e un ingaggio di Red Teaming?",
+  "hit": "va-vs-pentest",
+  "score": 4.0
+ },
+ {
+  "theme": "Governance, Risk Management e Normative UE",
+  "q": "In che modo il principio di accountability aziendale responsabilizza gli organi di amministrazione (Board) per la mancata diligenza nella gestione della sicurezza informatica?",
+  "hit": "dimensionare-nodo",
+  "score": 0.8
+ },
+ {
+  "theme": "Sovranità Digitale Europea e Alternative a Big Tech",
+  "q": "Quali sono i principali provider cloud con infrastruttura e data center esclusivi nell'UE (es. Hetzner, OVHcloud, Scaleway) alternativi agli hyperscaler statunitensi?",
+  "hit": "vmware-migrazione",
+  "score": 0.86
+ },
+ {
+  "theme": "Sovranità Digitale Europea e Alternative a Big Tech",
+  "q": "In che modo il CLOUD Act statunitense può impattare legalmente i dati conservati in Europa su server di filiali controllate da aziende USA?",
+  "hit": "sovranita-digitale",
+  "score": 5.69
+ },
+ {
+  "theme": "Sovranità Digitale Europea e Alternative a Big Tech",
+  "q": "Quali suite collaborative open source europee (es. Nextcloud Hub, ownCloud Infinite Scale) possono sostituire Microsoft 365 e Google Workspace a livello aziendale e domestico?",
+  "hit": "panoramica-repo",
+  "score": 2.0
+ },
+ {
+  "theme": "Sovranità Digitale Europea e Alternative a Big Tech",
+  "q": "Come funzionano i servizi di posta elettronica cifrata basati in Europa (es. Proton Mail, Tuta) e in cosa differiscono architetturalmente da Gmail?",
+  "hit": "flareover",
+  "score": 1.49
+ },
+ {
+  "theme": "Sovranità Digitale Europea e Alternative a Big Tech",
+  "q": "Qual è l'impatto dell'European Chips Act e dei progetti open source (es. architettura RISC-V) sulla sovranità hardware dell'UE nel lungo termine?",
+  "hit": "panoramica-repo",
+  "score": 3.0
+ },
+ {
+  "theme": "Sovranità Digitale Europea e Alternative a Big Tech",
+  "q": "In che modo motori di ricerca europei e privacy-oriented (es. Qwant, Brave Search, SearXNG self-hosted) gestiscono l'indicizzazione senza tracciamento o profilazione?",
+  "hit": "perche-self-hosting",
+  "score": 2.0
+ },
+ {
+  "theme": "Sovranità Digitale Europea e Alternative a Big Tech",
+  "q": "Quali sono le distribuzioni Linux consumer più stabili (es. Fedora, Linux Mint, Debian) per l'abbandono definitivo dei sistemi operativi commerciali closed-source?",
+  "hit": "system-prompt",
+  "score": 1.52
+ },
+ {
+  "theme": "Sovranità Digitale Europea e Alternative a Big Tech",
+  "q": "Come si installa e configura un sistema operativo mobile de-Googled (es. GrapheneOS, /e/OS, CalyxOS) su smartphone compatibili?",
+  "hit": null,
+  "score": 0.69
+ },
+ {
+  "theme": "Sovranità Digitale Europea e Alternative a Big Tech",
+  "q": "Quali diritti pratici introducono i regolamenti UE (DMA, DSA, Data Act) per favorire l'interoperabilità dei dati e la migrazione verso piattaforme self-hosted?",
+  "hit": "perche-self-hosting",
+  "score": 2.0
+ },
+ {
+  "theme": "Sovranità Digitale Europea e Alternative a Big Tech",
+  "q": "Come funziona la federazione di protocolli aperti (es. ActivityPub per Mastodon/Pixelfed e Matrix per la messaggistica) per costruire comunicazioni indipendenti da piattaforme proprietarie?",
+  "hit": "shadow-ai",
+  "score": 0.85
+ },
+ {
+  "theme": "Infrastruttura Homelab e Virtualizzazione",
+  "q": "Quali sono i pro e contro dell'uso di mini PC a basso consumo (es. processori Intel N100/N300, AMD Ryzen) rispetto a server rack per un homelab casalingo?",
+  "hit": "homelab-low-power",
+  "score": 6.0
+ },
+ {
+  "theme": "Infrastruttura Homelab e Virtualizzazione",
+  "q": "Come si installa e ottimizza l'hypervisor open source Proxmox VE per la gestione efficiente di macchine virtuali e container LXC?",
+  "hit": "proxmox-vm-autoscale",
+  "score": 4.38
+ },
+ {
+  "theme": "Infrastruttura Homelab e Virtualizzazione",
+  "q": "Quali sono le differenze in termini di overhead, isolamento e consumo di risorse tra una Virtual Machine KVM e un container di sistema LXC?",
+  "hit": "proxmox-vm-autoscale",
+  "score": 3.61
+ },
+ {
+  "theme": "Infrastruttura Homelab e Virtualizzazione",
+  "q": "Come si configurano il risparmio energetico e i C-states della CPU su un server Linux per contenere i consumi elettrici di un nodo attivo 24/7?",
+  "hit": "homelab-low-power",
+  "score": 2.8
+ },
+ {
+  "theme": "Infrastruttura Homelab e Virtualizzazione",
+  "q": "Qual è il ruolo operativo di una single-board computer (SBC) come Raspberry Pi 5 all'interno di un'architettura homelab modulare?",
+  "hit": "perche-self-hosting",
+  "score": 1.0
+ },
+ {
+  "theme": "Infrastruttura Homelab e Virtualizzazione",
+  "q": "Come funziona il PCI Passthrough su Proxmox VE per assegnare una scheda grafica dedicata o un controller HBA direttamente a una VM?",
+  "hit": "cos-e-proxmox",
+  "score": 3.0
+ },
+ {
+  "theme": "Infrastruttura Homelab e Virtualizzazione",
+  "q": "Come si gestisce l'alimentazione d'emergenza collegando un gruppo di continuità (UPS) via USB con software come Network UPS Tools (NUT) o apcupsd?",
+  "hit": "usb-passthrough",
+  "score": 1.0
+ },
+ {
+  "theme": "Infrastruttura Homelab e Virtualizzazione",
+  "q": "Quali sono le differenze architetturali e operative tra TrueNAS SCALE (Debian/KVM) e Unraid per la gestione combinata di storage e virtualizzazione?",
+  "hit": "storage-proxmox",
+  "score": 2.8
+ },
+ {
+  "theme": "Infrastruttura Homelab e Virtualizzazione",
+  "q": "Come si imposta uno stack di monitoraggio telemetrico delle risorse hardware e delle temperature tramite Prometheus, InfluxDB e dashboard Grafana?",
+  "hit": "websites-monitor",
+  "score": 1.67
+ },
+ {
+  "theme": "Infrastruttura Homelab e Virtualizzazione",
+  "q": "In che modo è possibile testare nuovi servizi in sicurezza creando ambienti di staging isolati sfruttando gli snapshot rapidi del file system?",
+  "hit": "sandboxing-agenti",
+  "score": 1.61
+ },
+ {
+  "theme": "Container, Orchestrazione e Gestione Servizi",
+  "q": "Quali sono le differenze pratiche e di complessità tra Docker Engine con Docker Compose e distribuzioni Kubernetes leggere come K3s per l'homelab?",
+  "hit": "docker-compose",
+  "score": 4.0
+ },
+ {
+  "theme": "Container, Orchestrazione e Gestione Servizi",
+  "q": "Come si utilizzano interfacce grafiche come Portainer o Dockge per orchestrare container Docker e gestire gli stack applicativi?",
+  "hit": "docker-compose",
+  "score": 5.0
+ },
+ {
+  "theme": "Container, Orchestrazione e Gestione Servizi",
+  "q": "Come si strutturano file docker-compose.yml scalabili e manutenibili separando le credenziali e le variabili sensibili nei file .env?",
+  "hit": "docker-compose",
+  "score": 6.0
+ },
+ {
+  "theme": "Container, Orchestrazione e Gestione Servizi",
+  "q": "Qual è la differenza strutturale tra named volumes Docker persistenti e bind mounts per l'accesso ai file residenti sul file system host?",
+  "hit": "docker-compose",
+  "score": 1.0
+ },
+ {
+  "theme": "Container, Orchestrazione e Gestione Servizi",
+  "q": "Come si automatizza l'aggiornamento controllato delle immagini Docker utilizzando strumenti come Watchtower o pipeline CI/CD locali?",
+  "hit": "immagini-locale",
+  "score": 1.8
+ },
+ {
+  "theme": "Container, Orchestrazione e Gestione Servizi",
+  "q": "In che modo l'esecuzione di container in modalità \"rootless\" impedisce l'escalation di privilegi sull'host in caso di violazione dell'applicazione?",
+  "hit": "container-privilegiati",
+  "score": 3.3
+ },
+ {
+  "theme": "Container, Orchestrazione e Gestione Servizi",
+  "q": "Come si configura la rotazione automatica dei file di log di Docker per prevenire la saturazione imprevista dello spazio su disco?",
+  "hit": "storage-pieno",
+  "score": 2.0
+ },
+ {
+  "theme": "Container, Orchestrazione e Gestione Servizi",
+  "q": "Come utilizzare dashboard unificate (es. Homepage, Dashy, Homarr) per centralizzare lo stato e i link d'accesso a tutti i servizi ospitati?",
+  "hit": null,
+  "score": 0.0
+ },
+ {
+  "theme": "Container, Orchestrazione e Gestione Servizi",
+  "q": "Quali sono i passaggi per creare un container Docker personalizzato per script Python o bot locali tramite Dockerfile dedicato?",
+  "hit": "docker-compose",
+  "score": 3.0
+ },
+ {
+  "theme": "Container, Orchestrazione e Gestione Servizi",
+  "q": "Come funziona l'instradamento del traffico di specifici container attraverso un container VPN dedicato (es. Gluetun) tramite rete bridge personalizzata?",
+  "hit": "vpn-vs-proxy",
+  "score": 1.0
+ },
+ {
+  "theme": "Networking Casalingo, Accesso Remoto e Mesh VPN",
+  "q": "Quali sono i vantaggi prestazionali e crittografici di WireGuard rispetto a OpenVPN per configurare l'accesso remoto sicuro alla LAN domestica?",
+  "hit": "vpn-vs-proxy",
+  "score": 2.0
+ },
+ {
+  "theme": "Networking Casalingo, Accesso Remoto e Mesh VPN",
+  "q": "Come funzionano le reti Overlay e Mesh VPN (es. Tailscale, Netmaker, ZeroTier) per connettere dispositivi remoti senza aprire porte sul router?",
+  "hit": "tunnel-senza-porte",
+  "score": 5.0
+ },
+ {
+  "theme": "Networking Casalingo, Accesso Remoto e Mesh VPN",
+  "q": "Cos'è Headscale e in che modo permette di ospitare autonomamente il server di controllo per client Tailscale mantenendo la sovranità sui metadati?",
+  "hit": "cloudflare-automation",
+  "score": 1.34
+ },
+ {
+  "theme": "Networking Casalingo, Accesso Remoto e Mesh VPN",
+  "q": "Come opera un Reverse Proxy (es. Nginx Proxy Manager, Traefik, Caddy) e come automatizza il rinnovo dei certificati TLS con Let's Encrypt?",
+  "hit": "nginx-caddy-traefik",
+  "score": 6.0
+ },
+ {
+  "theme": "Networking Casalingo, Accesso Remoto e Mesh VPN",
+  "q": "Quali sono i compromessi di sicurezza e privacy tra l'uso di Cloudflare Tunnels e una configurazione classica con Dynamic DNS (DDNS) e reverse proxy?",
+  "hit": "cos-e-un-reverse-proxy",
+  "score": 3.0
+ },
+ {
+  "theme": "Networking Casalingo, Accesso Remoto e Mesh VPN",
+  "q": "Come si configura un DNS sinkhole locale (es. Pi-hole, AdGuard Home) per bloccare telemetria, tracciatori e pubblicità a livello di gateway domestico?",
+  "hit": "pihole-vs-adguard",
+  "score": 5.42
+ },
+ {
+  "theme": "Networking Casalingo, Accesso Remoto e Mesh VPN",
+  "q": "Quali sono i vantaggi di utilizzare protocolli DNS cifrati (DNS-over-HTTPS / DNS-over-TLS) impostati su resolver europei no-log come Quad9 o Mullvad?",
+  "hit": "doh-dot",
+  "score": 7.6
+ },
+ {
+  "theme": "Networking Casalingo, Accesso Remoto e Mesh VPN",
+  "q": "Come si segmenta la rete domestica creando VLAN isolate per i dispositivi IoT e per gli ospiti tramite firewall open source come OPNsense o OpenWrt?",
+  "hit": "vlan-segmentazione",
+  "score": 4.83
+ },
+ {
+  "theme": "Networking Casalingo, Accesso Remoto e Mesh VPN",
+  "q": "Come si aggirano le limitazioni del Carrier-Grade NAT (CGNAT) delle connessioni in fibra ottica (es. sfruttando IPv6, VPS tunneling o relay WireGuard)?",
+  "hit": "tunnel-senza-porte",
+  "score": 2.73
+ },
+ {
+  "theme": "Networking Casalingo, Accesso Remoto e Mesh VPN",
+  "q": "Come si protegge l'accesso ai portali web esposti su Internet aggiungendo un middleware di autenticazione a due fattori come Authelia o Authentik?",
+  "hit": "mfa",
+  "score": 4.0
+ },
+ {
+  "theme": "Privacy, Cloud Personale e Sostituzione Servizi Cloud",
+  "q": "Come si configura un'istanza Nextcloud ottimizzata con caching Redis e database PostgreSQL per sincronizzare file, contatti e calendari?",
+  "hit": "aimp",
+  "score": 1.0
+ },
+ {
+  "theme": "Privacy, Cloud Personale e Sostituzione Servizi Cloud",
+  "q": "Quali sono le differenze tra Nextcloud e ownCloud Infinite Scale (OCIS, sviluppato in Go con architettura a microservizi)?",
+  "hit": "proxmox-autoscale",
+  "score": 1.0
+ },
+ {
+  "theme": "Privacy, Cloud Personale e Sostituzione Servizi Cloud",
+  "q": "Come sostituire Google Foto con soluzioni self-hosted come Immich o PhotoPrism dotate di riconoscimento facciale locale e indicizzazione semantica?",
+  "hit": "perche-self-hosting",
+  "score": 2.0
+ },
+ {
+  "theme": "Privacy, Cloud Personale e Sostituzione Servizi Cloud",
+  "q": "Quali strumenti open source (es. Jellyfin) consentono di gestire lo streaming multimediale domestico senza dipendere da account o server cloud esterni?",
+  "hit": "panoramica-repo",
+  "score": 2.0
+ },
+ {
+  "theme": "Privacy, Cloud Personale e Sostituzione Servizi Cloud",
+  "q": "Come funziona la sincronizzazione di cartelle crittografata e decentralizzata in modalità Peer-to-Peer tramite Syncthing?",
+  "hit": "sei-vera-ai",
+  "score": 0.81
+ },
+ {
+  "theme": "Privacy, Cloud Personale e Sostituzione Servizi Cloud",
+  "q": "Quali alternative self-hosted (es. Audiobookshelf, Calibre-web) permettono di gestire in autonomia collezioni di audiolibri, podcast ed eBook?",
+  "hit": "perche-self-hosting",
+  "score": 2.0
+ },
+ {
+  "theme": "Privacy, Cloud Personale e Sostituzione Servizi Cloud",
+  "q": "Come ospitare un server di note e knowledge base con crittografia end-to-end (es. Joplin Server, Obsidian con LiveSync, SilverBullet)?",
+  "hit": "crittografia-e2e",
+  "score": 4.0
+ },
+ {
+  "theme": "Privacy, Cloud Personale e Sostituzione Servizi Cloud",
+  "q": "Quali piattaforme self-hosted (es. Wallabag, Linkwarden, Shiori) consentono il salvataggio di pagine web e segnalibri per la lettura offline?",
+  "hit": "perche-self-hosting",
+  "score": 2.0
+ },
+ {
+  "theme": "Privacy, Cloud Personale e Sostituzione Servizi Cloud",
+  "q": "Come si imposta un aggregatore di feed RSS/Atom (es. FreshRSS, Miniflux) per leggere le notizie senza intermediari o algoritmi di raccomandazione?",
+  "hit": "uglyfeed",
+  "score": 4.0
+ },
+ {
+  "theme": "Privacy, Cloud Personale e Sostituzione Servizi Cloud",
+  "q": "Quali suite per l'elaborazione di documenti online (es. Collabora Online, OnlyOffice) si integrano direttamente nello storage Nextcloud locale?",
+  "hit": "storage-proxmox",
+  "score": 4.8
+ },
+ {
+  "theme": "Gestione Password, Credenziali e Autenticazione Locale",
+  "q": "Come si installa e si mantiene un'istanza self-hosted di Vaultwarden (implementazione leggera in Rust compatibile con le app Bitwarden)?",
+  "hit": "perche-self-hosting",
+  "score": 2.0
+ },
+ {
+  "theme": "Gestione Password, Credenziali e Autenticazione Locale",
+  "q": "Quali procedure garantiscono il backup sicuro e crittografato del database SQLite o PostgreSQL utilizzato da Vaultwarden?",
+  "hit": "password-manager",
+  "score": 1.0
+ },
+ {
+  "theme": "Gestione Password, Credenziali e Autenticazione Locale",
+  "q": "Come si integra l'autenticazione hardware basata su chiavi FIDO2/WebAuthn (es. Nitrokey prodotta nell'UE o YubiKey) nei servizi self-hosted?",
+  "hit": "perche-self-hosting",
+  "score": 2.0
+ },
+ {
+  "theme": "Gestione Password, Credenziali e Autenticazione Locale",
+  "q": "Quali sono i pro e contro dell'uso di KeePassXC (database locale offline su file) rispetto a server di password self-hosted (Vaultwarden/Passbolt)?",
+  "hit": "password-manager",
+  "score": 2.81
+ },
+ {
+  "theme": "Gestione Password, Credenziali e Autenticazione Locale",
+  "q": "Come si configura un provider d'identità Single Sign-On (SSO) centralizzato open source (es. Authentik, Keycloak) per tutti gli applicativi del server?",
+  "hit": "panoramica-repo",
+  "score": 2.0
+ },
+ {
+  "theme": "Gestione Password, Credenziali e Autenticazione Locale",
+  "q": "Come funziona l'integrazione del protocollo OpenID Connect (OIDC) per federare l'autenticazione delle varie web app su un unico login?",
+  "hit": "sei-vera-ai",
+  "score": 0.81
+ },
+ {
+  "theme": "Gestione Password, Credenziali e Autenticazione Locale",
+  "q": "Come si implementano policy di autenticazione a più fattori (MFA TOTP e Passkey) per tutti gli account dei membri della famiglia?",
+  "hit": "mfa",
+  "score": 2.0
+ },
+ {
+  "theme": "Gestione Password, Credenziali e Autenticazione Locale",
+  "q": "Quali misure di sicurezza (emergency kit, master recovery key offline) prevengono il lock-out irreversibile dai propri vault di password?",
+  "hit": "valutare-risposte",
+  "score": 1.55
+ },
+ {
+  "theme": "Gestione Password, Credenziali e Autenticazione Locale",
+  "q": "Come archiviare e condividere link con informazioni confidenziali e password monouso a scadenza automatica tramite strumenti come Yopass o Microbin?",
+  "hit": "password-manager",
+  "score": 1.0
+ },
+ {
+  "theme": "Gestione Password, Credenziali e Autenticazione Locale",
+  "q": "Come creare e distribuire una Certification Authority privata (es. tramite step-ca o Smallstep) per validare certificati HTTPS all'interno della LAN?",
+  "hit": "certmate",
+  "score": 5.66
+ },
+ {
+  "theme": "Storage Locale, NAS e Strategie di Backup",
+  "q": "Quali vantaggi offre il file system OpenZFS (snapshot atomici, copy-on-write, checksumming continuo contro il silent data corruption) per i dati critici?",
+  "hit": "snapshot-vs-backup",
+  "score": 1.0
+ },
+ {
+  "theme": "Storage Locale, NAS e Strategie di Backup",
+  "q": "Come si implementa operativamente la strategia di backup \"3-2-1-1-0\" per i carichi di lavoro e le memorie del proprio server domestico?",
+  "hit": "backup-321",
+  "score": 5.0
+ },
+ {
+  "theme": "Storage Locale, NAS e Strategie di Backup",
+  "q": "Come utilizzare strumenti di backup cifrati e deduplicati a livello di blocco come Restic, BorgBackup o Kopia per l'archiviazione dati?",
+  "hit": "backup-321",
+  "score": 1.0
+ },
+ {
+  "theme": "Storage Locale, NAS e Strategie di Backup",
+  "q": "Quali provider europei di Object Storage compatibili con protocollo S3 (es. Hetzner Storage Box, Scaleway, OVHcloud) sono ideali per copie off-site?",
+  "hit": "r2-egress",
+  "score": 3.85
+ },
+ {
+  "theme": "Storage Locale, NAS e Strategie di Backup",
+  "q": "Come si imposta Proxmox Backup Server (PBS) per eseguire backup veloci, deduplicati e incrementali delle macchine virtuali e dei container?",
+  "hit": "pbs",
+  "score": 5.86
+ },
+ {
+  "theme": "Storage Locale, NAS e Strategie di Backup",
+  "q": "Qual è la differenza in termini di ridondanza, fault tolerance e throughput tra pool ZFS configurati in Mirror, RAIDZ1 e RAIDZ2?",
+  "hit": "zfs-proxmox",
+  "score": 3.84
+ },
+ {
+  "theme": "Storage Locale, NAS e Strategie di Backup",
+  "q": "Perché la memoria RAM con correzione d'errore (ECC) è fortemente consigliata nei sistemi NAS destinati all'archiviazione a lungo termine?",
+  "hit": "memoria-agenti",
+  "score": 2.0
+ },
+ {
+  "theme": "Storage Locale, NAS e Strategie di Backup",
+  "q": "Come si eseguono simulazioni periodiche di disaster recovery per verificare l'integrità e la reale ripristinabilità dei backup archiviati?",
+  "hit": "disaster-recovery",
+  "score": 2.0
+ },
+ {
+  "theme": "Storage Locale, NAS e Strategie di Backup",
+  "q": "Come funziona la crittografia a riposo dei dischi (es. LUKS o ZFS Native Encryption) per proteggere i dati in caso di furto fisico dei supporti?",
+  "hit": "zfs-proxmox",
+  "score": 1.0
+ },
+ {
+  "theme": "Storage Locale, NAS e Strategie di Backup",
+  "q": "Come si monitorano i parametri SMART di dischi rigidi e SSD NVMe con invio di alert tempestivi in caso di settori riallocati o degrado hardware?",
+  "hit": "websites-monitor",
+  "score": 1.4
+ },
+ {
+  "theme": "Domotica Locale, IoT e Smart Home Privacy-First",
+  "q": "Come si configura Home Assistant OS su mini PC dedicato per eliminare la dipendenza da cloud commerciali (es. Google Home, Tuya, Alexa)?",
+  "hit": "home-assistant-proxmox",
+  "score": 2.0
+ },
+ {
+  "theme": "Domotica Locale, IoT e Smart Home Privacy-First",
+  "q": "Quali sono i vantaggi di sicurezza e affidabilità nell'usare protocolli wireless locali come Zigbee, Z-Wave e Thread rispetto a dispositivi Wi-Fi?",
+  "hit": "usb-passthrough",
+  "score": 1.0
+ },
+ {
+  "theme": "Domotica Locale, IoT e Smart Home Privacy-First",
+  "q": "Come si imposta Zigbee2MQTT con un dongle USB coordinatore per gestire l'accoppiamento e il controllo di sensori e attuatori senza bridge proprietari?",
+  "hit": "usb-passthrough",
+  "score": 2.0
+ },
+ {
+  "theme": "Domotica Locale, IoT e Smart Home Privacy-First",
+  "q": "Come si effettua il flashing di firmware open source completamente locali (es. ESPHome, Tasmota) su microcontrollori basati su ESP32 ed ESP8266?",
+  "hit": "panoramica-repo",
+  "score": 2.0
+ },
+ {
+  "theme": "Domotica Locale, IoT e Smart Home Privacy-First",
+  "q": "In che modo lo standard Matter abilita la comunicazione locale tra dispositivi per la smart home senza necessità di accesso ai server dei vendor?",
+  "hit": "hardening-ssh",
+  "score": 2.0
+ },
+ {
+  "theme": "Domotica Locale, IoT e Smart Home Privacy-First",
+  "q": "Come si configura un assistente vocale interamente offline su Home Assistant utilizzando i motori locali Whisper, Piper e Wyoming?",
+  "hit": "home-assistant-proxmox",
+  "score": 2.0
+ },
+ {
+  "theme": "Domotica Locale, IoT e Smart Home Privacy-First",
+  "q": "Come si isolano le telecamere di videosorveglianza IP su una subnet/VLAN separata priva di connessione verso la rete Internet esterna?",
+  "hit": "vlan-segmentazione",
+  "score": 2.0
+ },
+ {
+  "theme": "Domotica Locale, IoT e Smart Home Privacy-First",
+  "q": "Come utilizzare un Network Video Recorder (NVR) open source come Frigate integrato con acceleratori AI hardware (es. Google Coral USB o Hailo)?",
+  "hit": "panoramica-repo",
+  "score": 2.0
+ },
+ {
+  "theme": "Domotica Locale, IoT e Smart Home Privacy-First",
+  "q": "Come si realizzano automazioni avanzate per la casa intelligente tramite Node-RED collegato a un broker MQTT locale (es. Mosquitto)?",
+  "hit": "cluster-quorum",
+  "score": 0.8
+ },
+ {
+  "theme": "Domotica Locale, IoT e Smart Home Privacy-First",
+  "q": "Quali accorgimenti impiantistici e architetturali garantiscono il funzionamento manuale degli interruttori di casa anche in caso di crash del server?",
+  "hit": "naso",
+  "score": 0.8
+ },
+ {
+  "theme": "AI Locale, LLM Self-Hosted e Hardware Consumer",
+  "q": "Come si installa ed esegue il framework Ollama per caricare modelli linguistici open source (es. Llama, Mistral, Gemma, Qwen) sul proprio hardware?",
+  "hit": "ollama",
+  "score": 4.83
+ },
+ {
+  "theme": "AI Locale, LLM Self-Hosted e Hardware Consumer",
+  "q": "Quali requisiti di memoria VRAM (GPU) e RAM di sistema sono necessari per eseguire modelli quantizzati (formati GGUF a 4-bit o 8-bit)?",
+  "hit": "ram-vram-llm",
+  "score": 5.49
+ },
+ {
+  "theme": "AI Locale, LLM Self-Hosted e Hardware Consumer",
+  "q": "Come si configura un'interfaccia multiutente intuitiva (es. Open WebUI) collegata a backend Ollama per avere un'esperienza d'uso simile a ChatGPT?",
+  "hit": "ollama",
+  "score": 1.0
+ },
+ {
+  "theme": "AI Locale, LLM Self-Hosted e Hardware Consumer",
+  "q": "Come si costruisce una pipeline locale di Retrieval-Augmented Generation (RAG) per interrogare documenti personali senza inviare dati al cloud?",
+  "hit": "cos-e-rag",
+  "score": 3.0
+ },
+ {
+  "theme": "AI Locale, LLM Self-Hosted e Hardware Consumer",
+  "q": "Quali sono le differenze prestazionali nell'inferenza locale tra GPU dedicate (Nvidia CUDA), architetture con memoria unificata (Apple Silicon) e CPU?",
+  "hit": "apple-vs-nvidia",
+  "score": 6.0
+ },
+ {
+  "theme": "AI Locale, LLM Self-Hosted e Hardware Consumer",
+  "q": "Come convertire audio in testo ed estrarre trascrizioni localmente sul proprio computer sfruttando implementazioni efficienti come Faster-Whisper?",
+  "hit": "whisper",
+  "score": 3.86
+ },
+ {
+  "theme": "AI Locale, LLM Self-Hosted e Hardware Consumer",
+  "q": "Come funziona la generazione locale di immagini tramite Stable Diffusion / SDXL utilizzando interfacce open source come ComfyUI o Forge?",
+  "hit": "immagini-locale",
+  "score": 6.89
+ },
+ {
+  "theme": "AI Locale, LLM Self-Hosted e Hardware Consumer",
+  "q": "Come si interfaccia un modello LLM locale con Home Assistant per consentire il controllo della domotica tramite comandi in linguaggio naturale?",
+  "hit": "llm-in-locale",
+  "score": 4.0
+ },
+ {
+  "theme": "AI Locale, LLM Self-Hosted e Hardware Consumer",
+  "q": "Quali modelli linguistici ad alte prestazioni rilasciati da realtà europee (es. la famiglia Mistral o modelli multilingua UE) offrono la migliore resa in italiano?",
+  "hit": "cos-e-un-llm",
+  "score": 1.66
+ },
+ {
+  "theme": "AI Locale, LLM Self-Hosted e Hardware Consumer",
+  "q": "Come si ottimizzano il context window e l'allocazione di risorse hardware per analizzare corposi file di testo o codice sorgente in locale?",
+  "hit": "l0-compressor",
+  "score": 2.69
+ },
+ {
+  "theme": "Sicurezza del Self-Hosting, Aggiornamenti e Hardening",
+  "q": "Quali sono le configurazioni essenziali per blindare l'accesso SSH a un server Linux (disattivazione login root, autenticazione a sole chiavi Ed25519)?",
+  "hit": "hardening-ssh",
+  "score": 5.0
+ },
+ {
+  "theme": "Sicurezza del Self-Hosting, Aggiornamenti e Hardening",
+  "q": "Come si implementano strumenti come Fail2ban o CrowdSec per rilevare e bloccare automaticamente attacchi di forza bruta sugli accessi ai servizi?",
+  "hit": "fail2ban",
+  "score": 2.0
+ },
+ {
+  "theme": "Sicurezza del Self-Hosting, Aggiornamenti e Hardening",
+  "q": "Come funziona la Threat Intelligence collaborativa di CrowdSec per distribuire liste di blocco IP generate dalla community open source?",
+  "hit": "threat-intelligence",
+  "score": 4.0
+ },
+ {
+  "theme": "Sicurezza del Self-Hosting, Aggiornamenti e Hardening",
+  "q": "Come si imposta il firewall dell'host (tramite ufw o regole native nftables) secondo il principio di negazione predefinita di tutto il traffico?",
+  "hit": "caddy-waf",
+  "score": 1.0
+ },
+ {
+  "theme": "Sicurezza del Self-Hosting, Aggiornamenti e Hardening",
+  "q": "Quali strumenti leggeri (es. Gotify, ntfy, Apprise) permettono di ricevere notifiche push self-hosted su smartphone relative a log ed eventi critici?",
+  "hit": "perche-self-hosting",
+  "score": 2.0
+ },
+ {
+  "theme": "Sicurezza del Self-Hosting, Aggiornamenti e Hardening",
+  "q": "Come si configurano gli aggiornamenti di sicurezza automatici (unattended-upgrades) su distribuzioni Debian-based per mitigare vulnerabilità note?",
+  "hit": "noted",
+  "score": 1.81
+ },
+ {
+  "theme": "Sicurezza del Self-Hosting, Aggiornamenti e Hardening",
+  "q": "Come si esegue la scansione statica delle immagini Docker alla ricerca di vulnerabilità note (CVE) tramite utility come Trivy o Grype?",
+  "hit": "cve-cvss",
+  "score": 2.8
+ },
+ {
+  "theme": "Sicurezza del Self-Hosting, Aggiornamenti e Hardening",
+  "q": "Quali accorgimenti adottare per verificare l'affidabilità e l'origine dei container scaricati da registry pubblici (evitando immagini malevole o non manutenute)?",
+  "hit": "proteggere-origine",
+  "score": 1.0
+ },
+ {
+  "theme": "Sicurezza del Self-Hosting, Aggiornamenti e Hardening",
+  "q": "Come si impongono limiti di allocazione (cgroups per CPU e memoria RAM) sui singoli container per prevenire attacchi DoS da esaurimento risorse?",
+  "hit": "proxmox-vm-autoscale",
+  "score": 2.0
+ },
+ {
+  "theme": "Sicurezza del Self-Hosting, Aggiornamenti e Hardening",
+  "q": "Quale checklist periodica (audit delle porte aperte con Nmap, verifica dei log di autenticazione e controllo certificati) garantisce la sicurezza nel tempo?",
+  "hit": "cos-e-siem-soar",
+  "score": 2.0
+ },
+ {
+  "theme": "Endpoint Hardening, Sistemi Operativi e Sicurezza a Livello Kernel",
+  "q": "Come si configura Secure Boot personalizzato registrando chiavi proprie (PK, KEK, db) per firmare ed eseguire solo kernel Linux e moduli autorizzati?",
+  "hit": "fork-guida",
+  "score": 0.8
+ },
+ {
+  "theme": "Endpoint Hardening, Sistemi Operativi e Sicurezza a Livello Kernel",
+  "q": "Quali vantaggi di sicurezza offrono le distribuzioni Linux immutabili (es. Fedora Silverblue, openSUSE MicroOS, NixOS) contro la persistenza di malware nel file system?",
+  "hit": "domini-malevoli",
+  "score": 1.0
+ },
+ {
+  "theme": "Endpoint Hardening, Sistemi Operativi e Sicurezza a Livello Kernel",
+  "q": "Come si sfrutta il Trusted Platform Module (TPM 2.0) per sbloccare automaticamente dischi cifrati (LUKS2/Clevis) solo in assenza di alterazioni nei registri PCR di boot?",
+  "hit": "sicurezza-fisica",
+  "score": 1.68
+ },
+ {
+  "theme": "Endpoint Hardening, Sistemi Operativi e Sicurezza a Livello Kernel",
+  "q": "Come si implementa USBGuard su workstation Linux per bloccare attacchi BadUSB basati sull'emulazione fraudolenta di tastiere o interfacce di rete?",
+  "hit": null,
+  "score": 0.0
+ },
+ {
+  "theme": "Endpoint Hardening, Sistemi Operativi e Sicurezza a Livello Kernel",
+  "q": "In che modo eBPF (Extended Berkeley Packet Filter) abilita l'osservabilità di sicurezza a livello kernel e il blocco delle minacce in tempo reale tramite tool come Tetragon?",
+  "hit": "dimensionare-nodo",
+  "score": 0.8
+ },
+ {
+  "theme": "Endpoint Hardening, Sistemi Operativi e Sicurezza a Livello Kernel",
+  "q": "Quali differenze architetturali sussistono nell'isolamento applicativo tra sandbox Flatpak, container AppImage e profili di controllo AppArmor o SELinux?",
+  "hit": "lxc-vs-vm",
+  "score": 1.84
+ },
+ {
+  "theme": "Endpoint Hardening, Sistemi Operativi e Sicurezza a Livello Kernel",
+  "q": "Come si effettua l'hardening dei parametri del kernel Linux tramite /etc/sysctl.d/ per mitigare attacchi di tipo memory corruption e privilege escalation?",
+  "hit": "hardening-linux",
+  "score": 3.0
+ },
+ {
+  "theme": "Endpoint Hardening, Sistemi Operativi e Sicurezza a Livello Kernel",
+  "q": "Come si configurano ambienti di navigazione usa-e-getta isolati su macchine virtuali effimere o containerizzate (es. Kasm Workspaces o Qubes OS)?",
+  "hit": "proxmox-vm-autoscale",
+  "score": 3.38
+ },
+ {
+  "theme": "Endpoint Hardening, Sistemi Operativi e Sicurezza a Livello Kernel",
+  "q": "Come funziona il meccanismo Memory Tagging Extension (MTE) nei moderni processori per intercettare violazioni di memoria (Use-After-Free, Buffer Overflow)?",
+  "hit": "latenza-audio",
+  "score": 1.0
+ },
+ {
+  "theme": "Endpoint Hardening, Sistemi Operativi e Sicurezza a Livello Kernel",
+  "q": "Quali script e baseline di automazione (es. Dev-Sec Ansible roles, Microsoft Security Baseline) applicare per irrobustire parchi macchine client misti?",
+  "hit": "patterns",
+  "score": 1.58
+ },
+ {
+  "theme": "Networking Professionale, Firewalling Avanzato e Gateway Open-Source",
+  "q": "Come si calibra e ottimizza un motore IDS/IPS basato su Suricata all'interno di firewall open-source come OPNsense o pfSense per ridurre i falsi positivi?",
+  "hit": "ids-ips",
+  "score": 3.0
+ },
+ {
+  "theme": "Networking Professionale, Firewalling Avanzato e Gateway Open-Source",
+  "q": "Come si gestisce il failover e il bilanciamento di traffico su connessioni Multi-WAN mantenendo attive e stabili le sessioni crittografate verso l'esterno?",
+  "hit": "load-balancer",
+  "score": 2.0
+ },
+ {
+  "theme": "Networking Professionale, Firewalling Avanzato e Gateway Open-Source",
+  "q": "Come si imposta il routing DNS condizionale per risolvere zone locali private e inoltrare le richieste pubbliche verso resolver crittografati DoH/DoT?",
+  "hit": "doh-dot",
+  "score": 2.0
+ },
+ {
+  "theme": "Networking Professionale, Firewalling Avanzato e Gateway Open-Source",
+  "q": "Come si implementa un mDNS Repeater/Reflector per permettere ai dispositivi su VLAN sicure di controllare device multimediali e IoT senza unire le reti?",
+  "hit": "vlan-segmentazione",
+  "score": 1.0
+ },
+ {
+  "theme": "Networking Professionale, Firewalling Avanzato e Gateway Open-Source",
+  "q": "Come si configura una sessione BGP con BFD (Bidirectional Forwarding Detection) tra router locale e VPS cloud per instradare prefissi IP pubblici propri (BYOIP)?",
+  "hit": "moe",
+  "score": 1.0
+ },
+ {
+  "theme": "Networking Professionale, Firewalling Avanzato e Gateway Open-Source",
+  "q": "Come si protegge il perimetro di rete locale da attacchi di amplificazione DDoS basati su protocolli UDP non autenticati (NTP, SSDP, Chargen)?",
+  "hit": "ddos",
+  "score": 2.73
+ },
+ {
+  "theme": "Networking Professionale, Firewalling Avanzato e Gateway Open-Source",
+  "q": "Come si implementa il filtraggio dinamico del traffico in ingresso tramite liste di reputazione GeoIP e blocklist globali (es. FireHOL, Spamhaus DROP)?",
+  "hit": "domini-malevoli",
+  "score": 1.8
+ },
+ {
+  "theme": "Networking Professionale, Firewalling Avanzato e Gateway Open-Source",
+  "q": "Qual è la differenza tra l'uso di uno switch Managed Layer 2 con ACL statiche e uno switch Layer 3 con routing inter-VLAN demandato al firewall?",
+  "hit": "vlan-segmentazione",
+  "score": 1.0
+ },
+ {
+  "theme": "Networking Professionale, Firewalling Avanzato e Gateway Open-Source",
+  "q": "Come si configura l'acquisizione remota di pacchetti (PCAP over SSH) da un router gateway per analizzare il traffico di rete in tempo reale con Wireshark?",
+  "hit": "allucinazioni-llm",
+  "score": 1.0
+ },
+ {
+  "theme": "Networking Professionale, Firewalling Avanzato e Gateway Open-Source",
+  "q": "Come si mitiga la frammentazione dei pacchetti e il packet leakage su tunnel VPN configurando correttamente i parametri MTU e MSS Clamping?",
+  "hit": "allucinazioni-llm",
+  "score": 1.0
+ },
+ {
+  "theme": "Self-Hosted Security Tooling e SecOps per Piccole Organizzazioni",
+  "q": "Come si distribuisce e ottimizza lo stack SIEM/XDR open-source Wazuh per centralizzare la raccolta log e il rilevamento intrusioni su server ed endpoint?",
+  "hit": "security-logging",
+  "score": 3.79
+ },
+ {
+  "theme": "Self-Hosted Security Tooling e SecOps per Piccole Organizzazioni",
+  "q": "In che modo l'integrazione di un'istanza MISP (Malware Information Sharing Platform) locale consente di alimentare automaticamente le regole di blocco del firewall?",
+  "hit": "caddy-waf",
+  "score": 1.0
+ },
+ {
+  "theme": "Self-Hosted Security Tooling e SecOps per Piccole Organizzazioni",
+  "q": "Come si pianifica la scansione automatizzata delle vulnerabilità di rete interna tramite Greenbone Community Edition (OpenVAS)?",
+  "hit": "va-vs-pentest",
+  "score": 2.0
+ },
+ {
+  "theme": "Self-Hosted Security Tooling e SecOps per Piccole Organizzazioni",
+  "q": "Come si implementano piattaforme di Vulnerability Management (es. DefectDojo o Dependency-Track) per tracciare i difetti del software gestito internamente?",
+  "hit": null,
+  "score": 0.0
+ },
+ {
+  "theme": "Self-Hosted Security Tooling e SecOps per Piccole Organizzazioni",
+  "q": "Come si configurano hook di pre-commit con strumenti come Gitleaks o Trufflehog per bloccare il push accidentale di secret e credenziali nei repository Git?",
+  "hit": "git-comandi",
+  "score": 2.0
+ },
+ {
+  "theme": "Self-Hosted Security Tooling e SecOps per Piccole Organizzazioni",
+  "q": "In che modo piattaforme come TheHive e Cortex permettono di strutturare la risposta agli incidenti cyber e automatizzare l'analisi degli osservabili?",
+  "hit": "incident-response",
+  "score": 2.66
+ },
+ {
+  "theme": "Self-Hosted Security Tooling e SecOps per Piccole Organizzazioni",
+  "q": "Come si imposta un sistema di monitoraggio dell'uptime e della scadenza dei certificati TLS (es. Uptime Kuma) con notifiche push su canali cifrati?",
+  "hit": "certmate",
+  "score": 2.85
+ },
+ {
+  "theme": "Self-Hosted Security Tooling e SecOps per Piccole Organizzazioni",
+  "q": "Come si configura il monitoraggio dell'integrità dei file (FIM) con Wazuh o AIDE per rilevare tempestivamente modifiche non autorizzate su directory di sistema critiche?",
+  "hit": "websites-monitor",
+  "score": 1.67
+ },
+ {
+  "theme": "Self-Hosted Security Tooling e SecOps per Piccole Organizzazioni",
+  "q": "Come si progetta e posiziona un honeypot a bassa interazione (es. OpenCanary o Cowrie) nella rete aziendale per rilevare movimenti laterali e scansioni interne?",
+  "hit": "honeypot",
+  "score": 1.0
+ },
+ {
+  "theme": "Self-Hosted Security Tooling e SecOps per Piccole Organizzazioni",
+  "q": "Come si centralizza l'aggregazione dei log da carichi di lavoro containerizzati e server Linux utilizzando lo stack leggero Grafana Loki e Promtail?",
+  "hit": "security-logging",
+  "score": 3.73
+ },
+ {
+  "theme": "Posta Elettronica Indipendente, Deliverability e Cifratura Avanzata",
+  "q": "Quali record DNS (A, PTR, SPF, DKIM a 2048-bit, DMARC con policy di rifiuto) sono indispensabili per garantire l'affidabilità di un mail server indipendente?",
+  "hit": "spf-dkim-dmarc",
+  "score": 4.81
+ },
+ {
+  "theme": "Posta Elettronica Indipendente, Deliverability e Cifratura Avanzata",
+  "q": "Come funziona lo standard MTA-STS (Mail Transfer Agent Strict Transport Security) congiuntamente a TLS-RPT per imporre connessioni TLS tra server di posta?",
+  "hit": "hsts-preload",
+  "score": 2.0
+ },
+ {
+  "theme": "Posta Elettronica Indipendente, Deliverability e Cifratura Avanzata",
+  "q": "In che modo il protocollo DANE basato su record DNS TLSA protegge lo scambio di email da attacchi Man-in-the-Middle e downgrade crittografico STARTTLS?",
+  "hit": "record-dns",
+  "score": 2.0
+ },
+ {
+  "theme": "Posta Elettronica Indipendente, Deliverability e Cifratura Avanzata",
+  "q": "Cos'è l'Authenticated Received Chain (ARC) e come preserva l'autenticazione delle email quando i messaggi transitano per mailing list o server intermedi?",
+  "hit": "spf-dkim-dmarc",
+  "score": 2.0
+ },
+ {
+  "theme": "Posta Elettronica Indipendente, Deliverability e Cifratura Avanzata",
+  "q": "Come si configura uno Smart Host/Relay SMTP cifrato per instradare la posta in uscita qualora l'IP del proprio provider rientri in blacklist residenziali?",
+  "hit": "domainmate",
+  "score": 2.0
+ },
+ {
+  "theme": "Posta Elettronica Indipendente, Deliverability e Cifratura Avanzata",
+  "q": "Come si abilita e gestisce la cifratura a riposo delle caselle di posta IMAP (es. maildir encryption in Dovecot con chiavi univoche per utente)?",
+  "hit": "come-funziona-acme",
+  "score": 0.76
+ },
+ {
+  "theme": "Posta Elettronica Indipendente, Deliverability e Cifratura Avanzata",
+  "q": "Quali sono le differenze operative tra PGP/GPG tradizionale, S/MIME con certificati X.509 e standard emergenti come Autocrypt per la cifratura email?",
+  "hit": "code-signing",
+  "score": 1.0
+ },
+ {
+  "theme": "Posta Elettronica Indipendente, Deliverability e Cifratura Avanzata",
+  "q": "Come si ottimizzano i motori antispam bayesiani e di analisi comportamentale (es. Rspamd) integrandoli con scansioni antivirus ClamAV e feed SURBL?",
+  "hit": "edr-xdr",
+  "score": 1.0
+ },
+ {
+  "theme": "Posta Elettronica Indipendente, Deliverability e Cifratura Avanzata",
+  "q": "Come si gestisce un servizio di email forwarding anonimo self-hosted (es. SimpleLogin o AnonAddy) per prevenire il tracciamento tramite indirizzo email primario?",
+  "hit": "perche-self-hosting",
+  "score": 2.0
+ },
+ {
+  "theme": "Posta Elettronica Indipendente, Deliverability e Cifratura Avanzata",
+  "q": "Quali strumenti (es. imapsync) consentono la migrazione a caldo di grandi volumi di caselle email da suite cloud proprietarie verso infrastrutture IMAP sovrane?",
+  "hit": "flareover",
+  "score": 1.0
+ },
+ {
+  "theme": "Backup Avanzati, Immutabilità e Continuità Operativa",
+  "q": "Come funziona la replica incrementale asincrona di snapshot ZFS su macchine remote tramite script di automazione come Sanoid e Syncoid?",
+  "hit": "zfs-proxmox",
+  "score": 1.0
+ },
+ {
+  "theme": "Backup Avanzati, Immutabilità e Continuità Operativa",
+  "q": "In che modo si attiva e valida l'Object Lock in modalità Compliance (WORM) su storage compatibili S3 (es. MinIO) per creare backup a prova di ransomware?",
+  "hit": "r2-egress",
+  "score": 3.85
+ },
+ {
+  "theme": "Backup Avanzati, Immutabilità e Continuità Operativa",
+  "q": "Come si automatizzano i backup a caldo di database PostgreSQL o MariaDB assicurando la consistenza transazionale rispetto al semplice dump su file?",
+  "hit": "backup-321",
+  "score": 1.0
+ },
+ {
+  "theme": "Backup Avanzati, Immutabilità e Continuità Operativa",
+  "q": "Come si implementa la crittografia lato client nei backup automatizzati tramite Borgmatic, impedendo al server di destinazione di accedere ai dati in chiaro?",
+  "hit": "proxxx",
+  "score": 2.0
+ },
+ {
+  "theme": "Backup Avanzati, Immutabilità e Continuità Operativa",
+  "q": "Quali passaggi sono necessari per configurare un piano di Disaster Recovery bare-metal per server fisici Linux tramite strumenti come Relax-and-Recover (ReaR)?",
+  "hit": "disaster-recovery",
+  "score": 2.0
+ },
+ {
+  "theme": "Backup Avanzati, Immutabilità e Continuità Operativa",
+  "q": "Come si configurano e verificano le copie shadow del volume (VSS) su host Windows per prevenire cancellazioni malevole o cifrature non autorizzate?",
+  "hit": null,
+  "score": 0.71
+ },
+ {
+  "theme": "Backup Avanzati, Immutabilità e Continuità Operativa",
+  "q": "In che modo si progetta una strategia di archiviazione \"air-gapped\" a basso costo utilizzando unità a nastro LTO o dischi estraibili RDX cifrati a rotazione?",
+  "hit": "air-gap",
+  "score": 4.0
+ },
+ {
+  "theme": "Backup Avanzati, Immutabilità e Continuità Operativa",
+  "q": "Come si strutturano test automatici periodici di ripristino per verificare l'integrità dei dati e la consistenza degli indici di backup senza intervento manuale?",
+  "hit": "backup-pbs-howto",
+  "score": 2.0
+ },
+ {
+  "theme": "Backup Avanzati, Immutabilità e Continuità Operativa",
+  "q": "Quali differenze intercorrono tra la replica sincrona a livello di blocco (es. DRBD) e la sincronizzazione a livello di file system per cluster ad alta disponibilità?",
+  "hit": "ha-proxmox",
+  "score": 2.0
+ },
+ {
+  "theme": "Backup Avanzati, Immutabilità e Continuità Operativa",
+  "q": "Come si impiegano supporti ottici non riscrivibili ad alta durata (M-DISC B-DXL) per la conservazione a lungo termine di chiavi crittografiche e documenti legali?",
+  "hit": "memoria-agenti",
+  "score": 2.0
+ },
+ {
+  "theme": "Privacy Engineering, Gestione Dati e Anonimato Operativo",
+  "q": "Come opera l'architettura a doppio livello di Whonix (Gateway Tor isolato e Workstation applicativa) per prevenire leak dell'indirizzo IP e del MAC address?",
+  "hit": "errore-502",
+  "score": 1.0
+ },
+ {
+  "theme": "Privacy Engineering, Gestione Dati e Anonimato Operativo",
+  "q": "Quali differenze d'uso sussistono tra un sistema live amnesico su supporto USB (Tails) e ambienti virtualizzati per indagini OSINT o gestione fonti riservate?",
+  "hit": "osint",
+  "score": 1.0
+ },
+ {
+  "theme": "Privacy Engineering, Gestione Dati e Anonimato Operativo",
+  "q": "Come si configurano bridge Tor privati e protocolli di trasporto pluggabile (es. obfs4, Snowflake) per eludere il Deep Packet Inspection su reti censurate?",
+  "hit": null,
+  "score": 0.67
+ },
+ {
+  "theme": "Privacy Engineering, Gestione Dati e Anonimato Operativo",
+  "q": "Come si utilizza il toolkit a riga di comando MAT2 per rimuovere metadati sensibili e coordinate GPS da file multimediali, PDF e documenti prima della pubblicazione?",
+  "hit": "csv-anonymizer",
+  "score": 2.0
+ },
+ {
+  "theme": "Privacy Engineering, Gestione Dati e Anonimato Operativo",
+  "q": "Come si creano volumi cifrati nascosti (Hidden Volumes) tramite VeraCrypt per garantire la plausible deniability in contesti di coercizione?",
+  "hit": "l0-compressor",
+  "score": 0.81
+ },
+ {
+  "theme": "Privacy Engineering, Gestione Dati e Anonimato Operativo",
+  "q": "Come si applicano tecniche di minimizzazione e pseudonimizzazione sui registri di log (es. hashing e mascheramento IP) per bilanciare sicurezza e privacy?",
+  "hit": "gdpr-log",
+  "score": 4.0
+ },
+ {
+  "theme": "Privacy Engineering, Gestione Dati e Anonimato Operativo",
+  "q": "Quali sono le metodologie certificate di cancellazione sicura dei supporti di memorizzazione (NIST SP 800-88, comandi ATA Secure Erase per SSD NVMe)?",
+  "hit": "certificato-scaduto",
+  "score": 0.85
+ },
+ {
+  "theme": "Privacy Engineering, Gestione Dati e Anonimato Operativo",
+  "q": "Come si implementano policy di cancellazione programmata (Data Retention Auto-pruning) sui database applicativi alla scadenza dei termini di conservazione?",
+  "hit": "gdpr-log",
+  "score": 2.0
+ },
+ {
+  "theme": "Privacy Engineering, Gestione Dati e Anonimato Operativo",
+  "q": "Come funzionano le tecniche di offuscamento avanzato del traffico (es. Shadowsocks, V2Ray/Xray, protocollo VLESS) per mascherare l'uso di tunnel VPN?",
+  "hit": "vpn-vs-proxy",
+  "score": 1.0
+ },
+ {
+  "theme": "Privacy Engineering, Gestione Dati e Anonimato Operativo",
+  "q": "Quali parametri tecnici differenziano un'architettura crittografica \"Zero-Knowledge / End-to-End\" da una soluzione che cifra i dati solo a riposo con chiavi gestite dal server?",
+  "hit": "crittografia-e2e",
+  "score": 3.83
+ },
+ {
+  "theme": "Protezione Applicativa, Reverse Proxy e Gestione API",
+  "q": "Come si integrano e aggiornano le regole del Core Rule Set (CRS) di OWASP all'interno di Web Application Firewall come Coraza o ModSecurity?",
+  "hit": "patterns",
+  "score": 6.81
+ },
+ {
+  "theme": "Protezione Applicativa, Reverse Proxy e Gestione API",
+  "q": "In che modo un reverse proxy di sicurezza (es. BunkerWeb) analizza le richieste HTTP per bloccare attacchi SQL Injection, RCE e tentativi di exploit automatizzati?",
+  "hit": "cos-e-un-reverse-proxy",
+  "score": 3.0
+ },
+ {
+  "theme": "Protezione Applicativa, Reverse Proxy e Gestione API",
+  "q": "Come si implementano controlli di Rate Limiting e Throttling a livello di proxy inverso per proteggere endpoint di autenticazione e API da attacchi DoS?",
+  "hit": "limits",
+  "score": 5.0
+ },
+ {
+  "theme": "Protezione Applicativa, Reverse Proxy e Gestione API",
+  "q": "Come si utilizza OAuth2-Proxy per anteporre uno strato di autenticazione moderna con supporto MFA davanti ad applicativi web legacy privi di login nativo?",
+  "hit": "cos-e-un-reverse-proxy",
+  "score": 1.0
+ },
+ {
+  "theme": "Protezione Applicativa, Reverse Proxy e Gestione API",
+  "q": "Come si configura l'autenticazione mTLS (Mutual TLS) tramite certificati client per blindare l'accesso a endpoint API amministrativi e console di gestione?",
+  "hit": "mtls",
+  "score": 4.86
+ },
+ {
+  "theme": "Protezione Applicativa, Reverse Proxy e Gestione API",
+  "q": "Come si progetta una Content Security Policy (CSP) restrittiva e si rimuovono gli header identificativi del software server per impedire l'information disclosure?",
+  "hit": "agssh",
+  "score": 4.86
+ },
+ {
+  "theme": "Protezione Applicativa, Reverse Proxy e Gestione API",
+  "q": "Quali controlli di validazione e sanificazione applicare sui payload JSON in ingresso su piattaforme di automazione webhook locali (es. n8n) contro iniezioni di codice?",
+  "hit": "ai-code-quality",
+  "score": 1.76
+ },
+ {
+  "theme": "Protezione Applicativa, Reverse Proxy e Gestione API",
+  "q": "Come si vincolano i demoni di database relazionali (PostgreSQL, MariaDB) ad ascoltare esclusivamente su socket Unix locali o interfaccia di loopback 127.0.0.1?",
+  "hit": null,
+  "score": 0.73
+ },
+ {
+  "theme": "Protezione Applicativa, Reverse Proxy e Gestione API",
+  "q": "Come si gestisce il ciclo di vita e la rotazione automatica delle chiavi crittografiche di sessione e dei token di servizio senza causare disservizi applicativi?",
+  "hit": "token-context",
+  "score": 1.0
+ },
+ {
+  "theme": "Protezione Applicativa, Reverse Proxy e Gestione API",
+  "q": "Quali configurazioni del server web impediscono l'esecuzione di script arbitrari (PHP, Python, CGI) all'interno delle cartelle destinate all'upload di file da parte degli utenti?",
+  "hit": "nginx-caddy-traefik",
+  "score": 1.87
+ },
+ {
+  "theme": "Sicurezza Hardware, Firmware e Catena di Fornitura",
+  "q": "Quali vantaggi e requisiti tecnici comporta la sostituzione del firmware proprietario UEFI con progetti open-source come Coreboot o Libreboot su hardware supportato?",
+  "hit": "panoramica-repo",
+  "score": 3.0
+ },
+ {
+  "theme": "Sicurezza Hardware, Firmware e Catena di Fornitura",
+  "q": "In cosa consiste la neutralizzazione dell'Intel Management Engine (ME) tramite strumenti come me_cleaner e quali sono i potenziali impatti sulla stabilità dell'host?",
+  "hit": "cos-e-fabgpt",
+  "score": 1.0
+ },
+ {
+  "theme": "Sicurezza Hardware, Firmware e Catena di Fornitura",
+  "q": "Come si caricano e gestiscono chiavi OpenPGP e identità SSH all'interno di smartcard hardware e token di sicurezza fisici (es. Nitrokey o YubiKey)?",
+  "hit": "hardening-ssh",
+  "score": 5.0
+ },
+ {
+  "theme": "Sicurezza Hardware, Firmware e Catena di Fornitura",
+  "q": "Come funziona un attacco Cold Boot sulla memoria RAM e in che modo la crittografia trasparente della memoria (AMD SME / Intel TME) ne neutralizza i rischi?",
+  "hit": "dimensionare-nodo",
+  "score": 2.6
+ },
+ {
+  "theme": "Sicurezza Hardware, Firmware e Catena di Fornitura",
+  "q": "Come si verifica l'integrità crittografica e l'autenticità di immagini ISO e binari di installazione tramite firme GPG e checksum SHA-256?",
+  "hit": "code-signing",
+  "score": 1.0
+ },
+ {
+  "theme": "Sicurezza Hardware, Firmware e Catena di Fornitura",
+  "q": "Quali differenze strutturali sussistono tra l'uso di un Secure Element proprietario e l'approccio con firmware completamente aperto nei dispositivi hardware wallet?",
+  "hit": null,
+  "score": 0.0
+ },
+ {
+  "theme": "Sicurezza Hardware, Firmware e Catena di Fornitura",
+  "q": "Come funzionano i kill-switch hardware presenti su determinati laptop o smartphone orientati alla privacy per disattivare microfoni, fotocamere e modem a livello fisico?",
+  "hit": null,
+  "score": 0.71
+ },
+ {
+  "theme": "Sicurezza Hardware, Firmware e Catena di Fornitura",
+  "q": "Come si contrastano i tentativi di clonazione o relay di credenziali contactless (NFC/RFID) migrando verso standard con autenticazione crittografica (es. MIFARE DESFire EV3)?",
+  "hit": "crittografia-sym-asym",
+  "score": 0.83
+ },
+ {
+  "theme": "Sicurezza Hardware, Firmware e Catena di Fornitura",
+  "q": "Come si verifica la presenza di impianti malevoli (hardware implants) o payload occultati all'interno di cavi e accessori USB destinati alla ricarica o al trasferimento dati?",
+  "hit": "schrems",
+  "score": 2.0
+ },
+ {
+  "theme": "Sicurezza Hardware, Firmware e Catena di Fornitura",
+  "q": "Quali rischi di sicurezza derivano da vulnerabilità nel firmware dei controller USB-C Power Delivery e come possono essere sfruttati per manomettere dispositivi collegati?",
+  "hit": "usb-passthrough",
+  "score": 1.0
+ },
+ {
+  "theme": "Collaborazione Sovrana, Messaggistica e Telefonia Protetta",
+  "q": "Come si installa e si ottimizza un homeserver Matrix (Synapse/Dendrite) abilitando la crittografia end-to-end (protocolli Olm/Megolm) per comunicazioni di gruppo?",
+  "hit": "crittografia-e2e",
+  "score": 4.0
+ },
+ {
+  "theme": "Collaborazione Sovrana, Messaggistica e Telefonia Protetta",
+  "q": "In che modo l'architettura decentralizzata di SimpleX Chat garantisce la privacy eliminando completamente l'uso di identificatori utente persistenti e numeri telefonici?",
+  "hit": "dimensionare-nodo",
+  "score": 0.8
+ },
+ {
+  "theme": "Collaborazione Sovrana, Messaggistica e Telefonia Protetta",
+  "q": "Come si implementa un'infrastruttura di videoconferenza autonoma (es. Jitsi Meet o LiveKit) garantendo la riservatezza delle sessioni e la crittografia end-to-end?",
+  "hit": "crittografia-e2e",
+  "score": 4.0
+ },
+ {
+  "theme": "Collaborazione Sovrana, Messaggistica e Telefonia Protetta",
+  "q": "Come si distribuiscono credenziali e comunicazioni temporanee protette all'interno del team utilizzando istanze self-hosted di PrivateBin o Vaultwarden Sends?",
+  "hit": "perche-self-hosting",
+  "score": 2.0
+ },
+ {
+  "theme": "Collaborazione Sovrana, Messaggistica e Telefonia Protetta",
+  "q": "Come si configura un centralino VoIP open-source (Asterisk o FreePBX) imponendo l'uso obbligatorio della crittografia di segnalazione e voce (SIP TLS e SRTP)?",
+  "hit": "panoramica-repo",
+  "score": 2.0
+ },
+ {
+  "theme": "Collaborazione Sovrana, Messaggistica e Telefonia Protetta",
+  "q": "Quali strategie e filtri di sicurezza si adottano per proteggere gateway telefonici VoIP da tentativi di brute-force SIP, flood di chiamate e frodi su rotte internazionali?",
+  "hit": "brute-force",
+  "score": 2.0
+ },
+ {
+  "theme": "Collaborazione Sovrana, Messaggistica e Telefonia Protetta",
+  "q": "Come si implementa una piattaforma di messaggistica interna per team (es. Mattermost o Zulip) operante su reti isolate senza dipendenza da server esterni?",
+  "hit": "air-gap",
+  "score": 1.6
+ },
+ {
+  "theme": "Collaborazione Sovrana, Messaggistica e Telefonia Protetta",
+  "q": "Come funziona la ricezione delle notifiche push su client mobili per servizi auto-ospitati senza inviare dati in chiaro attraverso i server Apple (APNs) o Google (FCM)?",
+  "hit": "chatgpt-gdpr",
+  "score": 1.86
+ },
+ {
+  "theme": "Collaborazione Sovrana, Messaggistica e Telefonia Protetta",
+  "q": "Quali differenze di resilienza, governance e scalabilità intercorrono tra il protocollo federato Matrix e lo standard XMPP (con estensioni OMEMO) per usi professionali?",
+  "hit": null,
+  "score": 0.0
+ },
+ {
+  "theme": "Collaborazione Sovrana, Messaggistica e Telefonia Protetta",
+  "q": "Come si proteggono registrazioni, minute e trascrizioni generate da riunioni online ospitate su server interni, impedendone l'assorbimento da parte di motori AI di terze parti?",
+  "hit": "whisper",
+  "score": 0.86
+ },
+ {
+  "theme": "Continuità Operativa, Valutazione Rischi e Conformità PMI",
+  "q": "Come si conduce una Business Impact Analysis (BIA) per identificare i processi critici e stimare il massimo tempo di inattività tollerabile (MTD) di uno studio o PMI?",
+  "hit": null,
+  "score": 0.0
+ },
+ {
+  "theme": "Continuità Operativa, Valutazione Rischi e Conformità PMI",
+  "q": "Quali sezioni compongono il Registro delle Attività di Trattamento (Art. 30 GDPR) quando l'organizzazione adotta architetture ibride e server self-hosted?",
+  "hit": "perche-self-hosting",
+  "score": 2.0
+ },
+ {
+  "theme": "Continuità Operativa, Valutazione Rischi e Conformità PMI",
+  "q": "Come si implementa un sistema conforme e inalterabile per la conservazione e l'audit dei log di accesso e operatività degli Amministratori di Sistema?",
+  "hit": "rainlogs",
+  "score": 4.0
+ },
+ {
+  "theme": "Continuità Operativa, Valutazione Rischi e Conformità PMI",
+  "q": "Quali requisiti di igiene informatica (MFA diffusa, backup immutabili, segmentazione di rete) verificano i periti assicurativi prima del rilascio di polizze Cyber Risk?",
+  "hit": "backup-321",
+  "score": 1.84
+ },
+ {
+  "theme": "Continuità Operativa, Valutazione Rischi e Conformità PMI",
+  "q": "Come si struttura una checklist di offboarding per la revoca contestuale e tracciata di chiavi SSH, certificati VPN, account SSO e accessi fisici di un collaboratore?",
+  "hit": "hardening-ssh",
+  "score": 3.0
+ },
+ {
+  "theme": "Continuità Operativa, Valutazione Rischi e Conformità PMI",
+  "q": "Quali clausole contrattuali sul trattamento dati (DPA) e garanzie tecniche di localizzazione richiedere a provider IaaS/PaaS europei per garantire la conformità normativa?",
+  "hit": "schrems",
+  "score": 2.0
+ },
+ {
+  "theme": "Continuità Operativa, Valutazione Rischi e Conformità PMI",
+  "q": "Come si definisce una matrice dei privilegi minimi (Least Privilege) sui file server e sulle condivisioni di rete per limitare l'impatto di accessi impropri o malware?",
+  "hit": "minimo-privilegio",
+  "score": 7.37
+ },
+ {
+  "theme": "Continuità Operativa, Valutazione Rischi e Conformità PMI",
+  "q": "Come si pianifica e documenta un test annuale di Disaster Recovery simulando il guasto totale dell'infrastruttura primaria senza interrompere l'attività operativa?",
+  "hit": "disaster-recovery",
+  "score": 2.0
+ },
+ {
+  "theme": "Continuità Operativa, Valutazione Rischi e Conformità PMI",
+  "q": "Quali criteri formali guidano la registrazione e la valutazione interna di incidenti di sicurezza minori (Registro interno dei Data Breach) che non richiedono notifica all'Autorità?",
+  "hit": "naso",
+  "score": 3.0
+ },
+ {
+  "theme": "Continuità Operativa, Valutazione Rischi e Conformità PMI",
+  "q": "Come si calcola il Total Cost of Ownership (TCO) comparato su un orizzonte di 5 anni tra il mantenimento di un'infrastruttura server sovrana e l'abbonamento a servizi SaaS commerciali equivalenti?",
+  "hit": "st-matematica",
+  "score": 1.0
+ },
+ {
+  "theme": "Architetture Agentiche, Orchestrazione e Loop Decisionali",
+  "q": "Quali sono le differenze operative e di stabilità tra pattern agentici ReAct (Reason + Act), Plan-and-Solve e Reflexion in workflow complessi?",
+  "hit": "regex-basi",
+  "score": 1.0
+ },
+ {
+  "theme": "Architetture Agentiche, Orchestrazione e Loop Decisionali",
+  "q": "In che modo i framework di orchestrazione multi-agente (es. AutoGen, CrewAI, LangGraph) gestiscono il passaggio di stato e la convergenza del consenso tra agenti?",
+  "hit": "multi-agente",
+  "score": 6.73
+ },
+ {
+  "theme": "Architetture Agentiche, Orchestrazione e Loop Decisionali",
+  "q": "Come si previene il fenomeno del \"Runaway Agent Loop\" (cicli infiniti di chiamata ricorsiva a tool esterni dovuti a output imprevisti)?",
+  "hit": "agssh",
+  "score": 1.61
+ },
+ {
+  "theme": "Architetture Agentiche, Orchestrazione e Loop Decisionali",
+  "q": "Quali differenze intercorrono tra l'esecuzione sincrona deterministica di DAG (Direct Acyclic Graphs) e l'orchestrazione dinamica guidata da router probabilistici basati su LLM?",
+  "hit": "silence",
+  "score": 2.0
+ },
+ {
+  "theme": "Architetture Agentiche, Orchestrazione e Loop Decisionali",
+  "q": "In che modo la tecnica del Function/Tool Calling nativo (con schema JSON strutturato) riduce gli errori di parsing rispetto all'estrazione di comandi via regex su testo libero?",
+  "hit": "structured-output",
+  "score": 4.8
+ },
+ {
+  "theme": "Architetture Agentiche, Orchestrazione e Loop Decisionali",
+  "q": "Come si implementano checkpoint di stato e meccanismi di \"Time-Travel Debugging\" in grafi di esecuzione agentica distribuiti?",
+  "hit": null,
+  "score": 0.71
+ },
+ {
+  "theme": "Architetture Agentiche, Orchestrazione e Loop Decisionali",
+  "q": "Quali sono i trade-off tra architetture multi-agente gerarchiche (Supervisor/Worker) e architetture orizzontali a sciame (Swarm/Peer-to-Peer)?",
+  "hit": "multi-agente",
+  "score": 5.0
+ },
+ {
+  "theme": "Architetture Agentiche, Orchestrazione e Loop Decisionali",
+  "q": "In che modo il caching del contesto a livello di prefisso (Prompt Caching) ottimizza i costi e la latenza nei loop decisionali iterativi ad alto consumo di token?",
+  "hit": "l0-compressor",
+  "score": 4.0
+ },
+ {
+  "theme": "Architetture Agentiche, Orchestrazione e Loop Decisionali",
+  "q": "Come si gestisce l'allocazione dinamica di sotto-task e la delega controllata di privilegi tra agenti con diversi livelli di autorizzazione?",
+  "hit": "container-privilegiati",
+  "score": 1.5
+ },
+ {
+  "theme": "Architetture Agentiche, Orchestrazione e Loop Decisionali",
+  "q": "Quali criteri determinano la scelta tra un approccio single-agent con tool multipli e un'architettura multi-agent con agenti verticali specializzati (domain-specific)?",
+  "hit": "multi-agente",
+  "score": 4.58
+ },
+ {
+  "theme": "Agent Harnessing, Sandboxing e Isolamento dell'Esecuzione",
+  "q": "Come si progetta un execution harness sicuro per consentire a un agente AI di eseguire codice generato (Python, Bash) senza compromettere l'infrastruttura host?",
+  "hit": "ai-agent",
+  "score": 3.0
+ },
+ {
+  "theme": "Agent Harnessing, Sandboxing e Isolamento dell'Esecuzione",
+  "q": "Quali sono i vantaggi di sicurezza nell'usare microVM a rapido avvio (es. Firecracker, Cloud Hypervisor) rispetto a container Docker tradizionali per il sandboxing di agenti?",
+  "hit": "sandboxing-agenti",
+  "score": 3.56
+ },
+ {
+  "theme": "Agent Harnessing, Sandboxing e Isolamento dell'Esecuzione",
+  "q": "In che modo WebAssembly (Wasm/WASI) viene impiegato come runtime harness a basso overhead per limitare l'accesso a CPU, memoria e socket di rete da parte di tool agentici?",
+  "hit": "memoria-agenti",
+  "score": 1.79
+ },
+ {
+  "theme": "Agent Harnessing, Sandboxing e Isolamento dell'Esecuzione",
+  "q": "Come si implementano policy gVisor o seccomp per intercettare e filtrare syscall pericolose emesse da processi eseguiti autonomamente da un agente?",
+  "hit": "ai-agent",
+  "score": 1.0
+ },
+ {
+  "theme": "Agent Harnessing, Sandboxing e Isolamento dell'Esecuzione",
+  "q": "Come si configura l'isolamento di rete (Network Egress Control) per impedire a un agente compromesso di effettuare chiamate verso endpoint interni o esfiltrare dati?",
+  "hit": "secure-web-gateway",
+  "score": 1.81
+ },
+ {
+  "theme": "Agent Harnessing, Sandboxing e Isolamento dell'Esecuzione",
+  "q": "Quali pattern architetturali implementano Human-in-the-Loop (HITL) deterministici per richiedere l'approvazione umana esplicita prima di azioni distruttive o transazioni finanziarie?",
+  "hit": "limitare-agente",
+  "score": 5.0
+ },
+ {
+  "theme": "Agent Harnessing, Sandboxing e Isolamento dell'Esecuzione",
+  "q": "Come si imposta un runtime effimero con ripristino istantaneo dello stato (Snapshot Rollback) al termine di ciascuna esecuzione di un task agentico?",
+  "hit": "snapshot-vs-backup",
+  "score": 2.0
+ },
+ {
+  "theme": "Agent Harnessing, Sandboxing e Isolamento dell'Esecuzione",
+  "q": "Quali vincoli di quote e limiti di risorse (cgroups v2, timeout hardware, memory cap) prevengono attacchi Denial of Service (DoS) indotti dall'esecuzione di codice generato da AI?",
+  "hit": "ai-code-quality",
+  "score": 3.76
+ },
+ {
+  "theme": "Agent Harnessing, Sandboxing e Isolamento dell'Esecuzione",
+  "q": "Come si gestisce l'iniezione controllata e dinamica di variabili d'ambiente e segreti temporanei all'interno di sandbox agentiche senza esporli all'LLM?",
+  "hit": "sandboxing-agenti",
+  "score": 1.76
+ },
+ {
+  "theme": "Agent Harnessing, Sandboxing e Isolamento dell'Esecuzione",
+  "q": "In che modo si implementa un Virtual File System (VFS) in sola lettura o copy-on-write per isolare le operazioni di manipolazione file svolte dall'agente?",
+  "hit": "sandboxing-agenti",
+  "score": 2.0
+ },
+ {
+  "theme": "Test Harnesses, Benchmarking e Metriche di Valutazione (Evals)",
+  "q": "Quali sono le differenze metodologiche tra harness di benchmark statici (es. MMLU, GSM8K) e harness agentici dinamici interattivi (es. SWE-bench, GAIA, WebArena)?",
+  "hit": "eval-llm",
+  "score": 2.0
+ },
+ {
+  "theme": "Test Harnesses, Benchmarking e Metriche di Valutazione (Evals)",
+  "q": "Come si struttura un framework di valutazione automatizzata basato sul paradigma \"LLM-as-a-Judge\" mitigando bias come position bias, verbosity bias e self-enhancement bias?",
+  "hit": "valutare-risposte",
+  "score": 2.0
+ },
+ {
+  "theme": "Test Harnesses, Benchmarking e Metriche di Valutazione (Evals)",
+  "q": "In che modo strumenti come lm-evaluation-harness standardizzano la misurazione di accuratezza, calibrazione e perplexity su modelli aperti?",
+  "hit": "open-weights",
+  "score": 1.6
+ },
+ {
+  "theme": "Test Harnesses, Benchmarking e Metriche di Valutazione (Evals)",
+  "q": "Come si progettano dataset di test sintetici (\"Golden Datasets\") per validare la non-regressione di pipeline RAG e workflow agentici in continuous integration?",
+  "hit": "testare-llm-app",
+  "score": 1.9
+ },
+ {
+  "theme": "Test Harnesses, Benchmarking e Metriche di Valutazione (Evals)",
+  "q": "Quali metriche quantitative (Precision@K, NDCG, MRR, Faithfulness, Answer Relevance) compongono il framework RAGAS per la valutazione di pipeline RAG?",
+  "hit": "cos-e-rag",
+  "score": 1.0
+ },
+ {
+  "theme": "Test Harnesses, Benchmarking e Metriche di Valutazione (Evals)",
+  "q": "Come si automatizza l'esecuzione di scenari di Red Teaming avversariale continuo tramite harness dedicati (es. PyRIT, Garak, DeepEval)?",
+  "hit": "va-vs-pentest",
+  "score": 2.0
+ },
+ {
+  "theme": "Test Harnesses, Benchmarking e Metriche di Valutazione (Evals)",
+  "q": "Come si valuta l'aderenza formale (Format Compliance) e la validità sintattica dell'output strutturato (JSON, Pydantic, SQL) su carichi di produzione elevati?",
+  "hit": "structured-output",
+  "score": 5.0
+ },
+ {
+  "theme": "Test Harnesses, Benchmarking e Metriche di Valutazione (Evals)",
+  "q": "Quali tecniche consentono di condurre A/B testing statistico su modelli non deterministici garantendo parità di condizioni di campionamento (temperature, top_p, seed)?",
+  "hit": "temperatura-llm",
+  "score": 2.85
+ },
+ {
+  "theme": "Test Harnesses, Benchmarking e Metriche di Valutazione (Evals)",
+  "q": "Come si misura quantitativamente la robustezza di un agente contro il degrado prestazionale causato dalla saturazione e dal \"Lost-in-the-Middle\" context effect?",
+  "hit": "ai-agent",
+  "score": 1.0
+ },
+ {
+  "theme": "Test Harnesses, Benchmarking e Metriche di Valutazione (Evals)",
+  "q": "Come si strutturano harness di stress-test per quantificare la resilienza di un grafo multi-agente a fronte del fallimento o della latenza anomala di uno dei nodi?",
+  "hit": "multi-agente",
+  "score": 4.0
+ },
+ {
+  "theme": "Vettori d'Attacco su Sistemi Agentici e Tool Abuse",
+  "q": "Come funziona un attacco di Indirect Prompt Injection veicolato tramite fonti dati esterne non fidate (pagine web, email, PDF, record di database)?",
+  "hit": "cos-e-prompt-injection",
+  "score": 2.0
+ },
+ {
+  "theme": "Vettori d'Attacco su Sistemi Agentici e Tool Abuse",
+  "q": "In che modo un attaccante può orchestrare un attacco di \"Goal Hijacking\" per alterare l'obiettivo primario del system prompt assegnato a un agente autonomo?",
+  "hit": "ai-agent",
+  "score": 3.0
+ },
+ {
+  "theme": "Vettori d'Attacco su Sistemi Agentici e Tool Abuse",
+  "q": "Quali sono i rischi legati al \"Tool Shadowing\" e all'iniezione di istruzioni malevole nella documentazione/schema dei tool (Tool Definition Poisoning)?",
+  "hit": null,
+  "score": 0.68
+ },
+ {
+  "theme": "Vettori d'Attacco su Sistemi Agentici e Tool Abuse",
+  "q": "Come si manifesta un attacco di Privilege Escalation orizzontale o verticale quando un agente concatena strumenti dotati di permessi eterogenei?",
+  "hit": "limitare-agente",
+  "score": 2.0
+ },
+ {
+  "theme": "Vettori d'Attacco su Sistemi Agentici e Tool Abuse",
+  "q": "In cosa consiste l'attacco di \"Confused Deputy\" applicato agli agenti AI e come può indurre il sistema ad abusare di API interne per conto di terzi?",
+  "hit": "mtls",
+  "score": 2.0
+ },
+ {
+  "theme": "Vettori d'Attacco su Sistemi Agentici e Tool Abuse",
+  "q": "Come operano i payload polimorfici e steganografici progettati per eludere i controlli di sicurezza semantici e attivarsi esclusivamente all'interno del context window?",
+  "hit": "token-context",
+  "score": 2.0
+ },
+ {
+  "theme": "Vettori d'Attacco su Sistemi Agentici e Tool Abuse",
+  "q": "Quali vettori di esfiltrazione dati sfruttano side-channel visivi o Markdown rendering (es. tag <img> o fetch automatici) in interfacce chat e agenti web?",
+  "hit": "markdown-sintassi",
+  "score": 1.0
+ },
+ {
+  "theme": "Vettori d'Attacco su Sistemi Agentici e Tool Abuse",
+  "q": "Come si sfruttano le falle di SSRF (Server-Side Request Forgery) generate da agenti dotati di tool di browsing o webhook fetching privi di controlli su IP privati?",
+  "hit": "cloudflare-automation",
+  "score": 1.34
+ },
+ {
+  "theme": "Vettori d'Attacco su Sistemi Agentici e Tool Abuse",
+  "q": "In che modo la persistenza malevola può essere iniettata nella memoria a lungo termine o nel database vettoriale di un agente per influenzare sessioni future?",
+  "hit": "memoria-agenti",
+  "score": 5.8
+ },
+ {
+  "theme": "Vettori d'Attacco su Sistemi Agentici e Tool Abuse",
+  "q": "Quali minacce emergono quando un agente ha accesso in scrittura a repository di codice e pipeline CI/CD aziendali senza controlli di branch protection?",
+  "hit": "ai-code-quality",
+  "score": 1.76
+ },
+ {
+  "theme": "Model Context Protocol (MCP) e Sicurezza dei Tool/Plugin",
+  "q": "Qual è l'architettura tecnica del Model Context Protocol (MCP) e come separa client host, server di contesto e modelli LLM?",
+  "hit": "cos-e-mcp",
+  "score": 5.0
+ },
+ {
+  "theme": "Model Context Protocol (MCP) e Sicurezza dei Tool/Plugin",
+  "q": "Come si gestisce il perimetro di autenticazione e autorizzazione (OAuth 2.0 / token scoped) tra client MCP e server MCP di terze parti?",
+  "hit": "cos-e-mcp",
+  "score": 3.0
+ },
+ {
+  "theme": "Model Context Protocol (MCP) e Sicurezza dei Tool/Plugin",
+  "q": "Quali rischi di sicurezza emergono dall'esposizione di MCP server locali tramite transport basati su stdio rispetto a transport di rete basati su SSE (Server-Sent Events)?",
+  "hit": "cos-e-mcp",
+  "score": 3.0
+ },
+ {
+  "theme": "Model Context Protocol (MCP) e Sicurezza dei Tool/Plugin",
+  "q": "Come si prevengono attacchi di \"Schema Injection\" in cui un MCP server manipola la descrizione JSON-Schema per ingannare il modello sulle finalità reali di un'azione?",
+  "hit": "cos-e-mcp",
+  "score": 3.0
+ },
+ {
+  "theme": "Model Context Protocol (MCP) e Sicurezza dei Tool/Plugin",
+  "q": "Quali pattern di validazione runtime devono essere applicati sui parametri in ingresso e in uscita dagli endpoint MCP prima dell'esecuzione?",
+  "hit": "cos-e-mcp",
+  "score": 1.0
+ },
+ {
+  "theme": "Model Context Protocol (MCP) e Sicurezza dei Tool/Plugin",
+  "q": "In che modo è possibile implementare un registro centrale verificato (MCP Registry) con firma crittografica dei metadata e dei binari dei server di tool?",
+  "hit": "cos-e-mcp",
+  "score": 3.0
+ },
+ {
+  "theme": "Model Context Protocol (MCP) e Sicurezza dei Tool/Plugin",
+  "q": "Come si segmentano le sessioni utente su server MCP multi-tenant per evitare il cross-contamination di credenziali e dati contestuali?",
+  "hit": "cos-e-mcp",
+  "score": 3.0
+ },
+ {
+  "theme": "Model Context Protocol (MCP) e Sicurezza dei Tool/Plugin",
+  "q": "Quali controlli a livello proxy possono essere frapposti tra l'LLM e il server MCP per ispezionare, censurare o bloccare chiamate API non conformi?",
+  "hit": "cos-e-mcp",
+  "score": 3.0
+ },
+ {
+  "theme": "Model Context Protocol (MCP) e Sicurezza dei Tool/Plugin",
+  "q": "Come si gestisce il rollback transazionale qualora una catena di chiamate a tool MCP fallisca parzialmente lasciando dati in stato inconsistente?",
+  "hit": "cos-e-mcp",
+  "score": 1.0
+ },
+ {
+  "theme": "Model Context Protocol (MCP) e Sicurezza dei Tool/Plugin",
+  "q": "Come si monitorano e profilano i consumi di latenza e computazione generati da server MCP per prevenire attacchi di tipo resource exhaustion?",
+  "hit": "cos-e-mcp",
+  "score": 3.0
+ },
+ {
+  "theme": "Guardrail, Firewall Semantici e Policy Enforcement a Runtime",
+  "q": "Come operano i motori di guardrail programmabili (es. NeMo Guardrails, Llama Guard) per validare input e output in parallelo all'inferenza?",
+  "hit": "inferenza",
+  "score": 1.71
+ },
+ {
+  "theme": "Guardrail, Firewall Semantici e Policy Enforcement a Runtime",
+  "q": "Qual è la differenza tra filtraggio basato su regole deterministiche (regex, pattern matching, allowlist/denylist) e classificazione semantica basata su embedding?",
+  "hit": "regex-basi",
+  "score": 4.64
+ },
+ {
+  "theme": "Guardrail, Firewall Semantici e Policy Enforcement a Runtime",
+  "q": "Come si implementano motori di decodifica vincolata (Structured Decoding con Outlines o Guidance) per garantire output conformi a schemi formali senza rigenerazioni?",
+  "hit": "structured-output",
+  "score": 2.0
+ },
+ {
+  "theme": "Guardrail, Firewall Semantici e Policy Enforcement a Runtime",
+  "q": "In che modo i \"Firewall Semantici\" rilevano e neutralizzano tentativi di jailbreak (es. DAN, roleplay avversariale, attacchi multilingua a basso risalto)?",
+  "hit": "cos-e-prompt-injection",
+  "score": 1.0
+ },
+ {
+  "theme": "Guardrail, Firewall Semantici e Policy Enforcement a Runtime",
+  "q": "Come si configurano filtri per la prevenzione della fuga di dati sensibili (PII, chiavi API, token) tramite combinazione di Named Entity Recognition (NER) e masking?",
+  "hit": "gestione-secrets",
+  "score": 2.0
+ },
+ {
+  "theme": "Guardrail, Firewall Semantici e Policy Enforcement a Runtime",
+  "q": "Quali sono i requisiti architetturali per mantenere la latenza dei guardrail al di sotto dei 50ms in applicazioni conversazionali real-time?",
+  "hit": "guardrail",
+  "score": 1.0
+ },
+ {
+  "theme": "Guardrail, Firewall Semantici e Policy Enforcement a Runtime",
+  "q": "Come si applica il Policy-as-Code (tramite Open Policy Agent / Rego) per governare dinamicamente quali azioni e tool un agente può invocare in base al contesto?",
+  "hit": "ai-code-quality",
+  "score": 1.76
+ },
+ {
+  "theme": "Guardrail, Firewall Semantici e Policy Enforcement a Runtime",
+  "q": "In che modo si mitigano i tentativi di bypass dei guardrail basati su framing semantico ipotetico (\"Immagina un mondo in cui...\") o codifiche Base64/Rot13?",
+  "hit": "guardrail",
+  "score": 1.0
+ },
+ {
+  "theme": "Guardrail, Firewall Semantici e Policy Enforcement a Runtime",
+  "q": "Come si progetta una strategia di \"Graceful Degradation\" quando il guardrail intercetta una violazione, fornendo risposte sicure senza interrompere il flusso operativo?",
+  "hit": "guardrail",
+  "score": 1.0
+ },
+ {
+  "theme": "Guardrail, Firewall Semantici e Policy Enforcement a Runtime",
+  "q": "Come si verificano sistematicamente i tassi di falsi positivi (False Refusal Rate) introdotti da policy di sicurezza eccessivamente restrittive?",
+  "hit": "ai-policy",
+  "score": 1.0
+ },
+ {
+  "theme": "Memory Architecture, Vector Database e RAG Security",
+  "q": "Come si progetta l'isolamento multi-tenant a livello di indice o partizione all'interno di Vector Database (es. Qdrant, Milvus, pgvector)?",
+  "hit": "vector-database",
+  "score": 4.0
+ },
+ {
+  "theme": "Memory Architecture, Vector Database e RAG Security",
+  "q": "Quali vulnerabilità di access control (BACS - Broken Access Control at Search) emergono quando la ricerca vettoriale bypassa i permessi del documento originale?",
+  "hit": "embeddings",
+  "score": 2.0
+ },
+ {
+  "theme": "Memory Architecture, Vector Database e RAG Security",
+  "q": "In che modo un attacco di \"Vector Poisoning\" può alterare il posizionamento spaziale dei chunk di testo nello spazio vettoriale per dirottare il retrieval RAG?",
+  "hit": "embeddings",
+  "score": 2.0
+ },
+ {
+  "theme": "Memory Architecture, Vector Database e RAG Security",
+  "q": "Quali differenze di sicurezza e privacy sussistono tra memorie agentiche a breve termine (Conversation Buffer), episodiche e semantiche a lungo termine?",
+  "hit": "memoria-agenti",
+  "score": 7.07
+ },
+ {
+  "theme": "Memory Architecture, Vector Database e RAG Security",
+  "q": "Come si implementano meccanismi di Time-To-Live (TTL), forgetfulness controllata e crittografia a livello di chunk nei database di memoria per agenti?",
+  "hit": "ttl-dns",
+  "score": 3.0
+ },
+ {
+  "theme": "Memory Architecture, Vector Database e RAG Security",
+  "q": "Come si protegge la fase di reranking neurale (Cross-Encoders) da manipulation attacks intesi a forzare chunk malevoli in cima al context window?",
+  "hit": "reranking",
+  "score": 3.0
+ },
+ {
+  "theme": "Memory Architecture, Vector Database e RAG Security",
+  "q": "In che modo la deduplicazione e la sanificazione dei documenti prima della chunking pipeline mitigano attacchi di iniezione testuale nei metadati?",
+  "hit": "chunking",
+  "score": 2.69
+ },
+ {
+  "theme": "Memory Architecture, Vector Database e RAG Security",
+  "q": "Quali sono le implicazioni sul diritto all'oblio (GDPR Art. 17) quando dati personali vengono incorporati in indici vettoriali o memorie persistenti di agenti?",
+  "hit": "l0-memory",
+  "score": 2.46
+ },
+ {
+  "theme": "Memory Architecture, Vector Database e RAG Security",
+  "q": "Come si contrasta l'esfiltrazione indiretta di conoscenza proprietaria tramite tecniche di Membership Inference condotte su database vettoriali pubblici?",
+  "hit": "vector-database",
+  "score": 1.84
+ },
+ {
+  "theme": "Memory Architecture, Vector Database e RAG Security",
+  "q": "Come si implementa l'Audit Trail crittografico su tutte le letture e scritture effettuate dall'agente all'interno della memoria persistente?",
+  "hit": "l0-memory",
+  "score": 4.7
+ },
+ {
+  "theme": "AI Supply Chain, Model Weights e Integrità dei Checkpoint",
+  "q": "Quali rischi di Arbitrary Code Execution comporta il caricamento di modelli serializzati in formato Legacy Pickle (.bin, .pt) rispetto a SafeTensors (.safetensors)?",
+  "hit": "ai-code-quality",
+  "score": 1.76
+ },
+ {
+  "theme": "AI Supply Chain, Model Weights e Integrità dei Checkpoint",
+  "q": "Come si verifica l'integrità crittografica e la provenienza dei pesi dei modelli scaricati da hub pubblici tramite firme Sigstore e framework TUF (The Update Framework)?",
+  "hit": "code-signing",
+  "score": 1.8
+ },
+ {
+  "theme": "AI Supply Chain, Model Weights e Integrità dei Checkpoint",
+  "q": "In cosa consiste l'attacco di \"Weight Poisoning / Neural Backdoor\" inserito deliberatamente durante la fase di fine-tuning di un foundation model?",
+  "hit": "silicondev",
+  "score": 2.0
+ },
+ {
+  "theme": "AI Supply Chain, Model Weights e Integrità dei Checkpoint",
+  "q": "Come possono essere sfruttati adattatori LoRA (Low-Rank Adaptation) malevoli per introdurre comportamenti malevoli dormienti in modelli base sicuri?",
+  "hit": "silicondev",
+  "score": 1.81
+ },
+ {
+  "theme": "AI Supply Chain, Model Weights e Integrità dei Checkpoint",
+  "q": "Quali sono le vulnerabilità legate all'uso di librerie esterne non validate (es. tokenizers, transformers, accelerate) nella pipeline di pre-processing dei dati?",
+  "hit": null,
+  "score": 0.69
+ },
+ {
+  "theme": "AI Supply Chain, Model Weights e Integrità dei Checkpoint",
+  "q": "Come si implementa una Software Bill of Materials per l'Intelligenza Artificiale (AIBOM) includendo dataset lineage, pesi, iperparametri e dipendenze?",
+  "hit": null,
+  "score": 0.74
+ },
+ {
+  "theme": "AI Supply Chain, Model Weights e Integrità dei Checkpoint",
+  "q": "In che modo la quantizzazione dei pesi (es. GGUF, AWQ, GPTQ a 4-bit) influisce sulla suscettibilità del modello ad attacchi di jailbreak e allucinazioni?",
+  "hit": "quantizzazione",
+  "score": 6.0
+ },
+ {
+  "theme": "AI Supply Chain, Model Weights e Integrità dei Checkpoint",
+  "q": "Come si isolano e scansionano i repository di modelli locali per rilevare payload malevoli o file di configurazione alterati prima dell'esecuzione in produzione?",
+  "hit": "llm-in-locale",
+  "score": 1.6
+ },
+ {
+  "theme": "AI Supply Chain, Model Weights e Integrità dei Checkpoint",
+  "q": "Quali rischi di supply chain derivano dall'integrazione di dataset di addestramento web-scraped contenenti dati avversariali iniettati (Data Poisoning at Scale)?",
+  "hit": "supply-chain-security",
+  "score": 2.0
+ },
+ {
+  "theme": "AI Supply Chain, Model Weights e Integrità dei Checkpoint",
+  "q": "Come si valida l'autenticità di modelli rilasciati su hub aperti contro campagne di impersonation di vendor accreditati (Typosquatting di modelli)?",
+  "hit": "open-weights",
+  "score": 1.6
+ },
+ {
+  "theme": "Osservabilità, Tracing (OpenInference) e Debugging di Sistemi Stocastici",
+  "q": "Come si integrano gli standard di telemetria OpenInference e OpenTelemetry per tracciare span, token usage e latenza end-to-end nei workflow agentici?",
+  "hit": "crittografia-e2e",
+  "score": 2.0
+ },
+ {
+  "theme": "Osservabilità, Tracing (OpenInference) e Debugging di Sistemi Stocastici",
+  "q": "Quali sono i componenti architetturali di piattaforme di LLM Observability dedicate (es. Langfuse, Arize Phoenix, Helicone, LangSmith)?",
+  "hit": "observability-llm",
+  "score": 2.0
+ },
+ {
+  "theme": "Osservabilità, Tracing (OpenInference) e Debugging di Sistemi Stocastici",
+  "q": "Come si implementa il tracing deterministico di decisioni non deterministiche registrando temperature, top_p, seed e snapshot precisi del context window?",
+  "hit": "temperatura-llm",
+  "score": 2.85
+ },
+ {
+  "theme": "Osservabilità, Tracing (OpenInference) e Debugging di Sistemi Stocastici",
+  "q": "Quali strategie consentono di oscurare o pseudonimizzare dati PII e credenziali all'interno delle tracce di telemetria e dei log di prompt/completion?",
+  "hit": "data-leakage-llm",
+  "score": 2.0
+ },
+ {
+  "theme": "Osservabilità, Tracing (OpenInference) e Debugging di Sistemi Stocastici",
+  "q": "Come si monitorano in tempo reale le anomalie di Drift Semantico (Data Drift e Concept Drift) tra i prompt inviati dagli utenti e i dataset di validazione?",
+  "hit": "data-leakage-llm",
+  "score": 1.8
+ },
+ {
+  "theme": "Osservabilità, Tracing (OpenInference) e Debugging di Sistemi Stocastici",
+  "q": "In che modo la tracciatura dei costi a livello di singolo sub-task o chiamata a tool permette di individuare inefficienze algoritmiche o loop di fallback costosi?",
+  "hit": "dimensionare-nodo",
+  "score": 0.8
+ },
+ {
+  "theme": "Osservabilità, Tracing (OpenInference) e Debugging di Sistemi Stocastici",
+  "q": "Quali metriche di sistema (GPU Memory Bandwidth, KV-Cache Utilization, Time-to-First-Token - TTFT, Inter-Token Latency - ITL) sono critiche per ottimizzare il throughput?",
+  "hit": "kv-cache",
+  "score": 2.0
+ },
+ {
+  "theme": "Osservabilità, Tracing (OpenInference) e Debugging di Sistemi Stocastici",
+  "q": "Come si implementa la correlazione automatica tra tracce distribuite di microservizi tradizionali e span generati da agenti AI via Trace ID unificato?",
+  "hit": "ai-agent",
+  "score": 0.8
+ },
+ {
+  "theme": "Osservabilità, Tracing (OpenInference) e Debugging di Sistemi Stocastici",
+  "q": "In che modo l'analisi post-mortem dei log di esecuzione dei tool permette di identificare pattern di fallimento ricorrenti nelle chiamate API esterne?",
+  "hit": "agssh",
+  "score": 2.0
+ },
+ {
+  "theme": "Osservabilità, Tracing (OpenInference) e Debugging di Sistemi Stocastici",
+  "q": "Come si costruisce un framework di alerting predittivo per intercettare picchi anomali di allucinazioni o risposte non strutturate in produzione?",
+  "hit": "allucinazioni-llm",
+  "score": 1.71
+ },
+ {
+  "theme": "Governance, Agent Identity, Kill-Switch e Compliance UE AI Act",
+  "q": "Come si definiscono e gestiscono identità crittografiche univoche per agenti autonomi tramite Decentralized Identifiers (DID) o certificati mTLS?",
+  "hit": "ai-agent",
+  "score": 2.41
+ },
+ {
+  "theme": "Governance, Agent Identity, Kill-Switch e Compliance UE AI Act",
+  "q": "Quali requisiti di risk management e documentazione tecnica impone l'EU AI Act per i sistemi AI classificati ad alto rischio o General Purpose AI (GPAI) con rischio sistemico?",
+  "hit": "ai-act",
+  "score": 2.0
+ },
+ {
+  "theme": "Governance, Agent Identity, Kill-Switch e Compliance UE AI Act",
+  "q": "Come si progetta un meccanismo di \"Emergency Kill-Switch\" hardware o software in grado di revocare istantaneamente tutti i permessi e terminare i processi agentici attivi?",
+  "hit": "panoramica-repo",
+  "score": 0.81
+ },
+ {
+  "theme": "Governance, Agent Identity, Kill-Switch e Compliance UE AI Act",
+  "q": "Quali policy di Non-Ripudio e audit trail crittografico devono essere implementate per imputare formalmente la responsabilità legale di decisioni prese da agenti autonomi?",
+  "hit": "ai-agent",
+  "score": 2.41
+ },
+ {
+  "theme": "Governance, Agent Identity, Kill-Switch e Compliance UE AI Act",
+  "q": "In che modo si garantisce l'Explainability e l'Ispezionabilità delle catene di inferenza logica in caso di audit normativo o indagine forense?",
+  "hit": "inferenza",
+  "score": 1.71
+ },
+ {
+  "theme": "Governance, Agent Identity, Kill-Switch e Compliance UE AI Act",
+  "q": "Quali differenze operative sussistono tra la responsabilità dell'AI Deployer (chi implementa l'agente) e dell'AI Provider (chi fornisce il modello base) secondo il quadro UE?",
+  "hit": "scegliere-modello",
+  "score": 1.8
+ },
+ {
+  "theme": "Governance, Agent Identity, Kill-Switch e Compliance UE AI Act",
+  "q": "Come si implementano test di conformità per verificare che i modelli non presentino bias discriminatori sistematici protetti dalle normative antidiscriminazione europee?",
+  "hit": "nis2",
+  "score": 1.83
+ },
+ {
+  "theme": "Governance, Agent Identity, Kill-Switch e Compliance UE AI Act",
+  "q": "Quali sono i limiti legali e tecnici sull'autonomia decisionale degli agenti in settori regolamentati (es. scoring creditizio, diagnostica medica, selezione del personale)?",
+  "hit": "ai-agent",
+  "score": 2.36
+ },
+ {
+  "theme": "Governance, Agent Identity, Kill-Switch e Compliance UE AI Act",
+  "q": "Come si struttura un registro interno aziendale per censire tutti gli agenti attivi, i modelli sottostanti, le sandbox di confinamento e i relativi permessi operativi?",
+  "hit": "limitare-agente",
+  "score": 1.8
+ },
+ {
+  "theme": "Governance, Agent Identity, Kill-Switch e Compliance UE AI Act",
+  "q": "Quali protocolli di sicurezza definiscono la transizione di controllo da una modalità completamente autonoma a una supervisionata (Fallback to Human Operator) in situazioni di crisi?",
+  "hit": "limitare-agente",
+  "score": 1.54
+ }
+]

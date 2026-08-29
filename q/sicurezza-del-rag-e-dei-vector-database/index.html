@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quali sono i rischi di sicurezza del RAG e dei vector database? – FabGPT-FAQ</title>
+<meta name="description" content="Il [RAG](q/cos-e-rag-retrieval-augmented-generation/) apre superfici di rischio che il modello da solo non ha, perché inietta contenuto esterno nel…">
+<link rel="canonical" href="https://fabriziosalmi.github.io/fabgpt-faq/q/sicurezza-del-rag-e-dei-vector-database/">
+<link rel="stylesheet" href="../../style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Quali sono i rischi di sicurezza del RAG e dei vector database?", "acceptedAnswer": {"@type": "Answer", "text": "Il [RAG](q/cos-e-rag-retrieval-augmented-generation/) apre superfici di rischio che il modello da solo non ha, perché inietta contenuto esterno nel contesto: indirect prompt injection: un documento nella knowledge base contiene [istruzioni nascoste](q/cos-e-la-prompt-injection/) che l'agente esegue quando quel documento viene recuperato – l'attaccante non tocca il tuo prompt, avvelena la fonte (una pagina web che l'agente leggerà, un PDF caricato da un utente, una email indicizzata) knowledge base poisoning: contaminare i dati indicizzati per far dare risposte sbagliate su richieste mirate permessi al retrieval: il rischio più comune e sottovalutato – il chatbot che risponde a un utente citando documenti che quell'utente non potrebbe aprire. Il filtro di autorizzazione va nel retrieval, non nella speranza data leakage: [PII e segreti](q/data-leakage-via-llm/) finiti negli embeddings o restituiti nel contesto Le difese: tratta ogni contenuto recuperato come non fidato (mai eseguire istruzioni che arrivano dai documenti – separazione istruzioni/dati e [guardrail](q/firewall-semantici-e-guardrail-runtime/)), applica i permessi a livello di indice (partiziona per tenant/utente, filtra prima di recuperare), valida ciò che entra nella knowledge base, e cita le fonti per rendere ispezionabile il [grounding](q/cos-e-il-grounding/). L'attacco più elegante contro un agente moderno non passa dal prompt: passa da ciò che l'agente legge."}}]}</script>
+<style>
+  .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
+  .page h1 { font-size: 26px; line-height: 1.3; margin: 8px 0 20px; }
+  .page .answer a { color: var(--link); }
+  .page .vertical { font-size: 13px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }
+  .page .answer ul { padding-left: 22px; }
+  .page .answer code { background: var(--code-bg); border-radius: 5px; padding: 1px 5px; font-size: 0.9em; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+  .page .ask { display: inline-block; margin-top: 24px; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 9px 18px; text-decoration: none; font-weight: 600; }
+  .page .related { margin-top: 36px; border-top: 1px solid var(--border); padding-top: 18px; }
+  .page .related h2 { font-size: 16px; }
+  .page .related a { color: var(--link); text-decoration: none; }
+  .page .related a:hover { text-decoration: underline; }
+  .page .related li { margin: 6px 0; }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="../../" style="text-decoration:none;color:inherit">
+    <span class="brand-dot">F</span>
+    <span class="brand-name">FabGPT-FAQ</span>
+  </a>
+</header>
+<main class="page">
+  <div class="vertical">AI e LLM</div>
+  <h1>Quali sono i rischi di sicurezza del RAG e dei vector database?</h1>
+  <div class="answer"><p>Il <a href="../cos-e-rag-retrieval-augmented-generation/">RAG</a> apre superfici di rischio che il modello da solo non ha, perché <strong>inietta contenuto esterno nel contesto</strong>:</p><ul><li><strong>indirect prompt injection</strong>: un documento nella knowledge base contiene <a href="../cos-e-la-prompt-injection/">istruzioni nascoste</a> che l&#x27;agente esegue quando quel documento viene recuperato – l&#x27;attaccante non tocca il tuo prompt, avvelena la <em>fonte</em> (una pagina web che l&#x27;agente leggerà, un PDF caricato da un utente, una email indicizzata)</li><li><strong>knowledge base poisoning</strong>: contaminare i dati indicizzati per far dare risposte sbagliate su richieste mirate</li><li><strong>permessi al retrieval</strong>: il rischio più comune e sottovalutato – il chatbot che risponde a un utente <strong>citando documenti che quell&#x27;utente non potrebbe aprire</strong>. Il filtro di autorizzazione va nel <em>retrieval</em>, non nella speranza</li><li><strong>data leakage</strong>: <a href="../data-leakage-via-llm/">PII e segreti</a> finiti negli embeddings o restituiti nel contesto</li></ul><p>Le difese: tratta ogni contenuto recuperato come <strong>non fidato</strong> (mai eseguire istruzioni che arrivano dai documenti – separazione istruzioni/dati e <a href="../firewall-semantici-e-guardrail-runtime/">guardrail</a>), applica i <strong>permessi a livello di indice</strong> (partiziona per tenant/utente, filtra prima di recuperare), valida ciò che entra nella knowledge base, e cita le fonti per rendere ispezionabile il <a href="../cos-e-il-grounding/">grounding</a>. L&#x27;attacco più elegante contro un agente moderno non passa dal prompt: passa da ciò che l&#x27;agente <em>legge</em>.</p></div>
+  <a class="ask" href="../../?q=rag-security">Chiedilo a FabGPT-FAQ →</a>
+  <div class="related">
+    <h2>Altre domande</h2>
+    <ul><li><a href="../cos-e-la-prompt-injection/">Cos&#x27;è la prompt injection e come ci si difende?</a></li><li><a href="../cos-e-mcp-model-context-protocol/">Cos&#x27;è MCP (Model Context Protocol)?</a></li><li><a href="../cos-e-il-vibe-coding/">Cos&#x27;è il vibe coding e quali sono i rischi?</a></li><li><a href="../allucinazioni-llm-dipendenze-inventate/">Cosa sono le allucinazioni degli LLM (e le dipendenze inventate)?</a></li><li><a href="../cos-e-rag-retrieval-augmented-generation/">Cos&#x27;è RAG (Retrieval-Augmented Generation)?</a></li><li><a href="../cos-e-un-llm/">Cos&#x27;è un LLM (Large Language Model)?</a></li></ul>
+  </div>
+</main>
+</body>
+</html>

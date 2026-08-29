@@ -1462,5 +1462,197 @@
   {
     "q": "quanto costa questo sito",
     "expect": "costo-zero"
+  },
+  {
+    "q": "come funziona il syn flood",
+    "expect": "tcp-handshake"
+  },
+  {
+    "q": "differenza tra modello osi e tcp ip",
+    "expect": "osi-tcpip"
+  },
+  {
+    "q": "differenza tra nat statico e pat",
+    "expect": "nat-pat"
+  },
+  {
+    "q": "differenza tra ngfw e firewall stateful",
+    "expect": "ngfw"
+  },
+  {
+    "q": "cosè il bgp hijacking",
+    "expect": "bgp-hijacking"
+  },
+  {
+    "q": "ipsec transport o tunnel mode",
+    "expect": "ipsec-modes"
+  },
+  {
+    "q": "cosè wireguard e tailscale",
+    "expect": "wireguard-mesh"
+  },
+  {
+    "q": "differenza tra saml oauth e oidc",
+    "expect": "saml-oauth-oidc"
+  },
+  {
+    "q": "cosè il pam e l accesso just in time",
+    "expect": "pam-jit"
+  },
+  {
+    "q": "a cosa serve una yubikey",
+    "expect": "hardware-key"
+  },
+  {
+    "q": "cosè la crittografia post quantistica",
+    "expect": "pqc"
+  },
+  {
+    "q": "cosa significa harvest now decrypt later",
+    "expect": "hndl"
+  },
+  {
+    "q": "quale resolver dns privato scegliere",
+    "expect": "dns-privacy-doh"
+  },
+  {
+    "q": "bloccare la pubblicita per tutta la rete di casa",
+    "expect": "dns-blocklist-selfhost"
+  },
+  {
+    "q": "cosa sono i sistemi operativi immutabili",
+    "expect": "immutable-os"
+  },
+  {
+    "q": "secure element proprietario o firmware aperto",
+    "expect": "secure-element"
+  },
+  {
+    "q": "cosa sono i kill switch hardware sui laptop",
+    "expect": "kill-switch-hardware"
+  },
+  {
+    "q": "come uso uno smartphone senza google",
+    "expect": "degoogled-phone"
+  },
+  {
+    "q": "cosè un infostealer",
+    "expect": "infostealer"
+  },
+  {
+    "q": "cosè il threat hunting proattivo",
+    "expect": "threat-hunting"
+  },
+  {
+    "q": "quali event id windows monitorare per la detection",
+    "expect": "detection-engineering"
+  },
+  {
+    "q": "cosè una vulnerabilita ssrf",
+    "expect": "ssrf"
+  },
+  {
+    "q": "cosa sono gli attacchi avversariali al machine learning",
+    "expect": "adversarial-ml"
+  },
+  {
+    "q": "come metto in sicurezza le immagini dei container",
+    "expect": "container-security"
+  },
+  {
+    "q": "differenza tra cspm cwpp e cnapp",
+    "expect": "cnapp"
+  },
+  {
+    "q": "come metto la sicurezza nella pipeline cicd",
+    "expect": "devsecopspipeline"
+  },
+  {
+    "q": "quali sono i pattern di orchestrazione degli agenti",
+    "expect": "agent-orchestration-patterns"
+  },
+  {
+    "q": "cosè il time travel debugging degli agenti",
+    "expect": "time-travel-debugging"
+  },
+  {
+    "q": "come metto in sicurezza i tool mcp",
+    "expect": "mcp-tool-security"
+  },
+  {
+    "q": "cosa sono i firewall semantici per llm",
+    "expect": "guardrail-runtime"
+  },
+  {
+    "q": "quali sono i rischi di sicurezza del rag",
+    "expect": "rag-security"
+  },
+  {
+    "q": "come verifico l integrita dei pesi di un modello",
+    "expect": "ai-supply-chain-weights"
+  },
+  {
+    "q": "cosè openinference per il tracing ai",
+    "expect": "llm-observability-tracing"
+  },
+  {
+    "q": "cosè il kill switch per un agente ai",
+    "expect": "agent-identity-killswitch"
+  },
+  {
+    "q": "cosè matrix la messaggistica federata",
+    "expect": "matrix-messaggistica"
+  },
+  {
+    "q": "cosè la business impact analysis",
+    "expect": "bia"
+  },
+  {
+    "q": "come gestisco le vulnerabilita con defectdojo",
+    "expect": "vuln-management"
+  },
+  {
+    "q": "quanto costi?",
+    "expect": "st-prezzo"
+  },
+  {
+    "q": "mi tracci o salvi le domande?",
+    "expect": "st-privacy"
+  },
+  {
+    "q": "come funzioni tecnicamente?",
+    "expect": "st-come-funzioni"
+  },
+  {
+    "q": "come contatto fabrizio per una consulenza",
+    "expect": "st-contatto-fab"
+  },
+  {
+    "q": "qual è il progetto piu famoso da provare",
+    "expect": "st-progetti-suggerisci"
+  },
+  {
+    "q": "mi annoio dimmi qualcosa di interessante",
+    "expect": "st-noia"
+  },
+  {
+    "q": "sei umano o un robot?",
+    "expect": "st-sei-umano"
+  },
+  {
+    "q": "scusa",
+    "expect": "st-scusa"
+  },
+  {
+    "q": "buona giornata",
+    "expect": "st-buon-lavoro"
+  },
+  {
+    "q": "puoi approfondire meglio?",
+    "expect": "st-approfondisci"
+  },
+  {
+    "q": "perche il sito è solo in italiano",
+    "expect": "st-perche-italiano"
   }
 ]

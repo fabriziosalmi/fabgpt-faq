@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cosa sono i sistemi operativi immutabili (e perché usarli)? – FabGPT-FAQ</title>
+<meta name="description" content="In un OS immutabile il sistema di base è read-only: non modifichi i file di sistema uno a uno: aggiorni tutta l&#x27;immagine in blocco, in modo transazionale,…">
+<link rel="canonical" href="https://fabriziosalmi.github.io/fabgpt-faq/q/sistemi-operativi-immutabili/">
+<link rel="stylesheet" href="../../style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Cosa sono i sistemi operativi immutabili (e perché usarli)?", "acceptedAnswer": {"@type": "Answer", "text": "In un OS immutabile il sistema di base è read-only: non modifichi i file di sistema uno a uno: aggiorni tutta l'immagine in blocco, in modo transazionale, con rollback istantaneo se qualcosa va storto. Le tue app girano in [container](q/differenza-container-lxc-e-vm/) o in ambienti isolati (Flatpak), i tuoi dati stanno in partizioni separate. I vantaggi di sicurezza e affidabilità: la superficie di manomissione crolla (il malware non riscrive /usr se /usr è di sola lettura), gli aggiornamenti o vanno del tutto o si annullano (niente stato a metà), e ogni macchina è identica e riproducibile – la deriva di configurazione sparisce. I nomi: Fedora Silverblue/CoreOS, openSUSE MicroOS, Talos (Linux immutabile fatto solo per Kubernetes, gestito via API, senza nemmeno una shell). Per un [host di container](q/cos-e-docker-compose/) o un nodo di cluster è una scelta eccellente: meno da rompere, meno da patchare a mano. Il compromesso: la personalizzazione libera del sistema è più rigida per costruzione – è il punto, non un bug. Filosoficamente è parente stretto degli [SSG](q/cos-e-un-generatore-di-siti-statici/) e delle [superfici air-gapped](q/cos-e-un-air-gap/): meno parti mutevoli, meno cose che possono andare male."}}]}</script>
+<style>
+  .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
+  .page h1 { font-size: 26px; line-height: 1.3; margin: 8px 0 20px; }
+  .page .answer a { color: var(--link); }
+  .page .vertical { font-size: 13px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }
+  .page .answer ul { padding-left: 22px; }
+  .page .answer code { background: var(--code-bg); border-radius: 5px; padding: 1px 5px; font-size: 0.9em; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+  .page .ask { display: inline-block; margin-top: 24px; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 9px 18px; text-decoration: none; font-weight: 600; }
+  .page .related { margin-top: 36px; border-top: 1px solid var(--border); padding-top: 18px; }
+  .page .related h2 { font-size: 16px; }
+  .page .related a { color: var(--link); text-decoration: none; }
+  .page .related a:hover { text-decoration: underline; }
+  .page .related li { margin: 6px 0; }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="../../" style="text-decoration:none;color:inherit">
+    <span class="brand-dot">F</span>
+    <span class="brand-name">FabGPT-FAQ</span>
+  </a>
+</header>
+<main class="page">
+  <div class="vertical">Proxmox e self-hosting</div>
+  <h1>Cosa sono i sistemi operativi immutabili (e perché usarli)?</h1>
+  <div class="answer"><p>In un <strong>OS immutabile</strong> il sistema di base è <strong>read-only</strong>: non modifichi i file di sistema uno a uno: aggiorni tutta l&#x27;immagine in blocco, in modo transazionale, con <strong>rollback</strong> istantaneo se qualcosa va storto. Le tue app girano in <a href="../differenza-container-lxc-e-vm/">container</a> o in ambienti isolati (Flatpak), i tuoi dati stanno in partizioni separate.</p><p>I vantaggi di sicurezza e affidabilità: la <strong>superficie di manomissione crolla</strong> (il malware non riscrive <code>/usr</code> se <code>/usr</code> è di sola lettura), gli aggiornamenti o vanno del tutto o si annullano (niente stato a metà), e ogni macchina è <strong>identica e riproducibile</strong> – la deriva di configurazione sparisce.</p><p>I nomi: <strong>Fedora Silverblue/CoreOS</strong>, <strong>openSUSE MicroOS</strong>, <strong>Talos</strong> (Linux immutabile fatto solo per Kubernetes, gestito via API, senza nemmeno una shell). Per un <a href="../cos-e-docker-compose/">host di container</a> o un nodo di cluster è una scelta eccellente: meno da rompere, meno da patchare a mano. Il compromesso: la personalizzazione libera del sistema è più rigida per costruzione – è il punto, non un bug. Filosoficamente è parente stretto degli <a href="../cos-e-un-generatore-di-siti-statici/">SSG</a> e delle <a href="../cos-e-un-air-gap/">superfici air-gapped</a>: meno parti mutevoli, meno cose che possono andare male.</p></div>
+  <a class="ask" href="../../?q=immutable-os">Chiedilo a FabGPT-FAQ →</a>
+  <div class="related">
+    <h2>Altre domande</h2>
+    <ul><li><a href="../cos-e-proxmox-ve/">Cos&#x27;è Proxmox VE e perché è così usato?</a></li><li><a href="../differenza-container-lxc-e-vm/">Che differenza c&#x27;è tra container LXC e VM?</a></li><li><a href="../self-hosting-pro-e-contro/">Self-hosting: cosa significa e quando conviene?</a></li><li><a href="../cluster-proxmox-e-quorum/">Come funziona un cluster Proxmox (e cos&#x27;è il quorum)?</a></li><li><a href="../perche-usare-zfs-su-proxmox/">Perché usare ZFS su Proxmox?</a></li><li><a href="../differenza-snapshot-e-backup/">Che differenza c&#x27;è tra snapshot e backup?</a></li></ul>
+  </div>
+</main>
+</body>
+</html>

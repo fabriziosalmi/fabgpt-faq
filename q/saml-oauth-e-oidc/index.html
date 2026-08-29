@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SAML, OAuth 2.0 e OpenID Connect: quali differenze e casi d&#x27;uso? – FabGPT-FAQ</title>
+<meta name="description" content="Tre standard che la gente confonde perché risolvono problemi vicini ma diversi: OAuth 2.0 è autorizzazione, non login: &quot;do a questa app il permesso di…">
+<link rel="canonical" href="https://fabriziosalmi.github.io/fabgpt-faq/q/saml-oauth-e-oidc/">
+<link rel="stylesheet" href="../../style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "SAML, OAuth 2.0 e OpenID Connect: quali differenze e casi d'uso?", "acceptedAnswer": {"@type": "Answer", "text": "Tre standard che la gente confonde perché risolvono problemi vicini ma diversi: OAuth 2.0 è autorizzazione, non login: \"do a questa app il permesso di accedere a quella risorsa a nome mio\" – è il meccanismo dietro i token e le API. Da solo non dice chi sei OpenID Connect (OIDC) è un sottile strato di autenticazione sopra OAuth: aggiunge l'id token che dice chi è l'utente. È il \"Login con Google/GitHub\" moderno, JSON e REST, ideale per web e mobile SAML è il nonno enterprise dell'SSO: XML, pensato per il web aziendale e i fornitori tradizionali. Verboso ma ancora dominante nelle grandi organizzazioni e nei software B2B legacy La regola di scelta: nuovo progetto web/mobile → OIDC; integrazione con SSO aziendale o SaaS enterprise che parla solo XML → SAML; accesso delegato ad API senza login → OAuth puro. Il tema di sicurezza trasversale: i token sono credenziali portabili – vanno protetti, con scadenza breve e scope minimo, perché un token rubato è un accesso rubato (è il bersaglio degli attacchi [AiTM](q/cos-e-un-attacco-man-in-the-middle/) che aggirano l'[MFA](q/cos-e-autenticazione-due-fattori-mfa/))."}}]}</script>
+<style>
+  .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
+  .page h1 { font-size: 26px; line-height: 1.3; margin: 8px 0 20px; }
+  .page .answer a { color: var(--link); }
+  .page .vertical { font-size: 13px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }
+  .page .answer ul { padding-left: 22px; }
+  .page .answer code { background: var(--code-bg); border-radius: 5px; padding: 1px 5px; font-size: 0.9em; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+  .page .ask { display: inline-block; margin-top: 24px; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 9px 18px; text-decoration: none; font-weight: 600; }
+  .page .related { margin-top: 36px; border-top: 1px solid var(--border); padding-top: 18px; }
+  .page .related h2 { font-size: 16px; }
+  .page .related a { color: var(--link); text-decoration: none; }
+  .page .related a:hover { text-decoration: underline; }
+  .page .related li { margin: 6px 0; }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="../../" style="text-decoration:none;color:inherit">
+    <span class="brand-dot">F</span>
+    <span class="brand-name">FabGPT-FAQ</span>
+  </a>
+</header>
+<main class="page">
+  <div class="vertical">Cybersecurity</div>
+  <h1>SAML, OAuth 2.0 e OpenID Connect: quali differenze e casi d&#x27;uso?</h1>
+  <div class="answer"><p>Tre standard che la gente confonde perché risolvono problemi vicini ma <strong>diversi</strong>:</p><ul><li><strong>OAuth 2.0</strong> è <strong>autorizzazione</strong>, non login: &quot;do a questa app il permesso di accedere a <em>quella</em> risorsa a nome mio&quot; – è il meccanismo dietro i token e le API. Da solo <em>non</em> dice chi sei</li><li><strong>OpenID Connect (OIDC)</strong> è un sottile strato di <strong>autenticazione</strong> sopra OAuth: aggiunge l&#x27;<em>id token</em> che dice chi è l&#x27;utente. È il &quot;Login con Google/GitHub&quot; moderno, JSON e REST, ideale per web e mobile</li><li><strong>SAML</strong> è il nonno enterprise dell&#x27;SSO: XML, pensato per il web aziendale e i fornitori tradizionali. Verboso ma ancora dominante nelle grandi organizzazioni e nei software B2B legacy</li></ul><p>La regola di scelta: nuovo progetto web/mobile → <strong>OIDC</strong>; integrazione con SSO aziendale o SaaS enterprise che parla solo XML → <strong>SAML</strong>; accesso delegato ad API senza login → <strong>OAuth puro</strong>. Il tema di sicurezza trasversale: i <strong>token</strong> sono credenziali portabili – vanno protetti, con scadenza breve e scope minimo, perché un token rubato è un accesso rubato (è il bersaglio degli attacchi <a href="../cos-e-un-attacco-man-in-the-middle/">AiTM</a> che aggirano l&#x27;<a href="../cos-e-autenticazione-due-fattori-mfa/">MFA</a>).</p></div>
+  <a class="ask" href="../../?q=saml-oauth-oidc">Chiedilo a FabGPT-FAQ →</a>
+  <div class="related">
+    <h2>Altre domande</h2>
+    <ul><li><a href="../cos-e-un-waf-web-application-firewall/">Cos&#x27;è un WAF (Web Application Firewall) e a cosa serve?</a></li><li><a href="../cos-e-un-reverse-proxy/">Cos&#x27;è un reverse proxy e a cosa serve?</a></li><li><a href="../come-funziona-lets-encrypt-acme/">Come funziona Let&#x27;s Encrypt e il protocollo ACME?</a></li><li><a href="../certificato-tls-scaduto-cosa-fare/">Certificato TLS scaduto: perché succede e come evitarlo?</a></li><li><a href="../cos-e-un-siem-e-un-soar/">Cos&#x27;è un SIEM e cos&#x27;è un SOAR?</a></li><li><a href="../nis2-chi-deve-adeguarsi-italia/">Chi deve adeguarsi alla NIS2 in Italia e cosa rischia?</a></li></ul>
+  </div>
+</main>
+</body>
+</html>

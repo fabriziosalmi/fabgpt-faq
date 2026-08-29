@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cos&#x27;è la SSRF (Server-Side Request Forgery) e come si blocca? – FabGPT-FAQ</title>
+<meta name="description" content="Nella SSRF l&#x27;attaccante convince il server a fare una richiesta HTTP per suo conto verso una destinazione a sua scelta – tipicamente interna e altrimenti…">
+<link rel="canonical" href="https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-la-ssrf-server-side-request-forgery/">
+<link rel="stylesheet" href="../../style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Cos'è la SSRF (Server-Side Request Forgery) e come si blocca?", "acceptedAnswer": {"@type": "Answer", "text": "Nella SSRF l'attaccante convince il server a fare una richiesta HTTP per suo conto verso una destinazione a sua scelta – tipicamente interna e altrimenti irraggiungibile. Il classico: una funzione \"importa immagine da URL\" a cui passi non un'immagine ma http://169.254.169.254/..., l'endpoint dei metadati cloud, da cui si estraggono le credenziali IAM dell'istanza. È il vettore del breach Capital One (2019). Perché è insidiosa: il server è \"dentro\", oltre il [firewall](q/differenza-firewall-e-waf/), e parla con servizi che si fidano della rete interna – database, API amministrative, l'endpoint metadati. La SSRF trasforma una feature innocua in un grimaldello verso il cuore dell'infrastruttura. Le difese, a livello di codice e di rete: allowlist delle destinazioni permesse (non blocklist – gli attaccanti aggirano le blocklist con redirect, IP in decimale, DNS rebinding) blocca gli indirizzi interni: 169.254.169.254, RFP privati, localhost – e rifai la validazione dopo aver risolto il DNS IMDSv2 sui cloud (l'endpoint metadati che richiede un token, non più raggiungibile con una GET cieca) egress ristretto dal server, e un [WAF](q/cos-e-un-waf-web-application-firewall/) come rete di sicurezza per i pattern noti È salita nella [OWASP Top 10](q/cos-e-la-owasp-top-10/) proprio per l'era cloud: dove tutto è un'API interna, far fare al server la richiesta sbagliata vale oro."}}]}</script>
+<style>
+  .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
+  .page h1 { font-size: 26px; line-height: 1.3; margin: 8px 0 20px; }
+  .page .answer a { color: var(--link); }
+  .page .vertical { font-size: 13px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }
+  .page .answer ul { padding-left: 22px; }
+  .page .answer code { background: var(--code-bg); border-radius: 5px; padding: 1px 5px; font-size: 0.9em; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+  .page .ask { display: inline-block; margin-top: 24px; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 9px 18px; text-decoration: none; font-weight: 600; }
+  .page .related { margin-top: 36px; border-top: 1px solid var(--border); padding-top: 18px; }
+  .page .related h2 { font-size: 16px; }
+  .page .related a { color: var(--link); text-decoration: none; }
+  .page .related a:hover { text-decoration: underline; }
+  .page .related li { margin: 6px 0; }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="../../" style="text-decoration:none;color:inherit">
+    <span class="brand-dot">F</span>
+    <span class="brand-name">FabGPT-FAQ</span>
+  </a>
+</header>
+<main class="page">
+  <div class="vertical">Cybersecurity</div>
+  <h1>Cos&#x27;è la SSRF (Server-Side Request Forgery) e come si blocca?</h1>
+  <div class="answer"><p>Nella <strong>SSRF</strong> l&#x27;attaccante convince il <em>server</em> a fare una richiesta HTTP per suo conto verso una destinazione a sua scelta – tipicamente <strong>interna e altrimenti irraggiungibile</strong>. Il classico: una funzione &quot;importa immagine da URL&quot; a cui passi non un&#x27;immagine ma <code>http://169.254.169.254/...</code>, l&#x27;endpoint dei <strong>metadati cloud</strong>, da cui si estraggono le credenziali IAM dell&#x27;istanza. È il vettore del breach Capital One (2019).</p><p>Perché è insidiosa: il server è &quot;dentro&quot;, oltre il <a href="../differenza-firewall-e-waf/">firewall</a>, e parla con servizi che si fidano della rete interna – database, API amministrative, l&#x27;endpoint metadati. La SSRF trasforma una feature innocua in un grimaldello verso il cuore dell&#x27;infrastruttura.</p><p>Le difese, a livello di codice e di rete:</p><ul><li><strong>allowlist</strong> delle destinazioni permesse (non blocklist – gli attaccanti aggirano le blocklist con redirect, IP in decimale, DNS rebinding)</li><li><strong>blocca gli indirizzi interni</strong>: 169.254.169.254, RFP privati, localhost – e rifai la validazione <em>dopo</em> aver risolto il DNS</li><li><strong>IMDSv2</strong> sui cloud (l&#x27;endpoint metadati che richiede un token, non più raggiungibile con una GET cieca)</li><li>egress ristretto dal server, e un <a href="../cos-e-un-waf-web-application-firewall/">WAF</a> come rete di sicurezza per i pattern noti</li></ul><p>È salita nella <a href="../cos-e-la-owasp-top-10/">OWASP Top 10</a> proprio per l&#x27;era cloud: dove tutto è un&#x27;API interna, far fare al server la richiesta sbagliata vale oro.</p></div>
+  <a class="ask" href="../../?q=ssrf">Chiedilo a FabGPT-FAQ →</a>
+  <div class="related">
+    <h2>Altre domande</h2>
+    <ul><li><a href="../cos-e-un-waf-web-application-firewall/">Cos&#x27;è un WAF (Web Application Firewall) e a cosa serve?</a></li><li><a href="../cos-e-un-reverse-proxy/">Cos&#x27;è un reverse proxy e a cosa serve?</a></li><li><a href="../come-funziona-lets-encrypt-acme/">Come funziona Let&#x27;s Encrypt e il protocollo ACME?</a></li><li><a href="../certificato-tls-scaduto-cosa-fare/">Certificato TLS scaduto: perché succede e come evitarlo?</a></li><li><a href="../cos-e-un-siem-e-un-soar/">Cos&#x27;è un SIEM e cos&#x27;è un SOAR?</a></li><li><a href="../nis2-chi-deve-adeguarsi-italia/">Chi deve adeguarsi alla NIS2 in Italia e cosa rischia?</a></li></ul>
+  </div>
+</main>
+</body>
+</html>

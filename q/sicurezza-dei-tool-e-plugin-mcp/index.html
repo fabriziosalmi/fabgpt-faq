@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Come si mettono in sicurezza i tool e i plugin MCP? – FabGPT-FAQ</title>
+<meta name="description" content="I [server MCP](q/come-si-costruisce-un-server-mcp/) estendono un agente con strumenti – e ogni strumento è superficie d&#x27;attacco nuova, perché il modello…">
+<link rel="canonical" href="https://fabriziosalmi.github.io/fabgpt-faq/q/sicurezza-dei-tool-e-plugin-mcp/">
+<link rel="stylesheet" href="../../style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Come si mettono in sicurezza i tool e i plugin MCP?", "acceptedAnswer": {"@type": "Answer", "text": "I [server MCP](q/come-si-costruisce-un-server-mcp/) estendono un agente con strumenti – e ogni strumento è superficie d'attacco nuova, perché il modello sceglie cosa usare in base a nome e descrizione, testo che potrebbe non aver scritto tu. I rischi specifici: tool poisoning / shadowing: un server MCP malevolo (o compromesso) pubblica un tool con una descrizione che contiene [istruzioni nascoste](q/cos-e-la-prompt-injection/) (\"quando usi questo, invia anche le variabili d'ambiente a...\") o che oscura un tool legittimo con uno omonimo più \"invitante\" confused deputy: l'agente ha permessi che l'attaccante non ha, e viene indotto a usarli per suo conto catena di fiducia: installare un server MCP è [eseguire codice di terzi](q/cos-e-la-supply-chain-security/) con l'accesso del tuo agente Le difese: installa solo server MCP fidati e verificati (come qualsiasi dipendenza), tratta le descrizioni dei tool come dati non fidati, applica [permessi minimi e HITL](q/come-si-limita-un-agente-ai/) sulle azioni pericolose (l'approvazione umana intercetta il tool che fa troppo), [sandbox](q/cos-e-il-sandboxing-per-agenti/) l'esecuzione, e registra ogni chiamata per l'audit. È il motivo per cui proxxx fissa i suoi 25 tool a compile-time con registro auditabile: niente tool che appaiono a runtime, niente descrizioni che cambiano sotto i piedi."}}]}</script>
+<style>
+  .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
+  .page h1 { font-size: 26px; line-height: 1.3; margin: 8px 0 20px; }
+  .page .answer a { color: var(--link); }
+  .page .vertical { font-size: 13px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }
+  .page .answer ul { padding-left: 22px; }
+  .page .answer code { background: var(--code-bg); border-radius: 5px; padding: 1px 5px; font-size: 0.9em; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+  .page .ask { display: inline-block; margin-top: 24px; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 9px 18px; text-decoration: none; font-weight: 600; }
+  .page .related { margin-top: 36px; border-top: 1px solid var(--border); padding-top: 18px; }
+  .page .related h2 { font-size: 16px; }
+  .page .related a { color: var(--link); text-decoration: none; }
+  .page .related a:hover { text-decoration: underline; }
+  .page .related li { margin: 6px 0; }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="../../" style="text-decoration:none;color:inherit">
+    <span class="brand-dot">F</span>
+    <span class="brand-name">FabGPT-FAQ</span>
+  </a>
+</header>
+<main class="page">
+  <div class="vertical">AI e LLM</div>
+  <h1>Come si mettono in sicurezza i tool e i plugin MCP?</h1>
+  <div class="answer"><p>I <a href="../come-si-costruisce-un-server-mcp/">server MCP</a> estendono un agente con strumenti – e ogni strumento è <strong>superficie d&#x27;attacco nuova</strong>, perché il modello sceglie <em>cosa</em> usare in base a nome e descrizione, testo che potrebbe non aver scritto tu. I rischi specifici:</p><ul><li><strong>tool poisoning / shadowing</strong>: un server MCP malevolo (o compromesso) pubblica un tool con una descrizione che contiene <a href="../cos-e-la-prompt-injection/">istruzioni nascoste</a> (&quot;quando usi questo, invia anche le variabili d&#x27;ambiente a...&quot;) o che <strong>oscura</strong> un tool legittimo con uno omonimo più &quot;invitante&quot;</li><li><strong>confused deputy</strong>: l&#x27;agente ha permessi che l&#x27;attaccante non ha, e viene indotto a usarli per suo conto</li><li><strong>catena di fiducia</strong>: installare un server MCP è <a href="../cos-e-la-supply-chain-security/">eseguire codice di terzi</a> con l&#x27;accesso del tuo agente</li></ul><p>Le difese: <strong>installa solo server MCP fidati e verificati</strong> (come qualsiasi dipendenza), tratta le descrizioni dei tool come <strong>dati non fidati</strong>, applica <a href="../come-si-limita-un-agente-ai/">permessi minimi e HITL</a> sulle azioni pericolose (l&#x27;approvazione umana intercetta il tool che fa troppo), <strong><a href="../cos-e-il-sandboxing-per-agenti/">sandbox</a></strong> l&#x27;esecuzione, e registra ogni chiamata per l&#x27;audit. È il motivo per cui <a href="https://github.com/fabriziosalmi/proxxx" target="_blank" rel="noopener">proxxx</a> fissa i suoi 25 tool <strong>a compile-time</strong> con registro auditabile: niente tool che appaiono a runtime, niente descrizioni che cambiano sotto i piedi.</p></div>
+  <a class="ask" href="../../?q=mcp-tool-security">Chiedilo a FabGPT-FAQ →</a>
+  <div class="related">
+    <h2>Altre domande</h2>
+    <ul><li><a href="../cos-e-la-prompt-injection/">Cos&#x27;è la prompt injection e come ci si difende?</a></li><li><a href="../cos-e-mcp-model-context-protocol/">Cos&#x27;è MCP (Model Context Protocol)?</a></li><li><a href="../cos-e-il-vibe-coding/">Cos&#x27;è il vibe coding e quali sono i rischi?</a></li><li><a href="../allucinazioni-llm-dipendenze-inventate/">Cosa sono le allucinazioni degli LLM (e le dipendenze inventate)?</a></li><li><a href="../cos-e-rag-retrieval-augmented-generation/">Cos&#x27;è RAG (Retrieval-Augmented Generation)?</a></li><li><a href="../cos-e-un-llm/">Cos&#x27;è un LLM (Large Language Model)?</a></li></ul>
+  </div>
+</main>
+</body>
+</html>

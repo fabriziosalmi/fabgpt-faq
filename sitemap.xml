@@ -251,6 +251,43 @@
   <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/sicurezza-fisica-dei-server/</loc></url>
   <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/proteggere-area-admin/</loc></url>
   <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/fatturazione-elettronica-e-conservazione/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/handshake-tcp-e-syn-flood/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/modello-osi-e-stack-tcp-ip/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/nat-statico-dinamico-e-pat/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/ngfw-vs-firewall-stateful/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/bgp-hijacking-e-rpki/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/ipsec-transport-e-tunnel/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/wireguard-e-mesh-vpn/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/saml-oauth-e-oidc/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/pam-e-accesso-just-in-time/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/chiavi-di-sicurezza-hardware-yubikey/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-la-crittografia-post-quantistica/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/harvest-now-decrypt-later/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/resolver-dns-privato-e-sicuro/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/bloccare-pubblicita-e-tracker-in-rete/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/sistemi-operativi-immutabili/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/secure-element-vs-firmware-aperto/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/kill-switch-hardware-privacy/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/smartphone-de-googled-grapheneos/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-un-infostealer/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-il-threat-hunting/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/detection-engineering-e-event-id/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-la-ssrf-server-side-request-forgery/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/attacchi-avversariali-al-machine-learning/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/sicurezza-delle-immagini-container/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/cspm-cwpp-e-cnapp/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/sicurezza-nella-pipeline-cicd/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/pattern-di-orchestrazione-agentica/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/time-travel-debugging-agenti/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/sicurezza-dei-tool-e-plugin-mcp/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/firewall-semantici-e-guardrail-runtime/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/sicurezza-del-rag-e-dei-vector-database/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/sicurezza-dei-pesi-e-checkpoint-dei-modelli/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/osservabilita-e-tracing-di-sistemi-ai/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/identita-degli-agenti-e-kill-switch/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/messaggistica-federata-matrix/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/business-impact-analysis-bia/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/gestione-delle-vulnerabilita-piattaforme/</loc></url>
   <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/vm-non-parte-proxmox/</loc></url>
   <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/nodo-x-rossa-quorum-perso/</loc></url>
   <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/storage-pieno-liberare-spazio/</loc></url>

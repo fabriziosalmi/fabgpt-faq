@@ -329,6 +329,25 @@ Working rules (learned so far):
 - [B6] Come si organizza uno streaming musicale live
 - [B6] Storia della free tekno in due paragrafi
 
+## Massa utile — programma glossario (dalle 400 domande in Noted)
+
+Fonte: nota "fabgpt-faq altre domande" (400 domande, 40 temi cyber/AI/self-host
+2026-2027). Tooling: `python3 triage.py` (o `triage.py questions.txt`) scora ogni
+domanda contro la KB e la classa covered(>=2.5)/partial/gap. La nota grezza è in
+`.triage400.json`. Obiettivo dichiarato da Fab: **per ogni termine una voce KB
+corretta e utile** — quindi i "partial" (agganciano una voce vicina ma il termine
+non ha pagina propria) sono lavoro, non copertura.
+
+- Baseline (pre-B7): 127 covered, 249 partial, 24 gap.
+- **B7 (mass #1, 37 voci)**: coperti tutti i 24 gap netti + i concetti-cardine più
+  densi (rete/OSI/NAT/NGFW/BGP/IPsec/WireGuard, IAM/SAML-OAuth-OIDC/PAM/YubiKey,
+  crypto/PQC/HNDL, threat/infostealer/hunting/detection, appsec/SSRF/container/
+  CNAPP/DevSecOps, AI-agentic security/MCP/guardrail/RAG-sec/AIBOM/observability,
+  privacy/deGoogle/immutable-OS/Matrix/kill-switch). Post-B7: 166 covered, 228
+  partial, 6 gap.
+- Prossimi giri di massa: convertire i ~228 partial in voci dedicate a blocchi
+  tematici (ogni giro riesegue `triage.py` per misurare l'avanzamento).
+
 ## Fase 2 – "livello super" (dopo il primo giro di contenuti)
 
 Richieste di Fab, in ordine:
@@ -339,6 +358,12 @@ Richieste di Fab, in ordine:
   canonica. Le risposte restano pre-scritte: cambia solo la navigazione.
 - Altre risposte "pronte" contestuali al filo del discorso (follow-up naturali
   per ogni voce, es. variante "approfondisci" / "esempio pratico").
+
+**Smalltalk v2 DONE (2026-08-29)**: 22 -> 33 intenti, piu varianti per intento,
+risposte che instradano con percorsi suggeriti, e campo `suggest` (slug delle
+voci correlate) su 14 intenti — gia pronto come sorgente dati per i chip della
+Fase 2. Intenti nuovi: prezzo, privacy, come-funzioni, contatto-fab, progetti-
+suggerisci, noia, sei-umano, scusa, approfondisci, perche-italiano, buon-lavoro.
 
 ## Meta / FabGPT-FAQ
 

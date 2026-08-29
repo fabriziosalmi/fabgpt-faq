@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Modello OSI e stack TCP/IP: che differenza c&#x27;è (per la sicurezza)? – FabGPT-FAQ</title>
+<meta name="description" content="L&#x27;OSI è il modello didattico a sette livelli (fisico, data link, rete, trasporto, sessione, presentazione, applicazione); lo stack TCP/IP è quello reale a…">
+<link rel="canonical" href="https://fabriziosalmi.github.io/fabgpt-faq/q/modello-osi-e-stack-tcp-ip/">
+<link rel="stylesheet" href="../../style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Modello OSI e stack TCP/IP: che differenza c'è (per la sicurezza)?", "acceptedAnswer": {"@type": "Answer", "text": "L'OSI è il modello didattico a sette livelli (fisico, data link, rete, trasporto, sessione, presentazione, applicazione); lo stack TCP/IP è quello reale a quattro-cinque livelli su cui internet gira davvero. In pratica si usa il vocabolario OSI (\"un problema di livello 3\", \"un attacco L7\") sopra l'implementazione TCP/IP. Perché conta per la sicurezza: ogni livello ha le sue minacce e le sue difese, e confonderli è l'errore di base. L2 – [ARP poisoning, VLAN hopping](q/cos-e-un-attacco-man-in-the-middle/); L3 – IP spoofing, [BGP hijacking](q/bgp-hijacking-e-rpki/); L4 – [SYN flood](q/handshake-tcp-e-syn-flood/), scansioni di porte, dove ragiona il [firewall di rete](q/differenza-firewall-e-waf/); L7 – SQL injection, XSS, bot, dove ragiona il [WAF](q/cos-e-un-waf-web-application-firewall/). Un firewall L4 non vede un attacco L7 e viceversa: è il motivo per cui la [difesa in profondità](q/cos-e-la-defense-in-depth/) mette controlli a più livelli invece di sperare in un muro solo. Sapere \"a che livello succede\" è la prima domanda di ogni diagnosi."}}]}</script>
+<style>
+  .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
+  .page h1 { font-size: 26px; line-height: 1.3; margin: 8px 0 20px; }
+  .page .answer a { color: var(--link); }
+  .page .vertical { font-size: 13px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }
+  .page .answer ul { padding-left: 22px; }
+  .page .answer code { background: var(--code-bg); border-radius: 5px; padding: 1px 5px; font-size: 0.9em; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+  .page .ask { display: inline-block; margin-top: 24px; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 9px 18px; text-decoration: none; font-weight: 600; }
+  .page .related { margin-top: 36px; border-top: 1px solid var(--border); padding-top: 18px; }
+  .page .related h2 { font-size: 16px; }
+  .page .related a { color: var(--link); text-decoration: none; }
+  .page .related a:hover { text-decoration: underline; }
+  .page .related li { margin: 6px 0; }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="../../" style="text-decoration:none;color:inherit">
+    <span class="brand-dot">F</span>
+    <span class="brand-name">FabGPT-FAQ</span>
+  </a>
+</header>
+<main class="page">
+  <div class="vertical">Cybersecurity</div>
+  <h1>Modello OSI e stack TCP/IP: che differenza c&#x27;è (per la sicurezza)?</h1>
+  <div class="answer"><p>L&#x27;<strong>OSI</strong> è il modello didattico a <strong>sette livelli</strong> (fisico, data link, rete, trasporto, sessione, presentazione, applicazione); lo stack <strong>TCP/IP</strong> è quello reale a quattro-cinque livelli su cui internet gira davvero. In pratica si usa il vocabolario OSI (&quot;un problema di livello 3&quot;, &quot;un attacco L7&quot;) sopra l&#x27;implementazione TCP/IP.</p><p>Perché conta per la sicurezza: <strong>ogni livello ha le sue minacce e le sue difese</strong>, e confonderli è l&#x27;errore di base. L2 – <a href="../cos-e-un-attacco-man-in-the-middle/">ARP poisoning, VLAN hopping</a>; L3 – IP spoofing, <a href="../bgp-hijacking-e-rpki/">BGP hijacking</a>; L4 – <a href="../handshake-tcp-e-syn-flood/">SYN flood</a>, scansioni di porte, dove ragiona il <a href="../differenza-firewall-e-waf/">firewall di rete</a>; L7 – SQL injection, XSS, bot, dove ragiona il <a href="../cos-e-un-waf-web-application-firewall/">WAF</a>. Un firewall L4 non vede un attacco L7 e viceversa: è il motivo per cui la <a href="../cos-e-la-defense-in-depth/">difesa in profondità</a> mette controlli a più livelli invece di sperare in un muro solo. Sapere &quot;a che livello succede&quot; è la prima domanda di ogni diagnosi.</p></div>
+  <a class="ask" href="../../?q=osi-tcpip">Chiedilo a FabGPT-FAQ →</a>
+  <div class="related">
+    <h2>Altre domande</h2>
+    <ul><li><a href="../cos-e-un-waf-web-application-firewall/">Cos&#x27;è un WAF (Web Application Firewall) e a cosa serve?</a></li><li><a href="../cos-e-un-reverse-proxy/">Cos&#x27;è un reverse proxy e a cosa serve?</a></li><li><a href="../come-funziona-lets-encrypt-acme/">Come funziona Let&#x27;s Encrypt e il protocollo ACME?</a></li><li><a href="../certificato-tls-scaduto-cosa-fare/">Certificato TLS scaduto: perché succede e come evitarlo?</a></li><li><a href="../cos-e-un-siem-e-un-soar/">Cos&#x27;è un SIEM e cos&#x27;è un SOAR?</a></li><li><a href="../nis2-chi-deve-adeguarsi-italia/">Chi deve adeguarsi alla NIS2 in Italia e cosa rischia?</a></li></ul>
+  </div>
+</main>
+</body>
+</html>

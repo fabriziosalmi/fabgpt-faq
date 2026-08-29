@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IPsec: che differenza c&#x27;è tra modalità Transport e Tunnel? – FabGPT-FAQ</title>
+<meta name="description" content="IPsec cifra e autentica il traffico IP, e lo fa in due modalità che decidono cosa viene protetto: Transport – cifra solo il payload del pacchetto, lasciando…">
+<link rel="canonical" href="https://fabriziosalmi.github.io/fabgpt-faq/q/ipsec-transport-e-tunnel/">
+<link rel="stylesheet" href="../../style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "IPsec: che differenza c'è tra modalità Transport e Tunnel?", "acceptedAnswer": {"@type": "Answer", "text": "IPsec cifra e autentica il traffico IP, e lo fa in due modalità che decidono cosa viene protetto: Transport – cifra solo il payload del pacchetto, lasciando l'header IP originale in chiaro. Host-to-host: due macchine che si parlano direttamente in modo protetto. Leggera, ma gli indirizzi restano visibili Tunnel – incapsula l'intero pacchetto (header incluso) dentro un nuovo pacchetto IP. È la modalità delle VPN site-to-site: due gateway che collegano due reti, nascondendo la topologia interna dietro gli IP dei gateway La regola pratica: gateway/VPN → Tunnel, host-to-host diretto → Transport. IPsec resta lo standard aziendale per collegare sedi, ma per l'accesso remoto e le [mesh moderne](q/wireguard-e-mesh-vpn/) è spesso soppiantato da WireGuard – più semplice, più veloce, meno superficie di configurazione da sbagliare. E qualunque VPN, ricorda, è un tunnel cifrato: [cosa protegge e cosa no](q/differenza-vpn-e-proxy/) dipende da dove la metti, non dalla sigla."}}]}</script>
+<style>
+  .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
+  .page h1 { font-size: 26px; line-height: 1.3; margin: 8px 0 20px; }
+  .page .answer a { color: var(--link); }
+  .page .vertical { font-size: 13px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }
+  .page .answer ul { padding-left: 22px; }
+  .page .answer code { background: var(--code-bg); border-radius: 5px; padding: 1px 5px; font-size: 0.9em; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+  .page .ask { display: inline-block; margin-top: 24px; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 9px 18px; text-decoration: none; font-weight: 600; }
+  .page .related { margin-top: 36px; border-top: 1px solid var(--border); padding-top: 18px; }
+  .page .related h2 { font-size: 16px; }
+  .page .related a { color: var(--link); text-decoration: none; }
+  .page .related a:hover { text-decoration: underline; }
+  .page .related li { margin: 6px 0; }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="../../" style="text-decoration:none;color:inherit">
+    <span class="brand-dot">F</span>
+    <span class="brand-name">FabGPT-FAQ</span>
+  </a>
+</header>
+<main class="page">
+  <div class="vertical">Cybersecurity</div>
+  <h1>IPsec: che differenza c&#x27;è tra modalità Transport e Tunnel?</h1>
+  <div class="answer"><p><strong>IPsec</strong> cifra e autentica il traffico IP, e lo fa in due modalità che decidono <em>cosa</em> viene protetto:</p><ul><li><strong>Transport</strong> – cifra solo il <strong>payload</strong> del pacchetto, lasciando l&#x27;header IP originale in chiaro. Host-to-host: due macchine che si parlano direttamente in modo protetto. Leggera, ma gli indirizzi restano visibili</li><li><strong>Tunnel</strong> – incapsula <strong>l&#x27;intero pacchetto</strong> (header incluso) dentro un nuovo pacchetto IP. È la modalità delle <strong>VPN site-to-site</strong>: due gateway che collegano due reti, nascondendo la topologia interna dietro gli IP dei gateway</li></ul><p>La regola pratica: <strong>gateway/VPN → Tunnel</strong>, host-to-host diretto → Transport. IPsec resta lo standard aziendale per collegare sedi, ma per l&#x27;accesso remoto e le <a href="../wireguard-e-mesh-vpn/">mesh moderne</a> è spesso soppiantato da <strong>WireGuard</strong> – più semplice, più veloce, meno superficie di configurazione da sbagliare. E qualunque VPN, ricorda, è un tunnel cifrato: <a href="../differenza-vpn-e-proxy/">cosa protegge e cosa no</a> dipende da dove la metti, non dalla sigla.</p></div>
+  <a class="ask" href="../../?q=ipsec-modes">Chiedilo a FabGPT-FAQ →</a>
+  <div class="related">
+    <h2>Altre domande</h2>
+    <ul><li><a href="../cos-e-un-waf-web-application-firewall/">Cos&#x27;è un WAF (Web Application Firewall) e a cosa serve?</a></li><li><a href="../cos-e-un-reverse-proxy/">Cos&#x27;è un reverse proxy e a cosa serve?</a></li><li><a href="../come-funziona-lets-encrypt-acme/">Come funziona Let&#x27;s Encrypt e il protocollo ACME?</a></li><li><a href="../certificato-tls-scaduto-cosa-fare/">Certificato TLS scaduto: perché succede e come evitarlo?</a></li><li><a href="../cos-e-un-siem-e-un-soar/">Cos&#x27;è un SIEM e cos&#x27;è un SOAR?</a></li><li><a href="../nis2-chi-deve-adeguarsi-italia/">Chi deve adeguarsi alla NIS2 in Italia e cosa rischia?</a></li></ul>
+  </div>
+</main>
+</body>
+</html>
