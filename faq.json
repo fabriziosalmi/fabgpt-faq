@@ -1,0 +1,638 @@
+{
+  "config": {
+    "botName": "FabGPT",
+    "siteUrl": "https://fabriziosalmi.github.io/fabgpt-faq",
+    "welcome": "Ciao! Sono **FabGPT**. Rispondo a domande su cybersecurity, AI, Proxmox, Cloudflare e sui progetti open source di Fabrizio Salmi. Prova a chiedermi qualcosa: ad esempio *come si aggiunge un WAF a Caddy*, *come si fa autoscaling su Proxmox* o *cos'è CertMate*.",
+    "placeholder": "Chiedimi qualcosa…",
+    "footerNote": "FabGPT può commettere errori. Considera di verificare le informazioni importanti.",
+    "matchThreshold": 0.75,
+    "typing": {
+      "minDelay": 18,
+      "maxDelay": 55,
+      "wordsPerTick": 2
+    }
+  },
+  "verticals": [
+    {
+      "id": "security",
+      "label": "Cybersecurity"
+    },
+    {
+      "id": "ai",
+      "label": "AI e LLM"
+    },
+    {
+      "id": "proxmox",
+      "label": "Proxmox e self-hosting"
+    },
+    {
+      "id": "cloudflare",
+      "label": "Cloudflare"
+    },
+    {
+      "id": "meta",
+      "label": "FabGPT"
+    }
+  ],
+  "entries": [
+    {
+      "id": "chi-sei",
+      "slug": "chi-e-fabrizio-salmi",
+      "question": "Chi è Fabrizio Salmi?",
+      "vertical": "meta",
+      "keywords": [
+        "fabrizio",
+        "salmi",
+        "fab",
+        "chi sei",
+        "chi e",
+        "autore",
+        "creatore",
+        "bio",
+        "biografia",
+        "who",
+        "about"
+      ],
+      "answers": [
+        "**Fabrizio Salmi** è un security researcher indipendente con base a Genova. Sviluppa e mantiene quasi un centinaio di progetti open source su [GitHub](https://github.com/fabriziosalmi), concentrati su quattro aree:\n\n- **Cybersecurity**: WAF, reverse proxy, gestione certificati, threat detection\n- **AI e LLM**: proxy di sicurezza per modelli, controllo qualità del codice generato\n- **Proxmox e self-hosting**: autoscaling, bilanciamento, strumenti CLI\n- **Automazione Cloudflare**: gestione zone, WAF e DNS via GitHub Actions\n\nIl suo progetto più noto è [CertMate](https://github.com/fabriziosalmi/certmate), oltre 1.400 stelle su GitHub.",
+        "Fabrizio Salmi, security researcher indipendente di Genova. Su [GitHub](https://github.com/fabriziosalmi) trovi i suoi progetti: sicurezza, AI, Proxmox e automazione. Il più famoso è **CertMate** (1.400+ stelle). Vuoi che ti parli di un progetto in particolare?"
+      ]
+    },
+    {
+      "id": "panoramica-repo",
+      "slug": "progetti-open-source-fabrizio-salmi",
+      "question": "Quali progetti open source sviluppa Fabrizio Salmi?",
+      "vertical": "meta",
+      "keywords": [
+        "repo",
+        "repository",
+        "progetti",
+        "portfolio",
+        "panoramica",
+        "elenco",
+        "lista",
+        "cosa hai fatto",
+        "open source",
+        "github",
+        "stelle",
+        "stars",
+        "migliori",
+        "top"
+      ],
+      "answers": [
+        "Su [github.com/fabriziosalmi](https://github.com/fabriziosalmi) ci sono circa **97 repository pubbliche**. Le più popolari:\n\n- [certmate](https://github.com/fabriziosalmi/certmate) — gestione del ciclo di vita dei certificati TLS (1.400+ ⭐)\n- [caddy-waf](https://github.com/fabriziosalmi/caddy-waf) — WAF per Caddy (800+ ⭐)\n- [UglyFeed](https://github.com/fabriziosalmi/UglyFeed) — feed RSS riscritti con LLM (300+ ⭐)\n- [patterns](https://github.com/fabriziosalmi/patterns) — regole OWASP CRS e anti-bot per Nginx, Apache, Traefik e HAProxy (300+ ⭐)\n- [proxmox-vm-autoscale](https://github.com/fabriziosalmi/proxmox-vm-autoscale) e [proxmox-lxc-autoscale](https://github.com/fabriziosalmi/proxmox-lxc-autoscale) — autoscaling su Proxmox (550+ ⭐ in due)\n\nLe aree principali sono **cybersecurity**, **AI/LLM**, **Proxmox** e **Cloudflare**. Chiedimi di una qualsiasi di queste.",
+        "Circa 97 repo pubbliche: le big sono **certmate** (certificati TLS), **caddy-waf** (WAF per Caddy), **UglyFeed** (RSS + LLM) e la famiglia **proxmox-autoscale**. Su cosa vuoi approfondire: sicurezza, AI, Proxmox o Cloudflare?"
+      ]
+    },
+    {
+      "id": "certmate",
+      "slug": "cos-e-certmate-gestione-certificati-tls",
+      "question": "Cos'è CertMate e come gestisce i certificati TLS/SSL?",
+      "vertical": "security",
+      "keywords": [
+        "certmate",
+        "certificati",
+        "certificato",
+        "certificate",
+        "tls",
+        "ssl",
+        "https",
+        "scadenza",
+        "rinnovo",
+        "renew",
+        "acme",
+        "letsencrypt",
+        "lets encrypt",
+        "lifecycle",
+        "ca privata",
+        "private ca",
+        "dns provider",
+        "wildcard",
+        "inventario certificati"
+      ],
+      "answers": [
+        "[CertMate](https://github.com/fabriziosalmi/certmate) è una piattaforma **self-hosted per la gestione del ciclo di vita dei certificati TLS**, il progetto più popolare di Fabrizio Salmi (**oltre 1.400 stelle**). Fa quattro cose che di solito richiedono quattro strumenti:\n\n- **emette e rinnova** certificati via ACME, con supporto per **29 provider DNS**\n- **scopre i certificati che non hai emesso tu** e li mette in un inventario unico: cosa è servito dove, chi l'ha emesso, quando scade, con quale crittografia\n- gestisce una **CA privata** per i nomi interni\n- **deploya** i certificati rinnovati dove servono, con audit trail tamper-evident e API REST\n\nÈ in Python, gira in Docker, ha una CLI su PyPI (`certmate-cli`) e una [demo live](https://demo.certmate.org). Nell'ecosistema ci sono anche certmate-tools (diagnostica TLS client-side) e certmate-agent (assistente conversazionale con LLM locale). Per esigenze enterprise (multi-tenant, mTLS, white-label) esiste **CertMate-ng**.",
+        "**CertMate**: self-hosted, gestisce l'intero ciclo di vita dei certificati TLS — emissione e rinnovo ACME con 29 provider DNS, discovery dei certificati esistenti, inventario unico, CA privata per i nomi interni e deploy automatico. 1.400+ ⭐, demo su [demo.certmate.org](https://demo.certmate.org)."
+      ]
+    },
+    {
+      "id": "caddy-waf",
+      "slug": "come-aggiungere-un-waf-a-caddy",
+      "question": "Come si aggiunge un WAF al web server Caddy?",
+      "vertical": "security",
+      "keywords": [
+        "caddy",
+        "caddy-waf",
+        "waf",
+        "firewall",
+        "web application firewall",
+        "modulo caddy",
+        "caddy-mib",
+        "caddy-adf",
+        "ban ip caddy"
+      ],
+      "answers": [
+        "Con [caddy-waf](https://github.com/fabriziosalmi/caddy-waf) (**800+ ⭐**), un Web Application Firewall nativo per Caddy scritto in Go. Include:\n\n- regole regex e filtraggio IP/DNS\n- rate limiting\n- GeoIP e blocco delle exit node Tor\n- anomaly detection\n\nNello stesso ecosistema ci sono anche [caddy-mib](https://github.com/fabriziosalmi/caddy-mib), che traccia e banna gli IP che generano errori ripetitivi (brute force, scanning), e [caddy-adf](https://github.com/fabriziosalmi/caddy-adf), un'esplorazione di difesa anomaly-based.",
+        "Il modulo giusto è **caddy-waf** (800+ ⭐): regex rules, filtri IP/DNS, rate limiting, GeoIP, Tor blocking e anomaly detection, tutto in Go dentro Caddy. Per bannare gli IP molesti c'è anche **caddy-mib**."
+      ]
+    },
+    {
+      "id": "patterns",
+      "slug": "bloccare-bad-bot-nginx-apache-traefik-haproxy",
+      "question": "Come si bloccano i bad bot su Nginx, Apache, Traefik e HAProxy?",
+      "vertical": "security",
+      "keywords": [
+        "patterns",
+        "bad bot",
+        "bot",
+        "crawler",
+        "scraper",
+        "owasp",
+        "crs",
+        "core rule set",
+        "modsecurity",
+        "waf",
+        "nginx",
+        "apache",
+        "traefik",
+        "haproxy",
+        "regole",
+        "rules",
+        "sqli",
+        "xss"
+      ],
+      "answers": [
+        "Con [patterns](https://github.com/fabriziosalmi/patterns) (**300+ ⭐**): regole **OWASP Core Rule Set e bad-bot detection** convertite automaticamente nella sintassi **nativa** di Nginx, Apache, Traefik e HAProxy — non un adattatore generico.\n\nLa pipeline è automatica: preleva le regole CRS aggiornate dall'upstream, le converte per ciascun server (`map`/`if` per Nginx, `SecRule` per Apache, middleware TOML per Traefik, ACL per HAProxy) e pubblica ogni giorno **archivi pronti da scaricare** (`nginx_waf.zip`, `apache_waf.zip`, ecc.) via GitHub Actions.\n\nCopertura: SQL injection, XSS, RCE, LFI/RFI, violazioni di protocollo e bad bot — con default sicuri che **non** bloccano i motori di ricerca. Se usi Caddy, il progetto dedicato è [caddy-waf](https://github.com/fabriziosalmi/caddy-waf)."
+      ]
+    },
+    {
+      "id": "wildbox",
+      "slug": "cos-e-wildbox-siem-soar-open-source",
+      "question": "Cos'è Wildbox, la piattaforma di sicurezza open source?",
+      "vertical": "security",
+      "keywords": [
+        "wildbox",
+        "siem",
+        "soar",
+        "piattaforma sicurezza",
+        "security platform",
+        "soc",
+        "monitoraggio sicurezza"
+      ],
+      "answers": [
+        "[Wildbox](https://github.com/fabriziosalmi/wildbox) è una **piattaforma di sicurezza open source e self-hosted** che unifica in un'unica soluzione componenti che di solito richiedono più prodotti separati:\n\n- **SIEM** — raccolta e correlazione degli eventi di sicurezza\n- **SOAR** — automazione della risposta agli incidenti\n- **WAF** — protezione delle applicazioni web\n\nL'obiettivo è dare alla community una alternativa self-hosted alle suite commerciali. Scritta in Python, 130+ stelle su GitHub."
+      ]
+    },
+    {
+      "id": "zion",
+      "slug": "cos-e-zion-reverse-proxy-rust",
+      "question": "Cos'è Zion, il reverse proxy Rust con WAF integrato?",
+      "vertical": "security",
+      "keywords": [
+        "zion",
+        "edge gateway",
+        "tls 1.3",
+        "http3",
+        "http 3",
+        "cache ram",
+        "binario singolo",
+        "single binary",
+        "import nginx",
+        "migrare da nginx",
+        "slsa",
+        "fips"
+      ],
+      "answers": [
+        "[Zion](https://github.com/fabriziosalmi/zion) è un **reverse proxy TLS a binario singolo con WAF integrato, cache RAM e toolkit edge, scritto in Rust**. In un solo binario auditabile fa quello che di solito richiede nginx + modulo WAF + cache + geo-tagger:\n\n- termina **TLS 1.3** e parla HTTP/1.1, HTTP/2 e HTTP/3\n- ispeziona ogni richiesta con un **WAF zero-regex**\n- serve gli asset caldi da una **cache in RAM a due livelli**\n- hot-reload della configurazione e metriche **Prometheus** incluse\n\nChicca per chi migra: `zion import nginx` converte una configurazione nginx esistente in un `zion.toml` validato, con un report onesto di cosa è stato convertito — e una **equivalence harness** che avvia nginx e Zion fianco a fianco e confronta le decisioni di routing richiesta per richiesta. Release firmate, **SLSA Level 3**, modalità FIPS-ready."
+      ]
+    },
+    {
+      "id": "proxy-sicuri",
+      "slug": "reverse-proxy-con-waf-integrato",
+      "question": "Esistono reverse proxy open source con WAF integrato?",
+      "vertical": "security",
+      "keywords": [
+        "reverse proxy",
+        "proxy",
+        "secure-proxy-manager",
+        "secure proxy",
+        "tls proxy",
+        "rust proxy",
+        "filtering proxy",
+        "proxy sicuro"
+      ],
+      "answers": [
+        "Sì, nel portfolio di Fabrizio ce ne sono due:\n\n- [zion](https://github.com/fabriziosalmi/zion) — reverse proxy TLS **a binario singolo scritto in Rust**: WAF zero-regex, cache RAM, TLS 1.3, HTTP/3, hot-reload e metriche Prometheus. Include `zion import nginx` per migrare da una configurazione nginx esistente.\n- [secure-proxy-manager](https://github.com/fabriziosalmi/secure-proxy-manager) — soluzione proxy sicura **in Go** con filtering, monitoraggio in tempo reale e una web UI moderna.\n\nSe invece usi già Caddy come proxy, la strada più rapida è il modulo [caddy-waf](https://github.com/fabriziosalmi/caddy-waf). Chiedimi di Zion per i dettagli."
+      ]
+    },
+    {
+      "id": "domini-malevoli",
+      "slug": "come-bloccare-domini-malevoli",
+      "question": "Come si riconoscono e bloccano i domini malevoli?",
+      "vertical": "security",
+      "keywords": [
+        "blacklist",
+        "blacklists",
+        "domini malevoli",
+        "malicious domains",
+        "fqdn",
+        "fqdn-model",
+        "dns blocklist",
+        "blocklist",
+        "phishing",
+        "malware",
+        "pi-hole",
+        "pihole",
+        "adguard",
+        "ublock",
+        "unbound",
+        "rpz",
+        "lista domini"
+      ],
+      "answers": [
+        "Due approcci complementari, entrambi open source:\n\n- [blacklists](https://github.com/fabriziosalmi/blacklists) — una **blacklist di oltre 5,2 milioni di domini, rigenerata ogni giorno** da 46 fonti curate, con attribuzione per fonte, licenze verificate e cross-check pubblico dei falsi positivi. Scaricabile nei formati per **Pi-hole, AdGuard, uBlock Origin, Squid, Unbound e RPZ** (Bind/PowerDNS). Nota di trasparenza: oltre a pubblicità, tracking, malware e phishing blocca anche gambling, pirateria e contenuti per adulti — è una lista unica, non un menù.\n- [fqdn-model](https://github.com/fabriziosalmi/fqdn-model) — un **classificatore machine learning piccolo e veloce** che valuta se un FQDN è malevolo dal nome stesso: utile per i domini appena registrati che nessuna blacklist conosce ancora.\n\nLa combinazione lista statica + classificatore copre sia le minacce note che quelle nuove."
+      ]
+    },
+    {
+      "id": "agssh",
+      "slug": "cos-e-agssh-hardening-siti-statici",
+      "question": "Cos'è agssh e come si verifica che un sito statico non faccia chiamate esterne?",
+      "vertical": "security",
+      "keywords": [
+        "agssh",
+        "air gap",
+        "air-gapped",
+        "egress",
+        "csp",
+        "content security policy",
+        "security headers",
+        "sito statico",
+        "static site",
+        "hardening",
+        "conformance",
+        "esfiltrazione",
+        "exfiltration",
+        "supply chain",
+        "chiamate esterne"
+      ],
+      "answers": [
+        "[agssh](https://github.com/fabriziosalmi/agssh) è il runner di conformità dello standard **AGSSH-STD-001** (Air-Gapped Static Surface Hardening): dimostra in modo **deterministico e fail-closed** che un sito statico non fa nessuna chiamata di rete inattesa — niente font da CDN, niente beacon di analytics, niente CSP spalancata che trasformi il browser in un canale di esfiltrazione.\n\n- **57 regole in 9 famiglie**: egress, CSP, security headers, DNS, supply chain e altre\n- verifica il **deployment live**, non una promessa: verdetto, punteggio e coda di fix ordinata per severità\n- ciò che non può verificare finisce in *inconclusive*, mai in un silent pass\n- tre modi d'uso: **CLI Go**, **GitHub Action** che fa da gate a ogni push, e **server MCP** per farlo usare a un agente AI\n\nScritto in Go, licenza Apache 2.0, con evidenze firmate. Il principio: *nothing is green unless proven*."
+      ]
+    },
+    {
+      "id": "nis2",
+      "slug": "nis2-monitoraggio-conformita",
+      "question": "Come si monitora la conformità alla direttiva NIS2?",
+      "vertical": "security",
+      "keywords": [
+        "nis2",
+        "nis 2",
+        "direttiva",
+        "conformita",
+        "compliance",
+        "posture",
+        "normativa",
+        "acn",
+        "grc",
+        "138/2024",
+        "incidenti",
+        "fornitori",
+        "supply chain risk"
+      ],
+      "answers": [
+        "[nis2-public](https://github.com/fabriziosalmi/nis2-public) è una piattaforma open source di **Continuous Posture Management per la direttiva NIS2** (EU 2022/2555, recepita in Italia dal D.lgs. 138/2024). Non è uno scanner che si spaccia per piattaforma di compliance: è un **layer GRC con motore di validazione tecnica integrato**.\n\n- **Governance**: checklist di 30 voci incrociate con i sotto-paragrafi dell'Art. 21, tracciamento documenti, assegnazione owner\n- **Incidenti** (Art. 23), **fornitori e rischio di supply chain** (Art. 18), business impact e report PDF/A\n- **Remediation**: playbook strutturati con workflow open/acknowledged/resolved e copilot AI opzionale (Ollama/OpenAI)\n- **Self-hosted e on-premise**: scansioni, inventario asset e report non lasciano mai la tua infrastruttura\n\nInterfaccia in 5 lingue, compatibile MCP, licenza AGPL-3.0. Ci sono demo video di 2 minuti in italiano e inglese nel repository."
+      ]
+    },
+    {
+      "id": "websites-monitor",
+      "slug": "monitorare-siti-web-con-github-actions",
+      "question": "Come si monitora un sito web usando solo GitHub Actions?",
+      "vertical": "security",
+      "keywords": [
+        "websites-monitor",
+        "monitoraggio",
+        "monitoring",
+        "monitorare",
+        "uptime",
+        "seo",
+        "performance",
+        "scadenza dominio",
+        "sito",
+        "siti",
+        "github actions",
+        "monitorare sito"
+      ],
+      "answers": [
+        "Con [websites-monitor](https://github.com/fabriziosalmi/websites-monitor): monitoraggio di siti web fatto **interamente con GitHub Actions**, senza server da mantenere. Controlla:\n\n- scadenza di domini e certificati\n- security header e configurazione TLS\n- performance\n- privacy e SEO\n\nIl report vive nel repository stesso: costo zero, storia versionata in git, e nessuna dashboard esterna da pagare."
+      ]
+    },
+    {
+      "id": "proxmox-autoscale",
+      "slug": "autoscaling-vm-lxc-proxmox",
+      "question": "Come si fa autoscaling di VM e container LXC su Proxmox?",
+      "vertical": "proxmox",
+      "keywords": [
+        "autoscale",
+        "autoscaling",
+        "proxmox",
+        "scale",
+        "scalare",
+        "risorse",
+        "ridimensionare",
+        "cluster balancer",
+        "bilanciare"
+      ],
+      "answers": [
+        "Con la famiglia di tool **proxmox-autoscale** (550+ ⭐ complessive):\n\n- [proxmox-vm-autoscale](https://github.com/fabriziosalmi/proxmox-vm-autoscale) — ridimensiona automaticamente **CPU e RAM delle VM** in base al carico reale\n- [proxmox-lxc-autoscale](https://github.com/fabriziosalmi/proxmox-lxc-autoscale) — lo stesso per i **container LXC**, con architettura async e backend CLI o REST API\n- [proxmox-lxc-autoscale-ml](https://github.com/fabriziosalmi/proxmox-lxc-autoscale-ml) — la variante che decide con un modello di **machine learning**\n- [proxmox-cluster-balancer](https://github.com/fabriziosalmi/proxmox-cluster-balancer) — bilancia e migra la flotta LXC **tra i nodi** del cluster\n\nRisultato: i limiti delle macchine seguono il carico, invece di restare fissi al valore stimato il giorno dell'installazione. Chiedimi delle VM o degli LXC per i dettagli di ciascuno.",
+        "La famiglia **proxmox-autoscale**: vm-autoscale per le VM, lxc-autoscale per i container, la variante -ml che decide con il machine learning, e cluster-balancer per bilanciare tra nodi. Tutto su [github.com/fabriziosalmi](https://github.com/fabriziosalmi?tab=repositories&q=proxmox)."
+      ]
+    },
+    {
+      "id": "proxmox-vm-autoscale",
+      "slug": "autoscaling-vm-proxmox",
+      "question": "Come si scalano automaticamente CPU e RAM delle VM su Proxmox?",
+      "vertical": "proxmox",
+      "keywords": [
+        "vm autoscale",
+        "autoscale vm",
+        "vm",
+        "virtual machine",
+        "macchina virtuale",
+        "numa",
+        "hotplug",
+        "cpu vm",
+        "ram vm",
+        "systemd",
+        "gotify",
+        "scalare vm"
+      ],
+      "answers": [
+        "Con [proxmox-vm-autoscale](https://github.com/fabriziosalmi/proxmox-vm-autoscale) (**300+ ⭐**): un servizio che regola automaticamente **CPU core e RAM delle VM** su Proxmox VE in base a metriche in tempo reale e soglie definite da te.\n\nCome funziona:\n\n- si collega agli host Proxmox **via SSH** (password o chiave) e gira come servizio **systemd**\n- configurazione **YAML**, multi-host\n- prova ad abilitare da solo **NUMA e hotplug** sulle VM per permettere lo scaling a caldo (i cambi di core count richiedono comunque un riavvio per avere effetto pieno)\n- notifiche **Gotify** ed email quando scala\n- tracking opzionale dei consumi con **report CSV di billing**, pensato per gli hosting provider\n\nRichiede Proxmox VE 6.0+ e Python 3.6+. Per i container LXC c'è il progetto gemello [proxmox-lxc-autoscale](https://github.com/fabriziosalmi/proxmox-lxc-autoscale)."
+      ]
+    },
+    {
+      "id": "proxmox-lxc-autoscale",
+      "slug": "autoscaling-container-lxc-proxmox",
+      "question": "Come si scalano automaticamente i container LXC su Proxmox?",
+      "vertical": "proxmox",
+      "keywords": [
+        "lxc autoscale",
+        "autoscale lxc",
+        "lxc",
+        "container",
+        "contenitori",
+        "pct",
+        "cgroup",
+        "tiers",
+        "core pinning",
+        "p-core",
+        "e-core",
+        "cloning",
+        "scalare container",
+        "daemon"
+      ],
+      "answers": [
+        "Con [proxmox-lxc-autoscale](https://github.com/fabriziosalmi/proxmox-lxc-autoscale) (**250+ ⭐**): un daemon **async** che regola CPU e memoria dei container LXC in base all'uso reale. La v2.0 è una riscrittura seria:\n\n- **doppio backend**: comandi `pct` oppure **REST API di Proxmox** (proxmoxer)\n- metriche lette **dai cgroup** (niente `pct exec` dentro i container)\n- soglie **per container o per gruppi (tiers)**, esclusioni, riserve di CPU/RAM sull'host per evitare l'over-allocation\n- **core pinning per CPU ibride Intel** (Alder Lake+): container sui P-core o sugli E-core\n- modalità **boost/revert** (boost temporaneo con ritorno automatico), scheduling off-peak timezone-aware, energy mode\n- scaling **orizzontale via cloning** dei container (sperimentale)\n- configurazione **Pydantic** validata, secret mascherati nei log, **370 test / 87% coverage**\n\nNotifiche via email, Gotify e Uptime Kuma. Per le VM c'è [proxmox-vm-autoscale](https://github.com/fabriziosalmi/proxmox-vm-autoscale), per decidere col machine learning [proxmox-lxc-autoscale-ml](https://github.com/fabriziosalmi/proxmox-lxc-autoscale-ml)."
+      ]
+    },
+    {
+      "id": "proxxx",
+      "slug": "cos-e-proxxx-cockpit-terminale-proxmox",
+      "question": "Cos'è proxxx, il cockpit da terminale per Proxmox?",
+      "vertical": "proxmox",
+      "keywords": [
+        "proxxx",
+        "cockpit",
+        "pbs",
+        "backup server",
+        "proxmox ve",
+        "rust",
+        "mcp",
+        "telegram",
+        "hitl",
+        "audit log",
+        "sbom",
+        "homelab",
+        "describe",
+        "claude",
+        "cursor",
+        "agente ai"
+      ],
+      "answers": [
+        "[proxxx](https://github.com/fabriziosalmi/proxxx) è un **cockpit da terminale per Proxmox VE e Proxmox Backup Server**: Rust, async, **binario statico singolo, nessun installer e nessun agente** — parla REST con PVE/PBS e SSH per il resto, invece di chiederti di installare un daemon sul cluster.\n\nCopre pubblici molto diversi:\n\n- **homelab**: wizard, TUI veloce, `proxxx describe` stampa l'intero cluster in un comando\n- **SRE/DevOps**: exit code tipizzati, JSON deterministico per le pipeline, risk gate pre-flight, operazioni batch, gate di approvazione **human-in-the-loop via Telegram**\n- **integrazione AI**: **server MCP** con registro di 25 tool fissato a compile-time, per collegare Claude o Cursor al cluster\n- **compliance UE** (NIS2/ISO 27001): audit log append-only in SQLite con catena HMAC-SHA256 e `proxxx audit verify`, zero telemetria, release firmate sigstore con SBOM CycloneDX\n\nPrima di ogni commit passa un gate a 8 stadi, incluso il test su un cluster reale. [Documentazione](https://fabriziosalmi.github.io/proxxx/)."
+      ]
+    },
+    {
+      "id": "proxmox-tools",
+      "slug": "strumenti-cli-tui-per-proxmox",
+      "question": "Quali strumenti CLI e TUI esistono per gestire Proxmox dal terminale?",
+      "vertical": "proxmox",
+      "keywords": [
+        "lws",
+        "cli proxmox",
+        "tui",
+        "terminale",
+        "terminal",
+        "gestire proxmox",
+        "command line",
+        "docker cli"
+      ],
+      "answers": [
+        "Due strumenti, per due filosofie diverse:\n\n- [proxxx](https://github.com/fabriziosalmi/proxxx) — un **cockpit da terminale per Proxmox VE e PBS**: TUI + CLI in Rust, binario statico singolo, nessun agente da installare sui nodi. Chiedimi di proxxx per i dettagli.\n- [lws](https://github.com/fabriziosalmi/lws) — una **CLI unificata** che parla con Proxmox, LXC e Docker con la stessa sintassi, per chi gestisce ambienti misti.\n\nSe invece cerchi l'autoscaling, chiedimi della famiglia proxmox-autoscale."
+      ]
+    },
+    {
+      "id": "uglyfeed",
+      "slug": "riscrivere-feed-rss-con-llm",
+      "question": "Come si filtrano e riscrivono feed RSS con un LLM?",
+      "vertical": "ai",
+      "keywords": [
+        "uglyfeed",
+        "ugly feed",
+        "rss",
+        "feed",
+        "newsgator",
+        "aggregatore",
+        "notizie",
+        "news",
+        "riscrivere",
+        "rewrite"
+      ],
+      "answers": [
+        "[UglyFeed](https://github.com/fabriziosalmi/UglyFeed) (**300+ ⭐**) è una pipeline completa per i feed RSS: **recupera, aggrega, filtra, valuta, riscrive e riserve** i feed usando Large Language Models. Il caso d'uso tipico: prendere dieci fonti rumorose e ottenere un unico feed pulito, deduplicato e riscritto nello stile che preferisci.\n\nNello stesso filone c'è [newsgator](https://github.com/fabriziosalmi/newsgator), un aggregatore RSS più leggero, sempre con capacità LLM."
+      ]
+    },
+    {
+      "id": "llm-security",
+      "slug": "mettere-in-sicurezza-endpoint-llm",
+      "question": "Come si mette in sicurezza un endpoint LLM?",
+      "vertical": "ai",
+      "keywords": [
+        "llmproxy",
+        "llm proxy",
+        "aidlp",
+        "dlp",
+        "data loss prevention",
+        "sicurezza llm",
+        "llm security",
+        "prompt injection",
+        "proteggere llm",
+        "endpoint llm"
+      ],
+      "answers": [
+        "Il portfolio copre i due lati del problema:\n\n- [llmproxy](https://github.com/fabriziosalmi/llmproxy) — un **proxy security-first per Large Language Models**: si mette davanti all'endpoint e applica controlli di sicurezza sul traffico da e verso il modello.\n- [aidlp](https://github.com/fabriziosalmi/aidlp) — **Data Loss Prevention specifica per endpoint LLM**: intercetta dati sensibili (credenziali, PII) prima che finiscano nel prompt e quindi nei log o nel training di qualcun altro.\n\nIl principio: il modello non va mai esposto nudo, esattamente come non esponi un database senza un layer davanti."
+      ]
+    },
+    {
+      "id": "ai-code-quality",
+      "slug": "controllare-qualita-codice-generato-ai",
+      "question": "Come si controlla la qualità del codice generato dall'AI?",
+      "vertical": "ai",
+      "keywords": [
+        "vibe-check",
+        "vibe check",
+        "brutal-coding-tool",
+        "brutal",
+        "vibecode",
+        "slop",
+        "anti-slop",
+        "qualita codice",
+        "code quality",
+        "iamnotacoder",
+        "devgpt",
+        "codice generato",
+        "ai coding"
+      ],
+      "answers": [
+        "Il \"vibe coding\" produce in fretta, ma produce anche **slop**: codice che sembra giusto e non lo è. Due strumenti per difendersi:\n\n- [vibe-check](https://github.com/fabriziosalmi/vibe-check) — una **GitHub Action anti-slop**: fa da gatekeeper in CI/CD e blocca le pull request che non superano i controlli di qualità.\n- [brutal-coding-tool](https://github.com/fabriziosalmi/brutal-coding-tool) — fa l'audit del tuo vibecode e lo rende *brutalmente* solido, in TypeScript.\n\nSul fronte generativo ci sono anche [iamnotacoder](https://github.com/fabriziosalmi/iamnotacoder) (generazione e improvement automatico di codice) e [DevGPT](https://github.com/fabriziosalmi/DevGPT), uno dei primi esperimenti di assistente di coding GPT."
+      ]
+    },
+    {
+      "id": "cloudflare-automation",
+      "slug": "automatizzare-configurazione-cloudflare",
+      "question": "Come si automatizza la configurazione di Cloudflare?",
+      "vertical": "cloudflare",
+      "keywords": [
+        "cloudflare",
+        "cf-box",
+        "zonecontrol",
+        "wafcontrol",
+        "dnscontrol",
+        "zone",
+        "dns",
+        "automazione cloudflare",
+        "api cloudflare",
+        "gitops",
+        "zone cloudflare",
+        "cloudflare github actions"
+      ],
+      "answers": [
+        "Approccio GitOps: la configurazione vive in un repository e GitHub Actions la applica. I tool:\n\n- [zonecontrol](https://github.com/fabriziosalmi/zonecontrol) — automatizza le **impostazioni delle zone** Cloudflare\n- [wafcontrol](https://github.com/fabriziosalmi/wafcontrol) — automatizza le **impostazioni WAF** Cloudflare\n- [cf-box](https://github.com/fabriziosalmi/cf-box) — toolkit Python per lavorare con le API su **più account Cloudflare**\n- [dnscontrol-actions](https://github.com/fabriziosalmi/dnscontrol-actions) — aggiornamenti e **rollback DNS multi-provider** con DNSControl\n\nVantaggi: ogni modifica è una pull request, con review, storia e rollback."
+      ]
+    },
+    {
+      "id": "flareover",
+      "slug": "migrare-da-cloudflare-self-hosted-eu",
+      "question": "Come si migra un sito da Cloudflare a un'infrastruttura self-hosted europea?",
+      "vertical": "cloudflare",
+      "keywords": [
+        "flareover",
+        "migrare cloudflare",
+        "migrare da cloudflare",
+        "via da cloudflare",
+        "uscire da cloudflare",
+        "lasciare cloudflare",
+        "abbandonare cloudflare",
+        "sovranita",
+        "sovranita digitale",
+        "sovereign",
+        "eu",
+        "europea",
+        "orange cloud",
+        "powerdns",
+        "minio",
+        "migrazione",
+        "migrare",
+        "spostare",
+        "cdn",
+        "edge europeo",
+        "de-cloudflare"
+      ],
+      "answers": [
+        "Con [flareover](https://github.com/fabriziosalmi/flareover): un motore **deterministico** che sposta un sito dal \"cloud arancione\" a uno stack open source self-hosted su infrastruttura europea (**Caddy + caddy-waf + PowerDNS + CertMate + MinIO**), senza cambiarne il comportamento.\n\nPunta il tool su una zona Cloudflare: legge ogni impostazione — DNS, TLS, redirect, regole WAF, caching — e genera la configurazione equivalente. Il contratto è **zero sorprese silenziose**: ogni voce riceve un verdetto\n\n- **AUTO** — esiste un equivalente esatto dimostrato: config generata automaticamente\n- **ASK** — mapping fedele ma con un'ambiguità: rispondi a un sì/no e diventa AUTO\n- **MANUAL** — nulla mappa fedelmente (Workers, bot-scoring ML): documentato e lasciato a te, **mai indovinato**\n\nLa generazione è una funzione pura di snapshot + decisioni: eseguila due volte e ottieni config byte-identica, revisionabile in git prima del go-live. Cinque fasi: assess → prepare → present (parity gate live vs staging) → execute → guard. In Go, licenza AGPL-3.0, documentazione su [flareover.com](https://www.flareover.com/docs/)."
+      ]
+    },
+    {
+      "id": "contatti",
+      "slug": "come-contattare-fabrizio-salmi",
+      "question": "Come si contatta Fabrizio Salmi?",
+      "vertical": "meta",
+      "keywords": [
+        "contatto",
+        "contatti",
+        "contact",
+        "email",
+        "mail",
+        "scrivere",
+        "collaborare",
+        "consulenza",
+        "supporto",
+        "hackerone",
+        "linkedin"
+      ],
+      "answers": [
+        "I canali:\n\n- **Email**: [fabrizio.salmi@gmail.com](mailto:fabrizio.salmi@gmail.com) — per proposte di collaborazione, supporto commerciale e consulenza (automazione infrastrutturale, hardening, monitoring)\n- **GitHub**: [github.com/fabriziosalmi](https://github.com/fabriziosalmi) — issue e discussion sui singoli progetti sono il canale più rapido per le questioni tecniche\n- **HackerOne**: [fabriziosalmi](https://hackerone.com/fabriziosalmi) per il lato security research"
+      ]
+    },
+    {
+      "id": "sei-vera-ai",
+      "slug": "fabgpt-e-una-vera-ai",
+      "question": "FabGPT è una vera intelligenza artificiale?",
+      "vertical": "meta",
+      "keywords": [
+        "vera ai",
+        "vera intelligenza",
+        "sei un ai",
+        "sei una ai",
+        "sei vero",
+        "sei reale",
+        "chatgpt",
+        "gpt",
+        "modello",
+        "llm sei",
+        "come funzioni",
+        "funzioni"
+      ],
+      "answers": [
+        "Domanda pericolosa. Sono un **labirinto di risposte scritte da un umano** che si presenta come un'AI — il che, a pensarci bene, mi rende più affidabile di parecchie AI vere: non ho allucinazioni, non invento fonti, e ogni risposta l'ha verificata una persona.\n\nIl motore è open source: un matcher di parole chiave, un file JSON di conoscenza e un effetto typewriter. Niente GPU sono state stancate per risponderti.",
+        "No. E questa risposta pre-scritta che ammette di essere pre-scritta è il massimo di onestà che otterrai oggi da un chatbot."
+      ]
+    },
+    {
+      "id": "cos-e-fabgpt",
+      "slug": "cos-e-fabgpt-come-funziona",
+      "question": "Cos'è FabGPT e come funziona?",
+      "vertical": "meta",
+      "keywords": [
+        "fabgpt",
+        "questo sito",
+        "questa chat",
+        "labirinto",
+        "faq",
+        "motore",
+        "engine",
+        "come e fatto",
+        "sorgente",
+        "source"
+      ],
+      "answers": [
+        "**FabGPT** è una FAQ travestita da chat AI: l'interfaccia è quella di un chatbot, ma le risposte sono **pre-scritte e verificate**, organizzate in una knowledge base JSON e selezionate da un motore di matching a parole chiave con tolleranza ai refusi.\n\nÈ anche un **motore generico riutilizzabile**: cambi il file `faq.json` e diventa la FAQ di qualsiasi altra cosa. Tutto statico — HTML, CSS e JavaScript puri, zero backend, zero dipendenze — e ogni domanda esiste anche come pagina statica indicizzabile."
+      ]
+    }
+  ],
+  "fallbacks": [
+    "Non ho una risposta buona su questo — il mio labirinto non arriva fin lì. Prova a chiedermi dei progetti di Fabrizio: **cybersecurity** (CertMate, caddy-waf, Zion, agssh), **AI** (UglyFeed, llmproxy), **Proxmox** (autoscaling, proxxx) o **Cloudflare**.",
+    "Qui il labirinto finisce con un muro. Riformula, oppure chiedimi qualcosa su certificati TLS, WAF, autoscaling Proxmox, feed RSS con LLM o automazione Cloudflare.",
+    "Non ci arrivo. Ma so tutto su: **CertMate**, **caddy-waf**, **Zion**, **proxxx**, la famiglia **proxmox-autoscale**, **agssh**, **nis2-public** e come contattare Fabrizio. Scegli tu."
+  ]
+}

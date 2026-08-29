@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Come si scalano automaticamente CPU e RAM delle VM su Proxmox? — FabGPT</title>
+<meta name="description" content="Con proxmox-vm-autoscale (300+ ⭐): un servizio che regola automaticamente CPU core e RAM delle VM su Proxmox VE in base a metriche in tempo reale e soglie…">
+<link rel="canonical" href="https://fabriziosalmi.github.io/fabgpt-faq/q/autoscaling-vm-proxmox/">
+<link rel="stylesheet" href="../../style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Come si scalano automaticamente CPU e RAM delle VM su Proxmox?", "acceptedAnswer": {"@type": "Answer", "text": "Con proxmox-vm-autoscale (300+ ⭐): un servizio che regola automaticamente CPU core e RAM delle VM su Proxmox VE in base a metriche in tempo reale e soglie definite da te. Come funziona: si collega agli host Proxmox via SSH (password o chiave) e gira come servizio systemd configurazione YAML, multi-host prova ad abilitare da solo NUMA e hotplug sulle VM per permettere lo scaling a caldo (i cambi di core count richiedono comunque un riavvio per avere effetto pieno) notifiche Gotify ed email quando scala tracking opzionale dei consumi con report CSV di billing, pensato per gli hosting provider Richiede Proxmox VE 6.0+ e Python 3.6+. Per i container LXC c'è il progetto gemello proxmox-lxc-autoscale."}}]}</script>
+<style>
+  .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
+  .page h1 { font-size: 26px; line-height: 1.3; margin: 8px 0 20px; }
+  .page .answer a { color: var(--link); }
+  .page .vertical { font-size: 13px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }
+  .page .answer ul { padding-left: 22px; }
+  .page .answer code { background: var(--code-bg); border-radius: 5px; padding: 1px 5px; font-size: 0.9em; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+  .page .ask { display: inline-block; margin-top: 24px; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 9px 18px; text-decoration: none; font-weight: 600; }
+  .page .related { margin-top: 36px; border-top: 1px solid var(--border); padding-top: 18px; }
+  .page .related h2 { font-size: 16px; }
+  .page .related a { color: var(--link); text-decoration: none; }
+  .page .related a:hover { text-decoration: underline; }
+  .page .related li { margin: 6px 0; }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="../../" style="text-decoration:none;color:inherit">
+    <span class="brand-dot">F</span>
+    <span class="brand-name">FabGPT</span>
+    <span class="brand-tag">faq</span>
+  </a>
+</header>
+<main class="page">
+  <div class="vertical">Proxmox e self-hosting</div>
+  <h1>Come si scalano automaticamente CPU e RAM delle VM su Proxmox?</h1>
+  <div class="answer"><p>Con <a href="https://github.com/fabriziosalmi/proxmox-vm-autoscale" target="_blank" rel="noopener">proxmox-vm-autoscale</a> (<strong>300+ ⭐</strong>): un servizio che regola automaticamente <strong>CPU core e RAM delle VM</strong> su Proxmox VE in base a metriche in tempo reale e soglie definite da te.</p><p>Come funziona:</p><ul><li>si collega agli host Proxmox <strong>via SSH</strong> (password o chiave) e gira come servizio <strong>systemd</strong></li><li>configurazione <strong>YAML</strong>, multi-host</li><li>prova ad abilitare da solo <strong>NUMA e hotplug</strong> sulle VM per permettere lo scaling a caldo (i cambi di core count richiedono comunque un riavvio per avere effetto pieno)</li><li>notifiche <strong>Gotify</strong> ed email quando scala</li><li>tracking opzionale dei consumi con <strong>report CSV di billing</strong>, pensato per gli hosting provider</li></ul><p>Richiede Proxmox VE 6.0+ e Python 3.6+. Per i container LXC c&#x27;è il progetto gemello <a href="https://github.com/fabriziosalmi/proxmox-lxc-autoscale" target="_blank" rel="noopener">proxmox-lxc-autoscale</a>.</p></div>
+  <a class="ask" href="../../?q=proxmox-vm-autoscale">Chiedilo a FabGPT →</a>
+  <div class="related">
+    <h2>Altre domande</h2>
+    <ul><li><a href="../autoscaling-vm-lxc-proxmox/">Come si fa autoscaling di VM e container LXC su Proxmox?</a></li><li><a href="../autoscaling-container-lxc-proxmox/">Come si scalano automaticamente i container LXC su Proxmox?</a></li><li><a href="../cos-e-proxxx-cockpit-terminale-proxmox/">Cos&#x27;è proxxx, il cockpit da terminale per Proxmox?</a></li><li><a href="../strumenti-cli-tui-per-proxmox/">Quali strumenti CLI e TUI esistono per gestire Proxmox dal terminale?</a></li><li><a href="../chi-e-fabrizio-salmi/">Chi è Fabrizio Salmi?</a></li><li><a href="../progetti-open-source-fabrizio-salmi/">Quali progetti open source sviluppa Fabrizio Salmi?</a></li></ul>
+  </div>
+</main>
+</body>
+</html>

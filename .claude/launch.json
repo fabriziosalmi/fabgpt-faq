@@ -1,0 +1,10 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "fabgpt-faq",
+      "url": "http://localhost:8437",
+      "port": 8437
+    }
+  ]
+}
