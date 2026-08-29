@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Open Graph e Twitter Card: come si controllano le anteprime social? – FabGPT-FAQ</title>
+<meta name="description" content="Quando un link finisce su WhatsApp, LinkedIn o X, l&#x27;anteprima non è magia: sono i meta tag Open Graph letti dalla piattaforma. Il set minimo che copre…">
+<link rel="canonical" href="https://fabriziosalmi.github.io/fabgpt-faq/q/open-graph-e-anteprime-social/">
+<link rel="stylesheet" href="../../style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Open Graph e Twitter Card: come si controllano le anteprime social?", "acceptedAnswer": {"@type": "Answer", "text": "Quando un link finisce su WhatsApp, LinkedIn o X, l'anteprima non è magia: sono i meta tag Open Graph letti dalla piattaforma. Il set minimo che copre tutto: og:title, og:description, og:url – e og:image: 1200×630, sotto i 5 MB, URL assoluto – è l'anteprima: una pagina senza og:image è un link grigio che nessuno clicca twitter:card con valore summary_large_image per l'immagine grande su X; il resto lo eredita da OG Gli inciampi classici: immagine dichiarata ma bloccata ([robots](q/come-funziona-robots-txt/), hotlink protection), l'anteprima cachata dalla piattaforma che non si aggiorna (ogni social ha il suo debugger/validator per forzare il refresh – LinkedIn Post Inspector, lo Sharing Debugger di Meta), e i siti JS-only dove i bot non eseguono nulla: i meta tag devono stare nell'HTML servito – [un motivo in più per lo statico](q/cos-e-un-generatore-di-siti-statici/). Per generare le immagini social in serie dal proprio brand: BrandKit sforna i formati giusti da un'immagine sola."}}]}</script>
+<style>
+  .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
+  .page h1 { font-size: 26px; line-height: 1.3; margin: 8px 0 20px; }
+  .page .answer a { color: var(--link); }
+  .page .vertical { font-size: 13px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }
+  .page .answer ul { padding-left: 22px; }
+  .page .answer code { background: var(--code-bg); border-radius: 5px; padding: 1px 5px; font-size: 0.9em; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+  .page .ask { display: inline-block; margin-top: 24px; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 9px 18px; text-decoration: none; font-weight: 600; }
+  .page .related { margin-top: 36px; border-top: 1px solid var(--border); padding-top: 18px; }
+  .page .related h2 { font-size: 16px; }
+  .page .related a { color: var(--link); text-decoration: none; }
+  .page .related a:hover { text-decoration: underline; }
+  .page .related li { margin: 6px 0; }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="../../" style="text-decoration:none;color:inherit">
+    <span class="brand-dot">F</span>
+    <span class="brand-name">FabGPT-FAQ</span>
+  </a>
+</header>
+<main class="page">
+  <div class="vertical">Strumenti e app</div>
+  <h1>Open Graph e Twitter Card: come si controllano le anteprime social?</h1>
+  <div class="answer"><p>Quando un link finisce su WhatsApp, LinkedIn o X, l&#x27;anteprima non è magia: sono i <strong>meta tag Open Graph</strong> letti dalla piattaforma. Il set minimo che copre tutto:</p><ul><li><code>og:title</code>, <code>og:description</code>, <code>og:url</code> – e <strong><code>og:image</code></strong>: 1200×630, sotto i 5 MB, <strong>URL assoluto</strong> – è l&#x27;anteprima: una pagina senza og:image è un link grigio che nessuno clicca</li><li><code>twitter:card</code> con valore <code>summary_large_image</code> per l&#x27;immagine grande su X; il resto lo eredita da OG</li></ul><p>Gli inciampi classici: immagine dichiarata ma bloccata (<a href="../come-funziona-robots-txt/">robots</a>, hotlink protection), l&#x27;<strong>anteprima cachata</strong> dalla piattaforma che non si aggiorna (ogni social ha il suo debugger/validator per forzare il refresh – LinkedIn Post Inspector, lo Sharing Debugger di Meta), e i siti JS-only dove i bot non eseguono nulla: i meta tag devono stare <strong>nell&#x27;HTML servito</strong> – <a href="../cos-e-un-generatore-di-siti-statici/">un motivo in più per lo statico</a>.</p><p>Per generare le immagini social in serie dal proprio brand: <a href="https://github.com/fabriziosalmi/brandkit" target="_blank" rel="noopener">BrandKit</a> sforna i formati giusti da un&#x27;immagine sola.</p></div>
+  <a class="ask" href="../../?q=og-twitter-card">Chiedilo a FabGPT-FAQ →</a>
+  <div class="related">
+    <h2>Altre domande</h2>
+    <ul><li><a href="../cosa-sono-i-core-web-vitals/">Cosa sono i Core Web Vitals (LCP, INP, CLS)?</a></li><li><a href="../come-funziona-robots-txt/">Come funziona il file robots.txt?</a></li><li><a href="../cos-e-il-file-llms-txt/">Cos&#x27;è il file llms.txt?</a></li><li><a href="../json-ld-schema-org-seo/">Cos&#x27;è JSON-LD (schema.org) e a cosa serve per la SEO?</a></li><li><a href="../a-cosa-serve-la-sitemap/">A cosa serve la sitemap.xml?</a></li><li><a href="../quali-favicon-servono/">Quali formati di favicon servono davvero?</a></li></ul>
+  </div>
+</main>
+</body>
+</html>

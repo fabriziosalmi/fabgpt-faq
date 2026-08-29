@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Come si configura un dominio su Cloudflare da zero? – FabGPT-FAQ</title>
+<meta name="description" content="La sequenza senza sorprese: aggiungi il sito su Cloudflare: la scansione importa i record DNS esistenti – verificala, i record esotici sfuggono (confronta…">
+<link rel="canonical" href="https://fabriziosalmi.github.io/fabgpt-faq/q/configurare-dominio-su-cloudflare/">
+<link rel="stylesheet" href="../../style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Come si configura un dominio su Cloudflare da zero?", "acceptedAnswer": {"@type": "Answer", "text": "La sequenza senza sorprese: aggiungi il sito su Cloudflare: la scansione importa i record DNS esistenti – verificala, i record esotici sfuggono (confronta con un export della zona dal vecchio pannello) prima del salto: [abbassa i TTL](q/cos-e-il-ttl-dns/) e decidi nuvoletta per nuvoletta – [arancione o grigia](q/nuvoletta-arancione-cloudflare/): la posta (MX e relativi) grigia sempre cambia i nameserver dal [registrar](q/cos-e-un-registrar-e-il-transfer/) con la coppia assegnata; da lì comanda Cloudflare (attesa: da minuti a ore) subito dopo l'attivazione, i tre punti che evitano i classici guai: SSL/TLS in Full (strict) – mai Flexible, [è la fabbrica dei redirect loop](q/err-too-many-redirects/) – con un [certificato vero sull'origine](q/come-funziona-lets-encrypt-acme/); HTTPS forzato; e [l'origine chiusa](q/proteggere-origine-dietro-cloudflare/) ai soli IP di Cloudflare, o la nuvoletta è decorativa attiva [DNSSEC](q/cos-e-dnssec/) (due click + record DS al registrar) Da lì in poi, [la configurazione merita di vivere in git](q/cos-e-gitops/): [zonecontrol e wafcontrol](q/automatizzare-configurazione-cloudflare/) per zone e WAF, backup automatici della zona."}}]}</script>
+<style>
+  .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
+  .page h1 { font-size: 26px; line-height: 1.3; margin: 8px 0 20px; }
+  .page .answer a { color: var(--link); }
+  .page .vertical { font-size: 13px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }
+  .page .answer ul { padding-left: 22px; }
+  .page .answer code { background: var(--code-bg); border-radius: 5px; padding: 1px 5px; font-size: 0.9em; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+  .page .ask { display: inline-block; margin-top: 24px; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 9px 18px; text-decoration: none; font-weight: 600; }
+  .page .related { margin-top: 36px; border-top: 1px solid var(--border); padding-top: 18px; }
+  .page .related h2 { font-size: 16px; }
+  .page .related a { color: var(--link); text-decoration: none; }
+  .page .related a:hover { text-decoration: underline; }
+  .page .related li { margin: 6px 0; }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="../../" style="text-decoration:none;color:inherit">
+    <span class="brand-dot">F</span>
+    <span class="brand-name">FabGPT-FAQ</span>
+  </a>
+</header>
+<main class="page">
+  <div class="vertical">Cloudflare</div>
+  <h1>Come si configura un dominio su Cloudflare da zero?</h1>
+  <div class="answer"><p>La sequenza senza sorprese:</p><ul><li>aggiungi il sito su Cloudflare: la scansione <strong>importa i record DNS</strong> esistenti – <em>verificala</em>, i record esotici sfuggono (confronta con un export della zona dal vecchio pannello)</li><li>prima del salto: <a href="../cos-e-il-ttl-dns/">abbassa i TTL</a> e decidi nuvoletta per nuvoletta – <a href="../nuvoletta-arancione-cloudflare/">arancione o grigia</a>: la posta (MX e relativi) <strong>grigia sempre</strong></li><li>cambia i <strong>nameserver</strong> dal <a href="../cos-e-un-registrar-e-il-transfer/">registrar</a> con la coppia assegnata; da lì comanda Cloudflare (attesa: da minuti a ore)</li><li>subito dopo l&#x27;attivazione, i tre punti che evitano i classici guai: <strong>SSL/TLS in Full (strict)</strong> – mai Flexible, <a href="../err-too-many-redirects/">è la fabbrica dei redirect loop</a> – con un <a href="../come-funziona-lets-encrypt-acme/">certificato vero sull&#x27;origine</a>; HTTPS forzato; e <a href="../proteggere-origine-dietro-cloudflare/">l&#x27;origine chiusa</a> ai soli IP di Cloudflare, o la nuvoletta è decorativa</li><li>attiva <a href="../cos-e-dnssec/">DNSSEC</a> (due click + record DS al registrar)</li></ul><p>Da lì in poi, <a href="../cos-e-gitops/">la configurazione merita di vivere in git</a>: <a href="../automatizzare-configurazione-cloudflare/">zonecontrol e wafcontrol</a> per zone e WAF, <a href="https://github.com/fabriziosalmi/cloudflare-backup-actions" target="_blank" rel="noopener">backup automatici</a> della zona.</p></div>
+  <a class="ask" href="../../?q=dominio-su-cloudflare">Chiedilo a FabGPT-FAQ →</a>
+  <div class="related">
+    <h2>Altre domande</h2>
+    <ul><li><a href="../cos-e-gitops/">Cos&#x27;è GitOps e perché conviene?</a></li><li><a href="../cos-e-la-sovranita-digitale/">Cos&#x27;è la sovranità digitale e perché le aziende europee ci tengono?</a></li><li><a href="../cos-e-una-cdn/">Cos&#x27;è una CDN e quando serve davvero?</a></li><li><a href="../tipi-di-record-dns/">Quali sono i tipi di record DNS (A, CNAME, MX, TXT)?</a></li><li><a href="../cos-e-il-ttl-dns/">Cos&#x27;è il TTL dei record DNS?</a></li><li><a href="../nuvoletta-arancione-cloudflare/">Cosa fa la nuvoletta arancione di Cloudflare (proxy on/off)?</a></li></ul>
+  </div>
+</main>
+</body>
+</html>

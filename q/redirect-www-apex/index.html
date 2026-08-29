@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Come si fa il redirect www → apex (o viceversa)? – FabGPT-FAQ</title>
+<meta name="description" content="Prima la decisione, poi la tecnica: una sola forma canonica – www.example.com o example.com – e l&#x27;altra fa un 301 verso di lei. Quale? Questione di gusto…">
+<link rel="canonical" href="https://fabriziosalmi.github.io/fabgpt-faq/q/redirect-www-apex/">
+<link rel="stylesheet" href="../../style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Come si fa il redirect www → apex (o viceversa)?", "acceptedAnswer": {"@type": "Answer", "text": "Prima la decisione, poi la tecnica: una sola forma canonica – www.example.com o example.com – e l'altra fa un 301 verso di lei. Quale? Questione di gusto (l'apex è più pulito; il www è tecnicamente più flessibile per i CNAME): l'importante è sceglierne una e dichiararla anche col [canonical](q/canonical-url-quando-e-perche/). Le implementazioni tipiche: su Cloudflare: entrambi i nomi [proxied](q/nuvoletta-arancione-cloudflare/) e una Redirect Rule (301, preserva path e query – il redirect che scarta il percorso è un classico da negozio rotto) su Caddy/Nginx: un server block per la forma sbagliata che fa solo redir 301 alla giusta su GitHub Pages e simili: il www si gestisce col CNAME, l'apex con gli IP/ALIAS del provider – [la coppia va comunque testata](q/servire-un-sito-statico-gratis/) Verifica onesta: curl -sIL http://example.com | grep -iE 'location|HTTP/' sulle quattro combinazioni (http/https × www/apex) – devono convergere tutte, in un salto solo, sulla forma canonica in HTTPS. Due 301 in fila sono latenza regalata; [un loop](q/err-too-many-redirects/) è un altro capitolo."}}]}</script>
+<style>
+  .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
+  .page h1 { font-size: 26px; line-height: 1.3; margin: 8px 0 20px; }
+  .page .answer a { color: var(--link); }
+  .page .vertical { font-size: 13px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }
+  .page .answer ul { padding-left: 22px; }
+  .page .answer code { background: var(--code-bg); border-radius: 5px; padding: 1px 5px; font-size: 0.9em; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+  .page .ask { display: inline-block; margin-top: 24px; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 9px 18px; text-decoration: none; font-weight: 600; }
+  .page .related { margin-top: 36px; border-top: 1px solid var(--border); padding-top: 18px; }
+  .page .related h2 { font-size: 16px; }
+  .page .related a { color: var(--link); text-decoration: none; }
+  .page .related a:hover { text-decoration: underline; }
+  .page .related li { margin: 6px 0; }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="../../" style="text-decoration:none;color:inherit">
+    <span class="brand-dot">F</span>
+    <span class="brand-name">FabGPT-FAQ</span>
+  </a>
+</header>
+<main class="page">
+  <div class="vertical">Cloudflare</div>
+  <h1>Come si fa il redirect www → apex (o viceversa)?</h1>
+  <div class="answer"><p>Prima la decisione, poi la tecnica: <strong>una sola forma canonica</strong> – <code>www.example.com</code> <em>o</em> <code>example.com</code> – e l&#x27;altra fa un <strong>301</strong> verso di lei. Quale? Questione di gusto (l&#x27;apex è più pulito; il www è tecnicamente più flessibile per i CNAME): l&#x27;importante è sceglierne una e dichiararla anche col <a href="../canonical-url-quando-e-perche/">canonical</a>.</p><p>Le implementazioni tipiche:</p><ul><li><strong>su Cloudflare</strong>: entrambi i nomi <a href="../nuvoletta-arancione-cloudflare/">proxied</a> e una <strong>Redirect Rule</strong> (301, preserva path e query – il redirect che scarta il percorso è un classico da negozio rotto)</li><li><strong>su Caddy/Nginx</strong>: un server block per la forma sbagliata che fa solo <code>redir</code> 301 alla giusta</li><li><strong>su GitHub Pages</strong> e simili: il www si gestisce col CNAME, l&#x27;apex con gli IP/ALIAS del provider – <a href="../servire-un-sito-statico-gratis/">la coppia va comunque testata</a></li></ul><p>Verifica onesta: <code>curl -sIL http://example.com | grep -iE &#x27;location|HTTP/&#x27;</code> sulle <strong>quattro</strong> combinazioni (http/https × www/apex) – devono convergere tutte, in un salto solo, sulla forma canonica in HTTPS. Due 301 in fila sono latenza regalata; <a href="../err-too-many-redirects/">un loop</a> è un altro capitolo.</p></div>
+  <a class="ask" href="../../?q=www-apex-redirect">Chiedilo a FabGPT-FAQ →</a>
+  <div class="related">
+    <h2>Altre domande</h2>
+    <ul><li><a href="../cos-e-gitops/">Cos&#x27;è GitOps e perché conviene?</a></li><li><a href="../cos-e-la-sovranita-digitale/">Cos&#x27;è la sovranità digitale e perché le aziende europee ci tengono?</a></li><li><a href="../cos-e-una-cdn/">Cos&#x27;è una CDN e quando serve davvero?</a></li><li><a href="../tipi-di-record-dns/">Quali sono i tipi di record DNS (A, CNAME, MX, TXT)?</a></li><li><a href="../cos-e-il-ttl-dns/">Cos&#x27;è il TTL dei record DNS?</a></li><li><a href="../nuvoletta-arancione-cloudflare/">Cosa fa la nuvoletta arancione di Cloudflare (proxy on/off)?</a></li></ul>
+  </div>
+</main>
+</body>
+</html>

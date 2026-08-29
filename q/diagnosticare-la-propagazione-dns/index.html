@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Come si diagnostica la propagazione DNS? – FabGPT-FAQ</title>
+<meta name="description" content="&quot;Propagazione&quot; è un nome fuorviante: nessuno propaga nulla – ci sono solo cache che scadono al ritmo del [TTL](q/cos-e-il-ttl-dns/). La diagnosi vera in tre…">
+<link rel="canonical" href="https://fabriziosalmi.github.io/fabgpt-faq/q/diagnosticare-la-propagazione-dns/">
+<link rel="stylesheet" href="../../style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Come si diagnostica la propagazione DNS?", "acceptedAnswer": {"@type": "Answer", "text": "\"Propagazione\" è un nome fuorviante: nessuno propaga nulla – ci sono solo cache che scadono al ritmo del [TTL](q/cos-e-il-ttl-dns/). La diagnosi vera in tre comandi: chiedi all'autoritativo, saltando ogni cache: dig example.com @NAMESERVER-AUTORITATIVO (o dig +trace) – se qui il valore è vecchio, non è propagazione: il record è proprio sbagliato alla fonte confronta i resolver pubblici: dig @1.1.1.1 vs dig @8.8.8.8 – valori diversi = cache in scadenza, e il TTL nella risposta dice quanto manca il tuo problema è locale? Il resolver di casa/azienda e la cache del sistema tengono duro: resolvectl flush-caches (o equivalente), o prova da rete mobile Gli strumenti web (dnschecker e simili) mostrano la mappa mondiale delle cache – scenografici, ma i tre comandi sopra rispondono prima. I casi che sembrano DNS e non lo sono: [il browser che cachava il redirect](q/err-too-many-redirects/) 301, la [CDN che serve dalla cache](q/cache-hit-miss-bypass-cdn/), il [nameserver cambiato ma con la zona vuota](q/configurare-dominio-su-cloudflare/). Regola d'oro per la prossima volta: [TTL giù il giorno prima](q/cos-e-il-ttl-dns/), cambio, verifica, TTL su."}}]}</script>
+<style>
+  .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
+  .page h1 { font-size: 26px; line-height: 1.3; margin: 8px 0 20px; }
+  .page .answer a { color: var(--link); }
+  .page .vertical { font-size: 13px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }
+  .page .answer ul { padding-left: 22px; }
+  .page .answer code { background: var(--code-bg); border-radius: 5px; padding: 1px 5px; font-size: 0.9em; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+  .page .ask { display: inline-block; margin-top: 24px; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 9px 18px; text-decoration: none; font-weight: 600; }
+  .page .related { margin-top: 36px; border-top: 1px solid var(--border); padding-top: 18px; }
+  .page .related h2 { font-size: 16px; }
+  .page .related a { color: var(--link); text-decoration: none; }
+  .page .related a:hover { text-decoration: underline; }
+  .page .related li { margin: 6px 0; }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="../../" style="text-decoration:none;color:inherit">
+    <span class="brand-dot">F</span>
+    <span class="brand-name">FabGPT-FAQ</span>
+  </a>
+</header>
+<main class="page">
+  <div class="vertical">Cloudflare</div>
+  <h1>Come si diagnostica la propagazione DNS?</h1>
+  <div class="answer"><p>&quot;Propagazione&quot; è un nome fuorviante: nessuno propaga nulla – ci sono solo <strong>cache che scadono</strong> al ritmo del <a href="../cos-e-il-ttl-dns/">TTL</a>. La diagnosi vera in tre comandi:</p><ul><li><strong>chiedi all&#x27;autoritativo</strong>, saltando ogni cache: <code>dig example.com @NAMESERVER-AUTORITATIVO</code> (o <code>dig +trace</code>) – se qui il valore è vecchio, non è propagazione: <strong>il record è proprio sbagliato</strong> alla fonte</li><li><strong>confronta i resolver pubblici</strong>: <code>dig @1.1.1.1</code> vs <code>dig @8.8.8.8</code> – valori diversi = cache in scadenza, e il TTL nella risposta dice <em>quanto manca</em></li><li><strong>il tuo problema è locale?</strong> Il resolver di casa/azienda e la cache del sistema tengono duro: <code>resolvectl flush-caches</code> (o equivalente), o prova da rete mobile</li></ul><p>Gli strumenti web (dnschecker e simili) mostrano la mappa mondiale delle cache – scenografici, ma i tre comandi sopra rispondono prima. I casi che <em>sembrano</em> DNS e non lo sono: <a href="../err-too-many-redirects/">il browser che cachava il redirect</a> 301, la <a href="../cache-hit-miss-bypass-cdn/">CDN che serve dalla cache</a>, il <a href="../configurare-dominio-su-cloudflare/">nameserver cambiato ma con la zona vuota</a>. Regola d&#x27;oro per la prossima volta: <a href="../cos-e-il-ttl-dns/">TTL giù il giorno prima</a>, cambio, verifica, TTL su.</p></div>
+  <a class="ask" href="../../?q=propagazione-dns">Chiedilo a FabGPT-FAQ →</a>
+  <div class="related">
+    <h2>Altre domande</h2>
+    <ul><li><a href="../cos-e-gitops/">Cos&#x27;è GitOps e perché conviene?</a></li><li><a href="../cos-e-la-sovranita-digitale/">Cos&#x27;è la sovranità digitale e perché le aziende europee ci tengono?</a></li><li><a href="../cos-e-una-cdn/">Cos&#x27;è una CDN e quando serve davvero?</a></li><li><a href="../tipi-di-record-dns/">Quali sono i tipi di record DNS (A, CNAME, MX, TXT)?</a></li><li><a href="../cos-e-il-ttl-dns/">Cos&#x27;è il TTL dei record DNS?</a></li><li><a href="../nuvoletta-arancione-cloudflare/">Cosa fa la nuvoletta arancione di Cloudflare (proxy on/off)?</a></li></ul>
+  </div>
+</main>
+</body>
+</html>

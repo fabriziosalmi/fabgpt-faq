@@ -1270,5 +1270,129 @@
   {
     "q": "come uso proxxx",
     "expect": "guida-proxxx"
+  },
+  {
+    "q": "come trasferisco il dominio a un altro registrar",
+    "expect": "registrar"
+  },
+  {
+    "q": "cosè l anycast",
+    "expect": "anycast"
+  },
+  {
+    "q": "cf-cache-status dice sempre miss",
+    "expect": "cache-status"
+  },
+  {
+    "q": "a cosa serve un load balancer",
+    "expect": "load-balancer"
+  },
+  {
+    "q": "cosè r2 di cloudflare",
+    "expect": "r2-egress"
+  },
+  {
+    "q": "meglio cloudflare pages o workers",
+    "expect": "pages-workers-functions"
+  },
+  {
+    "q": "aggiungere il mio dominio a cloudflare",
+    "expect": "dominio-su-cloudflare"
+  },
+  {
+    "q": "email gratis sul mio dominio con cloudflare",
+    "expect": "email-routing"
+  },
+  {
+    "q": "passare dmarc a reject senza perdere email",
+    "expect": "dmarc-rollout"
+  },
+  {
+    "q": "redirect da www al dominio nudo",
+    "expect": "www-apex-redirect"
+  },
+  {
+    "q": "pubblicare un sito statico gratis su github pages",
+    "expect": "sito-statico-gratis"
+  },
+  {
+    "q": "hanno trovato l ip dietro cloudflare",
+    "expect": "proteggere-origine"
+  },
+  {
+    "q": "il dns non si è ancora propagato",
+    "expect": "propagazione-dns"
+  },
+  {
+    "q": "come finisco nell ai overview di google",
+    "expect": "ai-overview"
+  },
+  {
+    "q": "checklist seo tecnica di base",
+    "expect": "seo-checklist"
+  },
+  {
+    "q": "a cosa serve il rel canonical",
+    "expect": "canonical-url"
+  },
+  {
+    "q": "hreflang per un sito in due lingue",
+    "expect": "hreflang"
+  },
+  {
+    "q": "l anteprima del link su whatsapp non si vede",
+    "expect": "og-twitter-card"
+  },
+  {
+    "q": "cosè indexnow",
+    "expect": "indexnow"
+  },
+  {
+    "q": "punteggio pagespeed basso ma sito veloce",
+    "expect": "lighthouse"
+  },
+  {
+    "q": "meglio gzip o brotli",
+    "expect": "compressione-web"
+  },
+  {
+    "q": "convertire le immagini in webp o avif",
+    "expect": "webp-avif"
+  },
+  {
+    "q": "google fonts e gdpr",
+    "expect": "font-web"
+  },
+  {
+    "q": "cosè un service worker",
+    "expect": "service-worker-pwa"
+  },
+  {
+    "q": "come si scrive in markdown",
+    "expect": "markdown-sintassi"
+  },
+  {
+    "q": "cosè hugo generatore di siti statici",
+    "expect": "ssg"
+  },
+  {
+    "q": "i comandi git essenziali",
+    "expect": "git-comandi"
+  },
+  {
+    "q": "cosè docker compose",
+    "expect": "docker-compose"
+  },
+  {
+    "q": "sintassi di crontab ogni 5 minuti",
+    "expect": "cron-sintassi"
+  },
+  {
+    "q": "capire le espressioni regolari",
+    "expect": "regex-basi"
+  },
+  {
+    "q": "hanno scoperto l ip origine",
+    "expect": "proteggere-origine"
   }
 ]

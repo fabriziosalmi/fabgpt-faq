@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Regex: le basi che servono a tutti – FabGPT-FAQ</title>
+<meta name="description" content="Le espressioni regolari descrivono pattern di testo, e con dieci simboli si fa quasi tutto: . un carattere qualsiasi · \d cifra · \w…">
+<link rel="canonical" href="https://fabriziosalmi.github.io/fabgpt-faq/q/regex-le-basi-che-servono/">
+<link rel="stylesheet" href="../../style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Regex: le basi che servono a tutti", "acceptedAnswer": {"@type": "Answer", "text": "Le espressioni regolari descrivono pattern di testo, e con dieci simboli si fa quasi tutto: . un carattere qualsiasi · \\d cifra · \\w lettera/cifra/underscore · \\s spazio quantificatori: (0+), + (1+), ? (0 o 1), {2,4} (da 2 a 4) [abc] uno tra questi, [^abc] tutto tranne · ^ inizio e $ fine riga · (...) gruppo, | oppure Esempio letto ad alta voce: ^\\d{2}-\\d{2}$ = \"riga fatta esattamente da due cifre, trattino, due cifre\". Le due lezioni che evitano i dolori: i quantificatori sono golosi (. mangia il più possibile: .? per la versione parca), e l'escape dei caratteri speciali (\\. per un punto vero) è dove nascono i bug silenziosi. Regola igienica: testa sempre su regex101 con casi veri, e commenta la regex per il te stesso del futuro. Sono ovunque nella cassetta degli attrezzi: i filtri di [fail2ban](q/fail2ban-e-alternative/), le regole storiche dei [WAF](q/modsecurity-e-alternative-moderne/) (patterns ne genera a tonnellate), grep e sed. E la nota di sicurezza: su input ostile una regex ingenua può esplodere (ReDoS) – è uno dei motivi per cui zion sfoggia un WAF zero-regex."}}]}</script>
+<style>
+  .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
+  .page h1 { font-size: 26px; line-height: 1.3; margin: 8px 0 20px; }
+  .page .answer a { color: var(--link); }
+  .page .vertical { font-size: 13px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }
+  .page .answer ul { padding-left: 22px; }
+  .page .answer code { background: var(--code-bg); border-radius: 5px; padding: 1px 5px; font-size: 0.9em; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+  .page .ask { display: inline-block; margin-top: 24px; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 9px 18px; text-decoration: none; font-weight: 600; }
+  .page .related { margin-top: 36px; border-top: 1px solid var(--border); padding-top: 18px; }
+  .page .related h2 { font-size: 16px; }
+  .page .related a { color: var(--link); text-decoration: none; }
+  .page .related a:hover { text-decoration: underline; }
+  .page .related li { margin: 6px 0; }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="../../" style="text-decoration:none;color:inherit">
+    <span class="brand-dot">F</span>
+    <span class="brand-name">FabGPT-FAQ</span>
+  </a>
+</header>
+<main class="page">
+  <div class="vertical">Strumenti e app</div>
+  <h1>Regex: le basi che servono a tutti</h1>
+  <div class="answer"><p>Le <strong>espressioni regolari</strong> descrivono pattern di testo, e con dieci simboli si fa quasi tutto:</p><ul><li><code>.</code> un carattere qualsiasi · <code>\d</code> cifra · <code>\w</code> lettera/cifra/underscore · <code>\s</code> spazio</li><li>quantificatori: <code>*</code> (0+), <code>+</code> (1+), <code>?</code> (0 o 1), <code>{2,4}</code> (da 2 a 4)</li><li><code>[abc]</code> uno tra questi, <code>[^abc]</code> tutto tranne · <code>^</code> inizio e <code>$</code> fine riga · <code>(...)</code> gruppo, <code>|</code> oppure</li></ul><p>Esempio letto ad alta voce: <code>^\d{2}-\d{2}$</code> = &quot;riga fatta esattamente da due cifre, trattino, due cifre&quot;. Le due lezioni che evitano i dolori: i quantificatori sono <strong>golosi</strong> (<code>.<em></code> mangia il più possibile: <code>.</em>?</code> per la versione parca), e l&#x27;<strong>escape</strong> dei caratteri speciali (<code>\.</code> per un punto vero) è dove nascono i bug silenziosi. Regola igienica: testa sempre su regex101 con casi veri, e commenta la regex per il te stesso del futuro.</p><p>Sono ovunque nella cassetta degli attrezzi: i filtri di <a href="../fail2ban-e-alternative/">fail2ban</a>, le regole storiche dei <a href="../modsecurity-e-alternative-moderne/">WAF</a> (<a href="https://github.com/fabriziosalmi/patterns" target="_blank" rel="noopener">patterns</a> ne genera a tonnellate), grep e sed. E la nota di sicurezza: su input ostile una regex ingenua può esplodere (ReDoS) – è uno dei motivi per cui <a href="https://github.com/fabriziosalmi/zion" target="_blank" rel="noopener">zion</a> sfoggia un WAF <em>zero-regex</em>.</p></div>
+  <a class="ask" href="../../?q=regex-basi">Chiedilo a FabGPT-FAQ →</a>
+  <div class="related">
+    <h2>Altre domande</h2>
+    <ul><li><a href="../cosa-sono-i-core-web-vitals/">Cosa sono i Core Web Vitals (LCP, INP, CLS)?</a></li><li><a href="../come-funziona-robots-txt/">Come funziona il file robots.txt?</a></li><li><a href="../cos-e-il-file-llms-txt/">Cos&#x27;è il file llms.txt?</a></li><li><a href="../json-ld-schema-org-seo/">Cos&#x27;è JSON-LD (schema.org) e a cosa serve per la SEO?</a></li><li><a href="../a-cosa-serve-la-sitemap/">A cosa serve la sitemap.xml?</a></li><li><a href="../quali-favicon-servono/">Quali formati di favicon servono davvero?</a></li></ul>
+  </div>
+</main>
+</body>
+</html>

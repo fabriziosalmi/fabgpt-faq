@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cos&#x27;è un service worker (e una PWA)? – FabGPT-FAQ</title>
+<meta name="description" content="Un service worker è uno script che il browser installa tra il sito e la rete: intercetta le richieste della pagina e può rispondere dalla cache, instradare,…">
+<link rel="canonical" href="https://fabriziosalmi.github.io/fabgpt-faq/q/service-worker-e-pwa/">
+<link rel="stylesheet" href="../../style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Cos'è un service worker (e una PWA)?", "acceptedAnswer": {"@type": "Answer", "text": "Un service worker è uno script che il browser installa tra il sito e la rete: intercetta le richieste della pagina e può rispondere dalla cache, instradare, sincronizzare in background. È il mattone che rende un sito capace di funzionare offline e di caricare istantaneo alle visite successive. Una PWA (Progressive Web App) è un sito che, grazie a service worker + web manifest (nome, [icone](q/quali-favicon-servono/), colori), diventa \"installabile\": icona in home, finestra propria, esperienza da app senza app store. Gli onesti avvertimenti da chi ci è passato: la potenza del service worker è anche la sua trappola – una cache sbagliata serve il sito vecchio per sempre (la strategia di update va progettata: stale-while-revalidate e versioning degli asset sono i tuoi amici); il debugging è un mestiere a parte (DevTools → Application); e non tutto merita una PWA – per un sito di contenuti, [HTTP ben cacheato](q/cache-hit-miss-bypass-cdn/) fa il 90% del lavoro con il 10% della complessità. Per un'app usata ogni giorno, invece, cambia la vita."}}]}</script>
+<style>
+  .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
+  .page h1 { font-size: 26px; line-height: 1.3; margin: 8px 0 20px; }
+  .page .answer a { color: var(--link); }
+  .page .vertical { font-size: 13px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }
+  .page .answer ul { padding-left: 22px; }
+  .page .answer code { background: var(--code-bg); border-radius: 5px; padding: 1px 5px; font-size: 0.9em; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+  .page .ask { display: inline-block; margin-top: 24px; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 9px 18px; text-decoration: none; font-weight: 600; }
+  .page .related { margin-top: 36px; border-top: 1px solid var(--border); padding-top: 18px; }
+  .page .related h2 { font-size: 16px; }
+  .page .related a { color: var(--link); text-decoration: none; }
+  .page .related a:hover { text-decoration: underline; }
+  .page .related li { margin: 6px 0; }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="../../" style="text-decoration:none;color:inherit">
+    <span class="brand-dot">F</span>
+    <span class="brand-name">FabGPT-FAQ</span>
+  </a>
+</header>
+<main class="page">
+  <div class="vertical">Strumenti e app</div>
+  <h1>Cos&#x27;è un service worker (e una PWA)?</h1>
+  <div class="answer"><p>Un <strong>service worker</strong> è uno script che il browser installa <em>tra</em> il sito e la rete: intercetta le richieste della pagina e può rispondere dalla cache, instradare, sincronizzare in background. È il mattone che rende un sito <strong>capace di funzionare offline</strong> e di caricare istantaneo alle visite successive.</p><p>Una <strong>PWA</strong> (Progressive Web App) è un sito che, grazie a service worker + <strong>web manifest</strong> (nome, <a href="../quali-favicon-servono/">icone</a>, colori), diventa &quot;installabile&quot;: icona in home, finestra propria, esperienza da app senza app store.</p><p>Gli onesti avvertimenti da chi ci è passato: la potenza del service worker è anche la sua trappola – una <strong>cache sbagliata serve il sito vecchio per sempre</strong> (la strategia di update va progettata: <code>stale-while-revalidate</code> e versioning degli asset sono i tuoi amici); il debugging è un mestiere a parte (DevTools → Application); e non tutto merita una PWA – per un sito di contenuti, <a href="../cache-hit-miss-bypass-cdn/">HTTP ben cacheato</a> fa il 90% del lavoro con il 10% della complessità. Per un&#x27;app usata ogni giorno, invece, cambia la vita.</p></div>
+  <a class="ask" href="../../?q=service-worker-pwa">Chiedilo a FabGPT-FAQ →</a>
+  <div class="related">
+    <h2>Altre domande</h2>
+    <ul><li><a href="../cosa-sono-i-core-web-vitals/">Cosa sono i Core Web Vitals (LCP, INP, CLS)?</a></li><li><a href="../come-funziona-robots-txt/">Come funziona il file robots.txt?</a></li><li><a href="../cos-e-il-file-llms-txt/">Cos&#x27;è il file llms.txt?</a></li><li><a href="../json-ld-schema-org-seo/">Cos&#x27;è JSON-LD (schema.org) e a cosa serve per la SEO?</a></li><li><a href="../a-cosa-serve-la-sitemap/">A cosa serve la sitemap.xml?</a></li><li><a href="../quali-favicon-servono/">Quali formati di favicon servono davvero?</a></li></ul>
+  </div>
+</main>
+</body>
+</html>

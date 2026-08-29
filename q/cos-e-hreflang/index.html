@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cos&#x27;è l&#x27;hreflang (siti multilingua fatti bene)? – FabGPT-FAQ</title>
+<meta name="description" content="L&#x27;hreflang dice ai motori quali versioni linguistiche della stessa pagina esistono e per chi: it per l&#x27;italiano, en-GB vs en-US quando la distinzione conta,…">
+<link rel="canonical" href="https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-hreflang/">
+<link rel="stylesheet" href="../../style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Cos'è l'hreflang (siti multilingua fatti bene)?", "acceptedAnswer": {"@type": "Answer", "text": "L'hreflang dice ai motori quali versioni linguistiche della stessa pagina esistono e per chi: it per l'italiano, en-GB vs en-US quando la distinzione conta, e x-default per il resto del mondo (tipicamente la pagina di scelta lingua o l'inglese). Senza, Google può servire la versione sbagliata o trattare le lingue come duplicati. Le regole che evitano il caos: reciprocità obbligatoria: se la pagina IT dichiara la EN, la EN deve dichiarare la IT (e ognuna anche se stessa) – i set non ricambiati vengono ignorati in silenzio, ed è l'errore n°1 si implementa nei <link> in pagina oppure nella [sitemap](q/a-cosa-serve-la-sitemap/) (più pulito per siti grandi): una via sola, non entrambe a metà hreflang gestisce le varianti della stessa pagina – i contenuti diversi per mercato sono un altro discorso ogni versione resta [canonica di se stessa](q/canonical-url-quando-e-perche/): hreflang e canonical collaborano, non si sostituiscono E la domanda da farsi prima del markup: la traduzione c'è davvero? Un sito mezzo tradotto con hreflang perfetto resta un sito mezzo tradotto."}}]}</script>
+<style>
+  .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
+  .page h1 { font-size: 26px; line-height: 1.3; margin: 8px 0 20px; }
+  .page .answer a { color: var(--link); }
+  .page .vertical { font-size: 13px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }
+  .page .answer ul { padding-left: 22px; }
+  .page .answer code { background: var(--code-bg); border-radius: 5px; padding: 1px 5px; font-size: 0.9em; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+  .page .ask { display: inline-block; margin-top: 24px; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 9px 18px; text-decoration: none; font-weight: 600; }
+  .page .related { margin-top: 36px; border-top: 1px solid var(--border); padding-top: 18px; }
+  .page .related h2 { font-size: 16px; }
+  .page .related a { color: var(--link); text-decoration: none; }
+  .page .related a:hover { text-decoration: underline; }
+  .page .related li { margin: 6px 0; }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="../../" style="text-decoration:none;color:inherit">
+    <span class="brand-dot">F</span>
+    <span class="brand-name">FabGPT-FAQ</span>
+  </a>
+</header>
+<main class="page">
+  <div class="vertical">Strumenti e app</div>
+  <h1>Cos&#x27;è l&#x27;hreflang (siti multilingua fatti bene)?</h1>
+  <div class="answer"><p>L&#x27;<strong>hreflang</strong> dice ai motori quali versioni linguistiche della stessa pagina esistono e per chi: <code>it</code> per l&#x27;italiano, <code>en-GB</code> vs <code>en-US</code> quando la distinzione conta, e <strong><code>x-default</code></strong> per il resto del mondo (tipicamente la pagina di scelta lingua o l&#x27;inglese). Senza, Google può servire la versione sbagliata o trattare le lingue come duplicati.</p><p>Le regole che evitano il caos:</p><ul><li><strong>reciprocità obbligatoria</strong>: se la pagina IT dichiara la EN, la EN deve dichiarare la IT (e ognuna anche se stessa) – i set non ricambiati vengono ignorati in silenzio, ed è l&#x27;errore n°1</li><li>si implementa nei <code>&lt;link&gt;</code> in pagina <strong>oppure</strong> nella <a href="../a-cosa-serve-la-sitemap/">sitemap</a> (più pulito per siti grandi): una via sola, non entrambe a metà</li><li>hreflang gestisce le <em>varianti della stessa pagina</em> – i contenuti diversi per mercato sono un altro discorso</li><li>ogni versione resta <a href="../canonical-url-quando-e-perche/">canonica di se stessa</a>: hreflang e canonical collaborano, non si sostituiscono</li></ul><p>E la domanda da farsi prima del markup: la traduzione c&#x27;è davvero? Un sito mezzo tradotto con hreflang perfetto resta un sito mezzo tradotto.</p></div>
+  <a class="ask" href="../../?q=hreflang">Chiedilo a FabGPT-FAQ →</a>
+  <div class="related">
+    <h2>Altre domande</h2>
+    <ul><li><a href="../cosa-sono-i-core-web-vitals/">Cosa sono i Core Web Vitals (LCP, INP, CLS)?</a></li><li><a href="../come-funziona-robots-txt/">Come funziona il file robots.txt?</a></li><li><a href="../cos-e-il-file-llms-txt/">Cos&#x27;è il file llms.txt?</a></li><li><a href="../json-ld-schema-org-seo/">Cos&#x27;è JSON-LD (schema.org) e a cosa serve per la SEO?</a></li><li><a href="../a-cosa-serve-la-sitemap/">A cosa serve la sitemap.xml?</a></li><li><a href="../quali-favicon-servono/">Quali formati di favicon servono davvero?</a></li></ul>
+  </div>
+</main>
+</body>
+</html>

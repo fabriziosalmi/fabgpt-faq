@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cos&#x27;è l&#x27;anycast? – FabGPT-FAQ</title>
+<meta name="description" content="Con l&#x27;anycast, lo stesso indirizzo IP è annunciato via BGP da decine di datacenter contemporaneamente: la rete instrada ogni utente al nodo più &quot;vicino&quot; in…">
+<link rel="canonical" href="https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-l-anycast/">
+<link rel="stylesheet" href="../../style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Cos'è l'anycast?", "acceptedAnswer": {"@type": "Answer", "text": "Con l'anycast, lo stesso indirizzo IP è annunciato via BGP da decine di datacenter contemporaneamente: la rete instrada ogni utente al nodo più \"vicino\" in termini di routing. È il motivo per cui 1.1.1.1 risponde in 5 ms da Milano e da Tokyo – non è un server, è centinaia che condividono l'identità. Due superpoteri ne derivano: latenza: ognuno parla col nodo dietro l'angolo, senza geolocalizzazione esplicita – è il cuore di [CDN](q/cos-e-una-cdn/) e resolver pubblici assorbimento dei [DDoS](q/cos-e-un-attacco-ddos/): un attacco da mille reti diverse si spalma naturalmente su tutta la rete anycast invece di concentrarsi su un bersaglio – ogni nodo riceve solo la fetta locale. È il motivo strutturale per cui [l'anti-DDoS di Cloudflare](q/cloudflare-o-self-hosted/) non si replica in casa Il limite: l'anycast ama i protocolli senza stato (DNS, HTTP dietro terminazione TLS); le connessioni lunghe richiedono accorgimenti, perché il routing può cambiare strada."}}]}</script>
+<style>
+  .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
+  .page h1 { font-size: 26px; line-height: 1.3; margin: 8px 0 20px; }
+  .page .answer a { color: var(--link); }
+  .page .vertical { font-size: 13px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }
+  .page .answer ul { padding-left: 22px; }
+  .page .answer code { background: var(--code-bg); border-radius: 5px; padding: 1px 5px; font-size: 0.9em; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+  .page .ask { display: inline-block; margin-top: 24px; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 9px 18px; text-decoration: none; font-weight: 600; }
+  .page .related { margin-top: 36px; border-top: 1px solid var(--border); padding-top: 18px; }
+  .page .related h2 { font-size: 16px; }
+  .page .related a { color: var(--link); text-decoration: none; }
+  .page .related a:hover { text-decoration: underline; }
+  .page .related li { margin: 6px 0; }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="../../" style="text-decoration:none;color:inherit">
+    <span class="brand-dot">F</span>
+    <span class="brand-name">FabGPT-FAQ</span>
+  </a>
+</header>
+<main class="page">
+  <div class="vertical">Cloudflare</div>
+  <h1>Cos&#x27;è l&#x27;anycast?</h1>
+  <div class="answer"><p>Con l&#x27;<strong>anycast</strong>, lo stesso indirizzo IP è annunciato via BGP da <strong>decine di datacenter contemporaneamente</strong>: la rete instrada ogni utente al nodo più &quot;vicino&quot; in termini di routing. È il motivo per cui <code>1.1.1.1</code> risponde in 5 ms da Milano e da Tokyo – non è un server, è centinaia che condividono l&#x27;identità.</p><p>Due superpoteri ne derivano:</p><ul><li><strong>latenza</strong>: ognuno parla col nodo dietro l&#x27;angolo, senza geolocalizzazione esplicita – è il cuore di <a href="../cos-e-una-cdn/">CDN</a> e resolver pubblici</li><li><strong>assorbimento dei <a href="../cos-e-un-attacco-ddos/">DDoS</a></strong>: un attacco da mille reti diverse si spalma naturalmente su tutta la rete anycast invece di concentrarsi su un bersaglio – ogni nodo riceve solo la fetta locale. È il motivo strutturale per cui <a href="../cloudflare-o-self-hosted/">l&#x27;anti-DDoS di Cloudflare</a> non si replica in casa</li></ul><p>Il limite: l&#x27;anycast ama i protocolli senza stato (DNS, HTTP dietro terminazione TLS); le connessioni lunghe richiedono accorgimenti, perché il routing può cambiare strada.</p></div>
+  <a class="ask" href="../../?q=anycast">Chiedilo a FabGPT-FAQ →</a>
+  <div class="related">
+    <h2>Altre domande</h2>
+    <ul><li><a href="../cos-e-gitops/">Cos&#x27;è GitOps e perché conviene?</a></li><li><a href="../cos-e-la-sovranita-digitale/">Cos&#x27;è la sovranità digitale e perché le aziende europee ci tengono?</a></li><li><a href="../cos-e-una-cdn/">Cos&#x27;è una CDN e quando serve davvero?</a></li><li><a href="../tipi-di-record-dns/">Quali sono i tipi di record DNS (A, CNAME, MX, TXT)?</a></li><li><a href="../cos-e-il-ttl-dns/">Cos&#x27;è il TTL dei record DNS?</a></li><li><a href="../nuvoletta-arancione-cloudflare/">Cosa fa la nuvoletta arancione di Cloudflare (proxy on/off)?</a></li></ul>
+  </div>
+</main>
+</body>
+</html>

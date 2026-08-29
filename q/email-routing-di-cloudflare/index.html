@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Come si configura l&#x27;email routing di Cloudflare? – FabGPT-FAQ</title>
+<meta name="description" content="L&#x27;Email Routing di Cloudflare dà indirizzi sul tuo dominio gratis, senza mailbox: info@tuodominio.it inoltra alla casella che già usi. Dal pannello: Email →…">
+<link rel="canonical" href="https://fabriziosalmi.github.io/fabgpt-faq/q/email-routing-di-cloudflare/">
+<link rel="stylesheet" href="../../style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Come si configura l'email routing di Cloudflare?", "acceptedAnswer": {"@type": "Answer", "text": "L'Email Routing di Cloudflare dà indirizzi sul tuo dominio gratis, senza mailbox: info@tuodominio.it inoltra alla casella che già usi. Dal pannello: Email → Routing, crea gli indirizzi (o un catch-all per tutto-ciò-che-arriva), verifica la destinazione, e lascia che configuri da solo MX e SPF. Le cose da sapere prima di affezionarsi: è solo ricezione: per inviare come info@... serve altro – l'SMTP del tuo provider di posta con l'alias verificato, o un servizio transazionale. E l'invio serio pretende [SPF, DKIM e DMARC](q/spf-dkim-dmarc/) a posto il catch-all è comodo e ha un lato igienico: un alias per servizio (amazon@, banca@) smaschera [chi rivende o perde](q/scoprire-dati-in-un-data-breach/) il tuo indirizzo i worker di posta permettono filtri e logiche custom sulla ricezione Per una persona o un progetto è perfetto; per un'azienda con caselle vere, retention e obblighi, serve un provider di posta pieno – l'inoltro non è un archivio."}}]}</script>
+<style>
+  .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
+  .page h1 { font-size: 26px; line-height: 1.3; margin: 8px 0 20px; }
+  .page .answer a { color: var(--link); }
+  .page .vertical { font-size: 13px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }
+  .page .answer ul { padding-left: 22px; }
+  .page .answer code { background: var(--code-bg); border-radius: 5px; padding: 1px 5px; font-size: 0.9em; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+  .page .ask { display: inline-block; margin-top: 24px; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 9px 18px; text-decoration: none; font-weight: 600; }
+  .page .related { margin-top: 36px; border-top: 1px solid var(--border); padding-top: 18px; }
+  .page .related h2 { font-size: 16px; }
+  .page .related a { color: var(--link); text-decoration: none; }
+  .page .related a:hover { text-decoration: underline; }
+  .page .related li { margin: 6px 0; }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="../../" style="text-decoration:none;color:inherit">
+    <span class="brand-dot">F</span>
+    <span class="brand-name">FabGPT-FAQ</span>
+  </a>
+</header>
+<main class="page">
+  <div class="vertical">Cloudflare</div>
+  <h1>Come si configura l&#x27;email routing di Cloudflare?</h1>
+  <div class="answer"><p>L&#x27;<strong>Email Routing</strong> di Cloudflare dà indirizzi sul tuo dominio <strong>gratis, senza mailbox</strong>: <code>info@tuodominio.it</code> inoltra alla casella che già usi. Dal pannello: Email → Routing, crea gli indirizzi (o un <strong>catch-all</strong> per tutto-ciò-che-arriva), verifica la destinazione, e lascia che configuri da solo MX e SPF.</p><p>Le cose da sapere prima di affezionarsi:</p><ul><li>è <strong>solo ricezione</strong>: per <em>inviare</em> come <code>info@...</code> serve altro – l&#x27;SMTP del tuo provider di posta con l&#x27;alias verificato, o un servizio transazionale. E l&#x27;invio serio pretende <a href="../spf-dkim-dmarc/">SPF, DKIM e DMARC</a> a posto</li><li>il catch-all è comodo e ha un lato igienico: un alias per servizio (<code>amazon@</code>, <code>banca@</code>) smaschera <a href="../scoprire-dati-in-un-data-breach/">chi rivende o perde</a> il tuo indirizzo</li><li>i <strong>worker di posta</strong> permettono filtri e logiche custom sulla ricezione</li></ul><p>Per una persona o un progetto è perfetto; per un&#x27;azienda con caselle vere, retention e obblighi, serve un provider di posta pieno – l&#x27;inoltro non è un archivio.</p></div>
+  <a class="ask" href="../../?q=email-routing">Chiedilo a FabGPT-FAQ →</a>
+  <div class="related">
+    <h2>Altre domande</h2>
+    <ul><li><a href="../cos-e-gitops/">Cos&#x27;è GitOps e perché conviene?</a></li><li><a href="../cos-e-la-sovranita-digitale/">Cos&#x27;è la sovranità digitale e perché le aziende europee ci tengono?</a></li><li><a href="../cos-e-una-cdn/">Cos&#x27;è una CDN e quando serve davvero?</a></li><li><a href="../tipi-di-record-dns/">Quali sono i tipi di record DNS (A, CNAME, MX, TXT)?</a></li><li><a href="../cos-e-il-ttl-dns/">Cos&#x27;è il TTL dei record DNS?</a></li><li><a href="../nuvoletta-arancione-cloudflare/">Cosa fa la nuvoletta arancione di Cloudflare (proxy on/off)?</a></li></ul>
+  </div>
+</main>
+</body>
+</html>

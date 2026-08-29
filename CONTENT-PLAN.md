@@ -265,25 +265,25 @@ Working rules (learned so far):
 - [B1] Cosa sono i Cloudflare Workers?
 - [B1] Cos'è Cloudflare Turnstile?
 - [B1] Cosa sono SPF, DKIM e DMARC?
-- Cos'è un registrar (e il transfer di un dominio)?
-- Cos'è l'anycast?
-- Cache HIT, MISS, BYPASS: leggere le risposte di una CDN
-- Cos'è un load balancer?
-- Cos'è il rate limiting a livello edge?
-- Cos'è mTLS per le API (Cloudflare Access)?
-- Cos'è R2 (e l'egress gratuito)?
-- Pages vs Workers vs Functions: quale usare
+- [B5] Cos'è un registrar (e il transfer di un dominio)?
+- [B5] Cos'è l'anycast?
+- [B5] Cache HIT, MISS, BYPASS: leggere le risposte di una CDN
+- [B5] Cos'è un load balancer?
+- [merged: coperto da limits + errore-429] Cos'è il rate limiting a livello edge?
+- [merged: coperto da mTLS in B2] Cos'è mTLS per le API (Cloudflare Access)?
+- [B5] Cos'è R2 (e l'egress gratuito)?
+- [B5] Pages vs Workers vs Functions: quale usare
 
 ### How-to / email
 
 - [B1] Perché le mie email finiscono in spam?
-- Come si configura un dominio su Cloudflare da zero
-- Come si configura l'email routing di Cloudflare
-- Come si imposta DMARC senza rompere la posta
-- Come si fa un redirect www → apex (e viceversa)
-- Come si serve un sito statico gratis (Pages/GitHub Pages)
-- Come si protegge un'origine dietro Cloudflare (IP nascosto)
-- Come si diagnostica la propagazione DNS
+- [B5] Come si configura un dominio su Cloudflare da zero
+- [B5] Come si configura l'email routing di Cloudflare
+- [B5] Come si imposta DMARC senza rompere la posta
+- [B5] Come si fa un redirect www → apex (e viceversa)
+- [B5] Come si serve un sito statico gratis (Pages/GitHub Pages)
+- [B5] Come si protegge un'origine dietro Cloudflare (IP nascosto)
+- [B5] Come si diagnostica la propagazione DNS
 
 ## Strumenti, web ops e SEO tecnica
 
@@ -293,23 +293,23 @@ Working rules (learned so far):
 - [B1] Cos'è JSON-LD / schema.org e a cosa serve?
 - [B1] A cosa serve la sitemap.xml?
 - [B1] Quali formati di favicon servono nel 2026?
-- Cos'è l'AI Overview di Google (e come ci si finisce)?
-- SEO tecnica: il checklist minimo di un sito
-- Canonical URL: quando e perché
-- Cos'è l'hreflang?
-- Open Graph e Twitter Card: le anteprime social
-- Cos'è IndexNow?
-- Lighthouse e PageSpeed: come leggerli
-- Compressione: gzip vs brotli vs zstd
-- WebP vs AVIF: formati immagine moderni
-- Font web: performance e privacy (self-hosting)
-- Cos'è un service worker (e la PWA)?
-- Markdown: la sintassi essenziale
-- Cos'è un site generator statico (SSG)?
-- Git: i comandi che usi davvero
-- Cos'è Docker Compose?
-- Cron: la sintassi spiegata
-- Regex: le basi che servono a tutti
+- [B5] Cos'è l'AI Overview di Google (e come ci si finisce)?
+- [B5] SEO tecnica: il checklist minimo di un sito
+- [B5] Canonical URL: quando e perché
+- [B5] Cos'è l'hreflang?
+- [B5] Open Graph e Twitter Card: le anteprime social
+- [B5] Cos'è IndexNow?
+- [B5] Lighthouse e PageSpeed: come leggerli
+- [B5] Compressione: gzip vs brotli vs zstd
+- [B5] WebP vs AVIF: formati immagine moderni
+- [B5] Font web: performance e privacy (self-hosting)
+- [B5] Cos'è un service worker (e la PWA)?
+- [B5] Markdown: la sintassi essenziale
+- [B5] Cos'è un site generator statico (SSG)?
+- [B5] Git: i comandi che usi davvero
+- [B5] Cos'è Docker Compose?
+- [B5] Cron: la sintassi spiegata
+- [B5] Regex: le basi che servono a tutti
 
 ## Musica e creatività
 
@@ -325,6 +325,17 @@ Working rules (learned so far):
 - Web Audio API: fare musica nel browser
 - Come si organizza uno streaming musicale live
 - Storia della free tekno in due paragrafi
+
+## Fase 2 – "livello super" (dopo il primo giro di contenuti)
+
+Richieste di Fab, in ordine:
+
+- **Domande suggerite in relazione al thread**: dopo ogni risposta, 2-3 chip
+  cliccabili con domande correlate (derivate dai link interni della risposta +
+  stesso verticale + storia della conversazione). Cliccare = porre la domanda
+  canonica. Le risposte restano pre-scritte: cambia solo la navigazione.
+- Altre risposte "pronte" contestuali al filo del discorso (follow-up naturali
+  per ogni voce, es. variante "approfondisci" / "esempio pratico").
 
 ## Meta / FabGPT-FAQ
 

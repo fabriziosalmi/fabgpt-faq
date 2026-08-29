@@ -3759,6 +3759,582 @@
       ]
     },
     {
+      "id": "registrar",
+      "slug": "cos-e-un-registrar-e-il-transfer",
+      "question": "Cos'è un registrar (e come si trasferisce un dominio)?",
+      "vertical": "cloudflare",
+      "keywords": [
+        "registrar",
+        "transfer dominio",
+        "trasferire dominio",
+        "auth code",
+        "epp",
+        "codice di trasferimento",
+        "comprare dominio",
+        "rinnovo dominio"
+      ],
+      "answers": [
+        "Il **registrar** è chi ti vende e amministra il dominio (la titolarità, il rinnovo, i [nameserver](q/configurare-dominio-su-cloudflare/)); non va confuso con chi ospita il DNS o il sito – tre ruoli che possono stare da tre fornitori diversi.\n\nIl **transfer** verso un registrar migliore è un diritto: sblocchi il dominio dal pannello attuale, chiedi il **codice EPP/auth code**, lo inserisci dal nuovo registrar e confermi. Regole ICANN da sapere: nei **60 giorni** dopo registrazione o transfer non si ritrasferisce, e il transfer aggiunge un anno di rinnovo (non lo perdi). Prima di partire: [abbassa i TTL](q/cos-e-il-ttl-dns/), esporta la zona DNS e ricrea i record dal nuovo fornitore – il transfer sposta la titolarità, **non** copia il DNS.\n\nCriteri di scelta onesti: prezzo di *rinnovo* (non di primo anno), niente upselling aggressivo, API decente e lock/2FA seri – [il dominio è l'anello da cui pende tutto il resto](q/cos-e-dnssec/). Cloudflare Registrar vende a prezzo di costo; i classici (Porkbun, Gandi, OVH) restano scelte sane."
+      ]
+    },
+    {
+      "id": "anycast",
+      "slug": "cos-e-l-anycast",
+      "question": "Cos'è l'anycast?",
+      "vertical": "cloudflare",
+      "keywords": [
+        "anycast",
+        "stesso ip ovunque",
+        "bgp",
+        "ip globale",
+        "come fa cloudflare",
+        "rete anycast",
+        "unicast"
+      ],
+      "answers": [
+        "Con l'**anycast**, lo stesso indirizzo IP è annunciato via BGP da **decine di datacenter contemporaneamente**: la rete instrada ogni utente al nodo più \"vicino\" in termini di routing. È il motivo per cui `1.1.1.1` risponde in 5 ms da Milano e da Tokyo – non è un server, è centinaia che condividono l'identità.\n\nDue superpoteri ne derivano:\n\n- **latenza**: ognuno parla col nodo dietro l'angolo, senza geolocalizzazione esplicita – è il cuore di [CDN](q/cos-e-una-cdn/) e resolver pubblici\n- **assorbimento dei [DDoS](q/cos-e-un-attacco-ddos/)**: un attacco da mille reti diverse si spalma naturalmente su tutta la rete anycast invece di concentrarsi su un bersaglio – ogni nodo riceve solo la fetta locale. È il motivo strutturale per cui [l'anti-DDoS di Cloudflare](q/cloudflare-o-self-hosted/) non si replica in casa\n\nIl limite: l'anycast ama i protocolli senza stato (DNS, HTTP dietro terminazione TLS); le connessioni lunghe richiedono accorgimenti, perché il routing può cambiare strada."
+      ]
+    },
+    {
+      "id": "cache-status",
+      "slug": "cache-hit-miss-bypass-cdn",
+      "question": "Cache HIT, MISS, BYPASS: come si leggono le risposte di una CDN?",
+      "vertical": "cloudflare",
+      "keywords": [
+        "cache hit",
+        "cache miss",
+        "bypass",
+        "cf-cache-status",
+        "x-cache",
+        "cache",
+        "non va in cache",
+        "expired",
+        "dynamic"
+      ],
+      "answers": [
+        "L'header `CF-Cache-Status` (o `X-Cache` altrove) racconta cosa ha fatto la [CDN](q/cos-e-una-cdn/) con la tua richiesta:\n\n- **HIT** – servita dalla cache edge: l'origine non è stata toccata (l'obiettivo)\n- **MISS** – non c'era: presa dall'origine e *ora* cachata; qualche MISS è fisiologico per nodo/scadenza\n- **EXPIRED / REVALIDATED** – c'era ma scaduta: ricontrollata sull'origine\n- **DYNAMIC** – Cloudflare ha deciso che non si cacha (default per l'**HTML**: sorpresa frequente – di serie CF cacha asset statici, non le pagine)\n- **BYPASS** – qualcosa ha detto di non cachare: `Cache-Control: no-store`, un cookie di sessione, una page rule\n\nChi comanda davvero è **`Cache-Control`** dall'origine (`s-maxage` parla proprio alle CDN) più le regole edge. Il flusso di debug: `curl -sI https://... | grep -i cache` due volte di fila – se la seconda non è HIT, la risposta è negli header che l'origine manda. E per l'HTML statico che *può* stare in cache: cache everything + TTL, o [una cache che controlli tu](https://github.com/fabriziosalmi/zion)."
+      ]
+    },
+    {
+      "id": "load-balancer",
+      "slug": "cos-e-un-load-balancer",
+      "question": "Cos'è un load balancer?",
+      "vertical": "cloudflare",
+      "keywords": [
+        "load balancer",
+        "bilanciatore",
+        "bilanciamento del carico",
+        "round robin",
+        "health check",
+        "failover traffico",
+        "distribuire il traffico"
+      ],
+      "answers": [
+        "Un **load balancer** distribuisce il traffico su più server: scala oltre la singola macchina e, soprattutto, **sopravvive ai guasti** – gli **health check** sondano i backend e il traffico smette di andare verso chi non risponde. Senza health check non è bilanciamento, è roulette.\n\nLe distinzioni utili:\n\n- **L4 vs L7**: a livello di connessione (veloce, cieco) o di richiesta HTTP (può instradare per path/header, terminare TLS – di fatto ogni [reverse proxy](q/cos-e-un-reverse-proxy/) moderno è anche un LB L7: Caddy, Nginx, HAProxy, [zion](https://github.com/fabriziosalmi/zion))\n- **algoritmi**: round robin di base, least-connections quando le richieste pesano diverso, IP-hash quando serve *stickiness* (finché lo stato di sessione non lo togli di mezzo – la cura vera)\n- **il LB stesso è un single point**: si raddoppia (keepalived/VRRP), o si delega al DNS/[anycast](q/cos-e-l-anycast/) – i load balancer gestiti delle CDN fanno failover tra origini con health check inclusi\n\nIn piccolo, su [Proxmox](q/alta-disponibilita-proxmox/): un LXC con HAProxy davanti a due repliche dell'app è l'HA dei poveri che funziona davvero."
+      ]
+    },
+    {
+      "id": "r2-egress",
+      "slug": "cos-e-r2-egress-gratuito",
+      "question": "Cos'è Cloudflare R2 (e perché l'egress gratuito conta)?",
+      "vertical": "cloudflare",
+      "keywords": [
+        "r2",
+        "egress gratuito",
+        "object storage",
+        "s3 compatibile",
+        "bucket",
+        "costi egress",
+        "uscita dati",
+        "alternativa s3"
+      ],
+      "answers": [
+        "**R2** è l'object storage di Cloudflare, **S3-compatibile** (stessi SDK e tool) con la differenza che ha rotto il mercato: **zero costi di egress** – paghi lo spazio e le operazioni, non i gigabyte che escono. Su S3 classico l'egress è la voce che esplode: servire 10 TB al mese di file costa più del loro stoccaggio annuale; su R2, zero.\n\nQuando brilla: asset pubblici e download, backup che *speri di non scaricare mai ma potresti dover scaricare tutto* (il restore da S3 è una fattura, da R2 no), dati letti dai [Workers](q/cosa-sono-i-cloudflare-workers/) sull'edge. Il free tier (10 GB) copre progetti veri.\n\nI contro da adulti: qualche primitiva S3 avanzata manca, e – [il tema di sempre](q/cos-e-la-sovranita-digitale/) – i dati vivono nella giurisdizione di un fornitore USA: per i log a norma o i dati vincolati, [uno storage S3 europeo](https://github.com/fabriziosalmi/rainlogs) (Garage, Hetzner, Scaleway) resta la scelta coerente, egress economico incluso."
+      ]
+    },
+    {
+      "id": "pages-workers-functions",
+      "slug": "pages-workers-o-functions",
+      "question": "Cloudflare Pages, Workers o Functions: quale usare?",
+      "vertical": "cloudflare",
+      "keywords": [
+        "pages",
+        "cloudflare pages",
+        "pages o workers",
+        "functions",
+        "pages functions",
+        "dove pubblico il sito",
+        "sito su cloudflare"
+      ],
+      "answers": [
+        "Tre nomi, meno confusione di quanto sembri:\n\n- **Pages** – hosting per **siti statici** con build da git: push, build automatica, CDN globale, gratis in abbondanza. Se il sito è file ([un SSG](q/cos-e-un-generatore-di-siti-statici/), una SPA), è la risposta\n- **[Workers](q/cosa-sono-i-cloudflare-workers/)** – **codice** sull'edge: API, logica, riscritture. Se non c'è \"un sito\" ma un servizio, è la risposta\n- **Pages Functions** – il ponte: dentro un progetto Pages, la cartella `functions/` diventa Workers instradati per path – il form da processare o la piccola API accanto al sito statico, senza progetto separato\n\nNota di direzione: Cloudflare sta unificando tutto sotto Workers (che oggi servono anche asset statici), quindi la distinzione andrà sfumando. E il consiglio controcorrente di sempre: un sito statico è **portabile per natura** – [GitHub Pages, un VPS con Caddy](q/servire-un-sito-statico-gratis/), qualsiasi cosa lo serve. La comodità di Pages è reale; [il lock-in delle Functions](q/cloudflare-o-self-hosted/) anche."
+      ]
+    },
+    {
+      "id": "dominio-su-cloudflare",
+      "slug": "configurare-dominio-su-cloudflare",
+      "question": "Come si configura un dominio su Cloudflare da zero?",
+      "vertical": "cloudflare",
+      "keywords": [
+        "dominio su cloudflare",
+        "configurare dominio",
+        "nameserver",
+        "cambiare nameserver",
+        "attivare cloudflare",
+        "aggiungere sito cloudflare",
+        "onboarding cloudflare"
+      ],
+      "answers": [
+        "La sequenza senza sorprese:\n\n- aggiungi il sito su Cloudflare: la scansione **importa i record DNS** esistenti – *verificala*, i record esotici sfuggono (confronta con un export della zona dal vecchio pannello)\n- prima del salto: [abbassa i TTL](q/cos-e-il-ttl-dns/) e decidi nuvoletta per nuvoletta – [arancione o grigia](q/nuvoletta-arancione-cloudflare/): la posta (MX e relativi) **grigia sempre**\n- cambia i **nameserver** dal [registrar](q/cos-e-un-registrar-e-il-transfer/) con la coppia assegnata; da lì comanda Cloudflare (attesa: da minuti a ore)\n- subito dopo l'attivazione, i tre punti che evitano i classici guai: **SSL/TLS in Full (strict)** – mai Flexible, [è la fabbrica dei redirect loop](q/err-too-many-redirects/) – con un [certificato vero sull'origine](q/come-funziona-lets-encrypt-acme/); HTTPS forzato; e [l'origine chiusa](q/proteggere-origine-dietro-cloudflare/) ai soli IP di Cloudflare, o la nuvoletta è decorativa\n- attiva [DNSSEC](q/cos-e-dnssec/) (due click + record DS al registrar)\n\nDa lì in poi, [la configurazione merita di vivere in git](q/cos-e-gitops/): [zonecontrol e wafcontrol](q/automatizzare-configurazione-cloudflare/) per zone e WAF, [backup automatici](https://github.com/fabriziosalmi/cloudflare-backup-actions) della zona."
+      ]
+    },
+    {
+      "id": "email-routing",
+      "slug": "email-routing-di-cloudflare",
+      "question": "Come si configura l'email routing di Cloudflare?",
+      "vertical": "cloudflare",
+      "keywords": [
+        "email routing",
+        "inoltro email",
+        "alias email",
+        "email del dominio",
+        "ricevere email dominio",
+        "catch-all",
+        "email gratis dominio"
+      ],
+      "answers": [
+        "L'**Email Routing** di Cloudflare dà indirizzi sul tuo dominio **gratis, senza mailbox**: `info@tuodominio.it` inoltra alla casella che già usi. Dal pannello: Email → Routing, crea gli indirizzi (o un **catch-all** per tutto-ciò-che-arriva), verifica la destinazione, e lascia che configuri da solo MX e SPF.\n\nLe cose da sapere prima di affezionarsi:\n\n- è **solo ricezione**: per *inviare* come `info@...` serve altro – l'SMTP del tuo provider di posta con l'alias verificato, o un servizio transazionale. E l'invio serio pretende [SPF, DKIM e DMARC](q/spf-dkim-dmarc/) a posto\n- il catch-all è comodo e ha un lato igienico: un alias per servizio (`amazon@`, `banca@`) smaschera [chi rivende o perde](q/scoprire-dati-in-un-data-breach/) il tuo indirizzo\n- i **worker di posta** permettono filtri e logiche custom sulla ricezione\n\nPer una persona o un progetto è perfetto; per un'azienda con caselle vere, retention e obblighi, serve un provider di posta pieno – l'inoltro non è un archivio."
+      ]
+    },
+    {
+      "id": "dmarc-rollout",
+      "slug": "dmarc-senza-rompere-la-posta",
+      "question": "Come si imposta DMARC senza rompere la posta?",
+      "vertical": "cloudflare",
+      "keywords": [
+        "dmarc senza rompere",
+        "p none",
+        "p quarantine",
+        "p reject",
+        "rua",
+        "report dmarc",
+        "passare a reject",
+        "rollout dmarc",
+        "percentuale pct"
+      ],
+      "answers": [
+        "Il DMARC rotto non perde attacchi: perde **fatture e newsletter legittime**. La via sicura è graduale:\n\n- **fase 1 – osserva** (`p=none` + `rua=mailto:...`): nessun effetto sulla posta, ma i **report aggregati** ti mostrano *chi* spedisce col tuo dominio – e scopri sempre mittenti dimenticati: il CRM, il gestionale, il modulo del sito. Qualche settimana, con un servizio che renda leggibili gli XML\n- **fase 2 – allinea i legittimi**: ogni mittente vero va messo in regola su [SPF e DKIM](q/spf-dkim-dmarc/) (i servizi seri hanno la pagina \"authenticated domain\" apposta). Attento al limite dei **10 lookup DNS** di SPF: gli include si accumulano e oltre il limite SPF fallisce in silenzio\n- **fase 3 – stringi a tappe**: `p=quarantine` magari con `pct=25` a salire, poi **`p=reject`** quando i report sono puliti da settimane\n\nDa lì: i report restano accesi (le anomalie nuove si vedono lì) e [il monitoraggio continuo](q/monitorare-dominio-ssl-reputazione/) verifica che nessuno tocchi i record. Il premio finale: [niente più spoofing del tuo dominio](q/perche-email-in-spam/), e reputazione che sale."
+      ]
+    },
+    {
+      "id": "www-apex-redirect",
+      "slug": "redirect-www-apex",
+      "question": "Come si fa il redirect www → apex (o viceversa)?",
+      "vertical": "cloudflare",
+      "keywords": [
+        "redirect www",
+        "apex",
+        "dominio nudo",
+        "www o senza www",
+        "301",
+        "redirect",
+        "naked domain",
+        "cname apex"
+      ],
+      "answers": [
+        "Prima la decisione, poi la tecnica: **una sola forma canonica** – `www.example.com` *o* `example.com` – e l'altra fa un **301** verso di lei. Quale? Questione di gusto (l'apex è più pulito; il www è tecnicamente più flessibile per i CNAME): l'importante è sceglierne una e dichiararla anche col [canonical](q/canonical-url-quando-e-perche/).\n\nLe implementazioni tipiche:\n\n- **su Cloudflare**: entrambi i nomi [proxied](q/nuvoletta-arancione-cloudflare/) e una **Redirect Rule** (301, preserva path e query – il redirect che scarta il percorso è un classico da negozio rotto)\n- **su Caddy/Nginx**: un server block per la forma sbagliata che fa solo `redir` 301 alla giusta\n- **su GitHub Pages** e simili: il www si gestisce col CNAME, l'apex con gli IP/ALIAS del provider – [la coppia va comunque testata](q/servire-un-sito-statico-gratis/)\n\nVerifica onesta: `curl -sIL http://example.com | grep -iE 'location|HTTP/'` sulle **quattro** combinazioni (http/https × www/apex) – devono convergere tutte, in un salto solo, sulla forma canonica in HTTPS. Due 301 in fila sono latenza regalata; [un loop](q/err-too-many-redirects/) è un altro capitolo."
+      ]
+    },
+    {
+      "id": "sito-statico-gratis",
+      "slug": "servire-un-sito-statico-gratis",
+      "question": "Come si serve un sito statico gratis (GitHub Pages e alternative)?",
+      "vertical": "cloudflare",
+      "keywords": [
+        "github pages",
+        "hosting gratuito",
+        "sito gratis",
+        "pubblicare sito statico",
+        "hosting statico",
+        "netlify",
+        "dove pubblico il sito statico",
+        "gh-pages"
+      ],
+      "answers": [
+        "Un sito statico si ospita gratis, bene, in almeno tre modi:\n\n- **GitHub Pages** – il repository *è* l'hosting: push sul branch, sito servito, dominio custom con HTTPS automatico. Zero build? Serve i file così come sono; con [un SSG](q/cos-e-un-generatore-di-siti-statici/) ci pensa una Action\n- **Cloudflare Pages** – build da git, CDN più spinta, anteprime per branch e [Functions se serve dinamica](q/pages-workers-o-functions/); repo privati senza pensieri\n- **Netlify e simili** – ergonomia storica, free tier con limiti di banda da leggere\n\nLa verità liberatoria: un sito statico è **portabile per definizione** – gli stessi file si spostano da un hosting all'altro in dieci minuti, quindi la scelta non è mai definitiva. Checklist post-pubblicazione: [redirect www/apex](q/redirect-www-apex/), [security header](q/quali-security-header-servono/) (su Pages si impostano con `_headers` o dal proxy), e [la prova che il sito non chiami terze parti](q/cos-e-un-air-gap/) – su un sito statico, [agssh](https://github.com/fabriziosalmi/agssh) la dà nero su bianco. Questo sito che stai leggendo gira esattamente così: [file statici generati](q/cos-e-fabgpt-come-funziona/), zero backend."
+      ]
+    },
+    {
+      "id": "proteggere-origine",
+      "slug": "proteggere-origine-dietro-cloudflare",
+      "question": "Come si protegge l'origine dietro Cloudflare (IP nascosto davvero)?",
+      "vertical": "cloudflare",
+      "keywords": [
+        "proteggere origine",
+        "origine dietro cloudflare",
+        "origine esposta",
+        "allowlist cloudflare",
+        "ip reali cloudflare",
+        "authenticated origin pulls",
+        "scoprire ip origine",
+        "bypass cloudflare",
+        "ip dietro cloudflare",
+        "ip origine",
+        "origine"
+      ],
+      "answers": [
+        "La [nuvoletta arancione](q/nuvoletta-arancione-cloudflare/) nasconde l'IP dell'origine *nel DNS* – ma se l'origine risponde a chiunque la contatti direttamente, è una tenda, non un muro. Gli attaccanti l'IP lo trovano: storico DNS, [certificati nei CT log](q/come-funziona-lets-encrypt-acme/), un sottodominio grigio dimenticato, l'header di una mail spedita dal server.\n\nLa chiusura vera, a strati:\n\n- **firewall sull'origine**: accetta la 443 **solo dagli IP di Cloudflare** (lista pubblica, da tenere aggiornata via script/[GitOps](q/automatizzare-configurazione-cloudflare/)) – il resto del mondo non deve nemmeno vedere la porta\n- **Authenticated Origin Pulls**: l'origine pretende il [certificato client](q/cos-e-mtls/) di Cloudflare – anche chi arriva dagli IP giusti senza identità resta fuori\n- oppure il taglio netto: **Cloudflare Tunnel** – [nessuna porta in ingresso](q/esporre-servizi-senza-aprire-porte/), l'origine chiama fuori lei\n- igiene di contorno: IP nuovo *dopo* aver chiuso (quello vecchio è già negli archivi), niente record grigi che puntano all'origine, [SSH comunque blindato](q/mettere-in-sicurezza-ssh/)\n\nTest finale: `curl -k https://IP-ORIGINE -H \"Host: tuosito.it\"` da fuori deve **fallire**. Se risponde, il lavoro non è finito."
+      ]
+    },
+    {
+      "id": "propagazione-dns",
+      "slug": "diagnosticare-la-propagazione-dns",
+      "question": "Come si diagnostica la propagazione DNS?",
+      "vertical": "cloudflare",
+      "keywords": [
+        "propagazione",
+        "diagnostica",
+        "dig",
+        "nslookup",
+        "dns non aggiornato",
+        "verificare dns",
+        "dns checker",
+        "record non si aggiorna",
+        "vedo ancora il vecchio sito",
+        "propagato",
+        "dns"
+      ],
+      "answers": [
+        "\"Propagazione\" è un nome fuorviante: nessuno propaga nulla – ci sono solo **cache che scadono** al ritmo del [TTL](q/cos-e-il-ttl-dns/). La diagnosi vera in tre comandi:\n\n- **chiedi all'autoritativo**, saltando ogni cache: `dig example.com @NAMESERVER-AUTORITATIVO` (o `dig +trace`) – se qui il valore è vecchio, non è propagazione: **il record è proprio sbagliato** alla fonte\n- **confronta i resolver pubblici**: `dig @1.1.1.1` vs `dig @8.8.8.8` – valori diversi = cache in scadenza, e il TTL nella risposta dice *quanto manca*\n- **il tuo problema è locale?** Il resolver di casa/azienda e la cache del sistema tengono duro: `resolvectl flush-caches` (o equivalente), o prova da rete mobile\n\nGli strumenti web (dnschecker e simili) mostrano la mappa mondiale delle cache – scenografici, ma i tre comandi sopra rispondono prima. I casi che *sembrano* DNS e non lo sono: [il browser che cachava il redirect](q/err-too-many-redirects/) 301, la [CDN che serve dalla cache](q/cache-hit-miss-bypass-cdn/), il [nameserver cambiato ma con la zona vuota](q/configurare-dominio-su-cloudflare/). Regola d'oro per la prossima volta: [TTL giù il giorno prima](q/cos-e-il-ttl-dns/), cambio, verifica, TTL su."
+      ]
+    },
+    {
+      "id": "ai-overview",
+      "slug": "cos-e-ai-overview-e-come-finirci",
+      "question": "Cos'è l'AI Overview di Google (e come ci si finisce)?",
+      "vertical": "tools",
+      "keywords": [
+        "ai overview",
+        "overview di google",
+        "risposte ai google",
+        "comparire nelle risposte ai",
+        "citato dalle ai",
+        "geo",
+        "generative engine optimization",
+        "answer engine",
+        "sge"
+      ],
+      "answers": [
+        "L'**AI Overview** è la risposta generata che Google mette *sopra* i risultati: sintetizza da un pugno di fonti, le cita, e per molte ricerche diventa l'unica cosa che l'utente legge. Con un effetto collaterale brutale sui click – e un premio nuovo: **essere la fonte citata**.\n\nCome ci si finisce – la disciplina si chiama GEO (Generative Engine Optimization), ed è SEO tecnica con priorità diverse:\n\n- **contenuti a forma di risposta**: titoli-domanda, risposta diretta nei primi paragrafi, un fatto per frase – ciò che si estrae bene si cita volentieri\n- **[dati strutturati](q/json-ld-schema-org-seo/)**: FAQPage, HowTo, Article – il markup è testo già pronto per la macchina\n- le [basi che restano basi](q/seo-tecnica-checklist-minima/): crawlabilità, [sitemap](q/a-cosa-serve-la-sitemap/), pagine-per-domanda con URL puliti, autorevolezza\n- i segnali emergenti: [llms.txt](q/cos-e-il-file-llms-txt/), e la scelta strategica di [non bloccare i crawler AI](q/bloccare-crawler-ai-gptbot/) da cui vuoi essere citato\n\nNon esiste l'opt-in: si può solo diventare la fonte più citabile del proprio argomento. È letteralmente [la scommessa di questo sito](q/cos-e-fabgpt-come-funziona/): una pagina statica per ogni domanda, marcata e scritta per essere estratta."
+      ]
+    },
+    {
+      "id": "seo-checklist",
+      "slug": "seo-tecnica-checklist-minima",
+      "question": "SEO tecnica: la checklist minima di un sito",
+      "vertical": "tools",
+      "keywords": [
+        "seo",
+        "seo tecnica",
+        "checklist seo",
+        "seo di base",
+        "migliorare seo",
+        "posizionamento google",
+        "il sito non si posiziona",
+        "indicizzazione sito"
+      ],
+      "answers": [
+        "Prima dei trucchi, i fondamentali – l'80% dei problemi SEO è qui:\n\n- **crawlabilità**: [robots.txt](q/come-funziona-robots-txt/) che non blocchi per sbaglio, [sitemap](q/a-cosa-serve-la-sitemap/) inviata in Search Console, e Search Console *letta* (dice esattamente cosa Google non digerisce)\n- **una pagina, un intento**: title unici e descrittivi (~60 caratteri), meta description che invogli, un solo H1, URL leggibili\n- **[canonical](q/canonical-url-quando-e-perche/)** dove i duplicati esistono, [una sola forma www/apex](q/redirect-www-apex/), [HTTPS ovunque](q/differenza-http-https-tls/)\n- **prestazioni percepite**: [Core Web Vitals](q/cosa-sono-i-core-web-vitals/) verdi sui dati reali, [immagini moderne](q/webp-o-avif-formati-immagine/), [font che non bloccano](q/font-web-performance-e-privacy/)\n- **link interni**: le pagine orfane non si posizionano – ogni contenuto raggiungibile in pochi click, con anchor sensate\n- **[dati strutturati](q/json-ld-schema-org-seo/)** dove pertinenti, e da quest'anno il pensiero alle [risposte AI](q/cos-e-ai-overview-e-come-finirci/)\n\nMonitoraggio continuo senza dashboard a pagamento: [websites-monitor](https://github.com/fabriziosalmi/websites-monitor) tiene d'occhio SEO, performance e scadenze da GitHub Actions."
+      ]
+    },
+    {
+      "id": "canonical-url",
+      "slug": "canonical-url-quando-e-perche",
+      "question": "Canonical URL: quando serve e perché?",
+      "vertical": "tools",
+      "keywords": [
+        "canonical",
+        "url canonico",
+        "rel canonical",
+        "contenuti duplicati",
+        "duplicati",
+        "stessa pagina due url",
+        "parametri url seo"
+      ],
+      "answers": [
+        "Il tag `<link rel=\"canonical\">` dice ai motori **quale versione di una pagina è quella ufficiale** quando lo stesso contenuto risponde a più URL – e succede più spesso di quanto credi: parametri di tracking (`?utm_...`), [www/apex](q/redirect-www-apex/), http/https, filtri e ordinamenti di listini, versioni stampabili, contenuti ripubblicati.\n\nSenza canonical, i motori scelgono da soli (a volte male) e il valore dei link si **diluisce** tra i duplicati. Le regole:\n\n- **self-canonical su tutto**: ogni pagina dichiara se stessa come canonica, con URL assoluto – costa nulla e disinnesca i parametri a sorpresa\n- il duplicato *vero* punta all'originale – anche **cross-domain** per i contenuti ripubblicati (l'articolo ospitato altrove che punta a casa tua)\n- è un **suggerimento forte, non un ordine**: Google può ignorarlo se i segnali dicono altro; per l'eliminazione certa servono [301](q/redirect-www-apex/) o noindex\n- coerenza col resto: [sitemap](q/a-cosa-serve-la-sitemap/) e link interni devono usare *la stessa* forma canonica, o mandi segnali in guerra tra loro"
+      ]
+    },
+    {
+      "id": "hreflang",
+      "slug": "cos-e-hreflang",
+      "question": "Cos'è l'hreflang (siti multilingua fatti bene)?",
+      "vertical": "tools",
+      "keywords": [
+        "hreflang",
+        "multilingua",
+        "sito in piu lingue",
+        "lingue alternate",
+        "versione inglese",
+        "x-default",
+        "seo internazionale",
+        "geotargeting"
+      ],
+      "answers": [
+        "L'**hreflang** dice ai motori quali versioni linguistiche della stessa pagina esistono e per chi: `it` per l'italiano, `en-GB` vs `en-US` quando la distinzione conta, e **`x-default`** per il resto del mondo (tipicamente la pagina di scelta lingua o l'inglese). Senza, Google può servire la versione sbagliata o trattare le lingue come duplicati.\n\nLe regole che evitano il caos:\n\n- **reciprocità obbligatoria**: se la pagina IT dichiara la EN, la EN deve dichiarare la IT (e ognuna anche se stessa) – i set non ricambiati vengono ignorati in silenzio, ed è l'errore n°1\n- si implementa nei `<link>` in pagina **oppure** nella [sitemap](q/a-cosa-serve-la-sitemap/) (più pulito per siti grandi): una via sola, non entrambe a metà\n- hreflang gestisce le *varianti della stessa pagina* – i contenuti diversi per mercato sono un altro discorso\n- ogni versione resta [canonica di se stessa](q/canonical-url-quando-e-perche/): hreflang e canonical collaborano, non si sostituiscono\n\nE la domanda da farsi prima del markup: la traduzione c'è davvero? Un sito mezzo tradotto con hreflang perfetto resta un sito mezzo tradotto."
+      ]
+    },
+    {
+      "id": "og-twitter-card",
+      "slug": "open-graph-e-anteprime-social",
+      "question": "Open Graph e Twitter Card: come si controllano le anteprime social?",
+      "vertical": "tools",
+      "keywords": [
+        "open graph",
+        "og image",
+        "twitter card",
+        "anteprima link",
+        "anteprima social",
+        "condivisione link",
+        "og title",
+        "anteprima whatsapp",
+        "card social"
+      ],
+      "answers": [
+        "Quando un link finisce su WhatsApp, LinkedIn o X, l'anteprima non è magia: sono i **meta tag Open Graph** letti dalla piattaforma. Il set minimo che copre tutto:\n\n- `og:title`, `og:description`, `og:url` – e **`og:image`**: 1200×630, sotto i 5 MB, **URL assoluto** – è l'anteprima: una pagina senza og:image è un link grigio che nessuno clicca\n- `twitter:card` con valore `summary_large_image` per l'immagine grande su X; il resto lo eredita da OG\n\nGli inciampi classici: immagine dichiarata ma bloccata ([robots](q/come-funziona-robots-txt/), hotlink protection), l'**anteprima cachata** dalla piattaforma che non si aggiorna (ogni social ha il suo debugger/validator per forzare il refresh – LinkedIn Post Inspector, lo Sharing Debugger di Meta), e i siti JS-only dove i bot non eseguono nulla: i meta tag devono stare **nell'HTML servito** – [un motivo in più per lo statico](q/cos-e-un-generatore-di-siti-statici/).\n\nPer generare le immagini social in serie dal proprio brand: [BrandKit](https://github.com/fabriziosalmi/brandkit) sforna i formati giusti da un'immagine sola."
+      ]
+    },
+    {
+      "id": "indexnow",
+      "slug": "cos-e-indexnow",
+      "question": "Cos'è IndexNow?",
+      "vertical": "tools",
+      "keywords": [
+        "indexnow",
+        "notificare i motori",
+        "indicizzazione veloce",
+        "ping motori",
+        "bing indicizzazione",
+        "push url",
+        "indicizzare subito"
+      ],
+      "answers": [
+        "**IndexNow** rovescia il crawling: invece di aspettare che il motore passi, **gli dici tu** quando un URL è nuovo o cambiato – una chiamata HTTP con la lista degli URL e una chiave che dimostra il controllo del sito (un file di verifica nella root). La notifica a un motore aderente si propaga agli altri.\n\nLa verità da sapere subito: aderiscono **Bing, Yandex, Seznam, Naver** – **Google no** (ha il suo Indexing API, limitato a casi specifici). Quindi: non è la scorciatoia per Google, è efficienza per l'ecosistema Bing – che alimenta anche altri motori e [answer engine](q/cos-e-ai-overview-e-come-finirci/), quota di attenzione in crescita.\n\nQuando ripaga: siti con contenuti che nascono o cambiano spesso – e-commerce, notizie, [knowledge base in crescita](q/cos-e-fabgpt-come-funziona/). L'integrazione è banale (molti CMS e SSG hanno il plugin; a mano è una POST nel [flusso di build](q/cos-e-gitops/)), il costo zero: uno di quei segnali che si accendono e si dimenticano. La [sitemap](q/a-cosa-serve-la-sitemap/) resta comunque: IndexNow la integra, non la sostituisce."
+      ]
+    },
+    {
+      "id": "lighthouse",
+      "slug": "lighthouse-e-pagespeed-come-leggerli",
+      "question": "Lighthouse e PageSpeed: come si leggono (senza farsi ingannare)?",
+      "vertical": "tools",
+      "keywords": [
+        "lighthouse",
+        "pagespeed insights",
+        "punteggio pagespeed",
+        "punteggio 100",
+        "lab data",
+        "field data",
+        "test velocita sito",
+        "performance score",
+        "pagespeed"
+      ],
+      "answers": [
+        "PageSpeed Insights mostra **due verità diverse**, e confonderle è l'errore standard:\n\n- i **dati di campo** (in alto): [Core Web Vitals](q/cosa-sono-i-core-web-vitals/) degli **utenti reali** negli ultimi 28 giorni (CrUX) – è *questa* la parte che conta per te e per il ranking. Serve traffico sufficiente perché compaia\n- il **punteggio Lighthouse** (i dati di laboratorio): una simulazione singola su rete e CPU strozzate – preziosa per la *diagnosi* (dice cosa sistemare, voce per voce), pessima come *pagella*: varia da run a run, e non è ciò che Google usa\n\nCome usarli bene: guarda prima il campo (verde? sei a posto, indipendentemente dal punteggio lab); usa il lab per l'elenco delle **opportunità** concrete – immagini, [render blocking](q/font-web-performance-e-privacy/), JS superfluo; e **non inseguire il 100**: da 90 in su i guadagni reali sono spiccioli, e certe ottimizzazioni da benchmark peggiorano l'esperienza vera. Il monitoraggio nel tempo, [automatizzato e gratuito](q/monitorare-siti-web-con-github-actions/), vale più del singolo test del venerdì sera."
+      ]
+    },
+    {
+      "id": "compressione-web",
+      "slug": "gzip-brotli-o-zstd",
+      "question": "Compressione web: gzip, brotli o zstd?",
+      "vertical": "tools",
+      "keywords": [
+        "gzip",
+        "brotli",
+        "zstd",
+        "compressione",
+        "content-encoding",
+        "comprimere risposte",
+        "ridurre peso pagine",
+        "compressione testo"
+      ],
+      "answers": [
+        "Tutto ciò che è testo (HTML, CSS, JS, JSON, SVG) va servito compresso – è il 60-80% di peso in meno, gratis. La gerarchia:\n\n- **gzip** – l'esperanto: ovunque, sempre supportato, il fallback che non manca mai\n- **brotli** – lo standard moderno: **15-20% meglio di gzip** sul testo, supportato da ogni browser; ai livelli alti (9-11) comprime lento, per questo la mossa furba sui [siti statici](q/cos-e-un-generatore-di-siti-statici/) è la **precompressione** in fase di build (file `.br` accanto agli originali, serviti direttamente – Caddy e Nginx lo fanno)\n- **zstd** – il nuovo arrivato: rapporti simili a brotli ma compressione *molto* più veloce, ideale per il dinamico; supporto browser ormai diffuso e [CDN](q/cache-hit-miss-bypass-cdn/) che lo parlano\n\nLe regole di contorno: **mai comprimere le immagini** già compresse ([WebP/AVIF](q/webp-o-avif-formati-immagine/) ci pensano da sole – ricomprimerle spreca CPU per nulla); verifica con `curl -sI -H 'Accept-Encoding: br' | grep -i content-encoding`; e ricorda che la compressione riduce i byte, non [le richieste](q/cosa-sono-i-core-web-vitals/) – l'una non assolve le altre."
+      ]
+    },
+    {
+      "id": "webp-avif",
+      "slug": "webp-o-avif-formati-immagine",
+      "question": "WebP o AVIF: quale formato immagine usare?",
+      "vertical": "tools",
+      "keywords": [
+        "webp",
+        "avif",
+        "formati immagine",
+        "convertire immagini",
+        "immagini pesanti",
+        "jpeg o webp",
+        "ottimizzare immagini",
+        "picture element"
+      ],
+      "answers": [
+        "Le immagini sono quasi sempre il peso maggiore di una pagina, e i formati moderni sono soldi trovati:\n\n- **WebP** – ~25-30% più leggero del JPEG a pari qualità, supporto universale ormai da anni, encoding veloce: il **default sicuro** per tutto\n- **AVIF** – ancora più efficiente (specie a qualità basse e sulle foto), supporto browser ormai completo, ma encoding **lento**: perfetto in build o con CDN che converte, meno per l'upload al volo\n- il pattern che non sbaglia: `<picture>` con AVIF, WebP e fallback classico – ogni browser prende il meglio che capisce\n\nLe regole che valgono più del formato: **dimensioni giuste** (servire 2000px in un riquadro da 400 è il peccato capitale – `srcset` esiste per questo), `width`/`height` dichiarati [contro il layout shift](q/cosa-sono-i-core-web-vitals/), `loading=\"lazy\"` sotto la piega ma **mai sull'immagine principale**. Su WordPress la conversione automatica all'upload la fa [SpeedMate](https://github.com/fabriziosalmi/speedmate); altrove, `cwebp`/`avifenc` [nella pipeline di build](q/cos-e-gitops/)."
+      ]
+    },
+    {
+      "id": "font-web",
+      "slug": "font-web-performance-e-privacy",
+      "question": "Font web: performance e privacy (perché self-hostarli)",
+      "vertical": "tools",
+      "keywords": [
+        "font",
+        "google fonts",
+        "self host font",
+        "woff2",
+        "caricare font",
+        "font-display",
+        "font lenti",
+        "fout",
+        "privacy font"
+      ],
+      "answers": [
+        "I font web hanno due problemi, e una soluzione sola per entrambi:\n\n- **privacy**: caricare da Google Fonts manda l'IP di ogni visitatore a Google – un tribunale tedesco l'ha già dichiarato [problema GDPR](q/gdpr-cosa-serve-a-un-sito-web/) (sentenza di Monaco, 2022). E ogni host esterno è [una chiamata di terze parti in più](q/cos-e-un-air-gap/) da giustificare\n- **performance**: un host esterno costa una connessione in più proprio sul percorso critico del rendering\n\nIl **self-hosting** risolve tutto: scarichi i **woff2** (google-webfonts-helper li impacchetta), li servi dal tuo dominio con `Cache-Control` lungo, `preload` sul font principale e **`font-display: swap`** per non bloccare il testo. Tieni solo i pesi che usi davvero (due, di solito) e valuta i **subset** (latin basta quasi sempre).\n\nLa via ancora più radicale che torna di moda: la **system font stack** – zero download, resa nativa ovunta. [Questo sito](q/cos-e-fabgpt-come-funziona/) fa esattamente così, ed è uno dei motivi per cui [agssh](https://github.com/fabriziosalmi/agssh) gli dà zero chiamate esterne: nessun font da spiegare a nessuno."
+      ]
+    },
+    {
+      "id": "service-worker-pwa",
+      "slug": "service-worker-e-pwa",
+      "question": "Cos'è un service worker (e una PWA)?",
+      "vertical": "tools",
+      "keywords": [
+        "service worker",
+        "pwa",
+        "progressive web app",
+        "offline",
+        "installare sito come app",
+        "web app manifest",
+        "cache offline",
+        "add to home screen"
+      ],
+      "answers": [
+        "Un **service worker** è uno script che il browser installa *tra* il sito e la rete: intercetta le richieste della pagina e può rispondere dalla cache, instradare, sincronizzare in background. È il mattone che rende un sito **capace di funzionare offline** e di caricare istantaneo alle visite successive.\n\nUna **PWA** (Progressive Web App) è un sito che, grazie a service worker + **web manifest** (nome, [icone](q/quali-favicon-servono/), colori), diventa \"installabile\": icona in home, finestra propria, esperienza da app senza app store.\n\nGli onesti avvertimenti da chi ci è passato: la potenza del service worker è anche la sua trappola – una **cache sbagliata serve il sito vecchio per sempre** (la strategia di update va progettata: `stale-while-revalidate` e versioning degli asset sono i tuoi amici); il debugging è un mestiere a parte (DevTools → Application); e non tutto merita una PWA – per un sito di contenuti, [HTTP ben cacheato](q/cache-hit-miss-bypass-cdn/) fa il 90% del lavoro con il 10% della complessità. Per un'app usata ogni giorno, invece, cambia la vita."
+      ]
+    },
+    {
+      "id": "markdown-sintassi",
+      "slug": "markdown-la-sintassi-essenziale",
+      "question": "Markdown: la sintassi essenziale",
+      "vertical": "tools",
+      "keywords": [
+        "markdown",
+        "sintassi markdown",
+        "grassetto asterischi",
+        "scrivere in markdown",
+        "md",
+        "come si scrive markdown",
+        "tabelle markdown"
+      ],
+      "answers": [
+        "**Markdown** è testo semplice con convenzioni leggibili anche da crude: è diventato *la* lingua di README, documentazione, note e chat tecniche. L'essenziale che copre il 95% dell'uso:\n\n- `# Titolo`, `## Sottotitolo` – le intestazioni\n- `**grassetto**`, `*corsivo*`, `` `codice` `` – l'enfasi\n- `- voce` per gli elenchi (numerati: `1.`), `> citazione`\n- `[testo](https://url)` per i link, `![alt](immagine.png)` per le immagini\n- blocchi di codice tra triple backtick (con il linguaggio per l'evidenziazione), tabelle con `|` e trattini\n\nLa filosofia che l'ha fatto vincere: i file `.md` sono **testo puro** – versionabili in git, grepabili, leggibili tra cent'anni senza nessun software particolare. È il formato di [Noted](https://github.com/fabriziosalmi/noted) (note local-first con wikilink), degli [SSG](q/cos-e-un-generatore-di-siti-statici/) che trasformano cartelle di .md in siti, di [llms.txt](q/cos-e-il-file-llms-txt/) – e delle risposte che stai leggendo, [scritte in un markdown minimo](q/cos-e-fabgpt-come-funziona/) e renderizzate da venti righe di codice."
+      ]
+    },
+    {
+      "id": "ssg",
+      "slug": "cos-e-un-generatore-di-siti-statici",
+      "question": "Cos'è un generatore di siti statici (SSG)?",
+      "vertical": "tools",
+      "keywords": [
+        "generatore statico",
+        "ssg",
+        "static site generator",
+        "hugo",
+        "astro",
+        "jekyll",
+        "eleventy",
+        "sito statico da markdown",
+        "generatore siti"
+      ],
+      "answers": [
+        "Un **SSG** trasforma contenuti ([Markdown](q/markdown-la-sintassi-essenziale/), dati) e template in **HTML già pronto**, in fase di build: il risultato sono file statici da mettere [su qualsiasi hosting](q/servire-un-sito-statico-gratis/) – veloci per natura (niente da calcolare a richiesta), sicuri per natura (niente backend da bucare, [superficie d'attacco quasi nulla](q/cos-e-un-air-gap/)), versionati in git.\n\nI nomi: **Hugo** (velocità brutale, binario singolo), **Astro** (il moderno: componenti, zero JS di default), **Eleventy** (flessibile e leggero), **Jekyll** (il nonno, integrato in GitHub Pages). La scelta conta meno della filosofia: contenuto separato dal motore, build riproducibile, deploy = copiare file.\n\nQuando NON basta: contenuti per-utente, ricerca server-side, dati che cambiano al minuto – lì serve del dinamico ([o un filo di edge](q/pages-workers-o-functions/)). Ma la quota di web che potrebbe essere statica e non lo è resta enorme. Confessione in tema: [questo sito](q/cos-e-fabgpt-come-funziona/) è generato da **uno script Python di 200 righe** – un micro-SSG artigianale: la categoria è più semplice di quanto i framework lascino credere."
+      ]
+    },
+    {
+      "id": "git-comandi",
+      "slug": "git-i-comandi-che-usi-davvero",
+      "question": "Git: i comandi che usi davvero",
+      "vertical": "tools",
+      "keywords": [
+        "git",
+        "comandi git",
+        "imparare git",
+        "commit",
+        "branch",
+        "merge",
+        "rebase",
+        "git per iniziare",
+        "stash"
+      ],
+      "answers": [
+        "Git ha centocinquanta comandi; la vita quotidiana ne usa dieci:\n\n- il ciclo: `git status` (sempre, prima di tutto) → `git add -p` (a pezzi, rileggendo) → `git commit -m \"...\"` → `git push` / `git pull`\n- i rami: `git switch -c feature-x` per aprirne uno, `git merge` per riportarlo, `git log --oneline --graph` per capire dove sei\n- i salvataggi: `git stash` quando serve cambiare contesto a mani sporche, `git restore file` per buttare modifiche locali\n- il pentimento: `git revert` annulla *con un nuovo commit* (sicuro, sempre), `git reset` riscrive (solo su ciò che non hai ancora condiviso); **rebase vs merge** in una riga: rebase riordina la storia locale prima di pubblicarla, merge preserva ciò che è già pubblico\n\nLe abitudini che ripagano più dei comandi: commit **piccoli e tematici** con messaggi che spiegano il *perché*, [mai segreti nel repository](q/come-gestire-i-secrets/), e [le firme sui commit](q/come-si-firma-il-codice/) dove conta. Git è anche un ottimo backup distribuito gratuito: [i tuoi appunti](q/app-note-markdown-local-first/), la configurazione, [l'infrastruttura](q/cos-e-gitops/) – tutto ciò che è testo merita un repository."
+      ]
+    },
+    {
+      "id": "docker-compose",
+      "slug": "cos-e-docker-compose",
+      "question": "Cos'è Docker Compose?",
+      "vertical": "tools",
+      "keywords": [
+        "docker compose",
+        "docker",
+        "compose",
+        "container docker",
+        "docker-compose.yml",
+        "up -d",
+        "stack docker",
+        "avviare piu container"
+      ],
+      "answers": [
+        "**Docker Compose** descrive un'applicazione multi-container in **un file YAML**: i servizi (app, database, proxy), le loro immagini, porte, volumi e reti – e `docker compose up -d` tira su tutto, nell'ordine giusto. È il formato in cui il mondo self-hosted **distribuisce il software**: metà dei progetti seri si installa incollando un compose ([NASO](https://github.com/fabriziosalmi/naso), [secure-proxy-manager](https://github.com/fabriziosalmi/secure-proxy-manager), [pdf-ocr](https://github.com/fabriziosalmi/pdf-ocr) inclusi).\n\nLe pratiche che distinguono lo stack sano:\n\n- **volumi nominati** per i dati (i container sono usa-e-getta, [i dati no](q/backup-3-2-1/)), reti separate per isolare ciò che non deve parlarsi\n- versioni **pinnate** delle immagini (`:1.2.3`, mai `:latest` in produzione – [supply chain](q/cos-e-la-supply-chain-security/) docet), segreti via env file [fuori da git](q/come-gestire-i-secrets/)\n- `docker compose logs -f servizio` e `docker compose pull && up -d` per aggiornare: il ciclo di vita completo in tre comandi\n\nNel mondo [Proxmox](q/cos-e-proxmox-ve/), il pattern classico: una VM o [un LXC](q/differenza-container-lxc-e-vm/) \"docker host\" con gli stack compose dentro – [gestibile anche via lws](https://github.com/fabriziosalmi/lws), che parla Proxmox e Docker con la stessa sintassi."
+      ]
+    },
+    {
+      "id": "cron-sintassi",
+      "slug": "cron-la-sintassi-spiegata",
+      "question": "Cron: la sintassi spiegata (finalmente)",
+      "vertical": "tools",
+      "keywords": [
+        "cron",
+        "crontab",
+        "sintassi cron",
+        "pianificare comandi",
+        "ogni 5 minuti",
+        "cron job",
+        "schedulare script",
+        "attivita pianificate linux"
+      ],
+      "answers": [
+        "I cinque campi di **cron**, da sinistra: **minuto, ora, giorno del mese, mese, giorno della settimana** (0=domenica). Il trucco per leggerli: `*` = ogni, `*/5` = ogni 5, `1-5` = intervallo, `1,15` = elenco.\n\nGli esempi che coprono la vita reale:\n\n- `0 3 * * *` – ogni notte alle 3 ([i backup](q/backup-automatici-verso-pbs/), [gli scrub](q/io-delay-alto-proxmox/): di notte, appunto)\n- `*/5 * * * *` – ogni 5 minuti; `0 9 * * 1-5` – alle 9 nei giorni feriali\n- `@reboot` – all'avvio; `@daily` – la scorciatoia leggibile\n\nSi edita con `crontab -e` (per utente). Le trappole che fregano tutti: il **PATH è minimo** (usa percorsi assoluti nei comandi), il `%` va escapato, l'output non visto sparisce – **redirigi in un log** (`>> /var/log/mio.log 2>&1`) o scopri i fallimenti [mesi dopo](q/security-logging-fatto-bene/); e \"giorno del mese\" + \"giorno della settimana\" insieme fanno OR, non AND (sorpresa storica). Per i job che *devono* girare: systemd timer con `Persistent=true` recupera le esecuzioni perse a macchina spenta – cron no."
+      ]
+    },
+    {
+      "id": "regex-basi",
+      "slug": "regex-le-basi-che-servono",
+      "question": "Regex: le basi che servono a tutti",
+      "vertical": "tools",
+      "keywords": [
+        "regex",
+        "espressioni regolari",
+        "regexp",
+        "pattern",
+        "regex per iniziare",
+        "capire una regex",
+        "match testo",
+        "regola regex"
+      ],
+      "answers": [
+        "Le **espressioni regolari** descrivono pattern di testo, e con dieci simboli si fa quasi tutto:\n\n- `.` un carattere qualsiasi · `\\d` cifra · `\\w` lettera/cifra/underscore · `\\s` spazio\n- quantificatori: `*` (0+), `+` (1+), `?` (0 o 1), `{2,4}` (da 2 a 4)\n- `[abc]` uno tra questi, `[^abc]` tutto tranne · `^` inizio e `$` fine riga · `(...)` gruppo, `|` oppure\n\nEsempio letto ad alta voce: `^\\d{2}-\\d{2}$` = \"riga fatta esattamente da due cifre, trattino, due cifre\". Le due lezioni che evitano i dolori: i quantificatori sono **golosi** (`.*` mangia il più possibile: `.*?` per la versione parca), e l'**escape** dei caratteri speciali (`\\.` per un punto vero) è dove nascono i bug silenziosi. Regola igienica: testa sempre su regex101 con casi veri, e commenta la regex per il te stesso del futuro.\n\nSono ovunque nella cassetta degli attrezzi: i filtri di [fail2ban](q/fail2ban-e-alternative/), le regole storiche dei [WAF](q/modsecurity-e-alternative-moderne/) ([patterns](https://github.com/fabriziosalmi/patterns) ne genera a tonnellate), grep e sed. E la nota di sicurezza: su input ostile una regex ingenua può esplodere (ReDoS) – è uno dei motivi per cui [zion](https://github.com/fabriziosalmi/zion) sfoggia un WAF *zero-regex*."
+      ]
+    },
+    {
       "id": "vm-non-parte",
       "slug": "vm-non-parte-proxmox",
       "question": "La VM non parte: i controlli in ordine",

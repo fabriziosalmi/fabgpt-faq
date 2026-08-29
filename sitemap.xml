@@ -205,6 +205,36 @@
   <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/guida-installare-lxc-autoscale/</loc></url>
   <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/guida-installare-vm-autoscale/</loc></url>
   <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/guida-usare-proxxx/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-un-registrar-e-il-transfer/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-l-anycast/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/cache-hit-miss-bypass-cdn/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-un-load-balancer/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-r2-egress-gratuito/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/pages-workers-o-functions/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/configurare-dominio-su-cloudflare/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/email-routing-di-cloudflare/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/dmarc-senza-rompere-la-posta/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/redirect-www-apex/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/servire-un-sito-statico-gratis/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/proteggere-origine-dietro-cloudflare/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/diagnosticare-la-propagazione-dns/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-ai-overview-e-come-finirci/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/seo-tecnica-checklist-minima/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/canonical-url-quando-e-perche/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-hreflang/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/open-graph-e-anteprime-social/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-indexnow/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/lighthouse-e-pagespeed-come-leggerli/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/gzip-brotli-o-zstd/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/webp-o-avif-formati-immagine/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/font-web-performance-e-privacy/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/service-worker-e-pwa/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/markdown-la-sintassi-essenziale/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-un-generatore-di-siti-statici/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/git-i-comandi-che-usi-davvero/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-docker-compose/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/cron-la-sintassi-spiegata/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/regex-le-basi-che-servono/</loc></url>
   <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/vm-non-parte-proxmox/</loc></url>
   <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/nodo-x-rossa-quorum-perso/</loc></url>
   <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/storage-pieno-liberare-spazio/</loc></url>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Come si protegge l&#x27;origine dietro Cloudflare (IP nascosto davvero)? – FabGPT-FAQ</title>
+<meta name="description" content="La [nuvoletta arancione](q/nuvoletta-arancione-cloudflare/) nasconde l&#x27;IP dell&#x27;origine nel DNS – ma se l&#x27;origine risponde a chiunque la contatti…">
+<link rel="canonical" href="https://fabriziosalmi.github.io/fabgpt-faq/q/proteggere-origine-dietro-cloudflare/">
+<link rel="stylesheet" href="../../style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Come si protegge l'origine dietro Cloudflare (IP nascosto davvero)?", "acceptedAnswer": {"@type": "Answer", "text": "La [nuvoletta arancione](q/nuvoletta-arancione-cloudflare/) nasconde l'IP dell'origine nel DNS – ma se l'origine risponde a chiunque la contatti direttamente, è una tenda, non un muro. Gli attaccanti l'IP lo trovano: storico DNS, [certificati nei CT log](q/come-funziona-lets-encrypt-acme/), un sottodominio grigio dimenticato, l'header di una mail spedita dal server. La chiusura vera, a strati: firewall sull'origine: accetta la 443 solo dagli IP di Cloudflare (lista pubblica, da tenere aggiornata via script/[GitOps](q/automatizzare-configurazione-cloudflare/)) – il resto del mondo non deve nemmeno vedere la porta Authenticated Origin Pulls: l'origine pretende il [certificato client](q/cos-e-mtls/) di Cloudflare – anche chi arriva dagli IP giusti senza identità resta fuori oppure il taglio netto: Cloudflare Tunnel – [nessuna porta in ingresso](q/esporre-servizi-senza-aprire-porte/), l'origine chiama fuori lei igiene di contorno: IP nuovo dopo aver chiuso (quello vecchio è già negli archivi), niente record grigi che puntano all'origine, [SSH comunque blindato](q/mettere-in-sicurezza-ssh/) Test finale: curl -k https://IP-ORIGINE -H \"Host: tuosito.it\" da fuori deve fallire. Se risponde, il lavoro non è finito."}}]}</script>
+<style>
+  .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
+  .page h1 { font-size: 26px; line-height: 1.3; margin: 8px 0 20px; }
+  .page .answer a { color: var(--link); }
+  .page .vertical { font-size: 13px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }
+  .page .answer ul { padding-left: 22px; }
+  .page .answer code { background: var(--code-bg); border-radius: 5px; padding: 1px 5px; font-size: 0.9em; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+  .page .ask { display: inline-block; margin-top: 24px; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 9px 18px; text-decoration: none; font-weight: 600; }
+  .page .related { margin-top: 36px; border-top: 1px solid var(--border); padding-top: 18px; }
+  .page .related h2 { font-size: 16px; }
+  .page .related a { color: var(--link); text-decoration: none; }
+  .page .related a:hover { text-decoration: underline; }
+  .page .related li { margin: 6px 0; }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="../../" style="text-decoration:none;color:inherit">
+    <span class="brand-dot">F</span>
+    <span class="brand-name">FabGPT-FAQ</span>
+  </a>
+</header>
+<main class="page">
+  <div class="vertical">Cloudflare</div>
+  <h1>Come si protegge l&#x27;origine dietro Cloudflare (IP nascosto davvero)?</h1>
+  <div class="answer"><p>La <a href="../nuvoletta-arancione-cloudflare/">nuvoletta arancione</a> nasconde l&#x27;IP dell&#x27;origine <em>nel DNS</em> – ma se l&#x27;origine risponde a chiunque la contatti direttamente, è una tenda, non un muro. Gli attaccanti l&#x27;IP lo trovano: storico DNS, <a href="../come-funziona-lets-encrypt-acme/">certificati nei CT log</a>, un sottodominio grigio dimenticato, l&#x27;header di una mail spedita dal server.</p><p>La chiusura vera, a strati:</p><ul><li><strong>firewall sull&#x27;origine</strong>: accetta la 443 <strong>solo dagli IP di Cloudflare</strong> (lista pubblica, da tenere aggiornata via script/<a href="../automatizzare-configurazione-cloudflare/">GitOps</a>) – il resto del mondo non deve nemmeno vedere la porta</li><li><strong>Authenticated Origin Pulls</strong>: l&#x27;origine pretende il <a href="../cos-e-mtls/">certificato client</a> di Cloudflare – anche chi arriva dagli IP giusti senza identità resta fuori</li><li>oppure il taglio netto: <strong>Cloudflare Tunnel</strong> – <a href="../esporre-servizi-senza-aprire-porte/">nessuna porta in ingresso</a>, l&#x27;origine chiama fuori lei</li><li>igiene di contorno: IP nuovo <em>dopo</em> aver chiuso (quello vecchio è già negli archivi), niente record grigi che puntano all&#x27;origine, <a href="../mettere-in-sicurezza-ssh/">SSH comunque blindato</a></li></ul><p>Test finale: <code>curl -k https://IP-ORIGINE -H &quot;Host: tuosito.it&quot;</code> da fuori deve <strong>fallire</strong>. Se risponde, il lavoro non è finito.</p></div>
+  <a class="ask" href="../../?q=proteggere-origine">Chiedilo a FabGPT-FAQ →</a>
+  <div class="related">
+    <h2>Altre domande</h2>
+    <ul><li><a href="../cos-e-gitops/">Cos&#x27;è GitOps e perché conviene?</a></li><li><a href="../cos-e-la-sovranita-digitale/">Cos&#x27;è la sovranità digitale e perché le aziende europee ci tengono?</a></li><li><a href="../cos-e-una-cdn/">Cos&#x27;è una CDN e quando serve davvero?</a></li><li><a href="../tipi-di-record-dns/">Quali sono i tipi di record DNS (A, CNAME, MX, TXT)?</a></li><li><a href="../cos-e-il-ttl-dns/">Cos&#x27;è il TTL dei record DNS?</a></li><li><a href="../nuvoletta-arancione-cloudflare/">Cosa fa la nuvoletta arancione di Cloudflare (proxy on/off)?</a></li></ul>
+  </div>
+</main>
+</body>
+</html>

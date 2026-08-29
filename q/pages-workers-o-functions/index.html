@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cloudflare Pages, Workers o Functions: quale usare? – FabGPT-FAQ</title>
+<meta name="description" content="Tre nomi, meno confusione di quanto sembri: Pages – hosting per siti statici con build da git: push, build automatica, CDN globale, gratis in abbondanza. Se…">
+<link rel="canonical" href="https://fabriziosalmi.github.io/fabgpt-faq/q/pages-workers-o-functions/">
+<link rel="stylesheet" href="../../style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Cloudflare Pages, Workers o Functions: quale usare?", "acceptedAnswer": {"@type": "Answer", "text": "Tre nomi, meno confusione di quanto sembri: Pages – hosting per siti statici con build da git: push, build automatica, CDN globale, gratis in abbondanza. Se il sito è file ([un SSG](q/cos-e-un-generatore-di-siti-statici/), una SPA), è la risposta [Workers](q/cosa-sono-i-cloudflare-workers/) – codice sull'edge: API, logica, riscritture. Se non c'è \"un sito\" ma un servizio, è la risposta Pages Functions – il ponte: dentro un progetto Pages, la cartella functions/ diventa Workers instradati per path – il form da processare o la piccola API accanto al sito statico, senza progetto separato Nota di direzione: Cloudflare sta unificando tutto sotto Workers (che oggi servono anche asset statici), quindi la distinzione andrà sfumando. E il consiglio controcorrente di sempre: un sito statico è portabile per natura – [GitHub Pages, un VPS con Caddy](q/servire-un-sito-statico-gratis/), qualsiasi cosa lo serve. La comodità di Pages è reale; [il lock-in delle Functions](q/cloudflare-o-self-hosted/) anche."}}]}</script>
+<style>
+  .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
+  .page h1 { font-size: 26px; line-height: 1.3; margin: 8px 0 20px; }
+  .page .answer a { color: var(--link); }
+  .page .vertical { font-size: 13px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }
+  .page .answer ul { padding-left: 22px; }
+  .page .answer code { background: var(--code-bg); border-radius: 5px; padding: 1px 5px; font-size: 0.9em; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+  .page .ask { display: inline-block; margin-top: 24px; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 9px 18px; text-decoration: none; font-weight: 600; }
+  .page .related { margin-top: 36px; border-top: 1px solid var(--border); padding-top: 18px; }
+  .page .related h2 { font-size: 16px; }
+  .page .related a { color: var(--link); text-decoration: none; }
+  .page .related a:hover { text-decoration: underline; }
+  .page .related li { margin: 6px 0; }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="../../" style="text-decoration:none;color:inherit">
+    <span class="brand-dot">F</span>
+    <span class="brand-name">FabGPT-FAQ</span>
+  </a>
+</header>
+<main class="page">
+  <div class="vertical">Cloudflare</div>
+  <h1>Cloudflare Pages, Workers o Functions: quale usare?</h1>
+  <div class="answer"><p>Tre nomi, meno confusione di quanto sembri:</p><ul><li><strong>Pages</strong> – hosting per <strong>siti statici</strong> con build da git: push, build automatica, CDN globale, gratis in abbondanza. Se il sito è file (<a href="../cos-e-un-generatore-di-siti-statici/">un SSG</a>, una SPA), è la risposta</li><li><strong><a href="../cosa-sono-i-cloudflare-workers/">Workers</a></strong> – <strong>codice</strong> sull&#x27;edge: API, logica, riscritture. Se non c&#x27;è &quot;un sito&quot; ma un servizio, è la risposta</li><li><strong>Pages Functions</strong> – il ponte: dentro un progetto Pages, la cartella <code>functions/</code> diventa Workers instradati per path – il form da processare o la piccola API accanto al sito statico, senza progetto separato</li></ul><p>Nota di direzione: Cloudflare sta unificando tutto sotto Workers (che oggi servono anche asset statici), quindi la distinzione andrà sfumando. E il consiglio controcorrente di sempre: un sito statico è <strong>portabile per natura</strong> – <a href="../servire-un-sito-statico-gratis/">GitHub Pages, un VPS con Caddy</a>, qualsiasi cosa lo serve. La comodità di Pages è reale; <a href="../cloudflare-o-self-hosted/">il lock-in delle Functions</a> anche.</p></div>
+  <a class="ask" href="../../?q=pages-workers-functions">Chiedilo a FabGPT-FAQ →</a>
+  <div class="related">
+    <h2>Altre domande</h2>
+    <ul><li><a href="../cos-e-gitops/">Cos&#x27;è GitOps e perché conviene?</a></li><li><a href="../cos-e-la-sovranita-digitale/">Cos&#x27;è la sovranità digitale e perché le aziende europee ci tengono?</a></li><li><a href="../cos-e-una-cdn/">Cos&#x27;è una CDN e quando serve davvero?</a></li><li><a href="../tipi-di-record-dns/">Quali sono i tipi di record DNS (A, CNAME, MX, TXT)?</a></li><li><a href="../cos-e-il-ttl-dns/">Cos&#x27;è il TTL dei record DNS?</a></li><li><a href="../nuvoletta-arancione-cloudflare/">Cosa fa la nuvoletta arancione di Cloudflare (proxy on/off)?</a></li></ul>
+  </div>
+</main>
+</body>
+</html>

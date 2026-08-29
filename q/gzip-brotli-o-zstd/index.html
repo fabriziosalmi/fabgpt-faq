@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Compressione web: gzip, brotli o zstd? – FabGPT-FAQ</title>
+<meta name="description" content="Tutto ciò che è testo (HTML, CSS, JS, JSON, SVG) va servito compresso – è il 60-80% di peso in meno, gratis. La gerarchia: gzip – l&#x27;esperanto: ovunque,…">
+<link rel="canonical" href="https://fabriziosalmi.github.io/fabgpt-faq/q/gzip-brotli-o-zstd/">
+<link rel="stylesheet" href="../../style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Compressione web: gzip, brotli o zstd?", "acceptedAnswer": {"@type": "Answer", "text": "Tutto ciò che è testo (HTML, CSS, JS, JSON, SVG) va servito compresso – è il 60-80% di peso in meno, gratis. La gerarchia: gzip – l'esperanto: ovunque, sempre supportato, il fallback che non manca mai brotli – lo standard moderno: 15-20% meglio di gzip sul testo, supportato da ogni browser; ai livelli alti (9-11) comprime lento, per questo la mossa furba sui [siti statici](q/cos-e-un-generatore-di-siti-statici/) è la precompressione in fase di build (file .br accanto agli originali, serviti direttamente – Caddy e Nginx lo fanno) zstd – il nuovo arrivato: rapporti simili a brotli ma compressione molto più veloce, ideale per il dinamico; supporto browser ormai diffuso e [CDN](q/cache-hit-miss-bypass-cdn/) che lo parlano Le regole di contorno: mai comprimere le immagini già compresse ([WebP/AVIF](q/webp-o-avif-formati-immagine/) ci pensano da sole – ricomprimerle spreca CPU per nulla); verifica con curl -sI -H 'Accept-Encoding: br' | grep -i content-encoding; e ricorda che la compressione riduce i byte, non [le richieste](q/cosa-sono-i-core-web-vitals/) – l'una non assolve le altre."}}]}</script>
+<style>
+  .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
+  .page h1 { font-size: 26px; line-height: 1.3; margin: 8px 0 20px; }
+  .page .answer a { color: var(--link); }
+  .page .vertical { font-size: 13px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }
+  .page .answer ul { padding-left: 22px; }
+  .page .answer code { background: var(--code-bg); border-radius: 5px; padding: 1px 5px; font-size: 0.9em; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+  .page .ask { display: inline-block; margin-top: 24px; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 9px 18px; text-decoration: none; font-weight: 600; }
+  .page .related { margin-top: 36px; border-top: 1px solid var(--border); padding-top: 18px; }
+  .page .related h2 { font-size: 16px; }
+  .page .related a { color: var(--link); text-decoration: none; }
+  .page .related a:hover { text-decoration: underline; }
+  .page .related li { margin: 6px 0; }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="../../" style="text-decoration:none;color:inherit">
+    <span class="brand-dot">F</span>
+    <span class="brand-name">FabGPT-FAQ</span>
+  </a>
+</header>
+<main class="page">
+  <div class="vertical">Strumenti e app</div>
+  <h1>Compressione web: gzip, brotli o zstd?</h1>
+  <div class="answer"><p>Tutto ciò che è testo (HTML, CSS, JS, JSON, SVG) va servito compresso – è il 60-80% di peso in meno, gratis. La gerarchia:</p><ul><li><strong>gzip</strong> – l&#x27;esperanto: ovunque, sempre supportato, il fallback che non manca mai</li><li><strong>brotli</strong> – lo standard moderno: <strong>15-20% meglio di gzip</strong> sul testo, supportato da ogni browser; ai livelli alti (9-11) comprime lento, per questo la mossa furba sui <a href="../cos-e-un-generatore-di-siti-statici/">siti statici</a> è la <strong>precompressione</strong> in fase di build (file <code>.br</code> accanto agli originali, serviti direttamente – Caddy e Nginx lo fanno)</li><li><strong>zstd</strong> – il nuovo arrivato: rapporti simili a brotli ma compressione <em>molto</em> più veloce, ideale per il dinamico; supporto browser ormai diffuso e <a href="../cache-hit-miss-bypass-cdn/">CDN</a> che lo parlano</li></ul><p>Le regole di contorno: <strong>mai comprimere le immagini</strong> già compresse (<a href="../webp-o-avif-formati-immagine/">WebP/AVIF</a> ci pensano da sole – ricomprimerle spreca CPU per nulla); verifica con <code>curl -sI -H &#x27;Accept-Encoding: br&#x27; | grep -i content-encoding</code>; e ricorda che la compressione riduce i byte, non <a href="../cosa-sono-i-core-web-vitals/">le richieste</a> – l&#x27;una non assolve le altre.</p></div>
+  <a class="ask" href="../../?q=compressione-web">Chiedilo a FabGPT-FAQ →</a>
+  <div class="related">
+    <h2>Altre domande</h2>
+    <ul><li><a href="../cosa-sono-i-core-web-vitals/">Cosa sono i Core Web Vitals (LCP, INP, CLS)?</a></li><li><a href="../come-funziona-robots-txt/">Come funziona il file robots.txt?</a></li><li><a href="../cos-e-il-file-llms-txt/">Cos&#x27;è il file llms.txt?</a></li><li><a href="../json-ld-schema-org-seo/">Cos&#x27;è JSON-LD (schema.org) e a cosa serve per la SEO?</a></li><li><a href="../a-cosa-serve-la-sitemap/">A cosa serve la sitemap.xml?</a></li><li><a href="../quali-favicon-servono/">Quali formati di favicon servono davvero?</a></li></ul>
+  </div>
+</main>
+</body>
+</html>
