@@ -14,6 +14,8 @@
   let streaming = false;
   const answerCursor = Object.create(null); // entry id -> next variant index
   let lastEntryId = null;
+  let bySlug = null;                         // slug -> entry (built at boot)
+  const askedSlugs = new Set();              // thread history: entries already asked
 
   /* ---------- text normalization & fuzzy matching ---------- */
 
@@ -189,10 +191,41 @@
     return row.querySelector('.content');
   }
 
+  // Thread-aware suggested-question chips: resolve `suggest` slugs to entries,
+  // drop ones already asked this session, cap at 3, render as clickable chips
+  // that ask the entry's canonical question. `contentEl` is the bot row body.
+  function renderChips(suggest, contentEl) {
+    if (!suggest || !suggest.length || !bySlug) return;
+    const picks = [];
+    for (const slug of suggest) {
+      const entry = bySlug[slug];
+      if (entry && !askedSlugs.has(slug)) picks.push(entry);
+      if (picks.length >= 3) break;
+    }
+    if (!picks.length) return;
+    const wrap = document.createElement('div');
+    wrap.className = 'chips';
+    for (const entry of picks) {
+      const chip = document.createElement('button');
+      chip.type = 'button';
+      chip.className = 'chip';
+      chip.textContent = entry.question;
+      chip.addEventListener('click', () => {
+        if (streaming && finishStream) finishStream();
+        // once used, the whole chip row is spent: remove it
+        wrap.remove();
+        ask(entry.question);
+      });
+      wrap.appendChild(chip);
+    }
+    contentEl.appendChild(wrap);
+    scrollToBottom(false);
+  }
+
   // Type `text` into a fresh bot row, re-rendering partial markdown each tick.
   let finishStream = null; // set while streaming: fast-forwards to the full answer
 
-  function streamAnswer(text, onDone) {
+  function streamAnswer(text, onDone, suggest) {
     streaming = true;
     updateSendState();
     const target = addBotRow();
@@ -207,6 +240,7 @@
       streaming = false;
       finishStream = null;
       updateSendState();
+      renderChips(suggest, target);
       scrollToBottom(false);
       if (onDone) onDone();
     }
@@ -254,7 +288,8 @@
     addUserMessage(text);
     const entry = match(text);
     const answer = entry ? pickAnswer(entry) : pickFallback();
-    streamAnswer(answer);
+    if (entry && entry.slug) askedSlugs.add(entry.slug); // thread history
+    streamAnswer(answer, null, entry && entry.suggest);
   }
 
   /* ---------- composer ---------- */
@@ -306,14 +341,15 @@
     inputEl.placeholder = DB.config.placeholder || '';
     noteEl.textContent = DB.config.footerNote || '';
     inputEl.focus();
+    bySlug = Object.create(null);
+    for (const e of DB.entries) bySlug[e.slug] = e;
 
+    const q = new URLSearchParams(location.search).get('q');
+    const deepEntry = q && DB.entries.find(e => e.id === q || e.slug === q);
+    // Starter chips after the welcome — unless a deep link will drive the first ask.
     streamAnswer(DB.config.welcome, () => {
-      // Deep link: /?q=<id|slug> asks that entry's canonical question.
-      const q = new URLSearchParams(location.search).get('q');
-      if (!q) return;
-      const entry = DB.entries.find(e => e.id === q || e.slug === q);
-      if (entry) setTimeout(() => ask(entry.question), 400);
-    });
+      if (deepEntry) setTimeout(() => ask(deepEntry.question), 400);
+    }, deepEntry ? null : DB.config.suggest);
   }
 
   boot();

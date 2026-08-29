@@ -381,10 +381,15 @@ non ha pagina propria) sono lavoro, non copertura.
 
 Richieste di Fab, in ordine:
 
-- **Domande suggerite in relazione al thread**: dopo ogni risposta, 2-3 chip
-  cliccabili con domande correlate (derivate dai link interni della risposta +
-  stesso verticale + storia della conversazione). Cliccare = porre la domanda
-  canonica. Le risposte restano pre-scritte: cambia solo la navigazione.
+- **[FATTA 2026-08-29] Domande suggerite in relazione al thread**: dopo ogni
+  risposta 2-3 chip cliccabili con domande correlate. Fonte dati: campo `suggest`
+  (slug) su OGNI voce, derivato dai link interni `q/<slug>/` gia scritti nelle
+  risposte (le cross-reference curate a mano) + padding con vicini di verticale;
+  generato da scripts/gen_suggest.py, validato da bench G1. UI in app.js:
+  renderChips() dopo lo streaming, filtra le voci gia chieste (askedSlugs =
+  thread history), click = ask(question canonica). Chip iniziali dopo il welcome
+  da config.suggest. Anche gli intenti smalltalk con `suggest` mostrano chip.
+  build.py usa gli stessi suggest per "Altre domande" delle pagine statiche.
 - Altre risposte "pronte" contestuali al filo del discorso (follow-up naturali
   per ogni voce, es. variante "approfondisci" / "esempio pratico").
 

@@ -118,6 +118,12 @@ def main():
                 slug = part.split(")")[0].rstrip("/").split("/")[0]
                 if slug and slug not in slugs:
                     problems.append(f"{e['id']}: broken internal link q/{slug}/")
+        for s in e.get("suggest", []):
+            if s not in slugs:
+                problems.append(f"{e['id']}: dangling suggest slug '{s}'")
+    for s in db.get("config", {}).get("suggest", []):
+        if s not in slugs:
+            problems.append(f"config: dangling suggest slug '{s}'")
     for p in problems:
         print(f"  G1: {p}")
     ok = gate("G1 integrity", len(problems) == 0 and 1 or 0, 1, 100)

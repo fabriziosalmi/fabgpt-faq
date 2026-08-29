@@ -157,10 +157,23 @@ def build() -> None:
     OUT.mkdir()
 
     # --- one page per question ---
+    by_slug = {e["slug"]: e for e in entries}
     for e in entries:
         answer_md = e["answers"][0]
-        others = [o for o in entries if o["id"] != e["id"] and o["vertical"] == e["vertical"]]
-        others += [o for o in entries if o["id"] != e["id"] and o["vertical"] != e["vertical"]]
+        # Related = the curated `suggest` cross-references first (same data that
+        # drives the chat chips), then same-vertical, then others, up to 6.
+        seen = {e["slug"]}
+        others = []
+        for slug in e.get("suggest", []):
+            o = by_slug.get(slug)
+            if o and o["slug"] not in seen:
+                others.append(o); seen.add(o["slug"])
+        for o in entries:
+            if o["slug"] not in seen and o["vertical"] == e["vertical"]:
+                others.append(o); seen.add(o["slug"])
+        for o in entries:
+            if o["slug"] not in seen:
+                others.append(o); seen.add(o["slug"])
         related = "".join(
             f'<li><a href="../{o["slug"]}/">{html.escape(o["question"])}</a></li>' for o in others[:6]
         )
