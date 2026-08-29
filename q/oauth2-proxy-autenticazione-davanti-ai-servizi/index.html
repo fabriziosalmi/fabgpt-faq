@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Come si mette un&#x27;autenticazione moderna davanti a un servizio (OAuth2-Proxy, Authelia)? – FabGPT-FAQ</title>
+<meta name="description" content="Molti servizi self-hosted hanno autenticazione debole o assente (un pannello admin senza [MFA](q/cos-e-autenticazione-due-fattori-mfa/), un&#x27;app interna…">
+<link rel="canonical" href="https://fabriziosalmi.github.io/fabgpt-faq/q/oauth2-proxy-autenticazione-davanti-ai-servizi/">
+<link rel="stylesheet" href="../../style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Come si mette un'autenticazione moderna davanti a un servizio (OAuth2-Proxy, Authelia)?", "acceptedAnswer": {"@type": "Answer", "text": "Molti servizi self-hosted hanno autenticazione debole o assente (un pannello admin senza [MFA](q/cos-e-autenticazione-due-fattori-mfa/), un'app interna \"tanto è dietro il firewall\"). Invece di fidarti della loro sicurezza, gli anteponi uno strato di autenticazione forte al [reverse proxy](q/cos-e-un-reverse-proxy/) – il pattern forward auth: il proxy, prima di far passare qualsiasi richiesta al servizio, la manda a un autenticatore che verifica identità, [MFA](q/cos-e-autenticazione-due-fattori-mfa/) e [policy](q/conditional-access-policy-basate-sul-rischio/); solo se passa, la richiesta raggiunge il servizio. Gli strumenti: OAuth2-Proxy – antepone l'autenticazione via un provider OAuth/OIDC (Google, GitHub, il tuo [Keycloak](q/saml-oauth-e-oidc/)): il servizio dietro diventa accessibile solo dopo il login su un'identità fidata Authelia / Authentik – più completi: SSO self-hosted con MFA, [conditional access](q/conditional-access-policy-basate-sul-rischio/) (regole per utente/gruppo/rete), un login unico per tutti i tuoi servizi. Authentik è anche un vero identity provider (OIDC/SAML) È il modo pratico di avvicinarsi a [ZTNA](q/cos-e-ztna-zero-trust-network-access/) nel self-hosting: nessun servizio esposto senza un gate di autenticazione forte davanti, un'identità sola, MFA ovunque – anche per le app che non saprebbero farla. Il pattern completo: [mesh VPN](q/wireguard-e-mesh-vpn/) per la raggiungibilità, forward auth (Authelia) per l'identità, [reverse proxy con TLS](q/cos-e-un-reverse-proxy/) per il trasporto. Trasforma una collezione di servizi con sicurezze disomogenee in un sistema con un punto di controllo dell'accesso, forte e coerente – [minimo privilegio](q/principio-del-minimo-privilegio/) e verifica dell'identità applicati a tutto ciò che ospiti."}}]}</script>
+<style>
+  .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
+  .page h1 { font-size: 26px; line-height: 1.3; margin: 8px 0 20px; }
+  .page .answer a { color: var(--link); }
+  .page .vertical { font-size: 13px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }
+  .page .answer ul { padding-left: 22px; }
+  .page .answer code { background: var(--code-bg); border-radius: 5px; padding: 1px 5px; font-size: 0.9em; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+  .page .ask { display: inline-block; margin-top: 24px; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 9px 18px; text-decoration: none; font-weight: 600; }
+  .page .related { margin-top: 36px; border-top: 1px solid var(--border); padding-top: 18px; }
+  .page .related h2 { font-size: 16px; }
+  .page .related a { color: var(--link); text-decoration: none; }
+  .page .related a:hover { text-decoration: underline; }
+  .page .related li { margin: 6px 0; }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="../../" style="text-decoration:none;color:inherit">
+    <span class="brand-dot">F</span>
+    <span class="brand-name">FabGPT-FAQ</span>
+  </a>
+</header>
+<main class="page">
+  <div class="vertical">Cybersecurity</div>
+  <h1>Come si mette un&#x27;autenticazione moderna davanti a un servizio (OAuth2-Proxy, Authelia)?</h1>
+  <div class="answer"><p>Molti servizi self-hosted hanno autenticazione debole o assente (un pannello admin senza <a href="../cos-e-autenticazione-due-fattori-mfa/">MFA</a>, un&#x27;app interna &quot;tanto è dietro il firewall&quot;). Invece di fidarti della loro sicurezza, gli <strong>anteponi uno strato di autenticazione forte</strong> al <a href="../cos-e-un-reverse-proxy/">reverse proxy</a> – il pattern <strong>forward auth</strong>: il proxy, prima di far passare <em>qualsiasi</em> richiesta al servizio, la manda a un autenticatore che verifica identità, <a href="../cos-e-autenticazione-due-fattori-mfa/">MFA</a> e <a href="../conditional-access-policy-basate-sul-rischio/">policy</a>; solo se passa, la richiesta raggiunge il servizio.</p><p>Gli strumenti:</p><ul><li><strong>OAuth2-Proxy</strong> – antepone l&#x27;autenticazione via un provider OAuth/OIDC (Google, GitHub, il tuo <a href="../saml-oauth-e-oidc/">Keycloak</a>): il servizio dietro diventa accessibile solo dopo il login su un&#x27;identità fidata</li><li><strong>Authelia / Authentik</strong> – più completi: <strong>SSO</strong> self-hosted con MFA, <a href="../conditional-access-policy-basate-sul-rischio/">conditional access</a> (regole per utente/gruppo/rete), un login unico per <em>tutti</em> i tuoi servizi. Authentik è anche un vero identity provider (OIDC/SAML)</li></ul><p>È il modo pratico di avvicinarsi a <a href="../cos-e-ztna-zero-trust-network-access/">ZTNA</a> nel self-hosting: <strong>nessun servizio esposto senza un gate di autenticazione forte davanti</strong>, un&#x27;identità sola, MFA ovunque – anche per le app che non saprebbero farla. Il pattern completo: <a href="../wireguard-e-mesh-vpn/">mesh VPN</a> per la raggiungibilità, forward auth (Authelia) per l&#x27;identità, <a href="../cos-e-un-reverse-proxy/">reverse proxy con TLS</a> per il trasporto. Trasforma una collezione di servizi con sicurezze disomogenee in un sistema con <strong>un</strong> punto di controllo dell&#x27;accesso, forte e coerente – <a href="../principio-del-minimo-privilegio/">minimo privilegio</a> e verifica dell&#x27;identità applicati a tutto ciò che ospiti.</p></div>
+  <a class="ask" href="../../?q=oauth2-proxy">Chiedilo a FabGPT-FAQ →</a>
+  <div class="related">
+    <h2>Altre domande</h2>
+    <ul><li><a href="../cos-e-un-waf-web-application-firewall/">Cos&#x27;è un WAF (Web Application Firewall) e a cosa serve?</a></li><li><a href="../cos-e-un-reverse-proxy/">Cos&#x27;è un reverse proxy e a cosa serve?</a></li><li><a href="../come-funziona-lets-encrypt-acme/">Come funziona Let&#x27;s Encrypt e il protocollo ACME?</a></li><li><a href="../certificato-tls-scaduto-cosa-fare/">Certificato TLS scaduto: perché succede e come evitarlo?</a></li><li><a href="../cos-e-un-siem-e-un-soar/">Cos&#x27;è un SIEM e cos&#x27;è un SOAR?</a></li><li><a href="../nis2-chi-deve-adeguarsi-italia/">Chi deve adeguarsi alla NIS2 in Italia e cosa rischia?</a></li></ul>
+  </div>
+</main>
+</body>
+</html>

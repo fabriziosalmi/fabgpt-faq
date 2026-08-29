@@ -1938,5 +1938,145 @@
   {
     "q": "come difendo un badge nfc dalla clonazione",
     "expect": "nfc-rfid-security"
+  },
+  {
+    "q": "cosè openzfs",
+    "expect": "openzfs"
+  },
+  {
+    "q": "perche serve la ram ecc in un nas",
+    "expect": "ecc-ram"
+  },
+  {
+    "q": "differenza tra raid 5 e raidz2",
+    "expect": "raid-raidz"
+  },
+  {
+    "q": "cifratura a riposo dei dischi con luks",
+    "expect": "disk-encryption"
+  },
+  {
+    "q": "monitorare lo stato smart dei dischi",
+    "expect": "smart-monitoring"
+  },
+  {
+    "q": "meglio wireguard o openvpn",
+    "expect": "wireguard-vs-openvpn"
+  },
+  {
+    "q": "cosè headscale",
+    "expect": "headscale"
+  },
+  {
+    "q": "failover con due connessioni internet",
+    "expect": "multi-wan"
+  },
+  {
+    "q": "far funzionare chromecast tra vlan diverse",
+    "expect": "mdns-reflector"
+  },
+  {
+    "q": "configurare bgp con bfd verso un vps",
+    "expect": "bgp-bfd-homelab"
+  },
+  {
+    "q": "bloccare il traffico per paese con geoip",
+    "expect": "geoip-filtering"
+  },
+  {
+    "q": "differenza tra switch layer 2 e layer 3",
+    "expect": "l2-l3-switch"
+  },
+  {
+    "q": "catturare pacchetti da remoto con tcpdump e wireshark",
+    "expect": "pcap-remote"
+  },
+  {
+    "q": "i siti non caricano sotto vpn problema mtu",
+    "expect": "mtu-mss-vpn"
+  },
+  {
+    "q": "a cosa serve un raspberry pi nel homelab",
+    "expect": "sbc-homelab"
+  },
+  {
+    "q": "collegare un ups per lo spegnimento sicuro con nut",
+    "expect": "ups-nut"
+  },
+  {
+    "q": "monitorare le temperature con prometheus e grafana",
+    "expect": "monitoring-stack"
+  },
+  {
+    "q": "cosè ztna e come sostituisce la vpn",
+    "expect": "ztna"
+  },
+  {
+    "q": "attacco adversary in the middle che bypassa mfa",
+    "expect": "aitm"
+  },
+  {
+    "q": "cosè il conditional access basato sul rischio",
+    "expect": "conditional-access"
+  },
+  {
+    "q": "cosè la continuous access evaluation",
+    "expect": "cae"
+  },
+  {
+    "q": "differenza tra rbac e abac",
+    "expect": "rbac-abac"
+  },
+  {
+    "q": "come funziona la responsabilita condivisa nel cloud",
+    "expect": "shared-responsibility"
+  },
+  {
+    "q": "come metto in sicurezza kubernetes",
+    "expect": "k8s-security"
+  },
+  {
+    "q": "cosè un container breakout",
+    "expect": "container-breakout"
+  },
+  {
+    "q": "cosa migliora tls 1.3",
+    "expect": "tls13"
+  },
+  {
+    "q": "cosè la fully homomorphic encryption",
+    "expect": "fhe"
+  },
+  {
+    "q": "cosè la crypto agility",
+    "expect": "crypto-agility"
+  },
+  {
+    "q": "cosè la vulnerabilita idor",
+    "expect": "idor-bola"
+  },
+  {
+    "q": "cosè il mass assignment nelle api",
+    "expect": "mass-assignment"
+  },
+  {
+    "q": "quali flag di sicurezza sui cookie httponly samesite",
+    "expect": "cookie-flags"
+  },
+  {
+    "q": "come la deserializzazione insicura porta a rce",
+    "expect": "insecure-deserialization"
+  },
+  {
+    "q": "furto di token con redirect oauth mal validati",
+    "expect": "oauth-redirect"
+  },
+  {
+    "q": "mettere authelia davanti ai servizi self hosted",
+    "expect": "oauth2-proxy"
+  },
+  {
+    "q": "vincolare postgresql ad ascoltare solo su localhost",
+    "expect": "db-bind-localhost"
   }
 ]

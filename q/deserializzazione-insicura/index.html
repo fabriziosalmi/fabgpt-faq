@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Come una deserializzazione insicura porta all&#x27;esecuzione di codice? – FabGPT-FAQ</title>
+<meta name="description" content="La serializzazione trasforma un oggetto in un formato trasmissibile (byte, stringa); la deserializzazione lo ricostruisce. Il problema nasce quando si…">
+<link rel="canonical" href="https://fabriziosalmi.github.io/fabgpt-faq/q/deserializzazione-insicura/">
+<link rel="stylesheet" href="../../style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Come una deserializzazione insicura porta all'esecuzione di codice?", "acceptedAnswer": {"@type": "Answer", "text": "La serializzazione trasforma un oggetto in un formato trasmissibile (byte, stringa); la deserializzazione lo ricostruisce. Il problema nasce quando si deserializza input non fidato con meccanismi che possono istanziare oggetti arbitrari ed eseguire codice durante la ricostruzione – e allora un payload malevolo diventa esecuzione di codice remoto (RCE), la vulnerabilità più grave che esista. I casi noti per linguaggio: il pickle di Python (letteralmente codice eseguibile serializzato – [il rischio dei modelli ML](q/sicurezza-dei-pesi-e-checkpoint-dei-modelli/) in formato legacy), la Java deserialization (le famigerate gadget chain che concatenano classi presenti nell'applicazione per ottenere RCE), il YAML unsafe load, il pickle/marshal e i serializzatori PHP. In tutti, l'attaccante costruisce un flusso serializzato che, deserializzato, esegue le sue istruzioni. Le difese: non deserializzare mai input non fidato con serializzatori che possono eseguire codice – la regola prima di tutte preferire formati solo-dati: JSON, o [safetensors per i modelli](q/sicurezza-dei-pesi-e-checkpoint-dei-modelli/) – un formato che contiene dati e non codice non può eseguire nulla se devi deserializzare oggetti, usa le versioni safe (safe_load di YAML), allowlist delle classi permesse, e verifica l'integrità (firma/HMAC) del dato serializzato prima di toccarlo È nella [OWASP Top 10](q/cos-e-la-owasp-top-10/) (Software and Data Integrity Failures), e la radice è la stessa di tanto altro: input non fidato trattato come fidato. La lezione trasversale dell'appsec vale anche qui – un flusso di byte che arriva dall'esterno è ostile finché non dimostrato innocuo, e certi meccanismi \"comodi\" trasformano quell'input direttamente in codice eseguito."}}]}</script>
+<style>
+  .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
+  .page h1 { font-size: 26px; line-height: 1.3; margin: 8px 0 20px; }
+  .page .answer a { color: var(--link); }
+  .page .vertical { font-size: 13px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }
+  .page .answer ul { padding-left: 22px; }
+  .page .answer code { background: var(--code-bg); border-radius: 5px; padding: 1px 5px; font-size: 0.9em; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+  .page .ask { display: inline-block; margin-top: 24px; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 9px 18px; text-decoration: none; font-weight: 600; }
+  .page .related { margin-top: 36px; border-top: 1px solid var(--border); padding-top: 18px; }
+  .page .related h2 { font-size: 16px; }
+  .page .related a { color: var(--link); text-decoration: none; }
+  .page .related a:hover { text-decoration: underline; }
+  .page .related li { margin: 6px 0; }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="../../" style="text-decoration:none;color:inherit">
+    <span class="brand-dot">F</span>
+    <span class="brand-name">FabGPT-FAQ</span>
+  </a>
+</header>
+<main class="page">
+  <div class="vertical">Cybersecurity</div>
+  <h1>Come una deserializzazione insicura porta all&#x27;esecuzione di codice?</h1>
+  <div class="answer"><p>La <strong>serializzazione</strong> trasforma un oggetto in un formato trasmissibile (byte, stringa); la <strong>deserializzazione</strong> lo ricostruisce. Il problema nasce quando si deserializza <strong>input non fidato</strong> con meccanismi che possono <em>istanziare oggetti arbitrari ed eseguire codice</em> durante la ricostruzione – e allora un payload malevolo diventa <strong>esecuzione di codice remoto (RCE)</strong>, la vulnerabilità più grave che esista.</p><p>I casi noti per linguaggio: il <strong>pickle</strong> di Python (letteralmente codice eseguibile serializzato – <a href="../sicurezza-dei-pesi-e-checkpoint-dei-modelli/">il rischio dei modelli ML</a> in formato legacy), la <strong>Java deserialization</strong> (le famigerate <em>gadget chain</em> che concatenano classi presenti nell&#x27;applicazione per ottenere RCE), il <strong>YAML unsafe load</strong>, il <code>pickle</code>/<code>marshal</code> e i serializzatori PHP. In tutti, l&#x27;attaccante costruisce un flusso serializzato che, deserializzato, esegue le sue istruzioni.</p><p>Le difese:</p><ul><li><strong>non deserializzare mai input non fidato</strong> con serializzatori che possono eseguire codice – la regola prima di tutte</li><li>preferire formati <strong>solo-dati</strong>: JSON, o <a href="../sicurezza-dei-pesi-e-checkpoint-dei-modelli/">safetensors per i modelli</a> – un formato che contiene <em>dati</em> e non <em>codice</em> non può eseguire nulla</li><li>se devi deserializzare oggetti, usa le versioni <strong>safe</strong> (safe_load di YAML), allowlist delle classi permesse, e <strong>verifica l&#x27;integrità</strong> (firma/HMAC) del dato serializzato prima di toccarlo</li></ul><p>È nella <a href="../cos-e-la-owasp-top-10/">OWASP Top 10</a> (Software and Data Integrity Failures), e la radice è la stessa di tanto altro: <strong>input non fidato trattato come fidato</strong>. La lezione trasversale dell&#x27;appsec vale anche qui – un flusso di byte che arriva dall&#x27;esterno è ostile finché non dimostrato innocuo, e certi meccanismi &quot;comodi&quot; trasformano quell&#x27;input direttamente in codice eseguito.</p></div>
+  <a class="ask" href="../../?q=insecure-deserialization">Chiedilo a FabGPT-FAQ →</a>
+  <div class="related">
+    <h2>Altre domande</h2>
+    <ul><li><a href="../cos-e-un-waf-web-application-firewall/">Cos&#x27;è un WAF (Web Application Firewall) e a cosa serve?</a></li><li><a href="../cos-e-un-reverse-proxy/">Cos&#x27;è un reverse proxy e a cosa serve?</a></li><li><a href="../come-funziona-lets-encrypt-acme/">Come funziona Let&#x27;s Encrypt e il protocollo ACME?</a></li><li><a href="../certificato-tls-scaduto-cosa-fare/">Certificato TLS scaduto: perché succede e come evitarlo?</a></li><li><a href="../cos-e-un-siem-e-un-soar/">Cos&#x27;è un SIEM e cos&#x27;è un SOAR?</a></li><li><a href="../nis2-chi-deve-adeguarsi-italia/">Chi deve adeguarsi alla NIS2 in Italia e cosa rischia?</a></li></ul>
+  </div>
+</main>
+</body>
+</html>

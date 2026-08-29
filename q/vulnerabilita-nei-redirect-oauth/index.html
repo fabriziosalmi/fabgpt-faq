@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Come i redirect mal validati in OAuth permettono il furto di token? – FabGPT-FAQ</title>
+<meta name="description" content="Il flusso [OAuth 2.0](q/saml-oauth-e-oidc/) usa un parametro redirect_uri: dopo l&#x27;autorizzazione, il server rimanda l&#x27;utente (con il codice di…">
+<link rel="canonical" href="https://fabriziosalmi.github.io/fabgpt-faq/q/vulnerabilita-nei-redirect-oauth/">
+<link rel="stylesheet" href="../../style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Come i redirect mal validati in OAuth permettono il furto di token?", "acceptedAnswer": {"@type": "Answer", "text": "Il flusso [OAuth 2.0](q/saml-oauth-e-oidc/) usa un parametro redirect_uri: dopo l'autorizzazione, il server rimanda l'utente (con il codice di autorizzazione o il token) a quell'URL. Se il server non valida rigorosamente dove può reindirizzare, un attaccante manipola quel parametro per farsi consegnare il codice/token a un URL che controlla lui – e con quello accede all'account della vittima. Le varianti dell'attacco: redirect_uri puntato a un dominio dell'attaccante, o a un open redirect presente sul sito legittimo (una pagina ?url=... che rimbalza ovunque – da cui il codice viene poi rubato tramite il referer o un secondo salto), o il furto del codice sfruttando validazioni deboli (match parziale del dominio, sottodomini non previsti). Le difese, lato server di autorizzazione e client: allowlist esatta dei redirect_uri registrati – match completo, non parziale, non per prefisso (il match per prefisso è aggirabile: https://sito.com.attaccante.com) PKCE (Proof Key for Code Exchange) – ormai raccomandato per tutti i client: lega il codice di autorizzazione a chi lo ha richiesto, così un codice intercettato è inutilizzabile da altri il parametro state per legare la richiesta alla risposta (anti-CSRF del flusso), niente token nei frammenti URL dove non serve È un promemoria che l'[OAuth/OIDC](q/saml-oauth-e-oidc/) è potente ma pieno di dettagli che, sbagliati, aprono voragini – il redirect è il più classico. La regola trasversale: validare rigorosamente dove mandi dati sensibili, con allowlist esatte e mai match approssimativi – lo stesso principio che vale contro l'[SSRF](q/cos-e-la-ssrf-server-side-request-forgery/) e l'[open redirect](q/cos-e-la-owasp-top-10/) in generale."}}]}</script>
+<style>
+  .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
+  .page h1 { font-size: 26px; line-height: 1.3; margin: 8px 0 20px; }
+  .page .answer a { color: var(--link); }
+  .page .vertical { font-size: 13px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }
+  .page .answer ul { padding-left: 22px; }
+  .page .answer code { background: var(--code-bg); border-radius: 5px; padding: 1px 5px; font-size: 0.9em; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+  .page .ask { display: inline-block; margin-top: 24px; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 9px 18px; text-decoration: none; font-weight: 600; }
+  .page .related { margin-top: 36px; border-top: 1px solid var(--border); padding-top: 18px; }
+  .page .related h2 { font-size: 16px; }
+  .page .related a { color: var(--link); text-decoration: none; }
+  .page .related a:hover { text-decoration: underline; }
+  .page .related li { margin: 6px 0; }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="../../" style="text-decoration:none;color:inherit">
+    <span class="brand-dot">F</span>
+    <span class="brand-name">FabGPT-FAQ</span>
+  </a>
+</header>
+<main class="page">
+  <div class="vertical">Cybersecurity</div>
+  <h1>Come i redirect mal validati in OAuth permettono il furto di token?</h1>
+  <div class="answer"><p>Il flusso <a href="../saml-oauth-e-oidc/">OAuth 2.0</a> usa un parametro <strong><code>redirect_uri</code></strong>: dopo l&#x27;autorizzazione, il server rimanda l&#x27;utente (con il codice di autorizzazione o il token) a quell&#x27;URL. Se il server <strong>non valida rigorosamente</strong> dove può reindirizzare, un attaccante manipola quel parametro per farsi consegnare il codice/token a un URL che controlla lui – e con quello accede all&#x27;account della vittima.</p><p>Le varianti dell&#x27;attacco: <code>redirect_uri</code> puntato a un dominio dell&#x27;attaccante, o a un <strong>open redirect</strong> presente sul sito legittimo (una pagina <code>?url=...</code> che rimbalza ovunque – da cui il codice viene poi rubato tramite il referer o un secondo salto), o il furto del codice sfruttando validazioni deboli (match parziale del dominio, sottodomini non previsti).</p><p>Le difese, lato server di autorizzazione e client:</p><ul><li><strong>allowlist esatta</strong> dei <code>redirect_uri</code> registrati – <strong>match completo</strong>, non parziale, non per prefisso (il match per prefisso è aggirabile: <code>https://sito.com.attaccante.com</code>)</li><li><strong>PKCE</strong> (Proof Key for Code Exchange) – ormai raccomandato per <em>tutti</em> i client: lega il codice di autorizzazione a chi lo ha richiesto, così un codice intercettato è inutilizzabile da altri</li><li>il parametro <strong><code>state</code></strong> per legare la richiesta alla risposta (anti-CSRF del flusso), niente token nei frammenti URL dove non serve</li></ul><p>È un promemoria che l&#x27;<a href="../saml-oauth-e-oidc/">OAuth/OIDC</a> è potente ma pieno di dettagli che, sbagliati, aprono voragini – il redirect è il più classico. La regola trasversale: <strong>validare rigorosamente dove mandi dati sensibili</strong>, con allowlist esatte e mai match approssimativi – lo stesso principio che vale contro l&#x27;<a href="../cos-e-la-ssrf-server-side-request-forgery/">SSRF</a> e l&#x27;<a href="../cos-e-la-owasp-top-10/">open redirect</a> in generale.</p></div>
+  <a class="ask" href="../../?q=oauth-redirect">Chiedilo a FabGPT-FAQ →</a>
+  <div class="related">
+    <h2>Altre domande</h2>
+    <ul><li><a href="../cos-e-un-waf-web-application-firewall/">Cos&#x27;è un WAF (Web Application Firewall) e a cosa serve?</a></li><li><a href="../cos-e-un-reverse-proxy/">Cos&#x27;è un reverse proxy e a cosa serve?</a></li><li><a href="../come-funziona-lets-encrypt-acme/">Come funziona Let&#x27;s Encrypt e il protocollo ACME?</a></li><li><a href="../certificato-tls-scaduto-cosa-fare/">Certificato TLS scaduto: perché succede e come evitarlo?</a></li><li><a href="../cos-e-un-siem-e-un-soar/">Cos&#x27;è un SIEM e cos&#x27;è un SOAR?</a></li><li><a href="../nis2-chi-deve-adeguarsi-italia/">Chi deve adeguarsi alla NIS2 in Italia e cosa rischia?</a></li></ul>
+  </div>
+</main>
+</body>
+</html>

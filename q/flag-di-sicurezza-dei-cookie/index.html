@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quali flag di sicurezza servono sui cookie di sessione (HttpOnly, Secure, SameSite)? – FabGPT-FAQ</title>
+<meta name="description" content="Un cookie di sessione è la chiave della tua sessione autenticata – e proteggerlo con i flag giusti è appsec di base che tanti sbagliano ancora. I tre che…">
+<link rel="canonical" href="https://fabriziosalmi.github.io/fabgpt-faq/q/flag-di-sicurezza-dei-cookie/">
+<link rel="stylesheet" href="../../style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Quali flag di sicurezza servono sui cookie di sessione (HttpOnly, Secure, SameSite)?", "acceptedAnswer": {"@type": "Answer", "text": "Un cookie di sessione è la chiave della tua sessione autenticata – e proteggerlo con i flag giusti è appsec di base che tanti sbagliano ancora. I tre che contano: HttpOnly – il cookie non è accessibile da JavaScript: neutralizza il furto del cookie via [XSS](q/cos-e-il-cross-site-scripting-xss/) (uno script iniettato non può leggerlo per esfiltrarlo). Fondamentale per i cookie di sessione Secure – il cookie viene inviato solo su HTTPS: impedisce che viaggi in chiaro e venga intercettato ([su una rete ostile](q/cos-e-un-attacco-man-in-the-middle/)) SameSite – controlla se il cookie viene inviato nelle richieste cross-site: Strict o Lax (il default moderno) proteggono dal [CSRF](q/cos-e-la-owasp-top-10/) (un altro sito non può far partire richieste autenticate a tuo nome). None (che richiede Secure) solo quando il cross-site serve davvero Gli attributi complementari: un nome senza informazioni, uno scope stretto (Path, Domain minimi), una scadenza ragionevole (i [cookie di sessione lunghi sono comodi e rischiosi](q/continuous-access-evaluation-cae/)), e la rotazione del token di sessione al login (contro il session fixation). Sono poche righe di configurazione con un impatto enorme – e la loro assenza è un classico rilievo dei [security assessment](q/vulnerability-assessment-vs-penetration-test/). Insieme a [security header](q/quali-security-header-servono/), [CSP](q/cos-e-il-cross-site-scripting-xss/) e HTTPS, sono l'igiene di base di qualsiasi applicazione web che gestisca sessioni – i framework moderni li impostano bene di default, ma verificarlo (con gli strumenti dev del browser) è due minuti ben spesi."}}]}</script>
+<style>
+  .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
+  .page h1 { font-size: 26px; line-height: 1.3; margin: 8px 0 20px; }
+  .page .answer a { color: var(--link); }
+  .page .vertical { font-size: 13px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }
+  .page .answer ul { padding-left: 22px; }
+  .page .answer code { background: var(--code-bg); border-radius: 5px; padding: 1px 5px; font-size: 0.9em; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+  .page .ask { display: inline-block; margin-top: 24px; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 9px 18px; text-decoration: none; font-weight: 600; }
+  .page .related { margin-top: 36px; border-top: 1px solid var(--border); padding-top: 18px; }
+  .page .related h2 { font-size: 16px; }
+  .page .related a { color: var(--link); text-decoration: none; }
+  .page .related a:hover { text-decoration: underline; }
+  .page .related li { margin: 6px 0; }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="../../" style="text-decoration:none;color:inherit">
+    <span class="brand-dot">F</span>
+    <span class="brand-name">FabGPT-FAQ</span>
+  </a>
+</header>
+<main class="page">
+  <div class="vertical">Cybersecurity</div>
+  <h1>Quali flag di sicurezza servono sui cookie di sessione (HttpOnly, Secure, SameSite)?</h1>
+  <div class="answer"><p>Un <strong>cookie di sessione</strong> è la chiave della tua sessione autenticata – e proteggerlo con i flag giusti è appsec di base che tanti sbagliano ancora. I tre che contano:</p><ul><li><strong>HttpOnly</strong> – il cookie <strong>non è accessibile da JavaScript</strong>: neutralizza il furto del cookie via <a href="../cos-e-il-cross-site-scripting-xss/">XSS</a> (uno script iniettato non può leggerlo per esfiltrarlo). Fondamentale per i cookie di sessione</li><li><strong>Secure</strong> – il cookie viene inviato <strong>solo su HTTPS</strong>: impedisce che viaggi in chiaro e venga intercettato (<a href="../cos-e-un-attacco-man-in-the-middle/">su una rete ostile</a>)</li><li><strong>SameSite</strong> – controlla se il cookie viene inviato nelle richieste <strong>cross-site</strong>: <code>Strict</code> o <code>Lax</code> (il default moderno) proteggono dal <a href="../cos-e-la-owasp-top-10/">CSRF</a> (un altro sito non può far partire richieste autenticate a tuo nome). <code>None</code> (che richiede <code>Secure</code>) solo quando il cross-site serve davvero</li></ul><p>Gli attributi complementari: un <strong>nome</strong> senza informazioni, uno <strong>scope</strong> stretto (<code>Path</code>, <code>Domain</code> minimi), una <strong>scadenza</strong> ragionevole (i <a href="../continuous-access-evaluation-cae/">cookie di sessione lunghi sono comodi e rischiosi</a>), e la <strong>rotazione</strong> del token di sessione al login (contro il session fixation).</p><p>Sono poche righe di configurazione con un impatto enorme – e la loro assenza è un classico rilievo dei <a href="../vulnerability-assessment-vs-penetration-test/">security assessment</a>. Insieme a <a href="../quali-security-header-servono/">security header</a>, <a href="../cos-e-il-cross-site-scripting-xss/">CSP</a> e HTTPS, sono l&#x27;igiene di base di qualsiasi applicazione web che gestisca sessioni – i framework moderni li impostano bene di default, ma <em>verificarlo</em> (con gli strumenti dev del browser) è due minuti ben spesi.</p></div>
+  <a class="ask" href="../../?q=cookie-flags">Chiedilo a FabGPT-FAQ →</a>
+  <div class="related">
+    <h2>Altre domande</h2>
+    <ul><li><a href="../cos-e-un-waf-web-application-firewall/">Cos&#x27;è un WAF (Web Application Firewall) e a cosa serve?</a></li><li><a href="../cos-e-un-reverse-proxy/">Cos&#x27;è un reverse proxy e a cosa serve?</a></li><li><a href="../come-funziona-lets-encrypt-acme/">Come funziona Let&#x27;s Encrypt e il protocollo ACME?</a></li><li><a href="../certificato-tls-scaduto-cosa-fare/">Certificato TLS scaduto: perché succede e come evitarlo?</a></li><li><a href="../cos-e-un-siem-e-un-soar/">Cos&#x27;è un SIEM e cos&#x27;è un SOAR?</a></li><li><a href="../nis2-chi-deve-adeguarsi-italia/">Chi deve adeguarsi alla NIS2 in Italia e cosa rischia?</a></li></ul>
+  </div>
+</main>
+</body>
+</html>

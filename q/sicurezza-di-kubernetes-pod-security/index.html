@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Come si mette in sicurezza Kubernetes (Pod Security, namespace)? – FabGPT-FAQ</title>
+<meta name="description" content="Kubernetes è potente e insicuro per default – la configurazione permissiva iniziale va stretta a più livelli: Pod Security Standards (PSS) – i tre profili…">
+<link rel="canonical" href="https://fabriziosalmi.github.io/fabgpt-faq/q/sicurezza-di-kubernetes-pod-security/">
+<link rel="stylesheet" href="../../style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Come si mette in sicurezza Kubernetes (Pod Security, namespace)?", "acceptedAnswer": {"@type": "Answer", "text": "Kubernetes è potente e insicuro per default – la configurazione permissiva iniziale va stretta a più livelli: Pod Security Standards (PSS) – i tre profili (privileged, baseline, restricted) che limitano cosa un pod può fare: restricted vieta i container privilegiati, il root, gli host mount pericolosi. Vanno imposti, non lasciati aperti Network Policy – di default in K8s ogni pod può parlare con ogni pod: le NetworkPolicy applicano la [segmentazione](q/segmentare-la-rete-con-vlan/) (default-deny, poi apri il necessario) – fondamentale per contenere un pod compromesso [RBAC](q/rbac-abac-e-pbac-modelli-di-accesso/) stretto sugli account di servizio ([minimo privilegio](q/principio-del-minimo-privilegio/): un pod non ha bisogno di poteri sul cluster), niente token montati dove non servono immagini e runtime – le stesse regole della [sicurezza dei container](q/sicurezza-delle-immagini-container/): immagini scansionate e pinnate, non-root, secret gestiti bene; e admission controller (OPA/Kyverno) come policy-as-code isolamento del carico – [namespace](q/segmentare-la-rete-con-vlan/) come confine base, e per multi-tenancy seria, runtime isolati ([gVisor, Kata](q/sandbox-syscall-seccomp-gvisor/)) Il CIS Kubernetes Benchmark è la [baseline](q/security-baseline-e-automazione-hardening/) di riferimento per verificare tutto. La verità pragmatica: K8s aggiunge enorme superficie di attacco e complessità – per un [homelab o una PMI](q/homelab-a-basso-consumo/), spesso [Docker Compose su una VM](q/cos-e-docker-compose/) fa lo stesso lavoro con un decimo del rischio. K8s ha senso quando la scala lo giustifica davvero; adottarlo \"perché è moderno\" è aggiungere un intero dominio di sicurezza da presidiare."}}]}</script>
+<style>
+  .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
+  .page h1 { font-size: 26px; line-height: 1.3; margin: 8px 0 20px; }
+  .page .answer a { color: var(--link); }
+  .page .vertical { font-size: 13px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }
+  .page .answer ul { padding-left: 22px; }
+  .page .answer code { background: var(--code-bg); border-radius: 5px; padding: 1px 5px; font-size: 0.9em; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+  .page .ask { display: inline-block; margin-top: 24px; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 9px 18px; text-decoration: none; font-weight: 600; }
+  .page .related { margin-top: 36px; border-top: 1px solid var(--border); padding-top: 18px; }
+  .page .related h2 { font-size: 16px; }
+  .page .related a { color: var(--link); text-decoration: none; }
+  .page .related a:hover { text-decoration: underline; }
+  .page .related li { margin: 6px 0; }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="../../" style="text-decoration:none;color:inherit">
+    <span class="brand-dot">F</span>
+    <span class="brand-name">FabGPT-FAQ</span>
+  </a>
+</header>
+<main class="page">
+  <div class="vertical">Proxmox e self-hosting</div>
+  <h1>Come si mette in sicurezza Kubernetes (Pod Security, namespace)?</h1>
+  <div class="answer"><p>Kubernetes è potente e <strong>insicuro per default</strong> – la configurazione permissiva iniziale va stretta a più livelli:</p><ul><li><strong>Pod Security Standards</strong> (PSS) – i tre profili (<em>privileged</em>, <em>baseline</em>, <em>restricted</em>) che limitano cosa un pod può fare: <code>restricted</code> vieta i container privilegiati, il root, gli host mount pericolosi. Vanno <em>imposti</em>, non lasciati aperti</li><li><strong>Network Policy</strong> – di default in K8s <strong>ogni pod può parlare con ogni pod</strong>: le NetworkPolicy applicano la <a href="../segmentare-la-rete-con-vlan/">segmentazione</a> (default-deny, poi apri il necessario) – fondamentale per contenere un pod compromesso</li><li><strong><a href="../rbac-abac-e-pbac-modelli-di-accesso/">RBAC</a></strong> stretto sugli account di servizio (<a href="../principio-del-minimo-privilegio/">minimo privilegio</a>: un pod non ha bisogno di poteri sul cluster), niente token montati dove non servono</li><li><strong>immagini e runtime</strong> – le stesse regole della <a href="../sicurezza-delle-immagini-container/">sicurezza dei container</a>: immagini scansionate e pinnate, non-root, secret gestiti bene; e admission controller (OPA/Kyverno) come policy-as-code</li><li><strong>isolamento del carico</strong> – <a href="../segmentare-la-rete-con-vlan/">namespace</a> come confine base, e per multi-tenancy seria, runtime isolati (<a href="../sandbox-syscall-seccomp-gvisor/">gVisor, Kata</a>)</li></ul><p>Il <strong>CIS Kubernetes Benchmark</strong> è la <a href="../security-baseline-e-automazione-hardening/">baseline</a> di riferimento per verificare tutto. La verità pragmatica: K8s aggiunge enorme superficie di attacco e complessità – per un <a href="../homelab-a-basso-consumo/">homelab o una PMI</a>, spesso <a href="../cos-e-docker-compose/">Docker Compose su una VM</a> fa lo stesso lavoro con un decimo del rischio. K8s ha senso quando la scala lo giustifica davvero; adottarlo &quot;perché è moderno&quot; è aggiungere un intero dominio di sicurezza da presidiare.</p></div>
+  <a class="ask" href="../../?q=k8s-security">Chiedilo a FabGPT-FAQ →</a>
+  <div class="related">
+    <h2>Altre domande</h2>
+    <ul><li><a href="../cos-e-proxmox-ve/">Cos&#x27;è Proxmox VE e perché è così usato?</a></li><li><a href="../differenza-container-lxc-e-vm/">Che differenza c&#x27;è tra container LXC e VM?</a></li><li><a href="../self-hosting-pro-e-contro/">Self-hosting: cosa significa e quando conviene?</a></li><li><a href="../cluster-proxmox-e-quorum/">Come funziona un cluster Proxmox (e cos&#x27;è il quorum)?</a></li><li><a href="../perche-usare-zfs-su-proxmox/">Perché usare ZFS su Proxmox?</a></li><li><a href="../differenza-snapshot-e-backup/">Che differenza c&#x27;è tra snapshot e backup?</a></li></ul>
+  </div>
+</main>
+</body>
+</html>

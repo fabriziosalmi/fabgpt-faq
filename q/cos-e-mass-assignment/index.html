@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cos&#x27;è la vulnerabilità Mass Assignment nelle API? – FabGPT-FAQ</title>
+<meta name="description" content="La Mass Assignment (o over-posting, auto-binding) nasce da una comodità dei framework: molti mappano automaticamente i campi JSON della richiesta sugli…">
+<link rel="canonical" href="https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-mass-assignment/">
+<link rel="stylesheet" href="../../style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Cos'è la vulnerabilità Mass Assignment nelle API?", "acceptedAnswer": {"@type": "Answer", "text": "La Mass Assignment (o over-posting, auto-binding) nasce da una comodità dei framework: molti mappano automaticamente i campi JSON della richiesta sugli attributi dell'oggetto (utente.nome = body.nome, e così via, per tutti i campi). Comodo... e pericoloso, se non filtri: l'attaccante aggiunge alla richiesta un campo che non doveva poter impostare. L'esempio classico: la registrazione accetta {\"email\": \"...\", \"password\": \"...\"} – e l'attaccante manda {\"email\": \"...\", \"password\": \"...\", \"ruolo\": \"admin\"} o {\"is_admin\": true}. Se il codice fa il binding automatico di tutti i campi ricevuti sull'oggetto utente, si è appena auto-promosso amministratore. La stessa idea vale per impostare l'ID di un altro utente, cambiare un saldo, saltare validazioni. Le difese: allowlist esplicita dei campi accettabili per ogni operazione (\"da questa richiesta accetto solo nome ed email\") – mai il binding cieco di tutto ciò che arriva DTO/schema separati per input e per modello di dati: l'input dell'utente non tocca direttamente l'entità del database validazione dei payload rigorosa – è parente dei [controlli di sanificazione sull'input](q/idor-e-broken-object-level-authorization/) È nella OWASP API Security Top 10 insieme a [BOLA](q/idor-e-broken-object-level-authorization/), e la radice è la stessa: fidarsi dell'input del client. La regola d'oro dell'appsec – ogni input è ostile finché non dimostrato innocuo – qui significa: decidi tu quali campi accettare, non lasciarlo decidere a chi manda la richiesta."}}]}</script>
+<style>
+  .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
+  .page h1 { font-size: 26px; line-height: 1.3; margin: 8px 0 20px; }
+  .page .answer a { color: var(--link); }
+  .page .vertical { font-size: 13px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }
+  .page .answer ul { padding-left: 22px; }
+  .page .answer code { background: var(--code-bg); border-radius: 5px; padding: 1px 5px; font-size: 0.9em; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+  .page .ask { display: inline-block; margin-top: 24px; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 9px 18px; text-decoration: none; font-weight: 600; }
+  .page .related { margin-top: 36px; border-top: 1px solid var(--border); padding-top: 18px; }
+  .page .related h2 { font-size: 16px; }
+  .page .related a { color: var(--link); text-decoration: none; }
+  .page .related a:hover { text-decoration: underline; }
+  .page .related li { margin: 6px 0; }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="../../" style="text-decoration:none;color:inherit">
+    <span class="brand-dot">F</span>
+    <span class="brand-name">FabGPT-FAQ</span>
+  </a>
+</header>
+<main class="page">
+  <div class="vertical">Cybersecurity</div>
+  <h1>Cos&#x27;è la vulnerabilità Mass Assignment nelle API?</h1>
+  <div class="answer"><p>La <strong>Mass Assignment</strong> (o over-posting, auto-binding) nasce da una comodità dei framework: molti mappano automaticamente i campi JSON della richiesta sugli attributi dell&#x27;oggetto (<code>utente.nome = body.nome</code>, e così via, <em>per tutti</em> i campi). Comodo... e pericoloso, se non filtri: l&#x27;attaccante aggiunge alla richiesta un campo che <strong>non doveva poter impostare</strong>.</p><p>L&#x27;esempio classico: la registrazione accetta <code>{&quot;email&quot;: &quot;...&quot;, &quot;password&quot;: &quot;...&quot;}</code> – e l&#x27;attaccante manda <code>{&quot;email&quot;: &quot;...&quot;, &quot;password&quot;: &quot;...&quot;, &quot;ruolo&quot;: &quot;admin&quot;}</code> o <code>{&quot;is_admin&quot;: true}</code>. Se il codice fa il binding automatico di <em>tutti</em> i campi ricevuti sull&#x27;oggetto utente, si è appena auto-promosso amministratore. La stessa idea vale per impostare l&#x27;ID di un altro utente, cambiare un saldo, saltare validazioni.</p><p>Le difese:</p><ul><li><strong>allowlist esplicita</strong> dei campi accettabili per ogni operazione (&quot;da questa richiesta accetto <em>solo</em> nome ed email&quot;) – mai il binding cieco di tutto ciò che arriva</li><li><strong>DTO/schema separati</strong> per input e per modello di dati: l&#x27;input dell&#x27;utente non tocca direttamente l&#x27;entità del database</li><li><strong>validazione dei payload</strong> rigorosa – è parente dei <a href="../idor-e-broken-object-level-authorization/">controlli di sanificazione sull&#x27;input</a></li></ul><p>È nella OWASP API Security Top 10 insieme a <a href="../idor-e-broken-object-level-authorization/">BOLA</a>, e la radice è la stessa: <strong>fidarsi dell&#x27;input del client</strong>. La regola d&#x27;oro dell&#x27;appsec – <em>ogni input è ostile finché non dimostrato innocuo</em> – qui significa: decidi <em>tu</em> quali campi accettare, non lasciarlo decidere a chi manda la richiesta.</p></div>
+  <a class="ask" href="../../?q=mass-assignment">Chiedilo a FabGPT-FAQ →</a>
+  <div class="related">
+    <h2>Altre domande</h2>
+    <ul><li><a href="../cos-e-un-waf-web-application-firewall/">Cos&#x27;è un WAF (Web Application Firewall) e a cosa serve?</a></li><li><a href="../cos-e-un-reverse-proxy/">Cos&#x27;è un reverse proxy e a cosa serve?</a></li><li><a href="../come-funziona-lets-encrypt-acme/">Come funziona Let&#x27;s Encrypt e il protocollo ACME?</a></li><li><a href="../certificato-tls-scaduto-cosa-fare/">Certificato TLS scaduto: perché succede e come evitarlo?</a></li><li><a href="../cos-e-un-siem-e-un-soar/">Cos&#x27;è un SIEM e cos&#x27;è un SOAR?</a></li><li><a href="../nis2-chi-deve-adeguarsi-italia/">Chi deve adeguarsi alla NIS2 in Italia e cosa rischia?</a></li></ul>
+  </div>
+</main>
+</body>
+</html>

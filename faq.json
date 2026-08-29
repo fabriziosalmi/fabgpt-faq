@@ -4772,8 +4772,6 @@
         "wireguard",
         "mesh vpn",
         "tailscale",
-        "netbird",
-        "headscale",
         "vpn moderna",
         "wg",
         "overlay network",
@@ -5624,7 +5622,8 @@
         "sonoff flash",
         "shelly locale",
         "svincolare dal cloud",
-        "reflash"
+        "reflash",
+        "presa smart"
       ],
       "answers": [
         "Molti dispositivi smart economici (prese, interruttori, sensori) girano su chip **ESP8266/ESP32** e di fabbrica parlano col cloud del produttore. Sostituendone il firmware con uno **open source e locale** li svincoli per sempre: nessuna chiamata esterna, nessun account, funzionano anche a internet spento.\n\n- **ESPHome** – integrato splendidamente con [Home Assistant](q/home-assistant-su-proxmox/): descrivi il dispositivo in YAML, compili e flashi (anche **over-the-air** dopo il primo flash via cavo), e appare in HA nativamente. La scelta per chi vive in HA\n- **Tasmota** – firmware pronto, configurabile da web UI, parla [MQTT](q/gestire-zigbee-con-zigbee2mqtt/): ottimo per svincolare device commerciali (molti Sonoff) con un flash e via\n\nLe cautele: il flashing via cavo richiede attenzione (piedini, tensioni – si può *brickare* un dispositivo), controlla la compatibilità del modello prima di comprare, e alcuni produttori hanno blindato i chip più recenti. I dispositivi **Shelly** sono la scorciatoia: nascono già con API locale e MQTT, spesso non serve reflashare. Il risultato comune: una casa intelligente che [risponde a te, in locale](q/protocolli-smart-home-locali-zigbee-matter/), immune alla morte dei server altrui – la stessa [sovranità](q/cos-e-la-sovranita-digitale/) applicata alle prese di corrente."
@@ -6794,6 +6793,720 @@
       ],
       "answers": [
         "Le credenziali **contactless** (badge di accesso, carte) sono comode e, nelle versioni vecchie, spaventosamente insicure. I rischi:\n\n- **clonazione**: le tecnologie legacy come **MIFARE Classic** sono crittograficamente rotte da anni – un badge si copia in secondi con hardware economico (un Proxmark, o perfino un telefono). Molti sistemi di accesso aziendali girano ancora su queste\n- **relay attack**: due dispositivi che fanno da ponte estendono il raggio di una carta – la carta è in tasca, ma un attaccante ne \"allunga\" il segnale per usarla a distanza (rilevante anche per le chiavi auto keyless)\n- **skimming**: lettura non autorizzata a distanza ravvicinata\n\nLe difese: **migrare a tecnologie moderne** – MIFARE **DESFire EV2/EV3** o **SEOS**, con crittografia forte e mutua autenticazione (la clonazione banale non funziona più); per le carte di pagamento e i passaporti, le **guaine schermanti** (Faraday) contro lo skimming; contro il relay sulle auto, custodie schermate per le chiavi. E il principio di sempre: il contactless è **un fattore**, e per gli accessi che contano va combinato con altro ([MFA](q/cos-e-autenticazione-due-fattori-mfa/), PIN) in [difesa in profondità](q/cos-e-la-defense-in-depth/) – un badge, come una password, non dovrebbe mai essere l'unica cosa tra un estraneo e il tuo sistema. Sul fronte digitale, l'equivalente robusto sono le [chiavi di sicurezza FIDO2](q/chiavi-di-sicurezza-hardware-yubikey/), che il relay e la clonazione non toccano."
+      ]
+    },
+    {
+      "id": "openzfs",
+      "slug": "cos-e-openzfs-snapshot-copy-on-write",
+      "question": "Cos'è OpenZFS (snapshot atomici, copy-on-write, checksumming)?",
+      "vertical": "proxmox",
+      "keywords": [
+        "openzfs",
+        "zfs filesystem",
+        "copy on write",
+        "cow",
+        "checksumming",
+        "bit rot",
+        "snapshot atomici",
+        "raidz",
+        "scrub zfs",
+        "integrita dati filesystem"
+      ],
+      "answers": [
+        "**OpenZFS** è filesystem e gestore di volumi in uno, progettato attorno a un'ossessione: **l'integrità dei dati**. I meccanismi che lo rendono speciale:\n\n- **copy-on-write (CoW)** – non sovrascrive mai un blocco in posto: scrive la modifica altrove e poi aggiorna il puntatore, in modo **atomico**. Un crash a metà scrittura non lascia mai il filesystem in stato incoerente, e abilita gli **snapshot istantanei** (un segnalibro dei puntatori, costo quasi zero)\n- **checksumming continuo** – ogni blocco ha un checksum verificato a ogni lettura: il **bit rot** (la corruzione silenziosa dei dischi che nessun filesystem tradizionale rileva) viene scoperto e, con [ridondanza (mirror/RAIDZ)](q/raid-e-raidz-livelli-e-scelta/), **riparato automaticamente**. Lo **scrub** periodico verifica proattivamente tutto il pool\n- compressione trasparente, replica incrementale, e la gestione integrata dei volumi (niente RAID hardware sotto)\n\nÈ il motivo per cui ZFS è lo standard del [NAS e del self-hosting serio](q/self-hosting-pro-e-contro/): i tuoi dati vengono *verificati*, non solo scritti e sperati. I compromessi da conoscere: ama la [RAM (meglio ECC](q/perche-la-ram-ecc-nel-nas/)), vuole dischi dedicati senza RAID hardware di mezzo, e gli snapshot [non sono backup](q/differenza-snapshot-e-backup/). Su [Proxmox è integrato nativamente](q/perche-usare-zfs-su-proxmox/); su un NAS lo trovi sotto TrueNAS o direttamente su Linux/BSD."
+      ]
+    },
+    {
+      "id": "ecc-ram",
+      "slug": "perche-la-ram-ecc-nel-nas",
+      "question": "Perché si consiglia la RAM ECC in un NAS?",
+      "vertical": "proxmox",
+      "keywords": [
+        "ecc",
+        "ram ecc",
+        "error correcting",
+        "memoria ecc",
+        "nas ecc",
+        "corruzione memoria",
+        "bit flip",
+        "raggi cosmici",
+        "server ram"
+      ],
+      "answers": [
+        "La **RAM ECC** (Error-Correcting Code) rileva e corregge automaticamente gli errori di bit nella memoria – quei rari ma reali \"bit flip\" causati da difetti, sbalzi elettrici o perfino raggi cosmici. In un PC desktop un bit flip causa al massimo un crash o un artefatto; in un **NAS che custodisce i tuoi dati**, è più insidioso: un errore in RAM può propagarsi **su disco come dato corrotto** – e, ironia, con [ZFS](q/cos-e-openzfs-snapshot-copy-on-write/) il dato corrotto verrebbe checksummato e replicato *come se fosse valido*, perché l'errore è avvenuto *prima* del checksum.\n\nDa qui il consiglio forte per i sistemi che archiviano dati a lungo termine: ECC chiude l'unico punto della catena che [il checksumming di ZFS](q/cos-e-openzfs-snapshot-copy-on-write/) non copre – la memoria. Il dibattito \"ZFS *richiede* ECC\" è esagerato (ZFS gira benissimo senza), ma \"un NAS *dovrebbe avere* ECC\" è saggezza consolidata.\n\nLa nota pratica per il [homelab](q/homelab-a-basso-consumo/): l'ECC richiede CPU e schede madri che la supportino (Xeon, EPYC, Ryzen con chipset adatti, molte piattaforme server usate) – ed è uno dei compromessi dei [mini PC economici](q/homelab-a-basso-consumo/), che quasi mai la offrono. Per i dati che contano davvero, è un fattore da mettere nella decisione dell'hardware; per un lab di sperimentazione, si può vivere senza sapendo il rischio."
+      ]
+    },
+    {
+      "id": "raid-raidz",
+      "slug": "raid-e-raidz-livelli-e-scelta",
+      "question": "RAID e RAIDZ: quali livelli scegliere (e cosa NON sono)?",
+      "vertical": "proxmox",
+      "keywords": [
+        "raid",
+        "raidz",
+        "raid 1",
+        "raid 5",
+        "raid 6",
+        "raidz1",
+        "raidz2",
+        "mirror",
+        "ridondanza dischi",
+        "livelli raid",
+        "raid non backup"
+      ],
+      "answers": [
+        "Il **RAID** distribuisce i dati su più dischi per **tollerare i guasti** (e/o guadagnare prestazioni). I livelli che contano:\n\n- **RAID 1 / mirror** – copia identica su due (o più) dischi: sopravvive alla morte di uno, ricostruzione rapida, metà capacità utile. La scelta più semplice e sicura per pochi dischi\n- **RAID 5 / RAIDZ1** – parità distribuita: tollera **un** disco morto, buona capacità utile. Ma su dischi moderni grandi, la **ricostruzione** stressa gli altri dischi per ore/giorni, con rischio reale che un secondo disco ceda durante il rebuild\n- **RAID 6 / RAIDZ2** – doppia parità: tollera **due** dischi morti. Su array grandi è la scelta prudente proprio per coprire il rischio del rebuild\n\nLe versioni **RAIDZ** di [ZFS](q/cos-e-openzfs-snapshot-copy-on-write/) aggiungono checksumming e riparazione automatica, evitando il famigerato \"write hole\" del RAID 5 classico.\n\nLa verità che salva i dati, ripetuta perché è ignorata di continuo: **il RAID NON è un backup**. Protegge dal *guasto hardware* di un disco, non da cancellazioni, [ransomware](q/cos-e-un-ransomware/), corruzione, errori umani o dal furto dell'intera macchina – tutte cose che il RAID replica fedelmente su tutti i dischi. Serve *sia* RAID (disponibilità) *sia* [backup 3-2-1](q/backup-3-2-1/) (recuperabilità): rispondono a domande diverse, e confonderli è come pensare che la cintura di sicurezza renda superflua l'assicurazione."
+      ]
+    },
+    {
+      "id": "disk-encryption",
+      "slug": "cifratura-a-riposo-dei-dischi-luks",
+      "question": "Come funziona la cifratura a riposo dei dischi (LUKS, ZFS encryption)?",
+      "vertical": "security",
+      "keywords": [
+        "cifratura a riposo",
+        "luks",
+        "zfs encryption",
+        "encryption at rest",
+        "cifrare disco",
+        "dm-crypt",
+        "cifratura dischi nas",
+        "dischi cifrati server",
+        "disco rubato"
+      ],
+      "answers": [
+        "La **cifratura a riposo** (encryption at rest) protegge i dati quando il disco è *fermo e sottratto*: se rubano il server, estraggono un disco dal NAS, o non smaltisci correttamente un'unità dismessa, i dati sono un blob illeggibile senza la chiave – il [furto del dispositivo](q/sicurezza-fisica-dei-server/) diventa furto di ferraglia. Le tecnologie su Linux:\n\n- **LUKS** (dm-crypt) – lo standard per la cifratura di **interi dischi/partizioni**: trasparente, forte, integrato ovunque. Il disco montato è in chiaro per il sistema; smontato/spento è cifrato\n- **ZFS Native Encryption** – cifratura **a livello di dataset** dentro [ZFS](q/cos-e-openzfs-snapshot-copy-on-write/): puoi cifrare singoli dataset, mantenere deduplicazione/compressione, e replicare i dati **ancora cifrati** verso un backup remoto (che non vede mai il chiaro)\n\nIl nodo di ogni cifratura at-rest è lo **sblocco all'avvio**: dove sta la chiave? Le opzioni – passphrase digitata a mano (sicuro, scomodo per i server headless), **TPM** (sblocco automatico legato all'integrità della macchina), o **unlock remoto** ([SSH in initramfs](q/mettere-in-sicurezza-ssh/): la macchina parte, tu inserisci la chiave da remoto). Ogni scelta è un compromesso tra automazione e sicurezza. Il limite da tenere a mente: at-rest protegge dal disco *fermo* – a sistema acceso e volume montato, i dati sono accessibili a chi controlla la macchina, e lì contano le [altre difese](q/cos-e-la-defense-in-depth/). Complementare alla [cifratura di file/volumi con VeraCrypt](q/cifrare-dati-con-veracrypt/)."
+      ]
+    },
+    {
+      "id": "smart-monitoring",
+      "slug": "monitorare-lo-stato-dei-dischi-smart",
+      "question": "Come si monitora lo stato dei dischi (SMART) e si prevengono i guasti?",
+      "vertical": "proxmox",
+      "keywords": [
+        "smartctl",
+        "smartmontools",
+        "stato dischi",
+        "disco che sta morendo",
+        "monitorare hard disk",
+        "reallocated sectors",
+        "predire guasto disco",
+        "scrubbing",
+        "salute dei dischi",
+        "smart disco",
+        "attributi smart"
+      ],
+      "answers": [
+        "I dischi **avvisano prima di morire** – se qualcuno ascolta. **SMART** (Self-Monitoring, Analysis and Reporting Technology) è il sistema di autodiagnosi integrato in HDD e SSD/NVMe: `smartctl -a /dev/sda` mostra decine di parametri, e alcuni sono predittivi di guasto imminente:\n\n- **Reallocated Sectors Count** che cresce – settori difettosi rimappati: un disco che inizia a cedere\n- **Pending/Uncorrectable Sectors** – settori che non si riescono più a leggere: segnale serio\n- **Wear Leveling / Percentage Used** sugli SSD – l'usura della memoria flash\n- temperatura, ore di funzionamento, errori CRC (spesso un cavo, non il disco)\n\nLo strumento operativo è **smartmontools**: `smartd` gira in background, esegue **self-test** periodici (short/long) e **manda un alert** ([email, ntfy/Gotify](q/notifiche-push-self-hosted-ntfy-gotify/)) quando un parametro peggiora – così lo sostituisci *prima* del guasto, non dopo. Su [Proxmox](q/cos-e-proxmox-ve/) e i NAS è spesso integrato nell'interfaccia.\n\nLa strategia completa: SMART per la salute predittiva del *singolo* disco, [scrub ZFS](q/cos-e-openzfs-snapshot-copy-on-write/) per l'integrità dei *dati* (scova la corruzione silenziosa), [RAID/RAIDZ](q/raid-e-raidz-livelli-e-scelta/) per sopravvivere al guasto, e [backup 3-2-1](q/backup-3-2-1/) per tutto il resto. SMART non è infallibile (dischi muoiono anche \"sani\"), ma ignorarlo significa scoprire i problemi nel modo peggiore: durante un [rebuild](q/raid-e-raidz-livelli-e-scelta/), con un secondo disco che cede."
+      ]
+    },
+    {
+      "id": "wireguard-vs-openvpn",
+      "slug": "wireguard-o-openvpn",
+      "question": "WireGuard o OpenVPN: quale scegliere per l'accesso remoto?",
+      "vertical": "security",
+      "keywords": [
+        "wireguard vs openvpn",
+        "openvpn",
+        "wireguard o openvpn",
+        "confronto vpn",
+        "vpn piu veloce",
+        "vpn accesso remoto",
+        "meglio wireguard",
+        "prestazioni vpn"
+      ],
+      "answers": [
+        "Due generazioni di VPN a confronto:\n\n- **OpenVPN** – il veterano collaudato: gira in user-space, cifratura configurabilissima (TLS), attraversa NAT e firewall restrittivi mascherandosi come traffico TLS sulla 443 (utile in reti ostili), autenticazione ricca (certificati, utente/password, [MFA](q/cos-e-autenticazione-due-fattori-mfa/)). Contro: **lento** rispetto a WireGuard, configurazione verbosa, tanta superficie di codice\n- **[WireGuard](q/wireguard-e-mesh-vpn/)** – il moderno: nel kernel, poche migliaia di righe (auditabile, meno bug), crittografia moderna e non configurabile-male, **prestazioni molto superiori** e handshake istantaneo. Contro: più \"nudo\" (niente attraversamento di firewall ostili di serie, gestione IP più manuale – che le [mesh come Tailscale](q/wireguard-e-mesh-vpn/) risolvono)\n\nLa scelta pratica: per un **nuovo** setup, **WireGuard** quasi sempre – più veloce, più semplice, più sicuro per costruzione; e con [Tailscale/Headscale](q/cos-e-headscale/) sopra, sparisce anche la complessità di configurazione. OpenVPN resta valido dove serve **eludere reti restrittive** (il mascheramento TLS sulla 443 supera firewall che bloccano WireGuard) o per compatibilità con sistemi legacy. Per il [self-hosting](q/esporre-servizi-senza-aprire-porte/) quotidiano – raggiungere il NAS, [Home Assistant](q/home-assistant-su-proxmox/), la [GUI di Proxmox](q/proxmox-dietro-reverse-proxy/) – WireGuard in mesh è la risposta che consiglierei senza esitare."
+      ]
+    },
+    {
+      "id": "headscale",
+      "slug": "cos-e-headscale",
+      "question": "Cos'è Headscale (Tailscale self-hosted)?",
+      "vertical": "security",
+      "keywords": [
+        "headscale",
+        "tailscale self hosted",
+        "server di controllo tailscale",
+        "coordination server",
+        "mesh self hosted",
+        "tailscale senza cloud",
+        "control plane vpn",
+        "netbird",
+        "headscale server"
+      ],
+      "answers": [
+        "Le [mesh VPN come Tailscale](q/wireguard-e-mesh-vpn/) hanno un componente centrale: il **server di coordinamento** (control plane) che gestisce identità, chiavi e ACL, dicendo ai dispositivi come trovarsi. Nel Tailscale ufficiale, quel server è **gestito da loro** – comodo, ma significa che un pezzo della tua rete privata dipende da (e passa la fiducia a) un'infrastruttura terza.\n\n**Headscale** è l'implementazione **open source e self-hostabile** di quel control plane: ospiti tu il server di coordinamento, i client Tailscale ufficiali si connettono al *tuo* server invece che al loro, e ottieni la stessa mesh WireGuard – ma con il control plane interamente in casa. Zero dipendenza da un servizio esterno, [sovranità completa](q/cos-e-la-sovranita-digitale/) sulla tua rete privata.\n\nÈ la mossa per chi ama Tailscale (l'esperienza è ottima) ma non vuole che nemmeno i *metadati* della sua rete (chi si connette a cosa) passino da terzi. Su [un piccolo LXC Proxmox](q/differenza-container-lxc-e-vm/) gira col nulla. L'alternativa nello stesso spirito è **Netbird** (mesh self-hostabile completa, control plane incluso). Il compromesso onesto rispetto al Tailscale gestito: la magia del NAT traversal e dei relay DERP va configurata tu, e sei responsabile della disponibilità del control plane. Per chi ha già [un homelab](q/homelab-a-basso-consumo/), è un self-host a basso costo e alto valore di indipendenza."
+      ]
+    },
+    {
+      "id": "multi-wan",
+      "slug": "failover-e-bilanciamento-multi-wan",
+      "question": "Come si gestisce il failover e il bilanciamento Multi-WAN?",
+      "vertical": "security",
+      "keywords": [
+        "multi-wan",
+        "failover connessione",
+        "due connessioni internet",
+        "bilanciamento wan",
+        "load balancing internet",
+        "ridondanza internet",
+        "seconda linea",
+        "opnsense multi wan"
+      ],
+      "answers": [
+        "**Multi-WAN** significa collegare il gateway a **più connessioni internet** (fibra + 4G/5G, due provider diversi) per continuità e/o banda aggregata. È la resilienza di rete per chi non può permettersi di stare offline. Due modalità:\n\n- **failover** – una linea primaria, una di riserva: se la primaria cade, il traffico passa in automatico sulla secondaria (e torna quando si riprende). La più comune per l'alta affidabilità\n- **load balancing** – il traffico si distribuisce sulle linee attive, aggregando banda (con i limiti: una singola connessione TCP non si \"spalma\" su due WAN – si bilanciano *sessioni* diverse)\n\nIl dettaglio che fa funzionare il failover davvero: il **monitoraggio della salute** della linea – non basta \"il cavo è collegato\", serve verificare che internet risponda *davvero* (ping a target esterni), o il failover non scatta quando il provider ha un guasto a monte. Le connessioni con **stato** (VPN, SSH, videochiamate) si interrompono al passaggio, salvo accorgimenti.\n\nSi implementa su firewall/gateway open source (**OPNsense/pfSense**, VyOS) su hardware modesto o [una VM Proxmox](q/cos-e-proxmox-ve/). È parente della [ridondanza a livello applicativo](q/cos-e-un-load-balancer/) (là bilanci server, qui linee) e un pezzo della [continuità operativa](q/piano-di-disaster-recovery-minimo/): per un'azienda, la seconda linea di un provider diverso è spesso l'investimento di resilienza col miglior rapporto costo/beneficio."
+      ]
+    },
+    {
+      "id": "mdns-reflector",
+      "slug": "mdns-repeater-tra-vlan",
+      "question": "Come si fa funzionare mDNS tra VLAN diverse (repeater/reflector)?",
+      "vertical": "security",
+      "keywords": [
+        "mdns",
+        "mdns repeater",
+        "mdns reflector",
+        "avahi",
+        "bonjour",
+        "chromecast vlan",
+        "airplay vlan",
+        "discovery tra vlan",
+        "stampante vlan",
+        "multicast tra reti"
+      ],
+      "answers": [
+        "Il problema classico di chi [segmenta la rete in VLAN](q/segmentare-la-rete-con-vlan/): protocolli di discovery come **mDNS** (Bonjour/Avahi – dietro Chromecast, AirPlay, stampanti, HomeKit) usano il **multicast**, che per progettazione **non attraversa** i confini tra VLAN. Risultato: metti la TV o la stampante in una VLAN separata (giusto, per sicurezza) e il telefono nella VLAN principale non le \"vede\" più.\n\nLa soluzione è un **mDNS repeater/reflector**: un servizio (nei firewall come OPNsense/pfSense, o Avahi con `reflector=yes`) che **ripete selettivamente** gli annunci mDNS tra le VLAN che decidi tu – il telefono nella rete fidata scopre la Chromecast nella VLAN IoT, ma le due VLAN restano per il resto isolate.\n\nLa cautela di sicurezza, importante: il reflector è un **buco controllato** nella segmentazione – va limitato alle VLAN e ai servizi che *devono* comunicare, non aperto a tutto (altrimenti vanifichi la segmentazione stessa). Il pattern sano: IoT/media in VLAN isolata **senza uscita internet** (contro i device che [chiamano casa](q/cos-e-una-botnet/)), reflector mDNS *solo* verso la VLAN dei dispositivi fidati, e le regole firewall che permettono *solo* le porte del servrizio (il casting) e non l'intero traffico. È il compromesso quotidiano tra la comodità della smart home e l'isolamento che la rende sicura."
+      ]
+    },
+    {
+      "id": "bgp-bfd-homelab",
+      "slug": "bgp-con-bfd-verso-un-vps",
+      "question": "Come si configura una sessione BGP con BFD (router locale ↔ VPS)?",
+      "vertical": "security",
+      "keywords": [
+        "bgp bfd",
+        "bfd",
+        "bidirectional forwarding detection",
+        "bgp homelab",
+        "bgp vps",
+        "annuncio ip da casa",
+        "frr",
+        "bird",
+        "routing dinamico casa",
+        "failover bgp"
+      ],
+      "answers": [
+        "Uno scenario avanzato di [self-hosting](q/self-hosting-pro-e-contro/): usare **BGP** per annunciare i propri servizi da casa attraverso un **VPS** che fa da frontend pubblico – utile per avere IP stabili e failover quando la linea di casa è dietro [CGNAT](q/nat-statico-dinamico-e-pat/) o cambia IP. Il router locale e il VPS stabiliscono una **sessione BGP** (di solito dentro un [tunnel WireGuard](q/wireguard-o-openvpn/)) su cui si scambiano le rotte.\n\nIl problema che **BFD** risolve: BGP di suo rileva la caduta di un peer con timer lenti (decine di secondi) – troppo per un failover pulito. **BFD** (Bidirectional Forwarding Detection) è un protocollo leggerissimo che manda pacchetti a intervalli di **millisecondi** e rileva la caduta del collegamento in una frazione di secondo, dicendo a BGP di ritirare le rotte *subito*. Il failover diventa quasi istantaneo invece che una lunga finestra di disservizio.\n\nSi implementa con **FRR** (Free Range Routing) o **BIRD** sul router locale e sul VPS – entrambi girano su [un LXC](q/differenza-container-lxc-e-vm/) o direttamente sul gateway. È territorio da homelab avanzato / piccola infrastruttura, imparentato con come funziona [il routing di internet stesso](q/bgp-hijacking-e-rpki/), e un'alternativa più sofisticata al [tunnel semplice verso un VPS](q/esporre-servizi-senza-aprire-porte/): dà routing dinamico e failover veloce, al prezzo di una configurazione che richiede di masticare BGP. Per la maggioranza, [una mesh VPN](q/wireguard-e-mesh-vpn/) risolve lo stesso bisogno con un decimo della complessità."
+      ]
+    },
+    {
+      "id": "geoip-filtering",
+      "slug": "filtraggio-geoip-e-liste-di-reputazione",
+      "question": "Come si filtra il traffico con GeoIP e liste di reputazione?",
+      "vertical": "security",
+      "keywords": [
+        "geoip",
+        "filtraggio geoip",
+        "bloccare per paese",
+        "liste di reputazione",
+        "blocco geografico",
+        "greynoise",
+        "firehol",
+        "block by country",
+        "ip reputation",
+        "threat feed firewall"
+      ],
+      "answers": [
+        "Due filtri **a monte** che riducono il rumore e la superficie d'attacco prima ancora che il [WAF](q/cos-e-un-waf-web-application-firewall/) o l'applicazione entrino in gioco:\n\n- **GeoIP** – bloccare (o permettere) il traffico per **paese di origine**. Se il tuo servizio serve solo l'Italia, chiudere agli altri continenti elimina in un colpo la maggioranza degli scanner e dei brute force. Semplice ed efficace, con l'onesto limite che si aggira con VPN/proxy e va usato con giudizio (non tagliar fuori utenti legittimi o CDN)\n- **liste di reputazione** – blocklist di IP noti come malevoli, aggiornate da feed di [threat intelligence](q/cos-e-la-threat-intelligence/): scanner di massa (GreyNoise cataloga chi \"rumoreggia\" su internet), nodi Tor, IP compromessi, botnet. FireHOL aggrega decine di feed; nel portfolio, [blacklists](https://github.com/fabriziosalmi/blacklists) fa lo stesso per i domini\n\nSi applicano a livello di firewall (OPNsense/pfSense con alias GeoIP e feed automatici, nftables con ipset) o di [reverse proxy](q/cos-e-un-reverse-proxy/). Sono **filtri probabilistici**, non muri: fanno parte della [difesa in profondità](q/cos-e-la-defense-in-depth/) – riducono drasticamente il volume di attacchi e log-noise (aiutando anche contro l'[alert fatigue](q/alert-fatigue-nel-soc/)), ma dietro devono restare [WAF](q/cos-e-un-waf-web-application-firewall/), [rate limiting](q/configurare-rate-limiting-web-server/) e patch. La regola: bloccare per reputazione e geografia è togliere il grosso del rumore *prima* delle difese costose – meno lavoro per tutto ciò che sta a valle."
+      ]
+    },
+    {
+      "id": "l2-l3-switch",
+      "slug": "switch-managed-l2-vs-l3",
+      "question": "Switch Managed L2 con ACL o Switch L3 con routing: quale differenza?",
+      "vertical": "security",
+      "keywords": [
+        "switch layer 2",
+        "l2 vs l3",
+        "switch managed",
+        "acl switch",
+        "routing switch",
+        "inter-vlan routing",
+        "svi",
+        "switch homelab",
+        "quale switch",
+        "switch l2 l3",
+        "switch"
+      ],
+      "answers": [
+        "La differenza tra uno switch **Layer 2** e uno **Layer 3** decide *dove* avviene il routing tra le tue [VLAN](q/segmentare-la-rete-con-vlan/):\n\n- **switch L2 managed** – opera su indirizzi MAC: crea VLAN, applica **ACL** statiche (permetti/nega per porta, MAC, a volte IP), ma **non instrada** tra VLAN – per andare da una VLAN all'altra il traffico deve salire al **router/firewall** (il classico \"router-on-a-stick\"). Vantaggio: il firewall vede e controlla *tutto* il traffico inter-VLAN, applicando policy ricche e loggando. Svantaggio: quel traffico è limitato dalla banda del collegamento verso il firewall\n- **switch L3** – instrada tra VLAN **a velocità di switch** (SVI, interfacce virtuali), senza far salire il traffico al firewall. Vantaggio: prestazioni enormi per il traffico inter-VLAN interno. Svantaggio: il firewall **non vede** quel traffico – il controllo si fa con le ACL dello switch, meno espressive e più difficili da gestire di un vero firewall\n\nLa scelta per un [homelab](q/homelab-a-basso-consumo/)/piccola rete: **L2 + firewall** è quasi sempre giusto – il volume inter-VLAN è modesto e vuoi che il firewall veda e controlli tutto (è il cuore della [segmentazione sicura](q/segmentare-la-rete-con-vlan/)). L'**L3** ha senso quando il traffico inter-VLAN è massiccio (data center, molti server che si parlano) e il collo di bottiglia verso il firewall diventa reale. Regola: fai instradare al firewall finché la banda regge, sali a L3 solo quando serve davvero – la visibilità che perdi con l'L3 è preziosa, e va riconquistata con [NDR/monitoraggio](q/cos-e-ndr-network-detection-response/)."
+      ]
+    },
+    {
+      "id": "pcap-remote",
+      "slug": "cattura-pacchetti-remota-pcap",
+      "question": "Come si cattura il traffico da remoto per analizzarlo (PCAP over SSH)?",
+      "vertical": "security",
+      "keywords": [
+        "pcap",
+        "cattura pacchetti",
+        "tcpdump",
+        "wireshark remoto",
+        "pcap over ssh",
+        "analisi traffico rete",
+        "sniffing",
+        "packet capture",
+        "wireshark gateway",
+        "diagnosi rete"
+      ],
+      "answers": [
+        "Quando devi capire cosa succede *davvero* sulla rete – un servizio che non risponde, un dispositivo che parla con chi non dovrebbe, un problema di connessione oscuro – la verità è nei **pacchetti**. Ma spesso il punto giusto per catturarli è un **gateway/router headless** senza interfaccia grafica.\n\nLa tecnica elegante è il **PCAP over SSH**: fai girare `tcpdump` sul dispositivo remoto e **fai scorrere l'output direttamente in Wireshark** sul tuo computer, in tempo reale:\n\n`ssh gateway \"tcpdump -i eth0 -U -w - 'not port 22'\" | wireshark -k -i -`\n\nCatturi sul gateway, analizzi con la GUI comoda in locale, senza salvare file intermedi. Il filtro `not port 22` esclude il traffico SSH della cattura stessa (o si crea un loop di rumore).\n\nGli usi diagnostici: vedere se un pacchetto *arriva* davvero (problema di rete o di applicazione?), scoprire [verso quali domini un dispositivo IoT chiama](q/cos-e-una-botnet/) (spesso rivelatore), debuggare TLS handshake falliti, misurare [problemi di MTU](q/mtu-e-mss-nelle-vpn/). Le cautele: la cattura di rete vede **dati potenzialmente sensibili** (trattala come tale, [privacy](q/gdpr-cosa-serve-a-un-sito-web/) inclusa), e su reti [switchate](q/switch-managed-l2-vs-l3/) vedi solo il traffico che passa da quel punto (per vedere tutto serve una porta mirror/SPAN). È lo strumento che trasforma \"non funziona e non so perché\" in \"ecco esattamente cosa succede\"."
+      ]
+    },
+    {
+      "id": "mtu-mss-vpn",
+      "slug": "mtu-e-mss-nelle-vpn",
+      "question": "Come si risolvono i problemi di MTU e frammentazione su una VPN?",
+      "vertical": "security",
+      "keywords": [
+        "mtu",
+        "mss",
+        "mss clamping",
+        "frammentazione pacchetti",
+        "vpn lenta siti non caricano",
+        "path mtu",
+        "packet leakage",
+        "tunnel mtu",
+        "problemi mtu vpn",
+        "pagine che si bloccano vpn"
+      ],
+      "answers": [
+        "Un sintomo classico e sconcertante: la [VPN](q/wireguard-o-openvpn/) è \"su\", il ping funziona, ma **alcuni siti non caricano o si bloccano a metà**. Quasi sempre è un problema di **MTU**.\n\nLa causa: ogni pacchetto ha una dimensione massima (la MTU, tipicamente 1500 byte). Un tunnel VPN aggiunge il proprio **overhead di incapsulamento** (header di cifratura), quindi dentro il tunnel lo spazio utile è minore – se un pacchetto viaggia a 1500 ma nel tunnel ce ne stanno solo ~1420, deve essere **frammentato**... e se qualcosa lungo il percorso blocca i messaggi ICMP di \"Path MTU Discovery\" (comune con firewall troppo zelanti), i pacchetti grandi vengono **scartati in silenzio** – il ping (pacchetti piccoli) passa, il traffico reale (pacchetti grandi) muore. Da qui il comportamento \"funziona ma non funziona\".\n\nLe soluzioni:\n\n- **MSS clamping** – la più efficace: il gateway riscrive la dimensione massima di segmento (MSS) annunciata nell'handshake TCP, così i due estremi concordano da subito pacchetti che *entrano* nel tunnel senza frammentazione. Nei firewall si attiva con \"clamp MSS to PMTU\"\n- **abbassare la MTU** dell'interfaccia VPN al valore giusto ([WireGuard](q/wireguard-e-mesh-vpn/) di solito la gestisce bene di suo, 1420)\n- non bloccare l'ICMP necessario alla Path MTU Discovery\n\nÈ uno di quei problemi che sembrano stregoneria finché non conosci il meccanismo – e allora si risolvono in una riga di configurazione. Il **packet leakage** (traffico che sfugge fuori dal tunnel) è un tema imparentato: [kill-switch della VPN](q/wireguard-o-openvpn/) e routing corretto assicurano che *tutto* passi cifrato, senza fughe."
+      ]
+    },
+    {
+      "id": "sbc-homelab",
+      "slug": "single-board-computer-nel-homelab",
+      "question": "Che ruolo ha un Raspberry Pi (SBC) in un homelab?",
+      "vertical": "proxmox",
+      "keywords": [
+        "raspberry pi",
+        "sbc",
+        "single board computer",
+        "pi 5",
+        "rok3",
+        "orange pi",
+        "raspberry homelab",
+        "mini server",
+        "quorum device",
+        "pi cluster"
+      ],
+      "answers": [
+        "Le **single-board computer** (Raspberry Pi 5, e le alternative come Rock/Orange Pi) non sostituiscono un [server di virtualizzazione](q/cos-e-proxmox-ve/), ma trovano ruoli preziosi in un [homelab](q/homelab-a-basso-consumo/) proprio per il consumo ridicolo (pochi watt) e il costo basso:\n\n- **servizi always-on leggeri**: [Pi-hole/AdGuard](q/pi-hole-vs-adguard-home/), un resolver DNS, [ntfy](q/notifiche-push-self-hosted-ntfy-gotify/), un bastion, [monitoraggio](q/stack-di-monitoraggio-prometheus-grafana/) – roba che deve stare accesa sempre ma non consumare nulla\n- **[QDevice per il quorum](q/cluster-proxmox-e-quorum/)**: in un cluster Proxmox a due nodi, un Pi come terzo voto risolve elegantemente il problema del quorum senza un terzo server intero\n- **funzioni fisiche/edge**: [coordinatore Zigbee](q/gestire-zigbee-con-zigbee2mqtt/) remoto, sensori, GPIO, un nodo in una stanza diversa\n- **ridondanza a basso costo**: un secondo Pi che replica un servizio critico\n\nI limiti da conoscere: storage su microSD **inaffidabile** per servizi che scrivono tanto (usa SSD USB/NVMe – le SD si corrompono, è la causa n°1 di grattacapi), [niente ECC](q/perche-la-ram-ecc-nel-nas/), I/O e RAM limitati. La filosofia sana: il Pi fa i **tanti piccoli servizi always-on** a consumo quasi nullo, il mini PC/server fa il **lavoro pesante** (VM, storage, transcoding). Insieme, un homelab efficiente costa in bolletta come una vecchia lampadina."
+      ]
+    },
+    {
+      "id": "ups-nut",
+      "slug": "ups-e-spegnimento-sicuro-nut",
+      "question": "Come si collega un UPS per lo spegnimento sicuro (NUT)?",
+      "vertical": "proxmox",
+      "keywords": [
+        "ups",
+        "gruppo di continuita",
+        "nut",
+        "network ups tools",
+        "spegnimento sicuro",
+        "blackout server",
+        "apc ups",
+        "shutdown automatico",
+        "batteria server",
+        "protezione elettrica"
+      ],
+      "answers": [
+        "Un **UPS** (gruppo di continuità) non serve a tenere i server accesi per ore durante un blackout – serve a dar loro il **tempo di spegnersi in modo pulito** prima che la batteria finisca, evitando la corruzione di [filesystem](q/cos-e-openzfs-snapshot-copy-on-write/), [database](q/backup-consistenti-di-database/) e [pool ZFS](q/perche-usare-zfs-su-proxmox/) che uno spegnimento brutale può causare. Un UPS senza spegnimento automatico è mezzo UPS.\n\nLo strumento è **NUT** (Network UPS Tools): l'UPS si collega **via USB** (o rete) al server, NUT ne legge lo stato, e quando la batteria scende sotto una soglia **avvia lo shutdown ordinato** di tutto. La chicca è la modalità **client/server**: un solo UPS può proteggere *più* macchine – il server collegato all'UPS fa da \"master\" e avvisa gli altri (che spengono per primi, lasciando il master per ultimo). Su [Proxmox](q/cos-e-proxmox-ve/) NUT protegge l'host, che a sua volta spegne ordinatamente le VM.\n\nLe accortezze: **dimensiona** l'UPS al carico (basta poca autonomia – lo scopo è spegnere, non resistere), **testa** lo shutdown simulando un blackout (staccare la presa e verificare che tutto spenga davvero – un NUT non testato fallisce proprio nell'emergenza), e sostituisci le **batterie** ogni 3-5 anni (invecchiano e l'autonomia crolla senza preavviso). È uno di quei pezzi \"noiosi\" del [homelab](q/homelab-a-basso-consumo/) che nessuno nota finché un temporale non corrompe un pool ZFS che nessun backup recente copriva."
+      ]
+    },
+    {
+      "id": "monitoring-stack",
+      "slug": "stack-di-monitoraggio-prometheus-grafana",
+      "question": "Come si monitora l'hardware del homelab (Prometheus, Grafana)?",
+      "vertical": "proxmox",
+      "keywords": [
+        "prometheus",
+        "grafana",
+        "monitoraggio hardware",
+        "node exporter",
+        "dashboard metriche",
+        "monitoraggio homelab",
+        "telemetria",
+        "influxdb",
+        "netdata",
+        "temperature hardware",
+        "temperature server homelab"
+      ],
+      "answers": [
+        "Vedere lo stato dell'infrastruttura – CPU, RAM, disco, **temperature**, rete, servizi – trasforma il [homelab](q/homelab-a-basso-consumo/) da scatola nera a sistema che *sai* come sta. Lo stack standard:\n\n- **Prometheus** – il database time-series che *raccoglie* le metriche interrogando periodicamente degli **exporter**: `node_exporter` (metriche di sistema di ogni host: CPU, RAM, disco, temperature), esportatori per Proxmox, i container, i servizi\n- **Grafana** – le **dashboard**: visualizza le metriche di Prometheus in grafici, con **alerting** (avvisa quando una temperatura, uno spazio disco, un carico superano le soglie – via [ntfy/email](q/notifiche-push-self-hosted-ntfy-gotify/))\n\nL'alternativa più semplice e chiavi-in-mano è **Netdata** (installi e hai già tutto, real-time, zero configurazione) – ottima per iniziare; Prometheus+Grafana vince quando vuoi storia lunga, correlazione e personalizzazione. **Uptime Kuma** copre il monitoraggio della *disponibilità* dei servizi (su/giù, certificati, risposte) in modo delizioso e semplice.\n\nIl valore concreto: scopri i problemi *prima* che diventino disastri – la temperatura che sale (una ventola che muore), lo spazio disco che si esaurisce ([prima del 100%](q/storage-pieno-liberare-spazio/)), il servizio che si riavvia in loop, il [SMART che peggiora](q/monitorare-lo-stato-dei-dischi-smart/). È il cruscotto che rende il self-hosting *gestibile* invece che una serie di sorprese – lo stesso principio del [monitoraggio esterno di un sito](q/monitorare-siti-web-con-github-actions/), applicato all'infrastruttura in casa. Su [un LXC](q/differenza-container-lxc-e-vm/) da poche risorse, tiene d'occhio tutto il resto."
+      ]
+    },
+    {
+      "id": "ztna",
+      "slug": "cos-e-ztna-zero-trust-network-access",
+      "question": "Cos'è ZTNA (Zero Trust Network Access) e come sostituisce la VPN?",
+      "vertical": "security",
+      "keywords": [
+        "ztna",
+        "zero trust network access",
+        "sostituire vpn",
+        "vpn legacy",
+        "accesso zero trust",
+        "nist 800-207",
+        "microsegmentazione accesso",
+        "accesso per applicazione",
+        "vpn aziendale addio"
+      ],
+      "answers": [
+        "La **VPN aziendale classica** ha un difetto strutturale: una volta dentro, sei \"nella rete\" e vedi *tutto* – un attaccante che ruba le credenziali VPN ha il lasciapassare per l'intera infrastruttura. **ZTNA** (Zero Trust Network Access) rovescia il modello secondo i principi [Zero Trust](q/cos-e-il-modello-zero-trust/) (formalizzati nel **NIST SP 800-207**): niente accesso \"alla rete\", solo accesso **per singola applicazione**, verificato *a ogni richiesta*.\n\nCome funziona: l'utente non entra in una rete, ottiene accesso a *quella specifica app* dopo che identità, dispositivo e contesto sono stati verificati; le altre applicazioni gli restano **invisibili** (non può nemmeno scansionarle). Un broker media ogni connessione, spesso con l'app che non è mai esposta direttamente (accesso in uscita, come i [tunnel](q/esporre-servizi-senza-aprire-porte/)).\n\nI vantaggi sulla VPN: **nessun raggio d'azione laterale** (compromettere un accesso non apre la rete), verifica continua invece che \"fidato una volta\", accesso granulare per app. È la direzione verso cui si muovono le aziende – e nel piccolo la si approssima combinando i mattoni che già conosci: [mesh VPN](q/wireguard-e-mesh-vpn/) con ACL strette, [reverse proxy con forward auth](q/oauth2-proxy-autenticazione-davanti-ai-servizi/) e [MFA](q/cos-e-autenticazione-due-fattori-mfa/) davanti a ogni servizio, [conditional access](q/conditional-access-policy-basate-sul-rischio/), [minimo privilegio](q/principio-del-minimo-privilegio/). ZTNA \"enterprise\" è l'industrializzazione di questi principi; il modello mentale – *accesso per app, verifica continua, niente fiducia implicita* – vale a ogni scala."
+      ]
+    },
+    {
+      "id": "aitm",
+      "slug": "attacchi-adversary-in-the-middle-aitm",
+      "question": "Cosa sono gli attacchi Adversary-in-the-Middle (AiTM) che bypassano l'MFA?",
+      "vertical": "security",
+      "keywords": [
+        "aitm",
+        "adversary in the middle",
+        "bypass mfa",
+        "furto sessione",
+        "evilginx",
+        "cookie di sessione rubati",
+        "phishing mfa",
+        "reverse proxy phishing",
+        "session hijacking mfa"
+      ],
+      "answers": [
+        "L'**AiTM** (Adversary-in-the-Middle) è l'evoluzione del [phishing](q/cos-e-il-phishing/) che **aggira l'MFA** debole – ed è il motivo per cui non ogni [secondo fattore](q/cos-e-autenticazione-due-fattori-mfa/) è uguale. Il meccanismo: l'attaccante non ti manda a una pagina di login *finta*, ma a un **reverse proxy** (Evilginx e simili) che sta *in mezzo* tra te e il sito vero. Tu inserisci username, password *e il codice MFA* – il proxy li inoltra al sito reale in tempo reale, il login riesce, e l'attaccante **cattura il cookie di sessione** già autenticato. Da quel momento entra come te, MFA superata, perché la sessione *è* valida.\n\nÈ il motivo per cui i codici **TOTP e gli SMS non bastano più**: un proxy che sta in mezzo se li fa consegnare. Le difese che *reggono*:\n\n- **[passkey/FIDO2/chiavi hardware](q/chiavi-di-sicurezza-hardware-yubikey/)** – la firma è legata crittograficamente al **dominio vero**: su un proxy-esca con un dominio diverso, la firma semplicemente **non parte**. È phishing-resistant per costruzione, e la cura definitiva contro l'AiTM\n- **[Continuous Access Evaluation](q/continuous-access-evaluation-cae/)** e binding del token al dispositivo, per invalidare le sessioni rubate\n- [conditional access](q/conditional-access-policy-basate-sul-rischio/) che nota il login da un contesto anomalo\n\nÈ la ragione tecnica per cui \"abbiamo l'MFA\" non è più una risposta sufficiente: conta *quale* MFA. Le passkey spostano la difesa da \"non farti ingannare\" (che fallisce) a \"l'inganno non funziona\" (che regge)."
+      ]
+    },
+    {
+      "id": "conditional-access",
+      "slug": "conditional-access-policy-basate-sul-rischio",
+      "question": "Cos'è il Conditional Access (policy basate sul rischio)?",
+      "vertical": "security",
+      "keywords": [
+        "conditional access",
+        "accesso condizionale",
+        "policy di accesso",
+        "segnali di rischio",
+        "risk based authentication",
+        "step-up authentication",
+        "device compliance",
+        "accesso adattivo"
+      ],
+      "answers": [
+        "Il **Conditional Access** rende l'autenticazione **adattiva**: invece di \"credenziali giuste = accesso\", la decisione dipende dal **contesto e dal rischio** valutati in tempo reale. Le stesse credenziali possono dare accesso pieno, accesso limitato, richiesta di [MFA aggiuntiva](q/cos-e-autenticazione-due-fattori-mfa/) (step-up), o rifiuto – a seconda dei segnali.\n\nI segnali tipici: da dove arriva la richiesta (geografia, IP, rete aziendale vs pubblica), lo **stato del dispositivo** (è gestito? aggiornato? conforme alle policy?), l'orario, il comportamento anomalo (login da due continenti in un'ora – il \"viaggio impossibile\"), la sensibilità di ciò a cui si accede. Esempio: dal PC aziendale in ufficio → accesso diretto; dallo stesso account da un dispositivo sconosciuto in un altro paese → MFA obbligatoria o blocco.\n\nÈ un pilastro operativo di [Zero Trust](q/cos-e-il-modello-zero-trust/) e [ZTNA](q/cos-e-ztna-zero-trust-network-access/): la fiducia non è binaria né permanente, si calcola a ogni richiesta. Nell'enterprise è funzione delle piattaforme identità (Entra ID, Okta); nel piccolo, i mattoni della stessa idea sono l'[UEBA](q/cos-e-ueba-user-entity-behavior-analytics/) che nota le anomalie, i [reverse proxy con forward auth](q/oauth2-proxy-autenticazione-davanti-ai-servizi/) che valutano il contesto, e le regole di [conditional access](q/cos-e-il-modello-zero-trust/) dei self-hosted auth (Authelia/Authentik). Il principio: l'accesso *giusto* dipende da *chi, cosa, dove, quando* – non solo dalla password."
+      ]
+    },
+    {
+      "id": "cae",
+      "slug": "continuous-access-evaluation-cae",
+      "question": "Cos'è la Continuous Access Evaluation (CAE) e il furto di sessione?",
+      "vertical": "security",
+      "keywords": [
+        "cae",
+        "continuous access evaluation",
+        "furto token sessione",
+        "token revocation",
+        "sessione lunga",
+        "revoca sessione tempo reale",
+        "token binding",
+        "session token protection",
+        "invalidare sessione"
+      ],
+      "answers": [
+        "Il problema che la **CAE** risolve: i token di sessione tradizionali durano a lungo (per non chiedere il login di continuo), ma se un token viene **rubato** ([via AiTM](q/attacchi-adversary-in-the-middle-aitm/), [infostealer](q/cos-e-un-infostealer/), XSS), rimane valido fino alla scadenza – anche se l'utente ha cambiato password, anche se l'account è stato disabilitato. C'è una finestra in cui il ladro usa una sessione che *dovrebbe* essere già morta.\n\nLa **Continuous Access Evaluation** chiude quella finestra rendendo la revoca **quasi in tempo reale**: invece di aspettare la scadenza del token, i servizi valutano *continuamente* eventi critici – account disabilitato, password cambiata, rischio elevato rilevato, cambio di rete – e **invalidano la sessione subito**, spingendo l'utente a riautenticarsi. Un token rubato viene neutralizzato in minuti, non in ore.\n\nSi combina con il **token binding** (legare il token al dispositivo, così un token esfiltrato e usato altrove non funziona) e la [conditional access](q/conditional-access-policy-basate-sul-rischio/). È un concetto enterprise (Entra ID, standard OpenID SSF/CAEP), ma il principio vale ovunque gestisci sessioni: **le sessioni lunghe sono comode e pericolose** – più durano, più valgono da rubare. Le contromisure pratiche a ogni scala: [rotazione delle chiavi/token di sessione](q/oauth2-proxy-autenticazione-davanti-ai-servizi/), scadenze ragionevoli, revoca effettiva (non solo teorica) al cambio password/logout, e [passkey](q/chiavi-di-sicurezza-hardware-yubikey/) per non farsi rubare le credenziali in primo luogo."
+      ]
+    },
+    {
+      "id": "rbac-abac",
+      "slug": "rbac-abac-e-pbac-modelli-di-accesso",
+      "question": "RBAC, ABAC e PBAC: quali modelli di controllo degli accessi?",
+      "vertical": "security",
+      "keywords": [
+        "rbac",
+        "abac",
+        "pbac",
+        "controllo accessi",
+        "role based",
+        "attribute based",
+        "policy based access",
+        "modelli autorizzazione",
+        "gestione permessi",
+        "ruoli e permessi"
+      ],
+      "answers": [
+        "Tre modi di rispondere alla domanda \"questo utente può fare questa azione su questa risorsa?\":\n\n- **RBAC** (Role-Based) – i permessi si assegnano a **ruoli** (\"admin\", \"editor\", \"viewer\"), e gli utenti ricevono ruoli. Semplice, comprensibile, il più diffuso. Il limite: esplode con la complessità (l'\"editor *ma solo* del reparto X, *solo* in orario d'ufficio, *solo* dai dispositivi aziendali\" genera una proliferazione di ruoli ingestibile – la *role explosion*)\n- **ABAC** (Attribute-Based) – la decisione si calcola da **attributi** di utente, risorsa, azione e contesto (\"permetti se `reparto_utente == reparto_risorsa` E `orario` è lavorativo E `dispositivo` è gestito\"). Molto più espressivo e granulare, ma più complesso da progettare e verificare\n- **PBAC** (Policy-Based) – generalizza: le decisioni sono **policy** dichiarative centralizzate, spesso come codice ([Policy-as-Code](q/cos-e-gitops/) con Open Policy Agent/Rego), disaccoppiate dall'applicazione\n\nLa direzione moderna è verso ABAC/PBAC e il **Policy-as-Code**: le regole di autorizzazione diventano codice versionato, testato e verificabile invece di logica sparsa nelle applicazioni – lo stesso spirito dell'[Infrastructure as Code](q/cos-e-gitops/). Il consiglio pratico: **parti da RBAC** (copre benissimo la maggioranza dei casi ed è comprensibile a tutti), aggiungi attributi/policy dove la granularità serve davvero. E qualunque modello, il fondamento resta il [minimo privilegio](q/principio-del-minimo-privilegio/): il miglior sistema di autorizzazione è quello che concede il meno possibile per default."
+      ]
+    },
+    {
+      "id": "shared-responsibility",
+      "slug": "modello-di-responsabilita-condivisa-cloud",
+      "question": "Come funziona il modello di responsabilità condivisa (IaaS, PaaS, SaaS)?",
+      "vertical": "security",
+      "keywords": [
+        "responsabilita condivisa",
+        "shared responsibility",
+        "iaas paas saas",
+        "sicurezza cloud responsabilita",
+        "chi è responsabile cloud",
+        "modello cloud sicurezza",
+        "responsabilita provider cloud"
+      ],
+      "answers": [
+        "Il **modello di responsabilità condivisa** definisce il confine tra ciò che protegge il *provider cloud* e ciò che resti a proteggere *tu* – e fraintenderlo è la causa di innumerevoli breach (\"pensavo lo facesse AWS\"). Il principio: il provider protegge la sicurezza **del** cloud (l'infrastruttura fisica, l'hypervisor, la rete di base), tu la sicurezza **nel** cloud (i tuoi dati, le configurazioni, gli accessi). *Dove* cade il confine dipende dal servizio:\n\n- **IaaS** (macchine virtuali, es. EC2) – il provider ti dà l'hardware virtualizzato; **tutto il resto è tuo**: OS da [patchare](q/hardening-server-linux/), configurazioni, applicazioni, dati, accessi. Massimo controllo, massima responsabilità\n- **PaaS** (piattaforme gestite, database managed) – il provider gestisce anche OS e runtime; tu resti responsabile di applicazione, dati e accessi\n- **SaaS** (software pronto, es. Microsoft 365) – il provider gestisce quasi tutto; a te restano **i tuoi dati, gli accessi e le configurazioni**\n\nLa costante, a *ogni* livello: **i tuoi dati, le identità e le configurazioni sono sempre responsabilità tua**. Il [bucket S3 pubblico per errore](q/cspm-cwpp-e-cnapp/), l'IAM troppo largo, l'MFA non attivata sul SaaS – nessun provider te li salva, ed è lì che nasce la maggioranza dei breach cloud. La lezione: \"è sul cloud\" non significa \"è sicuro\" – significa che la *tua parte* di sicurezza è diversa, non che sparisce. Ed è un motivo in più a favore del [self-hosting](q/self-hosting-pro-e-contro/) per chi vuole (e sa gestire) il controllo pieno: là la responsabilità è tutta tua, esplicitamente."
+      ]
+    },
+    {
+      "id": "k8s-security",
+      "slug": "sicurezza-di-kubernetes-pod-security",
+      "question": "Come si mette in sicurezza Kubernetes (Pod Security, namespace)?",
+      "vertical": "proxmox",
+      "keywords": [
+        "kubernetes sicurezza",
+        "k8s security",
+        "pod security standards",
+        "network policy",
+        "namespace isolation",
+        "rbac kubernetes",
+        "sicurezza container orchestrazione",
+        "cis kubernetes",
+        "k8s hardening"
+      ],
+      "answers": [
+        "Kubernetes è potente e **insicuro per default** – la configurazione permissiva iniziale va stretta a più livelli:\n\n- **Pod Security Standards** (PSS) – i tre profili (*privileged*, *baseline*, *restricted*) che limitano cosa un pod può fare: `restricted` vieta i container privilegiati, il root, gli host mount pericolosi. Vanno *imposti*, non lasciati aperti\n- **Network Policy** – di default in K8s **ogni pod può parlare con ogni pod**: le NetworkPolicy applicano la [segmentazione](q/segmentare-la-rete-con-vlan/) (default-deny, poi apri il necessario) – fondamentale per contenere un pod compromesso\n- **[RBAC](q/rbac-abac-e-pbac-modelli-di-accesso/)** stretto sugli account di servizio ([minimo privilegio](q/principio-del-minimo-privilegio/): un pod non ha bisogno di poteri sul cluster), niente token montati dove non servono\n- **immagini e runtime** – le stesse regole della [sicurezza dei container](q/sicurezza-delle-immagini-container/): immagini scansionate e pinnate, non-root, secret gestiti bene; e admission controller (OPA/Kyverno) come policy-as-code\n- **isolamento del carico** – [namespace](q/segmentare-la-rete-con-vlan/) come confine base, e per multi-tenancy seria, runtime isolati ([gVisor, Kata](q/sandbox-syscall-seccomp-gvisor/))\n\nIl **CIS Kubernetes Benchmark** è la [baseline](q/security-baseline-e-automazione-hardening/) di riferimento per verificare tutto. La verità pragmatica: K8s aggiunge enorme superficie di attacco e complessità – per un [homelab o una PMI](q/homelab-a-basso-consumo/), spesso [Docker Compose su una VM](q/cos-e-docker-compose/) fa lo stesso lavoro con un decimo del rischio. K8s ha senso quando la scala lo giustifica davvero; adottarlo \"perché è moderno\" è aggiungere un intero dominio di sicurezza da presidiare."
+      ]
+    },
+    {
+      "id": "container-breakout",
+      "slug": "cos-e-un-container-breakout",
+      "question": "Cos'è un container breakout (evasione verso l'host)?",
+      "vertical": "proxmox",
+      "keywords": [
+        "container breakout",
+        "container escape",
+        "evasione container",
+        "fuga dal container",
+        "privileged escape",
+        "docker escape",
+        "root host da container",
+        "isolamento container rotto"
+      ],
+      "answers": [
+        "Un **container breakout** (o escape) è l'incubo dei container: un processo evade dall'isolamento e ottiene accesso all'**host kernel sottostante** – e quindi, potenzialmente, a *tutti* gli altri container e ai dati dell'host. È possibile perché i container, a differenza delle [VM](q/differenza-container-lxc-e-vm/), **condividono il kernel** dell'host: \"isolato\" ha un asterisco.\n\nLe cause tipiche:\n\n- **container privilegiato** (`--privileged`) o con capabilities eccessive – di fatto già mezzo fuori: è il caso più comune e più evitabile\n- **mount pericolosi** – montare il socket Docker, `/`, o dispositivi dell'host dentro il container (il socket Docker montato = controllo dell'host, un errore diffusissimo)\n- **vulnerabilità del runtime o del kernel** – CVE in runc/containerd che permettono l'escape\n- **root nel container** che, sfruttando una falla, diventa root sull'host\n\nLe difese, a strati: [non girare come root e niente privileged](q/sicurezza-delle-immagini-container/), [container unprivileged](q/container-privilegiati-o-non-privilegiati/) (il default giusto), [seccomp/gVisor](q/sandbox-syscall-seccomp-gvisor/) per filtrare le syscall, kernel e runtime **aggiornati** (le CVE di escape si patchano), [eBPF/Falco](q/ebpf-osservabilita-e-sicurezza-kernel/) per *rilevare* i tentativi a runtime, e per i carichi non fidati il salto a un isolamento vero ([micro-VM Kata](q/sandbox-syscall-seccomp-gvisor/) o [VM piene](q/differenza-container-lxc-e-vm/)). La regola d'oro: **più il carico è non fidato, più forte deve essere l'isolamento** – un container va benissimo per il *tuo* codice, molto meno per eseguire quello di sconosciuti."
+      ]
+    },
+    {
+      "id": "tls13",
+      "slug": "cosa-migliora-tls-1-3",
+      "question": "Cosa migliora TLS 1.3 rispetto alle versioni precedenti?",
+      "vertical": "security",
+      "keywords": [
+        "tls 1.3",
+        "tls 1.2",
+        "handshake tls",
+        "0-rtt",
+        "forward secrecy",
+        "cipher suite deboli",
+        "perfect forward secrecy",
+        "tls veloce",
+        "versione tls"
+      ],
+      "answers": [
+        "**TLS 1.3** (2018) è una revisione che migliora insieme **sicurezza e prestazioni** – raramente vanno d'accordo, qui sì:\n\n- **handshake più veloce**: da 2 round-trip a **1** (1-RTT) per stabilire la connessione – la pagina carica prima. C'è anche lo **0-RTT** per le riconnessioni (latenza quasi zero, con l'avvertenza che è vulnerabile ai replay e va usato con cautela)\n- **ciphersuite deboli eliminate per design**: TLS 1.2 permetteva di *configurare* male (algoritmi obsoleti, RSA key exchange senza forward secrecy, RC4, CBC vulnerabili) – TLS 1.3 le ha **rimosse dallo standard**: non puoi più sbagliare la configurazione, perché le opzioni insicure non esistono più\n- **Perfect Forward Secrecy obbligatoria**: ogni sessione usa chiavi effimere, quindi anche se la chiave privata del server venisse compromessa *in futuro*, il traffico *passato* registrato resta illeggibile – la difesa strutturale contro l'[Harvest Now Decrypt Later](q/harvest-now-decrypt-later/)\n- meno metadati in chiaro nell'handshake\n\nLa lezione di design è elegante: **rendere l'insicuro impossibile** invece di lasciarlo configurabile e sperare che nessuno sbagli – lo stesso principio del [WAF zero-regex di zion](q/cos-e-zion-reverse-proxy-rust/) o della [memory safety](q/cos-e-memory-tagging-extension-mte/). In pratica: usa TLS 1.2+1.3 (1.3 preferito), disabilita tutto sotto, e i server moderni ([Caddy](q/configurare-https-su-caddy/), nginx recenti, [zion](q/cos-e-zion-reverse-proxy-rust/)) lo fanno già bene di default. È uno di quei progressi che rendono internet più sicuro *senza* che l'utente debba fare nulla."
+      ]
+    },
+    {
+      "id": "fhe",
+      "slug": "cos-e-la-fully-homomorphic-encryption",
+      "question": "Cos'è la Fully Homomorphic Encryption (FHE)?",
+      "vertical": "security",
+      "keywords": [
+        "fhe",
+        "fully homomorphic encryption",
+        "cifratura omomorfica",
+        "calcolo su dati cifrati",
+        "elaborare dati cifrati",
+        "privacy computazione",
+        "homomorphic",
+        "confidential computing"
+      ],
+      "answers": [
+        "La **Fully Homomorphic Encryption** è una delle idee più affascinanti della crittografia moderna: permette di **eseguire calcoli su dati cifrati senza mai decifrarli**. Il risultato del calcolo, ancora cifrato, una volta decifrato è identico a quello che avresti ottenuto sui dati in chiaro. Chi elabora **non vede mai** i dati – né in ingresso, né durante, né in uscita.\n\nLe implicazioni sono enormi per la privacy: potresti mandare dati sanitari cifrati a un servizio cloud che li analizza e ti restituisce il risultato **senza aver mai potuto leggerli**; un motore di ricerca che risponde senza sapere cosa hai cercato; machine learning su dati che restano privati per chi li elabora. Risolve alla radice il dilemma \"per usare un servizio devo fidarmi di chi lo gestisce\".\n\nLa realtà del 2026, senza illusioni: la FHE è **matematicamente reale e in uso in nicchie specifiche**, ma resta **computazionalmente costosissima** – ordini di grandezza più lenta del calcolo in chiaro. Sta migliorando in fretta (hardware dedicato, schemi più efficienti) e per operazioni mirate su dati ad altissima sensibilità è già praticabile; per il calcolo generale è ancora troppo cara. Fa parte della famiglia del **confidential computing** insieme agli enclave hardware (SGX, TrustZone) – approcci diversi allo stesso obiettivo: elaborare dati che restano protetti anche da chi li elabora. È il tipo di tecnologia che, quando maturerà del tutto, cambierà cosa significa \"mandare dati a un servizio\" – la [sovranità](q/cos-e-la-sovranita-digitale/) portata dentro il calcolo stesso."
+      ]
+    },
+    {
+      "id": "crypto-agility",
+      "slug": "cos-e-la-crypto-agility",
+      "question": "Cos'è la crypto-agility (e come ci si prepara alla transizione PQC)?",
+      "vertical": "security",
+      "keywords": [
+        "crypto agility",
+        "cripto agilita",
+        "agilita crittografica",
+        "cambiare algoritmo",
+        "transizione crittografica",
+        "inventario crittografico",
+        "cbom",
+        "sostituire algoritmi",
+        "migrazione crittografia"
+      ],
+      "answers": [
+        "La **crypto-agility** è la capacità di **cambiare gli algoritmi crittografici senza riscrivere il sistema**. Suona banale finché non serve davvero: molti sistemi hanno algoritmi, dimensioni di chiave e protocolli *cablati* in profondità nel codice e nelle configurazioni – e quando un algoritmo diventa debole (è già successo con MD5, SHA-1, RC4, DES), sostituirlo è un progetto doloroso invece di un cambio di configurazione.\n\nÈ diventata urgente per la [transizione post-quantistica](q/cos-e-la-crittografia-post-quantistica/): non sappiamo con precisione *quando* servirà passare agli algoritmi resistenti, quindi i sistemi vanno progettati per poterci passare *facilmente* quando sarà il momento. I principi di un'architettura crypto-agile:\n\n- **astrazione**: la crittografia dietro interfacce, non chiamate hardcoded sparse ovunque – cambi l'implementazione in un posto\n- **inventario crittografico** (**CBOM**, Cryptography Bill of Materials): sapere *dove* usi *cosa* – non puoi migrare ciò che non sai di avere. È l'equivalente dell'[SBOM](q/cos-e-la-supply-chain-security/) per la crittografia\n- **negoziazione** dei parametri (come fa [TLS](q/cosa-migliora-tls-1-3/)) invece di valori fissi, e supporto agli **schemi ibridi** (classico + PQC insieme)\n\nPer chi ha dati con [segretezza a lunghissimo termine](q/harvest-now-decrypt-later/), la crypto-agility è la preparazione da fare *ora*, prima ancora di adottare gli algoritmi PQC: prima rendi il sistema capace di cambiare, poi cambierai quando serve. È lungimiranza architetturale – costa poco progettarla all'inizio, tantissimo aggiungerla dopo."
+      ]
+    },
+    {
+      "id": "idor-bola",
+      "slug": "idor-e-broken-object-level-authorization",
+      "question": "IDOR e Broken Object Level Authorization: qual è il rischio?",
+      "vertical": "security",
+      "keywords": [
+        "idor",
+        "bola",
+        "broken object level authorization",
+        "insecure direct object reference",
+        "accesso a dati altrui",
+        "id nell url",
+        "cambiare id",
+        "autorizzazione oggetti",
+        "api authorization"
+      ],
+      "answers": [
+        "L'**IDOR** (Insecure Direct Object Reference) e la sua versione API-centrica **BOLA** (Broken Object Level Authorization) sono tra le vulnerabilità più comuni *e* più banali: l'applicazione espone un riferimento a un oggetto (un ID nell'URL o nel corpo della richiesta) e **non verifica che l'utente sia autorizzato ad accedere a quello specifico oggetto**.\n\nL'esempio da manuale: `GET /api/fatture/1042` ti mostra la tua fattura. Cambi in `/api/fatture/1043` e... vedi quella di qualcun altro, perché il server controlla che tu sia *autenticato* ma non che quella fattura sia *tua*. Moltiplicato per milioni di record, è una fuga di dati di massa – ed è la causa di una lunga serie di breach reali, perché è facile da sfruttare (basta cambiare un numero) e facile da introdurre (il controllo manca in un endpoint su dieci).\n\n**BOLA è la vulnerabilità n°1 della OWASP API Security Top 10** proprio per questo. Le difese, a livello di codice:\n\n- **verificare l'autorizzazione sull'oggetto specifico a ogni richiesta**: non \"l'utente è loggato?\" ma \"l'utente può accedere a *questo* oggetto?\" – il controllo va nel codice di ogni endpoint, sistematicamente\n- **ID non indovinabili** (UUID invece di interi sequenziali) – aiuta ma **non è la difesa** (è security-by-obscurity: rende più difficile l'enumerazione, non sostituisce il controllo)\n- **test automatici** di autorizzazione (l'utente A prova ad accedere agli oggetti di B – deve fallire), parte del [DAST in pipeline](q/sicurezza-nella-pipeline-cicd/)\n\nÈ il promemoria che l'**autenticazione non è autorizzazione**: sapere *chi sei* è diverso da decidere *cosa puoi toccare* – e il secondo controllo è quello che tutti dimenticano. Modelli come [ABAC/PBAC](q/rbac-abac-e-pbac-modelli-di-accesso/) centralizzano proprio questa logica per non affidarla al singolo endpoint distratto."
+      ]
+    },
+    {
+      "id": "mass-assignment",
+      "slug": "cos-e-mass-assignment",
+      "question": "Cos'è la vulnerabilità Mass Assignment nelle API?",
+      "vertical": "security",
+      "keywords": [
+        "mass assignment",
+        "assegnazione di massa",
+        "auto-binding",
+        "over-posting",
+        "campi non previsti",
+        "escalation api",
+        "binding automatico",
+        "vulnerabilita api",
+        "is_admin true"
+      ],
+      "answers": [
+        "La **Mass Assignment** (o over-posting, auto-binding) nasce da una comodità dei framework: molti mappano automaticamente i campi JSON della richiesta sugli attributi dell'oggetto (`utente.nome = body.nome`, e così via, *per tutti* i campi). Comodo... e pericoloso, se non filtri: l'attaccante aggiunge alla richiesta un campo che **non doveva poter impostare**.\n\nL'esempio classico: la registrazione accetta `{\"email\": \"...\", \"password\": \"...\"}` – e l'attaccante manda `{\"email\": \"...\", \"password\": \"...\", \"ruolo\": \"admin\"}` o `{\"is_admin\": true}`. Se il codice fa il binding automatico di *tutti* i campi ricevuti sull'oggetto utente, si è appena auto-promosso amministratore. La stessa idea vale per impostare l'ID di un altro utente, cambiare un saldo, saltare validazioni.\n\nLe difese:\n\n- **allowlist esplicita** dei campi accettabili per ogni operazione (\"da questa richiesta accetto *solo* nome ed email\") – mai il binding cieco di tutto ciò che arriva\n- **DTO/schema separati** per input e per modello di dati: l'input dell'utente non tocca direttamente l'entità del database\n- **validazione dei payload** rigorosa – è parente dei [controlli di sanificazione sull'input](q/idor-e-broken-object-level-authorization/)\n\nÈ nella OWASP API Security Top 10 insieme a [BOLA](q/idor-e-broken-object-level-authorization/), e la radice è la stessa: **fidarsi dell'input del client**. La regola d'oro dell'appsec – *ogni input è ostile finché non dimostrato innocuo* – qui significa: decidi *tu* quali campi accettare, non lasciarlo decidere a chi manda la richiesta."
+      ]
+    },
+    {
+      "id": "cookie-flags",
+      "slug": "flag-di-sicurezza-dei-cookie",
+      "question": "Quali flag di sicurezza servono sui cookie di sessione (HttpOnly, Secure, SameSite)?",
+      "vertical": "security",
+      "keywords": [
+        "cookie sicuri",
+        "httponly",
+        "secure cookie",
+        "samesite",
+        "flag cookie",
+        "cookie di sessione sicurezza",
+        "csrf cookie",
+        "furto cookie",
+        "attributi cookie"
+      ],
+      "answers": [
+        "Un **cookie di sessione** è la chiave della tua sessione autenticata – e proteggerlo con i flag giusti è appsec di base che tanti sbagliano ancora. I tre che contano:\n\n- **HttpOnly** – il cookie **non è accessibile da JavaScript**: neutralizza il furto del cookie via [XSS](q/cos-e-il-cross-site-scripting-xss/) (uno script iniettato non può leggerlo per esfiltrarlo). Fondamentale per i cookie di sessione\n- **Secure** – il cookie viene inviato **solo su HTTPS**: impedisce che viaggi in chiaro e venga intercettato ([su una rete ostile](q/cos-e-un-attacco-man-in-the-middle/))\n- **SameSite** – controlla se il cookie viene inviato nelle richieste **cross-site**: `Strict` o `Lax` (il default moderno) proteggono dal [CSRF](q/cos-e-la-owasp-top-10/) (un altro sito non può far partire richieste autenticate a tuo nome). `None` (che richiede `Secure`) solo quando il cross-site serve davvero\n\nGli attributi complementari: un **nome** senza informazioni, uno **scope** stretto (`Path`, `Domain` minimi), una **scadenza** ragionevole (i [cookie di sessione lunghi sono comodi e rischiosi](q/continuous-access-evaluation-cae/)), e la **rotazione** del token di sessione al login (contro il session fixation).\n\nSono poche righe di configurazione con un impatto enorme – e la loro assenza è un classico rilievo dei [security assessment](q/vulnerability-assessment-vs-penetration-test/). Insieme a [security header](q/quali-security-header-servono/), [CSP](q/cos-e-il-cross-site-scripting-xss/) e HTTPS, sono l'igiene di base di qualsiasi applicazione web che gestisca sessioni – i framework moderni li impostano bene di default, ma *verificarlo* (con gli strumenti dev del browser) è due minuti ben spesi."
+      ]
+    },
+    {
+      "id": "insecure-deserialization",
+      "slug": "deserializzazione-insicura",
+      "question": "Come una deserializzazione insicura porta all'esecuzione di codice?",
+      "vertical": "security",
+      "keywords": [
+        "deserializzazione insicura",
+        "insecure deserialization",
+        "rce deserializzazione",
+        "pickle rce",
+        "gadget chain",
+        "object injection",
+        "serializzazione oggetti",
+        "java deserialization",
+        "yaml unsafe"
+      ],
+      "answers": [
+        "La **serializzazione** trasforma un oggetto in un formato trasmissibile (byte, stringa); la **deserializzazione** lo ricostruisce. Il problema nasce quando si deserializza **input non fidato** con meccanismi che possono *istanziare oggetti arbitrari ed eseguire codice* durante la ricostruzione – e allora un payload malevolo diventa **esecuzione di codice remoto (RCE)**, la vulnerabilità più grave che esista.\n\nI casi noti per linguaggio: il **pickle** di Python (letteralmente codice eseguibile serializzato – [il rischio dei modelli ML](q/sicurezza-dei-pesi-e-checkpoint-dei-modelli/) in formato legacy), la **Java deserialization** (le famigerate *gadget chain* che concatenano classi presenti nell'applicazione per ottenere RCE), il **YAML unsafe load**, il `pickle`/`marshal` e i serializzatori PHP. In tutti, l'attaccante costruisce un flusso serializzato che, deserializzato, esegue le sue istruzioni.\n\nLe difese:\n\n- **non deserializzare mai input non fidato** con serializzatori che possono eseguire codice – la regola prima di tutte\n- preferire formati **solo-dati**: JSON, o [safetensors per i modelli](q/sicurezza-dei-pesi-e-checkpoint-dei-modelli/) – un formato che contiene *dati* e non *codice* non può eseguire nulla\n- se devi deserializzare oggetti, usa le versioni **safe** (safe_load di YAML), allowlist delle classi permesse, e **verifica l'integrità** (firma/HMAC) del dato serializzato prima di toccarlo\n\nÈ nella [OWASP Top 10](q/cos-e-la-owasp-top-10/) (Software and Data Integrity Failures), e la radice è la stessa di tanto altro: **input non fidato trattato come fidato**. La lezione trasversale dell'appsec vale anche qui – un flusso di byte che arriva dall'esterno è ostile finché non dimostrato innocuo, e certi meccanismi \"comodi\" trasformano quell'input direttamente in codice eseguito."
+      ]
+    },
+    {
+      "id": "oauth-redirect",
+      "slug": "vulnerabilita-nei-redirect-oauth",
+      "question": "Come i redirect mal validati in OAuth permettono il furto di token?",
+      "vertical": "security",
+      "keywords": [
+        "oauth redirect",
+        "open redirect oauth",
+        "redirect_uri",
+        "furto authorization code",
+        "vulnerabilita oauth",
+        "authorization code interception",
+        "oauth phishing",
+        "redirect uri validation"
+      ],
+      "answers": [
+        "Il flusso [OAuth 2.0](q/saml-oauth-e-oidc/) usa un parametro **`redirect_uri`**: dopo l'autorizzazione, il server rimanda l'utente (con il codice di autorizzazione o il token) a quell'URL. Se il server **non valida rigorosamente** dove può reindirizzare, un attaccante manipola quel parametro per farsi consegnare il codice/token a un URL che controlla lui – e con quello accede all'account della vittima.\n\nLe varianti dell'attacco: `redirect_uri` puntato a un dominio dell'attaccante, o a un **open redirect** presente sul sito legittimo (una pagina `?url=...` che rimbalza ovunque – da cui il codice viene poi rubato tramite il referer o un secondo salto), o il furto del codice sfruttando validazioni deboli (match parziale del dominio, sottodomini non previsti).\n\nLe difese, lato server di autorizzazione e client:\n\n- **allowlist esatta** dei `redirect_uri` registrati – **match completo**, non parziale, non per prefisso (il match per prefisso è aggirabile: `https://sito.com.attaccante.com`)\n- **PKCE** (Proof Key for Code Exchange) – ormai raccomandato per *tutti* i client: lega il codice di autorizzazione a chi lo ha richiesto, così un codice intercettato è inutilizzabile da altri\n- il parametro **`state`** per legare la richiesta alla risposta (anti-CSRF del flusso), niente token nei frammenti URL dove non serve\n\nÈ un promemoria che l'[OAuth/OIDC](q/saml-oauth-e-oidc/) è potente ma pieno di dettagli che, sbagliati, aprono voragini – il redirect è il più classico. La regola trasversale: **validare rigorosamente dove mandi dati sensibili**, con allowlist esatte e mai match approssimativi – lo stesso principio che vale contro l'[SSRF](q/cos-e-la-ssrf-server-side-request-forgery/) e l'[open redirect](q/cos-e-la-owasp-top-10/) in generale."
+      ]
+    },
+    {
+      "id": "oauth2-proxy",
+      "slug": "oauth2-proxy-autenticazione-davanti-ai-servizi",
+      "question": "Come si mette un'autenticazione moderna davanti a un servizio (OAuth2-Proxy, Authelia)?",
+      "vertical": "security",
+      "keywords": [
+        "oauth2-proxy",
+        "authelia",
+        "authentik",
+        "forward auth",
+        "sso self hosted",
+        "autenticazione davanti al servizio",
+        "proteggere app senza login",
+        "sso reverse proxy",
+        "mfa davanti ai servizi",
+        "authelia davanti",
+        "authelia servizi"
+      ],
+      "answers": [
+        "Molti servizi self-hosted hanno autenticazione debole o assente (un pannello admin senza [MFA](q/cos-e-autenticazione-due-fattori-mfa/), un'app interna \"tanto è dietro il firewall\"). Invece di fidarti della loro sicurezza, gli **anteponi uno strato di autenticazione forte** al [reverse proxy](q/cos-e-un-reverse-proxy/) – il pattern **forward auth**: il proxy, prima di far passare *qualsiasi* richiesta al servizio, la manda a un autenticatore che verifica identità, [MFA](q/cos-e-autenticazione-due-fattori-mfa/) e [policy](q/conditional-access-policy-basate-sul-rischio/); solo se passa, la richiesta raggiunge il servizio.\n\nGli strumenti:\n\n- **OAuth2-Proxy** – antepone l'autenticazione via un provider OAuth/OIDC (Google, GitHub, il tuo [Keycloak](q/saml-oauth-e-oidc/)): il servizio dietro diventa accessibile solo dopo il login su un'identità fidata\n- **Authelia / Authentik** – più completi: **SSO** self-hosted con MFA, [conditional access](q/conditional-access-policy-basate-sul-rischio/) (regole per utente/gruppo/rete), un login unico per *tutti* i tuoi servizi. Authentik è anche un vero identity provider (OIDC/SAML)\n\nÈ il modo pratico di avvicinarsi a [ZTNA](q/cos-e-ztna-zero-trust-network-access/) nel self-hosting: **nessun servizio esposto senza un gate di autenticazione forte davanti**, un'identità sola, MFA ovunque – anche per le app che non saprebbero farla. Il pattern completo: [mesh VPN](q/wireguard-e-mesh-vpn/) per la raggiungibilità, forward auth (Authelia) per l'identità, [reverse proxy con TLS](q/cos-e-un-reverse-proxy/) per il trasporto. Trasforma una collezione di servizi con sicurezze disomogenee in un sistema con **un** punto di controllo dell'accesso, forte e coerente – [minimo privilegio](q/principio-del-minimo-privilegio/) e verifica dell'identità applicati a tutto ciò che ospiti."
+      ]
+    },
+    {
+      "id": "db-bind-localhost",
+      "slug": "vincolare-i-database-a-localhost",
+      "question": "Come si vincola un database ad ascoltare solo in locale (bind localhost)?",
+      "vertical": "security",
+      "keywords": [
+        "bind database",
+        "database localhost",
+        "postgresql bind",
+        "mariadb bind-address",
+        "database esposto",
+        "5432 esposto",
+        "3306 esposto",
+        "database su socket",
+        "porta database internet",
+        "ascoltare su localhost",
+        "postgresql localhost",
+        "vincolare database"
+      ],
+      "answers": [
+        "Uno degli errori più comuni e più gravi del self-hosting: un **database esposto a internet**. PostgreSQL (5432), MySQL/MariaDB (3306), MongoDB, Redis, Elasticsearch – lasciati in ascolto su tutte le interfacce, vengono trovati in minuti dagli scanner (Shodan ne cataloga milioni) e attaccati con brute force o, peggio, trovati **senza autenticazione** (il default storico di alcuni è stato disastroso). Innumerevoli breach di massa nascono esattamente così.\n\nLa regola d'oro: **un database non deve MAI essere raggiungibile da internet** – deve ascoltare *solo* dove serve:\n\n- **socket Unix** dove il database e l'applicazione stanno sulla stessa macchina – nemmeno la rete locale è coinvolta, la comunicazione passa da un file di sistema. Il massimo dell'isolamento (e spesso più veloce)\n- **`localhost` (127.0.0.1)** – ascolta solo sulla macchina stessa: `listen_addresses = 'localhost'` in PostgreSQL, `bind-address = 127.0.0.1` in MariaDB\n- **rete privata** dove l'app è su un'altra macchina – ascolta solo sull'IP interno/[VLAN dedicata](q/segmentare-la-rete-con-vlan/), **mai** sull'IP pubblico, con firewall che chiude la porta all'esterno. Nei [container](q/cos-e-docker-compose/): reti Docker interne, senza pubblicare la porta del database (`ports` non serve se solo altri container la usano)\n\nPiù le difese di contorno: password forti (mai le default), TLS se il traffico attraversa reti non fidate, [minimo privilegio](q/principio-del-minimo-privilegio/) sugli utenti del database. È l'igiene più elementare che esista – *verifica* con `ss -tlnp` o `nmap` dall'esterno che le porte dei database **non rispondano** – eppure la sua assenza resta una delle cause principali di data breach. La domanda da farsi per ogni servizio: *ha davvero bisogno di essere raggiungibile da fuori?* Per un database, la risposta è quasi sempre no."
       ]
     },
     {

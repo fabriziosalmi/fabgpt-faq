@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cos&#x27;è il Conditional Access (policy basate sul rischio)? – FabGPT-FAQ</title>
+<meta name="description" content="Il Conditional Access rende l&#x27;autenticazione adattiva: invece di &quot;credenziali giuste = accesso&quot;, la decisione dipende dal contesto e dal rischio valutati in…">
+<link rel="canonical" href="https://fabriziosalmi.github.io/fabgpt-faq/q/conditional-access-policy-basate-sul-rischio/">
+<link rel="stylesheet" href="../../style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Cos'è il Conditional Access (policy basate sul rischio)?", "acceptedAnswer": {"@type": "Answer", "text": "Il Conditional Access rende l'autenticazione adattiva: invece di \"credenziali giuste = accesso\", la decisione dipende dal contesto e dal rischio valutati in tempo reale. Le stesse credenziali possono dare accesso pieno, accesso limitato, richiesta di [MFA aggiuntiva](q/cos-e-autenticazione-due-fattori-mfa/) (step-up), o rifiuto – a seconda dei segnali. I segnali tipici: da dove arriva la richiesta (geografia, IP, rete aziendale vs pubblica), lo stato del dispositivo (è gestito? aggiornato? conforme alle policy?), l'orario, il comportamento anomalo (login da due continenti in un'ora – il \"viaggio impossibile\"), la sensibilità di ciò a cui si accede. Esempio: dal PC aziendale in ufficio → accesso diretto; dallo stesso account da un dispositivo sconosciuto in un altro paese → MFA obbligatoria o blocco. È un pilastro operativo di [Zero Trust](q/cos-e-il-modello-zero-trust/) e [ZTNA](q/cos-e-ztna-zero-trust-network-access/): la fiducia non è binaria né permanente, si calcola a ogni richiesta. Nell'enterprise è funzione delle piattaforme identità (Entra ID, Okta); nel piccolo, i mattoni della stessa idea sono l'[UEBA](q/cos-e-ueba-user-entity-behavior-analytics/) che nota le anomalie, i [reverse proxy con forward auth](q/oauth2-proxy-autenticazione-davanti-ai-servizi/) che valutano il contesto, e le regole di [conditional access](q/cos-e-il-modello-zero-trust/) dei self-hosted auth (Authelia/Authentik). Il principio: l'accesso giusto dipende da chi, cosa, dove, quando – non solo dalla password."}}]}</script>
+<style>
+  .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
+  .page h1 { font-size: 26px; line-height: 1.3; margin: 8px 0 20px; }
+  .page .answer a { color: var(--link); }
+  .page .vertical { font-size: 13px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }
+  .page .answer ul { padding-left: 22px; }
+  .page .answer code { background: var(--code-bg); border-radius: 5px; padding: 1px 5px; font-size: 0.9em; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+  .page .ask { display: inline-block; margin-top: 24px; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 9px 18px; text-decoration: none; font-weight: 600; }
+  .page .related { margin-top: 36px; border-top: 1px solid var(--border); padding-top: 18px; }
+  .page .related h2 { font-size: 16px; }
+  .page .related a { color: var(--link); text-decoration: none; }
+  .page .related a:hover { text-decoration: underline; }
+  .page .related li { margin: 6px 0; }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="../../" style="text-decoration:none;color:inherit">
+    <span class="brand-dot">F</span>
+    <span class="brand-name">FabGPT-FAQ</span>
+  </a>
+</header>
+<main class="page">
+  <div class="vertical">Cybersecurity</div>
+  <h1>Cos&#x27;è il Conditional Access (policy basate sul rischio)?</h1>
+  <div class="answer"><p>Il <strong>Conditional Access</strong> rende l&#x27;autenticazione <strong>adattiva</strong>: invece di &quot;credenziali giuste = accesso&quot;, la decisione dipende dal <strong>contesto e dal rischio</strong> valutati in tempo reale. Le stesse credenziali possono dare accesso pieno, accesso limitato, richiesta di <a href="../cos-e-autenticazione-due-fattori-mfa/">MFA aggiuntiva</a> (step-up), o rifiuto – a seconda dei segnali.</p><p>I segnali tipici: da dove arriva la richiesta (geografia, IP, rete aziendale vs pubblica), lo <strong>stato del dispositivo</strong> (è gestito? aggiornato? conforme alle policy?), l&#x27;orario, il comportamento anomalo (login da due continenti in un&#x27;ora – il &quot;viaggio impossibile&quot;), la sensibilità di ciò a cui si accede. Esempio: dal PC aziendale in ufficio → accesso diretto; dallo stesso account da un dispositivo sconosciuto in un altro paese → MFA obbligatoria o blocco.</p><p>È un pilastro operativo di <a href="../cos-e-il-modello-zero-trust/">Zero Trust</a> e <a href="../cos-e-ztna-zero-trust-network-access/">ZTNA</a>: la fiducia non è binaria né permanente, si calcola a ogni richiesta. Nell&#x27;enterprise è funzione delle piattaforme identità (Entra ID, Okta); nel piccolo, i mattoni della stessa idea sono l&#x27;<a href="../cos-e-ueba-user-entity-behavior-analytics/">UEBA</a> che nota le anomalie, i <a href="../oauth2-proxy-autenticazione-davanti-ai-servizi/">reverse proxy con forward auth</a> che valutano il contesto, e le regole di <a href="../cos-e-il-modello-zero-trust/">conditional access</a> dei self-hosted auth (Authelia/Authentik). Il principio: l&#x27;accesso <em>giusto</em> dipende da <em>chi, cosa, dove, quando</em> – non solo dalla password.</p></div>
+  <a class="ask" href="../../?q=conditional-access">Chiedilo a FabGPT-FAQ →</a>
+  <div class="related">
+    <h2>Altre domande</h2>
+    <ul><li><a href="../cos-e-un-waf-web-application-firewall/">Cos&#x27;è un WAF (Web Application Firewall) e a cosa serve?</a></li><li><a href="../cos-e-un-reverse-proxy/">Cos&#x27;è un reverse proxy e a cosa serve?</a></li><li><a href="../come-funziona-lets-encrypt-acme/">Come funziona Let&#x27;s Encrypt e il protocollo ACME?</a></li><li><a href="../certificato-tls-scaduto-cosa-fare/">Certificato TLS scaduto: perché succede e come evitarlo?</a></li><li><a href="../cos-e-un-siem-e-un-soar/">Cos&#x27;è un SIEM e cos&#x27;è un SOAR?</a></li><li><a href="../nis2-chi-deve-adeguarsi-italia/">Chi deve adeguarsi alla NIS2 in Italia e cosa rischia?</a></li></ul>
+  </div>
+</main>
+</body>
+</html>

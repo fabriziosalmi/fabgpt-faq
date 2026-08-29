@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Come si monitora l&#x27;hardware del homelab (Prometheus, Grafana)? – FabGPT-FAQ</title>
+<meta name="description" content="Vedere lo stato dell&#x27;infrastruttura – CPU, RAM, disco, temperature, rete, servizi – trasforma il [homelab](q/homelab-a-basso-consumo/) da scatola nera a…">
+<link rel="canonical" href="https://fabriziosalmi.github.io/fabgpt-faq/q/stack-di-monitoraggio-prometheus-grafana/">
+<link rel="stylesheet" href="../../style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Come si monitora l'hardware del homelab (Prometheus, Grafana)?", "acceptedAnswer": {"@type": "Answer", "text": "Vedere lo stato dell'infrastruttura – CPU, RAM, disco, temperature, rete, servizi – trasforma il [homelab](q/homelab-a-basso-consumo/) da scatola nera a sistema che sai come sta. Lo stack standard: Prometheus – il database time-series che raccoglie le metriche interrogando periodicamente degli exporter: node_exporter (metriche di sistema di ogni host: CPU, RAM, disco, temperature), esportatori per Proxmox, i container, i servizi Grafana – le dashboard: visualizza le metriche di Prometheus in grafici, con alerting (avvisa quando una temperatura, uno spazio disco, un carico superano le soglie – via [ntfy/email](q/notifiche-push-self-hosted-ntfy-gotify/)) L'alternativa più semplice e chiavi-in-mano è Netdata (installi e hai già tutto, real-time, zero configurazione) – ottima per iniziare; Prometheus+Grafana vince quando vuoi storia lunga, correlazione e personalizzazione. Uptime Kuma copre il monitoraggio della disponibilità dei servizi (su/giù, certificati, risposte) in modo delizioso e semplice. Il valore concreto: scopri i problemi prima che diventino disastri – la temperatura che sale (una ventola che muore), lo spazio disco che si esaurisce ([prima del 100%](q/storage-pieno-liberare-spazio/)), il servizio che si riavvia in loop, il [SMART che peggiora](q/monitorare-lo-stato-dei-dischi-smart/). È il cruscotto che rende il self-hosting gestibile invece che una serie di sorprese – lo stesso principio del [monitoraggio esterno di un sito](q/monitorare-siti-web-con-github-actions/), applicato all'infrastruttura in casa. Su [un LXC](q/differenza-container-lxc-e-vm/) da poche risorse, tiene d'occhio tutto il resto."}}]}</script>
+<style>
+  .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
+  .page h1 { font-size: 26px; line-height: 1.3; margin: 8px 0 20px; }
+  .page .answer a { color: var(--link); }
+  .page .vertical { font-size: 13px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }
+  .page .answer ul { padding-left: 22px; }
+  .page .answer code { background: var(--code-bg); border-radius: 5px; padding: 1px 5px; font-size: 0.9em; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+  .page .ask { display: inline-block; margin-top: 24px; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 9px 18px; text-decoration: none; font-weight: 600; }
+  .page .related { margin-top: 36px; border-top: 1px solid var(--border); padding-top: 18px; }
+  .page .related h2 { font-size: 16px; }
+  .page .related a { color: var(--link); text-decoration: none; }
+  .page .related a:hover { text-decoration: underline; }
+  .page .related li { margin: 6px 0; }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="../../" style="text-decoration:none;color:inherit">
+    <span class="brand-dot">F</span>
+    <span class="brand-name">FabGPT-FAQ</span>
+  </a>
+</header>
+<main class="page">
+  <div class="vertical">Proxmox e self-hosting</div>
+  <h1>Come si monitora l&#x27;hardware del homelab (Prometheus, Grafana)?</h1>
+  <div class="answer"><p>Vedere lo stato dell&#x27;infrastruttura – CPU, RAM, disco, <strong>temperature</strong>, rete, servizi – trasforma il <a href="../homelab-a-basso-consumo/">homelab</a> da scatola nera a sistema che <em>sai</em> come sta. Lo stack standard:</p><ul><li><strong>Prometheus</strong> – il database time-series che <em>raccoglie</em> le metriche interrogando periodicamente degli <strong>exporter</strong>: <code>node_exporter</code> (metriche di sistema di ogni host: CPU, RAM, disco, temperature), esportatori per Proxmox, i container, i servizi</li><li><strong>Grafana</strong> – le <strong>dashboard</strong>: visualizza le metriche di Prometheus in grafici, con <strong>alerting</strong> (avvisa quando una temperatura, uno spazio disco, un carico superano le soglie – via <a href="../notifiche-push-self-hosted-ntfy-gotify/">ntfy/email</a>)</li></ul><p>L&#x27;alternativa più semplice e chiavi-in-mano è <strong>Netdata</strong> (installi e hai già tutto, real-time, zero configurazione) – ottima per iniziare; Prometheus+Grafana vince quando vuoi storia lunga, correlazione e personalizzazione. <strong>Uptime Kuma</strong> copre il monitoraggio della <em>disponibilità</em> dei servizi (su/giù, certificati, risposte) in modo delizioso e semplice.</p><p>Il valore concreto: scopri i problemi <em>prima</em> che diventino disastri – la temperatura che sale (una ventola che muore), lo spazio disco che si esaurisce (<a href="../storage-pieno-liberare-spazio/">prima del 100%</a>), il servizio che si riavvia in loop, il <a href="../monitorare-lo-stato-dei-dischi-smart/">SMART che peggiora</a>. È il cruscotto che rende il self-hosting <em>gestibile</em> invece che una serie di sorprese – lo stesso principio del <a href="../monitorare-siti-web-con-github-actions/">monitoraggio esterno di un sito</a>, applicato all&#x27;infrastruttura in casa. Su <a href="../differenza-container-lxc-e-vm/">un LXC</a> da poche risorse, tiene d&#x27;occhio tutto il resto.</p></div>
+  <a class="ask" href="../../?q=monitoring-stack">Chiedilo a FabGPT-FAQ →</a>
+  <div class="related">
+    <h2>Altre domande</h2>
+    <ul><li><a href="../cos-e-proxmox-ve/">Cos&#x27;è Proxmox VE e perché è così usato?</a></li><li><a href="../differenza-container-lxc-e-vm/">Che differenza c&#x27;è tra container LXC e VM?</a></li><li><a href="../self-hosting-pro-e-contro/">Self-hosting: cosa significa e quando conviene?</a></li><li><a href="../cluster-proxmox-e-quorum/">Come funziona un cluster Proxmox (e cos&#x27;è il quorum)?</a></li><li><a href="../perche-usare-zfs-su-proxmox/">Perché usare ZFS su Proxmox?</a></li><li><a href="../differenza-snapshot-e-backup/">Che differenza c&#x27;è tra snapshot e backup?</a></li></ul>
+  </div>
+</main>
+</body>
+</html>

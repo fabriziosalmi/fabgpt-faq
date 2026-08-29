@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cosa migliora TLS 1.3 rispetto alle versioni precedenti? – FabGPT-FAQ</title>
+<meta name="description" content="TLS 1.3 (2018) è una revisione che migliora insieme sicurezza e prestazioni – raramente vanno d&#x27;accordo, qui sì: handshake più veloce: da 2 round-trip a 1…">
+<link rel="canonical" href="https://fabriziosalmi.github.io/fabgpt-faq/q/cosa-migliora-tls-1-3/">
+<link rel="stylesheet" href="../../style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Cosa migliora TLS 1.3 rispetto alle versioni precedenti?", "acceptedAnswer": {"@type": "Answer", "text": "TLS 1.3 (2018) è una revisione che migliora insieme sicurezza e prestazioni – raramente vanno d'accordo, qui sì: handshake più veloce: da 2 round-trip a 1 (1-RTT) per stabilire la connessione – la pagina carica prima. C'è anche lo 0-RTT per le riconnessioni (latenza quasi zero, con l'avvertenza che è vulnerabile ai replay e va usato con cautela) ciphersuite deboli eliminate per design: TLS 1.2 permetteva di configurare male (algoritmi obsoleti, RSA key exchange senza forward secrecy, RC4, CBC vulnerabili) – TLS 1.3 le ha rimosse dallo standard: non puoi più sbagliare la configurazione, perché le opzioni insicure non esistono più Perfect Forward Secrecy obbligatoria: ogni sessione usa chiavi effimere, quindi anche se la chiave privata del server venisse compromessa in futuro, il traffico passato registrato resta illeggibile – la difesa strutturale contro l'[Harvest Now Decrypt Later](q/harvest-now-decrypt-later/) meno metadati in chiaro nell'handshake La lezione di design è elegante: rendere l'insicuro impossibile invece di lasciarlo configurabile e sperare che nessuno sbagli – lo stesso principio del [WAF zero-regex di zion](q/cos-e-zion-reverse-proxy-rust/) o della [memory safety](q/cos-e-memory-tagging-extension-mte/). In pratica: usa TLS 1.2+1.3 (1.3 preferito), disabilita tutto sotto, e i server moderni ([Caddy](q/configurare-https-su-caddy/), nginx recenti, [zion](q/cos-e-zion-reverse-proxy-rust/)) lo fanno già bene di default. È uno di quei progressi che rendono internet più sicuro senza che l'utente debba fare nulla."}}]}</script>
+<style>
+  .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
+  .page h1 { font-size: 26px; line-height: 1.3; margin: 8px 0 20px; }
+  .page .answer a { color: var(--link); }
+  .page .vertical { font-size: 13px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }
+  .page .answer ul { padding-left: 22px; }
+  .page .answer code { background: var(--code-bg); border-radius: 5px; padding: 1px 5px; font-size: 0.9em; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+  .page .ask { display: inline-block; margin-top: 24px; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 9px 18px; text-decoration: none; font-weight: 600; }
+  .page .related { margin-top: 36px; border-top: 1px solid var(--border); padding-top: 18px; }
+  .page .related h2 { font-size: 16px; }
+  .page .related a { color: var(--link); text-decoration: none; }
+  .page .related a:hover { text-decoration: underline; }
+  .page .related li { margin: 6px 0; }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="../../" style="text-decoration:none;color:inherit">
+    <span class="brand-dot">F</span>
+    <span class="brand-name">FabGPT-FAQ</span>
+  </a>
+</header>
+<main class="page">
+  <div class="vertical">Cybersecurity</div>
+  <h1>Cosa migliora TLS 1.3 rispetto alle versioni precedenti?</h1>
+  <div class="answer"><p><strong>TLS 1.3</strong> (2018) è una revisione che migliora insieme <strong>sicurezza e prestazioni</strong> – raramente vanno d&#x27;accordo, qui sì:</p><ul><li><strong>handshake più veloce</strong>: da 2 round-trip a <strong>1</strong> (1-RTT) per stabilire la connessione – la pagina carica prima. C&#x27;è anche lo <strong>0-RTT</strong> per le riconnessioni (latenza quasi zero, con l&#x27;avvertenza che è vulnerabile ai replay e va usato con cautela)</li><li><strong>ciphersuite deboli eliminate per design</strong>: TLS 1.2 permetteva di <em>configurare</em> male (algoritmi obsoleti, RSA key exchange senza forward secrecy, RC4, CBC vulnerabili) – TLS 1.3 le ha <strong>rimosse dallo standard</strong>: non puoi più sbagliare la configurazione, perché le opzioni insicure non esistono più</li><li><strong>Perfect Forward Secrecy obbligatoria</strong>: ogni sessione usa chiavi effimere, quindi anche se la chiave privata del server venisse compromessa <em>in futuro</em>, il traffico <em>passato</em> registrato resta illeggibile – la difesa strutturale contro l&#x27;<a href="../harvest-now-decrypt-later/">Harvest Now Decrypt Later</a></li><li>meno metadati in chiaro nell&#x27;handshake</li></ul><p>La lezione di design è elegante: <strong>rendere l&#x27;insicuro impossibile</strong> invece di lasciarlo configurabile e sperare che nessuno sbagli – lo stesso principio del <a href="../cos-e-zion-reverse-proxy-rust/">WAF zero-regex di zion</a> o della <a href="../cos-e-memory-tagging-extension-mte/">memory safety</a>. In pratica: usa TLS 1.2+1.3 (1.3 preferito), disabilita tutto sotto, e i server moderni (<a href="../configurare-https-su-caddy/">Caddy</a>, nginx recenti, <a href="../cos-e-zion-reverse-proxy-rust/">zion</a>) lo fanno già bene di default. È uno di quei progressi che rendono internet più sicuro <em>senza</em> che l&#x27;utente debba fare nulla.</p></div>
+  <a class="ask" href="../../?q=tls13">Chiedilo a FabGPT-FAQ →</a>
+  <div class="related">
+    <h2>Altre domande</h2>
+    <ul><li><a href="../cos-e-un-waf-web-application-firewall/">Cos&#x27;è un WAF (Web Application Firewall) e a cosa serve?</a></li><li><a href="../cos-e-un-reverse-proxy/">Cos&#x27;è un reverse proxy e a cosa serve?</a></li><li><a href="../come-funziona-lets-encrypt-acme/">Come funziona Let&#x27;s Encrypt e il protocollo ACME?</a></li><li><a href="../certificato-tls-scaduto-cosa-fare/">Certificato TLS scaduto: perché succede e come evitarlo?</a></li><li><a href="../cos-e-un-siem-e-un-soar/">Cos&#x27;è un SIEM e cos&#x27;è un SOAR?</a></li><li><a href="../nis2-chi-deve-adeguarsi-italia/">Chi deve adeguarsi alla NIS2 in Italia e cosa rischia?</a></li></ul>
+  </div>
+</main>
+</body>
+</html>

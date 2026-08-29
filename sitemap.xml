@@ -358,6 +358,41 @@
   <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/esfiltrazione-dati-tramite-agenti-ai/</loc></url>
   <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/impianti-hardware-e-firmware-malevolo/</loc></url>
   <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/clonazione-nfc-rfid-e-difese/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-openzfs-snapshot-copy-on-write/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/perche-la-ram-ecc-nel-nas/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/raid-e-raidz-livelli-e-scelta/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/cifratura-a-riposo-dei-dischi-luks/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/monitorare-lo-stato-dei-dischi-smart/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/wireguard-o-openvpn/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-headscale/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/failover-e-bilanciamento-multi-wan/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/mdns-repeater-tra-vlan/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/bgp-con-bfd-verso-un-vps/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/filtraggio-geoip-e-liste-di-reputazione/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/switch-managed-l2-vs-l3/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/cattura-pacchetti-remota-pcap/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/mtu-e-mss-nelle-vpn/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/single-board-computer-nel-homelab/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/ups-e-spegnimento-sicuro-nut/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/stack-di-monitoraggio-prometheus-grafana/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-ztna-zero-trust-network-access/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/attacchi-adversary-in-the-middle-aitm/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/conditional-access-policy-basate-sul-rischio/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/continuous-access-evaluation-cae/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/rbac-abac-e-pbac-modelli-di-accesso/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/modello-di-responsabilita-condivisa-cloud/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/sicurezza-di-kubernetes-pod-security/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-un-container-breakout/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/cosa-migliora-tls-1-3/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-la-fully-homomorphic-encryption/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-la-crypto-agility/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/idor-e-broken-object-level-authorization/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-mass-assignment/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/flag-di-sicurezza-dei-cookie/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/deserializzazione-insicura/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/vulnerabilita-nei-redirect-oauth/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/oauth2-proxy-autenticazione-davanti-ai-servizi/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/vincolare-i-database-a-localhost/</loc></url>
   <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/vm-non-parte-proxmox/</loc></url>
   <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/nodo-x-rossa-quorum-perso/</loc></url>
   <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/storage-pieno-liberare-spazio/</loc></url>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Come si risolvono i problemi di MTU e frammentazione su una VPN? – FabGPT-FAQ</title>
+<meta name="description" content="Un sintomo classico e sconcertante: la [VPN](q/wireguard-o-openvpn/) è &quot;su&quot;, il ping funziona, ma alcuni siti non caricano o si bloccano a metà. Quasi…">
+<link rel="canonical" href="https://fabriziosalmi.github.io/fabgpt-faq/q/mtu-e-mss-nelle-vpn/">
+<link rel="stylesheet" href="../../style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Come si risolvono i problemi di MTU e frammentazione su una VPN?", "acceptedAnswer": {"@type": "Answer", "text": "Un sintomo classico e sconcertante: la [VPN](q/wireguard-o-openvpn/) è \"su\", il ping funziona, ma alcuni siti non caricano o si bloccano a metà. Quasi sempre è un problema di MTU. La causa: ogni pacchetto ha una dimensione massima (la MTU, tipicamente 1500 byte). Un tunnel VPN aggiunge il proprio overhead di incapsulamento (header di cifratura), quindi dentro il tunnel lo spazio utile è minore – se un pacchetto viaggia a 1500 ma nel tunnel ce ne stanno solo ~1420, deve essere frammentato... e se qualcosa lungo il percorso blocca i messaggi ICMP di \"Path MTU Discovery\" (comune con firewall troppo zelanti), i pacchetti grandi vengono scartati in silenzio – il ping (pacchetti piccoli) passa, il traffico reale (pacchetti grandi) muore. Da qui il comportamento \"funziona ma non funziona\". Le soluzioni: MSS clamping – la più efficace: il gateway riscrive la dimensione massima di segmento (MSS) annunciata nell'handshake TCP, così i due estremi concordano da subito pacchetti che entrano nel tunnel senza frammentazione. Nei firewall si attiva con \"clamp MSS to PMTU\" abbassare la MTU dell'interfaccia VPN al valore giusto ([WireGuard](q/wireguard-e-mesh-vpn/) di solito la gestisce bene di suo, 1420) non bloccare l'ICMP necessario alla Path MTU Discovery È uno di quei problemi che sembrano stregoneria finché non conosci il meccanismo – e allora si risolvono in una riga di configurazione. Il packet leakage (traffico che sfugge fuori dal tunnel) è un tema imparentato: [kill-switch della VPN](q/wireguard-o-openvpn/) e routing corretto assicurano che tutto passi cifrato, senza fughe."}}]}</script>
+<style>
+  .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
+  .page h1 { font-size: 26px; line-height: 1.3; margin: 8px 0 20px; }
+  .page .answer a { color: var(--link); }
+  .page .vertical { font-size: 13px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }
+  .page .answer ul { padding-left: 22px; }
+  .page .answer code { background: var(--code-bg); border-radius: 5px; padding: 1px 5px; font-size: 0.9em; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+  .page .ask { display: inline-block; margin-top: 24px; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 9px 18px; text-decoration: none; font-weight: 600; }
+  .page .related { margin-top: 36px; border-top: 1px solid var(--border); padding-top: 18px; }
+  .page .related h2 { font-size: 16px; }
+  .page .related a { color: var(--link); text-decoration: none; }
+  .page .related a:hover { text-decoration: underline; }
+  .page .related li { margin: 6px 0; }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="../../" style="text-decoration:none;color:inherit">
+    <span class="brand-dot">F</span>
+    <span class="brand-name">FabGPT-FAQ</span>
+  </a>
+</header>
+<main class="page">
+  <div class="vertical">Cybersecurity</div>
+  <h1>Come si risolvono i problemi di MTU e frammentazione su una VPN?</h1>
+  <div class="answer"><p>Un sintomo classico e sconcertante: la <a href="../wireguard-o-openvpn/">VPN</a> è &quot;su&quot;, il ping funziona, ma <strong>alcuni siti non caricano o si bloccano a metà</strong>. Quasi sempre è un problema di <strong>MTU</strong>.</p><p>La causa: ogni pacchetto ha una dimensione massima (la MTU, tipicamente 1500 byte). Un tunnel VPN aggiunge il proprio <strong>overhead di incapsulamento</strong> (header di cifratura), quindi dentro il tunnel lo spazio utile è minore – se un pacchetto viaggia a 1500 ma nel tunnel ce ne stanno solo ~1420, deve essere <strong>frammentato</strong>... e se qualcosa lungo il percorso blocca i messaggi ICMP di &quot;Path MTU Discovery&quot; (comune con firewall troppo zelanti), i pacchetti grandi vengono <strong>scartati in silenzio</strong> – il ping (pacchetti piccoli) passa, il traffico reale (pacchetti grandi) muore. Da qui il comportamento &quot;funziona ma non funziona&quot;.</p><p>Le soluzioni:</p><ul><li><strong>MSS clamping</strong> – la più efficace: il gateway riscrive la dimensione massima di segmento (MSS) annunciata nell&#x27;handshake TCP, così i due estremi concordano da subito pacchetti che <em>entrano</em> nel tunnel senza frammentazione. Nei firewall si attiva con &quot;clamp MSS to PMTU&quot;</li><li><strong>abbassare la MTU</strong> dell&#x27;interfaccia VPN al valore giusto (<a href="../wireguard-e-mesh-vpn/">WireGuard</a> di solito la gestisce bene di suo, 1420)</li><li>non bloccare l&#x27;ICMP necessario alla Path MTU Discovery</li></ul><p>È uno di quei problemi che sembrano stregoneria finché non conosci il meccanismo – e allora si risolvono in una riga di configurazione. Il <strong>packet leakage</strong> (traffico che sfugge fuori dal tunnel) è un tema imparentato: <a href="../wireguard-o-openvpn/">kill-switch della VPN</a> e routing corretto assicurano che <em>tutto</em> passi cifrato, senza fughe.</p></div>
+  <a class="ask" href="../../?q=mtu-mss-vpn">Chiedilo a FabGPT-FAQ →</a>
+  <div class="related">
+    <h2>Altre domande</h2>
+    <ul><li><a href="../cos-e-un-waf-web-application-firewall/">Cos&#x27;è un WAF (Web Application Firewall) e a cosa serve?</a></li><li><a href="../cos-e-un-reverse-proxy/">Cos&#x27;è un reverse proxy e a cosa serve?</a></li><li><a href="../come-funziona-lets-encrypt-acme/">Come funziona Let&#x27;s Encrypt e il protocollo ACME?</a></li><li><a href="../certificato-tls-scaduto-cosa-fare/">Certificato TLS scaduto: perché succede e come evitarlo?</a></li><li><a href="../cos-e-un-siem-e-un-soar/">Cos&#x27;è un SIEM e cos&#x27;è un SOAR?</a></li><li><a href="../nis2-chi-deve-adeguarsi-italia/">Chi deve adeguarsi alla NIS2 in Italia e cosa rischia?</a></li></ul>
+  </div>
+</main>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Come funziona il modello di responsabilità condivisa (IaaS, PaaS, SaaS)? – FabGPT-FAQ</title>
+<meta name="description" content="Il modello di responsabilità condivisa definisce il confine tra ciò che protegge il provider cloud e ciò che resti a proteggere tu – e fraintenderlo è la…">
+<link rel="canonical" href="https://fabriziosalmi.github.io/fabgpt-faq/q/modello-di-responsabilita-condivisa-cloud/">
+<link rel="stylesheet" href="../../style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Come funziona il modello di responsabilità condivisa (IaaS, PaaS, SaaS)?", "acceptedAnswer": {"@type": "Answer", "text": "Il modello di responsabilità condivisa definisce il confine tra ciò che protegge il provider cloud e ciò che resti a proteggere tu – e fraintenderlo è la causa di innumerevoli breach (\"pensavo lo facesse AWS\"). Il principio: il provider protegge la sicurezza del cloud (l'infrastruttura fisica, l'hypervisor, la rete di base), tu la sicurezza nel cloud (i tuoi dati, le configurazioni, gli accessi). Dove cade il confine dipende dal servizio: IaaS (macchine virtuali, es. EC2) – il provider ti dà l'hardware virtualizzato; tutto il resto è tuo: OS da [patchare](q/hardening-server-linux/), configurazioni, applicazioni, dati, accessi. Massimo controllo, massima responsabilità PaaS (piattaforme gestite, database managed) – il provider gestisce anche OS e runtime; tu resti responsabile di applicazione, dati e accessi SaaS (software pronto, es. Microsoft 365) – il provider gestisce quasi tutto; a te restano i tuoi dati, gli accessi e le configurazioni La costante, a ogni livello: i tuoi dati, le identità e le configurazioni sono sempre responsabilità tua. Il [bucket S3 pubblico per errore](q/cspm-cwpp-e-cnapp/), l'IAM troppo largo, l'MFA non attivata sul SaaS – nessun provider te li salva, ed è lì che nasce la maggioranza dei breach cloud. La lezione: \"è sul cloud\" non significa \"è sicuro\" – significa che la tua parte di sicurezza è diversa, non che sparisce. Ed è un motivo in più a favore del [self-hosting](q/self-hosting-pro-e-contro/) per chi vuole (e sa gestire) il controllo pieno: là la responsabilità è tutta tua, esplicitamente."}}]}</script>
+<style>
+  .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
+  .page h1 { font-size: 26px; line-height: 1.3; margin: 8px 0 20px; }
+  .page .answer a { color: var(--link); }
+  .page .vertical { font-size: 13px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }
+  .page .answer ul { padding-left: 22px; }
+  .page .answer code { background: var(--code-bg); border-radius: 5px; padding: 1px 5px; font-size: 0.9em; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+  .page .ask { display: inline-block; margin-top: 24px; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 9px 18px; text-decoration: none; font-weight: 600; }
+  .page .related { margin-top: 36px; border-top: 1px solid var(--border); padding-top: 18px; }
+  .page .related h2 { font-size: 16px; }
+  .page .related a { color: var(--link); text-decoration: none; }
+  .page .related a:hover { text-decoration: underline; }
+  .page .related li { margin: 6px 0; }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="../../" style="text-decoration:none;color:inherit">
+    <span class="brand-dot">F</span>
+    <span class="brand-name">FabGPT-FAQ</span>
+  </a>
+</header>
+<main class="page">
+  <div class="vertical">Cybersecurity</div>
+  <h1>Come funziona il modello di responsabilità condivisa (IaaS, PaaS, SaaS)?</h1>
+  <div class="answer"><p>Il <strong>modello di responsabilità condivisa</strong> definisce il confine tra ciò che protegge il <em>provider cloud</em> e ciò che resti a proteggere <em>tu</em> – e fraintenderlo è la causa di innumerevoli breach (&quot;pensavo lo facesse AWS&quot;). Il principio: il provider protegge la sicurezza <strong>del</strong> cloud (l&#x27;infrastruttura fisica, l&#x27;hypervisor, la rete di base), tu la sicurezza <strong>nel</strong> cloud (i tuoi dati, le configurazioni, gli accessi). <em>Dove</em> cade il confine dipende dal servizio:</p><ul><li><strong>IaaS</strong> (macchine virtuali, es. EC2) – il provider ti dà l&#x27;hardware virtualizzato; <strong>tutto il resto è tuo</strong>: OS da <a href="../hardening-server-linux/">patchare</a>, configurazioni, applicazioni, dati, accessi. Massimo controllo, massima responsabilità</li><li><strong>PaaS</strong> (piattaforme gestite, database managed) – il provider gestisce anche OS e runtime; tu resti responsabile di applicazione, dati e accessi</li><li><strong>SaaS</strong> (software pronto, es. Microsoft 365) – il provider gestisce quasi tutto; a te restano <strong>i tuoi dati, gli accessi e le configurazioni</strong></li></ul><p>La costante, a <em>ogni</em> livello: <strong>i tuoi dati, le identità e le configurazioni sono sempre responsabilità tua</strong>. Il <a href="../cspm-cwpp-e-cnapp/">bucket S3 pubblico per errore</a>, l&#x27;IAM troppo largo, l&#x27;MFA non attivata sul SaaS – nessun provider te li salva, ed è lì che nasce la maggioranza dei breach cloud. La lezione: &quot;è sul cloud&quot; non significa &quot;è sicuro&quot; – significa che la <em>tua parte</em> di sicurezza è diversa, non che sparisce. Ed è un motivo in più a favore del <a href="../self-hosting-pro-e-contro/">self-hosting</a> per chi vuole (e sa gestire) il controllo pieno: là la responsabilità è tutta tua, esplicitamente.</p></div>
+  <a class="ask" href="../../?q=shared-responsibility">Chiedilo a FabGPT-FAQ →</a>
+  <div class="related">
+    <h2>Altre domande</h2>
+    <ul><li><a href="../cos-e-un-waf-web-application-firewall/">Cos&#x27;è un WAF (Web Application Firewall) e a cosa serve?</a></li><li><a href="../cos-e-un-reverse-proxy/">Cos&#x27;è un reverse proxy e a cosa serve?</a></li><li><a href="../come-funziona-lets-encrypt-acme/">Come funziona Let&#x27;s Encrypt e il protocollo ACME?</a></li><li><a href="../certificato-tls-scaduto-cosa-fare/">Certificato TLS scaduto: perché succede e come evitarlo?</a></li><li><a href="../cos-e-un-siem-e-un-soar/">Cos&#x27;è un SIEM e cos&#x27;è un SOAR?</a></li><li><a href="../nis2-chi-deve-adeguarsi-italia/">Chi deve adeguarsi alla NIS2 in Italia e cosa rischia?</a></li></ul>
+  </div>
+</main>
+</body>
+</html>

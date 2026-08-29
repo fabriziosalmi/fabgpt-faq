@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Come si cattura il traffico da remoto per analizzarlo (PCAP over SSH)? – FabGPT-FAQ</title>
+<meta name="description" content="Quando devi capire cosa succede davvero sulla rete – un servizio che non risponde, un dispositivo che parla con chi non dovrebbe, un problema di connessione…">
+<link rel="canonical" href="https://fabriziosalmi.github.io/fabgpt-faq/q/cattura-pacchetti-remota-pcap/">
+<link rel="stylesheet" href="../../style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Come si cattura il traffico da remoto per analizzarlo (PCAP over SSH)?", "acceptedAnswer": {"@type": "Answer", "text": "Quando devi capire cosa succede davvero sulla rete – un servizio che non risponde, un dispositivo che parla con chi non dovrebbe, un problema di connessione oscuro – la verità è nei pacchetti. Ma spesso il punto giusto per catturarli è un gateway/router headless senza interfaccia grafica. La tecnica elegante è il PCAP over SSH: fai girare tcpdump sul dispositivo remoto e fai scorrere l'output direttamente in Wireshark sul tuo computer, in tempo reale: ssh gateway \"tcpdump -i eth0 -U -w - 'not port 22'\" | wireshark -k -i - Catturi sul gateway, analizzi con la GUI comoda in locale, senza salvare file intermedi. Il filtro not port 22 esclude il traffico SSH della cattura stessa (o si crea un loop di rumore). Gli usi diagnostici: vedere se un pacchetto arriva davvero (problema di rete o di applicazione?), scoprire [verso quali domini un dispositivo IoT chiama](q/cos-e-una-botnet/) (spesso rivelatore), debuggare TLS handshake falliti, misurare [problemi di MTU](q/mtu-e-mss-nelle-vpn/). Le cautele: la cattura di rete vede dati potenzialmente sensibili (trattala come tale, [privacy](q/gdpr-cosa-serve-a-un-sito-web/) inclusa), e su reti [switchate](q/switch-managed-l2-vs-l3/) vedi solo il traffico che passa da quel punto (per vedere tutto serve una porta mirror/SPAN). È lo strumento che trasforma \"non funziona e non so perché\" in \"ecco esattamente cosa succede\"."}}]}</script>
+<style>
+  .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
+  .page h1 { font-size: 26px; line-height: 1.3; margin: 8px 0 20px; }
+  .page .answer a { color: var(--link); }
+  .page .vertical { font-size: 13px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }
+  .page .answer ul { padding-left: 22px; }
+  .page .answer code { background: var(--code-bg); border-radius: 5px; padding: 1px 5px; font-size: 0.9em; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+  .page .ask { display: inline-block; margin-top: 24px; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 9px 18px; text-decoration: none; font-weight: 600; }
+  .page .related { margin-top: 36px; border-top: 1px solid var(--border); padding-top: 18px; }
+  .page .related h2 { font-size: 16px; }
+  .page .related a { color: var(--link); text-decoration: none; }
+  .page .related a:hover { text-decoration: underline; }
+  .page .related li { margin: 6px 0; }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="../../" style="text-decoration:none;color:inherit">
+    <span class="brand-dot">F</span>
+    <span class="brand-name">FabGPT-FAQ</span>
+  </a>
+</header>
+<main class="page">
+  <div class="vertical">Cybersecurity</div>
+  <h1>Come si cattura il traffico da remoto per analizzarlo (PCAP over SSH)?</h1>
+  <div class="answer"><p>Quando devi capire cosa succede <em>davvero</em> sulla rete – un servizio che non risponde, un dispositivo che parla con chi non dovrebbe, un problema di connessione oscuro – la verità è nei <strong>pacchetti</strong>. Ma spesso il punto giusto per catturarli è un <strong>gateway/router headless</strong> senza interfaccia grafica.</p><p>La tecnica elegante è il <strong>PCAP over SSH</strong>: fai girare <code>tcpdump</code> sul dispositivo remoto e <strong>fai scorrere l&#x27;output direttamente in Wireshark</strong> sul tuo computer, in tempo reale:</p><p><code>ssh gateway &quot;tcpdump -i eth0 -U -w - &#x27;not port 22&#x27;&quot; | wireshark -k -i -</code></p><p>Catturi sul gateway, analizzi con la GUI comoda in locale, senza salvare file intermedi. Il filtro <code>not port 22</code> esclude il traffico SSH della cattura stessa (o si crea un loop di rumore).</p><p>Gli usi diagnostici: vedere se un pacchetto <em>arriva</em> davvero (problema di rete o di applicazione?), scoprire <a href="../cos-e-una-botnet/">verso quali domini un dispositivo IoT chiama</a> (spesso rivelatore), debuggare TLS handshake falliti, misurare <a href="../mtu-e-mss-nelle-vpn/">problemi di MTU</a>. Le cautele: la cattura di rete vede <strong>dati potenzialmente sensibili</strong> (trattala come tale, <a href="../gdpr-cosa-serve-a-un-sito-web/">privacy</a> inclusa), e su reti <a href="../switch-managed-l2-vs-l3/">switchate</a> vedi solo il traffico che passa da quel punto (per vedere tutto serve una porta mirror/SPAN). È lo strumento che trasforma &quot;non funziona e non so perché&quot; in &quot;ecco esattamente cosa succede&quot;.</p></div>
+  <a class="ask" href="../../?q=pcap-remote">Chiedilo a FabGPT-FAQ →</a>
+  <div class="related">
+    <h2>Altre domande</h2>
+    <ul><li><a href="../cos-e-un-waf-web-application-firewall/">Cos&#x27;è un WAF (Web Application Firewall) e a cosa serve?</a></li><li><a href="../cos-e-un-reverse-proxy/">Cos&#x27;è un reverse proxy e a cosa serve?</a></li><li><a href="../come-funziona-lets-encrypt-acme/">Come funziona Let&#x27;s Encrypt e il protocollo ACME?</a></li><li><a href="../certificato-tls-scaduto-cosa-fare/">Certificato TLS scaduto: perché succede e come evitarlo?</a></li><li><a href="../cos-e-un-siem-e-un-soar/">Cos&#x27;è un SIEM e cos&#x27;è un SOAR?</a></li><li><a href="../nis2-chi-deve-adeguarsi-italia/">Chi deve adeguarsi alla NIS2 in Italia e cosa rischia?</a></li></ul>
+  </div>
+</main>
+</body>
+</html>

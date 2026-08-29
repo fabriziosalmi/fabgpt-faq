@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cos&#x27;è la Continuous Access Evaluation (CAE) e il furto di sessione? – FabGPT-FAQ</title>
+<meta name="description" content="Il problema che la CAE risolve: i token di sessione tradizionali durano a lungo (per non chiedere il login di continuo), ma se un token viene rubato ([via…">
+<link rel="canonical" href="https://fabriziosalmi.github.io/fabgpt-faq/q/continuous-access-evaluation-cae/">
+<link rel="stylesheet" href="../../style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Cos'è la Continuous Access Evaluation (CAE) e il furto di sessione?", "acceptedAnswer": {"@type": "Answer", "text": "Il problema che la CAE risolve: i token di sessione tradizionali durano a lungo (per non chiedere il login di continuo), ma se un token viene rubato ([via AiTM](q/attacchi-adversary-in-the-middle-aitm/), [infostealer](q/cos-e-un-infostealer/), XSS), rimane valido fino alla scadenza – anche se l'utente ha cambiato password, anche se l'account è stato disabilitato. C'è una finestra in cui il ladro usa una sessione che dovrebbe essere già morta. La Continuous Access Evaluation chiude quella finestra rendendo la revoca quasi in tempo reale: invece di aspettare la scadenza del token, i servizi valutano continuamente eventi critici – account disabilitato, password cambiata, rischio elevato rilevato, cambio di rete – e invalidano la sessione subito, spingendo l'utente a riautenticarsi. Un token rubato viene neutralizzato in minuti, non in ore. Si combina con il token binding (legare il token al dispositivo, così un token esfiltrato e usato altrove non funziona) e la [conditional access](q/conditional-access-policy-basate-sul-rischio/). È un concetto enterprise (Entra ID, standard OpenID SSF/CAEP), ma il principio vale ovunque gestisci sessioni: le sessioni lunghe sono comode e pericolose – più durano, più valgono da rubare. Le contromisure pratiche a ogni scala: [rotazione delle chiavi/token di sessione](q/oauth2-proxy-autenticazione-davanti-ai-servizi/), scadenze ragionevoli, revoca effettiva (non solo teorica) al cambio password/logout, e [passkey](q/chiavi-di-sicurezza-hardware-yubikey/) per non farsi rubare le credenziali in primo luogo."}}]}</script>
+<style>
+  .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
+  .page h1 { font-size: 26px; line-height: 1.3; margin: 8px 0 20px; }
+  .page .answer a { color: var(--link); }
+  .page .vertical { font-size: 13px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }
+  .page .answer ul { padding-left: 22px; }
+  .page .answer code { background: var(--code-bg); border-radius: 5px; padding: 1px 5px; font-size: 0.9em; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+  .page .ask { display: inline-block; margin-top: 24px; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 9px 18px; text-decoration: none; font-weight: 600; }
+  .page .related { margin-top: 36px; border-top: 1px solid var(--border); padding-top: 18px; }
+  .page .related h2 { font-size: 16px; }
+  .page .related a { color: var(--link); text-decoration: none; }
+  .page .related a:hover { text-decoration: underline; }
+  .page .related li { margin: 6px 0; }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="../../" style="text-decoration:none;color:inherit">
+    <span class="brand-dot">F</span>
+    <span class="brand-name">FabGPT-FAQ</span>
+  </a>
+</header>
+<main class="page">
+  <div class="vertical">Cybersecurity</div>
+  <h1>Cos&#x27;è la Continuous Access Evaluation (CAE) e il furto di sessione?</h1>
+  <div class="answer"><p>Il problema che la <strong>CAE</strong> risolve: i token di sessione tradizionali durano a lungo (per non chiedere il login di continuo), ma se un token viene <strong>rubato</strong> (<a href="../attacchi-adversary-in-the-middle-aitm/">via AiTM</a>, <a href="../cos-e-un-infostealer/">infostealer</a>, XSS), rimane valido fino alla scadenza – anche se l&#x27;utente ha cambiato password, anche se l&#x27;account è stato disabilitato. C&#x27;è una finestra in cui il ladro usa una sessione che <em>dovrebbe</em> essere già morta.</p><p>La <strong>Continuous Access Evaluation</strong> chiude quella finestra rendendo la revoca <strong>quasi in tempo reale</strong>: invece di aspettare la scadenza del token, i servizi valutano <em>continuamente</em> eventi critici – account disabilitato, password cambiata, rischio elevato rilevato, cambio di rete – e <strong>invalidano la sessione subito</strong>, spingendo l&#x27;utente a riautenticarsi. Un token rubato viene neutralizzato in minuti, non in ore.</p><p>Si combina con il <strong>token binding</strong> (legare il token al dispositivo, così un token esfiltrato e usato altrove non funziona) e la <a href="../conditional-access-policy-basate-sul-rischio/">conditional access</a>. È un concetto enterprise (Entra ID, standard OpenID SSF/CAEP), ma il principio vale ovunque gestisci sessioni: <strong>le sessioni lunghe sono comode e pericolose</strong> – più durano, più valgono da rubare. Le contromisure pratiche a ogni scala: <a href="../oauth2-proxy-autenticazione-davanti-ai-servizi/">rotazione delle chiavi/token di sessione</a>, scadenze ragionevoli, revoca effettiva (non solo teorica) al cambio password/logout, e <a href="../chiavi-di-sicurezza-hardware-yubikey/">passkey</a> per non farsi rubare le credenziali in primo luogo.</p></div>
+  <a class="ask" href="../../?q=cae">Chiedilo a FabGPT-FAQ →</a>
+  <div class="related">
+    <h2>Altre domande</h2>
+    <ul><li><a href="../cos-e-un-waf-web-application-firewall/">Cos&#x27;è un WAF (Web Application Firewall) e a cosa serve?</a></li><li><a href="../cos-e-un-reverse-proxy/">Cos&#x27;è un reverse proxy e a cosa serve?</a></li><li><a href="../come-funziona-lets-encrypt-acme/">Come funziona Let&#x27;s Encrypt e il protocollo ACME?</a></li><li><a href="../certificato-tls-scaduto-cosa-fare/">Certificato TLS scaduto: perché succede e come evitarlo?</a></li><li><a href="../cos-e-un-siem-e-un-soar/">Cos&#x27;è un SIEM e cos&#x27;è un SOAR?</a></li><li><a href="../nis2-chi-deve-adeguarsi-italia/">Chi deve adeguarsi alla NIS2 in Italia e cosa rischia?</a></li></ul>
+  </div>
+</main>
+</body>
+</html>

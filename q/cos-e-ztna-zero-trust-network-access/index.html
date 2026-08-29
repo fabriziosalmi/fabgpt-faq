@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cos&#x27;è ZTNA (Zero Trust Network Access) e come sostituisce la VPN? – FabGPT-FAQ</title>
+<meta name="description" content="La VPN aziendale classica ha un difetto strutturale: una volta dentro, sei &quot;nella rete&quot; e vedi tutto – un attaccante che ruba le credenziali VPN ha il…">
+<link rel="canonical" href="https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-ztna-zero-trust-network-access/">
+<link rel="stylesheet" href="../../style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Cos'è ZTNA (Zero Trust Network Access) e come sostituisce la VPN?", "acceptedAnswer": {"@type": "Answer", "text": "La VPN aziendale classica ha un difetto strutturale: una volta dentro, sei \"nella rete\" e vedi tutto – un attaccante che ruba le credenziali VPN ha il lasciapassare per l'intera infrastruttura. ZTNA (Zero Trust Network Access) rovescia il modello secondo i principi [Zero Trust](q/cos-e-il-modello-zero-trust/) (formalizzati nel NIST SP 800-207): niente accesso \"alla rete\", solo accesso per singola applicazione, verificato a ogni richiesta. Come funziona: l'utente non entra in una rete, ottiene accesso a quella specifica app dopo che identità, dispositivo e contesto sono stati verificati; le altre applicazioni gli restano invisibili (non può nemmeno scansionarle). Un broker media ogni connessione, spesso con l'app che non è mai esposta direttamente (accesso in uscita, come i [tunnel](q/esporre-servizi-senza-aprire-porte/)). I vantaggi sulla VPN: nessun raggio d'azione laterale (compromettere un accesso non apre la rete), verifica continua invece che \"fidato una volta\", accesso granulare per app. È la direzione verso cui si muovono le aziende – e nel piccolo la si approssima combinando i mattoni che già conosci: [mesh VPN](q/wireguard-e-mesh-vpn/) con ACL strette, [reverse proxy con forward auth](q/oauth2-proxy-autenticazione-davanti-ai-servizi/) e [MFA](q/cos-e-autenticazione-due-fattori-mfa/) davanti a ogni servizio, [conditional access](q/conditional-access-policy-basate-sul-rischio/), [minimo privilegio](q/principio-del-minimo-privilegio/). ZTNA \"enterprise\" è l'industrializzazione di questi principi; il modello mentale – accesso per app, verifica continua, niente fiducia implicita – vale a ogni scala."}}]}</script>
+<style>
+  .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
+  .page h1 { font-size: 26px; line-height: 1.3; margin: 8px 0 20px; }
+  .page .answer a { color: var(--link); }
+  .page .vertical { font-size: 13px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }
+  .page .answer ul { padding-left: 22px; }
+  .page .answer code { background: var(--code-bg); border-radius: 5px; padding: 1px 5px; font-size: 0.9em; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+  .page .ask { display: inline-block; margin-top: 24px; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 9px 18px; text-decoration: none; font-weight: 600; }
+  .page .related { margin-top: 36px; border-top: 1px solid var(--border); padding-top: 18px; }
+  .page .related h2 { font-size: 16px; }
+  .page .related a { color: var(--link); text-decoration: none; }
+  .page .related a:hover { text-decoration: underline; }
+  .page .related li { margin: 6px 0; }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="../../" style="text-decoration:none;color:inherit">
+    <span class="brand-dot">F</span>
+    <span class="brand-name">FabGPT-FAQ</span>
+  </a>
+</header>
+<main class="page">
+  <div class="vertical">Cybersecurity</div>
+  <h1>Cos&#x27;è ZTNA (Zero Trust Network Access) e come sostituisce la VPN?</h1>
+  <div class="answer"><p>La <strong>VPN aziendale classica</strong> ha un difetto strutturale: una volta dentro, sei &quot;nella rete&quot; e vedi <em>tutto</em> – un attaccante che ruba le credenziali VPN ha il lasciapassare per l&#x27;intera infrastruttura. <strong>ZTNA</strong> (Zero Trust Network Access) rovescia il modello secondo i principi <a href="../cos-e-il-modello-zero-trust/">Zero Trust</a> (formalizzati nel <strong>NIST SP 800-207</strong>): niente accesso &quot;alla rete&quot;, solo accesso <strong>per singola applicazione</strong>, verificato <em>a ogni richiesta</em>.</p><p>Come funziona: l&#x27;utente non entra in una rete, ottiene accesso a <em>quella specifica app</em> dopo che identità, dispositivo e contesto sono stati verificati; le altre applicazioni gli restano <strong>invisibili</strong> (non può nemmeno scansionarle). Un broker media ogni connessione, spesso con l&#x27;app che non è mai esposta direttamente (accesso in uscita, come i <a href="../esporre-servizi-senza-aprire-porte/">tunnel</a>).</p><p>I vantaggi sulla VPN: <strong>nessun raggio d&#x27;azione laterale</strong> (compromettere un accesso non apre la rete), verifica continua invece che &quot;fidato una volta&quot;, accesso granulare per app. È la direzione verso cui si muovono le aziende – e nel piccolo la si approssima combinando i mattoni che già conosci: <a href="../wireguard-e-mesh-vpn/">mesh VPN</a> con ACL strette, <a href="../oauth2-proxy-autenticazione-davanti-ai-servizi/">reverse proxy con forward auth</a> e <a href="../cos-e-autenticazione-due-fattori-mfa/">MFA</a> davanti a ogni servizio, <a href="../conditional-access-policy-basate-sul-rischio/">conditional access</a>, <a href="../principio-del-minimo-privilegio/">minimo privilegio</a>. ZTNA &quot;enterprise&quot; è l&#x27;industrializzazione di questi principi; il modello mentale – <em>accesso per app, verifica continua, niente fiducia implicita</em> – vale a ogni scala.</p></div>
+  <a class="ask" href="../../?q=ztna">Chiedilo a FabGPT-FAQ →</a>
+  <div class="related">
+    <h2>Altre domande</h2>
+    <ul><li><a href="../cos-e-un-waf-web-application-firewall/">Cos&#x27;è un WAF (Web Application Firewall) e a cosa serve?</a></li><li><a href="../cos-e-un-reverse-proxy/">Cos&#x27;è un reverse proxy e a cosa serve?</a></li><li><a href="../come-funziona-lets-encrypt-acme/">Come funziona Let&#x27;s Encrypt e il protocollo ACME?</a></li><li><a href="../certificato-tls-scaduto-cosa-fare/">Certificato TLS scaduto: perché succede e come evitarlo?</a></li><li><a href="../cos-e-un-siem-e-un-soar/">Cos&#x27;è un SIEM e cos&#x27;è un SOAR?</a></li><li><a href="../nis2-chi-deve-adeguarsi-italia/">Chi deve adeguarsi alla NIS2 in Italia e cosa rischia?</a></li></ul>
+  </div>
+</main>
+</body>
+</html>

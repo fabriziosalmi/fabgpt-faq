@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cosa sono gli attacchi Adversary-in-the-Middle (AiTM) che bypassano l&#x27;MFA? – FabGPT-FAQ</title>
+<meta name="description" content="L&#x27;AiTM (Adversary-in-the-Middle) è l&#x27;evoluzione del [phishing](q/cos-e-il-phishing/) che aggira l&#x27;MFA debole – ed è il motivo per cui non ogni [secondo…">
+<link rel="canonical" href="https://fabriziosalmi.github.io/fabgpt-faq/q/attacchi-adversary-in-the-middle-aitm/">
+<link rel="stylesheet" href="../../style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Cosa sono gli attacchi Adversary-in-the-Middle (AiTM) che bypassano l'MFA?", "acceptedAnswer": {"@type": "Answer", "text": "L'AiTM (Adversary-in-the-Middle) è l'evoluzione del [phishing](q/cos-e-il-phishing/) che aggira l'MFA debole – ed è il motivo per cui non ogni [secondo fattore](q/cos-e-autenticazione-due-fattori-mfa/) è uguale. Il meccanismo: l'attaccante non ti manda a una pagina di login finta, ma a un reverse proxy (Evilginx e simili) che sta in mezzo tra te e il sito vero. Tu inserisci username, password e il codice MFA – il proxy li inoltra al sito reale in tempo reale, il login riesce, e l'attaccante cattura il cookie di sessione già autenticato. Da quel momento entra come te, MFA superata, perché la sessione è valida. È il motivo per cui i codici TOTP e gli SMS non bastano più: un proxy che sta in mezzo se li fa consegnare. Le difese che reggono: [passkey/FIDO2/chiavi hardware](q/chiavi-di-sicurezza-hardware-yubikey/) – la firma è legata crittograficamente al dominio vero: su un proxy-esca con un dominio diverso, la firma semplicemente non parte. È phishing-resistant per costruzione, e la cura definitiva contro l'AiTM [Continuous Access Evaluation](q/continuous-access-evaluation-cae/) e binding del token al dispositivo, per invalidare le sessioni rubate [conditional access](q/conditional-access-policy-basate-sul-rischio/) che nota il login da un contesto anomalo È la ragione tecnica per cui \"abbiamo l'MFA\" non è più una risposta sufficiente: conta quale MFA. Le passkey spostano la difesa da \"non farti ingannare\" (che fallisce) a \"l'inganno non funziona\" (che regge)."}}]}</script>
+<style>
+  .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
+  .page h1 { font-size: 26px; line-height: 1.3; margin: 8px 0 20px; }
+  .page .answer a { color: var(--link); }
+  .page .vertical { font-size: 13px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }
+  .page .answer ul { padding-left: 22px; }
+  .page .answer code { background: var(--code-bg); border-radius: 5px; padding: 1px 5px; font-size: 0.9em; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+  .page .ask { display: inline-block; margin-top: 24px; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 9px 18px; text-decoration: none; font-weight: 600; }
+  .page .related { margin-top: 36px; border-top: 1px solid var(--border); padding-top: 18px; }
+  .page .related h2 { font-size: 16px; }
+  .page .related a { color: var(--link); text-decoration: none; }
+  .page .related a:hover { text-decoration: underline; }
+  .page .related li { margin: 6px 0; }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="../../" style="text-decoration:none;color:inherit">
+    <span class="brand-dot">F</span>
+    <span class="brand-name">FabGPT-FAQ</span>
+  </a>
+</header>
+<main class="page">
+  <div class="vertical">Cybersecurity</div>
+  <h1>Cosa sono gli attacchi Adversary-in-the-Middle (AiTM) che bypassano l&#x27;MFA?</h1>
+  <div class="answer"><p>L&#x27;<strong>AiTM</strong> (Adversary-in-the-Middle) è l&#x27;evoluzione del <a href="../cos-e-il-phishing/">phishing</a> che <strong>aggira l&#x27;MFA</strong> debole – ed è il motivo per cui non ogni <a href="../cos-e-autenticazione-due-fattori-mfa/">secondo fattore</a> è uguale. Il meccanismo: l&#x27;attaccante non ti manda a una pagina di login <em>finta</em>, ma a un <strong>reverse proxy</strong> (Evilginx e simili) che sta <em>in mezzo</em> tra te e il sito vero. Tu inserisci username, password <em>e il codice MFA</em> – il proxy li inoltra al sito reale in tempo reale, il login riesce, e l&#x27;attaccante <strong>cattura il cookie di sessione</strong> già autenticato. Da quel momento entra come te, MFA superata, perché la sessione <em>è</em> valida.</p><p>È il motivo per cui i codici <strong>TOTP e gli SMS non bastano più</strong>: un proxy che sta in mezzo se li fa consegnare. Le difese che <em>reggono</em>:</p><ul><li><strong><a href="../chiavi-di-sicurezza-hardware-yubikey/">passkey/FIDO2/chiavi hardware</a></strong> – la firma è legata crittograficamente al <strong>dominio vero</strong>: su un proxy-esca con un dominio diverso, la firma semplicemente <strong>non parte</strong>. È phishing-resistant per costruzione, e la cura definitiva contro l&#x27;AiTM</li><li><strong><a href="../continuous-access-evaluation-cae/">Continuous Access Evaluation</a></strong> e binding del token al dispositivo, per invalidare le sessioni rubate</li><li><a href="../conditional-access-policy-basate-sul-rischio/">conditional access</a> che nota il login da un contesto anomalo</li></ul><p>È la ragione tecnica per cui &quot;abbiamo l&#x27;MFA&quot; non è più una risposta sufficiente: conta <em>quale</em> MFA. Le passkey spostano la difesa da &quot;non farti ingannare&quot; (che fallisce) a &quot;l&#x27;inganno non funziona&quot; (che regge).</p></div>
+  <a class="ask" href="../../?q=aitm">Chiedilo a FabGPT-FAQ →</a>
+  <div class="related">
+    <h2>Altre domande</h2>
+    <ul><li><a href="../cos-e-un-waf-web-application-firewall/">Cos&#x27;è un WAF (Web Application Firewall) e a cosa serve?</a></li><li><a href="../cos-e-un-reverse-proxy/">Cos&#x27;è un reverse proxy e a cosa serve?</a></li><li><a href="../come-funziona-lets-encrypt-acme/">Come funziona Let&#x27;s Encrypt e il protocollo ACME?</a></li><li><a href="../certificato-tls-scaduto-cosa-fare/">Certificato TLS scaduto: perché succede e come evitarlo?</a></li><li><a href="../cos-e-un-siem-e-un-soar/">Cos&#x27;è un SIEM e cos&#x27;è un SOAR?</a></li><li><a href="../nis2-chi-deve-adeguarsi-italia/">Chi deve adeguarsi alla NIS2 in Italia e cosa rischia?</a></li></ul>
+  </div>
+</main>
+</body>
+</html>

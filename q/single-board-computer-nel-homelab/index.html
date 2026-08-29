@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Che ruolo ha un Raspberry Pi (SBC) in un homelab? – FabGPT-FAQ</title>
+<meta name="description" content="Le single-board computer (Raspberry Pi 5, e le alternative come Rock/Orange Pi) non sostituiscono un [server di virtualizzazione](q/cos-e-proxmox-ve/), ma…">
+<link rel="canonical" href="https://fabriziosalmi.github.io/fabgpt-faq/q/single-board-computer-nel-homelab/">
+<link rel="stylesheet" href="../../style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Che ruolo ha un Raspberry Pi (SBC) in un homelab?", "acceptedAnswer": {"@type": "Answer", "text": "Le single-board computer (Raspberry Pi 5, e le alternative come Rock/Orange Pi) non sostituiscono un [server di virtualizzazione](q/cos-e-proxmox-ve/), ma trovano ruoli preziosi in un [homelab](q/homelab-a-basso-consumo/) proprio per il consumo ridicolo (pochi watt) e il costo basso: servizi always-on leggeri: [Pi-hole/AdGuard](q/pi-hole-vs-adguard-home/), un resolver DNS, [ntfy](q/notifiche-push-self-hosted-ntfy-gotify/), un bastion, [monitoraggio](q/stack-di-monitoraggio-prometheus-grafana/) – roba che deve stare accesa sempre ma non consumare nulla [QDevice per il quorum](q/cluster-proxmox-e-quorum/): in un cluster Proxmox a due nodi, un Pi come terzo voto risolve elegantemente il problema del quorum senza un terzo server intero funzioni fisiche/edge: [coordinatore Zigbee](q/gestire-zigbee-con-zigbee2mqtt/) remoto, sensori, GPIO, un nodo in una stanza diversa ridondanza a basso costo: un secondo Pi che replica un servizio critico I limiti da conoscere: storage su microSD inaffidabile per servizi che scrivono tanto (usa SSD USB/NVMe – le SD si corrompono, è la causa n°1 di grattacapi), [niente ECC](q/perche-la-ram-ecc-nel-nas/), I/O e RAM limitati. La filosofia sana: il Pi fa i tanti piccoli servizi always-on a consumo quasi nullo, il mini PC/server fa il lavoro pesante (VM, storage, transcoding). Insieme, un homelab efficiente costa in bolletta come una vecchia lampadina."}}]}</script>
+<style>
+  .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
+  .page h1 { font-size: 26px; line-height: 1.3; margin: 8px 0 20px; }
+  .page .answer a { color: var(--link); }
+  .page .vertical { font-size: 13px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }
+  .page .answer ul { padding-left: 22px; }
+  .page .answer code { background: var(--code-bg); border-radius: 5px; padding: 1px 5px; font-size: 0.9em; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+  .page .ask { display: inline-block; margin-top: 24px; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 9px 18px; text-decoration: none; font-weight: 600; }
+  .page .related { margin-top: 36px; border-top: 1px solid var(--border); padding-top: 18px; }
+  .page .related h2 { font-size: 16px; }
+  .page .related a { color: var(--link); text-decoration: none; }
+  .page .related a:hover { text-decoration: underline; }
+  .page .related li { margin: 6px 0; }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="../../" style="text-decoration:none;color:inherit">
+    <span class="brand-dot">F</span>
+    <span class="brand-name">FabGPT-FAQ</span>
+  </a>
+</header>
+<main class="page">
+  <div class="vertical">Proxmox e self-hosting</div>
+  <h1>Che ruolo ha un Raspberry Pi (SBC) in un homelab?</h1>
+  <div class="answer"><p>Le <strong>single-board computer</strong> (Raspberry Pi 5, e le alternative come Rock/Orange Pi) non sostituiscono un <a href="../cos-e-proxmox-ve/">server di virtualizzazione</a>, ma trovano ruoli preziosi in un <a href="../homelab-a-basso-consumo/">homelab</a> proprio per il consumo ridicolo (pochi watt) e il costo basso:</p><ul><li><strong>servizi always-on leggeri</strong>: <a href="../pi-hole-vs-adguard-home/">Pi-hole/AdGuard</a>, un resolver DNS, <a href="../notifiche-push-self-hosted-ntfy-gotify/">ntfy</a>, un bastion, <a href="../stack-di-monitoraggio-prometheus-grafana/">monitoraggio</a> – roba che deve stare accesa sempre ma non consumare nulla</li><li><strong><a href="../cluster-proxmox-e-quorum/">QDevice per il quorum</a></strong>: in un cluster Proxmox a due nodi, un Pi come terzo voto risolve elegantemente il problema del quorum senza un terzo server intero</li><li><strong>funzioni fisiche/edge</strong>: <a href="../gestire-zigbee-con-zigbee2mqtt/">coordinatore Zigbee</a> remoto, sensori, GPIO, un nodo in una stanza diversa</li><li><strong>ridondanza a basso costo</strong>: un secondo Pi che replica un servizio critico</li></ul><p>I limiti da conoscere: storage su microSD <strong>inaffidabile</strong> per servizi che scrivono tanto (usa SSD USB/NVMe – le SD si corrompono, è la causa n°1 di grattacapi), <a href="../perche-la-ram-ecc-nel-nas/">niente ECC</a>, I/O e RAM limitati. La filosofia sana: il Pi fa i <strong>tanti piccoli servizi always-on</strong> a consumo quasi nullo, il mini PC/server fa il <strong>lavoro pesante</strong> (VM, storage, transcoding). Insieme, un homelab efficiente costa in bolletta come una vecchia lampadina.</p></div>
+  <a class="ask" href="../../?q=sbc-homelab">Chiedilo a FabGPT-FAQ →</a>
+  <div class="related">
+    <h2>Altre domande</h2>
+    <ul><li><a href="../cos-e-proxmox-ve/">Cos&#x27;è Proxmox VE e perché è così usato?</a></li><li><a href="../differenza-container-lxc-e-vm/">Che differenza c&#x27;è tra container LXC e VM?</a></li><li><a href="../self-hosting-pro-e-contro/">Self-hosting: cosa significa e quando conviene?</a></li><li><a href="../cluster-proxmox-e-quorum/">Come funziona un cluster Proxmox (e cos&#x27;è il quorum)?</a></li><li><a href="../perche-usare-zfs-su-proxmox/">Perché usare ZFS su Proxmox?</a></li><li><a href="../differenza-snapshot-e-backup/">Che differenza c&#x27;è tra snapshot e backup?</a></li></ul>
+  </div>
+</main>
+</body>
+</html>

@@ -364,7 +364,17 @@ non ha pagina propria) sono lavoro, non copertura.
   hardware/firmware, NFC/RFID). AI security (Direct vs Indirect injection, model
   inversion/membership inference, NIST AI RMF, UEBA, runaway agent, seccomp/gVisor,
   agent exfiltration via Markdown). Post-B9: 228 covered, 170 partial, 2 gap.
-- Prossimi giri di massa: convertire i ~170 partial in voci dedicate a blocchi
+- **B10 (mass #4, 35 voci)**: **storage/NAS + networking pro + IAM avanzato +
+  crypto avanzata + appsec authz**. Storage/NAS (OpenZFS, RAM ECC, RAID/RAIDZ,
+  cifratura a riposo LUKS/ZFS, SMART monitoring). Networking pro (WireGuard vs
+  OpenVPN, Headscale, Multi-WAN, mDNS reflector, BGP+BFD, GeoIP filtering, switch
+  L2/L3, PCAP over SSH, MTU/MSS). Homelab (Raspberry/SBC, UPS/NUT, Prometheus/
+  Grafana). IAM avanzato (ZTNA, AiTM, conditional access, CAE, RBAC/ABAC/PBAC,
+  shared responsibility). Container/cloud (K8s security, container breakout).
+  Crypto avanzata (TLS 1.3, FHE, crypto-agility). Appsec authz (IDOR/BOLA, mass
+  assignment, cookie flags, insecure deserialization, OAuth redirect, OAuth2-Proxy/
+  Authelia, DB bind localhost). Post-B10: 257 covered, 142 partial, 1 gap.
+- Prossimi giri di massa: convertire i ~142 partial in voci dedicate a blocchi
   tematici (ogni giro riesegue `triage.py` per misurare l'avanzamento).
 
 ## Fase 2 – "livello super" (dopo il primo giro di contenuti)
