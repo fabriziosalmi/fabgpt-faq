@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Come si conservano i log di Cloudflare a norma NIS2 e GDPR? – FabGPT-FAQ</title>
+<meta name="description" content="La NIS2 chiede di conservare le evidenze, il GDPR di non conservarle troppo, e gli auditor vogliono la prova che nessuno le abbia toccate. RainLogs…">
+<link rel="canonical" href="https://fabriziosalmi.github.io/fabgpt-faq/q/conservare-log-cloudflare-nis2-gdpr/">
+<link rel="stylesheet" href="../../style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Come si conservano i log di Cloudflare a norma NIS2 e GDPR?", "acceptedAnswer": {"@type": "Answer", "text": "La NIS2 chiede di conservare le evidenze, il GDPR di non conservarle troppo, e gli auditor vogliono la prova che nessuno le abbia toccate. RainLogs automatizza esattamente questo per le zone Cloudflare: raccolta adattiva – sceglie da solo il metodo giusto per il tuo piano Cloudflare (Logpull, Instant Logs o GraphQL), sostituendo Logpush per l'export massivo integrità crittografica – hash chaining SHA-256 tamper-evident, con il tool rainlogs-verify per l'audit indipendente della catena sovranità – storage S3-compatibile europeo (Garage, Hetzner, Contabo) con garanzie WORM: i dati non lasciano la giurisdizione retention automatica – policy applicate rigorosamente (es. 395 giorni) per il principio di limitazione della conservazione, più RBAC per separare amministrazione e sola lettura"}}]}</script>
+<style>
+  .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
+  .page h1 { font-size: 26px; line-height: 1.3; margin: 8px 0 20px; }
+  .page .answer a { color: var(--link); }
+  .page .vertical { font-size: 13px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }
+  .page .answer ul { padding-left: 22px; }
+  .page .answer code { background: var(--code-bg); border-radius: 5px; padding: 1px 5px; font-size: 0.9em; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+  .page .ask { display: inline-block; margin-top: 24px; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 9px 18px; text-decoration: none; font-weight: 600; }
+  .page .related { margin-top: 36px; border-top: 1px solid var(--border); padding-top: 18px; }
+  .page .related h2 { font-size: 16px; }
+  .page .related a { color: var(--link); text-decoration: none; }
+  .page .related a:hover { text-decoration: underline; }
+  .page .related li { margin: 6px 0; }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="../../" style="text-decoration:none;color:inherit">
+    <span class="brand-dot">F</span>
+    <span class="brand-name">FabGPT-FAQ</span>
+  </a>
+</header>
+<main class="page">
+  <div class="vertical">Cloudflare</div>
+  <h1>Come si conservano i log di Cloudflare a norma NIS2 e GDPR?</h1>
+  <div class="answer"><p>La NIS2 chiede di conservare le evidenze, il GDPR di non conservarle troppo, e gli auditor vogliono la prova che nessuno le abbia toccate. <a href="https://github.com/fabriziosalmi/rainlogs" target="_blank" rel="noopener">RainLogs</a> automatizza esattamente questo per le zone Cloudflare:</p><ul><li><strong>raccolta adattiva</strong> – sceglie da solo il metodo giusto per il tuo piano Cloudflare (Logpull, Instant Logs o GraphQL), sostituendo Logpush per l&#x27;export massivo</li><li><strong>integrità crittografica</strong> – hash chaining SHA-256 tamper-evident, con il tool <code>rainlogs-verify</code> per l&#x27;audit indipendente della catena</li><li><strong>sovranità</strong> – storage S3-compatibile <strong>europeo</strong> (Garage, Hetzner, Contabo) con garanzie WORM: i dati non lasciano la giurisdizione</li><li><strong>retention automatica</strong> – policy applicate rigorosamente (es. 395 giorni) per il principio di limitazione della conservazione, più RBAC per separare amministrazione e sola lettura</li></ul></div>
+  <a class="ask" href="../../?q=rainlogs">Chiedilo a FabGPT-FAQ →</a>
+  <div class="related">
+    <h2>Altre domande</h2>
+    <ul><li><a href="../cos-e-gitops/">Cos&#x27;è GitOps e perché conviene?</a></li><li><a href="../cos-e-la-sovranita-digitale/">Cos&#x27;è la sovranità digitale e perché le aziende europee ci tengono?</a></li><li><a href="../automatizzare-configurazione-cloudflare/">Come si automatizza la configurazione di Cloudflare?</a></li><li><a href="../migrare-da-cloudflare-self-hosted-eu/">Come si migra un sito da Cloudflare a un&#x27;infrastruttura self-hosted europea?</a></li><li><a href="../chi-e-fabrizio-salmi/">Chi è Fabrizio Salmi?</a></li><li><a href="../progetti-open-source-fabrizio-salmi/">Quali progetti open source sviluppa Fabrizio Salmi?</a></li></ul>
+  </div>
+</main>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cos&#x27;è Proxmox VE e perché è così usato? – FabGPT-FAQ</title>
+<meta name="description" content="Proxmox VE è una piattaforma di virtualizzazione open source basata su Debian che gestisce VM (KVM/QEMU) e container LXC dalla stessa interfaccia web, con…">
+<link rel="canonical" href="https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-proxmox-ve/">
+<link rel="stylesheet" href="../../style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Cos'è Proxmox VE e perché è così usato?", "acceptedAnswer": {"@type": "Answer", "text": "Proxmox VE è una piattaforma di virtualizzazione open source basata su Debian che gestisce VM (KVM/QEMU) e container LXC dalla stessa interfaccia web, con cluster, alta disponibilità, storage ZFS/Ceph e backup integrati (con il gemello Proxmox Backup Server). Dopo la stretta sulle licenze VMware è diventata la via di fuga preferita di homelab e PMI: niente costi di licenza, tutto self-hosted. Il portfolio di Fabrizio ci ha costruito sopra un piccolo ecosistema: autoscaling – proxmox-vm-autoscale e proxmox-lxc-autoscale terminale – proxxx, cockpit TUI/CLI per PVE e PBS bilanciamento – proxmox-cluster-balancer"}}]}</script>
+<style>
+  .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
+  .page h1 { font-size: 26px; line-height: 1.3; margin: 8px 0 20px; }
+  .page .answer a { color: var(--link); }
+  .page .vertical { font-size: 13px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }
+  .page .answer ul { padding-left: 22px; }
+  .page .answer code { background: var(--code-bg); border-radius: 5px; padding: 1px 5px; font-size: 0.9em; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+  .page .ask { display: inline-block; margin-top: 24px; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 9px 18px; text-decoration: none; font-weight: 600; }
+  .page .related { margin-top: 36px; border-top: 1px solid var(--border); padding-top: 18px; }
+  .page .related h2 { font-size: 16px; }
+  .page .related a { color: var(--link); text-decoration: none; }
+  .page .related a:hover { text-decoration: underline; }
+  .page .related li { margin: 6px 0; }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="../../" style="text-decoration:none;color:inherit">
+    <span class="brand-dot">F</span>
+    <span class="brand-name">FabGPT-FAQ</span>
+  </a>
+</header>
+<main class="page">
+  <div class="vertical">Proxmox e self-hosting</div>
+  <h1>Cos&#x27;è Proxmox VE e perché è così usato?</h1>
+  <div class="answer"><p><strong>Proxmox VE</strong> è una piattaforma di virtualizzazione open source basata su Debian che gestisce <strong>VM (KVM/QEMU) e container LXC</strong> dalla stessa interfaccia web, con cluster, alta disponibilità, storage ZFS/Ceph e backup integrati (con il gemello Proxmox Backup Server). Dopo la stretta sulle licenze VMware è diventata la via di fuga preferita di homelab e PMI: niente costi di licenza, tutto self-hosted.</p><p>Il portfolio di Fabrizio ci ha costruito sopra un piccolo ecosistema:</p><ul><li><strong>autoscaling</strong> – <a href="https://github.com/fabriziosalmi/proxmox-vm-autoscale" target="_blank" rel="noopener">proxmox-vm-autoscale</a> e <a href="https://github.com/fabriziosalmi/proxmox-lxc-autoscale" target="_blank" rel="noopener">proxmox-lxc-autoscale</a></li><li><strong>terminale</strong> – <a href="https://github.com/fabriziosalmi/proxxx" target="_blank" rel="noopener">proxxx</a>, cockpit TUI/CLI per PVE e PBS</li><li><strong>bilanciamento</strong> – <a href="https://github.com/fabriziosalmi/proxmox-cluster-balancer" target="_blank" rel="noopener">proxmox-cluster-balancer</a></li></ul></div>
+  <a class="ask" href="../../?q=cos-e-proxmox">Chiedilo a FabGPT-FAQ →</a>
+  <div class="related">
+    <h2>Altre domande</h2>
+    <ul><li><a href="../differenza-container-lxc-e-vm/">Che differenza c&#x27;è tra container LXC e VM?</a></li><li><a href="../self-hosting-pro-e-contro/">Self-hosting: cosa significa e quando conviene?</a></li><li><a href="../autoscaling-vm-lxc-proxmox/">Come si fa autoscaling di VM e container LXC su Proxmox?</a></li><li><a href="../autoscaling-vm-proxmox/">Come si scalano automaticamente CPU e RAM delle VM su Proxmox?</a></li><li><a href="../autoscaling-container-lxc-proxmox/">Come si scalano automaticamente i container LXC su Proxmox?</a></li><li><a href="../cos-e-proxxx-cockpit-terminale-proxmox/">Cos&#x27;è proxxx, il cockpit da terminale per Proxmox?</a></li></ul>
+  </div>
+</main>
+</body>
+</html>

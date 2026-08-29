@@ -89,15 +89,14 @@ PAGE = """<!DOCTYPE html>
 <header class="topbar">
   <a class="brand" href="{base}" style="text-decoration:none;color:inherit">
     <span class="brand-dot">F</span>
-    <span class="brand-name">FabGPT</span>
-    <span class="brand-tag">faq</span>
+    <span class="brand-name">FabGPT-FAQ</span>
   </a>
 </header>
 <main class="page">
   <div class="vertical">{vertical}</div>
   <h1>{question}</h1>
   <div class="answer">{answer}</div>
-  <a class="ask" href="{base}?q={id}">Chiedilo a FabGPT →</a>
+  <a class="ask" href="{base}?q={id}">Chiedilo a FabGPT-FAQ →</a>
   <div class="related">
     <h2>Altre domande</h2>
     <ul>{related}</ul>
@@ -112,7 +111,7 @@ INDEX = """<!DOCTYPE html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Tutte le domande — FabGPT</title>
+<title>Tutte le domande – FabGPT-FAQ</title>
 <meta name="description" content="{description}">
 <link rel="canonical" href="{canonical}">
 <link rel="stylesheet" href="../style.css">
@@ -132,13 +131,12 @@ INDEX = """<!DOCTYPE html>
 <header class="topbar">
   <a class="brand" href="../" style="text-decoration:none;color:inherit">
     <span class="brand-dot">F</span>
-    <span class="brand-name">FabGPT</span>
-    <span class="brand-tag">faq</span>
+    <span class="brand-name">FabGPT-FAQ</span>
   </a>
 </header>
 <main class="page">
   <h1>Tutte le domande</h1>
-  <p class="intro">La knowledge base completa di FabGPT: cybersecurity, AI, Proxmox, Cloudflare e i progetti open source di Fabrizio Salmi. Oppure <a href="../">chiedi in chat</a>.</p>
+  <p class="intro">La knowledge base completa di FabGPT-FAQ: cybersecurity, AI, Proxmox, Cloudflare e i progetti open source di Fabrizio Salmi. Oppure <a href="../">chiedi in chat</a>.</p>
   {sections}
 </main>
 </body>
@@ -174,7 +172,7 @@ def build() -> None:
             }],
         }
         page = PAGE.format(
-            title=html.escape(e["question"]) + " — FabGPT",
+            title=html.escape(e["question"]) + " – FabGPT-FAQ",
             description=html.escape(meta_description(answer_md)),
             canonical=f"{site}/q/{e['slug']}/",
             base="../../",
@@ -211,7 +209,7 @@ def build() -> None:
     }
     (OUT / "index.html").write_text(
         INDEX.format(
-            description="Tutte le domande e risposte di FabGPT: cybersecurity, AI, Proxmox, Cloudflare e i progetti open source di Fabrizio Salmi.",
+            description="Tutte le domande e risposte di FabGPT-FAQ: cybersecurity, AI, Proxmox, Cloudflare e i progetti open source di Fabrizio Salmi.",
             canonical=f"{site}/q/",
             jsonld=json.dumps(index_jsonld, ensure_ascii=False),
             sections=sections,

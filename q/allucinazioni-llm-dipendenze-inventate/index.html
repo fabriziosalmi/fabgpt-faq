@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cosa sono le allucinazioni degli LLM (e le dipendenze inventate)? – FabGPT-FAQ</title>
+<meta name="description" content="Un LLM &quot;allucina&quot; quando produce con totale sicurezza qualcosa di falso: una fonte inesistente, un&#x27;API inventata, un fatto sbagliato. Non è un bug…">
+<link rel="canonical" href="https://fabriziosalmi.github.io/fabgpt-faq/q/allucinazioni-llm-dipendenze-inventate/">
+<link rel="stylesheet" href="../../style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Cosa sono le allucinazioni degli LLM (e le dipendenze inventate)?", "acceptedAnswer": {"@type": "Answer", "text": "Un LLM \"allucina\" quando produce con totale sicurezza qualcosa di falso: una fonte inesistente, un'API inventata, un fatto sbagliato. Non è un bug occasionale, è una proprietà statistica del come questi modelli generano testo. La variante più pericolosa per chi sviluppa: le dipendenze allucinate. L'LLM scrive import pacchetto-che-non-esiste, lo sviluppatore lo committa, e un attaccante può registrare quel nome su PyPI o npm (slopsquatting): alla build successiva il codice malevolo entra in casa. Due risorse a tema: ai-dependency-guard – GitHub Action zero-dependency che valida ogni manifest contro i registry ufficiali e fa fallire la CI se trova un pacchetto inventato ai-hallucination-research – l'analisi empirica del fenomeno che sta dietro al tool"}}]}</script>
+<style>
+  .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
+  .page h1 { font-size: 26px; line-height: 1.3; margin: 8px 0 20px; }
+  .page .answer a { color: var(--link); }
+  .page .vertical { font-size: 13px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }
+  .page .answer ul { padding-left: 22px; }
+  .page .answer code { background: var(--code-bg); border-radius: 5px; padding: 1px 5px; font-size: 0.9em; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+  .page .ask { display: inline-block; margin-top: 24px; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 9px 18px; text-decoration: none; font-weight: 600; }
+  .page .related { margin-top: 36px; border-top: 1px solid var(--border); padding-top: 18px; }
+  .page .related h2 { font-size: 16px; }
+  .page .related a { color: var(--link); text-decoration: none; }
+  .page .related a:hover { text-decoration: underline; }
+  .page .related li { margin: 6px 0; }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="../../" style="text-decoration:none;color:inherit">
+    <span class="brand-dot">F</span>
+    <span class="brand-name">FabGPT-FAQ</span>
+  </a>
+</header>
+<main class="page">
+  <div class="vertical">AI e LLM</div>
+  <h1>Cosa sono le allucinazioni degli LLM (e le dipendenze inventate)?</h1>
+  <div class="answer"><p>Un LLM &quot;allucina&quot; quando produce con totale sicurezza qualcosa di falso: una fonte inesistente, un&#x27;API inventata, un fatto sbagliato. Non è un bug occasionale, è una proprietà statistica del come questi modelli generano testo.</p><p>La variante più pericolosa per chi sviluppa: le <strong>dipendenze allucinate</strong>. L&#x27;LLM scrive <code>import pacchetto-che-non-esiste</code>, lo sviluppatore lo committa, e un attaccante può <strong>registrare quel nome</strong> su PyPI o npm (slopsquatting): alla build successiva il codice malevolo entra in casa. Due risorse a tema:</p><ul><li><a href="https://github.com/fabriziosalmi/ai-dependency-guard" target="_blank" rel="noopener">ai-dependency-guard</a> – GitHub Action zero-dependency che valida ogni manifest contro i registry ufficiali e <strong>fa fallire la CI</strong> se trova un pacchetto inventato</li><li><a href="https://github.com/fabriziosalmi/ai-hallucination-research" target="_blank" rel="noopener">ai-hallucination-research</a> – l&#x27;analisi empirica del fenomeno che sta dietro al tool</li></ul></div>
+  <a class="ask" href="../../?q=allucinazioni-llm">Chiedilo a FabGPT-FAQ →</a>
+  <div class="related">
+    <h2>Altre domande</h2>
+    <ul><li><a href="../cos-e-la-prompt-injection/">Cos&#x27;è la prompt injection e come ci si difende?</a></li><li><a href="../cos-e-mcp-model-context-protocol/">Cos&#x27;è MCP (Model Context Protocol)?</a></li><li><a href="../cos-e-il-vibe-coding/">Cos&#x27;è il vibe coding e quali sono i rischi?</a></li><li><a href="../cos-e-rag-retrieval-augmented-generation/">Cos&#x27;è RAG (Retrieval-Augmented Generation)?</a></li><li><a href="../riscrivere-feed-rss-con-llm/">Come si filtrano e riscrivono feed RSS con un LLM?</a></li><li><a href="../mettere-in-sicurezza-endpoint-llm/">Come si mette in sicurezza un endpoint LLM?</a></li></ul>
+  </div>
+</main>
+</body>
+</html>

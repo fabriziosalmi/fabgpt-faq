@@ -3,12 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Come si fa autoscaling di VM e container LXC su Proxmox? — FabGPT</title>
-<meta name="description" content="Con la famiglia di tool proxmox-autoscale (550+ ⭐ complessive): proxmox-vm-autoscale — ridimensiona automaticamente CPU e RAM delle VM in base al carico…">
+<title>Come si fa autoscaling di VM e container LXC su Proxmox? – FabGPT-FAQ</title>
+<meta name="description" content="Con la famiglia di tool proxmox-autoscale (550+ ⭐ complessive): proxmox-vm-autoscale – ridimensiona automaticamente CPU e RAM delle VM in base al carico…">
 <link rel="canonical" href="https://fabriziosalmi.github.io/fabgpt-faq/q/autoscaling-vm-lxc-proxmox/">
 <link rel="stylesheet" href="../../style.css">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Come si fa autoscaling di VM e container LXC su Proxmox?", "acceptedAnswer": {"@type": "Answer", "text": "Con la famiglia di tool proxmox-autoscale (550+ ⭐ complessive): proxmox-vm-autoscale — ridimensiona automaticamente CPU e RAM delle VM in base al carico reale proxmox-lxc-autoscale — lo stesso per i container LXC, con architettura async e backend CLI o REST API proxmox-lxc-autoscale-ml — la variante che decide con un modello di machine learning proxmox-cluster-balancer — bilancia e migra la flotta LXC tra i nodi del cluster Risultato: i limiti delle macchine seguono il carico, invece di restare fissi al valore stimato il giorno dell'installazione. Chiedimi delle VM o degli LXC per i dettagli di ciascuno."}}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Come si fa autoscaling di VM e container LXC su Proxmox?", "acceptedAnswer": {"@type": "Answer", "text": "Con la famiglia di tool proxmox-autoscale (550+ ⭐ complessive): proxmox-vm-autoscale – ridimensiona automaticamente CPU e RAM delle VM in base al carico reale proxmox-lxc-autoscale – lo stesso per i container LXC, con architettura async e backend CLI o REST API proxmox-lxc-autoscale-ml – la variante che decide con un modello di machine learning proxmox-cluster-balancer – bilancia e migra la flotta LXC tra i nodi del cluster Risultato: i limiti delle macchine seguono il carico, invece di restare fissi al valore stimato il giorno dell'installazione. Chiedimi delle VM o degli LXC per i dettagli di ciascuno."}}]}</script>
 <style>
   .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
   .page h1 { font-size: 26px; line-height: 1.3; margin: 8px 0 20px; }
@@ -28,18 +28,17 @@
 <header class="topbar">
   <a class="brand" href="../../" style="text-decoration:none;color:inherit">
     <span class="brand-dot">F</span>
-    <span class="brand-name">FabGPT</span>
-    <span class="brand-tag">faq</span>
+    <span class="brand-name">FabGPT-FAQ</span>
   </a>
 </header>
 <main class="page">
   <div class="vertical">Proxmox e self-hosting</div>
   <h1>Come si fa autoscaling di VM e container LXC su Proxmox?</h1>
-  <div class="answer"><p>Con la famiglia di tool <strong>proxmox-autoscale</strong> (550+ ⭐ complessive):</p><ul><li><a href="https://github.com/fabriziosalmi/proxmox-vm-autoscale" target="_blank" rel="noopener">proxmox-vm-autoscale</a> — ridimensiona automaticamente <strong>CPU e RAM delle VM</strong> in base al carico reale</li><li><a href="https://github.com/fabriziosalmi/proxmox-lxc-autoscale" target="_blank" rel="noopener">proxmox-lxc-autoscale</a> — lo stesso per i <strong>container LXC</strong>, con architettura async e backend CLI o REST API</li><li><a href="https://github.com/fabriziosalmi/proxmox-lxc-autoscale-ml" target="_blank" rel="noopener">proxmox-lxc-autoscale-ml</a> — la variante che decide con un modello di <strong>machine learning</strong></li><li><a href="https://github.com/fabriziosalmi/proxmox-cluster-balancer" target="_blank" rel="noopener">proxmox-cluster-balancer</a> — bilancia e migra la flotta LXC <strong>tra i nodi</strong> del cluster</li></ul><p>Risultato: i limiti delle macchine seguono il carico, invece di restare fissi al valore stimato il giorno dell&#x27;installazione. Chiedimi delle VM o degli LXC per i dettagli di ciascuno.</p></div>
-  <a class="ask" href="../../?q=proxmox-autoscale">Chiedilo a FabGPT →</a>
+  <div class="answer"><p>Con la famiglia di tool <strong>proxmox-autoscale</strong> (550+ ⭐ complessive):</p><ul><li><a href="https://github.com/fabriziosalmi/proxmox-vm-autoscale" target="_blank" rel="noopener">proxmox-vm-autoscale</a> – ridimensiona automaticamente <strong>CPU e RAM delle VM</strong> in base al carico reale</li><li><a href="https://github.com/fabriziosalmi/proxmox-lxc-autoscale" target="_blank" rel="noopener">proxmox-lxc-autoscale</a> – lo stesso per i <strong>container LXC</strong>, con architettura async e backend CLI o REST API</li><li><a href="https://github.com/fabriziosalmi/proxmox-lxc-autoscale-ml" target="_blank" rel="noopener">proxmox-lxc-autoscale-ml</a> – la variante che decide con un modello di <strong>machine learning</strong></li><li><a href="https://github.com/fabriziosalmi/proxmox-cluster-balancer" target="_blank" rel="noopener">proxmox-cluster-balancer</a> – bilancia e migra la flotta LXC <strong>tra i nodi</strong> del cluster</li></ul><p>Risultato: i limiti delle macchine seguono il carico, invece di restare fissi al valore stimato il giorno dell&#x27;installazione. Chiedimi delle VM o degli LXC per i dettagli di ciascuno.</p></div>
+  <a class="ask" href="../../?q=proxmox-autoscale">Chiedilo a FabGPT-FAQ →</a>
   <div class="related">
     <h2>Altre domande</h2>
-    <ul><li><a href="../autoscaling-vm-proxmox/">Come si scalano automaticamente CPU e RAM delle VM su Proxmox?</a></li><li><a href="../autoscaling-container-lxc-proxmox/">Come si scalano automaticamente i container LXC su Proxmox?</a></li><li><a href="../cos-e-proxxx-cockpit-terminale-proxmox/">Cos&#x27;è proxxx, il cockpit da terminale per Proxmox?</a></li><li><a href="../strumenti-cli-tui-per-proxmox/">Quali strumenti CLI e TUI esistono per gestire Proxmox dal terminale?</a></li><li><a href="../chi-e-fabrizio-salmi/">Chi è Fabrizio Salmi?</a></li><li><a href="../progetti-open-source-fabrizio-salmi/">Quali progetti open source sviluppa Fabrizio Salmi?</a></li></ul>
+    <ul><li><a href="../cos-e-proxmox-ve/">Cos&#x27;è Proxmox VE e perché è così usato?</a></li><li><a href="../differenza-container-lxc-e-vm/">Che differenza c&#x27;è tra container LXC e VM?</a></li><li><a href="../self-hosting-pro-e-contro/">Self-hosting: cosa significa e quando conviene?</a></li><li><a href="../autoscaling-vm-proxmox/">Come si scalano automaticamente CPU e RAM delle VM su Proxmox?</a></li><li><a href="../autoscaling-container-lxc-proxmox/">Come si scalano automaticamente i container LXC su Proxmox?</a></li><li><a href="../cos-e-proxxx-cockpit-terminale-proxmox/">Cos&#x27;è proxxx, il cockpit da terminale per Proxmox?</a></li></ul>
   </div>
 </main>
 </body>

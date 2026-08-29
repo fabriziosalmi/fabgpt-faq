@@ -1,4 +1,4 @@
-/* FabGPT — static FAQ engine disguised as an AI chat.
+/* FabGPT – static FAQ engine disguised as an AI chat.
  * No dependencies. Content lives in faq.json.
  */
 (() => {

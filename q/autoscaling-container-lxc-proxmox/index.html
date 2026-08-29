@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Come si scalano automaticamente i container LXC su Proxmox? — FabGPT</title>
+<title>Come si scalano automaticamente i container LXC su Proxmox? – FabGPT-FAQ</title>
 <meta name="description" content="Con proxmox-lxc-autoscale (250+ ⭐): un daemon async che regola CPU e memoria dei container LXC in base all&#x27;uso reale. La v2.0 è una riscrittura seria:…">
 <link rel="canonical" href="https://fabriziosalmi.github.io/fabgpt-faq/q/autoscaling-container-lxc-proxmox/">
 <link rel="stylesheet" href="../../style.css">
@@ -28,18 +28,17 @@
 <header class="topbar">
   <a class="brand" href="../../" style="text-decoration:none;color:inherit">
     <span class="brand-dot">F</span>
-    <span class="brand-name">FabGPT</span>
-    <span class="brand-tag">faq</span>
+    <span class="brand-name">FabGPT-FAQ</span>
   </a>
 </header>
 <main class="page">
   <div class="vertical">Proxmox e self-hosting</div>
   <h1>Come si scalano automaticamente i container LXC su Proxmox?</h1>
   <div class="answer"><p>Con <a href="https://github.com/fabriziosalmi/proxmox-lxc-autoscale" target="_blank" rel="noopener">proxmox-lxc-autoscale</a> (<strong>250+ ⭐</strong>): un daemon <strong>async</strong> che regola CPU e memoria dei container LXC in base all&#x27;uso reale. La v2.0 è una riscrittura seria:</p><ul><li><strong>doppio backend</strong>: comandi <code>pct</code> oppure <strong>REST API di Proxmox</strong> (proxmoxer)</li><li>metriche lette <strong>dai cgroup</strong> (niente <code>pct exec</code> dentro i container)</li><li>soglie <strong>per container o per gruppi (tiers)</strong>, esclusioni, riserve di CPU/RAM sull&#x27;host per evitare l&#x27;over-allocation</li><li><strong>core pinning per CPU ibride Intel</strong> (Alder Lake+): container sui P-core o sugli E-core</li><li>modalità <strong>boost/revert</strong> (boost temporaneo con ritorno automatico), scheduling off-peak timezone-aware, energy mode</li><li>scaling <strong>orizzontale via cloning</strong> dei container (sperimentale)</li><li>configurazione <strong>Pydantic</strong> validata, secret mascherati nei log, <strong>370 test / 87% coverage</strong></li></ul><p>Notifiche via email, Gotify e Uptime Kuma. Per le VM c&#x27;è <a href="https://github.com/fabriziosalmi/proxmox-vm-autoscale" target="_blank" rel="noopener">proxmox-vm-autoscale</a>, per decidere col machine learning <a href="https://github.com/fabriziosalmi/proxmox-lxc-autoscale-ml" target="_blank" rel="noopener">proxmox-lxc-autoscale-ml</a>.</p></div>
-  <a class="ask" href="../../?q=proxmox-lxc-autoscale">Chiedilo a FabGPT →</a>
+  <a class="ask" href="../../?q=proxmox-lxc-autoscale">Chiedilo a FabGPT-FAQ →</a>
   <div class="related">
     <h2>Altre domande</h2>
-    <ul><li><a href="../autoscaling-vm-lxc-proxmox/">Come si fa autoscaling di VM e container LXC su Proxmox?</a></li><li><a href="../autoscaling-vm-proxmox/">Come si scalano automaticamente CPU e RAM delle VM su Proxmox?</a></li><li><a href="../cos-e-proxxx-cockpit-terminale-proxmox/">Cos&#x27;è proxxx, il cockpit da terminale per Proxmox?</a></li><li><a href="../strumenti-cli-tui-per-proxmox/">Quali strumenti CLI e TUI esistono per gestire Proxmox dal terminale?</a></li><li><a href="../chi-e-fabrizio-salmi/">Chi è Fabrizio Salmi?</a></li><li><a href="../progetti-open-source-fabrizio-salmi/">Quali progetti open source sviluppa Fabrizio Salmi?</a></li></ul>
+    <ul><li><a href="../cos-e-proxmox-ve/">Cos&#x27;è Proxmox VE e perché è così usato?</a></li><li><a href="../differenza-container-lxc-e-vm/">Che differenza c&#x27;è tra container LXC e VM?</a></li><li><a href="../self-hosting-pro-e-contro/">Self-hosting: cosa significa e quando conviene?</a></li><li><a href="../autoscaling-vm-lxc-proxmox/">Come si fa autoscaling di VM e container LXC su Proxmox?</a></li><li><a href="../autoscaling-vm-proxmox/">Come si scalano automaticamente CPU e RAM delle VM su Proxmox?</a></li><li><a href="../cos-e-proxxx-cockpit-terminale-proxmox/">Cos&#x27;è proxxx, il cockpit da terminale per Proxmox?</a></li></ul>
   </div>
 </main>
 </body>

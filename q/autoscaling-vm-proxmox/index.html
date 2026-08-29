@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Come si scalano automaticamente CPU e RAM delle VM su Proxmox? — FabGPT</title>
+<title>Come si scalano automaticamente CPU e RAM delle VM su Proxmox? – FabGPT-FAQ</title>
 <meta name="description" content="Con proxmox-vm-autoscale (300+ ⭐): un servizio che regola automaticamente CPU core e RAM delle VM su Proxmox VE in base a metriche in tempo reale e soglie…">
 <link rel="canonical" href="https://fabriziosalmi.github.io/fabgpt-faq/q/autoscaling-vm-proxmox/">
 <link rel="stylesheet" href="../../style.css">
@@ -28,18 +28,17 @@
 <header class="topbar">
   <a class="brand" href="../../" style="text-decoration:none;color:inherit">
     <span class="brand-dot">F</span>
-    <span class="brand-name">FabGPT</span>
-    <span class="brand-tag">faq</span>
+    <span class="brand-name">FabGPT-FAQ</span>
   </a>
 </header>
 <main class="page">
   <div class="vertical">Proxmox e self-hosting</div>
   <h1>Come si scalano automaticamente CPU e RAM delle VM su Proxmox?</h1>
   <div class="answer"><p>Con <a href="https://github.com/fabriziosalmi/proxmox-vm-autoscale" target="_blank" rel="noopener">proxmox-vm-autoscale</a> (<strong>300+ ⭐</strong>): un servizio che regola automaticamente <strong>CPU core e RAM delle VM</strong> su Proxmox VE in base a metriche in tempo reale e soglie definite da te.</p><p>Come funziona:</p><ul><li>si collega agli host Proxmox <strong>via SSH</strong> (password o chiave) e gira come servizio <strong>systemd</strong></li><li>configurazione <strong>YAML</strong>, multi-host</li><li>prova ad abilitare da solo <strong>NUMA e hotplug</strong> sulle VM per permettere lo scaling a caldo (i cambi di core count richiedono comunque un riavvio per avere effetto pieno)</li><li>notifiche <strong>Gotify</strong> ed email quando scala</li><li>tracking opzionale dei consumi con <strong>report CSV di billing</strong>, pensato per gli hosting provider</li></ul><p>Richiede Proxmox VE 6.0+ e Python 3.6+. Per i container LXC c&#x27;è il progetto gemello <a href="https://github.com/fabriziosalmi/proxmox-lxc-autoscale" target="_blank" rel="noopener">proxmox-lxc-autoscale</a>.</p></div>
-  <a class="ask" href="../../?q=proxmox-vm-autoscale">Chiedilo a FabGPT →</a>
+  <a class="ask" href="../../?q=proxmox-vm-autoscale">Chiedilo a FabGPT-FAQ →</a>
   <div class="related">
     <h2>Altre domande</h2>
-    <ul><li><a href="../autoscaling-vm-lxc-proxmox/">Come si fa autoscaling di VM e container LXC su Proxmox?</a></li><li><a href="../autoscaling-container-lxc-proxmox/">Come si scalano automaticamente i container LXC su Proxmox?</a></li><li><a href="../cos-e-proxxx-cockpit-terminale-proxmox/">Cos&#x27;è proxxx, il cockpit da terminale per Proxmox?</a></li><li><a href="../strumenti-cli-tui-per-proxmox/">Quali strumenti CLI e TUI esistono per gestire Proxmox dal terminale?</a></li><li><a href="../chi-e-fabrizio-salmi/">Chi è Fabrizio Salmi?</a></li><li><a href="../progetti-open-source-fabrizio-salmi/">Quali progetti open source sviluppa Fabrizio Salmi?</a></li></ul>
+    <ul><li><a href="../cos-e-proxmox-ve/">Cos&#x27;è Proxmox VE e perché è così usato?</a></li><li><a href="../differenza-container-lxc-e-vm/">Che differenza c&#x27;è tra container LXC e VM?</a></li><li><a href="../self-hosting-pro-e-contro/">Self-hosting: cosa significa e quando conviene?</a></li><li><a href="../autoscaling-vm-lxc-proxmox/">Come si fa autoscaling di VM e container LXC su Proxmox?</a></li><li><a href="../autoscaling-container-lxc-proxmox/">Come si scalano automaticamente i container LXC su Proxmox?</a></li><li><a href="../cos-e-proxxx-cockpit-terminale-proxmox/">Cos&#x27;è proxxx, il cockpit da terminale per Proxmox?</a></li></ul>
   </div>
 </main>
 </body>

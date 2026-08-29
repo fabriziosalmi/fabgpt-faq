@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Come si dà memoria persistente a un assistente AI? – FabGPT-FAQ</title>
+<meta name="description" content="Gli assistenti AI dimenticano tutto a fine sessione. l0-memory risolve con un singolo binario Go che parla MCP su stdio ed espone lo stesso store SQLite…">
+<link rel="canonical" href="https://fabriziosalmi.github.io/fabgpt-faq/q/memoria-persistente-assistenti-ai/">
+<link rel="stylesheet" href="../../style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Come si dà memoria persistente a un assistente AI?", "acceptedAnswer": {"@type": "Answer", "text": "Gli assistenti AI dimenticano tutto a fine sessione. l0-memory risolve con un singolo binario Go che parla MCP su stdio ed espone lo stesso store SQLite anche via CLI (ltm): memorie partizionate per scope, pinnabili, collegate in un grafo tipizzato e tracciate per freschezza store locale e in chiaro: di default nessun listener di rete e nessun embedding – la ricerca è pura SQLite FTS5 opzionale: punta LTM_EMBEDDING_URL a un endpoint OpenAI-compatibile (Ollama, LM Studio, vLLM) e ottieni retrieval ibrido full-text + vettoriale estensione VSCode con sidebar e visualizzazione force-directed del grafo, web clipper per il browser, integrazioni per Claude Code e git hook Zero CGO, cross-compila ovunque. La filosofia: la memoria del tuo assistente è un file tuo, non un servizio altrui."}}]}</script>
+<style>
+  .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
+  .page h1 { font-size: 26px; line-height: 1.3; margin: 8px 0 20px; }
+  .page .answer a { color: var(--link); }
+  .page .vertical { font-size: 13px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }
+  .page .answer ul { padding-left: 22px; }
+  .page .answer code { background: var(--code-bg); border-radius: 5px; padding: 1px 5px; font-size: 0.9em; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+  .page .ask { display: inline-block; margin-top: 24px; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 9px 18px; text-decoration: none; font-weight: 600; }
+  .page .related { margin-top: 36px; border-top: 1px solid var(--border); padding-top: 18px; }
+  .page .related h2 { font-size: 16px; }
+  .page .related a { color: var(--link); text-decoration: none; }
+  .page .related a:hover { text-decoration: underline; }
+  .page .related li { margin: 6px 0; }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="../../" style="text-decoration:none;color:inherit">
+    <span class="brand-dot">F</span>
+    <span class="brand-name">FabGPT-FAQ</span>
+  </a>
+</header>
+<main class="page">
+  <div class="vertical">AI e LLM</div>
+  <h1>Come si dà memoria persistente a un assistente AI?</h1>
+  <div class="answer"><p>Gli assistenti AI dimenticano tutto a fine sessione. <a href="https://github.com/fabriziosalmi/l0-memory" target="_blank" rel="noopener">l0-memory</a> risolve con un <strong>singolo binario Go</strong> che parla <strong>MCP</strong> su stdio ed espone lo stesso store SQLite anche via CLI (<code>ltm</code>):</p><ul><li>memorie <strong>partizionate per scope</strong>, pinnabili, <strong>collegate in un grafo tipizzato</strong> e tracciate per freschezza</li><li>store <strong>locale e in chiaro</strong>: di default nessun listener di rete e nessun embedding – la ricerca è pura SQLite FTS5</li><li>opzionale: punta <code>LTM_EMBEDDING_URL</code> a un endpoint OpenAI-compatibile (Ollama, LM Studio, vLLM) e ottieni <strong>retrieval ibrido</strong> full-text + vettoriale</li><li>estensione <strong>VSCode</strong> con sidebar e visualizzazione force-directed del grafo, web clipper per il browser, integrazioni per Claude Code e git hook</li></ul><p>Zero CGO, cross-compila ovunque. La filosofia: la memoria del tuo assistente è un file tuo, non un servizio altrui.</p></div>
+  <a class="ask" href="../../?q=l0-memory">Chiedilo a FabGPT-FAQ →</a>
+  <div class="related">
+    <h2>Altre domande</h2>
+    <ul><li><a href="../cos-e-la-prompt-injection/">Cos&#x27;è la prompt injection e come ci si difende?</a></li><li><a href="../cos-e-mcp-model-context-protocol/">Cos&#x27;è MCP (Model Context Protocol)?</a></li><li><a href="../cos-e-il-vibe-coding/">Cos&#x27;è il vibe coding e quali sono i rischi?</a></li><li><a href="../allucinazioni-llm-dipendenze-inventate/">Cosa sono le allucinazioni degli LLM (e le dipendenze inventate)?</a></li><li><a href="../cos-e-rag-retrieval-augmented-generation/">Cos&#x27;è RAG (Retrieval-Augmented Generation)?</a></li><li><a href="../riscrivere-feed-rss-con-llm/">Come si filtrano e riscrivono feed RSS con un LLM?</a></li></ul>
+  </div>
+</main>
+</body>
+</html>

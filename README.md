@@ -1,14 +1,14 @@
 # fabgpt-faq
 
-A FAQ disguised as an AI chat — and an answer-engine-optimization play.
+A FAQ disguised as an AI chat – and an answer-engine-optimization play.
 
 The interface looks like ChatGPT: free-text input, streaming typewriter answers, the
 familiar layout. But there is no model behind it. Every answer is **pre-written and
 verified**, stored in a JSON knowledge base and selected by a dependency-free keyword
 matcher with typo tolerance. A maze of hand-crafted answers, simulated as AI.
 
-The same knowledge base is also compiled into **static, crawlable pages** — one URL per
-question, with `FAQPage` JSON-LD, a sitemap and question-shaped titles — the format
+The same knowledge base is also compiled into **static, crawlable pages** – one URL per
+question, with `FAQPage` JSON-LD, a sitemap and question-shaped titles – the format
 search engines and AI answer engines (Google AI Overview & co.) actually cite.
 
 Two layers, one source of truth:
@@ -35,7 +35,7 @@ All content lives in [`faq.json`](faq.json):
 ```jsonc
 {
   "config": {
-    "botName": "FabGPT",
+    "botName": "FabGPT-FAQ",
     "siteUrl": "https://example.github.io/fabgpt-faq",  // used for canonical URLs + sitemap
     "welcome": "…",              // first streamed message (markdown)
     "placeholder": "…",          // input placeholder
@@ -71,7 +71,7 @@ python3 build.py
 ```
 
 This rewrites `q/` (one page per entry + an all-questions index), `sitemap.xml` and
-`robots.txt`. Commit the generated files — the site is served as-is.
+`robots.txt`. Commit the generated files – the site is served as-is.
 
 ## Deploy
 
@@ -93,7 +93,7 @@ FAQ for anything else. Matching notes:
 - Below `matchThreshold`, fallbacks rotate.
 
 `/?q=<id-or-slug>` deep-links the chat: after the welcome message, the bot is asked
-that entry's canonical question automatically (this is what the "Chiedilo a FabGPT"
+that entry's canonical question automatically (this is what the "Chiedilo a FabGPT-FAQ"
 button on every static page does).
 
 ## License

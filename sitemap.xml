@@ -4,6 +4,23 @@
   <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/</loc></url>
   <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/chi-e-fabrizio-salmi/</loc></url>
   <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/progetti-open-source-fabrizio-salmi/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-un-waf-web-application-firewall/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-un-reverse-proxy/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/come-funziona-lets-encrypt-acme/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/certificato-tls-scaduto-cosa-fare/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-un-siem-e-un-soar/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/nis2-chi-deve-adeguarsi-italia/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-la-supply-chain-security/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-la-prompt-injection/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-mcp-model-context-protocol/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-il-vibe-coding/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/allucinazioni-llm-dipendenze-inventate/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-rag-retrieval-augmented-generation/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-proxmox-ve/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/differenza-container-lxc-e-vm/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-gitops/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-la-sovranita-digitale/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/self-hosting-pro-e-contro/</loc></url>
   <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-certmate-gestione-certificati-tls/</loc></url>
   <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/come-aggiungere-un-waf-a-caddy/</loc></url>
   <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/bloccare-bad-bot-nginx-apache-traefik-haproxy/</loc></url>
@@ -24,6 +41,32 @@
   <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/controllare-qualita-codice-generato-ai/</loc></url>
   <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/automatizzare-configurazione-cloudflare/</loc></url>
   <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/migrare-da-cloudflare-self-hosted-eu/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/scoprire-dati-in-un-data-breach/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/configurare-rate-limiting-web-server/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/generare-regole-waf-con-machine-learning/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/proxy-waf-per-macos/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/monitorare-dominio-ssl-reputazione/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/bannare-ip-brute-force-caddy/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/secure-web-gateway-self-hosted/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/conservare-log-cloudflare-nis2-gdpr/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/fine-tuning-llm-apple-silicon/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/ridurre-costi-inferenza-llm/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/memoria-persistente-assistenti-ai/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/ridurre-token-agenti-ai/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/valutare-etica-di-un-llm/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/llm-e-matematica-benchmark/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/sincronizzare-agenti-ai-reti-instabili/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/convertire-pdf-scansionato-in-testo/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/generare-asset-brand-logo-favicon/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/anonimizzare-csv-nel-browser/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/watermark-invisibile-nei-video/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/velocizzare-wordpress/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/app-note-markdown-local-first/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/archiviare-file-dentro-un-video/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/daw-console-dj-nel-browser/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-il-webtek-streaming-teknival/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/audiolibri-gratis-in-italiano/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/strumenti-open-source-produzione-musicale/</loc></url>
   <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/come-contattare-fabrizio-salmi/</loc></url>
   <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/fabgpt-e-una-vera-ai/</loc></url>
   <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-fabgpt-come-funziona/</loc></url>

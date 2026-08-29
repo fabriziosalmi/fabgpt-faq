@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Cos&#x27;è CertMate e come gestisce i certificati TLS/SSL? — FabGPT</title>
+<title>Cos&#x27;è CertMate e come gestisce i certificati TLS/SSL? – FabGPT-FAQ</title>
 <meta name="description" content="CertMate è una piattaforma self-hosted per la gestione del ciclo di vita dei certificati TLS, il progetto più popolare di Fabrizio Salmi (oltre 1.400…">
 <link rel="canonical" href="https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-certmate-gestione-certificati-tls/">
 <link rel="stylesheet" href="../../style.css">
@@ -28,18 +28,17 @@
 <header class="topbar">
   <a class="brand" href="../../" style="text-decoration:none;color:inherit">
     <span class="brand-dot">F</span>
-    <span class="brand-name">FabGPT</span>
-    <span class="brand-tag">faq</span>
+    <span class="brand-name">FabGPT-FAQ</span>
   </a>
 </header>
 <main class="page">
   <div class="vertical">Cybersecurity</div>
   <h1>Cos&#x27;è CertMate e come gestisce i certificati TLS/SSL?</h1>
   <div class="answer"><p><a href="https://github.com/fabriziosalmi/certmate" target="_blank" rel="noopener">CertMate</a> è una piattaforma <strong>self-hosted per la gestione del ciclo di vita dei certificati TLS</strong>, il progetto più popolare di Fabrizio Salmi (<strong>oltre 1.400 stelle</strong>). Fa quattro cose che di solito richiedono quattro strumenti:</p><ul><li><strong>emette e rinnova</strong> certificati via ACME, con supporto per <strong>29 provider DNS</strong></li><li><strong>scopre i certificati che non hai emesso tu</strong> e li mette in un inventario unico: cosa è servito dove, chi l&#x27;ha emesso, quando scade, con quale crittografia</li><li>gestisce una <strong>CA privata</strong> per i nomi interni</li><li><strong>deploya</strong> i certificati rinnovati dove servono, con audit trail tamper-evident e API REST</li></ul><p>È in Python, gira in Docker, ha una CLI su PyPI (<code>certmate-cli</code>) e una <a href="https://demo.certmate.org" target="_blank" rel="noopener">demo live</a>. Nell&#x27;ecosistema ci sono anche certmate-tools (diagnostica TLS client-side) e certmate-agent (assistente conversazionale con LLM locale). Per esigenze enterprise (multi-tenant, mTLS, white-label) esiste <strong>CertMate-ng</strong>.</p></div>
-  <a class="ask" href="../../?q=certmate">Chiedilo a FabGPT →</a>
+  <a class="ask" href="../../?q=certmate">Chiedilo a FabGPT-FAQ →</a>
   <div class="related">
     <h2>Altre domande</h2>
-    <ul><li><a href="../come-aggiungere-un-waf-a-caddy/">Come si aggiunge un WAF al web server Caddy?</a></li><li><a href="../bloccare-bad-bot-nginx-apache-traefik-haproxy/">Come si bloccano i bad bot su Nginx, Apache, Traefik e HAProxy?</a></li><li><a href="../cos-e-wildbox-siem-soar-open-source/">Cos&#x27;è Wildbox, la piattaforma di sicurezza open source?</a></li><li><a href="../cos-e-zion-reverse-proxy-rust/">Cos&#x27;è Zion, il reverse proxy Rust con WAF integrato?</a></li><li><a href="../reverse-proxy-con-waf-integrato/">Esistono reverse proxy open source con WAF integrato?</a></li><li><a href="../come-bloccare-domini-malevoli/">Come si riconoscono e bloccano i domini malevoli?</a></li></ul>
+    <ul><li><a href="../cos-e-un-waf-web-application-firewall/">Cos&#x27;è un WAF (Web Application Firewall) e a cosa serve?</a></li><li><a href="../cos-e-un-reverse-proxy/">Cos&#x27;è un reverse proxy e a cosa serve?</a></li><li><a href="../come-funziona-lets-encrypt-acme/">Come funziona Let&#x27;s Encrypt e il protocollo ACME?</a></li><li><a href="../certificato-tls-scaduto-cosa-fare/">Certificato TLS scaduto: perché succede e come evitarlo?</a></li><li><a href="../cos-e-un-siem-e-un-soar/">Cos&#x27;è un SIEM e cos&#x27;è un SOAR?</a></li><li><a href="../nis2-chi-deve-adeguarsi-italia/">Chi deve adeguarsi alla NIS2 in Italia e cosa rischia?</a></li></ul>
   </div>
 </main>
 </body>
