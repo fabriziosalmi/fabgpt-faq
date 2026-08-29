@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cos&#x27;è l&#x27;NDR (Network Detection and Response)? – FabGPT-FAQ</title>
+<meta name="description" content="L&#x27;NDR (Network Detection and Response) cerca le minacce nel traffico di rete – complementare all&#x27;[EDR](q/differenza-edr-xdr-antivirus/), che guarda gli…">
+<link rel="canonical" href="https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-ndr-network-detection-response/">
+<link rel="stylesheet" href="../../style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Cos'è l'NDR (Network Detection and Response)?", "acceptedAnswer": {"@type": "Answer", "text": "L'NDR (Network Detection and Response) cerca le minacce nel traffico di rete – complementare all'[EDR](q/differenza-edr-xdr-antivirus/), che guarda gli endpoint: alcune cose si vedono solo sul filo (un dispositivo IoT senza agent, il [movimento laterale](q/cos-e-pass-the-hash/), il beaconing verso un [C2](q/cos-e-una-botnet/)). La sfida moderna è che quasi tutto il traffico è cifrato – non puoi leggerne il contenuto. L'NDR aggira il problema con l'analisi senza decifrare: fingerprinting TLS (JA3/JA4): il modo in cui un client negozia il TLS è una firma – molti malware hanno handshake riconoscibili anche dentro HTTPS analisi comportamentale e dei metadati: volumi, tempistiche, destinazioni, pattern di beaconing (le connessioni regolari a intervalli fissi che tradiscono un C2), dimensioni dei flussi che suggeriscono esfiltrazione rilevamento di anomalie rispetto al normale della rete Gli strumenti open source: Zeek (l'analizzatore di rete per eccellenza), Suricata ([anche IDS/IPS](q/cosa-sono-ids-e-ips/)), e i dati che confluiscono nel [SIEM](q/differenza-siem-soar-xdr/) per la correlazione con endpoint e identità. È il pezzo che risponde alla domanda \"cosa sta uscendo dalla mia rete che non dovrebbe?\" – parente del [controllo dell'egress](q/secure-web-gateway-self-hosted/), ma in chiave di rilevamento invece che di blocco."}}]}</script>
+<style>
+  .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
+  .page h1 { font-size: 26px; line-height: 1.3; margin: 8px 0 20px; }
+  .page .answer a { color: var(--link); }
+  .page .vertical { font-size: 13px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }
+  .page .answer ul { padding-left: 22px; }
+  .page .answer code { background: var(--code-bg); border-radius: 5px; padding: 1px 5px; font-size: 0.9em; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+  .page .ask { display: inline-block; margin-top: 24px; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 9px 18px; text-decoration: none; font-weight: 600; }
+  .page .related { margin-top: 36px; border-top: 1px solid var(--border); padding-top: 18px; }
+  .page .related h2 { font-size: 16px; }
+  .page .related a { color: var(--link); text-decoration: none; }
+  .page .related a:hover { text-decoration: underline; }
+  .page .related li { margin: 6px 0; }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="../../" style="text-decoration:none;color:inherit">
+    <span class="brand-dot">F</span>
+    <span class="brand-name">FabGPT-FAQ</span>
+  </a>
+</header>
+<main class="page">
+  <div class="vertical">Cybersecurity</div>
+  <h1>Cos&#x27;è l&#x27;NDR (Network Detection and Response)?</h1>
+  <div class="answer"><p>L&#x27;<strong>NDR</strong> (Network Detection and Response) cerca le minacce nel <strong>traffico di rete</strong> – complementare all&#x27;<a href="../differenza-edr-xdr-antivirus/">EDR</a>, che guarda gli endpoint: alcune cose si vedono solo sul filo (un dispositivo IoT senza agent, il <a href="../cos-e-pass-the-hash/">movimento laterale</a>, il beaconing verso un <a href="../cos-e-una-botnet/">C2</a>).</p><p>La sfida moderna è che <strong>quasi tutto il traffico è cifrato</strong> – non puoi leggerne il contenuto. L&#x27;NDR aggira il problema con l&#x27;analisi <em>senza decifrare</em>:</p><ul><li><strong>fingerprinting TLS</strong> (JA3/JA4): il modo in cui un client negozia il TLS è una firma – molti malware hanno handshake riconoscibili anche dentro HTTPS</li><li><strong>analisi comportamentale e dei metadati</strong>: volumi, tempistiche, destinazioni, pattern di <strong>beaconing</strong> (le connessioni regolari a intervalli fissi che tradiscono un C2), dimensioni dei flussi che suggeriscono esfiltrazione</li><li><strong>rilevamento di anomalie</strong> rispetto al normale della rete</li></ul><p>Gli strumenti open source: <strong>Zeek</strong> (l&#x27;analizzatore di rete per eccellenza), <strong>Suricata</strong> (<a href="../cosa-sono-ids-e-ips/">anche IDS/IPS</a>), e i dati che confluiscono nel <a href="../differenza-siem-soar-xdr/">SIEM</a> per la correlazione con endpoint e identità. È il pezzo che risponde alla domanda &quot;cosa sta <em>uscendo</em> dalla mia rete che non dovrebbe?&quot; – parente del <a href="../secure-web-gateway-self-hosted/">controllo dell&#x27;egress</a>, ma in chiave di rilevamento invece che di blocco.</p></div>
+  <a class="ask" href="../../?q=ndr">Chiedilo a FabGPT-FAQ →</a>
+  <div class="related">
+    <h2>Altre domande</h2>
+    <ul><li><a href="../cos-e-un-waf-web-application-firewall/">Cos&#x27;è un WAF (Web Application Firewall) e a cosa serve?</a></li><li><a href="../cos-e-un-reverse-proxy/">Cos&#x27;è un reverse proxy e a cosa serve?</a></li><li><a href="../come-funziona-lets-encrypt-acme/">Come funziona Let&#x27;s Encrypt e il protocollo ACME?</a></li><li><a href="../certificato-tls-scaduto-cosa-fare/">Certificato TLS scaduto: perché succede e come evitarlo?</a></li><li><a href="../cos-e-un-siem-e-un-soar/">Cos&#x27;è un SIEM e cos&#x27;è un SOAR?</a></li><li><a href="../nis2-chi-deve-adeguarsi-italia/">Chi deve adeguarsi alla NIS2 in Italia e cosa rischia?</a></li></ul>
+  </div>
+</main>
+</body>
+</html>

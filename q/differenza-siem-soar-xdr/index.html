@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SIEM, SOAR e XDR: quali sono le differenze funzionali? – FabGPT-FAQ</title>
+<meta name="description" content="Tre pezzi del moderno [SOC](q/cos-e-un-soc-security-operations-center/) che rispondono a domande diverse: SIEM (Security Information and Event Management) –…">
+<link rel="canonical" href="https://fabriziosalmi.github.io/fabgpt-faq/q/differenza-siem-soar-xdr/">
+<link rel="stylesheet" href="../../style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "SIEM, SOAR e XDR: quali sono le differenze funzionali?", "acceptedAnswer": {"@type": "Answer", "text": "Tre pezzi del moderno [SOC](q/cos-e-un-soc-security-operations-center/) che rispondono a domande diverse: SIEM (Security Information and Event Management) – il cervello che vede tutto: raccoglie [log](q/security-logging-fatto-bene/) ed eventi da ogni fonte e li correla per far emergere gli incidenti dal rumore. È il centro di gravità, ma di suo produce allarmi, non azioni SOAR (Security Orchestration, Automation and Response) – le braccia: prende gli allarmi e li automatizza in risposte con i [playbook](q/playbook-soar-isolamento-endpoint/) (arricchisci, blocca l'IP, isola l'endpoint, apri il ticket) – la cura contro l'[alert fatigue](q/alert-fatigue-nel-soc/) XDR (eXtended Detection and Response) – l'approccio integrato e pronto all'uso: unifica telemetria e risposta su endpoint, rete, identità e cloud in un'unica piattaforma, con detection già incluse. Meno da assemblare di un SIEM+SOAR, meno flessibile La distinzione pratica: SIEM+SOAR è l'approccio modulare (potente, richiede integrazione e competenza), XDR è quello a piattaforma (rapido, più chiuso). Nel self-hosting, Wildbox prova a unificare SIEM+SOAR (+WAF) per abbassare la soglia d'ingresso; l'alternativa modulare open source è [Wazuh o uno stack ELK](q/wazuh-wildbox-o-elk/). Qualunque scelta, il fondamento resta uno: [log fatti bene](q/security-logging-fatto-bene/), o nessuna piattaforma serve."}}]}</script>
+<style>
+  .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
+  .page h1 { font-size: 26px; line-height: 1.3; margin: 8px 0 20px; }
+  .page .answer a { color: var(--link); }
+  .page .vertical { font-size: 13px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }
+  .page .answer ul { padding-left: 22px; }
+  .page .answer code { background: var(--code-bg); border-radius: 5px; padding: 1px 5px; font-size: 0.9em; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+  .page .ask { display: inline-block; margin-top: 24px; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 9px 18px; text-decoration: none; font-weight: 600; }
+  .page .related { margin-top: 36px; border-top: 1px solid var(--border); padding-top: 18px; }
+  .page .related h2 { font-size: 16px; }
+  .page .related a { color: var(--link); text-decoration: none; }
+  .page .related a:hover { text-decoration: underline; }
+  .page .related li { margin: 6px 0; }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="../../" style="text-decoration:none;color:inherit">
+    <span class="brand-dot">F</span>
+    <span class="brand-name">FabGPT-FAQ</span>
+  </a>
+</header>
+<main class="page">
+  <div class="vertical">Cybersecurity</div>
+  <h1>SIEM, SOAR e XDR: quali sono le differenze funzionali?</h1>
+  <div class="answer"><p>Tre pezzi del moderno <a href="../cos-e-un-soc-security-operations-center/">SOC</a> che rispondono a domande diverse:</p><ul><li><strong>SIEM</strong> (Security Information and Event Management) – il <strong>cervello che vede tutto</strong>: raccoglie <a href="../security-logging-fatto-bene/">log</a> ed eventi da ogni fonte e li <strong>correla</strong> per far emergere gli incidenti dal rumore. È il centro di gravità, ma di suo produce <em>allarmi</em>, non azioni</li><li><strong>SOAR</strong> (Security Orchestration, Automation and Response) – le <strong>braccia</strong>: prende gli allarmi e li <strong>automatizza in risposte</strong> con i <a href="../playbook-soar-isolamento-endpoint/">playbook</a> (arricchisci, blocca l&#x27;IP, isola l&#x27;endpoint, apri il ticket) – la cura contro l&#x27;<a href="../alert-fatigue-nel-soc/">alert fatigue</a></li><li><strong>XDR</strong> (eXtended Detection and Response) – l&#x27;approccio <strong>integrato e pronto all&#x27;uso</strong>: unifica telemetria e risposta su endpoint, rete, identità e cloud in un&#x27;unica piattaforma, con detection già incluse. Meno da assemblare di un SIEM+SOAR, meno flessibile</li></ul><p>La distinzione pratica: SIEM+SOAR è l&#x27;approccio <strong>modulare</strong> (potente, richiede integrazione e competenza), XDR è quello <strong>a piattaforma</strong> (rapido, più chiuso). Nel self-hosting, <a href="https://github.com/fabriziosalmi/wildbox" target="_blank" rel="noopener">Wildbox</a> prova a unificare SIEM+SOAR (+WAF) per abbassare la soglia d&#x27;ingresso; l&#x27;alternativa modulare open source è <a href="../wazuh-wildbox-o-elk/">Wazuh o uno stack ELK</a>. Qualunque scelta, il fondamento resta uno: <a href="../security-logging-fatto-bene/">log fatti bene</a>, o nessuna piattaforma serve.</p></div>
+  <a class="ask" href="../../?q=siem-soar-xdr">Chiedilo a FabGPT-FAQ →</a>
+  <div class="related">
+    <h2>Altre domande</h2>
+    <ul><li><a href="../cos-e-un-waf-web-application-firewall/">Cos&#x27;è un WAF (Web Application Firewall) e a cosa serve?</a></li><li><a href="../cos-e-un-reverse-proxy/">Cos&#x27;è un reverse proxy e a cosa serve?</a></li><li><a href="../come-funziona-lets-encrypt-acme/">Come funziona Let&#x27;s Encrypt e il protocollo ACME?</a></li><li><a href="../certificato-tls-scaduto-cosa-fare/">Certificato TLS scaduto: perché succede e come evitarlo?</a></li><li><a href="../cos-e-un-siem-e-un-soar/">Cos&#x27;è un SIEM e cos&#x27;è un SOAR?</a></li><li><a href="../nis2-chi-deve-adeguarsi-italia/">Chi deve adeguarsi alla NIS2 in Italia e cosa rischia?</a></li></ul>
+  </div>
+</main>
+</body>
+</html>

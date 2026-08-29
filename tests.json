@@ -1794,5 +1794,149 @@
   {
     "q": "centralino voip self hosted",
     "expect": "voip-selfhosted"
+  },
+  {
+    "q": "cosè un attacco living off the land",
+    "expect": "living-off-the-land"
+  },
+  {
+    "q": "come funziona il process injection",
+    "expect": "process-injection"
+  },
+  {
+    "q": "cosè la matrice mitre att&ck",
+    "expect": "mitre-attack"
+  },
+  {
+    "q": "come funziona il kerberoasting su active directory",
+    "expect": "ad-attacks"
+  },
+  {
+    "q": "cosè un attacco pass the hash",
+    "expect": "pass-the-hash"
+  },
+  {
+    "q": "cosè la dependency confusion",
+    "expect": "dependency-confusion"
+  },
+  {
+    "q": "come si rileva un insider threat",
+    "expect": "insider-threat"
+  },
+  {
+    "q": "differenza tra siem soar e xdr",
+    "expect": "siem-soar-xdr"
+  },
+  {
+    "q": "come riduco l alert fatigue nel soc",
+    "expect": "alert-fatigue"
+  },
+  {
+    "q": "cosè l ndr network detection response",
+    "expect": "ndr"
+  },
+  {
+    "q": "cosa sono mttd e mttr",
+    "expect": "mttd-mttr"
+  },
+  {
+    "q": "come progetto un playbook soar",
+    "expect": "soar-playbook"
+  },
+  {
+    "q": "quali sono le fasi dell incident response nist",
+    "expect": "nist-ir-lifecycle"
+  },
+  {
+    "q": "come preservo la catena di custodia",
+    "expect": "chain-of-custody"
+  },
+  {
+    "q": "come si analizza la memoria ram forense",
+    "expect": "memory-forensics"
+  },
+  {
+    "q": "quali artefatti windows provano l esecuzione",
+    "expect": "windows-artifacts"
+  },
+  {
+    "q": "cosè un tabletop exercise",
+    "expect": "tabletop-exercise"
+  },
+  {
+    "q": "domain controller compromesso cosa fare",
+    "expect": "dc-compromise"
+  },
+  {
+    "q": "come gestisco la comunicazione di crisi",
+    "expect": "crisis-communication"
+  },
+  {
+    "q": "come registro chiavi proprie nel secure boot",
+    "expect": "secure-boot"
+  },
+  {
+    "q": "come blocco gli attacchi badusb con usbguard",
+    "expect": "usbguard"
+  },
+  {
+    "q": "cosè ebpf per la sicurezza del kernel",
+    "expect": "ebpf-security"
+  },
+  {
+    "q": "differenza tra flatpak snap e firejail",
+    "expect": "app-sandboxing"
+  },
+  {
+    "q": "cosè la memory tagging extension",
+    "expect": "mte"
+  },
+  {
+    "q": "automatizzare l hardening con cis e ansible",
+    "expect": "security-baselines"
+  },
+  {
+    "q": "cosè un rootkit e un bootkit",
+    "expect": "rootkit-bootkit"
+  },
+  {
+    "q": "cosè il malware polimorfico",
+    "expect": "polymorphic-malware"
+  },
+  {
+    "q": "differenza tra direct e indirect prompt injection",
+    "expect": "direct-indirect-injection"
+  },
+  {
+    "q": "cosa sono model inversion e membership inference",
+    "expect": "model-inversion"
+  },
+  {
+    "q": "cosè il nist ai risk management framework",
+    "expect": "nist-ai-rmf"
+  },
+  {
+    "q": "cosè l ueba",
+    "expect": "ueba"
+  },
+  {
+    "q": "come prevengo un runaway agent loop",
+    "expect": "runaway-agent"
+  },
+  {
+    "q": "filtrare le syscall con seccomp e gvisor",
+    "expect": "seccomp-gvisor"
+  },
+  {
+    "q": "come esfiltra dati un agente via markdown",
+    "expect": "agent-exfiltration"
+  },
+  {
+    "q": "come mi difendo da impianti hardware e firmware malevolo",
+    "expect": "hardware-implants"
+  },
+  {
+    "q": "come difendo un badge nfc dalla clonazione",
+    "expect": "nfc-rfid-security"
   }
 ]

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cos&#x27;è la matrice MITRE ATT&amp;CK (Tattiche, Tecniche, Procedure)? – FabGPT-FAQ</title>
+<meta name="description" content="MITRE ATT&amp;CK è il dizionario condiviso del come gli attaccanti operano: una matrice che cataloga le Tattiche (i perché – accesso iniziale, persistenza,…">
+<link rel="canonical" href="https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-la-matrice-mitre-attack/">
+<link rel="stylesheet" href="../../style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Cos'è la matrice MITRE ATT&CK (Tattiche, Tecniche, Procedure)?", "acceptedAnswer": {"@type": "Answer", "text": "MITRE ATT&CK è il dizionario condiviso del come gli attaccanti operano: una matrice che cataloga le Tattiche (i perché – accesso iniziale, persistenza, escalation, esfiltrazione), le Tecniche (i come – phishing, [process injection](q/process-injection-e-dll-sideloading/), [pass-the-hash](q/cos-e-pass-the-hash/)) e le Procedure (le implementazioni concrete usate da gruppi reali). Insieme sono le TTP. Perché è diventata infrastruttura per tutta la difesa: dà un linguaggio comune – invece di descrizioni vaghe, si dice \"T1055, Process Injection\", e chiunque nel settore sa esattamente di cosa si parla. Concretamente serve a: mappare la [detection](q/detection-engineering-e-event-id/) (\"quali tecniche copro e quali no?\" – è la coverage map), guidare il [threat hunting](q/cos-e-il-threat-hunting/) (\"se un attaccante usasse T-questo, cercherei...\"), profilare gli avversari, e comunicare le minacce in modo strutturato. È la spina dorsale della moderna [threat intelligence](q/cos-e-la-threat-intelligence/): le TTP stanno in cima alla Pyramid of Pain – difficilissime da cambiare per l'attaccante, quindi le più preziose da rilevare. Il complemento difensivo è MITRE D3FEND (le contromisure). Non è uno standard di conformità: è la mappa con cui capire cosa difendere e misurare quanto bene lo stai facendo."}}]}</script>
+<style>
+  .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
+  .page h1 { font-size: 26px; line-height: 1.3; margin: 8px 0 20px; }
+  .page .answer a { color: var(--link); }
+  .page .vertical { font-size: 13px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }
+  .page .answer ul { padding-left: 22px; }
+  .page .answer code { background: var(--code-bg); border-radius: 5px; padding: 1px 5px; font-size: 0.9em; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+  .page .ask { display: inline-block; margin-top: 24px; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 9px 18px; text-decoration: none; font-weight: 600; }
+  .page .related { margin-top: 36px; border-top: 1px solid var(--border); padding-top: 18px; }
+  .page .related h2 { font-size: 16px; }
+  .page .related a { color: var(--link); text-decoration: none; }
+  .page .related a:hover { text-decoration: underline; }
+  .page .related li { margin: 6px 0; }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="../../" style="text-decoration:none;color:inherit">
+    <span class="brand-dot">F</span>
+    <span class="brand-name">FabGPT-FAQ</span>
+  </a>
+</header>
+<main class="page">
+  <div class="vertical">Cybersecurity</div>
+  <h1>Cos&#x27;è la matrice MITRE ATT&amp;CK (Tattiche, Tecniche, Procedure)?</h1>
+  <div class="answer"><p><strong>MITRE ATT&amp;CK</strong> è il dizionario condiviso del <em>come</em> gli attaccanti operano: una matrice che cataloga le <strong>Tattiche</strong> (i <em>perché</em> – accesso iniziale, persistenza, escalation, esfiltrazione), le <strong>Tecniche</strong> (i <em>come</em> – phishing, <a href="../process-injection-e-dll-sideloading/">process injection</a>, <a href="../cos-e-pass-the-hash/">pass-the-hash</a>) e le <strong>Procedure</strong> (le implementazioni concrete usate da gruppi reali). Insieme sono le <strong>TTP</strong>.</p><p>Perché è diventata infrastruttura per tutta la difesa: dà un <strong>linguaggio comune</strong> – invece di descrizioni vaghe, si dice &quot;T1055, Process Injection&quot;, e chiunque nel settore sa esattamente di cosa si parla. Concretamente serve a: mappare la <a href="../detection-engineering-e-event-id/">detection</a> (&quot;quali tecniche copro e quali no?&quot; – è la <em>coverage map</em>), guidare il <a href="../cos-e-il-threat-hunting/">threat hunting</a> (&quot;se un attaccante usasse T-questo, cercherei...&quot;), profilare gli avversari, e comunicare le minacce in modo strutturato.</p><p>È la spina dorsale della moderna <a href="../cos-e-la-threat-intelligence/">threat intelligence</a>: le TTP stanno in cima alla <em>Pyramid of Pain</em> – difficilissime da cambiare per l&#x27;attaccante, quindi le più preziose da rilevare. Il complemento difensivo è <strong>MITRE D3FEND</strong> (le contromisure). Non è uno standard di conformità: è la mappa con cui capire <em>cosa</em> difendere e misurare quanto bene lo stai facendo.</p></div>
+  <a class="ask" href="../../?q=mitre-attack">Chiedilo a FabGPT-FAQ →</a>
+  <div class="related">
+    <h2>Altre domande</h2>
+    <ul><li><a href="../cos-e-un-waf-web-application-firewall/">Cos&#x27;è un WAF (Web Application Firewall) e a cosa serve?</a></li><li><a href="../cos-e-un-reverse-proxy/">Cos&#x27;è un reverse proxy e a cosa serve?</a></li><li><a href="../come-funziona-lets-encrypt-acme/">Come funziona Let&#x27;s Encrypt e il protocollo ACME?</a></li><li><a href="../certificato-tls-scaduto-cosa-fare/">Certificato TLS scaduto: perché succede e come evitarlo?</a></li><li><a href="../cos-e-un-siem-e-un-soar/">Cos&#x27;è un SIEM e cos&#x27;è un SOAR?</a></li><li><a href="../nis2-chi-deve-adeguarsi-italia/">Chi deve adeguarsi alla NIS2 in Italia e cosa rischia?</a></li></ul>
+  </div>
+</main>
+</body>
+</html>

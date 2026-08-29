@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Isolamento delle applicazioni: Flatpak, Snap, container, Firejail? – FabGPT-FAQ</title>
+<meta name="description" content="Sul desktop Linux, un&#x27;applicazione gira storicamente con tutti i permessi dell&#x27;utente – può leggere i tuoi documenti, le chiavi SSH, tutto. Il sandboxing…">
+<link rel="canonical" href="https://fabriziosalmi.github.io/fabgpt-faq/q/isolamento-applicazioni-flatpak-snap-firejail/">
+<link rel="stylesheet" href="../../style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Isolamento delle applicazioni: Flatpak, Snap, container, Firejail?", "acceptedAnswer": {"@type": "Answer", "text": "Sul desktop Linux, un'applicazione gira storicamente con tutti i permessi dell'utente – può leggere i tuoi documenti, le chiavi SSH, tutto. Il sandboxing applicativo confina ogni app in un recinto di permessi minimi. Le tecnologie, con filosofie diverse: Flatpak – il più adottato per il desktop: le app girano isolate, con accesso a file e risorse mediato dai portali (l'app chiede \"posso aprire un file?\" e il sistema mostra il selettore – l'app vede solo ciò che scegli). I permessi sono ispezionabili e restringibili (Flatseal) Snap – simile, con confinamento AppArmor; ecosistema Canonical Firejail / bubblewrap – sandbox leggere che confinano qualsiasi eseguibile (anche app di sistema) con namespace e seccomp – più manuali, molto flessibili. bubblewrap è il motore sotto Flatpak La distinzione con i [container](q/sicurezza-delle-immagini-container/): questi isolano applicazioni desktop per l'utente, i container isolano servizi. Entrambi condividono il kernel (a differenza delle [VM](q/differenza-container-lxc-e-vm/)), quindi l'isolamento non è perfetto – ma alza molto il costo di un'app compromessa o troppo curiosa. La pratica sana: preferire Flatpak per il software di terze parti, controllarne e restringerne i permessi (perché quel lettore PDF vuole l'accesso alla rete?), e [MTE](q/cos-e-memory-tagging-extension-mte/)/hardening del sistema sotto. È [minimo privilegio](q/principio-del-minimo-privilegio/) applicato alle app che lanci ogni giorno."}}]}</script>
+<style>
+  .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
+  .page h1 { font-size: 26px; line-height: 1.3; margin: 8px 0 20px; }
+  .page .answer a { color: var(--link); }
+  .page .vertical { font-size: 13px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }
+  .page .answer ul { padding-left: 22px; }
+  .page .answer code { background: var(--code-bg); border-radius: 5px; padding: 1px 5px; font-size: 0.9em; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+  .page .ask { display: inline-block; margin-top: 24px; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 9px 18px; text-decoration: none; font-weight: 600; }
+  .page .related { margin-top: 36px; border-top: 1px solid var(--border); padding-top: 18px; }
+  .page .related h2 { font-size: 16px; }
+  .page .related a { color: var(--link); text-decoration: none; }
+  .page .related a:hover { text-decoration: underline; }
+  .page .related li { margin: 6px 0; }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="../../" style="text-decoration:none;color:inherit">
+    <span class="brand-dot">F</span>
+    <span class="brand-name">FabGPT-FAQ</span>
+  </a>
+</header>
+<main class="page">
+  <div class="vertical">Cybersecurity</div>
+  <h1>Isolamento delle applicazioni: Flatpak, Snap, container, Firejail?</h1>
+  <div class="answer"><p>Sul desktop Linux, un&#x27;applicazione gira storicamente con <strong>tutti i permessi dell&#x27;utente</strong> – può leggere i tuoi documenti, le chiavi SSH, tutto. Il <strong>sandboxing applicativo</strong> confina ogni app in un recinto di permessi minimi. Le tecnologie, con filosofie diverse:</p><ul><li><strong>Flatpak</strong> – il più adottato per il desktop: le app girano isolate, con accesso a file e risorse mediato dai <strong>portali</strong> (l&#x27;app chiede &quot;posso aprire un file?&quot; e il sistema mostra il selettore – l&#x27;app vede <em>solo</em> ciò che scegli). I permessi sono ispezionabili e restringibili (Flatseal)</li><li><strong>Snap</strong> – simile, con confinamento AppArmor; ecosistema Canonical</li><li><strong>Firejail / bubblewrap</strong> – sandbox leggere che confinano <em>qualsiasi</em> eseguibile (anche app di sistema) con namespace e seccomp – più manuali, molto flessibili. bubblewrap è il motore sotto Flatpak</li></ul><p>La distinzione con i <a href="../sicurezza-delle-immagini-container/">container</a>: questi isolano <em>applicazioni desktop</em> per l&#x27;utente, i container isolano <em>servizi</em>. Entrambi condividono il kernel (a differenza delle <a href="../differenza-container-lxc-e-vm/">VM</a>), quindi l&#x27;isolamento non è perfetto – ma alza molto il costo di un&#x27;app compromessa o troppo curiosa. La pratica sana: preferire Flatpak per il software di terze parti, controllarne e restringerne i permessi (perché quel lettore PDF vuole l&#x27;accesso alla rete?), e <a href="../cos-e-memory-tagging-extension-mte/">MTE</a>/hardening del sistema sotto. È <a href="../principio-del-minimo-privilegio/">minimo privilegio</a> applicato alle app che lanci ogni giorno.</p></div>
+  <a class="ask" href="../../?q=app-sandboxing">Chiedilo a FabGPT-FAQ →</a>
+  <div class="related">
+    <h2>Altre domande</h2>
+    <ul><li><a href="../cos-e-un-waf-web-application-firewall/">Cos&#x27;è un WAF (Web Application Firewall) e a cosa serve?</a></li><li><a href="../cos-e-un-reverse-proxy/">Cos&#x27;è un reverse proxy e a cosa serve?</a></li><li><a href="../come-funziona-lets-encrypt-acme/">Come funziona Let&#x27;s Encrypt e il protocollo ACME?</a></li><li><a href="../certificato-tls-scaduto-cosa-fare/">Certificato TLS scaduto: perché succede e come evitarlo?</a></li><li><a href="../cos-e-un-siem-e-un-soar/">Cos&#x27;è un SIEM e cos&#x27;è un SOAR?</a></li><li><a href="../nis2-chi-deve-adeguarsi-italia/">Chi deve adeguarsi alla NIS2 in Italia e cosa rischia?</a></li></ul>
+  </div>
+</main>
+</body>
+</html>

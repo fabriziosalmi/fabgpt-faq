@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Come si contrastano impianti hardware e firmware malevolo? – FabGPT-FAQ</title>
+<meta name="description" content="La minaccia più profonda e più difficile: la compromissione a livello hardware o firmware, sotto ogni difesa software. Le forme: firmware malevolo o…">
+<link rel="canonical" href="https://fabriziosalmi.github.io/fabgpt-faq/q/impianti-hardware-e-firmware-malevolo/">
+<link rel="stylesheet" href="../../style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Come si contrastano impianti hardware e firmware malevolo?", "acceptedAnswer": {"@type": "Answer", "text": "La minaccia più profonda e più difficile: la compromissione a livello hardware o firmware, sotto ogni difesa software. Le forme: firmware malevolo o vulnerabile: BIOS/UEFI, controller di dischi e periferiche, il famigerato Intel Management Engine (ME) – un sottosistema con accesso privilegiato che gira indipendentemente dalla CPU e dall'OS, non ispezionabile e potenzialmente un rischio. Strumenti come me_cleaner ne neutralizzano gran parte (con cautela – può rendere la macchina inavviabile), e Coreboot sostituisce il firmware proprietario con uno aperto e auditabile su hardware supportato impianti hardware: componenti aggiunti alla catena di fornitura per intercettare o esfiltrare (il tema, molto dibattuto, degli impianti su server) – improbabili per la maggioranza, reali per bersagli di alto valore Le difese, in scala di realismo: per la stragrande maggioranza, l'attenzione va alla provenienza (comprare da canali fidati, [verificare le firme di ISO e binari](q/come-si-firma-il-codice/)), agli aggiornamenti firmware (le CVE del firmware sono reali e trascurate), e alla [root of trust](q/secure-boot-personalizzato-chiavi-proprie/) con Secure Boot e TPM. Per i modelli di minaccia estremi (giornalisti, stato, alto valore): [firmware aperto](q/secure-element-vs-firmware-aperto/), hardware con [kill-switch](q/kill-switch-hardware-privacy/), e ispezione fisica. È il confine dove la sicurezza incontra la [supply chain hardware](q/cos-e-la-supply-chain-security/) e la fiducia nel produttore diventa inevitabile – la domanda diventa di chi ti fidi, e quanto puoi verificarlo."}}]}</script>
+<style>
+  .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
+  .page h1 { font-size: 26px; line-height: 1.3; margin: 8px 0 20px; }
+  .page .answer a { color: var(--link); }
+  .page .vertical { font-size: 13px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }
+  .page .answer ul { padding-left: 22px; }
+  .page .answer code { background: var(--code-bg); border-radius: 5px; padding: 1px 5px; font-size: 0.9em; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+  .page .ask { display: inline-block; margin-top: 24px; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 9px 18px; text-decoration: none; font-weight: 600; }
+  .page .related { margin-top: 36px; border-top: 1px solid var(--border); padding-top: 18px; }
+  .page .related h2 { font-size: 16px; }
+  .page .related a { color: var(--link); text-decoration: none; }
+  .page .related a:hover { text-decoration: underline; }
+  .page .related li { margin: 6px 0; }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="../../" style="text-decoration:none;color:inherit">
+    <span class="brand-dot">F</span>
+    <span class="brand-name">FabGPT-FAQ</span>
+  </a>
+</header>
+<main class="page">
+  <div class="vertical">Cybersecurity</div>
+  <h1>Come si contrastano impianti hardware e firmware malevolo?</h1>
+  <div class="answer"><p>La minaccia più profonda e più difficile: la compromissione a livello <strong>hardware o firmware</strong>, sotto ogni difesa software. Le forme:</p><ul><li><strong>firmware malevolo o vulnerabile</strong>: BIOS/UEFI, controller di dischi e periferiche, il famigerato <strong>Intel Management Engine (ME)</strong> – un sottosistema con accesso privilegiato che gira <em>indipendentemente</em> dalla CPU e dall&#x27;OS, non ispezionabile e potenzialmente un rischio. Strumenti come <strong>me_cleaner</strong> ne neutralizzano gran parte (con cautela – può rendere la macchina inavviabile), e <strong>Coreboot</strong> sostituisce il firmware proprietario con uno aperto e auditabile su hardware supportato</li><li><strong>impianti hardware</strong>: componenti aggiunti alla catena di fornitura per intercettare o esfiltrare (il tema, molto dibattuto, degli impianti su server) – improbabili per la maggioranza, reali per bersagli di alto valore</li></ul><p>Le difese, in scala di realismo: per la stragrande maggioranza, l&#x27;attenzione va alla <strong>provenienza</strong> (comprare da canali fidati, <a href="../come-si-firma-il-codice/">verificare le firme di ISO e binari</a>), agli <strong>aggiornamenti firmware</strong> (le CVE del firmware sono reali e trascurate), e alla <a href="../secure-boot-personalizzato-chiavi-proprie/">root of trust</a> con Secure Boot e TPM. Per i modelli di minaccia estremi (giornalisti, stato, alto valore): <a href="../secure-element-vs-firmware-aperto/">firmware aperto</a>, hardware con <a href="../kill-switch-hardware-privacy/">kill-switch</a>, e ispezione fisica. È il confine dove la sicurezza incontra la <a href="../cos-e-la-supply-chain-security/">supply chain hardware</a> e la fiducia nel produttore diventa inevitabile – la domanda diventa <em>di chi ti fidi</em>, e quanto puoi verificarlo.</p></div>
+  <a class="ask" href="../../?q=hardware-implants">Chiedilo a FabGPT-FAQ →</a>
+  <div class="related">
+    <h2>Altre domande</h2>
+    <ul><li><a href="../cos-e-un-waf-web-application-firewall/">Cos&#x27;è un WAF (Web Application Firewall) e a cosa serve?</a></li><li><a href="../cos-e-un-reverse-proxy/">Cos&#x27;è un reverse proxy e a cosa serve?</a></li><li><a href="../come-funziona-lets-encrypt-acme/">Come funziona Let&#x27;s Encrypt e il protocollo ACME?</a></li><li><a href="../certificato-tls-scaduto-cosa-fare/">Certificato TLS scaduto: perché succede e come evitarlo?</a></li><li><a href="../cos-e-un-siem-e-un-soar/">Cos&#x27;è un SIEM e cos&#x27;è un SOAR?</a></li><li><a href="../nis2-chi-deve-adeguarsi-italia/">Chi deve adeguarsi alla NIS2 in Italia e cosa rischia?</a></li></ul>
+  </div>
+</main>
+</body>
+</html>

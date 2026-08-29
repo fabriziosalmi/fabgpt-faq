@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cosa sono gli attacchi di Model Inversion e Membership Inference? – FabGPT-FAQ</title>
+<meta name="description" content="Due attacchi alla privacy dei dati di addestramento di un modello ML – perché un modello, in un certo senso, ricorda ciò su cui è stato addestrato, e questi…">
+<link rel="canonical" href="https://fabriziosalmi.github.io/fabgpt-faq/q/model-inversion-e-membership-inference/">
+<link rel="stylesheet" href="../../style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Cosa sono gli attacchi di Model Inversion e Membership Inference?", "acceptedAnswer": {"@type": "Answer", "text": "Due attacchi alla privacy dei dati di addestramento di un modello ML – perché un modello, in un certo senso, ricorda ciò su cui è stato addestrato, e questi attacchi lo estraggono: Membership Inference – determinare se un dato specifico faceva parte del training set: interrogando il modello e osservando quanto è \"confidente\" o preciso su quel dato, si inferisce se l'ha visto in addestramento. Sembra astratto, ma se il dataset è \"pazienti con una certa malattia\", scoprire che Tizio era nel training rivela un'informazione sanitaria – un problema [GDPR](q/chatgpt-e-dati-personali-gdpr/) serio Model Inversion – ricostruire caratteristiche dei dati di addestramento dalle risposte del modello: nei casi estremi, rigenerare approssimazioni di volti o record da un modello addestrato su di essi Sono la ragione per cui addestrare o fare fine-tuning su dati sensibili non è mai neutro: il modello diventa un potenziale canale di fuga. Le difese: privacy differenziale (rumore matematico durante il training che rende impossibile risalire al singolo dato, con un costo in accuratezza), minimizzazione ([serve davvero quel dato personale?](q/gdpr-cosa-serve-a-un-sito-web/)), controllo degli accessi al modello, e per i dati davvero sensibili la scelta più sicura – [non metterli nel modello affatto](q/allucinazioni-llm-dipendenze-inventate/), ma fornirli a runtime via [RAG con permessi](q/sicurezza-del-rag-e-dei-vector-database/), dove restano cancellabili e governabili. È il lato privacy della [sicurezza AI](q/data-leakage-via-llm/): il modello non è solo codice, è anche un deposito dei dati che ha visto."}}]}</script>
+<style>
+  .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
+  .page h1 { font-size: 26px; line-height: 1.3; margin: 8px 0 20px; }
+  .page .answer a { color: var(--link); }
+  .page .vertical { font-size: 13px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }
+  .page .answer ul { padding-left: 22px; }
+  .page .answer code { background: var(--code-bg); border-radius: 5px; padding: 1px 5px; font-size: 0.9em; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+  .page .ask { display: inline-block; margin-top: 24px; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 9px 18px; text-decoration: none; font-weight: 600; }
+  .page .related { margin-top: 36px; border-top: 1px solid var(--border); padding-top: 18px; }
+  .page .related h2 { font-size: 16px; }
+  .page .related a { color: var(--link); text-decoration: none; }
+  .page .related a:hover { text-decoration: underline; }
+  .page .related li { margin: 6px 0; }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="../../" style="text-decoration:none;color:inherit">
+    <span class="brand-dot">F</span>
+    <span class="brand-name">FabGPT-FAQ</span>
+  </a>
+</header>
+<main class="page">
+  <div class="vertical">AI e LLM</div>
+  <h1>Cosa sono gli attacchi di Model Inversion e Membership Inference?</h1>
+  <div class="answer"><p>Due attacchi alla <strong>privacy dei dati di addestramento</strong> di un modello ML – perché un modello, in un certo senso, <em>ricorda</em> ciò su cui è stato addestrato, e questi attacchi lo estraggono:</p><ul><li><strong>Membership Inference</strong> – determinare se un <em>dato specifico faceva parte del training set</em>: interrogando il modello e osservando quanto è &quot;confidente&quot; o preciso su quel dato, si inferisce se l&#x27;ha visto in addestramento. Sembra astratto, ma se il dataset è &quot;pazienti con una certa malattia&quot;, scoprire che Tizio <em>era nel training</em> rivela un&#x27;informazione sanitaria – un problema <a href="../chatgpt-e-dati-personali-gdpr/">GDPR</a> serio</li><li><strong>Model Inversion</strong> – ricostruire <em>caratteristiche dei dati</em> di addestramento dalle risposte del modello: nei casi estremi, rigenerare approssimazioni di volti o record da un modello addestrato su di essi</li></ul><p>Sono la ragione per cui <strong>addestrare o fare fine-tuning su dati sensibili</strong> non è mai neutro: il modello diventa un potenziale canale di fuga. Le difese: <strong>privacy differenziale</strong> (rumore matematico durante il training che rende impossibile risalire al singolo dato, con un costo in accuratezza), minimizzazione (<a href="../gdpr-cosa-serve-a-un-sito-web/">serve davvero quel dato personale?</a>), controllo degli accessi al modello, e per i dati davvero sensibili la scelta più sicura – <a href="../allucinazioni-llm-dipendenze-inventate/">non metterli nel modello affatto</a>, ma fornirli a runtime via <a href="../sicurezza-del-rag-e-dei-vector-database/">RAG con permessi</a>, dove restano cancellabili e governabili. È il lato privacy della <a href="../data-leakage-via-llm/">sicurezza AI</a>: il modello non è solo codice, è anche un deposito dei dati che ha visto.</p></div>
+  <a class="ask" href="../../?q=model-inversion">Chiedilo a FabGPT-FAQ →</a>
+  <div class="related">
+    <h2>Altre domande</h2>
+    <ul><li><a href="../cos-e-la-prompt-injection/">Cos&#x27;è la prompt injection e come ci si difende?</a></li><li><a href="../cos-e-mcp-model-context-protocol/">Cos&#x27;è MCP (Model Context Protocol)?</a></li><li><a href="../cos-e-il-vibe-coding/">Cos&#x27;è il vibe coding e quali sono i rischi?</a></li><li><a href="../allucinazioni-llm-dipendenze-inventate/">Cosa sono le allucinazioni degli LLM (e le dipendenze inventate)?</a></li><li><a href="../cos-e-rag-retrieval-augmented-generation/">Cos&#x27;è RAG (Retrieval-Augmented Generation)?</a></li><li><a href="../cos-e-un-llm/">Cos&#x27;è un LLM (Large Language Model)?</a></li></ul>
+  </div>
+</main>
+</body>
+</html>

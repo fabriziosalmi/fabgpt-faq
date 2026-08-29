@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quali artefatti Windows provano l&#x27;esecuzione di un programma (Prefetch, Amcache)? – FabGPT-FAQ</title>
+<meta name="description" content="Windows registra, in decine di posti spesso ignorati, le tracce di cosa è stato eseguito e quando – artefatti preziosissimi in…">
+<link rel="canonical" href="https://fabriziosalmi.github.io/fabgpt-faq/q/artefatti-forensi-windows/">
+<link rel="stylesheet" href="../../style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Quali artefatti Windows provano l'esecuzione di un programma (Prefetch, Amcache)?", "acceptedAnswer": {"@type": "Answer", "text": "Windows registra, in decine di posti spesso ignorati, le tracce di cosa è stato eseguito e quando – artefatti preziosissimi in [forensics](q/catena-di-custodia-forense/) perché persistono anche dopo che il programma (o il malware) è stato cancellato. I principali: Prefetch – Windows crea un file .pf per ottimizzare l'avvio dei programmi: prova che un eseguibile è stato lanciato, quante volte e quando (l'ultima e le precedenti) Amcache / Shimcache (AppCompatCache) – registri della compatibilità che tengono traccia degli eseguibili visti dal sistema, con hash e percorsi – catturano anche ciò che è già stato rimosso MFT (Master File Table) – il catalogo del filesystem NTFS: timestamp di creazione/modifica/accesso di ogni file, per ricostruire la timeline SRUM, Jump List, UserAssist, log eventi – ciascuno un tassello di chi ha fatto cosa quando Messi insieme in una super-timeline (strumenti come Plaso/log2timeline), raccontano la storia dell'incidente minuto per minuto. È il complemento su disco dell'[analisi della RAM](q/analisi-forense-della-memoria-ram/): la memoria dice cosa stava girando ora, gli artefatti dicono cosa è successo negli ultimi giorni. E la lezione trasversale: la cancellazione di un file non cancella le prove che sia esistito – un'arma per la difesa, un rischio per chi crede di aver ripulito."}}]}</script>
+<style>
+  .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
+  .page h1 { font-size: 26px; line-height: 1.3; margin: 8px 0 20px; }
+  .page .answer a { color: var(--link); }
+  .page .vertical { font-size: 13px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }
+  .page .answer ul { padding-left: 22px; }
+  .page .answer code { background: var(--code-bg); border-radius: 5px; padding: 1px 5px; font-size: 0.9em; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+  .page .ask { display: inline-block; margin-top: 24px; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 9px 18px; text-decoration: none; font-weight: 600; }
+  .page .related { margin-top: 36px; border-top: 1px solid var(--border); padding-top: 18px; }
+  .page .related h2 { font-size: 16px; }
+  .page .related a { color: var(--link); text-decoration: none; }
+  .page .related a:hover { text-decoration: underline; }
+  .page .related li { margin: 6px 0; }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="../../" style="text-decoration:none;color:inherit">
+    <span class="brand-dot">F</span>
+    <span class="brand-name">FabGPT-FAQ</span>
+  </a>
+</header>
+<main class="page">
+  <div class="vertical">Cybersecurity</div>
+  <h1>Quali artefatti Windows provano l&#x27;esecuzione di un programma (Prefetch, Amcache)?</h1>
+  <div class="answer"><p>Windows registra, in decine di posti spesso ignorati, le tracce di <em>cosa è stato eseguito e quando</em> – artefatti preziosissimi in <a href="../catena-di-custodia-forense/">forensics</a> perché persistono anche dopo che il programma (o il malware) è stato cancellato. I principali:</p><ul><li><strong>Prefetch</strong> – Windows crea un file <code>.pf</code> per ottimizzare l&#x27;avvio dei programmi: prova che un eseguibile <strong>è stato lanciato</strong>, quante volte e quando (l&#x27;ultima e le precedenti)</li><li><strong>Amcache / Shimcache</strong> (AppCompatCache) – registri della compatibilità che tengono traccia degli eseguibili <em>visti</em> dal sistema, con hash e percorsi – catturano anche ciò che è già stato rimosso</li><li><strong>MFT</strong> (Master File Table) – il catalogo del filesystem NTFS: timestamp di creazione/modifica/accesso di ogni file, per ricostruire la <strong>timeline</strong></li><li><strong>SRUM</strong>, <strong>Jump List</strong>, <strong>UserAssist</strong>, log eventi – ciascuno un tassello di <em>chi ha fatto cosa quando</em></li></ul><p>Messi insieme in una <strong>super-timeline</strong> (strumenti come Plaso/log2timeline), raccontano la storia dell&#x27;incidente minuto per minuto. È il complemento su disco dell&#x27;<a href="../analisi-forense-della-memoria-ram/">analisi della RAM</a>: la memoria dice cosa <em>stava girando ora</em>, gli artefatti dicono cosa <em>è successo negli ultimi giorni</em>. E la lezione trasversale: la cancellazione di un file non cancella le <em>prove</em> che sia esistito – un&#x27;arma per la difesa, un rischio per chi crede di aver ripulito.</p></div>
+  <a class="ask" href="../../?q=windows-artifacts">Chiedilo a FabGPT-FAQ →</a>
+  <div class="related">
+    <h2>Altre domande</h2>
+    <ul><li><a href="../cos-e-un-waf-web-application-firewall/">Cos&#x27;è un WAF (Web Application Firewall) e a cosa serve?</a></li><li><a href="../cos-e-un-reverse-proxy/">Cos&#x27;è un reverse proxy e a cosa serve?</a></li><li><a href="../come-funziona-lets-encrypt-acme/">Come funziona Let&#x27;s Encrypt e il protocollo ACME?</a></li><li><a href="../certificato-tls-scaduto-cosa-fare/">Certificato TLS scaduto: perché succede e come evitarlo?</a></li><li><a href="../cos-e-un-siem-e-un-soar/">Cos&#x27;è un SIEM e cos&#x27;è un SOAR?</a></li><li><a href="../nis2-chi-deve-adeguarsi-italia/">Chi deve adeguarsi alla NIS2 in Italia e cosa rischia?</a></li></ul>
+  </div>
+</main>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cos&#x27;è la Memory Tagging Extension (MTE)? – FabGPT-FAQ</title>
+<meta name="description" content="La stragrande maggioranza delle vulnerabilità gravi (buffer overflow, use-after-free) nasce da errori di gestione della memoria in linguaggi come C/C++:…">
+<link rel="canonical" href="https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-memory-tagging-extension-mte/">
+<link rel="stylesheet" href="../../style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Cos'è la Memory Tagging Extension (MTE)?", "acceptedAnswer": {"@type": "Answer", "text": "La stragrande maggioranza delle vulnerabilità gravi (buffer overflow, use-after-free) nasce da errori di gestione della memoria in linguaggi come C/C++: codice che legge o scrive dove non dovrebbe. La Memory Tagging Extension (MTE) – nei processori ARM moderni – li intercetta in hardware: a ogni blocco di memoria allocato viene assegnato un tag (un piccolo numero), e ogni puntatore porta lo stesso tag; se un accesso usa un puntatore il cui tag non corrisponde a quello della memoria (perché è andato fuori dai limiti, o punta a memoria già liberata), l'hardware blocca l'operazione all'istante. È un cambio di paradigma: invece di sperare che il codice sia corretto o di trovare i bug uno a uno, l'hardware rende la classe intera di attacchi molto più difficile da sfruttare – trasforma una corruzione silenziosa (che l'attaccante sfrutta) in un crash controllato (che al massimo è un denial of service). GrapheneOS e Android lo sfruttano già; sta arrivando lato server. Si inserisce nel filone delle difese strutturali alla memory safety, insieme all'adozione di linguaggi memory-safe (Rust in testa – non a caso [proxxx, zion e i tool Rust del portfolio](q/cos-e-proxxx-cockpit-terminale-proxmox/) eliminano intere classi di bug per costruzione) e alle protezioni classiche (ASLR, DEP, stack canary). MTE non risolve tutto, ma alza drasticamente il costo dello sfruttamento – la stessa filosofia della [defense in depth](q/cos-e-la-defense-in-depth/): rendere l'attacco caro, non solo raro."}}]}</script>
+<style>
+  .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
+  .page h1 { font-size: 26px; line-height: 1.3; margin: 8px 0 20px; }
+  .page .answer a { color: var(--link); }
+  .page .vertical { font-size: 13px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }
+  .page .answer ul { padding-left: 22px; }
+  .page .answer code { background: var(--code-bg); border-radius: 5px; padding: 1px 5px; font-size: 0.9em; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+  .page .ask { display: inline-block; margin-top: 24px; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 9px 18px; text-decoration: none; font-weight: 600; }
+  .page .related { margin-top: 36px; border-top: 1px solid var(--border); padding-top: 18px; }
+  .page .related h2 { font-size: 16px; }
+  .page .related a { color: var(--link); text-decoration: none; }
+  .page .related a:hover { text-decoration: underline; }
+  .page .related li { margin: 6px 0; }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="../../" style="text-decoration:none;color:inherit">
+    <span class="brand-dot">F</span>
+    <span class="brand-name">FabGPT-FAQ</span>
+  </a>
+</header>
+<main class="page">
+  <div class="vertical">Cybersecurity</div>
+  <h1>Cos&#x27;è la Memory Tagging Extension (MTE)?</h1>
+  <div class="answer"><p>La stragrande maggioranza delle vulnerabilità gravi (buffer overflow, use-after-free) nasce da <strong>errori di gestione della memoria</strong> in linguaggi come C/C++: codice che legge o scrive dove non dovrebbe. La <strong>Memory Tagging Extension (MTE)</strong> – nei processori ARM moderni – li intercetta <em>in hardware</em>: a ogni blocco di memoria allocato viene assegnato un <strong>tag</strong> (un piccolo numero), e ogni puntatore porta lo stesso tag; se un accesso usa un puntatore il cui tag non corrisponde a quello della memoria (perché è andato fuori dai limiti, o punta a memoria già liberata), l&#x27;hardware <strong>blocca</strong> l&#x27;operazione all&#x27;istante.</p><p>È un cambio di paradigma: invece di <em>sperare</em> che il codice sia corretto o di trovare i bug uno a uno, l&#x27;hardware rende <strong>la classe intera di attacchi</strong> molto più difficile da sfruttare – trasforma una corruzione silenziosa (che l&#x27;attaccante sfrutta) in un crash controllato (che al massimo è un denial of service). GrapheneOS e Android lo sfruttano già; sta arrivando lato server.</p><p>Si inserisce nel filone delle difese <em>strutturali</em> alla memory safety, insieme all&#x27;adozione di <strong>linguaggi memory-safe</strong> (Rust in testa – non a caso <a href="../cos-e-proxxx-cockpit-terminale-proxmox/">proxxx, zion e i tool Rust del portfolio</a> eliminano intere classi di bug per costruzione) e alle protezioni classiche (ASLR, DEP, stack canary). MTE non risolve tutto, ma alza drasticamente il costo dello sfruttamento – la stessa filosofia della <a href="../cos-e-la-defense-in-depth/">defense in depth</a>: rendere l&#x27;attacco caro, non solo raro.</p></div>
+  <a class="ask" href="../../?q=mte">Chiedilo a FabGPT-FAQ →</a>
+  <div class="related">
+    <h2>Altre domande</h2>
+    <ul><li><a href="../cos-e-un-waf-web-application-firewall/">Cos&#x27;è un WAF (Web Application Firewall) e a cosa serve?</a></li><li><a href="../cos-e-un-reverse-proxy/">Cos&#x27;è un reverse proxy e a cosa serve?</a></li><li><a href="../come-funziona-lets-encrypt-acme/">Come funziona Let&#x27;s Encrypt e il protocollo ACME?</a></li><li><a href="../certificato-tls-scaduto-cosa-fare/">Certificato TLS scaduto: perché succede e come evitarlo?</a></li><li><a href="../cos-e-un-siem-e-un-soar/">Cos&#x27;è un SIEM e cos&#x27;è un SOAR?</a></li><li><a href="../nis2-chi-deve-adeguarsi-italia/">Chi deve adeguarsi alla NIS2 in Italia e cosa rischia?</a></li></ul>
+  </div>
+</main>
+</body>
+</html>

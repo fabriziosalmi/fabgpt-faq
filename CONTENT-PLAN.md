@@ -353,7 +353,18 @@ non ha pagina propria) sono lavoro, non copertura.
   anonimato (Tails-Whonix/VeraCrypt/MAT2/offuscamento-censura), sovranità UE
   (cloud provider EU/Proton-Tuta/SearXNG/DMA-DSA-DataAct/fediverso), messaggistica
   sovrana (VoIP/team-chat). Post-B8: 199 covered, 197 partial, 4 gap.
-- Prossimi giri di massa: convertire i ~197 partial in voci dedicate a blocchi
+- **B9 (mass #3, 36 voci)**: blocco **threat/malware/forensics + endpoint hardening**.
+  Threat/malware (Living-off-the-Land, process injection/DLL sideloading, MITRE
+  ATT&CK, AD attacks/Kerberoasting, Pass-the-Hash, dependency confusion, insider
+  threat, rootkit/bootkit, malware polimorfico). SOC ops (SIEM/SOAR/XDR, alert
+  fatigue, NDR, MTTD/MTTR, playbook SOAR). Forensics/IR (fasi NIST, chain of
+  custody, memory forensics, artefatti Windows, tabletop exercise, DC compromesso,
+  crisis communication). Endpoint/kernel hardening (Secure Boot, USBGuard/BadUSB,
+  eBPF, sandbox app Flatpak/Snap, MTE, security baselines CIS/Ansible, impianti
+  hardware/firmware, NFC/RFID). AI security (Direct vs Indirect injection, model
+  inversion/membership inference, NIST AI RMF, UEBA, runaway agent, seccomp/gVisor,
+  agent exfiltration via Markdown). Post-B9: 228 covered, 170 partial, 2 gap.
+- Prossimi giri di massa: convertire i ~170 partial in voci dedicate a blocchi
   tematici (ogni giro riesegue `triage.py` per misurare l'avanzamento).
 
 ## Fase 2 – "livello super" (dopo il primo giro di contenuti)

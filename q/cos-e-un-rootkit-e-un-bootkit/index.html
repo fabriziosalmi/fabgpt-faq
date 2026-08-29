@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cos&#x27;è un rootkit (e un bootkit)? – FabGPT-FAQ</title>
+<meta name="description" content="Un rootkit è malware progettato per nascondersi e mantenere l&#x27;accesso operando ai livelli più profondi del sistema. Più in basso opera, più è invisibile e…">
+<link rel="canonical" href="https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-un-rootkit-e-un-bootkit/">
+<link rel="stylesheet" href="../../style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Cos'è un rootkit (e un bootkit)?", "acceptedAnswer": {"@type": "Answer", "text": "Un rootkit è malware progettato per nascondersi e mantenere l'accesso operando ai livelli più profondi del sistema. Più in basso opera, più è invisibile e potente: user-mode – aggancia le API per nascondere processi e file dall'occhio dei tool normali kernel-mode (ring 0) – vive dentro il kernel: da lì può mentire a qualsiasi software di sicurezza che gira sopra (\"quel processo? non esiste\"). Difendere il sistema dal kernel, quando il kernel è compromesso, è quasi impossibile bootkit – infetta il bootloader o l'UEFI/firmware: si carica prima del sistema operativo, quindi prima di ogni difesa, e sopravvive alla reinstallazione dell'OS e perfino alla sostituzione del disco (se è nel firmware) Sono l'apice della persistenza furtiva. Le difese sono sotto il sistema operativo: [Secure Boot](q/secure-boot-personalizzato-chiavi-proprie/) (verifica la firma della catena di avvio – la barriera principale contro i bootkit), il TPM con measured boot, e per il rilevamento, l'[analisi della memoria](q/analisi-forense-della-memoria-ram/) da un ambiente esterno fidato (un rootkit può mentire dall'interno, ma un dump analizzato da fuori lo smaschera confrontando ciò che il sistema dice con ciò che è). Per i casi estremi, la fiducia si ricostruisce solo da hardware pulito. È il motivo per cui la [root of trust](q/secure-boot-personalizzato-chiavi-proprie/) hardware conta: se l'avvio è manomesso, tutto ciò che segue mente."}}]}</script>
+<style>
+  .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
+  .page h1 { font-size: 26px; line-height: 1.3; margin: 8px 0 20px; }
+  .page .answer a { color: var(--link); }
+  .page .vertical { font-size: 13px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }
+  .page .answer ul { padding-left: 22px; }
+  .page .answer code { background: var(--code-bg); border-radius: 5px; padding: 1px 5px; font-size: 0.9em; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+  .page .ask { display: inline-block; margin-top: 24px; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 9px 18px; text-decoration: none; font-weight: 600; }
+  .page .related { margin-top: 36px; border-top: 1px solid var(--border); padding-top: 18px; }
+  .page .related h2 { font-size: 16px; }
+  .page .related a { color: var(--link); text-decoration: none; }
+  .page .related a:hover { text-decoration: underline; }
+  .page .related li { margin: 6px 0; }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="../../" style="text-decoration:none;color:inherit">
+    <span class="brand-dot">F</span>
+    <span class="brand-name">FabGPT-FAQ</span>
+  </a>
+</header>
+<main class="page">
+  <div class="vertical">Cybersecurity</div>
+  <h1>Cos&#x27;è un rootkit (e un bootkit)?</h1>
+  <div class="answer"><p>Un <strong>rootkit</strong> è malware progettato per <strong>nascondersi e mantenere l&#x27;accesso</strong> operando ai livelli più profondi del sistema. Più in basso opera, più è invisibile e potente:</p><ul><li><strong>user-mode</strong> – aggancia le API per nascondere processi e file dall&#x27;occhio dei tool normali</li><li><strong>kernel-mode</strong> (ring 0) – vive <em>dentro</em> il kernel: da lì può mentire a <em>qualsiasi</em> software di sicurezza che gira sopra (&quot;quel processo? non esiste&quot;). Difendere il sistema <em>dal</em> kernel, quando il kernel è compromesso, è quasi impossibile</li><li><strong>bootkit</strong> – infetta il <strong>bootloader</strong> o l&#x27;<strong>UEFI/firmware</strong>: si carica <em>prima</em> del sistema operativo, quindi prima di ogni difesa, e sopravvive alla reinstallazione dell&#x27;OS e perfino alla sostituzione del disco (se è nel firmware)</li></ul><p>Sono l&#x27;apice della persistenza furtiva. Le difese sono <em>sotto</em> il sistema operativo: <strong><a href="../secure-boot-personalizzato-chiavi-proprie/">Secure Boot</a></strong> (verifica la firma della catena di avvio – la barriera principale contro i bootkit), il <strong>TPM</strong> con measured boot, e per il rilevamento, l&#x27;<a href="../analisi-forense-della-memoria-ram/">analisi della memoria</a> da un ambiente esterno fidato (un rootkit può mentire dall&#x27;interno, ma un dump analizzato da fuori lo smaschera confrontando ciò che il sistema <em>dice</em> con ciò che <em>è</em>). Per i casi estremi, la fiducia si ricostruisce solo da hardware pulito. È il motivo per cui la <a href="../secure-boot-personalizzato-chiavi-proprie/">root of trust</a> hardware conta: se l&#x27;avvio è manomesso, tutto ciò che segue mente.</p></div>
+  <a class="ask" href="../../?q=rootkit-bootkit">Chiedilo a FabGPT-FAQ →</a>
+  <div class="related">
+    <h2>Altre domande</h2>
+    <ul><li><a href="../cos-e-un-waf-web-application-firewall/">Cos&#x27;è un WAF (Web Application Firewall) e a cosa serve?</a></li><li><a href="../cos-e-un-reverse-proxy/">Cos&#x27;è un reverse proxy e a cosa serve?</a></li><li><a href="../come-funziona-lets-encrypt-acme/">Come funziona Let&#x27;s Encrypt e il protocollo ACME?</a></li><li><a href="../certificato-tls-scaduto-cosa-fare/">Certificato TLS scaduto: perché succede e come evitarlo?</a></li><li><a href="../cos-e-un-siem-e-un-soar/">Cos&#x27;è un SIEM e cos&#x27;è un SOAR?</a></li><li><a href="../nis2-chi-deve-adeguarsi-italia/">Chi deve adeguarsi alla NIS2 in Italia e cosa rischia?</a></li></ul>
+  </div>
+</main>
+</body>
+</html>

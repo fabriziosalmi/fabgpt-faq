@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cos&#x27;è la Dependency Confusion? – FabGPT-FAQ</title>
+<meta name="description" content="La Dependency Confusion sfrutta come i gestori di pacchetti scelgono da dove scaricare una dipendenza. Molte aziende usano pacchetti interni (azienda-utils)…">
+<link rel="canonical" href="https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-la-dependency-confusion/">
+<link rel="stylesheet" href="../../style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Cos'è la Dependency Confusion?", "acceptedAnswer": {"@type": "Answer", "text": "La Dependency Confusion sfrutta come i gestori di pacchetti scelgono da dove scaricare una dipendenza. Molte aziende usano pacchetti interni (azienda-utils) ospitati su un registry privato. Se un attaccante pubblica un pacchetto con lo stesso nome e una versione più alta sul registry pubblico (npm, PyPI), il gestore – configurato male – può preferirlo: scarica ed esegue il pacchetto dell'attaccante credendolo l'aggiornamento interno. Alex Birsan lo dimostrò nel 2021 bucando decine di grandi aziende con questa sola idea. È imparentato con il [typosquatting](q/cos-e-il-typosquatting/) e con lo slopsquatting ([i nomi di pacchetti che gli LLM inventano](q/allucinazioni-llm-dipendenze-inventate/)): tutte varianti dell'attacco alla [supply chain](q/cos-e-la-supply-chain-security/) via nome. Le difese: scoping/namespace dei pacchetti interni (npm scopes, prefissi riservati), pinning con lockfile e hash verificati, configurare il gestore perché i pacchetti interni vengano solo dal registry privato (mai fallback al pubblico per quei nomi), e proxy/mirror controllati. Sul fronte automatico, uno strumento in [pipeline](q/sicurezza-nella-pipeline-cicd/) come ai-dependency-guard valida le dipendenze contro i registry ufficiali – la stessa logica applicata a un problema imparentato."}}]}</script>
+<style>
+  .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
+  .page h1 { font-size: 26px; line-height: 1.3; margin: 8px 0 20px; }
+  .page .answer a { color: var(--link); }
+  .page .vertical { font-size: 13px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }
+  .page .answer ul { padding-left: 22px; }
+  .page .answer code { background: var(--code-bg); border-radius: 5px; padding: 1px 5px; font-size: 0.9em; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+  .page .ask { display: inline-block; margin-top: 24px; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 9px 18px; text-decoration: none; font-weight: 600; }
+  .page .related { margin-top: 36px; border-top: 1px solid var(--border); padding-top: 18px; }
+  .page .related h2 { font-size: 16px; }
+  .page .related a { color: var(--link); text-decoration: none; }
+  .page .related a:hover { text-decoration: underline; }
+  .page .related li { margin: 6px 0; }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="../../" style="text-decoration:none;color:inherit">
+    <span class="brand-dot">F</span>
+    <span class="brand-name">FabGPT-FAQ</span>
+  </a>
+</header>
+<main class="page">
+  <div class="vertical">Cybersecurity</div>
+  <h1>Cos&#x27;è la Dependency Confusion?</h1>
+  <div class="answer"><p>La <strong>Dependency Confusion</strong> sfrutta come i gestori di pacchetti scelgono <em>da dove</em> scaricare una dipendenza. Molte aziende usano pacchetti <strong>interni</strong> (<code>azienda-utils</code>) ospitati su un registry privato. Se un attaccante pubblica un pacchetto con lo <strong>stesso nome</strong> e una <strong>versione più alta</strong> sul registry <em>pubblico</em> (npm, PyPI), il gestore – configurato male – può preferirlo: scarica ed esegue il pacchetto dell&#x27;attaccante credendolo l&#x27;aggiornamento interno. Alex Birsan lo dimostrò nel 2021 bucando decine di grandi aziende con questa sola idea.</p><p>È imparentato con il <a href="../cos-e-il-typosquatting/">typosquatting</a> e con lo <strong>slopsquatting</strong> (<a href="../allucinazioni-llm-dipendenze-inventate/">i nomi di pacchetti che gli LLM inventano</a>): tutte varianti dell&#x27;attacco alla <a href="../cos-e-la-supply-chain-security/">supply chain</a> via nome.</p><p>Le difese: <strong>scoping/namespace</strong> dei pacchetti interni (npm scopes, prefissi riservati), <strong>pinning</strong> con lockfile e hash verificati, configurare il gestore perché i pacchetti interni vengano <em>solo</em> dal registry privato (mai fallback al pubblico per quei nomi), e proxy/mirror controllati. Sul fronte automatico, uno strumento in <a href="../sicurezza-nella-pipeline-cicd/">pipeline</a> come <a href="https://github.com/fabriziosalmi/ai-dependency-guard" target="_blank" rel="noopener">ai-dependency-guard</a> valida le dipendenze contro i registry ufficiali – la stessa logica applicata a un problema imparentato.</p></div>
+  <a class="ask" href="../../?q=dependency-confusion">Chiedilo a FabGPT-FAQ →</a>
+  <div class="related">
+    <h2>Altre domande</h2>
+    <ul><li><a href="../cos-e-un-waf-web-application-firewall/">Cos&#x27;è un WAF (Web Application Firewall) e a cosa serve?</a></li><li><a href="../cos-e-un-reverse-proxy/">Cos&#x27;è un reverse proxy e a cosa serve?</a></li><li><a href="../come-funziona-lets-encrypt-acme/">Come funziona Let&#x27;s Encrypt e il protocollo ACME?</a></li><li><a href="../certificato-tls-scaduto-cosa-fare/">Certificato TLS scaduto: perché succede e come evitarlo?</a></li><li><a href="../cos-e-un-siem-e-un-soar/">Cos&#x27;è un SIEM e cos&#x27;è un SOAR?</a></li><li><a href="../nis2-chi-deve-adeguarsi-italia/">Chi deve adeguarsi alla NIS2 in Italia e cosa rischia?</a></li></ul>
+  </div>
+</main>
+</body>
+</html>

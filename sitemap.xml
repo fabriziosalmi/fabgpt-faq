@@ -322,6 +322,42 @@
   <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-il-fediverso-activitypub/</loc></url>
   <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/centralino-voip-self-hosted-asterisk/</loc></url>
   <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/chat-di-team-self-hosted-mattermost/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-un-attacco-living-off-the-land/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/process-injection-e-dll-sideloading/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-la-matrice-mitre-attack/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/attacchi-active-directory-kerberoasting/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-pass-the-hash/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-la-dependency-confusion/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-un-insider-threat/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/differenza-siem-soar-xdr/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/alert-fatigue-nel-soc/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-ndr-network-detection-response/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/metriche-soc-mttd-mttr/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/playbook-soar-isolamento-endpoint/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/fasi-incident-response-nist/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/catena-di-custodia-forense/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/analisi-forense-della-memoria-ram/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/artefatti-forensi-windows/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/tabletop-exercise-simulazione-crisi/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/contenimento-compromissione-domain-controller/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/comunicazione-di-crisi-cyber/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/secure-boot-personalizzato-chiavi-proprie/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/usbguard-bloccare-badusb/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/ebpf-osservabilita-e-sicurezza-kernel/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/isolamento-applicazioni-flatpak-snap-firejail/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-memory-tagging-extension-mte/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/security-baseline-e-automazione-hardening/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-un-rootkit-e-un-bootkit/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/malware-polimorfico-e-offuscamento/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/direct-e-indirect-prompt-injection/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/model-inversion-e-membership-inference/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/nist-ai-risk-management-framework/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-ueba-user-entity-behavior-analytics/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/prevenire-il-runaway-agent-loop/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/sandbox-syscall-seccomp-gvisor/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/esfiltrazione-dati-tramite-agenti-ai/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/impianti-hardware-e-firmware-malevolo/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/clonazione-nfc-rfid-e-difese/</loc></url>
   <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/vm-non-parte-proxmox/</loc></url>
   <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/nodo-x-rossa-quorum-perso/</loc></url>
   <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/storage-pieno-liberare-spazio/</loc></url>

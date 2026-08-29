@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cos&#x27;è l&#x27;alert fatigue (e come si riduce nel SOC)? – FabGPT-FAQ</title>
+<meta name="description" content="L&#x27;alert fatigue è il male cronico dei [SOC](q/cos-e-un-soc-security-operations-center/): quando gli allarmi sono migliaia al giorno e la stragrande…">
+<link rel="canonical" href="https://fabriziosalmi.github.io/fabgpt-faq/q/alert-fatigue-nel-soc/">
+<link rel="stylesheet" href="../../style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Cos'è l'alert fatigue (e come si riduce nel SOC)?", "acceptedAnswer": {"@type": "Answer", "text": "L'alert fatigue è il male cronico dei [SOC](q/cos-e-un-soc-security-operations-center/): quando gli allarmi sono migliaia al giorno e la stragrande maggioranza sono falsi positivi, gli analisti si assuefanno – e l'allarme vero annega nel rumore, ignorato come tutti gli altri. Diversi breach famosi hanno avuto l'allarme corretto... che nessuno ha guardato. È un problema di sicurezza e di sostenibilità umana (burnout, turnover). Le leve per ridurla, in ordine: taratura spietata delle regole: ogni regola di [detection](q/detection-engineering-e-event-id/) va misurata sul tasso di falsi positivi e aggiustata – una regola che urla sempre va corretta o spenta, non tollerata arricchimento automatico: prima che un umano guardi, il [SOAR](q/differenza-siem-soar-xdr/) aggiunge contesto (chi è quest'IP? questo utente? è già noto?) – metà dei triage si chiudono da soli prioritizzazione per rischio reale: severità × criticità dell'asset (dalla [BIA](q/business-impact-analysis-bia/)) × affidabilità della fonte – non tutti gli allarmi meritano un umano [playbook](q/playbook-soar-isolamento-endpoint/) che automatizzano il ripetitivo, lasciando alle persone il giudizio È lo stesso principio di [ogni buon gate](q/come-si-testano-le-applicazioni-llm/): rigido su ciò che conta, silenzioso sul rumore. Un allarme che nessuno può permettersi di ignorare vale più di mille che tutti ignorano."}}]}</script>
+<style>
+  .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
+  .page h1 { font-size: 26px; line-height: 1.3; margin: 8px 0 20px; }
+  .page .answer a { color: var(--link); }
+  .page .vertical { font-size: 13px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }
+  .page .answer ul { padding-left: 22px; }
+  .page .answer code { background: var(--code-bg); border-radius: 5px; padding: 1px 5px; font-size: 0.9em; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+  .page .ask { display: inline-block; margin-top: 24px; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 9px 18px; text-decoration: none; font-weight: 600; }
+  .page .related { margin-top: 36px; border-top: 1px solid var(--border); padding-top: 18px; }
+  .page .related h2 { font-size: 16px; }
+  .page .related a { color: var(--link); text-decoration: none; }
+  .page .related a:hover { text-decoration: underline; }
+  .page .related li { margin: 6px 0; }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="../../" style="text-decoration:none;color:inherit">
+    <span class="brand-dot">F</span>
+    <span class="brand-name">FabGPT-FAQ</span>
+  </a>
+</header>
+<main class="page">
+  <div class="vertical">Cybersecurity</div>
+  <h1>Cos&#x27;è l&#x27;alert fatigue (e come si riduce nel SOC)?</h1>
+  <div class="answer"><p>L&#x27;<strong>alert fatigue</strong> è il male cronico dei <a href="../cos-e-un-soc-security-operations-center/">SOC</a>: quando gli allarmi sono migliaia al giorno e la stragrande maggioranza sono falsi positivi, gli analisti si assuefanno – e l&#x27;allarme <em>vero</em> annega nel rumore, ignorato come tutti gli altri. Diversi breach famosi hanno avuto l&#x27;allarme corretto... che nessuno ha guardato. È un problema di sicurezza <em>e</em> di sostenibilità umana (burnout, turnover).</p><p>Le leve per ridurla, in ordine:</p><ul><li><strong>taratura spietata delle regole</strong>: ogni regola di <a href="../detection-engineering-e-event-id/">detection</a> va misurata sul tasso di falsi positivi e aggiustata – una regola che urla sempre va corretta o spenta, non tollerata</li><li><strong>arricchimento automatico</strong>: prima che un umano guardi, il <a href="../differenza-siem-soar-xdr/">SOAR</a> aggiunge contesto (chi è quest&#x27;IP? questo utente? è già noto?) – metà dei triage si chiudono da soli</li><li><strong>prioritizzazione per rischio reale</strong>: severità × criticità dell&#x27;asset (dalla <a href="../business-impact-analysis-bia/">BIA</a>) × affidabilità della fonte – non tutti gli allarmi meritano un umano</li><li><strong><a href="../playbook-soar-isolamento-endpoint/">playbook</a></strong> che automatizzano il ripetitivo, lasciando alle persone il giudizio</li></ul><p>È lo stesso principio di <a href="../come-si-testano-le-applicazioni-llm/">ogni buon gate</a>: rigido su ciò che conta, silenzioso sul rumore. Un allarme che nessuno può permettersi di ignorare vale più di mille che tutti ignorano.</p></div>
+  <a class="ask" href="../../?q=alert-fatigue">Chiedilo a FabGPT-FAQ →</a>
+  <div class="related">
+    <h2>Altre domande</h2>
+    <ul><li><a href="../cos-e-un-waf-web-application-firewall/">Cos&#x27;è un WAF (Web Application Firewall) e a cosa serve?</a></li><li><a href="../cos-e-un-reverse-proxy/">Cos&#x27;è un reverse proxy e a cosa serve?</a></li><li><a href="../come-funziona-lets-encrypt-acme/">Come funziona Let&#x27;s Encrypt e il protocollo ACME?</a></li><li><a href="../certificato-tls-scaduto-cosa-fare/">Certificato TLS scaduto: perché succede e come evitarlo?</a></li><li><a href="../cos-e-un-siem-e-un-soar/">Cos&#x27;è un SIEM e cos&#x27;è un SOAR?</a></li><li><a href="../nis2-chi-deve-adeguarsi-italia/">Chi deve adeguarsi alla NIS2 in Italia e cosa rischia?</a></li></ul>
+  </div>
+</main>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Domain Controller compromesso: i passaggi prioritari di contenimento – FabGPT-FAQ</title>
+<meta name="description" content="Il compromesso di un Domain Controller è lo scenario peggiore in una rete Windows: chi controlla il DC controlla tutte le identità, può forgiare ticket…">
+<link rel="canonical" href="https://fabriziosalmi.github.io/fabgpt-faq/q/contenimento-compromissione-domain-controller/">
+<link rel="stylesheet" href="../../style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Domain Controller compromesso: i passaggi prioritari di contenimento", "acceptedAnswer": {"@type": "Answer", "text": "Il compromesso di un Domain Controller è lo scenario peggiore in una rete Windows: chi controlla il DC controlla tutte le identità, può forgiare ticket ([Golden Ticket](q/attacchi-active-directory-kerberoasting/)) e ha accesso persistente a tutto. Il contenimento richiede lucidità sotto pressione: non fidarti di nulla nel dominio: l'attaccante potrebbe avere credenziali di ogni account. Non usare account potenzialmente compromessi per la risposta preserva le prove ([RAM](q/analisi-forense-della-memoria-ram/) e [artefatti](q/artefatti-forensi-windows/)) prima di bonificare – ma bilanciando col fermare l'emorragia reset di krbtgt due volte – è la mossa specifica che invalida i Golden Ticket forgiati (va fatto due volte per la rotazione delle chiavi, con l'intervallo giusto per non rompere il dominio) reset massivo delle credenziali privilegiate e degli account di servizio, revoca delle sessioni capire l'estensione prima di riaprire: come sono entrati? Da quanto? Cos'altro toccano? Bonificare il DC mentre l'attaccante ha altri punti d'appoggio insegna solo a nascondersi meglio La verità scomoda: da un DC compromesso seriamente, molti esperti raccomandano la ricostruzione da zero del dominio – la fiducia, una volta persa a quel livello, è difficilissima da ripristinare con certezza. È il motivo per cui la [prevenzione architetturale](q/attacchi-active-directory-kerberoasting/) (tiering, [PAM](q/pam-e-accesso-just-in-time/), [detection](q/detection-engineering-e-event-id/) sugli accessi anomali) conta più di qualsiasi piano di risposta: qui il piano B è dolorosissimo."}}]}</script>
+<style>
+  .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
+  .page h1 { font-size: 26px; line-height: 1.3; margin: 8px 0 20px; }
+  .page .answer a { color: var(--link); }
+  .page .vertical { font-size: 13px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }
+  .page .answer ul { padding-left: 22px; }
+  .page .answer code { background: var(--code-bg); border-radius: 5px; padding: 1px 5px; font-size: 0.9em; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+  .page .ask { display: inline-block; margin-top: 24px; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 9px 18px; text-decoration: none; font-weight: 600; }
+  .page .related { margin-top: 36px; border-top: 1px solid var(--border); padding-top: 18px; }
+  .page .related h2 { font-size: 16px; }
+  .page .related a { color: var(--link); text-decoration: none; }
+  .page .related a:hover { text-decoration: underline; }
+  .page .related li { margin: 6px 0; }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="../../" style="text-decoration:none;color:inherit">
+    <span class="brand-dot">F</span>
+    <span class="brand-name">FabGPT-FAQ</span>
+  </a>
+</header>
+<main class="page">
+  <div class="vertical">Cybersecurity</div>
+  <h1>Domain Controller compromesso: i passaggi prioritari di contenimento</h1>
+  <div class="answer"><p>Il compromesso di un <strong>Domain Controller</strong> è lo scenario peggiore in una rete Windows: chi controlla il DC controlla <em>tutte</em> le identità, può forgiare ticket (<a href="../attacchi-active-directory-kerberoasting/">Golden Ticket</a>) e ha accesso persistente a tutto. Il contenimento richiede lucidità sotto pressione:</p><ul><li><strong>non fidarti di nulla nel dominio</strong>: l&#x27;attaccante potrebbe avere credenziali di <em>ogni</em> account. Non usare account potenzialmente compromessi per la risposta</li><li><strong>preserva le prove</strong> (<a href="../analisi-forense-della-memoria-ram/">RAM</a> e <a href="../artefatti-forensi-windows/">artefatti</a>) <em>prima</em> di bonificare – ma bilanciando col fermare l&#x27;emorragia</li><li><strong>reset di <code>krbtgt</code> due volte</strong> – è la mossa specifica che invalida i Golden Ticket forgiati (va fatto due volte per la rotazione delle chiavi, con l&#x27;intervallo giusto per non rompere il dominio)</li><li><strong>reset massivo delle credenziali</strong> privilegiate e degli account di servizio, revoca delle sessioni</li><li><strong>capire l&#x27;estensione prima di riaprire</strong>: come sono entrati? Da quanto? Cos&#x27;altro toccano? Bonificare il DC mentre l&#x27;attaccante ha altri punti d&#x27;appoggio insegna solo a nascondersi meglio</li></ul><p>La verità scomoda: da un DC compromesso <em>seriamente</em>, molti esperti raccomandano la <strong>ricostruzione da zero</strong> del dominio – la fiducia, una volta persa a quel livello, è difficilissima da ripristinare con certezza. È il motivo per cui la <a href="../attacchi-active-directory-kerberoasting/">prevenzione architetturale</a> (tiering, <a href="../pam-e-accesso-just-in-time/">PAM</a>, <a href="../detection-engineering-e-event-id/">detection</a> sugli accessi anomali) conta più di qualsiasi piano di risposta: qui il piano B è dolorosissimo.</p></div>
+  <a class="ask" href="../../?q=dc-compromise">Chiedilo a FabGPT-FAQ →</a>
+  <div class="related">
+    <h2>Altre domande</h2>
+    <ul><li><a href="../cos-e-un-waf-web-application-firewall/">Cos&#x27;è un WAF (Web Application Firewall) e a cosa serve?</a></li><li><a href="../cos-e-un-reverse-proxy/">Cos&#x27;è un reverse proxy e a cosa serve?</a></li><li><a href="../come-funziona-lets-encrypt-acme/">Come funziona Let&#x27;s Encrypt e il protocollo ACME?</a></li><li><a href="../certificato-tls-scaduto-cosa-fare/">Certificato TLS scaduto: perché succede e come evitarlo?</a></li><li><a href="../cos-e-un-siem-e-un-soar/">Cos&#x27;è un SIEM e cos&#x27;è un SOAR?</a></li><li><a href="../nis2-chi-deve-adeguarsi-italia/">Chi deve adeguarsi alla NIS2 in Italia e cosa rischia?</a></li></ul>
+  </div>
+</main>
+</body>
+</html>

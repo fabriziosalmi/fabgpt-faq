@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Come ci si difende dalla clonazione di credenziali NFC/RFID? – FabGPT-FAQ</title>
+<meta name="description" content="Le credenziali contactless (badge di accesso, carte) sono comode e, nelle versioni vecchie, spaventosamente insicure. I rischi: clonazione: le tecnologie…">
+<link rel="canonical" href="https://fabriziosalmi.github.io/fabgpt-faq/q/clonazione-nfc-rfid-e-difese/">
+<link rel="stylesheet" href="../../style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Come ci si difende dalla clonazione di credenziali NFC/RFID?", "acceptedAnswer": {"@type": "Answer", "text": "Le credenziali contactless (badge di accesso, carte) sono comode e, nelle versioni vecchie, spaventosamente insicure. I rischi: clonazione: le tecnologie legacy come MIFARE Classic sono crittograficamente rotte da anni – un badge si copia in secondi con hardware economico (un Proxmark, o perfino un telefono). Molti sistemi di accesso aziendali girano ancora su queste relay attack: due dispositivi che fanno da ponte estendono il raggio di una carta – la carta è in tasca, ma un attaccante ne \"allunga\" il segnale per usarla a distanza (rilevante anche per le chiavi auto keyless) skimming: lettura non autorizzata a distanza ravvicinata Le difese: migrare a tecnologie moderne – MIFARE DESFire EV2/EV3 o SEOS, con crittografia forte e mutua autenticazione (la clonazione banale non funziona più); per le carte di pagamento e i passaporti, le guaine schermanti (Faraday) contro lo skimming; contro il relay sulle auto, custodie schermate per le chiavi. E il principio di sempre: il contactless è un fattore, e per gli accessi che contano va combinato con altro ([MFA](q/cos-e-autenticazione-due-fattori-mfa/), PIN) in [difesa in profondità](q/cos-e-la-defense-in-depth/) – un badge, come una password, non dovrebbe mai essere l'unica cosa tra un estraneo e il tuo sistema. Sul fronte digitale, l'equivalente robusto sono le [chiavi di sicurezza FIDO2](q/chiavi-di-sicurezza-hardware-yubikey/), che il relay e la clonazione non toccano."}}]}</script>
+<style>
+  .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
+  .page h1 { font-size: 26px; line-height: 1.3; margin: 8px 0 20px; }
+  .page .answer a { color: var(--link); }
+  .page .vertical { font-size: 13px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }
+  .page .answer ul { padding-left: 22px; }
+  .page .answer code { background: var(--code-bg); border-radius: 5px; padding: 1px 5px; font-size: 0.9em; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+  .page .ask { display: inline-block; margin-top: 24px; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 9px 18px; text-decoration: none; font-weight: 600; }
+  .page .related { margin-top: 36px; border-top: 1px solid var(--border); padding-top: 18px; }
+  .page .related h2 { font-size: 16px; }
+  .page .related a { color: var(--link); text-decoration: none; }
+  .page .related a:hover { text-decoration: underline; }
+  .page .related li { margin: 6px 0; }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="../../" style="text-decoration:none;color:inherit">
+    <span class="brand-dot">F</span>
+    <span class="brand-name">FabGPT-FAQ</span>
+  </a>
+</header>
+<main class="page">
+  <div class="vertical">Cybersecurity</div>
+  <h1>Come ci si difende dalla clonazione di credenziali NFC/RFID?</h1>
+  <div class="answer"><p>Le credenziali <strong>contactless</strong> (badge di accesso, carte) sono comode e, nelle versioni vecchie, spaventosamente insicure. I rischi:</p><ul><li><strong>clonazione</strong>: le tecnologie legacy come <strong>MIFARE Classic</strong> sono crittograficamente rotte da anni – un badge si copia in secondi con hardware economico (un Proxmark, o perfino un telefono). Molti sistemi di accesso aziendali girano ancora su queste</li><li><strong>relay attack</strong>: due dispositivi che fanno da ponte estendono il raggio di una carta – la carta è in tasca, ma un attaccante ne &quot;allunga&quot; il segnale per usarla a distanza (rilevante anche per le chiavi auto keyless)</li><li><strong>skimming</strong>: lettura non autorizzata a distanza ravvicinata</li></ul><p>Le difese: <strong>migrare a tecnologie moderne</strong> – MIFARE <strong>DESFire EV2/EV3</strong> o <strong>SEOS</strong>, con crittografia forte e mutua autenticazione (la clonazione banale non funziona più); per le carte di pagamento e i passaporti, le <strong>guaine schermanti</strong> (Faraday) contro lo skimming; contro il relay sulle auto, custodie schermate per le chiavi. E il principio di sempre: il contactless è <strong>un fattore</strong>, e per gli accessi che contano va combinato con altro (<a href="../cos-e-autenticazione-due-fattori-mfa/">MFA</a>, PIN) in <a href="../cos-e-la-defense-in-depth/">difesa in profondità</a> – un badge, come una password, non dovrebbe mai essere l&#x27;unica cosa tra un estraneo e il tuo sistema. Sul fronte digitale, l&#x27;equivalente robusto sono le <a href="../chiavi-di-sicurezza-hardware-yubikey/">chiavi di sicurezza FIDO2</a>, che il relay e la clonazione non toccano.</p></div>
+  <a class="ask" href="../../?q=nfc-rfid-security">Chiedilo a FabGPT-FAQ →</a>
+  <div class="related">
+    <h2>Altre domande</h2>
+    <ul><li><a href="../cos-e-un-waf-web-application-firewall/">Cos&#x27;è un WAF (Web Application Firewall) e a cosa serve?</a></li><li><a href="../cos-e-un-reverse-proxy/">Cos&#x27;è un reverse proxy e a cosa serve?</a></li><li><a href="../come-funziona-lets-encrypt-acme/">Come funziona Let&#x27;s Encrypt e il protocollo ACME?</a></li><li><a href="../certificato-tls-scaduto-cosa-fare/">Certificato TLS scaduto: perché succede e come evitarlo?</a></li><li><a href="../cos-e-un-siem-e-un-soar/">Cos&#x27;è un SIEM e cos&#x27;è un SOAR?</a></li><li><a href="../nis2-chi-deve-adeguarsi-italia/">Chi deve adeguarsi alla NIS2 in Italia e cosa rischia?</a></li></ul>
+  </div>
+</main>
+</body>
+</html>

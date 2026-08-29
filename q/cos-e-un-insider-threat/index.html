@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Come si caratterizza e rileva un insider threat? – FabGPT-FAQ</title>
+<meta name="description" content="L&#x27;insider threat è la minaccia che viene da dentro – chi ha già accesso legittimo: il dipendente in uscita che si porta via il portafoglio clienti,…">
+<link rel="canonical" href="https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-un-insider-threat/">
+<link rel="stylesheet" href="../../style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Come si caratterizza e rileva un insider threat?", "acceptedAnswer": {"@type": "Answer", "text": "L'insider threat è la minaccia che viene da dentro – chi ha già accesso legittimo: il dipendente in uscita che si porta via il portafoglio clienti, l'amministratore infedele, ma anche il non intenzionale (chi cade nel [phishing](q/cos-e-il-phishing/), chi mette dati sensibili nel posto sbagliato). È particolarmente insidiosa perché non c'è un perimetro da violare: l'accesso è autorizzato, e i controlli anti-intrusione non scattano. I segnali (nel rispetto di privacy e [normativa sul lavoro](q/gdpr-cosa-serve-a-un-sito-web/), che qui è un vincolo serio): accessi a dati fuori dal proprio ruolo, download massivi anomali, attività in orari insoliti, tentativi di aggirare i controlli. Gli strumenti che li colgono sono i motori [UEBA](q/cos-e-ueba-user-entity-behavior-analytics/) – che imparano il comportamento normale di ogni utente e segnalano le deviazioni – e la [DLP](q/data-leakage-via-llm/) sui flussi di dati in uscita. Ma la difesa più efficace è strutturale, non di sorveglianza: [minimo privilegio](q/principio-del-minimo-privilegio/) (nessuno accede a ciò che non gli serve), [separazione dei compiti](q/principio-del-minimo-privilegio/), [log immutabili](q/security-logging-fatto-bene/) che scoraggiano e documentano, offboarding rigoroso (revoca immediata degli accessi a chi esce), e una cultura in cui l'errore in buona fede si può segnalare senza paura. La tecnologia coglie; l'architettura previene."}}]}</script>
+<style>
+  .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
+  .page h1 { font-size: 26px; line-height: 1.3; margin: 8px 0 20px; }
+  .page .answer a { color: var(--link); }
+  .page .vertical { font-size: 13px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }
+  .page .answer ul { padding-left: 22px; }
+  .page .answer code { background: var(--code-bg); border-radius: 5px; padding: 1px 5px; font-size: 0.9em; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+  .page .ask { display: inline-block; margin-top: 24px; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 9px 18px; text-decoration: none; font-weight: 600; }
+  .page .related { margin-top: 36px; border-top: 1px solid var(--border); padding-top: 18px; }
+  .page .related h2 { font-size: 16px; }
+  .page .related a { color: var(--link); text-decoration: none; }
+  .page .related a:hover { text-decoration: underline; }
+  .page .related li { margin: 6px 0; }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="../../" style="text-decoration:none;color:inherit">
+    <span class="brand-dot">F</span>
+    <span class="brand-name">FabGPT-FAQ</span>
+  </a>
+</header>
+<main class="page">
+  <div class="vertical">Cybersecurity</div>
+  <h1>Come si caratterizza e rileva un insider threat?</h1>
+  <div class="answer"><p>L&#x27;<strong>insider threat</strong> è la minaccia che viene da <em>dentro</em> – chi ha già accesso legittimo: il dipendente in uscita che si porta via il portafoglio clienti, l&#x27;amministratore infedele, ma anche il <strong>non intenzionale</strong> (chi cade nel <a href="../cos-e-il-phishing/">phishing</a>, chi mette dati sensibili nel posto sbagliato). È particolarmente insidiosa perché <strong>non c&#x27;è un perimetro da violare</strong>: l&#x27;accesso è autorizzato, e i controlli anti-intrusione non scattano.</p><p>I segnali (nel rispetto di privacy e <a href="../gdpr-cosa-serve-a-un-sito-web/">normativa sul lavoro</a>, che qui è un vincolo serio): accessi a dati fuori dal proprio ruolo, download massivi anomali, attività in orari insoliti, tentativi di aggirare i controlli. Gli strumenti che li colgono sono i motori <strong><a href="../cos-e-ueba-user-entity-behavior-analytics/">UEBA</a></strong> – che imparano il comportamento <em>normale</em> di ogni utente e segnalano le deviazioni – e la <a href="../data-leakage-via-llm/">DLP</a> sui flussi di dati in uscita.</p><p>Ma la difesa più efficace è <strong>strutturale, non di sorveglianza</strong>: <a href="../principio-del-minimo-privilegio/">minimo privilegio</a> (nessuno accede a ciò che non gli serve), <a href="../principio-del-minimo-privilegio/">separazione dei compiti</a>, <a href="../security-logging-fatto-bene/">log immutabili</a> che scoraggiano e documentano, offboarding rigoroso (revoca <em>immediata</em> degli accessi a chi esce), e una cultura in cui l&#x27;errore in buona fede si può segnalare senza paura. La tecnologia coglie; l&#x27;architettura previene.</p></div>
+  <a class="ask" href="../../?q=insider-threat">Chiedilo a FabGPT-FAQ →</a>
+  <div class="related">
+    <h2>Altre domande</h2>
+    <ul><li><a href="../cos-e-un-waf-web-application-firewall/">Cos&#x27;è un WAF (Web Application Firewall) e a cosa serve?</a></li><li><a href="../cos-e-un-reverse-proxy/">Cos&#x27;è un reverse proxy e a cosa serve?</a></li><li><a href="../come-funziona-lets-encrypt-acme/">Come funziona Let&#x27;s Encrypt e il protocollo ACME?</a></li><li><a href="../certificato-tls-scaduto-cosa-fare/">Certificato TLS scaduto: perché succede e come evitarlo?</a></li><li><a href="../cos-e-un-siem-e-un-soar/">Cos&#x27;è un SIEM e cos&#x27;è un SOAR?</a></li><li><a href="../nis2-chi-deve-adeguarsi-italia/">Chi deve adeguarsi alla NIS2 in Italia e cosa rischia?</a></li></ul>
+  </div>
+</main>
+</body>
+</html>

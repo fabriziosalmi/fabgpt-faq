@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Come si preserva la catena di custodia (chain of custody) nelle prove digitali? – FabGPT-FAQ</title>
+<meta name="description" content="La catena di custodia è la documentazione ininterrotta di chi ha maneggiato una prova, quando, come e perché – dal momento dell&#x27;acquisizione fino all&#x27;aula.…">
+<link rel="canonical" href="https://fabriziosalmi.github.io/fabgpt-faq/q/catena-di-custodia-forense/">
+<link rel="stylesheet" href="../../style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Come si preserva la catena di custodia (chain of custody) nelle prove digitali?", "acceptedAnswer": {"@type": "Answer", "text": "La catena di custodia è la documentazione ininterrotta di chi ha maneggiato una prova, quando, come e perché – dal momento dell'acquisizione fino all'aula. Senza, una prova digitale è tecnicamente valida ma legalmente inutilizzabile: la difesa può sostenere che sia stata alterata, e cade. I principi che la reggono: integrità dimostrabile: al momento dell'acquisizione si calcola l'hash (SHA-256) della prova; ogni verifica successiva ricalcola lo stesso hash per provare che nulla è cambiato – è la stessa matematica dei [log tamper-evident](q/security-logging-fatto-bene/) acquisizione non alterante: si lavora su copie forensi bit-a-bit, mai sull'originale; per i dischi si usano write blocker (impediscono qualsiasi scrittura sul supporto sotto esame) documentazione di ogni passaggio: registro firmato di ogni trasferimento e accesso, custodia sicura ordine di volatilità: si acquisisce prima ciò che sparisce prima – [la memoria RAM](q/analisi-forense-della-memoria-ram/) prima dei dischi È il pezzo che trasforma \"sappiamo cosa è successo\" in \"possiamo dimostrarlo\", e conta ogni volta che un incidente può finire in causa, denuncia o contenzioso di lavoro. L'infrastruttura di supporto è la stessa dell'[audit](q/security-logging-fatto-bene/): hash, firme, catene verificabili, orari sincronizzati – la [conservazione a norma di RainLogs](q/conservare-log-cloudflare-nis2-gdpr/) nasce dalla stessa esigenza."}}]}</script>
+<style>
+  .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
+  .page h1 { font-size: 26px; line-height: 1.3; margin: 8px 0 20px; }
+  .page .answer a { color: var(--link); }
+  .page .vertical { font-size: 13px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }
+  .page .answer ul { padding-left: 22px; }
+  .page .answer code { background: var(--code-bg); border-radius: 5px; padding: 1px 5px; font-size: 0.9em; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+  .page .ask { display: inline-block; margin-top: 24px; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 9px 18px; text-decoration: none; font-weight: 600; }
+  .page .related { margin-top: 36px; border-top: 1px solid var(--border); padding-top: 18px; }
+  .page .related h2 { font-size: 16px; }
+  .page .related a { color: var(--link); text-decoration: none; }
+  .page .related a:hover { text-decoration: underline; }
+  .page .related li { margin: 6px 0; }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="../../" style="text-decoration:none;color:inherit">
+    <span class="brand-dot">F</span>
+    <span class="brand-name">FabGPT-FAQ</span>
+  </a>
+</header>
+<main class="page">
+  <div class="vertical">Cybersecurity</div>
+  <h1>Come si preserva la catena di custodia (chain of custody) nelle prove digitali?</h1>
+  <div class="answer"><p>La <strong>catena di custodia</strong> è la documentazione ininterrotta di <em>chi</em> ha maneggiato una prova, <em>quando</em>, <em>come</em> e <em>perché</em> – dal momento dell&#x27;acquisizione fino all&#x27;aula. Senza, una prova digitale è tecnicamente valida ma <strong>legalmente inutilizzabile</strong>: la difesa può sostenere che sia stata alterata, e cade.</p><p>I principi che la reggono:</p><ul><li><strong>integrità dimostrabile</strong>: al momento dell&#x27;acquisizione si calcola l&#x27;<strong>hash</strong> (SHA-256) della prova; ogni verifica successiva ricalcola lo stesso hash per provare che nulla è cambiato – è la stessa matematica dei <a href="../security-logging-fatto-bene/">log tamper-evident</a></li><li><strong>acquisizione non alterante</strong>: si lavora su <strong>copie forensi bit-a-bit</strong>, mai sull&#x27;originale; per i dischi si usano <strong>write blocker</strong> (impediscono qualsiasi scrittura sul supporto sotto esame)</li><li><strong>documentazione di ogni passaggio</strong>: registro firmato di ogni trasferimento e accesso, custodia sicura</li><li><strong>ordine di volatilità</strong>: si acquisisce prima ciò che sparisce prima – <a href="../analisi-forense-della-memoria-ram/">la memoria RAM</a> prima dei dischi</li></ul><p>È il pezzo che trasforma &quot;sappiamo cosa è successo&quot; in &quot;possiamo dimostrarlo&quot;, e conta ogni volta che un incidente può finire in causa, denuncia o contenzioso di lavoro. L&#x27;infrastruttura di supporto è la stessa dell&#x27;<a href="../security-logging-fatto-bene/">audit</a>: hash, firme, catene verificabili, orari sincronizzati – la <a href="../conservare-log-cloudflare-nis2-gdpr/">conservazione a norma di RainLogs</a> nasce dalla stessa esigenza.</p></div>
+  <a class="ask" href="../../?q=chain-of-custody">Chiedilo a FabGPT-FAQ →</a>
+  <div class="related">
+    <h2>Altre domande</h2>
+    <ul><li><a href="../cos-e-un-waf-web-application-firewall/">Cos&#x27;è un WAF (Web Application Firewall) e a cosa serve?</a></li><li><a href="../cos-e-un-reverse-proxy/">Cos&#x27;è un reverse proxy e a cosa serve?</a></li><li><a href="../come-funziona-lets-encrypt-acme/">Come funziona Let&#x27;s Encrypt e il protocollo ACME?</a></li><li><a href="../certificato-tls-scaduto-cosa-fare/">Certificato TLS scaduto: perché succede e come evitarlo?</a></li><li><a href="../cos-e-un-siem-e-un-soar/">Cos&#x27;è un SIEM e cos&#x27;è un SOAR?</a></li><li><a href="../nis2-chi-deve-adeguarsi-italia/">Chi deve adeguarsi alla NIS2 in Italia e cosa rischia?</a></li></ul>
+  </div>
+</main>
+</body>
+</html>
