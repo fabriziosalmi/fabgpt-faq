@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Come si limita l&#x27;accesso a un&#x27;area admin (allowlist, auth in più)? – FabGPT-FAQ</title>
+<meta name="description" content="Il pannello admin esposto a internet è il bersaglio numero uno di [brute force](q/cos-e-un-attacco-brute-force/) e scanner. La difesa a strati, dal più…">
+<link rel="canonical" href="https://fabriziosalmi.github.io/fabgpt-faq/q/proteggere-area-admin/">
+<link rel="stylesheet" href="../../style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Come si limita l'accesso a un'area admin (allowlist, auth in più)?", "acceptedAnswer": {"@type": "Answer", "text": "Il pannello admin esposto a internet è il bersaglio numero uno di [brute force](q/cos-e-un-attacco-brute-force/) e scanner. La difesa a strati, dal più efficace: non esporlo affatto: admin raggiungibile solo da [VPN/overlay](q/esporre-servizi-senza-aprire-porte/) o da IP fidati – per un /wp-admin, un /admin, la [GUI di Proxmox](q/proxmox-dietro-reverse-proxy/), è la soluzione che chiude il problema alla radice allowlist IP sul proxy: quattro righe in Caddy/Nginx che rispondono [403](q/errore-403-forbidden/) a chiunque non venga dagli IP giusti – rudimentale e devastantemente efficace per chi ha IP stabili un'autenticazione in più davanti: basic auth sul path admin (il WordPress bucabile resta dietro una porta in più), o il gradino sopra – forward auth con identità e [MFA](q/cos-e-autenticazione-due-fattori-mfa/) (Authelia/Authentik), lo [Zero Trust](q/cos-e-il-modello-zero-trust/) fatto in casa il contorno che non deve mancare: [rate limiting](q/configurare-rate-limiting-web-server/) e [ban degli insistenti](q/bannare-ip-brute-force-caddy/), admin su path non standard (non è sicurezza, è meno rumore nei log), e [log degli accessi guardati](q/security-logging-fatto-bene/)"}}]}</script>
+<style>
+  .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
+  .page h1 { font-size: 26px; line-height: 1.3; margin: 8px 0 20px; }
+  .page .answer a { color: var(--link); }
+  .page .vertical { font-size: 13px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }
+  .page .answer ul { padding-left: 22px; }
+  .page .answer code { background: var(--code-bg); border-radius: 5px; padding: 1px 5px; font-size: 0.9em; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+  .page .ask { display: inline-block; margin-top: 24px; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 9px 18px; text-decoration: none; font-weight: 600; }
+  .page .related { margin-top: 36px; border-top: 1px solid var(--border); padding-top: 18px; }
+  .page .related h2 { font-size: 16px; }
+  .page .related a { color: var(--link); text-decoration: none; }
+  .page .related a:hover { text-decoration: underline; }
+  .page .related li { margin: 6px 0; }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="../../" style="text-decoration:none;color:inherit">
+    <span class="brand-dot">F</span>
+    <span class="brand-name">FabGPT-FAQ</span>
+  </a>
+</header>
+<main class="page">
+  <div class="vertical">Cybersecurity</div>
+  <h1>Come si limita l&#x27;accesso a un&#x27;area admin (allowlist, auth in più)?</h1>
+  <div class="answer"><p>Il pannello admin esposto a internet è il bersaglio numero uno di <a href="../cos-e-un-attacco-brute-force/">brute force</a> e scanner. La difesa a strati, dal più efficace:</p><ul><li><strong>non esporlo affatto</strong>: admin raggiungibile solo da <a href="../esporre-servizi-senza-aprire-porte/">VPN/overlay</a> o da IP fidati – per un <code>/wp-admin</code>, un <code>/admin</code>, la <a href="../proxmox-dietro-reverse-proxy/">GUI di Proxmox</a>, è la soluzione che chiude il problema alla radice</li><li><strong>allowlist IP sul proxy</strong>: quattro righe in Caddy/Nginx che rispondono <a href="../errore-403-forbidden/">403</a> a chiunque non venga dagli IP giusti – rudimentale e devastantemente efficace per chi ha IP stabili</li><li><strong>un&#x27;autenticazione in più davanti</strong>: basic auth sul path admin (il WordPress bucabile resta dietro una porta in più), o il gradino sopra – forward auth con identità e <a href="../cos-e-autenticazione-due-fattori-mfa/">MFA</a> (Authelia/Authentik), lo <a href="../cos-e-il-modello-zero-trust/">Zero Trust</a> fatto in casa</li><li>il contorno che non deve mancare: <a href="../configurare-rate-limiting-web-server/">rate limiting</a> e <a href="../bannare-ip-brute-force-caddy/">ban degli insistenti</a>, admin su <strong>path non standard</strong> (non è sicurezza, è meno rumore nei log), e <a href="../security-logging-fatto-bene/">log degli accessi guardati</a></li></ul></div>
+  <a class="ask" href="../../?q=proteggere-area-admin">Chiedilo a FabGPT-FAQ →</a>
+  <div class="related">
+    <h2>Altre domande</h2>
+    <ul><li><a href="../cos-e-un-waf-web-application-firewall/">Cos&#x27;è un WAF (Web Application Firewall) e a cosa serve?</a></li><li><a href="../cos-e-un-reverse-proxy/">Cos&#x27;è un reverse proxy e a cosa serve?</a></li><li><a href="../come-funziona-lets-encrypt-acme/">Come funziona Let&#x27;s Encrypt e il protocollo ACME?</a></li><li><a href="../certificato-tls-scaduto-cosa-fare/">Certificato TLS scaduto: perché succede e come evitarlo?</a></li><li><a href="../cos-e-un-siem-e-un-soar/">Cos&#x27;è un SIEM e cos&#x27;è un SOAR?</a></li><li><a href="../nis2-chi-deve-adeguarsi-italia/">Chi deve adeguarsi alla NIS2 in Italia e cosa rischia?</a></li></ul>
+  </div>
+</main>
+</body>
+</html>

@@ -1,5 +1,8 @@
 # Content plan – the 10x knowledge base
 
+**PASS 1 COMPLETE (2026-08-29): every backlog line below is shipped ([B1]-[B6]) or
+explicitly merged. KB at 303 entries, 305 URLs, bench green. Next: Fase 2.**
+
 Target: ~600-700 entries, grown in deliberate batches. Each entry: Aranzulla-style
 question title, accurate 80-140 word answer, funnel link to a fabriziosalmi tool
 where natural, keywords designed against collisions (`python3 qa.py` must stay green,
@@ -65,7 +68,7 @@ Working rules (learned so far):
 - [B2] Cos'è un attacco brute force (e il credential stuffing)?
 - [B2] Cos'è una botnet?
 - [B2] Cos'è il typosquatting (e il domain squatting)?
-- Cosa sono i data breach più famosi e cosa insegnano?
+- [B6] Cosa sono i data breach più famosi e cosa insegnano?
 - [B2] Password manager: perché usarne uno
 - [B2] Passkey: la fine delle password?
 - [B2] Cos'è la crittografia end-to-end?
@@ -78,7 +81,7 @@ Working rules (learned so far):
 - [B2] Cos'è DNS-over-HTTPS (DoH) / DNS-over-TLS?
 - [B2] Cos'è un air gap?
 - [B2] Cos'è la steganografia?
-- Sicurezza fisica dei server: le basi
+- [B6] Sicurezza fisica dei server: le basi
 
 ### How-to / hardening
 
@@ -89,13 +92,13 @@ Working rules (learned so far):
 - [B2] Come si configura HTTPS su Nginx?
 - [B2] Come si configura HTTPS su Caddy (automatico)?
 - [B2] Come si difende un sito dallo scraping?
-- Come si limita l'accesso a un'area admin (IP allowlist, auth)?
+- [B6] Come si limita l'accesso a un'area admin (IP allowlist, auth)?
 - [B2] Come si gestiscono i secrets (e perché non in git)?
 - [B2] Come si fa un backup 3-2-1?
 - [B2] Come si verifica se una password è stata compromessa?
 - [B2] Come si segmenta una rete domestica/aziendale (VLAN)?
 - [B2] Come si espone un servizio self-hosted senza aprire porte (tunnel)?
-- Come si controlla cosa esce dalla propria rete (egress)?
+- [merged: coperto da secure-web-gateway in B1] Come si controlla cosa esce dalla propria rete (egress)?
 - [B2] Come si firma il codice (e perché)?
 - [B2] Come si fa security logging fatto bene?
 - [B2] Come si risponde a un incidente: le prime ore
@@ -125,7 +128,7 @@ Working rules (learned so far):
 - [B2] Cos'è ISO 27001 (e come si lega a NIS2)?
 - [B2] Cos'è SOC 2?
 - [B2] Trasferimento dati extra-UE: cosa dice Schrems II
-- Fatturazione elettronica e conservazione sostitutiva: le basi
+- [B6] Fatturazione elettronica e conservazione sostitutiva: le basi
 
 ### Tool comparisons
 
@@ -135,7 +138,7 @@ Working rules (learned so far):
 - [B2] Cloudflare vs self-hosted: il confronto onesto
 - [B2] Nginx vs Caddy vs Traefik: quale scegliere
 - [B2] Wazuh vs Wildbox vs ELK per il monitoraggio sicurezza
-- CrowdSec vs fail2ban vs caddy-mib
+- [merged: coperto da fail2ban-e-alternative in B2] CrowdSec vs fail2ban vs caddy-mib
 
 ## AI e LLM
 
@@ -316,15 +319,15 @@ Working rules (learned so far):
 - [B1] Cos'è una DAW?
 - [B1] Cosa sono i plugin VST?
 - [B1] Come funziona il vinile timecode (DVS)?
-- Cos'è il BPM (e come si fa il beatmatching)?
-- Cos'è la sidechain compression?
-- Latenza audio: perché conta e come si riduce
-- Cos'è il mastering (vs mixing)?
-- Sample rate e bit depth spiegati
-- Cos'è la sintesi sottrattiva/FM?
-- Web Audio API: fare musica nel browser
-- Come si organizza uno streaming musicale live
-- Storia della free tekno in due paragrafi
+- [B6] Cos'è il BPM (e come si fa il beatmatching)?
+- [B6] Cos'è la sidechain compression?
+- [B6] Latenza audio: perché conta e come si riduce
+- [B6] Cos'è il mastering (vs mixing)?
+- [B6] Sample rate e bit depth spiegati
+- [B6] Cos'è la sintesi sottrattiva/FM?
+- [B6] Web Audio API: fare musica nel browser
+- [B6] Come si organizza uno streaming musicale live
+- [B6] Storia della free tekno in due paragrafi
 
 ## Fase 2 – "livello super" (dopo il primo giro di contenuti)
 
@@ -339,6 +342,6 @@ Richieste di Fab, in ordine:
 
 ## Meta / FabGPT-FAQ
 
-- Come aggiungo la mia FAQ a questo motore? (guida al fork)
-- Quanto costa far girare FabGPT-FAQ? (zero: la dimostrazione)
-- Perché le risposte pre-scritte battono l'AI su domini ristretti
+- [B6] Come aggiungo la mia FAQ a questo motore? (guida al fork)
+- [B6] Quanto costa far girare FabGPT-FAQ? (zero: la dimostrazione)
+- [B6] Perché le risposte pre-scritte battono l'AI su domini ristretti

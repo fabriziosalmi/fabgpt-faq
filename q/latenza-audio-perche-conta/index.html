@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Latenza audio: perché conta e come si riduce? – FabGPT-FAQ</title>
+<meta name="description" content="La latenza è il ritardo tra gesto e suono: premi il tasto, e la nota esce dopo. Sotto i ~10 ms il cervello percepisce &quot;istantaneo&quot;; oltre i 20-30 ms suonare…">
+<link rel="canonical" href="https://fabriziosalmi.github.io/fabgpt-faq/q/latenza-audio-perche-conta/">
+<link rel="stylesheet" href="../../style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Latenza audio: perché conta e come si riduce?", "acceptedAnswer": {"@type": "Answer", "text": "La latenza è il ritardo tra gesto e suono: premi il tasto, e la nota esce dopo. Sotto i ~10 ms il cervello percepisce \"istantaneo\"; oltre i 20-30 ms suonare dal vivo diventa una lotta. Da dove viene: l'audio si elabora a blocchi (buffer) – buffer da 256 campioni a 48 kHz ≈ 5,3 ms per direzione, e il giro completo (in + elaborazione + out) si somma. Buffer piccolo = poca latenza ma CPU sotto pressione (i crackle sono il buffer che non ce la fa); buffer grande = comodo ma molle sotto le dita. Le leve, in ordine: driver giusti (ASIO su Windows – quello nativo della tua interfaccia, non il generico; Core Audio su Mac è già a posto; PipeWire/JACK su Linux), buffer al minimo che regge il progetto (128-256 per suonare, 512+ per mixare, dove la latenza non conta), e per la registrazione il direct monitoring dell'interfaccia: ti ascolti in analogico, a latenza zero, aggirando il problema. Nel browser il collo è storicamente peggio – motivo per cui [MIXI](q/daw-console-dj-nel-browser/) porta il DSP in Rust/WebAssembly."}}]}</script>
+<style>
+  .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
+  .page h1 { font-size: 26px; line-height: 1.3; margin: 8px 0 20px; }
+  .page .answer a { color: var(--link); }
+  .page .vertical { font-size: 13px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }
+  .page .answer ul { padding-left: 22px; }
+  .page .answer code { background: var(--code-bg); border-radius: 5px; padding: 1px 5px; font-size: 0.9em; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+  .page .ask { display: inline-block; margin-top: 24px; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 9px 18px; text-decoration: none; font-weight: 600; }
+  .page .related { margin-top: 36px; border-top: 1px solid var(--border); padding-top: 18px; }
+  .page .related h2 { font-size: 16px; }
+  .page .related a { color: var(--link); text-decoration: none; }
+  .page .related a:hover { text-decoration: underline; }
+  .page .related li { margin: 6px 0; }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="../../" style="text-decoration:none;color:inherit">
+    <span class="brand-dot">F</span>
+    <span class="brand-name">FabGPT-FAQ</span>
+  </a>
+</header>
+<main class="page">
+  <div class="vertical">Musica e creatività</div>
+  <h1>Latenza audio: perché conta e come si riduce?</h1>
+  <div class="answer"><p>La <strong>latenza</strong> è il ritardo tra gesto e suono: premi il tasto, e la nota esce <em>dopo</em>. Sotto i ~10 ms il cervello percepisce &quot;istantaneo&quot;; oltre i 20-30 ms suonare dal vivo diventa una lotta.</p><p>Da dove viene: l&#x27;audio si elabora a blocchi (<strong>buffer</strong>) – buffer da 256 campioni a 48 kHz ≈ 5,3 ms per direzione, e il giro completo (in + elaborazione + out) si somma. Buffer piccolo = poca latenza ma CPU sotto pressione (i <strong>crackle</strong> sono il buffer che non ce la fa); buffer grande = comodo ma molle sotto le dita.</p><p>Le leve, in ordine: driver giusti (<strong>ASIO</strong> su Windows – quello nativo della tua interfaccia, non il generico; Core Audio su Mac è già a posto; PipeWire/JACK su Linux), <strong>buffer al minimo che regge</strong> il progetto (128-256 per suonare, 512+ per mixare, dove la latenza non conta), e per la registrazione il <strong>direct monitoring</strong> dell&#x27;interfaccia: ti ascolti in analogico, a latenza zero, aggirando il problema. Nel browser il collo è storicamente peggio – motivo per cui <a href="../daw-console-dj-nel-browser/">MIXI</a> porta il DSP in Rust/WebAssembly.</p></div>
+  <a class="ask" href="../../?q=latenza-audio">Chiedilo a FabGPT-FAQ →</a>
+  <div class="related">
+    <h2>Altre domande</h2>
+    <ul><li><a href="../cos-e-una-daw/">Cos&#x27;è una DAW (Digital Audio Workstation)?</a></li><li><a href="../cosa-sono-i-plugin-vst/">Cosa sono i plugin VST?</a></li><li><a href="../come-funziona-vinile-timecode-dvs/">Come funziona il vinile timecode (DVS)?</a></li><li><a href="../cos-e-il-bpm-e-il-beatmatching/">Cos&#x27;è il BPM (e come si fa il beatmatching)?</a></li><li><a href="../cos-e-la-sidechain-compression/">Cos&#x27;è la sidechain compression?</a></li><li><a href="../mastering-e-mixing-che-differenza/">Mastering e mixing: che differenza c&#x27;è?</a></li></ul>
+  </div>
+</main>
+</body>
+</html>

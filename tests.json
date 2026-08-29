@@ -1394,5 +1394,73 @@
   {
     "q": "hanno scoperto l ip origine",
     "expect": "proteggere-origine"
+  },
+  {
+    "q": "come si fa il beatmatching",
+    "expect": "bpm-beatmatching"
+  },
+  {
+    "q": "cosè la sidechain compression",
+    "expect": "sidechain"
+  },
+  {
+    "q": "come riduco la latenza audio",
+    "expect": "latenza-audio"
+  },
+  {
+    "q": "differenza tra mixing e mastering",
+    "expect": "mastering-vs-mixing"
+  },
+  {
+    "q": "meglio 44100 o 48000",
+    "expect": "sample-rate"
+  },
+  {
+    "q": "come funziona la sintesi sottrattiva",
+    "expect": "sintesi-sonora"
+  },
+  {
+    "q": "fare un synth con la web audio api",
+    "expect": "web-audio-api"
+  },
+  {
+    "q": "trasmettere un dj set in streaming",
+    "expect": "streaming-live"
+  },
+  {
+    "q": "storia della free tekno",
+    "expect": "storia-free-tekno"
+  },
+  {
+    "q": "come creo la mia faq con questo motore",
+    "expect": "fork-guida"
+  },
+  {
+    "q": "quanto costa far girare questo sito",
+    "expect": "costo-zero"
+  },
+  {
+    "q": "meglio una faq statica o un chatbot",
+    "expect": "prescritte-vs-ai"
+  },
+  {
+    "q": "quali sono i data breach piu famosi",
+    "expect": "breach-famosi"
+  },
+  {
+    "q": "sicurezza fisica del server in ufficio",
+    "expect": "sicurezza-fisica"
+  },
+  {
+    "q": "proteggere il wp-admin dai brute force",
+    "expect": "proteggere-area-admin"
+  },
+  {
+    "q": "conservazione della fattura elettronica",
+    "expect": "fattura-elettronica"
+  },
+  {
+    "q": "quanto costa questo sito",
+    "expect": "costo-zero"
   }
 ]

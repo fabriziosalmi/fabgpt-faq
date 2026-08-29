@@ -4335,6 +4335,314 @@
       ]
     },
     {
+      "id": "bpm-beatmatching",
+      "slug": "cos-e-il-bpm-e-il-beatmatching",
+      "question": "Cos'è il BPM (e come si fa il beatmatching)?",
+      "vertical": "creative",
+      "keywords": [
+        "bpm",
+        "battiti al minuto",
+        "beatmatching",
+        "tempo brano",
+        "mandare a tempo",
+        "sincronizzare tracce",
+        "pitch fader"
+      ],
+      "answers": [
+        "Il **BPM** (battiti al minuto) è la velocità di un brano, ed è anche la carta d'identità dei generi: house intorno a 120-128, techno 130-150, drum'n'bass ~174, e la [free tekno](q/storia-della-free-tekno/) che vive volentieri sopra i 180.\n\nIl **beatmatching** è l'arte di far coincidere i battiti di due tracce: si porta la traccia in arrivo allo stesso BPM col **pitch fader**, si fa partire a tempo, e si corregge al volo con piccole spinte al piatto o al jog (*nudge*). Orecchio in cuffia su una traccia, sala sull'altra: è la ginnastica che i DJ si allenano per anni – e che il tasto **sync** delle console moderne fa in un click, spostando la discussione sul *cosa* mixare invece che sul *come* (dibattito eterno, entrambi i campi hanno ragione).\n\nLato tecnico: il rilevamento automatico del BPM è un problema di analisi del segnale meno banale di quanto sembri – [open-bpm](https://github.com/fabriziosalmi/open-bpm) lo affronta in Rust ad alta precisione, e dentro [MIXI](q/daw-console-dj-nel-browser/) beatmatching e automix girano direttamente nel browser."
+      ]
+    },
+    {
+      "id": "sidechain",
+      "slug": "cos-e-la-sidechain-compression",
+      "question": "Cos'è la sidechain compression?",
+      "vertical": "creative",
+      "keywords": [
+        "sidechain",
+        "compressione laterale",
+        "pompaggio",
+        "ducking",
+        "pompare col kick",
+        "voce sopra la musica"
+      ],
+      "answers": [
+        "La **sidechain compression** è un compressore che abbassa un suono *ascoltandone un altro*: il caso archetipo è il basso che si abbassa a ogni colpo di **cassa** – il kick comanda (è la \"chiave\" del compressore), il basso si scansa, e il mix respira. Spinta al limite diventa il **pompaggio** ritmico che definisce interi generi, dalla french house all'EDM.\n\nCome si imposta, in pratica: compressore sul basso (o sul resto del mix), input di sidechain dal kick, attack veloce, e il **release a tempo** col brano – è il release che decide il groove del pompaggio. La versione trasparente si fa oggi con la modulazione di volume diretta (LFO tools e simili), più chirurgica del compressore.\n\nLo stesso principio fuori dalla musica si chiama **ducking**: la voce dello speaker che abbassa automaticamente la musica di sottofondo – [in una diretta](q/streaming-musicale-live/) o in radio è il compressore sidechain a tenere il parlato sempre in primo piano."
+      ]
+    },
+    {
+      "id": "latenza-audio",
+      "slug": "latenza-audio-perche-conta",
+      "question": "Latenza audio: perché conta e come si riduce?",
+      "vertical": "creative",
+      "keywords": [
+        "latenza",
+        "latenza audio",
+        "buffer",
+        "asio",
+        "core audio",
+        "ritardo cuffie",
+        "buffer size",
+        "suonare in ritardo",
+        "crackle audio"
+      ],
+      "answers": [
+        "La **latenza** è il ritardo tra gesto e suono: premi il tasto, e la nota esce *dopo*. Sotto i ~10 ms il cervello percepisce \"istantaneo\"; oltre i 20-30 ms suonare dal vivo diventa una lotta.\n\nDa dove viene: l'audio si elabora a blocchi (**buffer**) – buffer da 256 campioni a 48 kHz ≈ 5,3 ms per direzione, e il giro completo (in + elaborazione + out) si somma. Buffer piccolo = poca latenza ma CPU sotto pressione (i **crackle** sono il buffer che non ce la fa); buffer grande = comodo ma molle sotto le dita.\n\nLe leve, in ordine: driver giusti (**ASIO** su Windows – quello nativo della tua interfaccia, non il generico; Core Audio su Mac è già a posto; PipeWire/JACK su Linux), **buffer al minimo che regge** il progetto (128-256 per suonare, 512+ per mixare, dove la latenza non conta), e per la registrazione il **direct monitoring** dell'interfaccia: ti ascolti in analogico, a latenza zero, aggirando il problema. Nel browser il collo è storicamente peggio – motivo per cui [MIXI](q/daw-console-dj-nel-browser/) porta il DSP in Rust/WebAssembly."
+      ]
+    },
+    {
+      "id": "mastering-vs-mixing",
+      "slug": "mastering-e-mixing-che-differenza",
+      "question": "Mastering e mixing: che differenza c'è?",
+      "vertical": "creative",
+      "keywords": [
+        "mastering",
+        "mixing",
+        "mix e master",
+        "loudness",
+        "lufs",
+        "masterizzare un brano",
+        "volume streaming",
+        "brano piu forte"
+      ],
+      "answers": [
+        "Due mestieri in sequenza, spesso confusi:\n\n- il **mixing** lavora *dentro* il brano: bilanciare le tracce tra loro – volumi, EQ, compressione, spazio (pan, riverberi) – finché ogni elemento ha il suo posto. Il 90% della qualità nasce qui\n- il **mastering** lavora *sul* brano finito, come singola traccia stereo: le rifiniture di EQ, la coerenza tra i pezzi di un disco, e il **loudness** finale per la distribuzione\n\nSul loudness, la notizia che ha cambiato tutto: le piattaforme di streaming **normalizzano** (~-14 LUFS): la guerra del volume è persa in partenza – un master schiacciato al limiter suona *uguale* di volume ma *peggio* di dinamica. Target sano: master dinamico, true peak sotto -1 dB, e via.\n\nErrore classico da evitare: masterizzare *mentre* si mixa (il limiter sul master bus dal primo giorno nasconde i problemi del mix). E la regola d'oro prima di tutto: [ascolti di riferimento](q/sample-rate-e-bit-depth/) e monitor/ambiente decenti – nessun plugin corregge una stanza che mente."
+      ]
+    },
+    {
+      "id": "sample-rate",
+      "slug": "sample-rate-e-bit-depth",
+      "question": "Sample rate e bit depth spiegati (44.1, 48 kHz, 24 bit)",
+      "vertical": "creative",
+      "keywords": [
+        "sample rate",
+        "bit depth",
+        "frequenza di campionamento",
+        "44100",
+        "48 khz",
+        "24 bit",
+        "16 bit",
+        "hi-res",
+        "qualita audio file"
+      ],
+      "answers": [
+        "I due numeri dell'audio digitale, senza mistica:\n\n- il **sample rate** è quante fotografie al secondo si fanno dell'onda: per Nyquist, 44,1 kHz cattura tutto fino a ~22 kHz – oltre l'udito umano. **48 kHz** è lo standard video/produzione moderno; 96/192 hanno senso in casi tecnici (sound design con pitch estremi), non per l'ascolto\n- il **bit depth** è la precisione di ogni fotografia, cioè la **gamma dinamica**: 16 bit (CD) ≈ 96 dB, già oltre qualsiasi ambiente reale; **24 bit** ≈ 144 dB e serve *in registrazione* – margine per non tosare i picchi senza alzare il rumore\n\nLa pratica: **si lavora a 48 kHz / 24 bit**, si consegna quel che chiede la piattaforma (lo streaming ricomprime comunque in lossy). L'\"hi-res\" per l'ascolto è in larga parte marketing: in doppio cieco non lo distingue quasi nessuno. Dove i bit contano davvero è il **gain staging** in studio – e l'anello debole resta sempre [la stanza e i monitor](q/mastering-e-mixing-che-differenza/), mai il numero sulla confezione."
+      ]
+    },
+    {
+      "id": "sintesi-sonora",
+      "slug": "sintesi-sottrattiva-e-fm",
+      "question": "Cos'è la sintesi sottrattiva (e quella FM)?",
+      "vertical": "creative",
+      "keywords": [
+        "sintesi sottrattiva",
+        "sintesi fm",
+        "synth",
+        "oscillatore",
+        "filtro synth",
+        "adsr",
+        "come funziona un sintetizzatore",
+        "dx7",
+        "wavetable"
+      ],
+      "answers": [
+        "I due modi classici di *costruire* un suono dal nulla:\n\n- la **sintesi sottrattiva** parte ricca e toglie: un **oscillatore** genera un'onda piena di armoniche (dente di sega, quadra), il **filtro** ne scolpisce via una parte (il *cutoff* che si apre e chiude è IL suono della musica elettronica), e gli **inviluppi ADSR** (attack, decay, sustain, release) danno forma nel tempo a volume e filtro. È l'architettura di quasi ogni synth \"analogico\": intuitiva, calda, immediata\n- la **sintesi FM** usa oscillatori per *modulare la frequenza* di altri oscillatori: da pochi \"operatori\" nascono spettri complessi e mutevoli – campane, bassi metallici, i piani elettrici anni '80 del leggendario **DX7**. Potentissima, notoriamente poco intuitiva\n\nTerza via moderna: la **wavetable** (onde multiple attraversate in scansione), il cuore dei synth software attuali. Il modo migliore di capirle tutte è girare manopole: i synth gratuiti eccellenti abbondano – e [txt2vst](https://github.com/fabriziosalmi/txt2vst) prova la strada opposta: **descrivi il suono a parole**, e l'AI genera il [plugin VST](q/cosa-sono-i-plugin-vst/) che lo fa."
+      ]
+    },
+    {
+      "id": "web-audio-api",
+      "slug": "web-audio-api-musica-nel-browser",
+      "question": "Web Audio API: fare musica nel browser",
+      "vertical": "creative",
+      "keywords": [
+        "web audio",
+        "web audio api",
+        "audio nel browser",
+        "audiocontext",
+        "suoni javascript",
+        "synth nel browser",
+        "audio worklet"
+      ],
+      "answers": [
+        "La **Web Audio API** è un motore audio dentro ogni browser: un grafo di nodi – oscillatori, filtri, gain, delay, analizzatori – da collegare in JavaScript come un modulare. Un synth [sottrattivo](q/sintesi-sottrattiva-e-fm/) minimale sono dieci righe: `OscillatorNode` → `BiquadFilterNode` → `GainNode` → uscita.\n\nLe cose da sapere per farci musica sul serio:\n\n- il **timing preciso** non si fa con `setTimeout` ma con lo scheduling sul clock audio (`currentTime` + lookahead): è la differenza tra un sequencer e un ubriaco\n- l'audio parte **solo dopo un gesto dell'utente** (policy anti-autoplay): il classico bottone \"start\"\n- per il DSP pesante ci sono gli **AudioWorklet** – codice audio nel thread giusto – e da lì il salto a **WebAssembly**: DSP scritto in Rust/C++ che gira nel browser a velocità nativa. È esattamente l'architettura di [MIXI](q/daw-console-dj-nel-browser/): Web Audio come impianto, **Rust/Wasm** come muscoli, [MIDI](https://github.com/fabriziosalmi/mixi) via Web MIDI API\n\nCon [un po' di generazione](q/strumenti-open-source-produzione-musicale/) sopra, il browser è ormai uno studio legittimo: zero installazione, [condivisibile con un link](q/servire-un-sito-statico-gratis/)."
+      ]
+    },
+    {
+      "id": "streaming-live",
+      "slug": "streaming-musicale-live",
+      "question": "Come si organizza uno streaming musicale live?",
+      "vertical": "creative",
+      "keywords": [
+        "streaming live",
+        "obs",
+        "diretta",
+        "fare una diretta",
+        "trasmettere musica",
+        "icecast",
+        "rtmp",
+        "musica",
+        "dj set in streaming",
+        "radio online"
+      ],
+      "answers": [
+        "Due architetture, per due filosofie:\n\n- **video su piattaforma** (Twitch/YouTube): **OBS** prende l'audio della console (via interfaccia audio o loopback – *mai* il microfono del portatile davanti alle casse) e il video, e spinge in **RTMP**. Audio a 320 kbps, un limiter di sicurezza sul master, e una connessione in upload che regga il bitrate scelto. Attenzione vera: il **copyright** – i DJ set su piattaforme commerciali vengono mutati o rimossi dai ContentID\n- **radio audio self-hosted**: un server **Icecast** (un container [da mezza CPU](q/cos-e-docker-compose/)) e una sorgente (BUTT per la semplicità, liquidsoap per l'automazione): la *tua* radio, niente algoritmi, niente mute – è l'architettura della scena underground, [Free Underground Tekno on air dal 2008](https://radio.free-tekno.com) docet\n\nE per l'evento distribuito – dj da tutto il mondo, un palinsesto, più radio che rilanciano – il modello esiste già: il [WebTeK](q/cos-e-il-webtek-streaming-teknival/) lo fa da oltre un decennio, con la scaletta coordinata via [un repository](https://github.com/fabriziosalmi/webtek). La regola che vale per entrambe: **prova generale prima**, con la stessa rete e lo stesso setup del giorno vero."
+      ]
+    },
+    {
+      "id": "storia-free-tekno",
+      "slug": "storia-della-free-tekno",
+      "question": "Storia della free tekno in due paragrafi",
+      "vertical": "creative",
+      "keywords": [
+        "storia della free tekno",
+        "storia",
+        "spiral tribe",
+        "free party",
+        "castlemorton",
+        "criminal justice act",
+        "sound system",
+        "teknival storia",
+        "23"
+      ],
+      "answers": [
+        "Primi anni '90, Regno Unito: i **sound system** – Spiral Tribe su tutti – saldano l'eredità dei traveller e dei warehouse party in qualcosa di nuovo: feste **libere e gratuite**, casse autocostruite, techno più dura e veloce, nessun biglietto e nessun padrone. Il culmine è **Castlemorton** (1992): una settimana, decine di migliaia di persone, il panico mediatico che partorisce il **Criminal Justice Act** (1994) – la legge che criminalizza i raduni con musica \"caratterizzata da beat ripetitivi\". Risultato opposto alle intenzioni: la scena non muore, **migra sul continente**.\n\nIn Francia, Italia, Repubblica Ceca e oltre nascono i **teknival** – raduni di più sound system, giorni interi, campagne e capannoni – e una cultura che si tramanda: autogestione, DIY, il mitologico **23**, produzioni musicali fuori da ogni industria. L'Italia è protagonista con sound system storici e teknival enormi. E quando la scena incontra la rete, il passo è naturale: [radio underground](q/streaming-musicale-live/) come Free Underground Tekno (dal 2008) e il **[WebTeK](q/cos-e-il-webtek-streaming-teknival/)**, il teknival in streaming che collega i sound system di mezzo mondo – stessa etica, nuovo mezzo."
+      ]
+    },
+    {
+      "id": "fork-guida",
+      "slug": "creare-la-tua-faq-con-questo-motore",
+      "question": "Come creo la mia FAQ con questo motore (guida al fork)?",
+      "vertical": "meta",
+      "keywords": [
+        "fork",
+        "riusare il motore",
+        "creare una faq",
+        "faq.json",
+        "personalizzare",
+        "usare questo motore",
+        "faq per il mio sito",
+        "clonare fabgpt",
+        "la mia faq",
+        "questo motore"
+      ],
+      "answers": [
+        "Il motore è [open source e pensato per il riuso](q/cos-e-fabgpt-come-funziona/): tutto il contenuto vive in **un solo file**, `faq.json`. La ricetta:\n\n- **forka/clona** il repository e svuota `faq.json`: config (nome del bot, messaggio di benvenuto, `siteUrl`), verticali, e le tue voci – ognuna con `question`, `keywords` (parole singole = match fuzzy, frasi = match più pesante), `answers` in [Markdown minimo](q/markdown-la-sintassi-essenziale/)\n- **prova in locale**: `python3 -m http.server` e apri il browser – il matcher, il typewriter e lo smalltalk funzionano subito\n- **testa come si deve**: una riga per voce in `tests.json`, poi `python3 qa.py` (con lo *explain* per il debug dei match) e il benchmark `python3 bench.py` che valida domande canoniche, refusi e falsi positivi – è il guardrail che tiene onesta la qualità mentre cresci\n- **genera e pubblica**: `python3 build.py` produce le pagine statiche SEO (una per domanda, con JSON-LD), sitemap e robots – e [l'hosting è gratis](q/servire-un-sito-statico-gratis/)\n\nLicenza MIT: usalo per la FAQ del tuo progetto, del tuo prodotto, del tuo comune. L'unico ingrediente non incluso: risposte scritte bene."
+      ]
+    },
+    {
+      "id": "costo-zero",
+      "slug": "quanto-costa-far-girare-fabgpt-faq",
+      "question": "Quanto costa far girare FabGPT-FAQ?",
+      "vertical": "meta",
+      "keywords": [
+        "quanto costa far girare",
+        "costo hosting",
+        "gratis davvero",
+        "costo zero",
+        "quanto costa il chatbot",
+        "costi di gestione",
+        "costa questo sito"
+      ],
+      "answers": [
+        "**Zero euro al mese**, ed è una scelta di architettura, non una promozione:\n\n- niente inferenza: le risposte sono [pre-scritte](q/risposte-pre-scritte-o-ai/), quindi **zero GPU e zero API** – il costo marginale di una domanda in più è un lookup in un file JSON già nel browser\n- niente backend: [file statici](q/cos-e-un-generatore-di-siti-statici/) serviti da [un hosting gratuito](q/servire-un-sito-statico-gratis/) qualsiasi – quasi 300 pagine pesano pochi megabyte\n- niente database, niente coda, niente container da patchare: la [superficie d'attacco](q/cos-e-un-air-gap/) è quella di una cartella di HTML\n\nIl confronto che fa impressione: un chatbot RAG equivalente paga retrieval + inferenza a *ogni* domanda – da decine a centinaia di euro al mese già con poco traffico, più il monitoraggio delle [allucinazioni](q/come-ridurre-le-allucinazioni/). Qui il costo è spostato dove rende: **il tempo umano per scrivere risposte giuste**, una volta, versionate in git.\n\nL'unico esborso opzionale: il dominio (~10 €/anno). Tutto il resto – build, test, [benchmark](q/come-si-testano-le-applicazioni-llm/), deploy – gira in CI gratuita o sul tuo portatile."
+      ]
+    },
+    {
+      "id": "prescritte-vs-ai",
+      "slug": "risposte-pre-scritte-o-ai",
+      "question": "Perché le risposte pre-scritte battono l'AI su domini ristretti?",
+      "vertical": "meta",
+      "keywords": [
+        "risposte pre scritte",
+        "meglio di un chatbot",
+        "perche non un llm",
+        "faq statica o chatbot",
+        "senza ai",
+        "chatbot o faq",
+        "domini ristretti",
+        "risposte fisse"
+      ],
+      "answers": [
+        "Su un dominio **ristretto e prevedibile** – il tuo prodotto, la tua azienda, il tuo campo – la FAQ pre-scritta vince il confronto con il chatbot generativo su quasi ogni asse:\n\n- **correttezza**: ogni risposta è stata verificata da una persona *prima* di essere data; [l'allucinazione](q/come-ridurre-le-allucinazioni/) è impossibile per costruzione, e un errore si corregge **per tutti, per sempre**, con un commit\n- **citabilità**: ogni risposta è [una pagina statica con URL e markup](q/json-ld-schema-org-seo/) – i motori e le [risposte AI](q/cos-e-ai-overview-e-come-finirci/) possono trovarla e citarla; la risposta di un chatbot evapora nel nulla\n- **[costo](q/quanto-costa-far-girare-fabgpt-faq/) e latenza**: zero inferenza, risposta istantanea, [nessun dato utente che parte](q/gdpr-cosa-serve-a-un-sito-web/) verso terzi\n- **manutenzione onesta**: il contenuto è testo in git – diff, review, [test](q/come-si-testano-le-applicazioni-llm/), storia\n\nDove il chatbot vince davvero: la **coda lunga** imprevedibile, le domande composte, il dialogo che raffina. Per questo la sintesi matura è **ibrida**: pre-scritto per il 90% prevedibile (il corpo della conoscenza), un LLM [con guardrail](q/cosa-sono-i-guardrail-llm/) come rete per il resto – o, [come qui](q/cos-e-fabgpt-come-funziona/), un matcher onesto che quando non sa, lo dice."
+      ]
+    },
+    {
+      "id": "breach-famosi",
+      "slug": "data-breach-famosi-cosa-insegnano",
+      "question": "I data breach più famosi (e cosa insegnano)",
+      "vertical": "security",
+      "keywords": [
+        "data breach famosi",
+        "famosi",
+        "breach celebri",
+        "piu grandi violazioni",
+        "rockyou",
+        "cosa insegnano",
+        "equifax",
+        "casi storici sicurezza"
+      ],
+      "answers": [
+        "I disastri altrui sono lezioni gratuite:\n\n- **Yahoo** (2013-14, 3 miliardi di account): il breach può essere totale e scoperto *anni* dopo – [il monitoraggio](q/scoprire-dati-in-un-data-breach/) conta quanto la difesa\n- **Equifax** (2017, 147 milioni): una patch nota non applicata per mesi – [la gestione delle vulnerabilità](q/cos-e-una-cve-e-il-cvss/) è un processo, non un buon proposito\n- **RockYou** (2009) e figli: password in chiaro nel database – da lì viene la wordlist che ancora oggi buca account; [hash lenti](q/cos-e-l-hashing/) e [password uniche](q/perche-usare-un-password-manager/) esistono per questo\n- **SolarWinds** (2020) e [TanStack](q/cos-e-la-supply-chain-security/) (2026): non ti attaccano, attaccano *chi usi tu* – la supply chain è perimetro\n- **LastPass** (2022): anche chi vende sicurezza cade – e chi aveva master password deboli l'ha pagata: la [difesa in profondità](q/cos-e-la-defense-in-depth/) vale anche per gli utenti\n\nIl filo comune: quasi mai magia, quasi sempre **igiene mancata** – patch, credenziali, segmentazione, log. E la domanda giusta non è \"se\" ma \"quando\": [prepararsi](q/incident-response-le-prime-ore/) è la differenza tra incidente e catastrofe."
+      ]
+    },
+    {
+      "id": "sicurezza-fisica",
+      "slug": "sicurezza-fisica-dei-server",
+      "question": "Sicurezza fisica dei server: le basi",
+      "vertical": "security",
+      "keywords": [
+        "sicurezza fisica",
+        "accesso fisico",
+        "server in ufficio",
+        "rack chiuso",
+        "evil maid",
+        "cifratura dischi",
+        "furto server",
+        "chi tocca il server"
+      ],
+      "answers": [
+        "La regola antica resta vera: **chi tocca fisicamente la macchina, prima o poi la possiede** – boot da USB, dischi estratti, keylogger hardware, reset del BIOS. Le contromisure, in scala:\n\n- **cifratura dei dischi a riposo** (LUKS, ZFS encryption, BitLocker): trasforma il furto del server in furto di ferraglia. Il nodo da progettare è lo sblocco al riavvio: passphrase manuale, TPM, o unlock remoto via [SSH in initramfs](q/mettere-in-sicurezza-ssh/)\n- **il rack chiuso a chiave** in un locale ad accesso limitato: banale, spesso assente; per l'homelab, almeno fuori dalla portata di ospiti e bambini\n- **BIOS/UEFI protetti** (password, boot order bloccato, secure boot) e le **console di gestione** (IPMI/iLO – di fabbrica sono un buco: [rete di management separata](q/segmentare-la-rete-con-vlan/) e credenziali cambiate)\n- gli **attacchi \"evil maid\"** (manomissione breve e invisibile) si mitigano con sigilli e misura del boot – paranoia giustificata solo per bersagli veri\n\nE il duale spesso dimenticato: la **dismissione** – i dischi che escono (garanzia, vendita, cassonetto) escono *cifrati o distrutti*, [mai solo formattati](q/backup-3-2-1/)."
+      ]
+    },
+    {
+      "id": "proteggere-area-admin",
+      "slug": "proteggere-area-admin",
+      "question": "Come si limita l'accesso a un'area admin (allowlist, auth in più)?",
+      "vertical": "security",
+      "keywords": [
+        "area admin",
+        "proteggere admin",
+        "wp-admin",
+        "pannello admin",
+        "allowlist",
+        "ip allowlist",
+        "basic auth",
+        "limitare accesso admin",
+        "login admin esposto"
+      ],
+      "answers": [
+        "Il pannello admin esposto a internet è il bersaglio numero uno di [brute force](q/cos-e-un-attacco-brute-force/) e scanner. La difesa a strati, dal più efficace:\n\n- **non esporlo affatto**: admin raggiungibile solo da [VPN/overlay](q/esporre-servizi-senza-aprire-porte/) o da IP fidati – per un `/wp-admin`, un `/admin`, la [GUI di Proxmox](q/proxmox-dietro-reverse-proxy/), è la soluzione che chiude il problema alla radice\n- **allowlist IP sul proxy**: quattro righe in Caddy/Nginx che rispondono [403](q/errore-403-forbidden/) a chiunque non venga dagli IP giusti – rudimentale e devastantemente efficace per chi ha IP stabili\n- **un'autenticazione in più davanti**: basic auth sul path admin (il WordPress bucabile resta dietro una porta in più), o il gradino sopra – forward auth con identità e [MFA](q/cos-e-autenticazione-due-fattori-mfa/) (Authelia/Authentik), lo [Zero Trust](q/cos-e-il-modello-zero-trust/) fatto in casa\n- il contorno che non deve mancare: [rate limiting](q/configurare-rate-limiting-web-server/) e [ban degli insistenti](q/bannare-ip-brute-force-caddy/), admin su **path non standard** (non è sicurezza, è meno rumore nei log), e [log degli accessi guardati](q/security-logging-fatto-bene/)"
+      ]
+    },
+    {
+      "id": "fattura-elettronica",
+      "slug": "fatturazione-elettronica-e-conservazione",
+      "question": "Fatturazione elettronica e conservazione digitale: le basi",
+      "vertical": "security",
+      "keywords": [
+        "fatturazione elettronica",
+        "fattura elettronica",
+        "conservazione sostitutiva",
+        "sdi",
+        "conservazione digitale",
+        "dieci anni",
+        "xml fattura",
+        "conservazione a norma"
+      ],
+      "answers": [
+        "Le basi per chi ha una P.IVA e vuole capirci, senza fare il commercialista:\n\n- la fattura elettronica è un **XML** che passa dal **SdI** (Sistema di Interscambio dell'Agenzia delle Entrate): è lui il postino ufficiale – la copia PDF spedita per cortesia non ha valore fiscale\n- l'obbligo vero e sottovalutato è la **conservazione a norma**: le fatture (e i documenti fiscali) vanno conservati **10 anni** in modalità che ne garantisca autenticità, integrità e leggibilità nel tempo – firma, marca temporale, indici: non basta la cartella sul NAS, nemmeno [con i backup fatti bene](q/backup-3-2-1/)\n- in pratica si delega: il servizio di conservazione dell'**Agenzia delle Entrate** (gratuito, va *attivato* – è un click che molti dimenticano) o il gestionale di fatturazione che la include – verificando che sia conservazione a norma, non solo archiviazione\n\nIl principio tecnico sotto è familiare: [integrità dimostrabile nel tempo](q/security-logging-fatto-bene/) – hash, firme, catene verificabili: la stessa matematica dei [log tamper-evident](https://github.com/fabriziosalmi/rainlogs), applicata dal fisco. Per le regole del *tuo* caso specifico: commercialista, non chatbot – nemmeno uno onesto come me."
+      ]
+    },
+    {
       "id": "vm-non-parte",
       "slug": "vm-non-parte-proxmox",
       "question": "La VM non parte: i controlli in ordine",
