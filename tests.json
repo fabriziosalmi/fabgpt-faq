@@ -1,0 +1,722 @@
+[
+  {
+    "q": "come agiungo un waf a cady?",
+    "expect": "caddy-waf"
+  },
+  {
+    "q": "come si fa autoscaling su proxmox?",
+    "expect": "proxmox-autoscale"
+  },
+  {
+    "q": "cosè certmate",
+    "expect": "certmate"
+  },
+  {
+    "q": "mi scadono i certificati ssl, che faccio?",
+    "expect": "certmate"
+  },
+  {
+    "q": "chi sei?",
+    "expect": "chi-sei"
+  },
+  {
+    "q": "chi è fabrizio salmi",
+    "expect": "chi-sei"
+  },
+  {
+    "q": "come blocco i bot su nginx",
+    "expect": "patterns"
+  },
+  {
+    "q": "sei una vera AI?",
+    "expect": "sei-vera-ai"
+  },
+  {
+    "q": "come proteggo un endpoint llm",
+    "expect": "llm-security"
+  },
+  {
+    "q": "automatizzare cloudflare con gitops",
+    "expect": "cloudflare-automation"
+  },
+  {
+    "q": "feed rss riscritti con llm",
+    "expect": "uglyfeed"
+  },
+  {
+    "q": "strumenti per gestire proxmox da terminale",
+    "expect": "proxmox-tools"
+  },
+  {
+    "q": "wildbox cosè",
+    "expect": "wildbox"
+  },
+  {
+    "q": "nis2 compliance",
+    "expect": "nis2"
+  },
+  {
+    "q": "come ti contatto via email",
+    "expect": "contatti"
+  },
+  {
+    "q": "vibe coding slop",
+    "expect": "cos-e-vibe-coding"
+  },
+  {
+    "q": "domini malevoli blocklist",
+    "expect": "domini-malevoli"
+  },
+  {
+    "q": "monitorare un sito con github actions",
+    "expect": "websites-monitor"
+  },
+  {
+    "q": "uptime del mio sito",
+    "expect": "websites-monitor"
+  },
+  {
+    "q": "quali progetti hai su github",
+    "expect": "panoramica-repo"
+  },
+  {
+    "q": "cosè zion",
+    "expect": "zion"
+  },
+  {
+    "q": "come migro via da cloudflare",
+    "expect": "flareover"
+  },
+  {
+    "q": "flareover",
+    "expect": "flareover"
+  },
+  {
+    "q": "agssh",
+    "expect": "agssh"
+  },
+  {
+    "q": "come verifico che il mio sito statico non chiami cdn esterne",
+    "expect": "agssh"
+  },
+  {
+    "q": "csp e security headers check",
+    "expect": "agssh"
+  },
+  {
+    "q": "nis2 art 21 governance",
+    "expect": "nis2"
+  },
+  {
+    "q": "blacklist per pihole",
+    "expect": "domini-malevoli"
+  },
+  {
+    "q": "certmate ca privata",
+    "expect": "certmate"
+  },
+  {
+    "q": "regole owasp per nginx",
+    "expect": "patterns"
+  },
+  {
+    "q": "boost revert lxc",
+    "expect": "proxmox-lxc-autoscale"
+  },
+  {
+    "q": "gestire proxmox con claude via mcp",
+    "expect": "proxxx"
+  },
+  {
+    "q": "come scalo le vm su proxmox",
+    "expect": "proxmox-vm-autoscale"
+  },
+  {
+    "q": "zone cloudflare github actions",
+    "expect": "cloudflare-automation"
+  },
+  {
+    "q": "monitorare whois spf dmarc",
+    "expect": "domainmate"
+  },
+  {
+    "q": "autoscaling dei container lxc",
+    "expect": "proxmox-lxc-autoscale"
+  },
+  {
+    "q": "core pinning lxc alder lake",
+    "expect": "proxmox-lxc-autoscale"
+  },
+  {
+    "q": "proxxx",
+    "expect": "proxxx"
+  },
+  {
+    "q": "cosè un reverse proxy",
+    "expect": "cos-e-un-reverse-proxy"
+  },
+  {
+    "q": "regole waf col machine learning",
+    "expect": "nginx-waf-ai"
+  },
+  {
+    "q": "proxy con waf per mac",
+    "expect": "proxymate"
+  },
+  {
+    "q": "secure web gateway self hosted",
+    "expect": "secure-web-gateway"
+  },
+  {
+    "q": "ridurre i costi di inferenza",
+    "expect": "silence"
+  },
+  {
+    "q": "dare memoria a claude",
+    "expect": "l0-memory"
+  },
+  {
+    "q": "salvare file dentro un video",
+    "expect": "b2v"
+  },
+  {
+    "q": "strumenti per produrre musica",
+    "expect": "audio-tools"
+  },
+  {
+    "q": "cosè un waf",
+    "expect": "cos-e-un-waf"
+  },
+  {
+    "q": "come funziona lets encrypt",
+    "expect": "come-funziona-acme"
+  },
+  {
+    "q": "cosè un siem",
+    "expect": "cos-e-siem-soar"
+  },
+  {
+    "q": "chi deve adeguarsi alla nis2",
+    "expect": "nis2-chi-deve"
+  },
+  {
+    "q": "cosè la supply chain security",
+    "expect": "supply-chain-security"
+  },
+  {
+    "q": "cosè la prompt injection",
+    "expect": "cos-e-prompt-injection"
+  },
+  {
+    "q": "cosè mcp",
+    "expect": "cos-e-mcp"
+  },
+  {
+    "q": "cosè il vibe coding",
+    "expect": "cos-e-vibe-coding"
+  },
+  {
+    "q": "gli llm inventano pacchetti che non esistono",
+    "expect": "allucinazioni-llm"
+  },
+  {
+    "q": "cosè rag",
+    "expect": "cos-e-rag"
+  },
+  {
+    "q": "cosè proxmox",
+    "expect": "cos-e-proxmox"
+  },
+  {
+    "q": "meglio lxc o vm",
+    "expect": "lxc-vs-vm"
+  },
+  {
+    "q": "cosè gitops",
+    "expect": "cos-e-gitops"
+  },
+  {
+    "q": "sovranità digitale",
+    "expect": "sovranita-digitale"
+  },
+  {
+    "q": "perché self hosting",
+    "expect": "perche-self-hosting"
+  },
+  {
+    "q": "come scopro se sono in un data breach",
+    "expect": "naso"
+  },
+  {
+    "q": "rate limiting su nginx",
+    "expect": "limits"
+  },
+  {
+    "q": "bannare ip che fanno brute force su caddy",
+    "expect": "caddy-mib"
+  },
+  {
+    "q": "conservare i log cloudflare a norma",
+    "expect": "rainlogs"
+  },
+  {
+    "q": "fine tuning llm su apple silicon",
+    "expect": "silicondev"
+  },
+  {
+    "q": "ridurre i token del mio agente",
+    "expect": "l0-compressor"
+  },
+  {
+    "q": "si può valutare l etica di un llm",
+    "expect": "etica-ai"
+  },
+  {
+    "q": "gli llm sanno fare matematica?",
+    "expect": "llm-benchmarks"
+  },
+  {
+    "q": "sincronizzare agenti in reti instabili",
+    "expect": "aimp"
+  },
+  {
+    "q": "ocr di un pdf scansionato",
+    "expect": "pdf-ocr"
+  },
+  {
+    "q": "generare favicon e logo",
+    "expect": "brandkit"
+  },
+  {
+    "q": "anonimizzare un csv",
+    "expect": "csv-anonymizer"
+  },
+  {
+    "q": "watermark invisibile nei video",
+    "expect": "open-video-watermark"
+  },
+  {
+    "q": "velocizzare wordpress",
+    "expect": "speedmate"
+  },
+  {
+    "q": "app per prendere appunti in markdown",
+    "expect": "noted"
+  },
+  {
+    "q": "console dj nel browser",
+    "expect": "mixi"
+  },
+  {
+    "q": "cosè il webtek",
+    "expect": "webtek"
+  },
+  {
+    "q": "audiolibri gratis in italiano",
+    "expect": "audiolibri"
+  },
+  {
+    "q": "generare un vst con l ai",
+    "expect": "cos-e-vst"
+  },
+  {
+    "q": "memoria persistente per ai",
+    "expect": "l0-memory"
+  },
+  {
+    "q": "velocizza il mio wordpress",
+    "expect": "speedmate"
+  },
+  {
+    "q": "differenza tra http e https",
+    "expect": "http-vs-https"
+  },
+  {
+    "q": "il mio sito è sotto attacco ddos",
+    "expect": "ddos"
+  },
+  {
+    "q": "quali sono le vulnerabilità più comuni delle web app",
+    "expect": "owasp-top10"
+  },
+  {
+    "q": "come mi difendo dalla sql injection",
+    "expect": "sql-injection"
+  },
+  {
+    "q": "cosè un attacco xss",
+    "expect": "xss"
+  },
+  {
+    "q": "cosa significa zero trust",
+    "expect": "zero-trust"
+  },
+  {
+    "q": "conviene attivare la 2fa?",
+    "expect": "mfa"
+  },
+  {
+    "q": "mettere in sicurezza ssh",
+    "expect": "hardening-ssh"
+  },
+  {
+    "q": "quali security header dovrei impostare",
+    "expect": "security-headers"
+  },
+  {
+    "q": "come blocco gptbot sul mio sito",
+    "expect": "bloccare-crawler-ai"
+  },
+  {
+    "q": "err_cert_authority_invalid che significa",
+    "expect": "err-cert-authority"
+  },
+  {
+    "q": "il sito da errore 502 bad gateway",
+    "expect": "errore-502"
+  },
+  {
+    "q": "ricevo 429 too many requests",
+    "expect": "errore-429"
+  },
+  {
+    "q": "lucchetto barrato contenuto misto",
+    "expect": "mixed-content"
+  },
+  {
+    "q": "meglio fail2ban o crowdsec",
+    "expect": "fail2ban"
+  },
+  {
+    "q": "cosa prevede il cyber resilience act",
+    "expect": "cra"
+  },
+  {
+    "q": "quanto posso tenere i log secondo il gdpr",
+    "expect": "gdpr-log"
+  },
+  {
+    "q": "cosè un large language model",
+    "expect": "cos-e-un-llm"
+  },
+  {
+    "q": "cosa sono i token e la context window",
+    "expect": "token-context"
+  },
+  {
+    "q": "a cosa serve la temperatura nei modelli",
+    "expect": "temperatura-llm"
+  },
+  {
+    "q": "che hardware serve per un llm in locale",
+    "expect": "llm-in-locale"
+  },
+  {
+    "q": "come si installa ollama",
+    "expect": "ollama"
+  },
+  {
+    "q": "cosè la quantizzazione gguf",
+    "expect": "quantizzazione"
+  },
+  {
+    "q": "meglio fine tuning o rag",
+    "expect": "fine-tuning-vs-rag"
+  },
+  {
+    "q": "differenza tra chatbot e agente ai",
+    "expect": "ai-agent"
+  },
+  {
+    "q": "cosè il function calling",
+    "expect": "function-calling"
+  },
+  {
+    "q": "cosa sono i guardrail",
+    "expect": "guardrail"
+  },
+  {
+    "q": "cosè il system prompt",
+    "expect": "system-prompt"
+  },
+  {
+    "q": "cosa sono gli embeddings",
+    "expect": "embeddings"
+  },
+  {
+    "q": "quando si applica l ai act",
+    "expect": "ai-act"
+  },
+  {
+    "q": "i dipendenti usano chatgpt di nascosto",
+    "expect": "shadow-ai"
+  },
+  {
+    "q": "cosè il quorum in un cluster proxmox",
+    "expect": "cluster-quorum"
+  },
+  {
+    "q": "conviene zfs su proxmox?",
+    "expect": "zfs-proxmox"
+  },
+  {
+    "q": "differenza tra snapshot e backup",
+    "expect": "snapshot-vs-backup"
+  },
+  {
+    "q": "cosè proxmox backup server",
+    "expect": "pbs"
+  },
+  {
+    "q": "passthrough della gpu a una vm",
+    "expect": "gpu-passthrough"
+  },
+  {
+    "q": "aggiornare proxmox senza subscription",
+    "expect": "no-subscription"
+  },
+  {
+    "q": "creare vm con cloud-init e template",
+    "expect": "cloud-init"
+  },
+  {
+    "q": "migrare le vm da vmware esxi a proxmox",
+    "expect": "vmware-migrazione"
+  },
+  {
+    "q": "a cosa serve una cdn",
+    "expect": "cos-e-cdn"
+  },
+  {
+    "q": "differenza tra record a e cname",
+    "expect": "record-dns"
+  },
+  {
+    "q": "cosè il ttl del dns",
+    "expect": "ttl-dns"
+  },
+  {
+    "q": "a cosa serve la nuvoletta arancione di cloudflare",
+    "expect": "proxy-arancione"
+  },
+  {
+    "q": "cosa sono i cloudflare workers",
+    "expect": "cloudflare-workers"
+  },
+  {
+    "q": "alternativa ai captcha di google",
+    "expect": "turnstile"
+  },
+  {
+    "q": "configurare spf dkim e dmarc",
+    "expect": "spf-dkim-dmarc"
+  },
+  {
+    "q": "le mie email finiscono in spam",
+    "expect": "email-spam"
+  },
+  {
+    "q": "cosa sono lcp inp e cls",
+    "expect": "core-web-vitals"
+  },
+  {
+    "q": "come si scrive il robots.txt",
+    "expect": "robots-txt"
+  },
+  {
+    "q": "cosè il file llms.txt",
+    "expect": "llms-txt"
+  },
+  {
+    "q": "dati strutturati schema.org per la seo",
+    "expect": "json-ld"
+  },
+  {
+    "q": "a cosa serve la sitemap",
+    "expect": "sitemap-xml"
+  },
+  {
+    "q": "che favicon servono oggi",
+    "expect": "favicon-formati"
+  },
+  {
+    "q": "cosè una daw",
+    "expect": "cos-e-daw"
+  },
+  {
+    "q": "cosa sono i plugin vst",
+    "expect": "cos-e-vst"
+  },
+  {
+    "q": "come funziona il vinile timecode",
+    "expect": "dvs-timecode"
+  },
+  {
+    "q": "ciao",
+    "expect": "st-saluto"
+  },
+  {
+    "q": "buongiorno!",
+    "expect": "st-saluto"
+  },
+  {
+    "q": "hello",
+    "expect": "st-saluto"
+  },
+  {
+    "q": "come stai?",
+    "expect": "st-come-stai"
+  },
+  {
+    "q": "grazie mille",
+    "expect": "st-grazie"
+  },
+  {
+    "q": "ottimo, grazie",
+    "expect": "st-grazie"
+  },
+  {
+    "q": "sei un grande",
+    "expect": "st-apprezzamento"
+  },
+  {
+    "q": "non hai capito la domanda",
+    "expect": "st-feedback-negativo"
+  },
+  {
+    "q": "sei proprio stupido",
+    "expect": "st-insulto"
+  },
+  {
+    "q": "cosa sai fare?",
+    "expect": "st-capacita"
+  },
+  {
+    "q": "in cosa puoi aiutarmi",
+    "expect": "st-capacita"
+  },
+  {
+    "q": "come ti chiami",
+    "expect": "st-identita"
+  },
+  {
+    "q": "chi ti ha creato",
+    "expect": "st-identita"
+  },
+  {
+    "q": "sai rispondere in italiano?",
+    "expect": "st-lingua"
+  },
+  {
+    "q": "do you speak english",
+    "expect": "st-lingua"
+  },
+  {
+    "q": "test",
+    "expect": "st-test"
+  },
+  {
+    "q": "ci sei?",
+    "expect": "st-test"
+  },
+  {
+    "q": "ok",
+    "expect": "st-ok"
+  },
+  {
+    "q": "va bene, continua",
+    "expect": "st-ok"
+  },
+  {
+    "q": "raccontami una barzelletta",
+    "expect": "st-barzelletta"
+  },
+  {
+    "q": "scrivi una storia su genova",
+    "expect": "st-creativo"
+  },
+  {
+    "q": "scrivimi una poesia",
+    "expect": "st-creativo"
+  },
+  {
+    "q": "traduci in inglese questa frase",
+    "expect": "st-traduzione"
+  },
+  {
+    "q": "che ore sono",
+    "expect": "st-meteo-ora"
+  },
+  {
+    "q": "che tempo fa domani",
+    "expect": "st-meteo-ora"
+  },
+  {
+    "q": "quanto fa 2+2",
+    "expect": "st-matematica"
+  },
+  {
+    "q": "chi è il presidente della repubblica",
+    "expect": "st-cultura-generale"
+  },
+  {
+    "q": "consigliami un film da vedere",
+    "expect": "st-consigli-vita"
+  },
+  {
+    "q": "ricetta della carbonara",
+    "expect": "st-consigli-vita"
+  },
+  {
+    "q": "sono triste oggi",
+    "expect": "st-emotivo"
+  },
+  {
+    "q": "posso fidarmi delle tue risposte?",
+    "expect": "st-affidabilita"
+  },
+  {
+    "q": "ti amo",
+    "expect": "st-amore"
+  },
+  {
+    "q": "arrivederci",
+    "expect": "st-congedo"
+  },
+  {
+    "q": "buonanotte",
+    "expect": "st-congedo"
+  },
+  {
+    "q": "qwerty uiop zxcvb",
+    "expect": null
+  },
+  {
+    "q": "il gatto miagola sul divano",
+    "expect": null
+  },
+  {
+    "q": "vendimi una macchina usata",
+    "expect": null
+  },
+  {
+    "q": "il certificato è scaduto e il sito da errore",
+    "expect": "certificato-scaduto"
+  },
+  {
+    "q": "reverse proxy con waf integrato in go",
+    "expect": "proxy-sicuri"
+  },
+  {
+    "q": "autoscaling di cpu e ram delle vm con numa e hotplug",
+    "expect": "proxmox-vm-autoscale"
+  },
+  {
+    "q": "cosè fabgpt",
+    "expect": "cos-e-fabgpt"
+  },
+  {
+    "q": "vibe-check la github action anti slop",
+    "expect": "ai-code-quality"
+  }
+]

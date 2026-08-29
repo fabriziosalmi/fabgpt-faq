@@ -21,6 +21,62 @@
   <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-gitops/</loc></url>
   <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-la-sovranita-digitale/</loc></url>
   <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/self-hosting-pro-e-contro/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/differenza-http-https-tls/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-un-attacco-ddos/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-la-owasp-top-10/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-la-sql-injection/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-il-cross-site-scripting-xss/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-il-modello-zero-trust/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-autenticazione-due-fattori-mfa/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/mettere-in-sicurezza-ssh/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/quali-security-header-servono/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/bloccare-crawler-ai-gptbot/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/errore-err-cert-authority-invalid/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/errore-502-bad-gateway/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/errore-429-too-many-requests/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-il-mixed-content/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/fail2ban-e-alternative/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-il-cyber-resilience-act/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/conservazione-log-gdpr/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-un-llm/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/token-e-context-window/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/temperatura-di-un-llm/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/far-girare-un-llm-in-locale/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-ollama/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/quantizzazione-modelli-gguf/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/meglio-fine-tuning-o-rag/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-un-agente-ai/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-il-function-calling/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/cosa-sono-i-guardrail-llm/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-un-system-prompt/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/cosa-sono-gli-embeddings/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/cosa-prevede-ai-act/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-la-shadow-ai/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/cluster-proxmox-e-quorum/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/perche-usare-zfs-su-proxmox/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/differenza-snapshot-e-backup/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-proxmox-backup-server/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/passthrough-gpu-proxmox/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/aggiornare-proxmox-senza-subscription/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/template-e-cloud-init-proxmox/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/migrare-da-vmware-a-proxmox/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-una-cdn/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/tipi-di-record-dns/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-il-ttl-dns/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/nuvoletta-arancione-cloudflare/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/cosa-sono-i-cloudflare-workers/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-cloudflare-turnstile/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/spf-dkim-dmarc/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/perche-email-in-spam/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/cosa-sono-i-core-web-vitals/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/come-funziona-robots-txt/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-il-file-llms-txt/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/json-ld-schema-org-seo/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/a-cosa-serve-la-sitemap/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/quali-favicon-servono/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-una-daw/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/cosa-sono-i-plugin-vst/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/come-funziona-vinile-timecode-dvs/</loc></url>
   <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-certmate-gestione-certificati-tls/</loc></url>
   <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/come-aggiungere-un-waf-a-caddy/</loc></url>
   <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/bloccare-bad-bot-nginx-apache-traefik-haproxy/</loc></url>

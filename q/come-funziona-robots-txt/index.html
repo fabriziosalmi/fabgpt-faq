@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Come funziona il file robots.txt? – FabGPT-FAQ</title>
+<meta name="description" content="Il robots.txt – un file di testo nella root del sito – dice ai crawler cosa non visitare: direttive User-agent + Disallow/Allow, più la riga Sitemap: che…">
+<link rel="canonical" href="https://fabriziosalmi.github.io/fabgpt-faq/q/come-funziona-robots-txt/">
+<link rel="stylesheet" href="../../style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Come funziona il file robots.txt?", "acceptedAnswer": {"@type": "Answer", "text": "Il robots.txt – un file di testo nella root del sito – dice ai crawler cosa non visitare: direttive User-agent + Disallow/Allow, più la riga Sitemap: che indica dove sta la [mappa del sito](q/a-cosa-serve-la-sitemap/). I tre equivoci da smontare: è una convenzione, non una barriera: i bot malevoli lo ignorano allegramente – per bloccarli davvero serve il [WAF](q/cos-e-un-waf-web-application-firewall/) Disallow non deindicizza: una pagina bloccata può comparire comunque su Google (senza descrizione); per non farla indicizzare serve noindex, che però il crawler deve poter leggere non è un posto per segreti: è pubblico per definizione, e i path \"nascosti\" elencati lì sono i primi che un curioso visita Capitolo moderno: i [crawler AI](q/bloccare-crawler-ai-gptbot/) (GPTBot, ClaudeBot…) si gestiscono da qui – decisione strategica, non tecnica."}}]}</script>
+<style>
+  .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
+  .page h1 { font-size: 26px; line-height: 1.3; margin: 8px 0 20px; }
+  .page .answer a { color: var(--link); }
+  .page .vertical { font-size: 13px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }
+  .page .answer ul { padding-left: 22px; }
+  .page .answer code { background: var(--code-bg); border-radius: 5px; padding: 1px 5px; font-size: 0.9em; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+  .page .ask { display: inline-block; margin-top: 24px; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 9px 18px; text-decoration: none; font-weight: 600; }
+  .page .related { margin-top: 36px; border-top: 1px solid var(--border); padding-top: 18px; }
+  .page .related h2 { font-size: 16px; }
+  .page .related a { color: var(--link); text-decoration: none; }
+  .page .related a:hover { text-decoration: underline; }
+  .page .related li { margin: 6px 0; }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="../../" style="text-decoration:none;color:inherit">
+    <span class="brand-dot">F</span>
+    <span class="brand-name">FabGPT-FAQ</span>
+  </a>
+</header>
+<main class="page">
+  <div class="vertical">Strumenti e app</div>
+  <h1>Come funziona il file robots.txt?</h1>
+  <div class="answer"><p>Il <strong>robots.txt</strong> – un file di testo nella root del sito – dice ai crawler cosa non visitare: direttive <code>User-agent</code> + <code>Disallow</code>/<code>Allow</code>, più la riga <code>Sitemap:</code> che indica dove sta la <a href="../a-cosa-serve-la-sitemap/">mappa del sito</a>.</p><p>I tre equivoci da smontare:</p><ul><li>è una <strong>convenzione, non una barriera</strong>: i bot malevoli lo ignorano allegramente – per bloccarli davvero serve il <a href="../cos-e-un-waf-web-application-firewall/">WAF</a></li><li><strong>Disallow non deindicizza</strong>: una pagina bloccata può comparire comunque su Google (senza descrizione); per non farla indicizzare serve <code>noindex</code>, che però il crawler deve poter leggere</li><li>non è un posto per segreti: è pubblico per definizione, e i path &quot;nascosti&quot; elencati lì sono i primi che un curioso visita</li></ul><p>Capitolo moderno: i <a href="../bloccare-crawler-ai-gptbot/">crawler AI</a> (GPTBot, ClaudeBot…) si gestiscono da qui – decisione strategica, non tecnica.</p></div>
+  <a class="ask" href="../../?q=robots-txt">Chiedilo a FabGPT-FAQ →</a>
+  <div class="related">
+    <h2>Altre domande</h2>
+    <ul><li><a href="../cosa-sono-i-core-web-vitals/">Cosa sono i Core Web Vitals (LCP, INP, CLS)?</a></li><li><a href="../cos-e-il-file-llms-txt/">Cos&#x27;è il file llms.txt?</a></li><li><a href="../json-ld-schema-org-seo/">Cos&#x27;è JSON-LD (schema.org) e a cosa serve per la SEO?</a></li><li><a href="../a-cosa-serve-la-sitemap/">A cosa serve la sitemap.xml?</a></li><li><a href="../quali-favicon-servono/">Quali formati di favicon servono davvero?</a></li><li><a href="../convertire-pdf-scansionato-in-testo/">Come si converte un PDF scansionato in testo modificabile (OCR)?</a></li></ul>
+  </div>
+</main>
+</body>
+</html>

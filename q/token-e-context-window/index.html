@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cosa sono i token e la context window di un LLM? – FabGPT-FAQ</title>
+<meta name="description" content="Gli LLM non leggono parole ma token: frammenti di testo (in media ~4 caratteri in inglese, meno in italiano) prodotti dal tokenizer. &quot;gatto&quot; può essere un…">
+<link rel="canonical" href="https://fabriziosalmi.github.io/fabgpt-faq/q/token-e-context-window/">
+<link rel="stylesheet" href="../../style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Cosa sono i token e la context window di un LLM?", "acceptedAnswer": {"@type": "Answer", "text": "Gli LLM non leggono parole ma token: frammenti di testo (in media ~4 caratteri in inglese, meno in italiano) prodotti dal tokenizer. \"gatto\" può essere un token, \"gattopardo\" tre. Si paga e si misura tutto in token. La context window è quanti token il modello può tenere \"in mente\" contemporaneamente: prompt + conversazione + documenti + risposta. Sforata quella, il modello semplicemente non vede più il resto – non c'è memoria nascosta. Le finestre moderne vanno da 8k a milioni di token, ma attenzione: finestra grande ≠ attenzione uniforme (i modelli tendono a perdersi il centro dei contesti lunghi) e i costi crescono. Per questo si comprime ciò che entra (l0-compressor per l'output dei comandi) e si recupera solo il rilevante ([RAG](q/cos-e-rag-retrieval-augmented-generation/))."}}]}</script>
+<style>
+  .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
+  .page h1 { font-size: 26px; line-height: 1.3; margin: 8px 0 20px; }
+  .page .answer a { color: var(--link); }
+  .page .vertical { font-size: 13px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }
+  .page .answer ul { padding-left: 22px; }
+  .page .answer code { background: var(--code-bg); border-radius: 5px; padding: 1px 5px; font-size: 0.9em; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+  .page .ask { display: inline-block; margin-top: 24px; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 9px 18px; text-decoration: none; font-weight: 600; }
+  .page .related { margin-top: 36px; border-top: 1px solid var(--border); padding-top: 18px; }
+  .page .related h2 { font-size: 16px; }
+  .page .related a { color: var(--link); text-decoration: none; }
+  .page .related a:hover { text-decoration: underline; }
+  .page .related li { margin: 6px 0; }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="../../" style="text-decoration:none;color:inherit">
+    <span class="brand-dot">F</span>
+    <span class="brand-name">FabGPT-FAQ</span>
+  </a>
+</header>
+<main class="page">
+  <div class="vertical">AI e LLM</div>
+  <h1>Cosa sono i token e la context window di un LLM?</h1>
+  <div class="answer"><p>Gli LLM non leggono parole ma <strong>token</strong>: frammenti di testo (in media ~4 caratteri in inglese, meno in italiano) prodotti dal tokenizer. &quot;gatto&quot; può essere un token, &quot;gattopardo&quot; tre. Si paga e si misura tutto in token.</p><p>La <strong>context window</strong> è quanti token il modello può tenere &quot;in mente&quot; contemporaneamente: prompt + conversazione + documenti + risposta. Sforata quella, il modello semplicemente non vede più il resto – non c&#x27;è memoria nascosta. Le finestre moderne vanno da 8k a milioni di token, ma attenzione: finestra grande ≠ attenzione uniforme (i modelli tendono a perdersi il centro dei contesti lunghi) e i costi crescono. Per questo si comprime ciò che entra (<a href="https://github.com/fabriziosalmi/l0-compressor" target="_blank" rel="noopener">l0-compressor</a> per l&#x27;output dei comandi) e si recupera solo il rilevante (<a href="../cos-e-rag-retrieval-augmented-generation/">RAG</a>).</p></div>
+  <a class="ask" href="../../?q=token-context">Chiedilo a FabGPT-FAQ →</a>
+  <div class="related">
+    <h2>Altre domande</h2>
+    <ul><li><a href="../cos-e-la-prompt-injection/">Cos&#x27;è la prompt injection e come ci si difende?</a></li><li><a href="../cos-e-mcp-model-context-protocol/">Cos&#x27;è MCP (Model Context Protocol)?</a></li><li><a href="../cos-e-il-vibe-coding/">Cos&#x27;è il vibe coding e quali sono i rischi?</a></li><li><a href="../allucinazioni-llm-dipendenze-inventate/">Cosa sono le allucinazioni degli LLM (e le dipendenze inventate)?</a></li><li><a href="../cos-e-rag-retrieval-augmented-generation/">Cos&#x27;è RAG (Retrieval-Augmented Generation)?</a></li><li><a href="../cos-e-un-llm/">Cos&#x27;è un LLM (Large Language Model)?</a></li></ul>
+  </div>
+</main>
+</body>
+</html>

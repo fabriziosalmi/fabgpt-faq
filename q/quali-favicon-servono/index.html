@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quali formati di favicon servono davvero? – FabGPT-FAQ</title>
+<meta name="description" content="La confusione storica (decine di PNG per ogni device) si è ridotta a un set minimo civile: favicon.ico (32×32) nella root – il fallback che tutto capisce,…">
+<link rel="canonical" href="https://fabriziosalmi.github.io/fabgpt-faq/q/quali-favicon-servono/">
+<link rel="stylesheet" href="../../style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Quali formati di favicon servono davvero?", "acceptedAnswer": {"@type": "Answer", "text": "La confusione storica (decine di PNG per ogni device) si è ridotta a un set minimo civile: favicon.ico (32×32) nella root – il fallback che tutto capisce, browser vecchi inclusi SVG (rel=\"icon\" type=\"image/svg+xml\") – scala ovunque, supporta il dark mode via media query interna apple-touch-icon.png (180×180) – per iOS quando salvi in home 192×192 e 512×512 dichiarate nel web manifest – per Android/PWA Quattro file, fine. Da evitare: icone diverse per ogni pagina (i browser le cachano aggressivamente) e i generatori che sputano trenta varianti del 2012. Per produrre tutti i formati da un'immagine sola – favicon, social, banner – BrandKit fa il lavoro in un colpo, in casa tua."}}]}</script>
+<style>
+  .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
+  .page h1 { font-size: 26px; line-height: 1.3; margin: 8px 0 20px; }
+  .page .answer a { color: var(--link); }
+  .page .vertical { font-size: 13px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }
+  .page .answer ul { padding-left: 22px; }
+  .page .answer code { background: var(--code-bg); border-radius: 5px; padding: 1px 5px; font-size: 0.9em; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+  .page .ask { display: inline-block; margin-top: 24px; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 9px 18px; text-decoration: none; font-weight: 600; }
+  .page .related { margin-top: 36px; border-top: 1px solid var(--border); padding-top: 18px; }
+  .page .related h2 { font-size: 16px; }
+  .page .related a { color: var(--link); text-decoration: none; }
+  .page .related a:hover { text-decoration: underline; }
+  .page .related li { margin: 6px 0; }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="../../" style="text-decoration:none;color:inherit">
+    <span class="brand-dot">F</span>
+    <span class="brand-name">FabGPT-FAQ</span>
+  </a>
+</header>
+<main class="page">
+  <div class="vertical">Strumenti e app</div>
+  <h1>Quali formati di favicon servono davvero?</h1>
+  <div class="answer"><p>La confusione storica (decine di PNG per ogni device) si è ridotta a un set minimo civile:</p><ul><li><strong>favicon.ico</strong> (32×32) nella root – il fallback che tutto capisce, browser vecchi inclusi</li><li><strong>SVG</strong> (<code>rel=&quot;icon&quot; type=&quot;image/svg+xml&quot;</code>) – scala ovunque, supporta il dark mode via media query interna</li><li><strong>apple-touch-icon.png</strong> (180×180) – per iOS quando salvi in home</li><li><strong>192×192 e 512×512</strong> dichiarate nel web manifest – per Android/PWA</li></ul><p>Quattro file, fine. Da evitare: icone diverse per ogni pagina (i browser le cachano aggressivamente) e i generatori che sputano trenta varianti del 2012. Per produrre tutti i formati da un&#x27;immagine sola – favicon, social, banner – <a href="https://github.com/fabriziosalmi/brandkit" target="_blank" rel="noopener">BrandKit</a> fa il lavoro in un colpo, in casa tua.</p></div>
+  <a class="ask" href="../../?q=favicon-formati">Chiedilo a FabGPT-FAQ →</a>
+  <div class="related">
+    <h2>Altre domande</h2>
+    <ul><li><a href="../cosa-sono-i-core-web-vitals/">Cosa sono i Core Web Vitals (LCP, INP, CLS)?</a></li><li><a href="../come-funziona-robots-txt/">Come funziona il file robots.txt?</a></li><li><a href="../cos-e-il-file-llms-txt/">Cos&#x27;è il file llms.txt?</a></li><li><a href="../json-ld-schema-org-seo/">Cos&#x27;è JSON-LD (schema.org) e a cosa serve per la SEO?</a></li><li><a href="../a-cosa-serve-la-sitemap/">A cosa serve la sitemap.xml?</a></li><li><a href="../convertire-pdf-scansionato-in-testo/">Come si converte un PDF scansionato in testo modificabile (OCR)?</a></li></ul>
+  </div>
+</main>
+</body>
+</html>

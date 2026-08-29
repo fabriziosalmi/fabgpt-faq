@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cos&#x27;è il function calling (tool use) negli LLM? – FabGPT-FAQ</title>
+<meta name="description" content="Il function calling permette a un LLM di usare strumenti: gli descrivi delle funzioni (nome, parametri, a cosa servono) e lui, quando serve, invece di…">
+<link rel="canonical" href="https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-il-function-calling/">
+<link rel="stylesheet" href="../../style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Cos'è il function calling (tool use) negli LLM?", "acceptedAnswer": {"@type": "Answer", "text": "Il function calling permette a un LLM di usare strumenti: gli descrivi delle funzioni (nome, parametri, a cosa servono) e lui, quando serve, invece di rispondere a parole emette una chiamata strutturata – get_weather(city=\"Genova\"). Il tuo codice la esegue, restituisce il risultato, e il modello continua con quell'informazione. È il mattone che trasforma il testo in azione: senza, un LLM può solo descrivere cosa farebbe. Sopra questo meccanismo si costruiscono gli [agenti](q/cos-e-un-agente-ai/), e per non reinventare l'integrazione per ogni applicazione è nato [MCP](q/cos-e-mcp-model-context-protocol/), che standardizza come i tool vengono esposti. La regola di sicurezza resta quella degli agenti: ogni funzione esposta è superficie d'attacco – tipizzala, limitala, loggala."}}]}</script>
+<style>
+  .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
+  .page h1 { font-size: 26px; line-height: 1.3; margin: 8px 0 20px; }
+  .page .answer a { color: var(--link); }
+  .page .vertical { font-size: 13px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }
+  .page .answer ul { padding-left: 22px; }
+  .page .answer code { background: var(--code-bg); border-radius: 5px; padding: 1px 5px; font-size: 0.9em; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+  .page .ask { display: inline-block; margin-top: 24px; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 9px 18px; text-decoration: none; font-weight: 600; }
+  .page .related { margin-top: 36px; border-top: 1px solid var(--border); padding-top: 18px; }
+  .page .related h2 { font-size: 16px; }
+  .page .related a { color: var(--link); text-decoration: none; }
+  .page .related a:hover { text-decoration: underline; }
+  .page .related li { margin: 6px 0; }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="../../" style="text-decoration:none;color:inherit">
+    <span class="brand-dot">F</span>
+    <span class="brand-name">FabGPT-FAQ</span>
+  </a>
+</header>
+<main class="page">
+  <div class="vertical">AI e LLM</div>
+  <h1>Cos&#x27;è il function calling (tool use) negli LLM?</h1>
+  <div class="answer"><p>Il <strong>function calling</strong> permette a un LLM di usare strumenti: gli descrivi delle funzioni (nome, parametri, a cosa servono) e lui, quando serve, invece di rispondere a parole emette una <strong>chiamata strutturata</strong> – <code>get_weather(city=&quot;Genova&quot;)</code>. Il tuo codice la esegue, restituisce il risultato, e il modello continua con quell&#x27;informazione.</p><p>È il mattone che trasforma il testo in azione: senza, un LLM può solo <em>descrivere</em> cosa farebbe. Sopra questo meccanismo si costruiscono gli <a href="../cos-e-un-agente-ai/">agenti</a>, e per non reinventare l&#x27;integrazione per ogni applicazione è nato <a href="../cos-e-mcp-model-context-protocol/">MCP</a>, che standardizza come i tool vengono esposti. La regola di sicurezza resta quella degli agenti: ogni funzione esposta è superficie d&#x27;attacco – tipizzala, limitala, loggala.</p></div>
+  <a class="ask" href="../../?q=function-calling">Chiedilo a FabGPT-FAQ →</a>
+  <div class="related">
+    <h2>Altre domande</h2>
+    <ul><li><a href="../cos-e-la-prompt-injection/">Cos&#x27;è la prompt injection e come ci si difende?</a></li><li><a href="../cos-e-mcp-model-context-protocol/">Cos&#x27;è MCP (Model Context Protocol)?</a></li><li><a href="../cos-e-il-vibe-coding/">Cos&#x27;è il vibe coding e quali sono i rischi?</a></li><li><a href="../allucinazioni-llm-dipendenze-inventate/">Cosa sono le allucinazioni degli LLM (e le dipendenze inventate)?</a></li><li><a href="../cos-e-rag-retrieval-augmented-generation/">Cos&#x27;è RAG (Retrieval-Augmented Generation)?</a></li><li><a href="../cos-e-un-llm/">Cos&#x27;è un LLM (Large Language Model)?</a></li></ul>
+  </div>
+</main>
+</body>
+</html>

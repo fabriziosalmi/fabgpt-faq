@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Errore 502 Bad Gateway: cause e soluzioni – FabGPT-FAQ</title>
+<meta name="description" content="Il 502 lo emette un reverse proxy che non è riuscito a farsi rispondere dall&#x27;applicazione dietro di lui. Il proxy è vivo; è l&#x27;upstream che manca. Diagnosi…">
+<link rel="canonical" href="https://fabriziosalmi.github.io/fabgpt-faq/q/errore-502-bad-gateway/">
+<link rel="stylesheet" href="../../style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Errore 502 Bad Gateway: cause e soluzioni", "acceptedAnswer": {"@type": "Answer", "text": "Il 502 lo emette un reverse proxy che non è riuscito a farsi rispondere dall'applicazione dietro di lui. Il proxy è vivo; è l'upstream che manca. Diagnosi in ordine: l'applicazione è giù o sta riavviando (il classico deploy) – guarda i suoi log, non quelli del proxy timeout: la risposta arriva ma troppo tardi – si vede nei log del proxy come upstream timed out porta o socket sbagliati nella configurazione del proxy l'app satura risorse (RAM, connessioni al database) e rifiuta connessioni Se il proxy è Caddy/Nginx in casa tua, il monitoraggio esterno ti avvisa prima degli utenti: websites-monitor o DomainMate. E un'ondata di 502 generati da scanner molesti è il caso d'uso da manuale di caddy-mib."}}]}</script>
+<style>
+  .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
+  .page h1 { font-size: 26px; line-height: 1.3; margin: 8px 0 20px; }
+  .page .answer a { color: var(--link); }
+  .page .vertical { font-size: 13px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }
+  .page .answer ul { padding-left: 22px; }
+  .page .answer code { background: var(--code-bg); border-radius: 5px; padding: 1px 5px; font-size: 0.9em; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+  .page .ask { display: inline-block; margin-top: 24px; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 9px 18px; text-decoration: none; font-weight: 600; }
+  .page .related { margin-top: 36px; border-top: 1px solid var(--border); padding-top: 18px; }
+  .page .related h2 { font-size: 16px; }
+  .page .related a { color: var(--link); text-decoration: none; }
+  .page .related a:hover { text-decoration: underline; }
+  .page .related li { margin: 6px 0; }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="../../" style="text-decoration:none;color:inherit">
+    <span class="brand-dot">F</span>
+    <span class="brand-name">FabGPT-FAQ</span>
+  </a>
+</header>
+<main class="page">
+  <div class="vertical">Cybersecurity</div>
+  <h1>Errore 502 Bad Gateway: cause e soluzioni</h1>
+  <div class="answer"><p>Il <strong>502</strong> lo emette un reverse proxy che non è riuscito a farsi rispondere dall&#x27;applicazione dietro di lui. Il proxy è vivo; è l&#x27;<strong>upstream</strong> che manca. Diagnosi in ordine:</p><ul><li>l&#x27;applicazione è giù o sta riavviando (il classico deploy) – guarda i suoi log, non quelli del proxy</li><li><strong>timeout</strong>: la risposta arriva ma troppo tardi – si vede nei log del proxy come <code>upstream timed out</code></li><li>porta o socket sbagliati nella configurazione del proxy</li><li>l&#x27;app satura risorse (RAM, connessioni al database) e rifiuta connessioni</li></ul><p>Se il proxy è Caddy/Nginx in casa tua, il monitoraggio esterno ti avvisa prima degli utenti: <a href="https://github.com/fabriziosalmi/websites-monitor" target="_blank" rel="noopener">websites-monitor</a> o <a href="https://github.com/fabriziosalmi/domainmate" target="_blank" rel="noopener">DomainMate</a>. E un&#x27;ondata di 502 generati da scanner molesti è il caso d&#x27;uso da manuale di <a href="https://github.com/fabriziosalmi/caddy-mib" target="_blank" rel="noopener">caddy-mib</a>.</p></div>
+  <a class="ask" href="../../?q=errore-502">Chiedilo a FabGPT-FAQ →</a>
+  <div class="related">
+    <h2>Altre domande</h2>
+    <ul><li><a href="../cos-e-un-waf-web-application-firewall/">Cos&#x27;è un WAF (Web Application Firewall) e a cosa serve?</a></li><li><a href="../cos-e-un-reverse-proxy/">Cos&#x27;è un reverse proxy e a cosa serve?</a></li><li><a href="../come-funziona-lets-encrypt-acme/">Come funziona Let&#x27;s Encrypt e il protocollo ACME?</a></li><li><a href="../certificato-tls-scaduto-cosa-fare/">Certificato TLS scaduto: perché succede e come evitarlo?</a></li><li><a href="../cos-e-un-siem-e-un-soar/">Cos&#x27;è un SIEM e cos&#x27;è un SOAR?</a></li><li><a href="../nis2-chi-deve-adeguarsi-italia/">Chi deve adeguarsi alla NIS2 in Italia e cosa rischia?</a></li></ul>
+  </div>
+</main>
+</body>
+</html>

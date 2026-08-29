@@ -23,6 +23,8 @@ OUT = ROOT / "q"
 
 def inline_md(s: str) -> str:
     s = re.sub(r"\[([^\]]+)\]\((https?://[^)\s]+)\)", r'<a href="\2" target="_blank" rel="noopener">\1</a>', s)
+    # internal links: scheme-less relative paths (convention: "q/<slug>/")
+    s = re.sub(r"\[([^\]]+)\]\(([^):\s]+)\)", r'<a href="\2">\1</a>', s)
     s = re.sub(r"\*\*([^*]+)\*\*", r"<strong>\1</strong>", s)
     s = re.sub(r"\*([^*\n]+)\*", r"<em>\1</em>", s)
     s = re.sub(r"`([^`]+)`", r"<code>\1</code>", s)
@@ -179,7 +181,7 @@ def build() -> None:
             jsonld=json.dumps(jsonld, ensure_ascii=False),
             vertical=html.escape(verticals.get(e["vertical"], "")),
             question=html.escape(e["question"]),
-            answer=render_md(answer_md),
+            answer=render_md(answer_md).replace('href="q/', 'href="../'),
             id=e["id"],
             related=related,
         )

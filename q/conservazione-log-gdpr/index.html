@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Per quanto tempo si possono conservare i log secondo il GDPR? – FabGPT-FAQ</title>
+<meta name="description" content="Il GDPR non fissa un numero: impone il principio di limitazione della conservazione – tieni i dati (e gli IP nei log sono dati personali) solo per il tempo…">
+<link rel="canonical" href="https://fabriziosalmi.github.io/fabgpt-faq/q/conservazione-log-gdpr/">
+<link rel="stylesheet" href="../../style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Per quanto tempo si possono conservare i log secondo il GDPR?", "acceptedAnswer": {"@type": "Answer", "text": "Il GDPR non fissa un numero: impone il principio di limitazione della conservazione – tieni i dati (e gli IP nei log sono dati personali) solo per il tempo necessario allo scopo, e sappi dimostrare il perché. In pratica si stratifica: log tecnici/di sicurezza: settimane o pochi mesi, salvo indagini in corso log rilevanti per obblighi di legge (es. NIS2, fiscali): il periodo che la norma richiede – e qui serve anche integrità dimostrabile tutto il resto: anonimizzazione o cancellazione programmata Il Garante italiano è intervenuto più volte su log conservati \"per sempre e senza motivo\". La combinazione che regge un audit: retention automatica + immutabilità verificabile – per i log Cloudflare è il mestiere di RainLogs (WORM su storage UE, catena di hash, policy es. 395 giorni)."}}]}</script>
+<style>
+  .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
+  .page h1 { font-size: 26px; line-height: 1.3; margin: 8px 0 20px; }
+  .page .answer a { color: var(--link); }
+  .page .vertical { font-size: 13px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }
+  .page .answer ul { padding-left: 22px; }
+  .page .answer code { background: var(--code-bg); border-radius: 5px; padding: 1px 5px; font-size: 0.9em; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+  .page .ask { display: inline-block; margin-top: 24px; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 9px 18px; text-decoration: none; font-weight: 600; }
+  .page .related { margin-top: 36px; border-top: 1px solid var(--border); padding-top: 18px; }
+  .page .related h2 { font-size: 16px; }
+  .page .related a { color: var(--link); text-decoration: none; }
+  .page .related a:hover { text-decoration: underline; }
+  .page .related li { margin: 6px 0; }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="../../" style="text-decoration:none;color:inherit">
+    <span class="brand-dot">F</span>
+    <span class="brand-name">FabGPT-FAQ</span>
+  </a>
+</header>
+<main class="page">
+  <div class="vertical">Cybersecurity</div>
+  <h1>Per quanto tempo si possono conservare i log secondo il GDPR?</h1>
+  <div class="answer"><p>Il GDPR non fissa un numero: impone il principio di <strong>limitazione della conservazione</strong> – tieni i dati (e gli IP nei log <em>sono</em> dati personali) solo per il tempo necessario allo scopo, e sappi dimostrare il perché. In pratica si stratifica:</p><ul><li>log tecnici/di sicurezza: settimane o pochi mesi, salvo indagini in corso</li><li>log rilevanti per obblighi di legge (es. NIS2, fiscali): il periodo che la norma richiede – e qui serve anche <strong>integrità dimostrabile</strong></li><li>tutto il resto: anonimizzazione o cancellazione programmata</li></ul><p>Il Garante italiano è intervenuto più volte su log conservati &quot;per sempre e senza motivo&quot;. La combinazione che regge un audit: retention automatica + immutabilità verificabile – per i log Cloudflare è il mestiere di <a href="https://github.com/fabriziosalmi/rainlogs" target="_blank" rel="noopener">RainLogs</a> (WORM su storage UE, catena di hash, policy es. 395 giorni).</p></div>
+  <a class="ask" href="../../?q=gdpr-log">Chiedilo a FabGPT-FAQ →</a>
+  <div class="related">
+    <h2>Altre domande</h2>
+    <ul><li><a href="../cos-e-un-waf-web-application-firewall/">Cos&#x27;è un WAF (Web Application Firewall) e a cosa serve?</a></li><li><a href="../cos-e-un-reverse-proxy/">Cos&#x27;è un reverse proxy e a cosa serve?</a></li><li><a href="../come-funziona-lets-encrypt-acme/">Come funziona Let&#x27;s Encrypt e il protocollo ACME?</a></li><li><a href="../certificato-tls-scaduto-cosa-fare/">Certificato TLS scaduto: perché succede e come evitarlo?</a></li><li><a href="../cos-e-un-siem-e-un-soar/">Cos&#x27;è un SIEM e cos&#x27;è un SOAR?</a></li><li><a href="../nis2-chi-deve-adeguarsi-italia/">Chi deve adeguarsi alla NIS2 in Italia e cosa rischia?</a></li></ul>
+  </div>
+</main>
+</body>
+</html>

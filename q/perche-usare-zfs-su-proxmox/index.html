@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Perché usare ZFS su Proxmox? – FabGPT-FAQ</title>
+<meta name="description" content="ZFS è filesystem e gestore di volumi insieme, e su Proxmox è integrato nativamente. Cosa compri: integrità: checksum su ogni blocco – il bit rot viene…">
+<link rel="canonical" href="https://fabriziosalmi.github.io/fabgpt-faq/q/perche-usare-zfs-su-proxmox/">
+<link rel="stylesheet" href="../../style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Perché usare ZFS su Proxmox?", "acceptedAnswer": {"@type": "Answer", "text": "ZFS è filesystem e gestore di volumi insieme, e su Proxmox è integrato nativamente. Cosa compri: integrità: checksum su ogni blocco – il bit rot viene rilevato e, con ridondanza (mirror/RAIDZ), riparato da solo snapshot istantanei e cloni, perfetti per le VM replica incrementale tra nodi (pvesr), il modo povero e solido di avere un quasi-failover compressione trasparente (lz4: gratis in pratica) I compromessi: ZFS ama la RAM (l'ARC si prende quello che trova – limitalo su macchine piccole), vuole dischi dedicati senza RAID hardware di mezzo, e sui consumer SSD scrive parecchio. Per un nodo serio: mirror di due NVMe per VM e sistema. E ricorda: [gli snapshot non sono backup](q/differenza-snapshot-e-backup/) – per quello c'è [PBS](q/cos-e-proxmox-backup-server/)."}}]}</script>
+<style>
+  .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
+  .page h1 { font-size: 26px; line-height: 1.3; margin: 8px 0 20px; }
+  .page .answer a { color: var(--link); }
+  .page .vertical { font-size: 13px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }
+  .page .answer ul { padding-left: 22px; }
+  .page .answer code { background: var(--code-bg); border-radius: 5px; padding: 1px 5px; font-size: 0.9em; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+  .page .ask { display: inline-block; margin-top: 24px; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 9px 18px; text-decoration: none; font-weight: 600; }
+  .page .related { margin-top: 36px; border-top: 1px solid var(--border); padding-top: 18px; }
+  .page .related h2 { font-size: 16px; }
+  .page .related a { color: var(--link); text-decoration: none; }
+  .page .related a:hover { text-decoration: underline; }
+  .page .related li { margin: 6px 0; }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="../../" style="text-decoration:none;color:inherit">
+    <span class="brand-dot">F</span>
+    <span class="brand-name">FabGPT-FAQ</span>
+  </a>
+</header>
+<main class="page">
+  <div class="vertical">Proxmox e self-hosting</div>
+  <h1>Perché usare ZFS su Proxmox?</h1>
+  <div class="answer"><p><strong>ZFS</strong> è filesystem e gestore di volumi insieme, e su Proxmox è integrato nativamente. Cosa compri:</p><ul><li><strong>integrità</strong>: checksum su ogni blocco – il bit rot viene rilevato e, con ridondanza (mirror/RAIDZ), riparato da solo</li><li><strong>snapshot istantanei</strong> e cloni, perfetti per le VM</li><li><strong>replica</strong> incrementale tra nodi (<code>pvesr</code>), il modo povero e solido di avere un quasi-failover</li><li>compressione trasparente (lz4: gratis in pratica)</li></ul><p>I compromessi: ZFS ama la <strong>RAM</strong> (l&#x27;ARC si prende quello che trova – limitalo su macchine piccole), vuole dischi dedicati <strong>senza RAID hardware</strong> di mezzo, e sui consumer SSD scrive parecchio. Per un nodo serio: mirror di due NVMe per VM e sistema. E ricorda: <a href="../differenza-snapshot-e-backup/">gli snapshot non sono backup</a> – per quello c&#x27;è <a href="../cos-e-proxmox-backup-server/">PBS</a>.</p></div>
+  <a class="ask" href="../../?q=zfs-proxmox">Chiedilo a FabGPT-FAQ →</a>
+  <div class="related">
+    <h2>Altre domande</h2>
+    <ul><li><a href="../cos-e-proxmox-ve/">Cos&#x27;è Proxmox VE e perché è così usato?</a></li><li><a href="../differenza-container-lxc-e-vm/">Che differenza c&#x27;è tra container LXC e VM?</a></li><li><a href="../self-hosting-pro-e-contro/">Self-hosting: cosa significa e quando conviene?</a></li><li><a href="../cluster-proxmox-e-quorum/">Come funziona un cluster Proxmox (e cos&#x27;è il quorum)?</a></li><li><a href="../differenza-snapshot-e-backup/">Che differenza c&#x27;è tra snapshot e backup?</a></li><li><a href="../cos-e-proxmox-backup-server/">Cos&#x27;è Proxmox Backup Server e perché usarlo?</a></li></ul>
+  </div>
+</main>
+</body>
+</html>

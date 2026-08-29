@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cos&#x27;è una CDN e quando serve davvero? – FabGPT-FAQ</title>
+<meta name="description" content="Una CDN (Content Delivery Network) è una rete di server sparsi per il mondo che tiene copie dei tuoi contenuti statici vicino agli utenti: chi visita da…">
+<link rel="canonical" href="https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-una-cdn/">
+<link rel="stylesheet" href="../../style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Cos'è una CDN e quando serve davvero?", "acceptedAnswer": {"@type": "Answer", "text": "Una CDN (Content Delivery Network) è una rete di server sparsi per il mondo che tiene copie dei tuoi contenuti statici vicino agli utenti: chi visita da Tokyo riceve immagini e CSS da Tokyo, non da Milano. Meno latenza, meno carico sull'origine, più resistenza ai picchi (e ai [DDoS](q/cos-e-un-attacco-ddos/) volumetrici). Quando serve: pubblico geograficamente sparso, asset pesanti, traffico irregolare. Quando serve meno di quanto si creda: un sito italiano per utenti italiani su un buon server europeo con cache locale e HTTP/2 spesso va benissimo – la CDN aggiunge un intermediario, con i [temi di sovranità](q/cos-e-la-sovranita-digitale/) che ne conseguono. Via di mezzo interessante: cache in RAM sull'edge tuo, come fa zion con la sua cache a due livelli."}}]}</script>
+<style>
+  .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
+  .page h1 { font-size: 26px; line-height: 1.3; margin: 8px 0 20px; }
+  .page .answer a { color: var(--link); }
+  .page .vertical { font-size: 13px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }
+  .page .answer ul { padding-left: 22px; }
+  .page .answer code { background: var(--code-bg); border-radius: 5px; padding: 1px 5px; font-size: 0.9em; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+  .page .ask { display: inline-block; margin-top: 24px; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 9px 18px; text-decoration: none; font-weight: 600; }
+  .page .related { margin-top: 36px; border-top: 1px solid var(--border); padding-top: 18px; }
+  .page .related h2 { font-size: 16px; }
+  .page .related a { color: var(--link); text-decoration: none; }
+  .page .related a:hover { text-decoration: underline; }
+  .page .related li { margin: 6px 0; }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="../../" style="text-decoration:none;color:inherit">
+    <span class="brand-dot">F</span>
+    <span class="brand-name">FabGPT-FAQ</span>
+  </a>
+</header>
+<main class="page">
+  <div class="vertical">Cloudflare</div>
+  <h1>Cos&#x27;è una CDN e quando serve davvero?</h1>
+  <div class="answer"><p>Una <strong>CDN</strong> (Content Delivery Network) è una rete di server sparsi per il mondo che tiene copie dei tuoi contenuti statici vicino agli utenti: chi visita da Tokyo riceve immagini e CSS da Tokyo, non da Milano. Meno latenza, meno carico sull&#x27;origine, più resistenza ai picchi (e ai <a href="../cos-e-un-attacco-ddos/">DDoS</a> volumetrici).</p><p>Quando serve: pubblico geograficamente sparso, asset pesanti, traffico irregolare. Quando serve meno di quanto si creda: un sito italiano per utenti italiani su un buon server europeo con cache locale e HTTP/2 spesso va benissimo – la CDN aggiunge un intermediario, con i <a href="../cos-e-la-sovranita-digitale/">temi di sovranità</a> che ne conseguono. Via di mezzo interessante: cache in RAM sull&#x27;edge tuo, come fa <a href="https://github.com/fabriziosalmi/zion" target="_blank" rel="noopener">zion</a> con la sua cache a due livelli.</p></div>
+  <a class="ask" href="../../?q=cos-e-cdn">Chiedilo a FabGPT-FAQ →</a>
+  <div class="related">
+    <h2>Altre domande</h2>
+    <ul><li><a href="../cos-e-gitops/">Cos&#x27;è GitOps e perché conviene?</a></li><li><a href="../cos-e-la-sovranita-digitale/">Cos&#x27;è la sovranità digitale e perché le aziende europee ci tengono?</a></li><li><a href="../tipi-di-record-dns/">Quali sono i tipi di record DNS (A, CNAME, MX, TXT)?</a></li><li><a href="../cos-e-il-ttl-dns/">Cos&#x27;è il TTL dei record DNS?</a></li><li><a href="../nuvoletta-arancione-cloudflare/">Cosa fa la nuvoletta arancione di Cloudflare (proxy on/off)?</a></li><li><a href="../cosa-sono-i-cloudflare-workers/">Cosa sono i Cloudflare Workers?</a></li></ul>
+  </div>
+</main>
+</body>
+</html>

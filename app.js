@@ -20,7 +20,7 @@
   const STOPWORDS = new Set(('il lo la i gli le un uno una di a da in con su per tra fra e o ma se che chi cosa come dove quando quanto ' +
     'perche non mi ti si ci vi ne del della dei delle dello degli al allo alla ai agli alle sul sullo sulla sui sugli sulle nel nella nei ' +
     'sono sei e siamo siete ho hai ha abbiamo avete hanno posso puoi puo vorrei voglio sapere dimmi parlami spiegami raccontami esiste esistono ' +
-    'c è ce cioe questo questa questi queste quello quella mio mia tuo tua suo sua piu meno molto poco anche ancora gia solo cose roba ' +
+    'c è ce cos cose cioe questo questa questi queste quello quella mio mia tuo tua suo sua piu meno molto poco anche ancora gia solo cose roba ' +
     'the a an of to is are was were be been what who how why when where and or me my your tell about does do can could would please').split(/\s+/));
 
   function norm(s) {
@@ -55,25 +55,62 @@
     return (2 * hits) / (a.length - 1 + b.length - 1);
   }
 
+  // True if a and b are within one edit (incl. adjacent transposition).
+  function damerau1(a, b) {
+    if (a === b) return true;
+    let la = a.length, lb = b.length;
+    if (Math.abs(la - lb) > 1) return false;
+    if (la === lb) {
+      const diffs = [];
+      for (let k = 0; k < la; k++) if (a[k] !== b[k]) diffs.push(k);
+      if (diffs.length === 1) return true;
+      return diffs.length === 2 && diffs[1] === diffs[0] + 1 &&
+        a[diffs[0]] === b[diffs[1]] && a[diffs[1]] === b[diffs[0]];
+    }
+    if (la > lb) { [a, b] = [b, a]; [la, lb] = [lb, la]; }
+    let i = 0;
+    while (i < la && a[i] === b[i]) i++;
+    return a.slice(i) === b.slice(i + 1);
+  }
+
+  // Best fuzzy match of one keyword word against the input tokens.
+  function wordBest(w, inputTokens) {
+    let best = 0;
+    for (const t of inputTokens) {
+      if (t === w) return 1;
+      if (t.length > 3 && w.length > 3 && Math.abs(t.length - w.length) <= 3) {
+        const sim = dice(t, w);
+        if (sim >= 0.7) best = Math.max(best, sim * 0.95);
+      }
+      // short-word typos that bigram similarity misses (toen -> token)
+      if (best < 0.8 && t.length >= 4 && w.length >= 4 && Math.abs(t.length - w.length) <= 1 && damerau1(t, w)) {
+        best = 0.8;
+      }
+    }
+    return best;
+  }
+
   function scoreEntry(entry, inputNorm, inputTokens) {
     let score = 0;
     for (const raw of entry.keywords) {
       const kw = norm(raw);
       if (!kw) continue;
       if (kw.includes(' ')) {
-        // multi-word keyword: phrase match against the whole input
-        if (inputNorm.includes(kw)) score += 2;
+        // Multi-word keyword: exact substring wins; otherwise every unique
+        // content word must be present (any order, typo-tolerant).
+        if (inputNorm.includes(kw)) { score += 2; continue; }
+        const words = [...new Set(kw.split(' ').filter(w => w.length > 1 && !STOPWORDS.has(w)))];
+        if (words.length < 2) continue;
+        let total = 0, all = true;
+        for (const w of words) {
+          const b = wordBest(w, inputTokens);
+          if (!b) { all = false; break; }
+          total += b;
+        }
+        if (all) score += 2 * (total / words.length);
         continue;
       }
-      let best = 0;
-      for (const t of inputTokens) {
-        if (t === kw) { best = 1; break; }
-        if (t.length > 3 && kw.length > 3 && Math.abs(t.length - kw.length) <= 3) {
-          const sim = dice(t, kw);
-          if (sim >= 0.7) best = Math.max(best, sim * 0.95);
-        }
-      }
-      score += best;
+      score += wordBest(kw, inputTokens);
     }
     return score;
   }
@@ -81,8 +118,10 @@
   function match(text) {
     const inputNorm = norm(text);
     const inputTokens = tokens(text);
+    // Smalltalk goes last so knowledge-base entries win ties.
+    const pool = DB.entries.concat(DB.smalltalk || []);
     let best = null, bestScore = 0;
-    for (const entry of DB.entries) {
+    for (const entry of pool) {
       const s = scoreEntry(entry, inputNorm, inputTokens);
       if (s > bestScore) { bestScore = s; best = entry; }
     }
@@ -99,6 +138,8 @@
   function inlineMd(s) {
     return s
       .replace(/\[([^\]]+)\]\((https?:\/\/[^)\s]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>')
+      // internal links: scheme-less relative paths (convention: "q/<slug>/")
+      .replace(/\[([^\]]+)\]\(([^):\s]+)\)/g, '<a href="$2">$1</a>')
       .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
       .replace(/\*([^*\n]+)\*/g, '<em>$1</em>')
       .replace(/`([^`]+)`/g, '<code>$1</code>');

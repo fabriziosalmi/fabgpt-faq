@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cosa sono SPF, DKIM e DMARC? – FabGPT-FAQ</title>
+<meta name="description" content="Sono i tre record DNS che impediscono a chiunque di spedire email a nome tuo: SPF (record TXT): l&#x27;elenco dei server autorizzati a inviare per il dominio…">
+<link rel="canonical" href="https://fabriziosalmi.github.io/fabgpt-faq/q/spf-dkim-dmarc/">
+<link rel="stylesheet" href="../../style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Cosa sono SPF, DKIM e DMARC?", "acceptedAnswer": {"@type": "Answer", "text": "Sono i tre record DNS che impediscono a chiunque di spedire email a nome tuo: SPF (record TXT): l'elenco dei server autorizzati a inviare per il dominio DKIM: una firma crittografica sulle mail in uscita – il destinatario verifica che il contenuto non sia alterato e venga da te DMARC: la policy che lega i primi due e dice ai destinatari cosa fare quando falliscono (p=none osserva, p=quarantine in spam, p=reject rifiuta) – più i report aggregati per vedere chi spedisce a nome tuo Senza questi tre, oggi [finisci in spam](q/perche-email-in-spam/) anche se sei legittimo: Gmail e Microsoft li pretendono. Percorso sano: SPF e DKIM corretti, DMARC p=none a osservare i report per qualche settimana, poi si stringe. DomainMate verifica in continuo che ci siano e restino sensati."}}]}</script>
+<style>
+  .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
+  .page h1 { font-size: 26px; line-height: 1.3; margin: 8px 0 20px; }
+  .page .answer a { color: var(--link); }
+  .page .vertical { font-size: 13px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }
+  .page .answer ul { padding-left: 22px; }
+  .page .answer code { background: var(--code-bg); border-radius: 5px; padding: 1px 5px; font-size: 0.9em; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+  .page .ask { display: inline-block; margin-top: 24px; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 9px 18px; text-decoration: none; font-weight: 600; }
+  .page .related { margin-top: 36px; border-top: 1px solid var(--border); padding-top: 18px; }
+  .page .related h2 { font-size: 16px; }
+  .page .related a { color: var(--link); text-decoration: none; }
+  .page .related a:hover { text-decoration: underline; }
+  .page .related li { margin: 6px 0; }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="../../" style="text-decoration:none;color:inherit">
+    <span class="brand-dot">F</span>
+    <span class="brand-name">FabGPT-FAQ</span>
+  </a>
+</header>
+<main class="page">
+  <div class="vertical">Cloudflare</div>
+  <h1>Cosa sono SPF, DKIM e DMARC?</h1>
+  <div class="answer"><p>Sono i tre record DNS che impediscono a chiunque di spedire email a nome tuo:</p><ul><li><strong>SPF</strong> (record TXT): l&#x27;elenco dei server autorizzati a inviare per il dominio</li><li><strong>DKIM</strong>: una firma crittografica sulle mail in uscita – il destinatario verifica che il contenuto non sia alterato e venga da te</li><li><strong>DMARC</strong>: la policy che lega i primi due e dice ai destinatari <strong>cosa fare</strong> quando falliscono (<code>p=none</code> osserva, <code>p=quarantine</code> in spam, <code>p=reject</code> rifiuta) – più i report aggregati per vedere chi spedisce a nome tuo</li></ul><p>Senza questi tre, oggi <a href="../perche-email-in-spam/">finisci in spam</a> anche se sei legittimo: Gmail e Microsoft li pretendono. Percorso sano: SPF e DKIM corretti, DMARC <code>p=none</code> a osservare i report per qualche settimana, poi si stringe. <a href="https://github.com/fabriziosalmi/domainmate" target="_blank" rel="noopener">DomainMate</a> verifica in continuo che ci siano e restino sensati.</p></div>
+  <a class="ask" href="../../?q=spf-dkim-dmarc">Chiedilo a FabGPT-FAQ →</a>
+  <div class="related">
+    <h2>Altre domande</h2>
+    <ul><li><a href="../cos-e-gitops/">Cos&#x27;è GitOps e perché conviene?</a></li><li><a href="../cos-e-la-sovranita-digitale/">Cos&#x27;è la sovranità digitale e perché le aziende europee ci tengono?</a></li><li><a href="../cos-e-una-cdn/">Cos&#x27;è una CDN e quando serve davvero?</a></li><li><a href="../tipi-di-record-dns/">Quali sono i tipi di record DNS (A, CNAME, MX, TXT)?</a></li><li><a href="../cos-e-il-ttl-dns/">Cos&#x27;è il TTL dei record DNS?</a></li><li><a href="../nuvoletta-arancione-cloudflare/">Cosa fa la nuvoletta arancione di Cloudflare (proxy on/off)?</a></li></ul>
+  </div>
+</main>
+</body>
+</html>

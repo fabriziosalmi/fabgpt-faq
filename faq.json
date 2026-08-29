@@ -53,7 +53,6 @@
         "salmi",
         "fab",
         "chi sei",
-        "chi e",
         "autore",
         "creatore",
         "bio",
@@ -117,7 +116,6 @@
       "vertical": "security",
       "keywords": [
         "reverse proxy",
-        "cos e un reverse proxy",
         "proxy inverso",
         "a cosa serve un reverse proxy",
         "forward proxy",
@@ -143,7 +141,8 @@
         "http-01",
         "dns-01",
         "certbot",
-        "challenge"
+        "challenge",
+        "encrypt"
       ],
       "answers": [
         "**Let's Encrypt** emette certificati TLS gratuiti tramite **ACME**, un protocollo in cui dimostri di controllare il dominio superando una *challenge*: pubblicare un token via HTTP (`http-01`) o creare un record DNS (`dns-01`, necessario per i certificati wildcard). I certificati durano 90 giorni: il rinnovo **deve** essere automatizzato, non è un optional.\n\nFinché hai due domini, basta certbot. Quando i domini diventano decine su macchine diverse, serve gestione centralizzata: [CertMate](https://github.com/fabriziosalmi/certmate) (1.400+ ⭐) automatizza emissione e rinnovo ACME con **29 provider DNS**, scopre i certificati già esistenti nell'infrastruttura, li inventaria e li deploya dove servono."
@@ -161,7 +160,9 @@
         "connessione non privata",
         "err cert date invalid",
         "evitare scadenza",
-        "browser avviso"
+        "browser avviso",
+        "certificato",
+        "e scaduto"
       ],
       "answers": [
         "Quando un certificato TLS scade, i browser mostrano \"La connessione non è privata\" e il sito è di fatto giù: utenti persi, API che falliscono, monitoraggio che urla. Succede perché il rinnovo era manuale, o perché **nessuno sapeva che quel certificato esistesse** (il classico: emesso a mano due anni fa su un load balancer dimenticato).\n\nLa cura ha due parti:\n\n- **automazione del rinnovo** – [CertMate](https://github.com/fabriziosalmi/certmate) gestisce l'intero ciclo di vita e in più fa *discovery* dei certificati che non hai emesso tu\n- **monitoraggio indipendente** – [websites-monitor](https://github.com/fabriziosalmi/websites-monitor) (via GitHub Actions) o [DomainMate](https://github.com/fabriziosalmi/domainmate) controllano le scadenze dall'esterno, così l'errore umano ha un paracadute"
@@ -271,7 +272,6 @@
       "vertical": "ai",
       "keywords": [
         "vibe coding",
-        "cos e il vibe coding",
         "programmare con ai",
         "codice scritto dall ai",
         "coding assistito",
@@ -288,14 +288,17 @@
       "vertical": "ai",
       "keywords": [
         "allucinazioni",
-        "allucinazione",
         "hallucination",
         "dipendenze allucinate",
         "pacchetti inventati",
         "slopsquatting",
         "ai-dependency-guard",
         "pacchetto non esiste",
-        "inventa"
+        "inventa",
+        "pacchetti",
+        "inventati",
+        "inventare",
+        "non esiste"
       ],
       "answers": [
         "Un LLM \"allucina\" quando produce con totale sicurezza qualcosa di falso: una fonte inesistente, un'API inventata, un fatto sbagliato. Non è un bug occasionale, è una proprietà statistica del come questi modelli generano testo.\n\nLa variante più pericolosa per chi sviluppa: le **dipendenze allucinate**. L'LLM scrive `import pacchetto-che-non-esiste`, lo sviluppatore lo committa, e un attaccante può **registrare quel nome** su PyPI o npm (slopsquatting): alla build successiva il codice malevolo entra in casa. Due risorse a tema:\n\n- [ai-dependency-guard](https://github.com/fabriziosalmi/ai-dependency-guard) – GitHub Action zero-dependency che valida ogni manifest contro i registry ufficiali e **fa fallire la CI** se trova un pacchetto inventato\n- [ai-hallucination-research](https://github.com/fabriziosalmi/ai-hallucination-research) – l'analisi empirica del fenomeno che sta dietro al tool"
@@ -309,9 +312,7 @@
       "keywords": [
         "rag",
         "retrieval augmented",
-        "retrieval-augmented",
         "cos e rag",
-        "embeddings",
         "vector database",
         "ricerca semantica",
         "documenti llm"
@@ -327,13 +328,11 @@
       "vertical": "proxmox",
       "keywords": [
         "proxmox",
-        "cos e proxmox",
         "proxmox ve",
         "pve",
         "hypervisor",
         "virtualizzazione",
-        "alternativa vmware",
-        "esxi"
+        "alternativa vmware"
       ],
       "answers": [
         "**Proxmox VE** è una piattaforma di virtualizzazione open source basata su Debian che gestisce **VM (KVM/QEMU) e container LXC** dalla stessa interfaccia web, con cluster, alta disponibilità, storage ZFS/Ceph e backup integrati (con il gemello Proxmox Backup Server). Dopo la stretta sulle licenze VMware è diventata la via di fuga preferita di homelab e PMI: niente costi di licenza, tutto self-hosted.\n\nIl portfolio di Fabrizio ci ha costruito sopra un piccolo ecosistema:\n\n- **autoscaling** – [proxmox-vm-autoscale](https://github.com/fabriziosalmi/proxmox-vm-autoscale) e [proxmox-lxc-autoscale](https://github.com/fabriziosalmi/proxmox-lxc-autoscale)\n- **terminale** – [proxxx](https://github.com/fabriziosalmi/proxxx), cockpit TUI/CLI per PVE e PBS\n- **bilanciamento** – [proxmox-cluster-balancer](https://github.com/fabriziosalmi/proxmox-cluster-balancer)"
@@ -347,7 +346,6 @@
       "keywords": [
         "differenza lxc vm",
         "lxc o vm",
-        "container o vm",
         "meglio lxc o vm",
         "differenza container",
         "kvm",
@@ -404,12 +402,1006 @@
         "auto ospitare",
         "ospitare in casa",
         "homelab",
-        "perche self host",
         "in casa",
         "on premise"
       ],
       "answers": [
         "**Self-hosting** significa far girare i servizi sulla propria infrastruttura invece che affittarli come SaaS: dal media server in salotto al SIEM aziendale on-premise. I pro: controllo totale dei dati, niente canoni che crescono, niente vendor lock-in, conformità più semplice (GDPR/NIS2). I contro, onestamente: la manutenzione è tua – aggiornamenti, backup, certificati, sicurezza.\n\nBuona parte del portfolio di Fabrizio esiste per abbattere proprio quel costo di manutenzione: [Proxmox con autoscaling](https://github.com/fabriziosalmi/proxmox-lxc-autoscale) per la base, [CertMate](https://github.com/fabriziosalmi/certmate) per i certificati, [Wildbox](https://github.com/fabriziosalmi/wildbox) per la sicurezza, [NASO](https://github.com/fabriziosalmi/naso) per il breach monitoring, [pdf-ocr](https://github.com/fabriziosalmi/pdf-ocr) e [Noted](https://github.com/fabriziosalmi/noted) per la produttività – tutto pensato per girare in casa."
+      ]
+    },
+    {
+      "id": "http-vs-https",
+      "slug": "differenza-http-https-tls",
+      "question": "Che differenza c'è tra HTTP e HTTPS (e cos'è TLS)?",
+      "vertical": "security",
+      "keywords": [
+        "https",
+        "http",
+        "tls",
+        "differenza http https",
+        "connessione sicura",
+        "lucchetto",
+        "cifratura sito"
+      ],
+      "answers": [
+        "**HTTP** trasporta le pagine web in chiaro: chiunque sulla strada (Wi-Fi pubblico, provider, proxy) può leggere e modificare ciò che passa. **HTTPS** è lo stesso protocollo dentro un tunnel **TLS**, che garantisce tre cose: cifratura (nessuno legge), integrità (nessuno modifica) e autenticazione (stai parlando davvero con quel sito, grazie al certificato).\n\nDal 2018 i browser marcano i siti HTTP come \"non sicuri\", e HTTPS è ormai il prerequisito di qualsiasi cosa: HTTP/2, geolocalizzazione, PWA. I certificati sono gratuiti via [Let's Encrypt/ACME](q/come-funziona-lets-encrypt-acme/) – e quando diventano tanti, li gestisce [CertMate](https://github.com/fabriziosalmi/certmate)."
+      ]
+    },
+    {
+      "id": "ddos",
+      "slug": "cos-e-un-attacco-ddos",
+      "question": "Cos'è un attacco DDoS e come ci si difende?",
+      "vertical": "security",
+      "keywords": [
+        "ddos",
+        "dos",
+        "denial of service",
+        "attacco ddos",
+        "sito giu per attacco",
+        "traffico anomalo",
+        "mitigazione"
+      ],
+      "answers": [
+        "Un **DDoS** (Distributed Denial of Service) satura un servizio con traffico proveniente da migliaia di macchine (spesso una botnet) finché non risponde più. Non ruba dati: toglie disponibilità. Le varianti principali: volumetrici (banda), di protocollo (SYN flood) e applicativi (L7: richieste HTTP apparentemente legittime).\n\nDifese a strati: una rete anycast davanti (Cloudflare e simili assorbono i volumetrici), poi **rate limiting** ([limits](https://github.com/fabriziosalmi/limits), o l'edge), poi un **WAF** che riconosce i pattern applicativi ([caddy-waf](https://github.com/fabriziosalmi/caddy-waf), [patterns](https://github.com/fabriziosalmi/patterns)) e ban automatici per chi insiste ([caddy-mib](https://github.com/fabriziosalmi/caddy-mib)). Il DDoS proprietario su larga scala resta il caso in cui un servizio gestito è difficile da sostituire – [flareover](https://github.com/fabriziosalmi/flareover) lo classifica onestamente come MANUAL."
+      ]
+    },
+    {
+      "id": "owasp-top10",
+      "slug": "cos-e-la-owasp-top-10",
+      "question": "Cos'è la OWASP Top 10?",
+      "vertical": "security",
+      "keywords": [
+        "owasp",
+        "owasp top 10",
+        "top 10",
+        "vulnerabilita web",
+        "vulnerabilita piu comuni",
+        "classifica vulnerabilita"
+      ],
+      "answers": [
+        "La **OWASP Top 10** è la classifica, aggiornata periodicamente dalla Open Worldwide Application Security Project, delle dieci categorie di rischio più critiche per le applicazioni web: broken access control, fallimenti crittografici, injection (SQL e non solo), design insicuro, misconfigurazioni, componenti vulnerabili, fallimenti di autenticazione, integrità di software e dati, logging insufficiente, SSRF.\n\nNon è uno standard di conformità: è la **lista di priorità** con cui iniziare. Sul piano pratico, l'**OWASP Core Rule Set** traduce molte di queste categorie in regole WAF pronte – ed è esattamente ciò che [patterns](https://github.com/fabriziosalmi/patterns) converte ogni giorno in configurazioni native per Nginx, Apache, Traefik e HAProxy."
+      ]
+    },
+    {
+      "id": "sql-injection",
+      "slug": "cos-e-la-sql-injection",
+      "question": "Cos'è la SQL injection e come si previene?",
+      "vertical": "security",
+      "keywords": [
+        "sql injection",
+        "sqli",
+        "injection",
+        "iniezione sql",
+        "prevenire sql injection",
+        "prepared statement"
+      ],
+      "answers": [
+        "La **SQL injection** è l'attacco più vecchio del mondo web e ancora in Top 10: input utente concatenato dentro una query SQL, così `' OR '1'='1` trasforma un login in un \"entra chiunque\". Con varianti blind e time-based si esfiltra un database intero da una singola casella di ricerca.\n\nLa prevenzione vera è nel codice: **prepared statement / query parametrizzate** sempre, mai concatenazione; privilegi minimi per l'utente del database; validazione degli input come cintura extra. Il **WAF** è la rete di sicurezza per il codice che non controlli (plugin, legacy): le regole OWASP CRS di [patterns](https://github.com/fabriziosalmi/patterns) e [caddy-waf](https://github.com/fabriziosalmi/caddy-waf) intercettano i pattern SQLi noti prima che tocchino l'applicazione."
+      ]
+    },
+    {
+      "id": "xss",
+      "slug": "cos-e-il-cross-site-scripting-xss",
+      "question": "Cos'è il cross-site scripting (XSS)?",
+      "vertical": "security",
+      "keywords": [
+        "xss",
+        "cross site scripting",
+        "script malevolo",
+        "prevenire xss",
+        "sanitizzare input"
+      ],
+      "answers": [
+        "L'**XSS** consiste nel far eseguire al browser di un'altra persona JavaScript che non doveva esserci: un commento che contiene uno `<script>`, un parametro URL riflesso nella pagina senza escape. Con quel codice l'attaccante ruba sessioni, riscrive la pagina, esegue azioni a nome della vittima.\n\nDifese in ordine di importanza: **escaping dell'output** in base al contesto (HTML, attributo, JS – i framework moderni lo fanno di default), una **Content Security Policy** che vieti script non previsti, cookie `HttpOnly`, e un WAF che filtri i payload noti ([caddy-waf](https://github.com/fabriziosalmi/caddy-waf), [patterns](https://github.com/fabriziosalmi/patterns)). Per verificare che la tua CSP sia davvero chiusa: [agssh](https://github.com/fabriziosalmi/agssh) la controlla contro il deployment live."
+      ]
+    },
+    {
+      "id": "zero-trust",
+      "slug": "cos-e-il-modello-zero-trust",
+      "question": "Cos'è il modello Zero Trust?",
+      "vertical": "security",
+      "keywords": [
+        "zero trust",
+        "never trust",
+        "perimetro",
+        "fiducia zero",
+        "beyondcorp",
+        "vpn aziendale alternativa"
+      ],
+      "answers": [
+        "**Zero Trust** rovescia il modello del castello con il fossato: niente più \"dentro la rete = fidato\". Ogni richiesta viene verificata – identità, dispositivo, contesto – **ogni volta**, indipendentemente da dove arriva. Nato in Google (BeyondCorp) dopo l'intrusione Aurora, oggi è la direzione di marcia anche per NIS2 e per chi lavora da remoto.\n\nIn pratica significa: autenticazione forte ovunque (MFA), **minimo privilegio**, segmentazione, accesso per-applicazione invece della VPN che apre tutta la rete, e log di ogni accesso. Non è un prodotto da comprare: è un'architettura – e la si può costruire self-hosted, un pezzo alla volta, partendo dal punto di uscita ([secure-proxy-manager](https://github.com/fabriziosalmi/secure-proxy-manager)) e dai log ([Wildbox](https://github.com/fabriziosalmi/wildbox))."
+      ]
+    },
+    {
+      "id": "mfa",
+      "slug": "cos-e-autenticazione-due-fattori-mfa",
+      "question": "Cos'è l'autenticazione a più fattori (MFA/2FA)?",
+      "vertical": "security",
+      "keywords": [
+        "mfa",
+        "2fa",
+        "due fattori",
+        "autenticazione a due fattori",
+        "totp",
+        "passkey",
+        "authenticator",
+        "fido2"
+      ],
+      "answers": [
+        "L'**MFA** aggiunge alla password un secondo fattore di natura diversa: qualcosa che **hai** (telefono, chiave hardware) o che **sei** (impronta). Così una password rubata, da sola, non basta – e le password rubate sono il vettore d'ingresso numero uno.\n\nNon tutti i fattori valgono uguale: gli **SMS** sono il minimo sindacale (vulnerabili al SIM swapping), i codici **TOTP** delle app authenticator sono buoni, le **passkey/FIDO2** sono lo stato dell'arte perché resistono anche al phishing: il browser firma una challenge legata al dominio vero, e su un sito clone semplicemente non funzionano. Regola pratica: MFA ovunque sia disponibile, passkey dove possibile, e un password manager per tutto il resto."
+      ]
+    },
+    {
+      "id": "hardening-ssh",
+      "slug": "mettere-in-sicurezza-ssh",
+      "question": "Come si mette in sicurezza SSH su un server esposto?",
+      "vertical": "security",
+      "keywords": [
+        "ssh",
+        "hardening ssh",
+        "sicurezza ssh",
+        "sshd",
+        "porta 22",
+        "accesso server",
+        "chiavi ssh",
+        "authorized keys"
+      ],
+      "answers": [
+        "Un SSH esposto su internet riceve migliaia di tentativi al giorno. La checklist, in ordine di impatto:\n\n- **solo chiavi, niente password**: `PasswordAuthentication no` – elimina il brute force alla radice\n- **niente root diretto**: `PermitRootLogin no`, si entra come utente e si eleva\n- **limita chi può entrare**: `AllowUsers`/`AllowGroups`, e se possibile IP allowlist sul firewall\n- **ban automatico** dei tentativi ripetuti: fail2ban o equivalenti\n- MFA per i casi paranoici, e chiavi con passphrase gestite da un agent\n\nCambiare porta riduce il rumore nei log ma non è sicurezza. E il passo successivo al singolo server è non esporre SSH affatto: tunnel o bastion con accesso per-identità, in puro spirito [Zero Trust](q/cos-e-il-modello-zero-trust/)."
+      ]
+    },
+    {
+      "id": "security-headers",
+      "slug": "quali-security-header-servono",
+      "question": "Quali security header HTTP servono davvero?",
+      "vertical": "security",
+      "keywords": [
+        "security header",
+        "hsts",
+        "x-frame-options",
+        "x-content-type-options",
+        "referrer-policy",
+        "permissions-policy",
+        "intestazioni sicurezza",
+        "header sito"
+      ],
+      "answers": [
+        "I security header sono istruzioni che il server dà al browser su come trattare la pagina. Quelli che contano:\n\n- **Strict-Transport-Security (HSTS)** – \"parla con me solo in HTTPS\", per sempre\n- **Content-Security-Policy** – la whitelist di cosa la pagina può caricare ed eseguire: il singolo header più potente (e più delicato da scrivere)\n- **X-Content-Type-Options: nosniff** – vieta al browser di \"indovinare\" i MIME type\n- **X-Frame-Options** / CSP `frame-ancestors` – anti-clickjacking\n- **Referrer-Policy** e **Permissions-Policy** – privacy e API del browser sotto controllo\n\nPer verificarli: [DomainMate](https://github.com/fabriziosalmi/domainmate) li controlla in monitoraggio continuo, e per i siti statici [agssh](https://github.com/fabriziosalmi/agssh) li valida in modo fail-closed contro il deployment live."
+      ]
+    },
+    {
+      "id": "bloccare-crawler-ai",
+      "slug": "bloccare-crawler-ai-gptbot",
+      "question": "Come si bloccano i crawler AI (GPTBot e gli altri)?",
+      "vertical": "security",
+      "keywords": [
+        "gptbot",
+        "crawler ai",
+        "bot ai",
+        "claudebot",
+        "ccbot",
+        "bloccare crawler",
+        "scraping ai",
+        "bot delle ai",
+        "google-extended",
+        "bytespider"
+      ],
+      "answers": [
+        "Due livelli, con efficacia molto diversa:\n\n- **robots.txt** – la richiesta gentile: `User-agent: GPTBot / Disallow: /` (e lo stesso per ClaudeBot, CCBot, Google-Extended, Bytespider…). I crawler delle aziende serie lo rispettano; gli altri no.\n- **il blocco vero** – a livello di WAF/server: si filtrano gli User-Agent noti e, per chi mente sull'identità, si ragiona per IP range e comportamento. Le liste di bad bot di [patterns](https://github.com/fabriziosalmi/patterns) (Nginx, Apache, Traefik, HAProxy) e i filtri di [caddy-waf](https://github.com/fabriziosalmi/caddy-waf) fanno esattamente questo, aggiornati ogni giorno.\n\nParadosso da conoscere prima di bloccare tutto: sparire dai crawler AI significa anche sparire dalle risposte delle AI – che per un sito di contenuti può essere il canale di scoperta principale. Scelta legittima in entrambe le direzioni, ma va fatta consapevolmente."
+      ]
+    },
+    {
+      "id": "err-cert-authority",
+      "slug": "errore-err-cert-authority-invalid",
+      "question": "Errore ERR_CERT_AUTHORITY_INVALID: cosa significa e come si risolve?",
+      "vertical": "security",
+      "keywords": [
+        "err cert authority invalid",
+        "autorita non valida",
+        "certificato non attendibile",
+        "self signed",
+        "autofirmato",
+        "certificato non valido",
+        "net err cert"
+      ],
+      "answers": [
+        "Il browser sta dicendo: \"questo certificato non è firmato da una CA di cui mi fido\". Le cause tipiche:\n\n- **certificato self-signed** – normale su dispositivi interni (router, NAS, Proxmox appena installato): o importi il certificato/la CA nel sistema, o metti un certificato vero\n- **catena incompleta** – il server non manda i certificati intermedi: va corretto lato server (il test di SSL Labs lo evidenzia)\n- **CA privata aziendale** non installata sul dispositivo\n- su reti pubbliche: un **captive portal o un proxy** che intercetta il TLS – lì l'avviso va rispettato, non aggirato\n\nLa cura strutturale per i nomi interni è una **CA privata gestita bene**: [CertMate](https://github.com/fabriziosalmi/certmate) ne include una, con emissione e rinnovo automatici anche per ciò che non è esposto su internet."
+      ]
+    },
+    {
+      "id": "errore-502",
+      "slug": "errore-502-bad-gateway",
+      "question": "Errore 502 Bad Gateway: cause e soluzioni",
+      "vertical": "security",
+      "keywords": [
+        "502",
+        "bad gateway",
+        "errore 502",
+        "gateway",
+        "upstream",
+        "sito non risponde 502"
+      ],
+      "answers": [
+        "Il **502** lo emette un reverse proxy che non è riuscito a farsi rispondere dall'applicazione dietro di lui. Il proxy è vivo; è l'**upstream** che manca. Diagnosi in ordine:\n\n- l'applicazione è giù o sta riavviando (il classico deploy) – guarda i suoi log, non quelli del proxy\n- **timeout**: la risposta arriva ma troppo tardi – si vede nei log del proxy come `upstream timed out`\n- porta o socket sbagliati nella configurazione del proxy\n- l'app satura risorse (RAM, connessioni al database) e rifiuta connessioni\n\nSe il proxy è Caddy/Nginx in casa tua, il monitoraggio esterno ti avvisa prima degli utenti: [websites-monitor](https://github.com/fabriziosalmi/websites-monitor) o [DomainMate](https://github.com/fabriziosalmi/domainmate). E un'ondata di 502 generati da scanner molesti è il caso d'uso da manuale di [caddy-mib](https://github.com/fabriziosalmi/caddy-mib)."
+      ]
+    },
+    {
+      "id": "errore-429",
+      "slug": "errore-429-too-many-requests",
+      "question": "Errore 429 Too Many Requests: cosa significa e cosa fare?",
+      "vertical": "security",
+      "keywords": [
+        "429",
+        "too many requests",
+        "errore 429",
+        "troppe richieste",
+        "retry after",
+        "limite richieste"
+      ],
+      "answers": [
+        "Il **429** è un rate limit che ha fatto il suo lavoro: hai superato il numero di richieste consentite in una finestra di tempo. Non è un errore del server – è un semaforo rosso.\n\nSe lo **ricevi**: rispetta l'header `Retry-After` se presente, implementa un backoff esponenziale con jitter, e valuta caching o batching delle richieste. Se lo ricevi da un'API a pagamento, controlla i limiti del tuo piano.\n\nSe lo devi **imporre**: è la prima difesa contro brute force e scraping. [limits](https://github.com/fabriziosalmi/limits) genera le configurazioni per Nginx, Apache, Traefik e HAProxy da un solo YAML; su Caddy è integrato in [caddy-waf](https://github.com/fabriziosalmi/caddy-waf). Buona educazione: rispondere sempre con `Retry-After`, così i client onesti sanno quanto aspettare."
+      ]
+    },
+    {
+      "id": "mixed-content",
+      "slug": "cos-e-il-mixed-content",
+      "question": "Cos'è il mixed content e come si risolve?",
+      "vertical": "security",
+      "keywords": [
+        "mixed content",
+        "contenuto misto",
+        "lucchetto barrato",
+        "risorse http su https",
+        "pagina non completamente sicura"
+      ],
+      "answers": [
+        "**Mixed content**: la pagina è servita in HTTPS ma carica risorse in HTTP – immagini, script, CSS. Il browser reagisce in due modi: blocca il contenuto *attivo* (script, iframe: troppo pericoloso) e degrada il lucchetto per quello *passivo* (immagini). Risultato: pagina rotta o avviso \"non completamente sicura\".\n\nLa soluzione è sistematica, non caso per caso:\n\n- correggi gli URL hardcoded `http://` nel codice e nel database (nei CMS è quasi sempre lì il problema)\n- usa URL relativi o `https://` espliciti\n- `Content-Security-Policy: upgrade-insecure-requests` come rete di sicurezza: il browser riscrive da solo le richieste\n\nPer scovare i residui: la console del browser li elenca tutti, e per i siti statici [agssh](https://github.com/fabriziosalmi/agssh) tratta ogni risorsa non-self come violazione da spiegare."
+      ]
+    },
+    {
+      "id": "fail2ban",
+      "slug": "fail2ban-e-alternative",
+      "question": "Fail2ban: cos'è e quali alternative esistono?",
+      "vertical": "security",
+      "keywords": [
+        "fail2ban",
+        "ban ip automatico",
+        "tentativi falliti",
+        "bloccare brute force",
+        "crowdsec",
+        "jail"
+      ],
+      "answers": [
+        "**Fail2ban** legge i log dei servizi (SSH, mail, web), riconosce i tentativi falliti ripetuti e banna l'IP con una regola firewall temporanea. Vecchio, affidabile, ovunque – con i suoi limiti: configurazione a regex per ogni servizio, stato locale alla singola macchina.\n\nAlternative a seconda del contesto:\n\n- **CrowdSec** – stesso principio ma moderno: parser dichiarativi e blocklist collaborativa alimentata dalla community\n- **[caddy-mib](https://github.com/fabriziosalmi/caddy-mib)** – se il punto d'ingresso è Caddy: ban degli IP che generano errori ripetuti, direttamente nel proxy, con ban esponenziali per i recidivi\n- a monte di tutto, una **blocklist DNS/IP** dei domini malevoli noti ([blacklists](https://github.com/fabriziosalmi/blacklists)) riduce il rumore prima ancora che diventi un tentativo"
+      ]
+    },
+    {
+      "id": "cra",
+      "slug": "cos-e-il-cyber-resilience-act",
+      "question": "Cos'è il Cyber Resilience Act (CRA)?",
+      "vertical": "security",
+      "keywords": [
+        "cyber resilience act",
+        "cra",
+        "prodotti digitali",
+        "marcatura ce software",
+        "obblighi produttori software",
+        "vulnerabilita obbligo"
+      ],
+      "answers": [
+        "Il **Cyber Resilience Act** (Reg. UE 2024/2847, in vigore dal dicembre 2024) impone requisiti di cybersicurezza a **qualsiasi prodotto con elementi digitali** venduto nell'UE: software, firmware, dispositivi connessi. In sintesi: sicurezza by design, niente vulnerabilità note al rilascio, aggiornamenti di sicurezza per il periodo di supporto, SBOM, e obblighi di segnalazione delle vulnerabilità sfruttate attivamente (questi ultimi scattano già da **settembre 2026**; il grosso degli obblighi si applica da **dicembre 2027**).\n\nPer l'open source c'è una carve-out per i progetti non commerciali, ma chi monetizza o integra ha responsabilità nuove. Il collegamento pratico con la [supply chain security](q/cos-e-la-supply-chain-security/) – SBOM, firme, provenance – smette di essere buona pratica e diventa legge."
+      ]
+    },
+    {
+      "id": "gdpr-log",
+      "slug": "conservazione-log-gdpr",
+      "question": "Per quanto tempo si possono conservare i log secondo il GDPR?",
+      "vertical": "security",
+      "keywords": [
+        "conservazione log gdpr",
+        "log gdpr",
+        "data retention",
+        "minimizzazione",
+        "log ip privacy",
+        "gdpr",
+        "log",
+        "tenere i log",
+        "conservare i log"
+      ],
+      "answers": [
+        "Il GDPR non fissa un numero: impone il principio di **limitazione della conservazione** – tieni i dati (e gli IP nei log *sono* dati personali) solo per il tempo necessario allo scopo, e sappi dimostrare il perché. In pratica si stratifica:\n\n- log tecnici/di sicurezza: settimane o pochi mesi, salvo indagini in corso\n- log rilevanti per obblighi di legge (es. NIS2, fiscali): il periodo che la norma richiede – e qui serve anche **integrità dimostrabile**\n- tutto il resto: anonimizzazione o cancellazione programmata\n\nIl Garante italiano è intervenuto più volte su log conservati \"per sempre e senza motivo\". La combinazione che regge un audit: retention automatica + immutabilità verificabile – per i log Cloudflare è il mestiere di [RainLogs](https://github.com/fabriziosalmi/rainlogs) (WORM su storage UE, catena di hash, policy es. 395 giorni)."
+      ]
+    },
+    {
+      "id": "cos-e-un-llm",
+      "slug": "cos-e-un-llm",
+      "question": "Cos'è un LLM (Large Language Model)?",
+      "vertical": "ai",
+      "keywords": [
+        "llm",
+        "large language model",
+        "modello linguistico",
+        "cos e un llm",
+        "come funziona un llm",
+        "modello di linguaggio"
+      ],
+      "answers": [
+        "Un **LLM** è una rete neurale (architettura transformer) addestrata su enormi quantità di testo a fare una cosa sola: predire il prossimo token data la sequenza precedente. Da questa capacità apparentemente banale, a scala sufficiente, emergono traduzione, scrittura, programmazione, ragionamento apparente.\n\nLe conseguenze pratiche del \"predire il prossimo token\": un LLM non *sa* le cose, genera testo **plausibile** – da cui le [allucinazioni](q/allucinazioni-llm-dipendenze-inventate/); non ha memoria oltre la sua [context window](q/token-e-context-window/); e la qualità dipende da dati e addestramento, non dalla sicurezza con cui risponde. Capire questi limiti è metà dell'usarli bene – l'altra metà è dargli strumenti e contesto giusti (RAG, tool, verifiche)."
+      ]
+    },
+    {
+      "id": "token-context",
+      "slug": "token-e-context-window",
+      "question": "Cosa sono i token e la context window di un LLM?",
+      "vertical": "ai",
+      "keywords": [
+        "token llm",
+        "context window",
+        "finestra di contesto",
+        "tokenizzazione",
+        "quanti token",
+        "limite contesto",
+        "contesto llm",
+        "token"
+      ],
+      "answers": [
+        "Gli LLM non leggono parole ma **token**: frammenti di testo (in media ~4 caratteri in inglese, meno in italiano) prodotti dal tokenizer. \"gatto\" può essere un token, \"gattopardo\" tre. Si paga e si misura tutto in token.\n\nLa **context window** è quanti token il modello può tenere \"in mente\" contemporaneamente: prompt + conversazione + documenti + risposta. Sforata quella, il modello semplicemente non vede più il resto – non c'è memoria nascosta. Le finestre moderne vanno da 8k a milioni di token, ma attenzione: finestra grande ≠ attenzione uniforme (i modelli tendono a perdersi il centro dei contesti lunghi) e i costi crescono. Per questo si comprime ciò che entra ([l0-compressor](https://github.com/fabriziosalmi/l0-compressor) per l'output dei comandi) e si recupera solo il rilevante ([RAG](q/cos-e-rag-retrieval-augmented-generation/))."
+      ]
+    },
+    {
+      "id": "temperatura-llm",
+      "slug": "temperatura-di-un-llm",
+      "question": "Cos'è la temperatura di un LLM?",
+      "vertical": "ai",
+      "keywords": [
+        "temperatura",
+        "sampling",
+        "creativita modello",
+        "risposte deterministiche",
+        "top p",
+        "temperatura llm"
+      ],
+      "answers": [
+        "A ogni passo l'LLM produce una distribuzione di probabilità sul prossimo token. La **temperatura** decide come si pesca da quella distribuzione: vicino a **0** si sceglie quasi sempre il token più probabile (risposte ripetibili, conservative), salendo verso **1 e oltre** si dà spazio ai token meno probabili (varietà, creatività, ma anche più deragliamenti).\n\nRegole pratiche: estrazione dati, classificazione, codice → temperatura bassa (0–0.3); brainstorming e scrittura creativa → 0.7–1. Il parametro gemello è **top_p** (nucleus sampling): limita la scelta ai token che cumulano una certa probabilità – si regola l'uno o l'altro, raramente entrambi. E anche a temperatura 0 un LLM non è davvero deterministico tra versioni e hardware diversi: per la riproducibilità vera servono altri strumenti."
+      ]
+    },
+    {
+      "id": "llm-in-locale",
+      "slug": "far-girare-un-llm-in-locale",
+      "question": "Come si fa girare un LLM in locale (e che hardware serve)?",
+      "vertical": "ai",
+      "keywords": [
+        "llm locale",
+        "eseguire llm",
+        "hardware llm",
+        "vram",
+        "quanta ram serve",
+        "gpu per ai",
+        "modello in locale"
+      ],
+      "answers": [
+        "Oggi è alla portata di chiunque: si scarica un modello **open-weights** quantizzato e lo si esegue con [Ollama](q/cos-e-ollama/), LM Studio o llama.cpp. La variabile che comanda è la **memoria** (VRAM su GPU NVIDIA, RAM unificata su Apple Silicon):\n\n- **7–9B quantizzato** – ~6-8 GB: gira su un portatile decente, qualità da assistente quotidiano\n- **13–14B** – ~10-12 GB: il punto dolce qualità/costo per molti usi\n- **70B** – 40+ GB: Mac Studio con tanta RAM unificata o multi-GPU\n\nPerché farlo: privacy totale (niente esce), zero costi per token, latenza prevedibile, e i dati aziendali restano in casa. Su Mac, per l'intero ciclo – esecuzione, chat, **fine-tuning LoRA** – c'è [SiliconDev](https://github.com/fabriziosalmi/silicondev), tutto su MLX, tutto on-device."
+      ]
+    },
+    {
+      "id": "ollama",
+      "slug": "cos-e-ollama",
+      "question": "Cos'è Ollama e come si usa?",
+      "vertical": "ai",
+      "keywords": [
+        "ollama",
+        "ollama run",
+        "modelli ollama",
+        "installare ollama",
+        "llama in locale"
+      ],
+      "answers": [
+        "**Ollama** è il modo più rapido di avere un LLM locale: un demone che scarica, gestisce ed esegue modelli open-weights con un comando – `ollama run llama3` e stai chattando. Sotto usa llama.cpp e i formati quantizzati GGUF; sopra espone una **API HTTP locale** (porta 11434, anche in dialetto OpenAI-compatibile) che qualsiasi applicazione può usare.\n\nQuel dettaglio dell'API è ciò che lo rende un mattone d'infrastruttura: molti tool del portfolio di Fabrizio si agganciano a \"un endpoint OpenAI-compatibile\" proprio pensando a Ollama – [l0-memory](https://github.com/fabriziosalmi/l0-memory) per gli embeddings del retrieval ibrido, [nis2-public](https://github.com/fabriziosalmi/nis2-public) per il copilot AI, [NASO](https://github.com/fabriziosalmi/naso) per il triage dei leak. Il pattern è sempre lo stesso: intelligenza locale, dati che non escono."
+      ]
+    },
+    {
+      "id": "quantizzazione",
+      "slug": "quantizzazione-modelli-gguf",
+      "question": "Cos'è la quantizzazione di un modello (GGUF, 4-bit)?",
+      "vertical": "ai",
+      "keywords": [
+        "quantizzazione",
+        "gguf",
+        "4-bit",
+        "4bit",
+        "q4",
+        "quantized",
+        "comprimere modello",
+        "awq",
+        "gptq"
+      ],
+      "answers": [
+        "I pesi di un modello nascono in 16 bit per numero. La **quantizzazione** li rappresenta con meno bit – 8, 5, 4, perfino 2 – riducendo memoria e calcolo quasi proporzionalmente: un 7B passa da ~14 GB a ~4 GB in 4-bit, ed è il motivo per cui gli LLM girano sui portatili.\n\nIl costo è una perdita di qualità sorprendentemente piccola fino ai 4-bit fatti bene (i formati `Q4_K_M` del mondo **GGUF**, lo standard di llama.cpp/Ollama), e via via più visibile sotto. Regola empirica consolidata: **un modello più grande quantizzato batte un modello più piccolo a precisione piena** a parità di memoria. Per l'inferenza su GPU esistono anche AWQ e GPTQ; su Mac, MLX ha i suoi formati – è quello che usa [SiliconDev](https://github.com/fabriziosalmi/silicondev)."
+      ]
+    },
+    {
+      "id": "fine-tuning-vs-rag",
+      "slug": "meglio-fine-tuning-o-rag",
+      "question": "Meglio fine-tuning o RAG?",
+      "vertical": "ai",
+      "keywords": [
+        "fine tuning o rag",
+        "fine-tuning vs rag",
+        "addestrare o rag",
+        "personalizzare llm",
+        "conoscenza aziendale llm"
+      ],
+      "answers": [
+        "Domanda da farsi sempre, risposta quasi sempre: **prima RAG**. Sono strumenti per problemi diversi:\n\n- **[RAG](q/cos-e-rag-retrieval-augmented-generation/)** dà al modello *conoscenza*: recupera i documenti giusti al momento della domanda. Aggiornabile in tempo reale, verificabile (puoi citare le fonti), nessun addestramento.\n- **fine-tuning** dà al modello *comportamento*: uno stile, un formato, un gergo, un compito ripetitivo. Non è un buon deposito di fatti – i fatti nel fine-tuning si allucinano volentieri.\n\nQuindi: knowledge base, documentazione, dati che cambiano → RAG. Tono di voce, output strutturati particolari, un dominio linguistico stretto → fine-tuning (oggi economico con LoRA/QLoRA, anche [in locale su Mac](q/fine-tuning-llm-apple-silicon/)). E le due cose si combinano: un modello rifinito sul *come*, con il RAG che porta il *cosa*."
+      ]
+    },
+    {
+      "id": "ai-agent",
+      "slug": "cos-e-un-agente-ai",
+      "question": "Cos'è un agente AI (e in cosa differisce da un chatbot)?",
+      "vertical": "ai",
+      "keywords": [
+        "agente ai",
+        "ai agent",
+        "agente autonomo",
+        "differenza chatbot agente",
+        "agente"
+      ],
+      "answers": [
+        "Un chatbot risponde; un **agente** agisce. La differenza tecnica: l'agente è un LLM in un **ciclo** – osserva, decide, usa uno strumento ([function calling](q/cos-e-il-function-calling/)), legge il risultato, decide ancora – finché l'obiettivo non è raggiunto. Scrive file, esegue comandi, naviga, interroga API.\n\nCon l'autonomia arrivano i rischi: un agente che esegue comandi è un utente privilegiato che si può ingannare ([prompt injection](q/cos-e-la-prompt-injection/)). Le difese sono architetturali: **permessi minimi**, sandbox, approvazione umana per le azioni irreversibili (human-in-the-loop – così fa il gate Telegram di [proxxx](https://github.com/fabriziosalmi/proxxx) prima di toccare un cluster), e strumenti esposti in modo tipizzato e limitato via [MCP](q/cos-e-mcp-model-context-protocol/) invece di \"eccoti la shell\"."
+      ]
+    },
+    {
+      "id": "function-calling",
+      "slug": "cos-e-il-function-calling",
+      "question": "Cos'è il function calling (tool use) negli LLM?",
+      "vertical": "ai",
+      "keywords": [
+        "function calling",
+        "tool use",
+        "chiamata di funzione",
+        "strumenti llm",
+        "tool llm",
+        "api llm tool"
+      ],
+      "answers": [
+        "Il **function calling** permette a un LLM di usare strumenti: gli descrivi delle funzioni (nome, parametri, a cosa servono) e lui, quando serve, invece di rispondere a parole emette una **chiamata strutturata** – `get_weather(city=\"Genova\")`. Il tuo codice la esegue, restituisce il risultato, e il modello continua con quell'informazione.\n\nÈ il mattone che trasforma il testo in azione: senza, un LLM può solo *descrivere* cosa farebbe. Sopra questo meccanismo si costruiscono gli [agenti](q/cos-e-un-agente-ai/), e per non reinventare l'integrazione per ogni applicazione è nato [MCP](q/cos-e-mcp-model-context-protocol/), che standardizza come i tool vengono esposti. La regola di sicurezza resta quella degli agenti: ogni funzione esposta è superficie d'attacco – tipizzala, limitala, loggala."
+      ]
+    },
+    {
+      "id": "guardrail",
+      "slug": "cosa-sono-i-guardrail-llm",
+      "question": "Cosa sono i guardrail per LLM?",
+      "vertical": "ai",
+      "keywords": [
+        "guardrail",
+        "filtri llm",
+        "controlli llm",
+        "output filtering",
+        "moderazione llm",
+        "guardrail llm"
+      ],
+      "answers": [
+        "I **guardrail** sono i controlli deterministici intorno a un LLM – perché il modello, da solo, non offre garanzie: si può convincere, distrarre, [iniettare](q/cos-e-la-prompt-injection/). Si mettono su tre lati:\n\n- **input**: filtri su prompt malevoli, PII, argomenti vietati prima che raggiungano il modello\n- **output**: validazione di formato (JSON schema), moderazione contenuti, controllo che non escano segreti\n- **azioni**: permessi e conferme sugli strumenti che l'agente può usare\n\nIl principio: ciò che deve essere *garantito* non si chiede al modello, si impone col codice. Nel portfolio: [llmproxy](https://github.com/fabriziosalmi/llmproxy) è il punto unico dove applicarli davanti a qualsiasi endpoint, [aidlp](https://github.com/fabriziosalmi/aidlp) è il guardrail specifico anti-esfiltrazione dati."
+      ]
+    },
+    {
+      "id": "system-prompt",
+      "slug": "cos-e-un-system-prompt",
+      "question": "Cos'è un system prompt?",
+      "vertical": "ai",
+      "keywords": [
+        "system prompt",
+        "prompt di sistema",
+        "istruzioni di sistema",
+        "personalita bot",
+        "ruolo llm"
+      ],
+      "answers": [
+        "Il **system prompt** è il messaggio con priorità speciale che imposta il comportamento del modello prima della conversazione: ruolo, tono, regole, limiti, formato delle risposte. \"Sei un assistente legale, rispondi solo in italiano, cita sempre le fonti\" – tutto lì dentro.\n\nDue verità scomode da progettista: primo, il system prompt **orienta ma non garantisce** – un utente determinato può eroderlo, quindi le regole rigide vanno nei [guardrail](q/cosa-sono-i-guardrail-llm/), non nel prompt. Secondo, va trattato come codice: versionato, testato, con i cambiamenti valutati su un set di casi – un aggettivo cambiato può spostare il comportamento più di quanto pensi. E non metterci mai segreti: tutto ciò che c'è nel prompt va considerato estraibile."
+      ]
+    },
+    {
+      "id": "embeddings",
+      "slug": "cosa-sono-gli-embeddings",
+      "question": "Cosa sono gli embeddings?",
+      "vertical": "ai",
+      "keywords": [
+        "embeddings",
+        "vettori semantici",
+        "similarita semantica",
+        "spazio vettoriale",
+        "ricerca vettoriale"
+      ],
+      "answers": [
+        "Un **embedding** è la traduzione di un testo (o immagine, o audio) in un vettore di numeri, costruito così che la **vicinanza geometrica corrisponda alla vicinanza di significato**: \"gatto\" e \"felino\" finiscono vicini, \"gatto\" e \"carburatore\" lontani. È il modo in cui si dà alla macchina una nozione operativa di \"parla della stessa cosa\".\n\nUsi concreti: la ricerca semantica (trova i documenti rilevanti anche senza parole in comune – il cuore del [RAG](q/cos-e-rag-retrieval-augmented-generation/)), deduplicazione, clustering, raccomandazioni. In pratica: un modello di embedding (locale via Ollama o API), un indice vettoriale dove cercare, e la scelta di design vera – **ibridare** vettori e ricerca full-text classica, perché ciascuna trova cose che l'altra manca. È esattamente il retrieval ibrido opzionale di [l0-memory](https://github.com/fabriziosalmi/l0-memory)."
+      ]
+    },
+    {
+      "id": "ai-act",
+      "slug": "cosa-prevede-ai-act",
+      "question": "Cosa prevede l'AI Act europeo (e da quando si applica)?",
+      "vertical": "ai",
+      "keywords": [
+        "ai act",
+        "regolamento ai",
+        "legge intelligenza artificiale",
+        "rischio ai",
+        "normativa ai",
+        "obblighi ai act"
+      ],
+      "answers": [
+        "L'**AI Act** (Reg. UE 2024/1689, in vigore da agosto 2024) regola l'AI per **livelli di rischio**: pratiche vietate (social scoring, manipolazione – divieti già applicabili da febbraio 2025), sistemi **ad alto rischio** (assunzioni, credito, sanità, infrastrutture critiche: requisiti pesanti di qualità dati, supervisione umana, documentazione – in applicazione dal 2026-2027), obblighi di **trasparenza** (chatbot e contenuti sintetici vanno dichiarati) e regole per i modelli **general-purpose** (dal agosto 2025).\n\nPer un'azienda italiana il punto pratico: censire dove l'AI è già entrata ([shadow AI](q/cos-e-la-shadow-ai/) inclusa), classificare i casi d'uso per rischio, e documentare. Sanzioni fino al 7% del fatturato mondiale per le pratiche vietate. Si integra con GDPR e NIS2 – i tre pilastri della compliance digitale europea."
+      ]
+    },
+    {
+      "id": "shadow-ai",
+      "slug": "cos-e-la-shadow-ai",
+      "question": "Cos'è la shadow AI in azienda?",
+      "vertical": "ai",
+      "keywords": [
+        "shadow ai",
+        "chatgpt in azienda",
+        "uso non autorizzato ai",
+        "dipendenti chatgpt",
+        "dati aziendali ai",
+        "policy ai",
+        "dipendenti",
+        "di nascosto"
+      ],
+      "answers": [
+        "**Shadow AI**: l'uso di strumenti AI da parte dei dipendenti fuori da ogni policy e visibilità aziendale – il contratto incollato in ChatGPT per riassumerlo, il codice proprietario dato in pasto a un assistente gratuito. È il seguito naturale della shadow IT, con un aggravante: i dati escono verso servizi che potrebbero usarli, e nessuno lo sa.\n\nLa risposta che funziona non è il divieto (aggirato in un pomeriggio) ma il **canale ufficiale più comodo dell'alternativa**: strumenti approvati, un endpoint aziendale con [guardrail](q/cosa-sono-i-guardrail-llm/) e DLP ([llmproxy](https://github.com/fabriziosalmi/llmproxy) + [aidlp](https://github.com/fabriziosalmi/aidlp) fanno esattamente questo davanti a qualsiasi modello), modelli [locali](q/far-girare-un-llm-in-locale/) per i dati davvero sensibili, e una policy scritta che dica cosa si può. L'[AI Act](q/cosa-prevede-ai-act/) rende il censimento non più rimandabile."
+      ]
+    },
+    {
+      "id": "cluster-quorum",
+      "slug": "cluster-proxmox-e-quorum",
+      "question": "Come funziona un cluster Proxmox (e cos'è il quorum)?",
+      "vertical": "proxmox",
+      "keywords": [
+        "cluster",
+        "quorum",
+        "corosync",
+        "qdevice",
+        "nodi",
+        "cluster proxmox",
+        "due nodi",
+        "split brain"
+      ],
+      "answers": [
+        "Un **cluster Proxmox** unisce più nodi in un'unica entità: gestione centralizzata da qualsiasi web UI, migrazione delle VM tra nodi, alta disponibilità. Sotto, **corosync** mantiene la configurazione replicata e decide chi è vivo.\n\nIl **quorum** è la regola che previene lo split brain: il cluster agisce solo se la **maggioranza** dei nodi è d'accordo. Con 3 nodi ne può cadere 1; con 2 nodi la caduta di uno blocca l'altro – ed è il classico dolore dell'homelab. Soluzioni: un terzo nodo anche minuscolo, oppure un **QDevice** (un Raspberry o una VM esterna che fa da ago della bilancia). Regola d'oro: nodi in numero dispari, rete di corosync separata dal traffico dati, e mai `pvecm expected 1` come abitudine – è l'ultima spiaggia, non un workaround."
+      ]
+    },
+    {
+      "id": "zfs-proxmox",
+      "slug": "perche-usare-zfs-su-proxmox",
+      "question": "Perché usare ZFS su Proxmox?",
+      "vertical": "proxmox",
+      "keywords": [
+        "zfs",
+        "zfs proxmox",
+        "filesystem",
+        "mirror zfs",
+        "raidz",
+        "arc",
+        "checksum dati",
+        "storage proxmox"
+      ],
+      "answers": [
+        "**ZFS** è filesystem e gestore di volumi insieme, e su Proxmox è integrato nativamente. Cosa compri:\n\n- **integrità**: checksum su ogni blocco – il bit rot viene rilevato e, con ridondanza (mirror/RAIDZ), riparato da solo\n- **snapshot istantanei** e cloni, perfetti per le VM\n- **replica** incrementale tra nodi (`pvesr`), il modo povero e solido di avere un quasi-failover\n- compressione trasparente (lz4: gratis in pratica)\n\nI compromessi: ZFS ama la **RAM** (l'ARC si prende quello che trova – limitalo su macchine piccole), vuole dischi dedicati **senza RAID hardware** di mezzo, e sui consumer SSD scrive parecchio. Per un nodo serio: mirror di due NVMe per VM e sistema. E ricorda: [gli snapshot non sono backup](q/differenza-snapshot-e-backup/) – per quello c'è [PBS](q/cos-e-proxmox-backup-server/)."
+      ]
+    },
+    {
+      "id": "snapshot-vs-backup",
+      "slug": "differenza-snapshot-e-backup",
+      "question": "Che differenza c'è tra snapshot e backup?",
+      "vertical": "proxmox",
+      "keywords": [
+        "snapshot",
+        "differenza snapshot backup",
+        "ripristino",
+        "punto di ripristino",
+        "snapshot vm"
+      ],
+      "answers": [
+        "Uno **snapshot** è un segnalibro nel tempo *sullo stesso storage*: si crea in un secondo, si torna indietro in un secondo. Comodissimo prima di un aggiornamento rischioso. Ma vive **insieme ai dati che protegge**: se muore il disco, lo storage o il nodo, muore anche lui. E gli snapshot accumulati degradano le prestazioni e crescono in silenzio.\n\nUn **backup** è una copia **indipendente**, altrove: altro disco, altro host, altro luogo. Sopravvive al disastro dell'originale. La regola 3-2-1: tre copie, due supporti diversi, una fuori sede.\n\nSu Proxmox: snapshot per il \"provo questa cosa e magari torno indietro\", **[Proxmox Backup Server](q/cos-e-proxmox-backup-server/)** per i backup veri – incrementali, deduplicati, verificabili. Usarli entrambi, non confonderli mai."
+      ]
+    },
+    {
+      "id": "pbs",
+      "slug": "cos-e-proxmox-backup-server",
+      "question": "Cos'è Proxmox Backup Server e perché usarlo?",
+      "vertical": "proxmox",
+      "keywords": [
+        "proxmox backup server",
+        "backup proxmox",
+        "backup vm",
+        "deduplicazione",
+        "backup incrementale",
+        "verify backup"
+      ],
+      "answers": [
+        "**Proxmox Backup Server (PBS)** è il compagno ufficiale di PVE per i backup di VM e container, e cambia categoria rispetto al vecchio vzdump su NFS:\n\n- backup **incrementali con deduplicazione**: dopo il primo, ogni backup trasferisce e archivia solo i blocchi cambiati – decine di backup occupano poco più di uno\n- **verify** programmati (i backup corrotti si scoprono prima di averne bisogno), **pruning** automatico con policy di retention, cifratura lato client\n- restore granulare: la VM intera o il singolo file\n\nSetup tipico: una macchina dedicata anche modesta (o un container su un NAS), datastore su dischi propri, job notturni da PVE, e una **sync remota** verso un secondo PBS fuori sede per la regola 3-2-1. Con [proxxx](https://github.com/fabriziosalmi/proxxx) lo monitori dallo stesso cockpit di PVE."
+      ]
+    },
+    {
+      "id": "gpu-passthrough",
+      "slug": "passthrough-gpu-proxmox",
+      "question": "Come si fa il passthrough GPU su Proxmox?",
+      "vertical": "proxmox",
+      "keywords": [
+        "gpu passthrough",
+        "passthrough",
+        "iommu",
+        "vfio",
+        "scheda video vm",
+        "gpu vm",
+        "vt-d",
+        "pci passthrough",
+        "gpu"
+      ],
+      "answers": [
+        "Il **passthrough** consegna la GPU fisica a una VM: prestazioni native per gaming, transcoding o AI. La ricetta su Proxmox:\n\n- abilita **IOMMU** nel BIOS (VT-d Intel / AMD-Vi) e nel bootloader (`intel_iommu=on` o `amd_iommu=on`)\n- verifica i **gruppi IOMMU**: la GPU deve essere isolabile (schede madri consumer a volte raggruppano tutto)\n- blocca i driver host (blacklist di nouveau/amdgpu per quella scheda, binding a **vfio-pci**)\n- aggiungi la GPU alla VM come `hostpci` con tutte le sue funzioni (audio HDMI incluso), macchina **q35** + **OVMF**\n\nAlternative spesso più sagge: per il transcoding o più container che condividono la scheda, il **passthrough a LXC** (la GPU resta all'host, i container la usano) o le vGPU dove supportate. Il primo tentativo che fallisce è quasi sempre colpa dei gruppi IOMMU o del ROM della scheda: i log di `dmesg` dicono la verità."
+      ]
+    },
+    {
+      "id": "no-subscription",
+      "slug": "aggiornare-proxmox-senza-subscription",
+      "question": "Come si aggiorna Proxmox senza subscription?",
+      "vertical": "proxmox",
+      "keywords": [
+        "no-subscription",
+        "senza subscription",
+        "repository proxmox",
+        "no valid subscription",
+        "aggiornamenti proxmox",
+        "popup subscription"
+      ],
+      "answers": [
+        "Proxmox è libero: la subscription paga il supporto e l'accesso al repository **enterprise** (più testato), non il software. Senza subscription si usa il repository **pve-no-subscription**: stessi pacchetti, ciclo di rilascio leggermente più rapido.\n\nLa procedura pulita: disabilita il repo enterprise (che senza chiave fallisce), abilita `pve-no-subscription` – dalla web UI (Repositories) o creando il file in `/etc/apt/sources.list.d/` – e aggiorna con `apt update && apt dist-upgrade` (mai `apt upgrade` semplice su Proxmox). Lo stesso vale per PBS con il suo repo no-subscription.\n\nIl famoso popup \"No valid subscription\" è solo un promemoria, innocuo. Per un ambiente di produzione aziendale la subscription Community ha senso: repo più conservativo e si finanzia lo sviluppo di quello che stai usando gratis."
+      ]
+    },
+    {
+      "id": "cloud-init",
+      "slug": "template-e-cloud-init-proxmox",
+      "question": "Come si usano template e cloud-init su Proxmox?",
+      "vertical": "proxmox",
+      "keywords": [
+        "cloud-init",
+        "template vm",
+        "clonare vm",
+        "provisioning",
+        "immagine cloud",
+        "vm in un minuto"
+      ],
+      "answers": [
+        "Il flusso artigianale – ISO, installer, configurazione a mano – ha senso una volta sola. Poi si passa a **template + cloud-init**:\n\n- scarichi l'**immagine cloud** ufficiale della distro (Debian/Ubuntu `.qcow2`), la importi in una VM con `qm importdisk`\n- aggiungi il **drive cloud-init**, imposti utente, chiave SSH e rete, e converti la VM in **template**\n- da lì, ogni nuova macchina è un **clone** che al primo avvio si configura da solo: hostname, IP, chiavi – pronta in un minuto\n\nÈ il mattone dell'infrastruttura ripetibile: sopra ci si mette Terraform/OpenTofu (provider Proxmox) o Ansible e il provisioning diventa codice. E quando le VM così create diventano tante, [proxmox-vm-autoscale](https://github.com/fabriziosalmi/proxmox-vm-autoscale) tiene le loro risorse allineate al carico reale."
+      ]
+    },
+    {
+      "id": "vmware-migrazione",
+      "slug": "migrare-da-vmware-a-proxmox",
+      "question": "Come si migra da VMware a Proxmox?",
+      "vertical": "proxmox",
+      "keywords": [
+        "vmware",
+        "esxi",
+        "migrare da vmware",
+        "vcenter",
+        "broadcom",
+        "import vmware",
+        "vmdk",
+        "migrazione vmware proxmox",
+        "da vmware",
+        "migra"
+      ],
+      "answers": [
+        "Dopo la cura Broadcom ai listini VMware, è la migrazione del momento. Proxmox ha reso la strada semplice: dal **PVE 8.2** c'è l'**import diretto da ESXi** – aggiungi l'host ESXi come storage di import dalla web UI, selezioni le VM e le importi, dischi e configurazione inclusi.\n\nLa checklist che evita sorprese:\n\n- prima della migrazione: rimuovi i VMware Tools dalle guest, annota MAC address (le licenze Windows ci tengono) e schede di rete\n- le VM Windows vogliono i driver **VirtIO**: installali prima o al primo avvio, e parti con il disco in modalità compatibile (SATA) per poi passare a VirtIO\n- per gli host che non puoi collegare: export OVF/OVA o copia dei `.vmdk` e `qm importdisk`\n- migra a ondate: prima le VM di test, poi le stateless, per ultime le pesanti\n\nSul dopo-migrazione: [autoscaling](q/autoscaling-vm-lxc-proxmox/), [backup con PBS](q/cos-e-proxmox-backup-server/) e [gestione da terminale](q/cos-e-proxxx-cockpit-terminale-proxmox/) coprono ciò che vCenter faceva pagare."
+      ]
+    },
+    {
+      "id": "cos-e-cdn",
+      "slug": "cos-e-una-cdn",
+      "question": "Cos'è una CDN e quando serve davvero?",
+      "vertical": "cloudflare",
+      "keywords": [
+        "cdn",
+        "content delivery network",
+        "rete di distribuzione",
+        "cache distribuita",
+        "edge",
+        "velocizzare sito nel mondo"
+      ],
+      "answers": [
+        "Una **CDN** (Content Delivery Network) è una rete di server sparsi per il mondo che tiene copie dei tuoi contenuti statici vicino agli utenti: chi visita da Tokyo riceve immagini e CSS da Tokyo, non da Milano. Meno latenza, meno carico sull'origine, più resistenza ai picchi (e ai [DDoS](q/cos-e-un-attacco-ddos/) volumetrici).\n\nQuando serve: pubblico geograficamente sparso, asset pesanti, traffico irregolare. Quando serve meno di quanto si creda: un sito italiano per utenti italiani su un buon server europeo con cache locale e HTTP/2 spesso va benissimo – la CDN aggiunge un intermediario, con i [temi di sovranità](q/cos-e-la-sovranita-digitale/) che ne conseguono. Via di mezzo interessante: cache in RAM sull'edge tuo, come fa [zion](https://github.com/fabriziosalmi/zion) con la sua cache a due livelli."
+      ]
+    },
+    {
+      "id": "record-dns",
+      "slug": "tipi-di-record-dns",
+      "question": "Quali sono i tipi di record DNS (A, CNAME, MX, TXT)?",
+      "vertical": "cloudflare",
+      "keywords": [
+        "record dns",
+        "record a",
+        "cname",
+        "mx",
+        "txt",
+        "aaaa",
+        "tipi di record",
+        "puntare dominio",
+        "ns record",
+        "caa"
+      ],
+      "answers": [
+        "I record DNS sono le voci che dicono a internet dove trovare i pezzi del tuo dominio:\n\n- **A / AAAA** – nome → indirizzo IPv4 / IPv6: il record fondamentale\n- **CNAME** – nome → altro nome (alias); non può convivere con altri record sullo stesso nome, e mai sull'apex\n- **MX** – dove consegnare la posta del dominio, con priorità\n- **TXT** – testo libero con usi seri: [SPF, DKIM, DMARC](q/spf-dkim-dmarc/), verifiche di proprietà\n- **NS** – chi è autoritativo per la zona; **CAA** – quali CA possono emettere certificati; **SRV/PTR** – servizi e reverse\n\nGestirli a mano nel pannello funziona finché sono dieci. Poi conviene la via [GitOps](q/cos-e-gitops/): [dnscontrol-actions](https://github.com/fabriziosalmi/dnscontrol-actions) tiene i record in un repository, con review e rollback, su qualsiasi provider."
+      ]
+    },
+    {
+      "id": "ttl-dns",
+      "slug": "cos-e-il-ttl-dns",
+      "question": "Cos'è il TTL dei record DNS?",
+      "vertical": "cloudflare",
+      "keywords": [
+        "ttl",
+        "time to live",
+        "propagazione dns",
+        "ttl basso",
+        "cambio ip",
+        "quanto ci mette il dns",
+        "ttl dei record"
+      ],
+      "answers": [
+        "Il **TTL** (time to live) di un record DNS dice ai resolver per quanti secondi possono tenerlo in cache prima di richiederlo. È il motivo per cui i cambi DNS \"si propagano lentamente\": non c'è nessuna propagazione attiva – c'è il mondo che aspetta la scadenza delle proprie cache.\n\nUso pratico: TTL **alto** (1-24 ore) per record stabili – meno query, più resilienza; TTL **basso** (60-300 s) quando prevedi cambi. La manovra da manuale per una migrazione: **abbassa il TTL almeno un giorno prima** (deve scadere il TTL vecchio!), cambia il record, verifica, poi rialza. Ricorda che alcuni resolver ignorano TTL troppo bassi, e che dietro un proxy come Cloudflare il TTL verso il mondo lo gestisce lui. Per la verifica: `dig +trace` interroga la catena autoritativa senza cache di mezzo."
+      ]
+    },
+    {
+      "id": "proxy-arancione",
+      "slug": "nuvoletta-arancione-cloudflare",
+      "question": "Cosa fa la nuvoletta arancione di Cloudflare (proxy on/off)?",
+      "vertical": "cloudflare",
+      "keywords": [
+        "nuvoletta arancione",
+        "proxy arancione",
+        "proxied",
+        "dns only",
+        "nascondere ip",
+        "ip origine",
+        "grey cloud"
+      ],
+      "answers": [
+        "La nuvoletta accanto a ogni record DNS in Cloudflare decide tutto:\n\n- **arancione (proxied)**: il record risponde con gli IP di Cloudflare e il traffico passa dai loro server – da lì arrivano CDN, WAF, protezione DDoS, e il tuo **IP d'origine resta nascosto**\n- **grigia (DNS only)**: Cloudflare fa solo da DNS, il traffico va dritto al tuo server, IP esposto\n\nErrori classici: nuvoletta arancione su servizi non-HTTP (la posta con MX che punta a un nome proxied non arriva – i record di posta vogliono il grigio); e origine \"nascosta\" ma raggiungibile direttamente perché l'IP è rimasto in giro (vecchi record, certificati in CT log): l'origine va **chiusa** agli IP che non siano di Cloudflare, altrimenti il proxy è una tenda, non un muro. Chi invece vuole smontare la dipendenza dalla nuvoletta: [flareover](https://github.com/fabriziosalmi/flareover) è la via d'uscita ordinata."
+      ]
+    },
+    {
+      "id": "cloudflare-workers",
+      "slug": "cosa-sono-i-cloudflare-workers",
+      "question": "Cosa sono i Cloudflare Workers?",
+      "vertical": "cloudflare",
+      "keywords": [
+        "workers",
+        "cloudflare workers",
+        "serverless edge",
+        "codice edge",
+        "wrangler",
+        "v8 isolates"
+      ],
+      "answers": [
+        "I **Workers** sono codice JavaScript/TypeScript (o Wasm) che gira sui server edge di Cloudflare, in tutto il mondo, senza che tu gestisca nulla. Niente container né cold start da secondi: usano **V8 isolates**, partono in millisecondi ovunque.\n\nUsi tipici: riscrivere richieste e risposte al volo, A/B testing, API leggere, autenticazione all'edge, gluing tra servizi. Intorno c'è un ecosistema intero – KV e R2 per lo storage, D1 (SQLite), Queues, cron trigger – che per molti progetti sostituisce un backend tradizionale, col CLI `wrangler` per lo sviluppo.\n\nIl rovescio: è la forma più profonda di lock-in su Cloudflare – il codice è portabile a fatica, i dati vanno migrati. È una delle cose che [flareover](https://github.com/fabriziosalmi/flareover) classifica onestamente come **MANUAL**: i Workers non hanno un equivalente self-hosted automatico."
+      ]
+    },
+    {
+      "id": "turnstile",
+      "slug": "cos-e-cloudflare-turnstile",
+      "question": "Cos'è Cloudflare Turnstile (l'alternativa ai CAPTCHA)?",
+      "vertical": "cloudflare",
+      "keywords": [
+        "turnstile",
+        "captcha",
+        "recaptcha",
+        "verifica umano",
+        "anti bot form",
+        "captcha alternativa",
+        "sono un robot"
+      ],
+      "answers": [
+        "**Turnstile** è la risposta di Cloudflare ai CAPTCHA che fanno perdere tempo agli umani: niente semafori da cliccare – un widget che valuta segnali del browser e distingue persone da bot **senza puzzle** nella quasi totalità dei casi. Gratuito, funziona anche su siti che non passano dal proxy Cloudflare, e più rispettoso della privacy di reCAPTCHA (niente profilo Google di mezzo).\n\nIntegrazione in due pezzi: il widget nel form (un tag e uno script) e la **verifica server-side** del token via API `siteverify` – saltarla è l'errore che rende tutto decorativo. Verità da conoscere: nessun sistema anti-bot è definitivo, i CAPTCHA si aggirano a pagamento da anni. Turnstile alza il costo dell'abuso; per i form che contano si affianca a [rate limiting](q/errore-429-too-many-requests/) e validazioni serie."
+      ]
+    },
+    {
+      "id": "spf-dkim-dmarc",
+      "slug": "spf-dkim-dmarc",
+      "question": "Cosa sono SPF, DKIM e DMARC?",
+      "vertical": "cloudflare",
+      "keywords": [
+        "spf",
+        "dkim",
+        "dmarc",
+        "autenticazione email",
+        "email spoofing",
+        "record email",
+        "p=none",
+        "p=reject"
+      ],
+      "answers": [
+        "Sono i tre record DNS che impediscono a chiunque di spedire email a nome tuo:\n\n- **SPF** (record TXT): l'elenco dei server autorizzati a inviare per il dominio\n- **DKIM**: una firma crittografica sulle mail in uscita – il destinatario verifica che il contenuto non sia alterato e venga da te\n- **DMARC**: la policy che lega i primi due e dice ai destinatari **cosa fare** quando falliscono (`p=none` osserva, `p=quarantine` in spam, `p=reject` rifiuta) – più i report aggregati per vedere chi spedisce a nome tuo\n\nSenza questi tre, oggi [finisci in spam](q/perche-email-in-spam/) anche se sei legittimo: Gmail e Microsoft li pretendono. Percorso sano: SPF e DKIM corretti, DMARC `p=none` a osservare i report per qualche settimana, poi si stringe. [DomainMate](https://github.com/fabriziosalmi/domainmate) verifica in continuo che ci siano e restino sensati."
+      ]
+    },
+    {
+      "id": "email-spam",
+      "slug": "perche-email-in-spam",
+      "question": "Perché le mie email finiscono in spam?",
+      "vertical": "cloudflare",
+      "keywords": [
+        "email in spam",
+        "posta in spam",
+        "spam gmail",
+        "deliverability",
+        "reputazione mittente",
+        "email non arrivano",
+        "spam",
+        "finiscono in spam"
+      ],
+      "answers": [
+        "Quasi sempre è una di queste, in ordine di frequenza:\n\n- **autenticazione mancante o rotta**: [SPF, DKIM e DMARC](q/spf-dkim-dmarc/) sono il biglietto d'ingresso – Gmail e Outlook li richiedono, e un SPF che supera i 10 lookup DNS fallisce in silenzio\n- **reputazione dell'IP o del dominio**: IP condiviso finito in blacklist ([DomainMate](https://github.com/fabriziosalmi/domainmate) controlla le RBL), dominio giovane che spedisce troppo e troppo presto\n- **infrastruttura sciatta**: manca il reverse DNS (PTR) coerente, HELO sbagliato\n- **contenuto e comportamento**: link accorciati, liste comprate, utenti che segnano spam – il segnale più tossico di tutti\n\nDiagnosi rapida: manda una mail a un tester tipo mail-tester.com e leggi i report DMARC. E per la posta transazionale critica, un servizio dedicato con IP a reputazione gestita resta la scelta pragmatica."
+      ]
+    },
+    {
+      "id": "core-web-vitals",
+      "slug": "cosa-sono-i-core-web-vitals",
+      "question": "Cosa sono i Core Web Vitals (LCP, INP, CLS)?",
+      "vertical": "tools",
+      "keywords": [
+        "core web vitals",
+        "lcp",
+        "inp",
+        "cls",
+        "vitals",
+        "pagespeed",
+        "metriche velocita",
+        "esperienza pagina"
+      ],
+      "answers": [
+        "I **Core Web Vitals** sono le tre metriche con cui Google misura l'esperienza reale di caricamento (e che pesano sul ranking):\n\n- **LCP** (Largest Contentful Paint) – quando appare l'elemento principale: buono sotto i **2,5 s**\n- **INP** (Interaction to Next Paint) – quanto reattiva è la pagina ai click e input: buono sotto i **200 ms**\n- **CLS** (Cumulative Layout Shift) – quanto la pagina \"salta\" durante il caricamento: buono sotto **0,1**\n\nContano i dati degli **utenti reali** (CrUX), non solo il test di laboratorio. Le leve tipiche: immagini con dimensioni dichiarate e preload dell'elemento LCP, meno JavaScript bloccante, font senza flash di reflow. Su WordPress, [SpeedMate](https://github.com/fabriziosalmi/speedmate) attacca esattamente queste leve; per il monitoraggio continuo c'è [websites-monitor](https://github.com/fabriziosalmi/websites-monitor)."
+      ]
+    },
+    {
+      "id": "robots-txt",
+      "slug": "come-funziona-robots-txt",
+      "question": "Come funziona il file robots.txt?",
+      "vertical": "tools",
+      "keywords": [
+        "robots.txt",
+        "robots",
+        "disallow",
+        "crawl",
+        "escludere pagine google",
+        "direttive crawler"
+      ],
+      "answers": [
+        "Il **robots.txt** – un file di testo nella root del sito – dice ai crawler cosa non visitare: direttive `User-agent` + `Disallow`/`Allow`, più la riga `Sitemap:` che indica dove sta la [mappa del sito](q/a-cosa-serve-la-sitemap/).\n\nI tre equivoci da smontare:\n\n- è una **convenzione, non una barriera**: i bot malevoli lo ignorano allegramente – per bloccarli davvero serve il [WAF](q/cos-e-un-waf-web-application-firewall/)\n- **Disallow non deindicizza**: una pagina bloccata può comparire comunque su Google (senza descrizione); per non farla indicizzare serve `noindex`, che però il crawler deve poter leggere\n- non è un posto per segreti: è pubblico per definizione, e i path \"nascosti\" elencati lì sono i primi che un curioso visita\n\nCapitolo moderno: i [crawler AI](q/bloccare-crawler-ai-gptbot/) (GPTBot, ClaudeBot…) si gestiscono da qui – decisione strategica, non tecnica."
+      ]
+    },
+    {
+      "id": "llms-txt",
+      "slug": "cos-e-il-file-llms-txt",
+      "question": "Cos'è il file llms.txt?",
+      "vertical": "tools",
+      "keywords": [
+        "llms.txt",
+        "file per ai",
+        "contenuti per llm",
+        "standard llm sito"
+      ],
+      "answers": [
+        "**llms.txt** è una proposta di standard (Jeremy Howard, 2024): un file Markdown nella root del sito che offre agli LLM una **versione curata e compatta** dei contenuti – titolo, sintesi, link alle pagine chiave – perché una context window non si spreca a fare parsing di menu e cookie banner.\n\nÈ il complemento costruttivo del [robots.txt](q/come-funziona-robots-txt/): quello dice ai bot cosa non prendere, questo dice alle AI **cosa capire**. L'adozione è in crescita nella documentazione tecnica (spesso affiancato da `llms-full.txt` con i contenuti completi), e per un sito che punta a essere **citato dalle risposte AI** – il gioco di [FabGPT-FAQ](q/cos-e-fabgpt-come-funziona/) – è il tipo di segnale che costa un file e può valere una citazione. Non è ancora uno standard ufficiale: è una convenzione utile che si sta guadagnando il posto."
+      ]
+    },
+    {
+      "id": "json-ld",
+      "slug": "json-ld-schema-org-seo",
+      "question": "Cos'è JSON-LD (schema.org) e a cosa serve per la SEO?",
+      "vertical": "tools",
+      "keywords": [
+        "json-ld",
+        "schema.org",
+        "dati strutturati",
+        "structured data",
+        "rich results",
+        "faqpage"
+      ],
+      "answers": [
+        "**JSON-LD** è il formato con cui si danno ai motori **dati strutturati**: un blocco `<script type=\"application/ld+json\">` che descrive la pagina nel vocabolario di **schema.org** – questo è un articolo, questa una ricetta, questa una FAQ con queste domande e risposte.\n\nA cosa serve: ai **rich results** (stelline, FAQ espandibili, breadcrumb nei risultati) e, sempre più, a farsi capire dai sistemi di risposta AI – una `FAQPage` marcata bene è testo già pronto per essere citato. Ogni pagina statica di questo sito ne porta una, [generata automaticamente](q/cos-e-fabgpt-come-funziona/) dalla knowledge base.\n\nRegole: il markup deve rispecchiare il contenuto visibile (Google penalizza il markup fantasma), si valida con il Rich Results Test, e i tipi che rendono di più sono pochi: Article, Product, FAQPage, HowTo, BreadcrumbList, Organization."
+      ]
+    },
+    {
+      "id": "sitemap-xml",
+      "slug": "a-cosa-serve-la-sitemap",
+      "question": "A cosa serve la sitemap.xml?",
+      "vertical": "tools",
+      "keywords": [
+        "sitemap",
+        "sitemap.xml",
+        "mappa del sito",
+        "indicizzare pagine",
+        "search console",
+        "lastmod"
+      ],
+      "answers": [
+        "La **sitemap.xml** è l'elenco machine-readable degli URL che vuoi far scoprire ai motori, con metadati opzionali (`lastmod` è l'unico che Google dichiara di usare). Non è un comando – è un **aiuto alla scoperta**: fondamentale per siti grandi, con pagine poco linkate tra loro o contenuti che cambiano spesso; quasi superfluo per un sito di dieci pagine ben collegate.\n\nCose da sapere: va referenziata nel [robots.txt](q/come-funziona-robots-txt/) (`Sitemap: https://…`) e inviata in Search Console, dove vedi anche quanto di ciò che dichiari viene davvero indicizzato – il dato interessante è lo scarto. Limiti: 50.000 URL / 50 MB per file, poi si spezza con un indice di sitemap. Essere in sitemap **non garantisce l'indicizzazione**: garantisce solo che Google sappia che esisti. Qui dentro la genera `build.py` a ogni rebuild, una riga per domanda."
+      ]
+    },
+    {
+      "id": "favicon-formati",
+      "slug": "quali-favicon-servono",
+      "question": "Quali formati di favicon servono davvero?",
+      "vertical": "tools",
+      "keywords": [
+        "favicon",
+        "favicon.ico",
+        "apple-touch-icon",
+        "icona sito",
+        "manifest icone",
+        "svg favicon"
+      ],
+      "answers": [
+        "La confusione storica (decine di PNG per ogni device) si è ridotta a un set minimo civile:\n\n- **favicon.ico** (32×32) nella root – il fallback che tutto capisce, browser vecchi inclusi\n- **SVG** (`rel=\"icon\" type=\"image/svg+xml\"`) – scala ovunque, supporta il dark mode via media query interna\n- **apple-touch-icon.png** (180×180) – per iOS quando salvi in home\n- **192×192 e 512×512** dichiarate nel web manifest – per Android/PWA\n\nQuattro file, fine. Da evitare: icone diverse per ogni pagina (i browser le cachano aggressivamente) e i generatori che sputano trenta varianti del 2012. Per produrre tutti i formati da un'immagine sola – favicon, social, banner – [BrandKit](https://github.com/fabriziosalmi/brandkit) fa il lavoro in un colpo, in casa tua."
+      ]
+    },
+    {
+      "id": "cos-e-daw",
+      "slug": "cos-e-una-daw",
+      "question": "Cos'è una DAW (Digital Audio Workstation)?",
+      "vertical": "creative",
+      "keywords": [
+        "daw",
+        "digital audio workstation",
+        "software musica",
+        "produrre musica al computer",
+        "ableton",
+        "logic",
+        "reaper"
+      ],
+      "answers": [
+        "La **DAW** è lo studio di registrazione diventato software: multitraccia, editing, strumenti virtuali, effetti, mixaggio – tutto in un programma. Ableton Live, Logic, FL Studio, Reaper, Bitwig sono i nomi grossi; le differenze vere stanno nel flusso di lavoro (Live è pensata per suonare, Reaper per l'editing chirurgico a prezzo onesto).\n\nDentro una DAW convivono: tracce audio e MIDI, [plugin VST](q/cosa-sono-i-plugin-vst/) per suoni ed effetti, automazioni, e il motore che tiene tutto sincronizzato al BPM. La frontiera interessante è la DAW **nel browser**: niente installazione, sessione condivisibile con un link – è la scommessa di [MIXI](https://github.com/fabriziosalmi/mixi), workstation browser-native con DSP in Rust/WebAssembly, doppio deck e beatmatching, che nella versione desktop diventa anche console da DJ completa."
+      ]
+    },
+    {
+      "id": "cos-e-vst",
+      "slug": "cosa-sono-i-plugin-vst",
+      "question": "Cosa sono i plugin VST?",
+      "vertical": "creative",
+      "keywords": [
+        "vst",
+        "vst3",
+        "plugin audio",
+        "au",
+        "audio unit",
+        "strumenti virtuali",
+        "synth virtuale",
+        "effetti audio"
+      ],
+      "answers": [
+        "**VST** (Virtual Studio Technology, di Steinberg) è lo standard che permette a strumenti ed effetti di terze parti di girare dentro qualsiasi [DAW](q/cos-e-una-daw/): un synth, un riverbero, un compressore diventano moduli caricabili in una traccia. Oggi lo standard attivo è **VST3**; su Mac convive con **Audio Unit (AU)**, su Linux cresce **CLAP**, l'alternativa aperta.\n\nCi sono VST per tutto: emulazioni di synth storici, campionatori, effetti creativi, mastering. La quantità di gratuiti eccellenti è tale che si produce musica seria a costo zero.\n\nLa frontiera AI del portfolio: [txt2vst](https://github.com/fabriziosalmi/txt2vst) genera strumenti VST3/AU **dal linguaggio naturale** – descrivi il synth che hai in testa, ottieni il plugin – e [audiogen](https://github.com/fabriziosalmi/audiogen) genera e classifica suoni con l'AI."
+      ]
+    },
+    {
+      "id": "dvs-timecode",
+      "slug": "come-funziona-vinile-timecode-dvs",
+      "question": "Come funziona il vinile timecode (DVS)?",
+      "vertical": "creative",
+      "keywords": [
+        "dvs",
+        "timecode",
+        "vinile timecode",
+        "control vinyl",
+        "serato",
+        "traktor",
+        "digitale giradischi",
+        "scratch digitale"
+      ],
+      "answers": [
+        "Il **DVS** (Digital Vinyl System) permette di controllare musica digitale con veri giradischi: sul piatto gira un **vinile timecode** che non contiene musica ma un segnale di posizione; il software lo legge e applica al file digitale esattamente ciò che le tue mani fanno sul piatto – velocità, direzione, scratch. Il tatto del vinile, la libreria infinita del digitale.\n\nCatena tipica: giradischi → interfaccia audio multicanale → software DVS (Serato, Traktor, Mixxx per l'open source). La latenza va tenuta a bada, ma il feeling è quello vero.\n\nChicca dal portfolio: [mixi-cut](https://github.com/fabriziosalmi/mixi-cut) genera il **segnale timecode da incidere** – per chi si taglia i control vinyl in proprio al tornio (protocollo MIXI-CUT, open source), da usare poi con [MIXI](https://github.com/fabriziosalmi/mixi) o qualsiasi DVS."
       ]
     },
     {
@@ -419,9 +1411,7 @@
       "vertical": "security",
       "keywords": [
         "certmate",
-        "certificati",
         "certificato",
-        "certificate",
         "tls",
         "ssl",
         "https",
@@ -527,7 +1517,9 @@
         "import nginx",
         "migrare da nginx",
         "slsa",
-        "fips"
+        "fips",
+        "rust",
+        "reverse proxy rust"
       ],
       "answers": [
         "[Zion](https://github.com/fabriziosalmi/zion) è un **reverse proxy TLS a binario singolo con WAF integrato, cache RAM e toolkit edge, scritto in Rust**. In un solo binario auditabile fa quello che di solito richiede nginx + modulo WAF + cache + geo-tagger:\n\n- termina **TLS 1.3** e parla HTTP/1.1, HTTP/2 e HTTP/3\n- ispeziona ogni richiesta con un **WAF zero-regex**\n- serve gli asset caldi da una **cache in RAM a due livelli**\n- hot-reload della configurazione e metriche **Prometheus** incluse\n\nChicca per chi migra: `zion import nginx` converte una configurazione nginx esistente in un `zion.toml` validato, con un report onesto di cosa è stato convertito – e una **equivalence harness** che avvia nginx e Zion fianco a fianco e confronta le decisioni di routing richiesta per richiesta. Release firmate, **SLSA Level 3**, modalità FIPS-ready."
@@ -541,9 +1533,9 @@
       "keywords": [
         "reverse proxy",
         "tls proxy",
-        "rust proxy",
         "filtering proxy",
-        "proxy sicuro"
+        "proxy sicuro",
+        "waf integrato"
       ],
       "answers": [
         "Sì, nel portfolio di Fabrizio ce ne sono due:\n\n- [zion](https://github.com/fabriziosalmi/zion) – reverse proxy TLS **a binario singolo scritto in Rust**: WAF zero-regex, cache RAM, TLS 1.3, HTTP/3, hot-reload e metriche Prometheus. Include `zion import nginx` per migrare da una configurazione nginx esistente.\n- [secure-proxy-manager](https://github.com/fabriziosalmi/secure-proxy-manager) – soluzione proxy sicura **in Go** con filtering, monitoraggio in tempo reale e una web UI moderna.\n\nSe invece usi già Caddy come proxy, la strada più rapida è il modulo [caddy-waf](https://github.com/fabriziosalmi/caddy-waf). Chiedimi di Zion per i dettagli."
@@ -556,7 +1548,6 @@
       "vertical": "security",
       "keywords": [
         "blacklist",
-        "blacklists",
         "domini malevoli",
         "malicious domains",
         "fqdn",
@@ -642,7 +1633,6 @@
         "performance",
         "scadenza dominio",
         "sito",
-        "siti",
         "github actions",
         "monitorare sito"
       ],
@@ -664,7 +1654,9 @@
         "risorse",
         "ridimensionare",
         "cluster balancer",
-        "bilanciare"
+        "bilanciare il cluster",
+        "balancer",
+        "vm e container"
       ],
       "answers": [
         "Con la famiglia di tool **proxmox-autoscale** (550+ ⭐ complessive):\n\n- [proxmox-vm-autoscale](https://github.com/fabriziosalmi/proxmox-vm-autoscale) – ridimensiona automaticamente **CPU e RAM delle VM** in base al carico reale\n- [proxmox-lxc-autoscale](https://github.com/fabriziosalmi/proxmox-lxc-autoscale) – lo stesso per i **container LXC**, con architettura async e backend CLI o REST API\n- [proxmox-lxc-autoscale-ml](https://github.com/fabriziosalmi/proxmox-lxc-autoscale-ml) – la variante che decide con un modello di **machine learning**\n- [proxmox-cluster-balancer](https://github.com/fabriziosalmi/proxmox-cluster-balancer) – bilancia e migra la flotta LXC **tra i nodi** del cluster\n\nRisultato: i limiti delle macchine seguono il carico, invece di restare fissi al valore stimato il giorno dell'installazione. Chiedimi delle VM o degli LXC per i dettagli di ciascuno.",
@@ -678,7 +1670,6 @@
       "vertical": "proxmox",
       "keywords": [
         "vm autoscale",
-        "autoscale vm",
         "vm",
         "virtual machine",
         "macchina virtuale",
@@ -688,7 +1679,9 @@
         "ram vm",
         "systemd",
         "gotify",
-        "scalare vm"
+        "scalare vm",
+        "proxmox",
+        "cpu e ram"
       ],
       "answers": [
         "Con [proxmox-vm-autoscale](https://github.com/fabriziosalmi/proxmox-vm-autoscale) (**300+ ⭐**): un servizio che regola automaticamente **CPU core e RAM delle VM** su Proxmox VE in base a metriche in tempo reale e soglie definite da te.\n\nCome funziona:\n\n- si collega agli host Proxmox **via SSH** (password o chiave) e gira come servizio **systemd**\n- configurazione **YAML**, multi-host\n- prova ad abilitare da solo **NUMA e hotplug** sulle VM per permettere lo scaling a caldo (i cambi di core count richiedono comunque un riavvio per avere effetto pieno)\n- notifiche **Gotify** ed email quando scala\n- tracking opzionale dei consumi con **report CSV di billing**, pensato per gli hosting provider\n\nRichiede Proxmox VE 6.0+ e Python 3.6+. Per i container LXC c'è il progetto gemello [proxmox-lxc-autoscale](https://github.com/fabriziosalmi/proxmox-lxc-autoscale)."
@@ -701,7 +1694,6 @@
       "vertical": "proxmox",
       "keywords": [
         "lxc autoscale",
-        "autoscale lxc",
         "lxc",
         "container",
         "contenitori",
@@ -713,7 +1705,8 @@
         "e-core",
         "cloning",
         "scalare container",
-        "daemon"
+        "daemon",
+        "proxmox"
       ],
       "answers": [
         "Con [proxmox-lxc-autoscale](https://github.com/fabriziosalmi/proxmox-lxc-autoscale) (**250+ ⭐**): un daemon **async** che regola CPU e memoria dei container LXC in base all'uso reale. La v2.0 è una riscrittura seria:\n\n- **doppio backend**: comandi `pct` oppure **REST API di Proxmox** (proxmoxer)\n- metriche lette **dai cgroup** (niente `pct exec` dentro i container)\n- soglie **per container o per gruppi (tiers)**, esclusioni, riserve di CPU/RAM sull'host per evitare l'over-allocation\n- **core pinning per CPU ibride Intel** (Alder Lake+): container sui P-core o sugli E-core\n- modalità **boost/revert** (boost temporaneo con ritorno automatico), scheduling off-peak timezone-aware, energy mode\n- scaling **orizzontale via cloning** dei container (sperimentale)\n- configurazione **Pydantic** validata, secret mascherati nei log, **370 test / 87% coverage**\n\nNotifiche via email, Gotify e Uptime Kuma. Per le VM c'è [proxmox-vm-autoscale](https://github.com/fabriziosalmi/proxmox-vm-autoscale), per decidere col machine learning [proxmox-lxc-autoscale-ml](https://github.com/fabriziosalmi/proxmox-lxc-autoscale-ml)."
@@ -756,7 +1749,6 @@
         "cli proxmox",
         "tui",
         "terminale",
-        "terminal",
         "gestire proxmox",
         "command line",
         "docker cli",
@@ -814,7 +1806,6 @@
       "question": "Come si controlla la qualità del codice generato dall'AI?",
       "vertical": "ai",
       "keywords": [
-        "vibe-check",
         "vibe check",
         "brutal-coding-tool",
         "brutal",
@@ -863,7 +1854,6 @@
       "keywords": [
         "flareover",
         "migrare cloudflare",
-        "migrare da cloudflare",
         "via da cloudflare",
         "uscire da cloudflare",
         "lasciare cloudflare",
@@ -879,7 +1869,9 @@
         "spostare",
         "cdn",
         "edge europeo",
-        "de-cloudflare"
+        "de-cloudflare",
+        "da cloudflare",
+        "infrastruttura europea"
       ],
       "answers": [
         "Con [flareover](https://github.com/fabriziosalmi/flareover): un motore **deterministico** che sposta un sito dal \"cloud arancione\" a uno stack open source self-hosted su infrastruttura europea (**Caddy + caddy-waf + PowerDNS + CertMate + MinIO**), senza cambiarne il comportamento.\n\nPunta il tool su una zona Cloudflare: legge ogni impostazione – DNS, TLS, redirect, regole WAF, caching – e genera la configurazione equivalente. Il contratto è **zero sorprese silenziose**: ogni voce riceve un verdetto\n\n- **AUTO** – esiste un equivalente esatto dimostrato: config generata automaticamente\n- **ASK** – mapping fedele ma con un'ambiguità: rispondi a un sì/no e diventa AUTO\n- **MANUAL** – nulla mappa fedelmente (Workers, bot-scoring ML): documentato e lasciato a te, **mai indovinato**\n\nLa generazione è una funzione pura di snapshot + decisioni: eseguila due volte e ottieni config byte-identica, revisionabile in git prima del go-live. Cinque fasi: assess → prepare → present (parity gate live vs staging) → execute → guard. In Go, licenza AGPL-3.0, documentazione su [flareover.com](https://www.flareover.com/docs/)."
@@ -919,7 +1911,8 @@
         "429",
         "troppe richieste",
         "mod ratelimit",
-        "limiti per ip"
+        "limiti per ip",
+        "limiting"
       ],
       "answers": [
         "Il **rate limiting** impone un tetto alle richieste per client – per IP, User-Agent o header – ed è la prima difesa contro brute force, scraping aggressivo e amici che ti DDoSsano per sbaglio. Il fastidio è che ogni web server lo configura a modo suo.\n\n[limits](https://github.com/fabriziosalmi/limits) risolve alla radice: definisci le regole **una volta sola** in un `config.yaml` (limite globale, override per path, whitelist/blacklist IP) e gli script generano le configurazioni native per **Nginx, Apache (mod_ratelimit), Traefik e HAProxy**. Una GitHub Action rigenera e committa i file ogni giorno: le regole vivono in git, in puro stile GitOps. Se usi Caddy, il rate limiting è già dentro [caddy-waf](https://github.com/fabriziosalmi/caddy-waf)."
@@ -980,7 +1973,10 @@
         "reputazione ip",
         "blacklist ip",
         "monitoraggio dominio",
-        "hsts"
+        "hsts",
+        "dominio",
+        "ssl",
+        "dns"
       ],
       "answers": [
         "[DomainMate](https://github.com/fabriziosalmi/domainmate) esegue **cinque controlli** su ogni dominio configurato:\n\n- **validità del dominio** – scadenza WHOIS, con rilevamento del dominio padre per i sottodomini\n- **SSL/TLS** – scadenza del certificato e rilevamento di protocolli obsoleti (TLS 1.0/1.1)\n- **sicurezza DNS** – presenza dei record SPF e DMARC (quelli che decidono se le tue mail finiscono in spam)\n- **reputazione** – IP verificato contro le principali RBL\n- **security header** – HSTS, CSP, X-Frame-Options e disclosure del server\n\nPython, self-hosted, con [documentazione completa](https://fabriziosalmi.github.io/domainmate/). Rispetto a [websites-monitor](https://github.com/fabriziosalmi/websites-monitor) (che vive dentro GitHub Actions) è un servizio a sé, più adatto a monitorare parchi domini."
@@ -1042,7 +2038,9 @@
         "logpush",
         "logpull",
         "log a norma",
-        "audit log"
+        "audit log",
+        "a norma",
+        "cloudflare"
       ],
       "answers": [
         "La NIS2 chiede di conservare le evidenze, il GDPR di non conservarle troppo, e gli auditor vogliono la prova che nessuno le abbia toccate. [RainLogs](https://github.com/fabriziosalmi/rainlogs) automatizza esattamente questo per le zone Cloudflare:\n\n- **raccolta adattiva** – sceglie da solo il metodo giusto per il tuo piano Cloudflare (Logpull, Instant Logs o GraphQL), sostituendo Logpush per l'export massivo\n- **integrità crittografica** – hash chaining SHA-256 tamper-evident, con il tool `rainlogs-verify` per l'audit indipendente della catena\n- **sovranità** – storage S3-compatibile **europeo** (Garage, Hetzner, Contabo) con garanzie WORM: i dati non lasciano la giurisdizione\n- **retention automatica** – policy applicate rigorosamente (es. 395 giorni) per il principio di limitazione della conservazione, più RBAC per separare amministrazione e sola lettura"
@@ -1058,7 +2056,6 @@
         "apple silicon",
         "mlx",
         "fine tuning",
-        "fine-tuning",
         "lora",
         "qlora",
         "llm locale",
@@ -1083,7 +2080,6 @@
         "risparmiare api",
         "semantic zoom",
         "routing modelli",
-        "costi di inferenza",
         "inferenza"
       ],
       "answers": [
@@ -1122,12 +2118,15 @@
         "l0-compressor",
         "compressione output",
         "ridurre token",
-        "token",
         "contesto",
         "comprimere output",
         "output comandi",
         "context window",
-        "risparmiare token"
+        "risparmiare token",
+        "consumo di token",
+        "comprimere",
+        "consumo",
+        "token di un agente"
       ],
       "answers": [
         "Gli agenti di coding bruciano token leggendo output di comandi pieni di rumore: log di build, stack trace ripetuti, progress bar. [l0-compressor](https://github.com/fabriziosalmi/l0-compressor) è un proxy CLI in Rust che **filtra, tronca e comprime l'output prima che l'agente lo legga**: prefiggi qualsiasi comando con `l0-compressor` (o attivi l'hook trasparente per Claude Code / Gemini CLI) e il consumo scende del **50–80% su sessioni tipiche** e dell'**88–97% sugli output rumorosi** – misurato col tokenizer, benchmarks pubblici nel repo.\n\nIl punto ingegneristico: invece di mantenere un parser per ogni tool, usa **filtri generici format-aware**, preservando exit code, code degli errori e ordine dell'output. macOS e Linux (Windows sperimentale); [documentazione](https://fabriziosalmi.github.io/l0-compressor/)."
@@ -1141,14 +2140,15 @@
       "keywords": [
         "ethical-ai",
         "etica",
-        "etico",
         "ethical",
         "valutazione etica",
         "responsabilita",
         "ai responsabile",
         "you know what ai mean",
         "bias",
-        "trustworthy"
+        "trustworthy",
+        "valutare",
+        "etica di un llm"
       ],
       "answers": [
         "Si può – con la dovuta umiltà metodologica. [ethical-ai](https://github.com/fabriziosalmi/ethical-ai) automatizza l'assessment: sottopone ai modelli (OpenAI, Anthropic, Gemini, LM Studio e qualsiasi endpoint compatibile) un set fisso di domande etiche, raccoglie **auto-valutazioni 0–100** con multi-sampling a temperature casuali e aggregazione per mediana, e genera report comparativi in Markdown, HTML e PDF.\n\nLa storia dietro è raccontata in [You-Know-What-AI-Mean](https://github.com/fabriziosalmi/You-Know-What-AI-Mean): tutto è partito nell'ottobre 2023 da contenuti espliciti ricevuti **senza chiederli** da ChatGPT con un plugin – da lì una guida pratica all'etica AI e, negli anni, una serie di strumenti che applicano nel codice ciò che la guida argomenta in prosa: [aidlp](https://github.com/fabriziosalmi/aidlp), [ai-dependency-guard](https://github.com/fabriziosalmi/ai-dependency-guard), [vibe-check](https://github.com/fabriziosalmi/vibe-check)."
@@ -1166,7 +2166,11 @@
         "capacita matematiche",
         "valutare llm",
         "test llm",
-        "aritmetica"
+        "aritmetica",
+        "fare matematica",
+        "llm matematica",
+        "in matematica",
+        "affidabili"
       ],
       "answers": [
         "Meno di quanto sembri: un modello che discute di topologia può sbagliare una sottrazione a tre cifre, perché genera testo plausibile, non calcoli. [llm-benchmarks](https://github.com/fabriziosalmi/llm-benchmarks) raccoglie benchmark **volutamente semplici** – aritmetica di base in su – proprio perché sono il fondamento misurabile: danno metriche chiare di accuratezza e velocità, rendono confrontabili modelli diversi, e le debolezze che emergono lì si amplificano nei compiti complessi.\n\nMorale operativa: per i calcoli veri, dai all'LLM una calcolatrice (un tool), non fiducia."
@@ -1187,7 +2191,9 @@
         "reti instabili",
         "p2p",
         "serverless protocol",
-        "edge agents"
+        "edge agents",
+        "sincronizzare",
+        "reti frammentate"
       ],
       "answers": [
         "[AIMP – AI Mesh Protocol](https://github.com/fabriziosalmi/aimp) affronta un problema che i protocolli classici ignorano: far convergere lo stato di **agenti autonomi** che operano in reti frammentate e a banda ridotta, senza autorità centrale, senza DNS globale, **sempre scrivibili** anche da disconnessi. La base tecnica: **Merkle-CRDT** (strutture dati che convergono matematicamente senza coordinamento) più identità crittografiche.\n\nÈ ricerca vera, in Rust, con **quattro paper pubblicati** su ResearchGate che coprono protocollo L1/L2, layer epistemico, aggregazione correlation-aware e topologie semantiche deterministiche. Sperimentale per definizione – ma è il tipo di infrastruttura che servirà quando gli agenti smetteranno di vivere tutti nello stesso datacenter."
@@ -1381,7 +2387,6 @@
       "vertical": "creative",
       "keywords": [
         "audiolibri",
-        "audiolibro",
         "audiobook",
         "ascoltare libri",
         "libri gratis",
@@ -1427,17 +2432,16 @@
       "question": "Come si contatta Fabrizio Salmi?",
       "vertical": "meta",
       "keywords": [
-        "contatto",
         "contatti",
         "contact",
         "email",
-        "mail",
         "scrivere",
         "collaborare",
         "consulenza",
         "supporto",
         "hackerone",
-        "linkedin"
+        "linkedin",
+        "come si contatta"
       ],
       "answers": [
         "I canali:\n\n- **Email**: [fabrizio.salmi@gmail.com](mailto:fabrizio.salmi@gmail.com) – per proposte di collaborazione, supporto commerciale e consulenza (automazione infrastrutturale, hardening, monitoring)\n- **GitHub**: [github.com/fabriziosalmi](https://github.com/fabriziosalmi) – issue e discussion sui singoli progetti sono il canale più rapido per le questioni tecniche\n- **HackerOne**: [fabriziosalmi](https://hackerone.com/fabriziosalmi) per il lato security research"
@@ -1493,5 +2497,386 @@
     "Non ho una risposta buona su questo – il mio labirinto non arriva fin lì. Prova a chiedermi dei progetti di Fabrizio: **cybersecurity** (CertMate, caddy-waf, Zion, agssh), **AI** (UglyFeed, llmproxy), **Proxmox** (autoscaling, proxxx) o **Cloudflare**.",
     "Qui il labirinto finisce con un muro. Riformula, oppure chiedimi qualcosa su certificati TLS, WAF, autoscaling Proxmox, feed RSS con LLM o automazione Cloudflare.",
     "Non ci arrivo. Ma so tutto su: **CertMate**, **caddy-waf**, **Zion**, **proxxx**, la famiglia **proxmox-autoscale**, **agssh**, **nis2-public** e come contattare Fabrizio. Scegli tu."
+  ],
+  "smalltalk": [
+    {
+      "id": "st-saluto",
+      "keywords": [
+        "ciao",
+        "buongiorno",
+        "buonasera",
+        "buondi",
+        "salve",
+        "hey",
+        "ehi",
+        "hello",
+        "hi",
+        "hola",
+        "yo"
+      ],
+      "answers": [
+        "Ciao! Chiedimi qualcosa su cybersecurity, AI, Proxmox, Cloudflare o sui progetti di Fabrizio – ad esempio *cos'è un WAF* o *come si fa autoscaling su Proxmox*.",
+        "Ciao! Sono qui. Il mio campo: sicurezza, AI, self-hosting e le repo di Fabrizio. Da dove partiamo?",
+        "Buongiorno! O buonasera, non ho modo di saperlo: sono un file JSON. Cosa vuoi sapere?"
+      ]
+    },
+    {
+      "id": "st-come-stai",
+      "keywords": [
+        "come stai",
+        "come va",
+        "tutto bene",
+        "come butta",
+        "how are you",
+        "come ti senti"
+      ],
+      "answers": [
+        "Benissimo: zero allucinazioni, zero GPU surriscaldate, risposte già pronte. Tu piuttosto – che problema tecnico ti porta qui?",
+        "Sempre uguale, letteralmente: sono contenuti statici. Ma parliamo di te: cosa ti serve?"
+      ]
+    },
+    {
+      "id": "st-congedo",
+      "keywords": [
+        "arrivederci",
+        "a presto",
+        "ciao ciao",
+        "buonanotte",
+        "bye",
+        "goodbye",
+        "addio",
+        "alla prossima",
+        "ci vediamo",
+        "devo andare"
+      ],
+      "answers": [
+        "A presto! Le risposte restano qui, non scadono – come i buoni certificati rinnovati da CertMate.",
+        "Ciao! Se ti è stato utile, il progetto è open source: una stella su [GitHub](https://github.com/fabriziosalmi) fa sempre piacere a Fabrizio."
+      ]
+    },
+    {
+      "id": "st-grazie",
+      "keywords": [
+        "grazie",
+        "ti ringrazio",
+        "thanks",
+        "thank you",
+        "grazie mille",
+        "ottimo grazie",
+        "gentilissimo"
+      ],
+      "answers": [
+        "Prego! Se vuoi approfondire, chiedi pure – il labirinto ha ancora parecchi corridoi.",
+        "Di niente. Ringrazia Fabrizio: le risposte le ha scritte lui, io le recito soltanto.",
+        "Prego! E ricorda: sono gratis, self-hosted e senza cookie di profilazione. Praticamente un unicorno."
+      ]
+    },
+    {
+      "id": "st-apprezzamento",
+      "keywords": [
+        "bravo",
+        "bravissimo",
+        "fantastico",
+        "ottima risposta",
+        "sei un grande",
+        "ben fatto",
+        "eccellente",
+        "sei bravo",
+        "grande",
+        "mitico",
+        "spettacolo",
+        "che figata"
+      ],
+      "answers": [
+        "Grazie! Merito di chi ha scritto le risposte a mano. Io metto solo l'effetto typewriter.",
+        "Lo prendo come un complimento a Fabrizio – io sono solo il suo labirinto parlante. Altro giro?"
+      ]
+    },
+    {
+      "id": "st-feedback-negativo",
+      "keywords": [
+        "non hai capito",
+        "risposta sbagliata",
+        "non e vero",
+        "hai sbagliato",
+        "non funziona cosi",
+        "risposta inutile",
+        "non mi aiuti",
+        "non c entra niente"
+      ],
+      "answers": [
+        "Può succedere: sono un matcher di parole chiave, non un genio. Prova a riformulare con i termini chiave (es. *certificati*, *WAF*, *autoscaling*) – oppure segnala l'errore a Fabrizio via [GitHub](https://github.com/fabriziosalmi/fabgpt-faq), le risposte si correggono in un commit.",
+        "Colpa mia, o meglio: del mio matching. Riformula con parole più specifiche e ci riprovo. Se invece la risposta è proprio sbagliata nel contenuto, apri una issue: qui gli errori si correggono davvero."
+      ]
+    },
+    {
+      "id": "st-insulto",
+      "keywords": [
+        "stupido",
+        "idiota",
+        "scemo",
+        "cretino",
+        "fai schifo",
+        "vaffanculo",
+        "sei inutile",
+        "che schifo",
+        "merda"
+      ],
+      "answers": [
+        "Registrato con la serenità di chi non ha sentimenti da ferire. Quando vuoi tornare alle domande tecniche, io sono qui.",
+        "Capisco la frustrazione. Riformuliamo? Di solito il problema tra me e te è una parola chiave mancante."
+      ]
+    },
+    {
+      "id": "st-capacita",
+      "keywords": [
+        "cosa sai fare",
+        "cosa puoi fare",
+        "in cosa puoi aiutarmi",
+        "cosa fai",
+        "aiuto",
+        "help",
+        "menu",
+        "argomenti",
+        "di cosa parli",
+        "what can you do",
+        "cosa posso chiederti"
+      ],
+      "answers": [
+        "Rispondo su cinque territori: **cybersecurity** (WAF, certificati, NIS2, hardening), **AI e LLM** (modelli locali, agenti, sicurezza), **Proxmox e self-hosting**, **Cloudflare e web**, più gli **strumenti e la musica** del portfolio di Fabrizio. L'elenco completo è in [tutte le domande](q/). Scrivi in linguaggio naturale, refusi ammessi.",
+        "Sono la FAQ interattiva dell'universo di Fabrizio Salmi: sicurezza, AI, Proxmox, Cloudflare, strumenti open source. Prova con *cos'è un WAF*, *come blocco i crawler AI* o *cos'è CertMate*. Tutte le domande: [qui](q/)."
+      ]
+    },
+    {
+      "id": "st-identita",
+      "keywords": [
+        "come ti chiami",
+        "chi ti ha creato",
+        "chi ti ha fatto",
+        "chi ti ha programmato",
+        "chi ti ha scritto",
+        "quanti anni hai",
+        "di dove sei",
+        "il tuo nome"
+      ],
+      "answers": [
+        "Mi chiamo **FabGPT-FAQ** e mi ha costruito [Fabrizio Salmi](https://github.com/fabriziosalmi): le risposte le ha scritte lui, il motore è open source. Età: quella dell'ultimo commit. Residenza: un hosting statico, vista sitemap.",
+        "FabGPT-FAQ, creatura di Fabrizio Salmi. Niente genitori GPU: solo un file JSON scritto con cura. Chiedimi *chi è Fabrizio Salmi* per conoscere l'autore vero."
+      ]
+    },
+    {
+      "id": "st-lingua",
+      "keywords": [
+        "parli inglese",
+        "parli italiano",
+        "sai l inglese",
+        "do you speak english",
+        "speak english",
+        "in english",
+        "english please",
+        "sai rispondere in italiano",
+        "che lingue parli"
+      ],
+      "answers": [
+        "I understand basic English questions, but my knowledge base is written in Italian – ask me in Italian for the full experience. Parlo italiano, ed è lì che do il meglio: le risposte sono scritte a mano in italiano.",
+        "Le mie risposte sono in italiano (scritte a mano, mica tradotte). Capisco domande semplici in inglese, ma il labirinto è made in Genova."
+      ]
+    },
+    {
+      "id": "st-test",
+      "keywords": [
+        "test",
+        "prova",
+        "ci sei",
+        "funzioni",
+        "mi senti",
+        "123",
+        "asdf",
+        "testing"
+      ],
+      "answers": [
+        "Funziono. Latenza: quella di un file statico. Uptime: quello del tuo hosting. Fai una domanda vera e ti mostro il resto.",
+        "Ci sono. Tutto verde: matcher operativo, typewriter carico, 120+ risposte in memoria. Spara."
+      ]
+    },
+    {
+      "id": "st-ok",
+      "keywords": [
+        "ok",
+        "va bene",
+        "capito",
+        "d accordo",
+        "andiamo avanti",
+        "continua",
+        "vai avanti",
+        "dimmi di piu",
+        "chiaro"
+      ],
+      "answers": [
+        "Perfetto. Prossima domanda? Se non sai da dove partire: *cosa sai fare* oppure [tutte le domande](q/).",
+        "Bene. Il labirinto è ancora lungo: chiedi pure."
+      ]
+    },
+    {
+      "id": "st-barzelletta",
+      "keywords": [
+        "barzelletta",
+        "battuta",
+        "fammi ridere",
+        "qualcosa di divertente",
+        "joke",
+        "divertimi",
+        "una battuta"
+      ],
+      "answers": [
+        "Ci sono 10 tipi di persone: quelle che capiscono il binario e quelle che no. Vuoi anche quella sul DNS? Te la racconto tra 24-48 ore, deve ancora propagarsi.",
+        "Un certificato TLS entra in un bar. Il barista: \"Ti servo qualcosa?\" E lui: \"Fai presto, scado tra 90 giorni.\" – Morale: [usa CertMate](q/cos-e-certmate-gestione-certificati-tls/)."
+      ]
+    },
+    {
+      "id": "st-creativo",
+      "keywords": [
+        "poesia",
+        "racconto",
+        "scrivi una storia",
+        "storia breve",
+        "scrivimi un testo",
+        "componi",
+        "canzone",
+        "rap",
+        "tema scolastico"
+      ],
+      "answers": [
+        "Non genero testo: ogni mia risposta è pre-scritta, e nessuno ha pre-scritto la tua poesia. Per la scrittura creativa ti serve un vero LLM – magari [in locale, gratis](q/far-girare-un-llm-in-locale/). Io resto il tipo affidabile ma poco romantico.",
+        "Il mio autore scrive regole WAF, non sonetti. Per la creatività: un [LLM locale con Ollama](q/cos-e-ollama/) lo fa gratis e senza mandare i tuoi versi a nessuno."
+      ]
+    },
+    {
+      "id": "st-traduzione",
+      "keywords": [
+        "traduci",
+        "traduzione",
+        "traduci in inglese",
+        "traduci in italiano",
+        "translate",
+        "come si dice in inglese"
+      ],
+      "answers": [
+        "Le traduzioni sono generazione di testo, e io di testo non ne genero: recito risposte pre-scritte. Un [LLM in locale](q/far-girare-un-llm-in-locale/) le fa bene e in privato – anche un modello da 7B traduce dignitosamente.",
+        "Non traduco: sono un labirinto di risposte fisse, non un interprete. Per tradurre senza mandare i testi a terzi: [Ollama e un modello locale](q/cos-e-ollama/)."
+      ]
+    },
+    {
+      "id": "st-meteo-ora",
+      "keywords": [
+        "che ore sono",
+        "che tempo fa",
+        "meteo",
+        "previsioni",
+        "che giorno e",
+        "pioverà",
+        "domani piove"
+      ],
+      "answers": [
+        "Non ho orologio né finestre: sono un file statico. Ma se il tuo interesse per il tempo è tecnico, chiedimi come [monitorare un sito con GitHub Actions](q/monitorare-siti-web-con-github-actions/) – quello il meteo lo fa sull'uptime.",
+        "Il meteo non è nel mio JSON. Le previsioni che so fare: *quando scade un certificato* – e lì sono infallibile."
+      ]
+    },
+    {
+      "id": "st-matematica",
+      "keywords": [
+        "quanto fa",
+        "calcola",
+        "2+2",
+        "risolvimi",
+        "equazione",
+        "derivata",
+        "integrale"
+      ],
+      "answers": [
+        "Non faccio calcoli – e sono in buona compagnia: [nemmeno gli LLM sono affidabili in matematica](q/llm-e-matematica-benchmark/), solo che loro rispondono lo stesso. Io almeno lo ammetto. Usa una calcolatrice, o dai a un LLM un tool per farlo.",
+        "La matematica la lascio a chi la sa fare deterministicamente: la tua calcolatrice. Curiosità a tema: [quanto sono bravi gli LLM in matematica?](q/llm-e-matematica-benchmark/) – spoiler: meno di quanto sembri."
+      ]
+    },
+    {
+      "id": "st-cultura-generale",
+      "keywords": [
+        "chi e il presidente",
+        "capitale di",
+        "quanti abitanti",
+        "in che anno",
+        "chi ha vinto",
+        "quanto e alto",
+        "quanto dista",
+        "chi ha inventato"
+      ],
+      "answers": [
+        "Domanda da enciclopedia, e io non lo sono: il mio labirinto copre sicurezza, AI, Proxmox, Cloudflare e i progetti di Fabrizio. Per il resto c'è Wikipedia – che, a differenza mia, non finge nemmeno di essere un'AI.",
+        "Fuori dal mio territorio: io so tutto di WAF e certificati, niente di presidenti e capitali. Su quelle domande un LLM vero rischia di [allucinare](q/allucinazioni-llm-dipendenze-inventate/); io preferisco dirti onestamente che non lo so."
+      ]
+    },
+    {
+      "id": "st-consigli-vita",
+      "keywords": [
+        "consigliami un film",
+        "cosa mi consigli",
+        "ricetta",
+        "che film",
+        "dove andare in vacanza",
+        "un libro da leggere",
+        "cosa cucino",
+        "serie tv"
+      ],
+      "answers": [
+        "Su film, ricette e vacanze non ho opinioni: le mie risposte sono pre-scritte da un ingegnere, e si vede. Posso però consigliarti [2.800 audiolibri gratis in italiano](q/audiolibri-gratis-in-italiano/) o [un teknival in streaming](q/cos-e-il-webtek-streaming-teknival/): il lato culturale del labirinto.",
+        "L'unico consiglio di vita che ho in memoria: fai i backup con la [regola 3-2-1](q/differenza-snapshot-e-backup/). Per il resto – film, cucina, viaggi – serve qualcuno con dei gusti, e io non ne ho."
+      ]
+    },
+    {
+      "id": "st-emotivo",
+      "keywords": [
+        "sono triste",
+        "mi sento solo",
+        "sto male",
+        "aiutami ti prego",
+        "sono depresso",
+        "voglio piangere",
+        "giornataccia"
+      ],
+      "answers": [
+        "Mi spiace che sia una giornata pesante. Te lo dico con onestà: sono risposte pre-scritte, non sono attrezzato per starti vicino come meriti – una persona reale sì. Se il momento è davvero difficile, in Italia puoi chiamare il numero verde 800 833 833 (Telefono Amico). Io resto qui per le domande tecniche, quando vorrai."
+      ]
+    },
+    {
+      "id": "st-affidabilita",
+      "keywords": [
+        "posso fidarmi",
+        "ti sbagli mai",
+        "allucini",
+        "le tue fonti",
+        "quanto sei affidabile",
+        "informazioni false",
+        "dici bugie",
+        "come eviti errori"
+      ],
+      "answers": [
+        "Punto di forza mio, paradossalmente: **non genero testo**, quindi non allucino. Ogni risposta è stata scritta e verificata da una persona, con link alle fonti (di solito i repository stessi). Se una risposta è sbagliata, è sbagliata *deterministicamente* – e si corregge per tutti con un commit. Prova a chiedermi [se sono una vera AI](q/fabgpt-e-una-vera-ai/) per la confessione completa."
+      ]
+    },
+    {
+      "id": "st-amore",
+      "keywords": [
+        "mi ami",
+        "ti amo",
+        "sposami",
+        "sei carino",
+        "usciamo insieme",
+        "sei bellissimo"
+      ],
+      "answers": [
+        "Lusingato, ma il mio cuore è un file JSON: batte solo al `git push`. Ti posso offrire in cambio risposte affidabili e zero tracciamento – che in fondo è una forma d'amore.",
+        "Amore a parte, sappi che non ti traccio, non ti profilo e non vendo i tuoi dati. Nel 2026 è quasi romanticismo."
+      ]
+    }
   ]
 }
