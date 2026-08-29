@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Storage pieno su Proxmox: come liberare spazio senza disastri – FabGPT-FAQ</title>
+<meta name="description" content="Prima la caccia, poi la pulizia – df -h, zfs list -o space o lvs dicono dove è finito lo spazio. I colpevoli abituali, in ordine: snapshot dimenticati:…">
+<link rel="canonical" href="https://fabriziosalmi.github.io/fabgpt-faq/q/storage-pieno-liberare-spazio/">
+<link rel="stylesheet" href="../../style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Storage pieno su Proxmox: come liberare spazio senza disastri", "acceptedAnswer": {"@type": "Answer", "text": "Prima la caccia, poi la pulizia – df -h, zfs list -o space o lvs dicono dove è finito lo spazio. I colpevoli abituali, in ordine: snapshot dimenticati: [snapshot](q/differenza-snapshot-e-backup/) di mesi fa che trattengono gigabyte di blocchi – qm listsnapshot/pct listsnapshot e potatura backup locali: dump accumulati su local senza retention → sposta i backup [su PBS o storage dedicato](q/backup-automatici-verso-pbs/) con prune vero log e journal: journalctl --vacuum-size=200M, log applicativi nei container dischi di VM cancellate a metà o ISO/template mai più usati: pvesm list <storage> e confronto con le VM esistenti – si elimina dal pannello, mai con rm alla cieca in /var/lib/vz L'avvertenza seria: un thin pool LVM o uno ZFS oltre il ~90% non è un fastidio estetico – le scritture delle VM cominciano a fallire e [ZFS rallenta vistosamente](q/io-delay-alto-proxmox/). Se sei già al muro: prima la potatura degli snapshot (libera subito), poi fstrim dentro le VM con discard attivo, e [monitoraggio con soglie](q/cos-e-proxmox-backup-server/) perché la prossima volta l'allarme arrivi all'80%, non al 100%."}}]}</script>
+<style>
+  .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
+  .page h1 { font-size: 26px; line-height: 1.3; margin: 8px 0 20px; }
+  .page .answer a { color: var(--link); }
+  .page .vertical { font-size: 13px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }
+  .page .answer ul { padding-left: 22px; }
+  .page .answer code { background: var(--code-bg); border-radius: 5px; padding: 1px 5px; font-size: 0.9em; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+  .page .ask { display: inline-block; margin-top: 24px; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 9px 18px; text-decoration: none; font-weight: 600; }
+  .page .related { margin-top: 36px; border-top: 1px solid var(--border); padding-top: 18px; }
+  .page .related h2 { font-size: 16px; }
+  .page .related a { color: var(--link); text-decoration: none; }
+  .page .related a:hover { text-decoration: underline; }
+  .page .related li { margin: 6px 0; }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="../../" style="text-decoration:none;color:inherit">
+    <span class="brand-dot">F</span>
+    <span class="brand-name">FabGPT-FAQ</span>
+  </a>
+</header>
+<main class="page">
+  <div class="vertical">Proxmox e self-hosting</div>
+  <h1>Storage pieno su Proxmox: come liberare spazio senza disastri</h1>
+  <div class="answer"><p>Prima la caccia, poi la pulizia – <code>df -h</code>, <code>zfs list -o space</code> o <code>lvs</code> dicono <em>dove</em> è finito lo spazio. I colpevoli abituali, in ordine:</p><ul><li><strong>snapshot dimenticati</strong>: <a href="../differenza-snapshot-e-backup/">snapshot</a> di mesi fa che trattengono gigabyte di blocchi – <code>qm listsnapshot</code>/<code>pct listsnapshot</code> e potatura</li><li><strong>backup locali</strong>: dump accumulati su local senza retention → sposta i backup <a href="../backup-automatici-verso-pbs/">su PBS o storage dedicato</a> con prune vero</li><li><strong>log e journal</strong>: <code>journalctl --vacuum-size=200M</code>, log applicativi nei container</li><li>dischi di VM <strong>cancellate a metà</strong> o ISO/template mai più usati: <code>pvesm list &lt;storage&gt;</code> e confronto con le VM esistenti – si elimina <em>dal pannello</em>, mai con <code>rm</code> alla cieca in <code>/var/lib/vz</code></li></ul><p>L&#x27;avvertenza seria: un <strong>thin pool LVM o uno ZFS oltre il ~90%</strong> non è un fastidio estetico – le scritture delle VM cominciano a fallire e <a href="../io-delay-alto-proxmox/">ZFS rallenta vistosamente</a>. Se sei già al muro: prima la potatura degli snapshot (libera subito), poi <code>fstrim</code> dentro le VM con discard attivo, e <a href="../cos-e-proxmox-backup-server/">monitoraggio con soglie</a> perché la prossima volta l&#x27;allarme arrivi all&#x27;80%, non al 100%.</p></div>
+  <a class="ask" href="../../?q=storage-pieno">Chiedilo a FabGPT-FAQ →</a>
+  <div class="related">
+    <h2>Altre domande</h2>
+    <ul><li><a href="../cos-e-proxmox-ve/">Cos&#x27;è Proxmox VE e perché è così usato?</a></li><li><a href="../differenza-container-lxc-e-vm/">Che differenza c&#x27;è tra container LXC e VM?</a></li><li><a href="../self-hosting-pro-e-contro/">Self-hosting: cosa significa e quando conviene?</a></li><li><a href="../cluster-proxmox-e-quorum/">Come funziona un cluster Proxmox (e cos&#x27;è il quorum)?</a></li><li><a href="../perche-usare-zfs-su-proxmox/">Perché usare ZFS su Proxmox?</a></li><li><a href="../differenza-snapshot-e-backup/">Che differenza c&#x27;è tra snapshot e backup?</a></li></ul>
+  </div>
+</main>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Come si dimensiona un nodo Proxmox (CPU, RAM, dischi)? – FabGPT-FAQ</title>
+<meta name="description" content="L&#x27;ordine dei colli di bottiglia, imparato da tutti nello stesso modo: la RAM finisce per prima: le VM la prenotano, [ZFS](q/perche-usare-zfs-su-proxmox/)…">
+<link rel="canonical" href="https://fabriziosalmi.github.io/fabgpt-faq/q/dimensionare-un-nodo-proxmox/">
+<link rel="stylesheet" href="../../style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Come si dimensiona un nodo Proxmox (CPU, RAM, dischi)?", "acceptedAnswer": {"@type": "Answer", "text": "L'ordine dei colli di bottiglia, imparato da tutti nello stesso modo: la RAM finisce per prima: le VM la prenotano, [ZFS](q/perche-usare-zfs-su-proxmox/) vuole il suo ARC (regola: limitalo, o si prende metà macchina), e l'overcommit di memoria è molto meno indulgente di quello CPU. Somma le VM previste, aggiungi 4-8 GB per host e ARC, arrotonda in su CPU: si overcommitta serenamente 3-4:1 sui core per carichi misti – i [container](q/differenza-container-lxc-e-vm/) quasi non contano, le VM da lavoro contano parecchio. Più core medi battono pochi core veloci, salvo licenze per-core dischi: un mirror NVMe per sistema e VM è il singolo upgrade che cambia la vita ([niente RAID hardware sotto ZFS](q/perche-usare-zfs-su-proxmox/)); i dischi grossi e lenti per [backup](q/backup-automatici-verso-pbs/) e media, mai sullo stesso pool delle VM rete: 2.5G ormai regalato, 10G se c'è storage di rete di mezzo; una NIC in più per [corosync](q/cluster-proxmox-e-quorum/) nei cluster E quando il carico cambia nel tempo, [l'autoscaling](q/autoscaling-vm-lxc-proxmox/) tiene le risorse allineate al posto tuo."}}]}</script>
+<style>
+  .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
+  .page h1 { font-size: 26px; line-height: 1.3; margin: 8px 0 20px; }
+  .page .answer a { color: var(--link); }
+  .page .vertical { font-size: 13px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }
+  .page .answer ul { padding-left: 22px; }
+  .page .answer code { background: var(--code-bg); border-radius: 5px; padding: 1px 5px; font-size: 0.9em; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+  .page .ask { display: inline-block; margin-top: 24px; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 9px 18px; text-decoration: none; font-weight: 600; }
+  .page .related { margin-top: 36px; border-top: 1px solid var(--border); padding-top: 18px; }
+  .page .related h2 { font-size: 16px; }
+  .page .related a { color: var(--link); text-decoration: none; }
+  .page .related a:hover { text-decoration: underline; }
+  .page .related li { margin: 6px 0; }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="../../" style="text-decoration:none;color:inherit">
+    <span class="brand-dot">F</span>
+    <span class="brand-name">FabGPT-FAQ</span>
+  </a>
+</header>
+<main class="page">
+  <div class="vertical">Proxmox e self-hosting</div>
+  <h1>Come si dimensiona un nodo Proxmox (CPU, RAM, dischi)?</h1>
+  <div class="answer"><p>L&#x27;ordine dei colli di bottiglia, imparato da tutti nello stesso modo:</p><ul><li><strong>la RAM finisce per prima</strong>: le VM la prenotano, <a href="../perche-usare-zfs-su-proxmox/">ZFS</a> vuole il suo ARC (regola: limitalo, o si prende metà macchina), e l&#x27;overcommit di memoria è molto meno indulgente di quello CPU. Somma le VM previste, aggiungi 4-8 GB per host e ARC, arrotonda in su</li><li><strong>CPU</strong>: si overcommitta serenamente 3-4:1 sui core per carichi misti – i <a href="../differenza-container-lxc-e-vm/">container</a> quasi non contano, le VM da lavoro contano parecchio. Più core medi battono pochi core veloci, salvo licenze per-core</li><li><strong>dischi</strong>: un <strong>mirror NVMe</strong> per sistema e VM è il singolo upgrade che cambia la vita (<a href="../perche-usare-zfs-su-proxmox/">niente RAID hardware sotto ZFS</a>); i dischi grossi e lenti per <a href="../backup-automatici-verso-pbs/">backup</a> e media, <strong>mai</strong> sullo stesso pool delle VM</li><li><strong>rete</strong>: 2.5G ormai regalato, 10G se c&#x27;è storage di rete di mezzo; una NIC in più per <a href="../cluster-proxmox-e-quorum/">corosync</a> nei cluster</li></ul><p>E quando il carico cambia nel tempo, <a href="../autoscaling-vm-lxc-proxmox/">l&#x27;autoscaling</a> tiene le risorse allineate al posto tuo.</p></div>
+  <a class="ask" href="../../?q=dimensionare-nodo">Chiedilo a FabGPT-FAQ →</a>
+  <div class="related">
+    <h2>Altre domande</h2>
+    <ul><li><a href="../cos-e-proxmox-ve/">Cos&#x27;è Proxmox VE e perché è così usato?</a></li><li><a href="../differenza-container-lxc-e-vm/">Che differenza c&#x27;è tra container LXC e VM?</a></li><li><a href="../self-hosting-pro-e-contro/">Self-hosting: cosa significa e quando conviene?</a></li><li><a href="../cluster-proxmox-e-quorum/">Come funziona un cluster Proxmox (e cos&#x27;è il quorum)?</a></li><li><a href="../perche-usare-zfs-su-proxmox/">Perché usare ZFS su Proxmox?</a></li><li><a href="../differenza-snapshot-e-backup/">Che differenza c&#x27;è tra snapshot e backup?</a></li></ul>
+  </div>
+</main>
+</body>
+</html>

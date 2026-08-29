@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Come si installa e configura LXC AutoScale? – FabGPT-FAQ</title>
+<meta name="description" content="La guida rapida per mettere al lavoro LXC AutoScale: installazione: via Docker (la via pulita, anche in modalità API-only non-root) o con lo script di…">
+<link rel="canonical" href="https://fabriziosalmi.github.io/fabgpt-faq/q/guida-installare-lxc-autoscale/">
+<link rel="stylesheet" href="../../style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Come si installa e configura LXC AutoScale?", "acceptedAnswer": {"@type": "Answer", "text": "La guida rapida per mettere al lavoro LXC AutoScale: installazione: via Docker (la via pulita, anche in modalità API-only non-root) o con lo script di installazione direttamente sull'host Proxmox – servono PVE 7.x/8.x, Python 3.9+ e [container già esistenti](q/differenza-container-lxc-e-vm/) backend: scegli tra comandi pct locali/SSH o la REST API di Proxmox (consigliata: token dedicato con [permessi minimi](q/principio-del-minimo-privilegio/), niente root remoto). La configurazione è Pydantic-validata, con i segreti via ${ENV_VAR} – [mai in chiaro nel file](q/come-gestire-i-secrets/) soglie: parti dai default (scala su CPU/memoria oltre le soglie, con riserve sull'host che impediscono l'over-allocation), poi raffina con i tier – gruppi di container con politiche proprie: aggressivo per i servizi web, conservativo per i database, ignore_lxc per ciò che non va toccato le chicche da attivare dopo: boost/revert (risorse temporanee che rientrano da sole), scheduling off-peak per la notte, notifiche (SMTP, Gotify, Uptime Kuma) e il core pinning P/E-core sulle CPU Intel ibride Osservalo lavorare nel log JSON delle metriche prima di fidarti in produzione: un giorno di decisioni loggate dice tutto."}}]}</script>
+<style>
+  .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
+  .page h1 { font-size: 26px; line-height: 1.3; margin: 8px 0 20px; }
+  .page .answer a { color: var(--link); }
+  .page .vertical { font-size: 13px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }
+  .page .answer ul { padding-left: 22px; }
+  .page .answer code { background: var(--code-bg); border-radius: 5px; padding: 1px 5px; font-size: 0.9em; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+  .page .ask { display: inline-block; margin-top: 24px; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 9px 18px; text-decoration: none; font-weight: 600; }
+  .page .related { margin-top: 36px; border-top: 1px solid var(--border); padding-top: 18px; }
+  .page .related h2 { font-size: 16px; }
+  .page .related a { color: var(--link); text-decoration: none; }
+  .page .related a:hover { text-decoration: underline; }
+  .page .related li { margin: 6px 0; }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="../../" style="text-decoration:none;color:inherit">
+    <span class="brand-dot">F</span>
+    <span class="brand-name">FabGPT-FAQ</span>
+  </a>
+</header>
+<main class="page">
+  <div class="vertical">Proxmox e self-hosting</div>
+  <h1>Come si installa e configura LXC AutoScale?</h1>
+  <div class="answer"><p>La guida rapida per mettere al lavoro <a href="https://github.com/fabriziosalmi/proxmox-lxc-autoscale" target="_blank" rel="noopener">LXC AutoScale</a>:</p><ul><li><strong>installazione</strong>: via <strong>Docker</strong> (la via pulita, anche in modalità API-only non-root) o con lo script di installazione direttamente sull&#x27;host Proxmox – servono PVE 7.x/8.x, Python 3.9+ e <a href="../differenza-container-lxc-e-vm/">container già esistenti</a></li><li><strong>backend</strong>: scegli tra comandi <code>pct</code> locali/SSH o la <strong>REST API di Proxmox</strong> (consigliata: token dedicato con <a href="../principio-del-minimo-privilegio/">permessi minimi</a>, niente root remoto). La configurazione è <strong>Pydantic-validata</strong>, con i segreti via <code>${ENV_VAR}</code> – <a href="../come-gestire-i-secrets/">mai in chiaro nel file</a></li><li><strong>soglie</strong>: parti dai default (scala su CPU/memoria oltre le soglie, con riserve sull&#x27;host che impediscono l&#x27;over-allocation), poi raffina con i <strong>tier</strong> – gruppi di container con politiche proprie: aggressivo per i servizi web, conservativo per i database, <code>ignore_lxc</code> per ciò che non va toccato</li><li>le chicche da attivare dopo: <strong>boost/revert</strong> (risorse temporanee che rientrano da sole), scheduling <strong>off-peak</strong> per la notte, notifiche (SMTP, Gotify, Uptime Kuma) e il <strong>core pinning</strong> P/E-core sulle CPU Intel ibride</li></ul><p>Osservalo lavorare nel log JSON delle metriche prima di fidarti in produzione: un giorno di decisioni loggate dice tutto.</p></div>
+  <a class="ask" href="../../?q=guida-lxc-autoscale">Chiedilo a FabGPT-FAQ →</a>
+  <div class="related">
+    <h2>Altre domande</h2>
+    <ul><li><a href="../cos-e-proxmox-ve/">Cos&#x27;è Proxmox VE e perché è così usato?</a></li><li><a href="../differenza-container-lxc-e-vm/">Che differenza c&#x27;è tra container LXC e VM?</a></li><li><a href="../self-hosting-pro-e-contro/">Self-hosting: cosa significa e quando conviene?</a></li><li><a href="../cluster-proxmox-e-quorum/">Come funziona un cluster Proxmox (e cos&#x27;è il quorum)?</a></li><li><a href="../perche-usare-zfs-su-proxmox/">Perché usare ZFS su Proxmox?</a></li><li><a href="../differenza-snapshot-e-backup/">Che differenza c&#x27;è tra snapshot e backup?</a></li></ul>
+  </div>
+</main>
+</body>
+</html>

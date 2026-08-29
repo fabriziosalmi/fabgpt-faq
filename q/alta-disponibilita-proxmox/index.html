@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cos&#x27;è l&#x27;alta disponibilità (HA) su Proxmox? – FabGPT-FAQ</title>
+<meta name="description" content="L&#x27;HA di Proxmox fa ripartire automaticamente le VM di un nodo morto su un altro nodo: il ha-manager sorveglia le risorse marcate HA e, quando un nodo…">
+<link rel="canonical" href="https://fabriziosalmi.github.io/fabgpt-faq/q/alta-disponibilita-proxmox/">
+<link rel="stylesheet" href="../../style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Cos'è l'alta disponibilità (HA) su Proxmox?", "acceptedAnswer": {"@type": "Answer", "text": "L'HA di Proxmox fa ripartire automaticamente le VM di un nodo morto su un altro nodo: il ha-manager sorveglia le risorse marcate HA e, quando un nodo sparisce, le riavvia altrove. Attenzione al verbo: riavvia, non trasferisce – è un riavvio su un altro host (downtime di secondi/minuti), non magia a caldo. I prerequisiti che non si possono aggirare: storage condiviso ([Ceph](q/cos-e-ceph-e-quando-ha-senso/), NFS) o replica [ZFS](q/perche-usare-zfs-su-proxmox/) – la VM deve poter leggere i suoi dischi dal nodo di destinazione (con la replica, si riparte dall'ultimo sync) [quorum](q/cluster-proxmox-e-quorum/) sano: senza maggioranza, niente decisioni fencing: il nodo sospetto viene isolato via watchdog prima di riavviarne le VM altrove – è la protezione dallo split brain, non un fastidio da disabilitare Consiglio pratico: HA solo per ciò che la merita davvero. Un servizio stateless dietro load balancer è più semplice da rendere resiliente a livello applicativo che a colpi di failover."}}]}</script>
+<style>
+  .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
+  .page h1 { font-size: 26px; line-height: 1.3; margin: 8px 0 20px; }
+  .page .answer a { color: var(--link); }
+  .page .vertical { font-size: 13px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }
+  .page .answer ul { padding-left: 22px; }
+  .page .answer code { background: var(--code-bg); border-radius: 5px; padding: 1px 5px; font-size: 0.9em; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+  .page .ask { display: inline-block; margin-top: 24px; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 9px 18px; text-decoration: none; font-weight: 600; }
+  .page .related { margin-top: 36px; border-top: 1px solid var(--border); padding-top: 18px; }
+  .page .related h2 { font-size: 16px; }
+  .page .related a { color: var(--link); text-decoration: none; }
+  .page .related a:hover { text-decoration: underline; }
+  .page .related li { margin: 6px 0; }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="../../" style="text-decoration:none;color:inherit">
+    <span class="brand-dot">F</span>
+    <span class="brand-name">FabGPT-FAQ</span>
+  </a>
+</header>
+<main class="page">
+  <div class="vertical">Proxmox e self-hosting</div>
+  <h1>Cos&#x27;è l&#x27;alta disponibilità (HA) su Proxmox?</h1>
+  <div class="answer"><p>L&#x27;<strong>HA</strong> di Proxmox fa ripartire automaticamente le VM di un nodo morto su un altro nodo: il <code>ha-manager</code> sorveglia le risorse marcate HA e, quando un nodo sparisce, le riavvia altrove. Attenzione al verbo: <strong>riavvia</strong>, non trasferisce – è un riavvio su un altro host (downtime di secondi/minuti), non magia a caldo.</p><p>I prerequisiti che non si possono aggirare:</p><ul><li><strong>storage condiviso</strong> (<a href="../cos-e-ceph-e-quando-ha-senso/">Ceph</a>, NFS) o replica <a href="../perche-usare-zfs-su-proxmox/">ZFS</a> – la VM deve poter leggere i suoi dischi dal nodo di destinazione (con la replica, si riparte dall&#x27;ultimo sync)</li><li><strong><a href="../cluster-proxmox-e-quorum/">quorum</a></strong> sano: senza maggioranza, niente decisioni</li><li><strong>fencing</strong>: il nodo sospetto viene isolato via watchdog prima di riavviarne le VM altrove – è la protezione dallo split brain, non un fastidio da disabilitare</li></ul><p>Consiglio pratico: HA solo per ciò che la merita davvero. Un servizio stateless dietro load balancer è più semplice da rendere resiliente a livello applicativo che a colpi di failover.</p></div>
+  <a class="ask" href="../../?q=ha-proxmox">Chiedilo a FabGPT-FAQ →</a>
+  <div class="related">
+    <h2>Altre domande</h2>
+    <ul><li><a href="../cos-e-proxmox-ve/">Cos&#x27;è Proxmox VE e perché è così usato?</a></li><li><a href="../differenza-container-lxc-e-vm/">Che differenza c&#x27;è tra container LXC e VM?</a></li><li><a href="../self-hosting-pro-e-contro/">Self-hosting: cosa significa e quando conviene?</a></li><li><a href="../cluster-proxmox-e-quorum/">Come funziona un cluster Proxmox (e cos&#x27;è il quorum)?</a></li><li><a href="../perche-usare-zfs-su-proxmox/">Perché usare ZFS su Proxmox?</a></li><li><a href="../differenza-snapshot-e-backup/">Che differenza c&#x27;è tra snapshot e backup?</a></li></ul>
+  </div>
+</main>
+</body>
+</html>

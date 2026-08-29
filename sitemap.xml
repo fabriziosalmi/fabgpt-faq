@@ -185,6 +185,31 @@
   <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/deepfake-come-riconoscerli/</loc></url>
   <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/chatgpt-e-dati-personali-gdpr/</loc></url>
   <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/come-scrivere-una-ai-policy-aziendale/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-ceph-e-quando-ha-senso/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/alta-disponibilita-proxmox/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/storage-proxmox-lvm-zfs-nfs-ceph/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-sdn-in-proxmox/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/hypervisor-tipo-1-e-tipo-2/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-la-paravirtualizzazione-virtio/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/nested-virtualization-quando-serve/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/dimensionare-un-nodo-proxmox/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/backup-automatici-verso-pbs/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/montare-nfs-smb-proxmox/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/container-privilegiati-o-non-privilegiati/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/passare-un-disco-usb-a-una-vm/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/migrazione-live-tra-nodi/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/proxmox-dietro-reverse-proxy/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/home-assistant-su-proxmox/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/truenas-dentro-proxmox/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/homelab-a-basso-consumo/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/guida-installare-lxc-autoscale/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/guida-installare-vm-autoscale/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/guida-usare-proxxx/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/vm-non-parte-proxmox/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/nodo-x-rossa-quorum-perso/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/storage-pieno-liberare-spazio/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/io-delay-alto-proxmox/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/migrazione-fallisce-cause/</loc></url>
   <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-certmate-gestione-certificati-tls/</loc></url>
   <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/come-aggiungere-un-waf-a-caddy/</loc></url>
   <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/bloccare-bad-bot-nginx-apache-traefik-haproxy/</loc></url>

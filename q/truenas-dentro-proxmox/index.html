@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TrueNAS dentro Proxmox: pro e contro – FabGPT-FAQ</title>
+<meta name="description" content="Si può fare bene, a una condizione non negoziabile: TrueNAS deve vedere i dischi veri, attraverso il passthrough di un intero controller HBA in IT mode (un…">
+<link rel="canonical" href="https://fabriziosalmi.github.io/fabgpt-faq/q/truenas-dentro-proxmox/">
+<link rel="stylesheet" href="../../style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "TrueNAS dentro Proxmox: pro e contro", "acceptedAnswer": {"@type": "Answer", "text": "Si può fare bene, a una condizione non negoziabile: TrueNAS deve vedere i dischi veri, attraverso il passthrough di un intero controller HBA in IT mode (un LSI 9207/9300 da poche decine di euro) – parente del [passthrough GPU](q/passthrough-gpu-proxmox/), con IOMMU e vfio. ZFS vuole parlare con i dischi senza intermediari: TrueNAS sopra dischi virtuali è ZFS sopra ZFS con SMART invisibile – la ricetta del dolore silenzioso. Con l'HBA passato, la VM TrueNAS è un NAS legittimo: 8+ GB di RAM prenotati (niente ballooning), CPU host, e i servizi di condivisione che [tornano a Proxmox via NFS/SMB](q/montare-nfs-smb-proxmox/). Il contro strutturale: hai creato una dipendenza circolare – se la VM NAS ospita dischi di altre VM, l'avvio del cluster dipende da lei ([e il quorum ringrazia](q/nodo-x-rossa-quorum-perso/)). L'alternativa da considerare seriamente: niente TrueNAS – [ZFS nativo di Proxmox](q/perche-usare-zfs-su-proxmox/) più un container leggero per SMB fa lo stesso mestiere con un livello in meno. TrueNAS vince quando vuoi la sua UI, i suoi snapshot gestiti e le sue app – o quando il NAS deve sopravvivere concettualmente all'hypervisor."}}]}</script>
+<style>
+  .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
+  .page h1 { font-size: 26px; line-height: 1.3; margin: 8px 0 20px; }
+  .page .answer a { color: var(--link); }
+  .page .vertical { font-size: 13px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }
+  .page .answer ul { padding-left: 22px; }
+  .page .answer code { background: var(--code-bg); border-radius: 5px; padding: 1px 5px; font-size: 0.9em; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+  .page .ask { display: inline-block; margin-top: 24px; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 9px 18px; text-decoration: none; font-weight: 600; }
+  .page .related { margin-top: 36px; border-top: 1px solid var(--border); padding-top: 18px; }
+  .page .related h2 { font-size: 16px; }
+  .page .related a { color: var(--link); text-decoration: none; }
+  .page .related a:hover { text-decoration: underline; }
+  .page .related li { margin: 6px 0; }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="../../" style="text-decoration:none;color:inherit">
+    <span class="brand-dot">F</span>
+    <span class="brand-name">FabGPT-FAQ</span>
+  </a>
+</header>
+<main class="page">
+  <div class="vertical">Proxmox e self-hosting</div>
+  <h1>TrueNAS dentro Proxmox: pro e contro</h1>
+  <div class="answer"><p>Si può fare bene, a <strong>una condizione non negoziabile</strong>: TrueNAS deve vedere i <strong>dischi veri</strong>, attraverso il passthrough di un intero controller <strong>HBA in IT mode</strong> (un LSI 9207/9300 da poche decine di euro) – parente del <a href="../passthrough-gpu-proxmox/">passthrough GPU</a>, con IOMMU e vfio. ZFS vuole parlare con i dischi senza intermediari: TrueNAS sopra dischi <em>virtuali</em> è ZFS sopra ZFS con SMART invisibile – la ricetta del dolore silenzioso.</p><p>Con l&#x27;HBA passato, la VM TrueNAS è un NAS legittimo: 8+ GB di RAM prenotati (niente ballooning), CPU <code>host</code>, e i servizi di condivisione che <a href="../montare-nfs-smb-proxmox/">tornano a Proxmox via NFS/SMB</a>.</p><p>Il contro strutturale: hai creato una <strong>dipendenza circolare</strong> – se la VM NAS ospita dischi di altre VM, l&#x27;avvio del cluster dipende da lei (<a href="../nodo-x-rossa-quorum-perso/">e il quorum ringrazia</a>). L&#x27;alternativa da considerare seriamente: <strong>niente TrueNAS</strong> – <a href="../perche-usare-zfs-su-proxmox/">ZFS nativo di Proxmox</a> più un container leggero per SMB fa lo stesso mestiere con un livello in meno. TrueNAS vince quando vuoi la sua UI, i suoi snapshot gestiti e le sue app – o quando il NAS deve sopravvivere concettualmente all&#x27;hypervisor.</p></div>
+  <a class="ask" href="../../?q=truenas-proxmox">Chiedilo a FabGPT-FAQ →</a>
+  <div class="related">
+    <h2>Altre domande</h2>
+    <ul><li><a href="../cos-e-proxmox-ve/">Cos&#x27;è Proxmox VE e perché è così usato?</a></li><li><a href="../differenza-container-lxc-e-vm/">Che differenza c&#x27;è tra container LXC e VM?</a></li><li><a href="../self-hosting-pro-e-contro/">Self-hosting: cosa significa e quando conviene?</a></li><li><a href="../cluster-proxmox-e-quorum/">Come funziona un cluster Proxmox (e cos&#x27;è il quorum)?</a></li><li><a href="../perche-usare-zfs-su-proxmox/">Perché usare ZFS su Proxmox?</a></li><li><a href="../differenza-snapshot-e-backup/">Che differenza c&#x27;è tra snapshot e backup?</a></li></ul>
+  </div>
+</main>
+</body>
+</html>

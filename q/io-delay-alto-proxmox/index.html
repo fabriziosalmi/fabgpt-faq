@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>I/O delay alto su Proxmox: da dove viene? – FabGPT-FAQ</title>
+<meta name="description" content="L&#x27;I/O delay in cima alla GUI è la percentuale di tempo che la CPU passa ad aspettare i dischi: se sale, tutto sembra lento anche con CPU scarica. La caccia,…">
+<link rel="canonical" href="https://fabriziosalmi.github.io/fabgpt-faq/q/io-delay-alto-proxmox/">
+<link rel="stylesheet" href="../../style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "I/O delay alto su Proxmox: da dove viene?", "acceptedAnswer": {"@type": "Answer", "text": "L'I/O delay in cima alla GUI è la percentuale di tempo che la CPU passa ad aspettare i dischi: se sale, tutto sembra lento anche con CPU scarica. La caccia, dal più probabile: chi sta scrivendo? iotop sull'host: quasi sempre è un [job di backup](q/backup-automatici-verso-pbs/) in orario sbagliato, uno scrub ZFS mensile partito in punta di giorno, o una singola VM impazzita (log loop, database senza indici) hardware sotto pressione: SSD consumer che esauriscono la cache SLC sotto scrittura sostenuta (partono veloci, crollano dopo minuti – i sintomi da [migrazione](q/migrazione-live-tra-nodi/) o restore lunghi), dischi SMR mascherati da NAS-grade, o un disco che sta morendo: smartctl -a prima di tutto configurazione: VM senza [VirtIO](q/cos-e-la-paravirtualizzazione-virtio/) (emulazione = I/O moltiplicato), cache=none di default dove writeback sarebbe legittimo, [thin pool quasi pieno](q/storage-pieno-liberare-spazio/), ARC ZFS strangolato Le cure strutturali: separare i piatti – [backup e VM su storage diversi](q/storage-proxmox-lvm-zfs-nfs-ceph/), scrub e backup di notte – e per il quotidiano, NVMe in mirror: metà dei problemi di I/O delay si curano in ferramenta."}}]}</script>
+<style>
+  .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
+  .page h1 { font-size: 26px; line-height: 1.3; margin: 8px 0 20px; }
+  .page .answer a { color: var(--link); }
+  .page .vertical { font-size: 13px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }
+  .page .answer ul { padding-left: 22px; }
+  .page .answer code { background: var(--code-bg); border-radius: 5px; padding: 1px 5px; font-size: 0.9em; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+  .page .ask { display: inline-block; margin-top: 24px; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 9px 18px; text-decoration: none; font-weight: 600; }
+  .page .related { margin-top: 36px; border-top: 1px solid var(--border); padding-top: 18px; }
+  .page .related h2 { font-size: 16px; }
+  .page .related a { color: var(--link); text-decoration: none; }
+  .page .related a:hover { text-decoration: underline; }
+  .page .related li { margin: 6px 0; }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="../../" style="text-decoration:none;color:inherit">
+    <span class="brand-dot">F</span>
+    <span class="brand-name">FabGPT-FAQ</span>
+  </a>
+</header>
+<main class="page">
+  <div class="vertical">Proxmox e self-hosting</div>
+  <h1>I/O delay alto su Proxmox: da dove viene?</h1>
+  <div class="answer"><p>L&#x27;<strong>I/O delay</strong> in cima alla GUI è la percentuale di tempo che la CPU passa ad <strong>aspettare i dischi</strong>: se sale, tutto sembra lento anche con CPU scarica. La caccia, dal più probabile:</p><ul><li><strong>chi sta scrivendo?</strong> <code>iotop</code> sull&#x27;host: quasi sempre è un <a href="../backup-automatici-verso-pbs/">job di backup</a> in orario sbagliato, uno <strong>scrub ZFS</strong> mensile partito in punta di giorno, o una singola VM impazzita (log loop, database senza indici)</li><li><strong>hardware sotto pressione</strong>: SSD consumer che esauriscono la cache SLC sotto scrittura sostenuta (partono veloci, crollano dopo minuti – i sintomi da <a href="../migrazione-live-tra-nodi/">migrazione</a> o restore lunghi), dischi SMR mascherati da NAS-grade, o un disco che sta <em>morendo</em>: <code>smartctl -a</code> prima di tutto</li><li><strong>configurazione</strong>: VM senza <a href="../cos-e-la-paravirtualizzazione-virtio/">VirtIO</a> (emulazione = I/O moltiplicato), cache=none di default dove writeback sarebbe legittimo, <a href="../storage-pieno-liberare-spazio/">thin pool quasi pieno</a>, ARC ZFS strangolato</li></ul><p>Le cure strutturali: separare i piatti – <a href="../storage-proxmox-lvm-zfs-nfs-ceph/">backup e VM su storage diversi</a>, scrub e backup di notte – e per il quotidiano, <strong>NVMe in mirror</strong>: metà dei problemi di I/O delay si curano in ferramenta.</p></div>
+  <a class="ask" href="../../?q=io-delay">Chiedilo a FabGPT-FAQ →</a>
+  <div class="related">
+    <h2>Altre domande</h2>
+    <ul><li><a href="../cos-e-proxmox-ve/">Cos&#x27;è Proxmox VE e perché è così usato?</a></li><li><a href="../differenza-container-lxc-e-vm/">Che differenza c&#x27;è tra container LXC e VM?</a></li><li><a href="../self-hosting-pro-e-contro/">Self-hosting: cosa significa e quando conviene?</a></li><li><a href="../cluster-proxmox-e-quorum/">Come funziona un cluster Proxmox (e cos&#x27;è il quorum)?</a></li><li><a href="../perche-usare-zfs-su-proxmox/">Perché usare ZFS su Proxmox?</a></li><li><a href="../differenza-snapshot-e-backup/">Che differenza c&#x27;è tra snapshot e backup?</a></li></ul>
+  </div>
+</main>
+</body>
+</html>

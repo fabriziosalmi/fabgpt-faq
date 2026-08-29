@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>La migrazione fallisce: cause tipiche – FabGPT-FAQ</title>
+<meta name="description" content="L&#x27;errore della [migrazione](q/migrazione-live-tra-nodi/) dice quasi sempre la causa – va solo letto. Le solite cinque: risorse locali agganciate: una ISO…">
+<link rel="canonical" href="https://fabriziosalmi.github.io/fabgpt-faq/q/migrazione-fallisce-cause/">
+<link rel="stylesheet" href="../../style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "La migrazione fallisce: cause tipiche", "acceptedAnswer": {"@type": "Answer", "text": "L'errore della [migrazione](q/migrazione-live-tra-nodi/) dice quasi sempre la causa – va solo letto. Le solite cinque: risorse locali agganciate: una ISO montata da storage locale, un [dispositivo USB o una GPU passata](q/passare-un-disco-usb-a-una-vm/) – la VM è inchiodata al ferro finché non li stacchi (Hardware → rimuovi/ejetta, poi riprova) storage assente sul nodo di destinazione: il disco vive su uno storage che l'altro nodo non vede → [storage condiviso](q/storage-proxmox-lvm-zfs-nfs-ceph/), oppure --with-local-disks per la copia a caldo CPU type incompatibile: VM con CPU host verso un processore diverso → tipo comune (x86-64-v2/v3) e un riavvio pianificato per applicarlo RAM insufficiente di là: il nodo di destinazione deve contenere la VM – libera o scegli un altro nodo rete/quorum ballerini: migrazioni che si interrompono a metà con cluster instabile → [prima si guarisce il quorum](q/nodo-x-rossa-quorum-perso/), poi si migra; e un lock residuo dopo il fallimento si toglie con qm unlock Per i [container](q/differenza-container-lxc-e-vm/): la migrazione è a freddo (restart) – se \"fallisce\" perché la vuoi live, non è un bug, è il design."}}]}</script>
+<style>
+  .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
+  .page h1 { font-size: 26px; line-height: 1.3; margin: 8px 0 20px; }
+  .page .answer a { color: var(--link); }
+  .page .vertical { font-size: 13px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }
+  .page .answer ul { padding-left: 22px; }
+  .page .answer code { background: var(--code-bg); border-radius: 5px; padding: 1px 5px; font-size: 0.9em; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+  .page .ask { display: inline-block; margin-top: 24px; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 9px 18px; text-decoration: none; font-weight: 600; }
+  .page .related { margin-top: 36px; border-top: 1px solid var(--border); padding-top: 18px; }
+  .page .related h2 { font-size: 16px; }
+  .page .related a { color: var(--link); text-decoration: none; }
+  .page .related a:hover { text-decoration: underline; }
+  .page .related li { margin: 6px 0; }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="../../" style="text-decoration:none;color:inherit">
+    <span class="brand-dot">F</span>
+    <span class="brand-name">FabGPT-FAQ</span>
+  </a>
+</header>
+<main class="page">
+  <div class="vertical">Proxmox e self-hosting</div>
+  <h1>La migrazione fallisce: cause tipiche</h1>
+  <div class="answer"><p>L&#x27;errore della <a href="../migrazione-live-tra-nodi/">migrazione</a> dice quasi sempre la causa – va solo letto. Le solite cinque:</p><ul><li><strong>risorse locali agganciate</strong>: una ISO montata da storage locale, un <a href="../passare-un-disco-usb-a-una-vm/">dispositivo USB o una GPU passata</a> – la VM è inchiodata al ferro finché non li stacchi (Hardware → rimuovi/ejetta, poi riprova)</li><li><strong>storage assente sul nodo di destinazione</strong>: il disco vive su uno storage che l&#x27;altro nodo non vede → <a href="../storage-proxmox-lvm-zfs-nfs-ceph/">storage condiviso</a>, oppure <code>--with-local-disks</code> per la copia a caldo</li><li><strong>CPU type incompatibile</strong>: VM con CPU <code>host</code> verso un processore diverso → tipo comune (x86-64-v2/v3) e un riavvio pianificato per applicarlo</li><li><strong>RAM insufficiente di là</strong>: il nodo di destinazione deve <em>contenere</em> la VM – libera o scegli un altro nodo</li><li><strong>rete/quorum ballerini</strong>: migrazioni che si interrompono a metà con cluster instabile → <a href="../nodo-x-rossa-quorum-perso/">prima si guarisce il quorum</a>, poi si migra; e un lock residuo dopo il fallimento si toglie con <code>qm unlock</code></li></ul><p>Per i <a href="../differenza-container-lxc-e-vm/">container</a>: la migrazione è <strong>a freddo</strong> (restart) – se &quot;fallisce&quot; perché la vuoi live, non è un bug, è il design.</p></div>
+  <a class="ask" href="../../?q=migrazione-fallisce">Chiedilo a FabGPT-FAQ →</a>
+  <div class="related">
+    <h2>Altre domande</h2>
+    <ul><li><a href="../cos-e-proxmox-ve/">Cos&#x27;è Proxmox VE e perché è così usato?</a></li><li><a href="../differenza-container-lxc-e-vm/">Che differenza c&#x27;è tra container LXC e VM?</a></li><li><a href="../self-hosting-pro-e-contro/">Self-hosting: cosa significa e quando conviene?</a></li><li><a href="../cluster-proxmox-e-quorum/">Come funziona un cluster Proxmox (e cos&#x27;è il quorum)?</a></li><li><a href="../perche-usare-zfs-su-proxmox/">Perché usare ZFS su Proxmox?</a></li><li><a href="../differenza-snapshot-e-backup/">Che differenza c&#x27;è tra snapshot e backup?</a></li></ul>
+  </div>
+</main>
+</body>
+</html>

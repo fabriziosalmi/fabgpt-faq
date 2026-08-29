@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Homelab a basso consumo: mini PC al posto del server? – FabGPT-FAQ</title>
+<meta name="description" content="Il server rack in cantina è romantico finché non arriva la bolletta: 100-150 W fissi sono 250-400 euro l&#x27;anno. Un mini PC moderno fa quasi tutto a 6-15 W…">
+<link rel="canonical" href="https://fabriziosalmi.github.io/fabgpt-faq/q/homelab-a-basso-consumo/">
+<link rel="stylesheet" href="../../style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Homelab a basso consumo: mini PC al posto del server?", "acceptedAnswer": {"@type": "Answer", "text": "Il server rack in cantina è romantico finché non arriva la bolletta: 100-150 W fissi sono 250-400 euro l'anno. Un mini PC moderno fa quasi tutto a 6-15 W idle: un N100/N305 (4-8 core efficienti, fino a 32-48 GB di RAM) regge [Proxmox](q/cos-e-proxmox-ve/) con una flotta di [container](q/differenza-container-lxc-e-vm/) e qualche VM leggera – [Home Assistant](q/home-assistant-su-proxmox/), Pi-hole, reverse proxy, [PBS](q/cos-e-proxmox-backup-server/), il monitoraggio: tutto insieme, nel silenzio il gradino sopra (Ryzen mobile, Core ultracompatti, 64+ GB) aggiunge VM da lavoro e [modelli AI piccoli](q/quanta-ram-vram-serve-per-un-llm/) restando sotto i 30 W tre mini PC = un [cluster con quorum vero](q/cluster-proxmox-e-quorum/) consumando come una lampadina di una volta I compromessi onesti: niente ECC (quasi sempre), pochi slot disco – il NAS separato (o un solo nodo \"storage\" più carrozzato) resta sensato – ed espansione limitata. Le mosse: NVMe in [mirror ZFS](q/perche-usare-zfs-su-proxmox/), un misuratore di consumo alla presa per decidere coi numeri, e [l'autoscaling](q/autoscaling-vm-lxc-proxmox/) che spreme il poco ferro al meglio."}}]}</script>
+<style>
+  .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
+  .page h1 { font-size: 26px; line-height: 1.3; margin: 8px 0 20px; }
+  .page .answer a { color: var(--link); }
+  .page .vertical { font-size: 13px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }
+  .page .answer ul { padding-left: 22px; }
+  .page .answer code { background: var(--code-bg); border-radius: 5px; padding: 1px 5px; font-size: 0.9em; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+  .page .ask { display: inline-block; margin-top: 24px; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 9px 18px; text-decoration: none; font-weight: 600; }
+  .page .related { margin-top: 36px; border-top: 1px solid var(--border); padding-top: 18px; }
+  .page .related h2 { font-size: 16px; }
+  .page .related a { color: var(--link); text-decoration: none; }
+  .page .related a:hover { text-decoration: underline; }
+  .page .related li { margin: 6px 0; }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="../../" style="text-decoration:none;color:inherit">
+    <span class="brand-dot">F</span>
+    <span class="brand-name">FabGPT-FAQ</span>
+  </a>
+</header>
+<main class="page">
+  <div class="vertical">Proxmox e self-hosting</div>
+  <h1>Homelab a basso consumo: mini PC al posto del server?</h1>
+  <div class="answer"><p>Il server rack in cantina è romantico finché non arriva la bolletta: 100-150 W fissi sono 250-400 euro l&#x27;anno. Un <strong>mini PC moderno fa quasi tutto a 6-15 W idle</strong>:</p><ul><li>un <strong>N100/N305</strong> (4-8 core efficienti, fino a 32-48 GB di RAM) regge <a href="../cos-e-proxmox-ve/">Proxmox</a> con una flotta di <a href="../differenza-container-lxc-e-vm/">container</a> e qualche VM leggera – <a href="../home-assistant-su-proxmox/">Home Assistant</a>, Pi-hole, reverse proxy, <a href="../cos-e-proxmox-backup-server/">PBS</a>, il monitoraggio: tutto insieme, nel silenzio</li><li>il gradino sopra (Ryzen mobile, Core ultracompatti, 64+ GB) aggiunge VM da lavoro e <a href="../quanta-ram-vram-serve-per-un-llm/">modelli AI piccoli</a> restando sotto i 30 W</li><li>tre mini PC = un <a href="../cluster-proxmox-e-quorum/">cluster con quorum vero</a> consumando come una lampadina di una volta</li></ul><p>I compromessi onesti: niente ECC (quasi sempre), pochi slot disco – il <strong>NAS separato</strong> (o un solo nodo &quot;storage&quot; più carrozzato) resta sensato – ed espansione limitata. Le mosse: NVMe in <a href="../perche-usare-zfs-su-proxmox/">mirror ZFS</a>, un misuratore di consumo alla presa per decidere coi numeri, e <a href="../autoscaling-vm-lxc-proxmox/">l&#x27;autoscaling</a> che spreme il poco ferro al meglio.</p></div>
+  <a class="ask" href="../../?q=homelab-low-power">Chiedilo a FabGPT-FAQ →</a>
+  <div class="related">
+    <h2>Altre domande</h2>
+    <ul><li><a href="../cos-e-proxmox-ve/">Cos&#x27;è Proxmox VE e perché è così usato?</a></li><li><a href="../differenza-container-lxc-e-vm/">Che differenza c&#x27;è tra container LXC e VM?</a></li><li><a href="../self-hosting-pro-e-contro/">Self-hosting: cosa significa e quando conviene?</a></li><li><a href="../cluster-proxmox-e-quorum/">Come funziona un cluster Proxmox (e cos&#x27;è il quorum)?</a></li><li><a href="../perche-usare-zfs-su-proxmox/">Perché usare ZFS su Proxmox?</a></li><li><a href="../differenza-snapshot-e-backup/">Che differenza c&#x27;è tra snapshot e backup?</a></li></ul>
+  </div>
+</main>
+</body>
+</html>

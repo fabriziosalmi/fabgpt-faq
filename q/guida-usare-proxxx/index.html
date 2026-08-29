@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Come si usa proxxx: installazione e primi comandi – FabGPT-FAQ</title>
+<meta name="description" content="Partire con proxxx richiede minuti, non pomeriggi: installa: Homebrew (brew install fabriziosalmi/proxxx/proxxx) su macOS e Linux, o i binari statici dalle…">
+<link rel="canonical" href="https://fabriziosalmi.github.io/fabgpt-faq/q/guida-usare-proxxx/">
+<link rel="stylesheet" href="../../style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Come si usa proxxx: installazione e primi comandi", "acceptedAnswer": {"@type": "Answer", "text": "Partire con proxxx richiede minuti, non pomeriggi: installa: Homebrew (brew install fabriziosalmi/proxxx/proxxx) su macOS e Linux, o i binari statici dalle release – musl, senza dipendenze, girano da Alpine a RHEL fino al Raspberry. Nessun agente da mettere sul cluster: parla REST con PVE/PBS e SSH per il resto collega: il wizard iniziale chiede endpoint e token API ([permessi minimi](q/principio-del-minimo-privilegio/), non root); con più cluster, i profili (--profile lab, --profile prod) tengono le identità separate primi comandi: proxxx describe stampa l'intero cluster in una schermata – nodi, guest, storage – ed è già metà del valore; la TUI per l'uso interattivo, --format json quando [lo script sei tu](q/cos-e-gitops/): output deterministico ed exit code tipizzati fatti per le pipeline quando fa sul serio: il risk gate pre-flight classifica le operazioni pericolose e il [gate HITL via Telegram](q/come-si-limita-un-agente-ai/) chiede conferma umana prima di toccare la produzione; ogni azione finisce nell'audit log con catena HMAC (proxxx audit verify per dimostrarne l'integrità) bonus AI: il server MCP integrato (25 tool a registro fisso) collega [Claude o Cursor al cluster](q/cos-e-mcp-model-context-protocol/) con gli stessi guardrail Documentazione completa, quickstart homelab incluso."}}]}</script>
+<style>
+  .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
+  .page h1 { font-size: 26px; line-height: 1.3; margin: 8px 0 20px; }
+  .page .answer a { color: var(--link); }
+  .page .vertical { font-size: 13px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }
+  .page .answer ul { padding-left: 22px; }
+  .page .answer code { background: var(--code-bg); border-radius: 5px; padding: 1px 5px; font-size: 0.9em; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+  .page .ask { display: inline-block; margin-top: 24px; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 9px 18px; text-decoration: none; font-weight: 600; }
+  .page .related { margin-top: 36px; border-top: 1px solid var(--border); padding-top: 18px; }
+  .page .related h2 { font-size: 16px; }
+  .page .related a { color: var(--link); text-decoration: none; }
+  .page .related a:hover { text-decoration: underline; }
+  .page .related li { margin: 6px 0; }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="../../" style="text-decoration:none;color:inherit">
+    <span class="brand-dot">F</span>
+    <span class="brand-name">FabGPT-FAQ</span>
+  </a>
+</header>
+<main class="page">
+  <div class="vertical">Proxmox e self-hosting</div>
+  <h1>Come si usa proxxx: installazione e primi comandi</h1>
+  <div class="answer"><p>Partire con <a href="https://github.com/fabriziosalmi/proxxx" target="_blank" rel="noopener">proxxx</a> richiede minuti, non pomeriggi:</p><ul><li><strong>installa</strong>: Homebrew (<code>brew install fabriziosalmi/proxxx/proxxx</code>) su macOS e Linux, o i <strong>binari statici</strong> dalle release – musl, senza dipendenze, girano da Alpine a RHEL fino al Raspberry. Nessun agente da mettere sul cluster: parla REST con PVE/PBS e SSH per il resto</li><li><strong>collega</strong>: il wizard iniziale chiede endpoint e token API (<a href="../principio-del-minimo-privilegio/">permessi minimi</a>, non root); con più cluster, i <strong>profili</strong> (<code>--profile lab</code>, <code>--profile prod</code>) tengono le identità separate</li><li><strong>primi comandi</strong>: <code>proxxx describe</code> stampa l&#x27;intero cluster in una schermata – nodi, guest, storage – ed è già metà del valore; la <strong>TUI</strong> per l&#x27;uso interattivo, <code>--format json</code> quando <a href="../cos-e-gitops/">lo script sei tu</a>: output deterministico ed exit code tipizzati fatti per le pipeline</li><li><strong>quando fa sul serio</strong>: il <strong>risk gate</strong> pre-flight classifica le operazioni pericolose e il <a href="../come-si-limita-un-agente-ai/">gate HITL via Telegram</a> chiede conferma umana prima di toccare la produzione; ogni azione finisce nell&#x27;<strong>audit log</strong> con catena HMAC (<code>proxxx audit verify</code> per dimostrarne l&#x27;integrità)</li><li>bonus AI: il <strong>server MCP</strong> integrato (25 tool a registro fisso) collega <a href="../cos-e-mcp-model-context-protocol/">Claude o Cursor al cluster</a> con gli stessi guardrail</li></ul><p><a href="https://fabriziosalmi.github.io/proxxx/" target="_blank" rel="noopener">Documentazione completa</a>, quickstart homelab incluso.</p></div>
+  <a class="ask" href="../../?q=guida-proxxx">Chiedilo a FabGPT-FAQ →</a>
+  <div class="related">
+    <h2>Altre domande</h2>
+    <ul><li><a href="../cos-e-proxmox-ve/">Cos&#x27;è Proxmox VE e perché è così usato?</a></li><li><a href="../differenza-container-lxc-e-vm/">Che differenza c&#x27;è tra container LXC e VM?</a></li><li><a href="../self-hosting-pro-e-contro/">Self-hosting: cosa significa e quando conviene?</a></li><li><a href="../cluster-proxmox-e-quorum/">Come funziona un cluster Proxmox (e cos&#x27;è il quorum)?</a></li><li><a href="../perche-usare-zfs-su-proxmox/">Perché usare ZFS su Proxmox?</a></li><li><a href="../differenza-snapshot-e-backup/">Che differenza c&#x27;è tra snapshot e backup?</a></li></ul>
+  </div>
+</main>
+</body>
+</html>

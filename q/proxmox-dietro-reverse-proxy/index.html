@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Come si mette la GUI di Proxmox dietro un reverse proxy? – FabGPT-FAQ</title>
+<meta name="description" content="La GUI di Proxmox vive sulla 8006 in HTTPS con certificato self-signed. Metterla dietro un [reverse proxy](q/cos-e-un-reverse-proxy/) dà un nome pulito e un…">
+<link rel="canonical" href="https://fabriziosalmi.github.io/fabgpt-faq/q/proxmox-dietro-reverse-proxy/">
+<link rel="stylesheet" href="../../style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Come si mette la GUI di Proxmox dietro un reverse proxy?", "acceptedAnswer": {"@type": "Answer", "text": "La GUI di Proxmox vive sulla 8006 in HTTPS con certificato self-signed. Metterla dietro un [reverse proxy](q/cos-e-un-reverse-proxy/) dà un nome pulito e un [certificato vero](q/come-funziona-lets-encrypt-acme/) – i due dettagli che fregano tutti: servono i WebSocket: senza upgrade, la GUI si apre ma la console noVNC resta nera. In Caddy reverse_proxy li gestisce da solo; in Nginx vanno gli header Upgrade/Connection espliciti l'upstream parla HTTPS con certificato self-signed: il proxy deve accettarlo (tls_insecure_skip_verify verso l'upstream in Caddy, proxy_ssl_verify off in Nginx) – è traffico interno, il certificato vero sta sul proxy In alternativa, Proxmox sa usare direttamente certificati ACME (nodo → Certificates), niente proxy per il solo TLS. La parte che conta davvero: la 8006 non va mai esposta a internet, nemmeno dietro proxy con [WAF](q/cos-e-un-waf-web-application-firewall/) – è la porta del regno. Accesso da fuori = [VPN o overlay](q/esporre-servizi-senza-aprire-porte/), sempre. E la gestione remota senza GUI esiste già: proxxx parla con l'API via SSH/REST, [MFA](q/cos-e-autenticazione-due-fattori-mfa/) sull'account root comunque attiva."}}]}</script>
+<style>
+  .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
+  .page h1 { font-size: 26px; line-height: 1.3; margin: 8px 0 20px; }
+  .page .answer a { color: var(--link); }
+  .page .vertical { font-size: 13px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }
+  .page .answer ul { padding-left: 22px; }
+  .page .answer code { background: var(--code-bg); border-radius: 5px; padding: 1px 5px; font-size: 0.9em; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+  .page .ask { display: inline-block; margin-top: 24px; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 9px 18px; text-decoration: none; font-weight: 600; }
+  .page .related { margin-top: 36px; border-top: 1px solid var(--border); padding-top: 18px; }
+  .page .related h2 { font-size: 16px; }
+  .page .related a { color: var(--link); text-decoration: none; }
+  .page .related a:hover { text-decoration: underline; }
+  .page .related li { margin: 6px 0; }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="../../" style="text-decoration:none;color:inherit">
+    <span class="brand-dot">F</span>
+    <span class="brand-name">FabGPT-FAQ</span>
+  </a>
+</header>
+<main class="page">
+  <div class="vertical">Proxmox e self-hosting</div>
+  <h1>Come si mette la GUI di Proxmox dietro un reverse proxy?</h1>
+  <div class="answer"><p>La GUI di Proxmox vive sulla <strong>8006</strong> in HTTPS con certificato self-signed. Metterla dietro un <a href="../cos-e-un-reverse-proxy/">reverse proxy</a> dà un nome pulito e un <a href="../come-funziona-lets-encrypt-acme/">certificato vero</a> – i due dettagli che fregano tutti:</p><ul><li>servono i <strong>WebSocket</strong>: senza upgrade, la GUI si apre ma la console noVNC resta nera. In Caddy <code>reverse_proxy</code> li gestisce da solo; in Nginx vanno gli header <code>Upgrade</code>/<code>Connection</code> espliciti</li><li>l&#x27;upstream parla <strong>HTTPS con certificato self-signed</strong>: il proxy deve accettarlo (<code>tls_insecure_skip_verify</code> verso l&#x27;upstream in Caddy, <code>proxy_ssl_verify off</code> in Nginx) – è traffico interno, il certificato vero sta sul proxy</li></ul><p>In alternativa, Proxmox sa usare direttamente certificati ACME (nodo → Certificates), niente proxy per il solo TLS.</p><p>La parte che conta davvero: <strong>la 8006 non va mai esposta a internet</strong>, nemmeno dietro proxy con <a href="../cos-e-un-waf-web-application-firewall/">WAF</a> – è la porta del regno. Accesso da fuori = <a href="../esporre-servizi-senza-aprire-porte/">VPN o overlay</a>, sempre. E la gestione remota senza GUI esiste già: <a href="https://github.com/fabriziosalmi/proxxx" target="_blank" rel="noopener">proxxx</a> parla con l&#x27;API via SSH/REST, <a href="../cos-e-autenticazione-due-fattori-mfa/">MFA</a> sull&#x27;account root comunque attiva.</p></div>
+  <a class="ask" href="../../?q=proxmox-reverse-proxy">Chiedilo a FabGPT-FAQ →</a>
+  <div class="related">
+    <h2>Altre domande</h2>
+    <ul><li><a href="../cos-e-proxmox-ve/">Cos&#x27;è Proxmox VE e perché è così usato?</a></li><li><a href="../differenza-container-lxc-e-vm/">Che differenza c&#x27;è tra container LXC e VM?</a></li><li><a href="../self-hosting-pro-e-contro/">Self-hosting: cosa significa e quando conviene?</a></li><li><a href="../cluster-proxmox-e-quorum/">Come funziona un cluster Proxmox (e cos&#x27;è il quorum)?</a></li><li><a href="../perche-usare-zfs-su-proxmox/">Perché usare ZFS su Proxmox?</a></li><li><a href="../differenza-snapshot-e-backup/">Che differenza c&#x27;è tra snapshot e backup?</a></li></ul>
+  </div>
+</main>
+</body>
+</html>

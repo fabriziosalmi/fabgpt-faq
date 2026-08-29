@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cos&#x27;è Ceph (e quando ha senso su Proxmox)? – FabGPT-FAQ</title>
+<meta name="description" content="Ceph è uno storage distribuito che trasforma i dischi dei nodi del [cluster](q/cluster-proxmox-e-quorum/) in un unico pool ridondato: ogni dato vive in più…">
+<link rel="canonical" href="https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-ceph-e-quando-ha-senso/">
+<link rel="stylesheet" href="../../style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Cos'è Ceph (e quando ha senso su Proxmox)?", "acceptedAnswer": {"@type": "Answer", "text": "Ceph è uno storage distribuito che trasforma i dischi dei nodi del [cluster](q/cluster-proxmox-e-quorum/) in un unico pool ridondato: ogni dato vive in più copie su nodi diversi (replica 3 di default), un disco o un nodo che muore viene riparato da solo, e le VM vedono block device (RBD) condivisi – il che sblocca [migrazione live](q/migrazione-live-tra-nodi/) istantanea e [HA](q/alta-disponibilita-proxmox/) vera. Proxmox lo integra nativamente nella GUI: è la via all'iperconvergenza senza SAN. Quando ha senso, onestamente: da 3 nodi in su (meglio 4-5, con 3 la resilienza è al limite), con rete dedicata da 10G e dischi decenti per gli OSD – sotto queste soglie le prestazioni deludono e la complessità resta. Per l'homelab a 2-3 nodi la via povera e solida è un'altra: [ZFS](q/perche-usare-zfs-su-proxmox/) con replica programmata (pvesr) – niente storage condiviso vero, ma failover a minuti con un decimo della complessità."}}]}</script>
+<style>
+  .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
+  .page h1 { font-size: 26px; line-height: 1.3; margin: 8px 0 20px; }
+  .page .answer a { color: var(--link); }
+  .page .vertical { font-size: 13px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }
+  .page .answer ul { padding-left: 22px; }
+  .page .answer code { background: var(--code-bg); border-radius: 5px; padding: 1px 5px; font-size: 0.9em; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+  .page .ask { display: inline-block; margin-top: 24px; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 9px 18px; text-decoration: none; font-weight: 600; }
+  .page .related { margin-top: 36px; border-top: 1px solid var(--border); padding-top: 18px; }
+  .page .related h2 { font-size: 16px; }
+  .page .related a { color: var(--link); text-decoration: none; }
+  .page .related a:hover { text-decoration: underline; }
+  .page .related li { margin: 6px 0; }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="../../" style="text-decoration:none;color:inherit">
+    <span class="brand-dot">F</span>
+    <span class="brand-name">FabGPT-FAQ</span>
+  </a>
+</header>
+<main class="page">
+  <div class="vertical">Proxmox e self-hosting</div>
+  <h1>Cos&#x27;è Ceph (e quando ha senso su Proxmox)?</h1>
+  <div class="answer"><p><strong>Ceph</strong> è uno storage distribuito che trasforma i dischi dei nodi del <a href="../cluster-proxmox-e-quorum/">cluster</a> in un unico pool ridondato: ogni dato vive in più copie su nodi diversi (replica 3 di default), un disco o un nodo che muore viene <strong>riparato da solo</strong>, e le VM vedono block device (RBD) condivisi – il che sblocca <a href="../migrazione-live-tra-nodi/">migrazione live</a> istantanea e <a href="../alta-disponibilita-proxmox/">HA</a> vera. Proxmox lo integra nativamente nella GUI: è la via all&#x27;iperconvergenza senza SAN.</p><p>Quando ha senso, onestamente: da <strong>3 nodi in su</strong> (meglio 4-5, con 3 la resilienza è al limite), con <strong>rete dedicata da 10G</strong> e dischi decenti per gli OSD – sotto queste soglie le prestazioni deludono e la complessità resta. Per l&#x27;homelab a 2-3 nodi la via povera e solida è un&#x27;altra: <a href="../perche-usare-zfs-su-proxmox/">ZFS</a> con replica programmata (<code>pvesr</code>) – niente storage condiviso vero, ma failover a minuti con un decimo della complessità.</p></div>
+  <a class="ask" href="../../?q=ceph">Chiedilo a FabGPT-FAQ →</a>
+  <div class="related">
+    <h2>Altre domande</h2>
+    <ul><li><a href="../cos-e-proxmox-ve/">Cos&#x27;è Proxmox VE e perché è così usato?</a></li><li><a href="../differenza-container-lxc-e-vm/">Che differenza c&#x27;è tra container LXC e VM?</a></li><li><a href="../self-hosting-pro-e-contro/">Self-hosting: cosa significa e quando conviene?</a></li><li><a href="../cluster-proxmox-e-quorum/">Come funziona un cluster Proxmox (e cos&#x27;è il quorum)?</a></li><li><a href="../perche-usare-zfs-su-proxmox/">Perché usare ZFS su Proxmox?</a></li><li><a href="../differenza-snapshot-e-backup/">Che differenza c&#x27;è tra snapshot e backup?</a></li></ul>
+  </div>
+</main>
+</body>
+</html>

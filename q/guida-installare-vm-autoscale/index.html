@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Come si installa e configura VM Autoscale? – FabGPT-FAQ</title>
+<meta name="description" content="La messa in opera di VM Autoscale in quattro passi: installa con lo script ufficiale: bash &lt;(curl -s…">
+<link rel="canonical" href="https://fabriziosalmi.github.io/fabgpt-faq/q/guida-installare-vm-autoscale/">
+<link rel="stylesheet" href="../../style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Come si installa e configura VM Autoscale?", "acceptedAnswer": {"@type": "Answer", "text": "La messa in opera di VM Autoscale in quattro passi: installa con lo script ufficiale: bash <(curl -s https://raw.githubusercontent.com/fabriziosalmi/proxmox-vm-autoscale/main/install.sh) – clona in /usr/local/bin/vm_autoscale, installa le dipendenze e registra la unit systemd (abilitata ma non avviata: parti tu con systemctl start vm_autoscale.service quando la configurazione è pronta) configura il YAML: gli host Proxmox da governare (connessione SSH con chiave, [mai password nel file](q/come-gestire-i-secrets/)), le VM incluse e le soglie di CPU e RAM con minimi e massimi per VM – i limiti sono la tua rete di sicurezza prerequisiti a caldo: lo scaling live vuole NUMA e hotplug attivi sulle VM – di default ci pensa lui (auto_configure_hotplug), ma ricorda [il limite fisico](q/autoscaling-vm-proxmox/): i cambi di core count si completano al riavvio della VM attiva le notifiche (Gotify o SMTP) e, se fai hosting, il billing CSV che traccia i consumi per la fatturazione Poi lascia i log a raccontare: qualche giorno di osservazione, un giro di taratura delle soglie, e [le risorse seguono il carico](q/autoscaling-vm-lxc-proxmox/) invece di restare inchiodate alla stima del giorno uno."}}]}</script>
+<style>
+  .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
+  .page h1 { font-size: 26px; line-height: 1.3; margin: 8px 0 20px; }
+  .page .answer a { color: var(--link); }
+  .page .vertical { font-size: 13px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }
+  .page .answer ul { padding-left: 22px; }
+  .page .answer code { background: var(--code-bg); border-radius: 5px; padding: 1px 5px; font-size: 0.9em; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+  .page .ask { display: inline-block; margin-top: 24px; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 9px 18px; text-decoration: none; font-weight: 600; }
+  .page .related { margin-top: 36px; border-top: 1px solid var(--border); padding-top: 18px; }
+  .page .related h2 { font-size: 16px; }
+  .page .related a { color: var(--link); text-decoration: none; }
+  .page .related a:hover { text-decoration: underline; }
+  .page .related li { margin: 6px 0; }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="../../" style="text-decoration:none;color:inherit">
+    <span class="brand-dot">F</span>
+    <span class="brand-name">FabGPT-FAQ</span>
+  </a>
+</header>
+<main class="page">
+  <div class="vertical">Proxmox e self-hosting</div>
+  <h1>Come si installa e configura VM Autoscale?</h1>
+  <div class="answer"><p>La messa in opera di <a href="https://github.com/fabriziosalmi/proxmox-vm-autoscale" target="_blank" rel="noopener">VM Autoscale</a> in quattro passi:</p><ul><li><strong>installa</strong> con lo script ufficiale: <code>bash &lt;(curl -s https://raw.githubusercontent.com/fabriziosalmi/proxmox-vm-autoscale/main/install.sh)</code> – clona in <code>/usr/local/bin/vm_autoscale</code>, installa le dipendenze e registra la <strong>unit systemd</strong> (abilitata ma non avviata: parti tu con <code>systemctl start vm_autoscale.service</code> quando la configurazione è pronta)</li><li><strong>configura</strong> il YAML: gli host Proxmox da governare (connessione <strong>SSH</strong> con chiave, <a href="../come-gestire-i-secrets/">mai password nel file</a>), le VM incluse e le <strong>soglie</strong> di CPU e RAM con minimi e massimi per VM – i limiti sono la tua rete di sicurezza</li><li><strong>prerequisiti a caldo</strong>: lo scaling live vuole <strong>NUMA e hotplug</strong> attivi sulle VM – di default ci pensa lui (<code>auto_configure_hotplug</code>), ma ricorda <a href="../autoscaling-vm-proxmox/">il limite fisico</a>: i cambi di core count si completano al riavvio della VM</li><li>attiva le <strong>notifiche</strong> (Gotify o SMTP) e, se fai hosting, il <strong>billing CSV</strong> che traccia i consumi per la fatturazione</li></ul><p>Poi lascia i log a raccontare: qualche giorno di osservazione, un giro di taratura delle soglie, e <a href="../autoscaling-vm-lxc-proxmox/">le risorse seguono il carico</a> invece di restare inchiodate alla stima del giorno uno.</p></div>
+  <a class="ask" href="../../?q=guida-vm-autoscale">Chiedilo a FabGPT-FAQ →</a>
+  <div class="related">
+    <h2>Altre domande</h2>
+    <ul><li><a href="../cos-e-proxmox-ve/">Cos&#x27;è Proxmox VE e perché è così usato?</a></li><li><a href="../differenza-container-lxc-e-vm/">Che differenza c&#x27;è tra container LXC e VM?</a></li><li><a href="../self-hosting-pro-e-contro/">Self-hosting: cosa significa e quando conviene?</a></li><li><a href="../cluster-proxmox-e-quorum/">Come funziona un cluster Proxmox (e cos&#x27;è il quorum)?</a></li><li><a href="../perche-usare-zfs-su-proxmox/">Perché usare ZFS su Proxmox?</a></li><li><a href="../differenza-snapshot-e-backup/">Che differenza c&#x27;è tra snapshot e backup?</a></li></ul>
+  </div>
+</main>
+</body>
+</html>

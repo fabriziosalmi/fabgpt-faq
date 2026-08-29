@@ -1162,5 +1162,113 @@
   {
     "q": "il fornitore ai ha avuto un leak dei dati caricati",
     "expect": "data-leakage-llm"
+  },
+  {
+    "q": "cosè ceph e quando conviene",
+    "expect": "ceph"
+  },
+  {
+    "q": "come funziona l alta disponibilita su proxmox",
+    "expect": "ha-proxmox"
+  },
+  {
+    "q": "meglio storage locale o condiviso su proxmox",
+    "expect": "storage-proxmox"
+  },
+  {
+    "q": "cosè l sdn di proxmox",
+    "expect": "sdn-proxmox"
+  },
+  {
+    "q": "differenza tra hypervisor di tipo 1 e tipo 2",
+    "expect": "hypervisor-tipo"
+  },
+  {
+    "q": "a cosa servono i driver virtio",
+    "expect": "virtio"
+  },
+  {
+    "q": "posso fare una vm dentro una vm",
+    "expect": "nested-virtualization"
+  },
+  {
+    "q": "quanta ram serve per un nodo proxmox",
+    "expect": "dimensionare-nodo"
+  },
+  {
+    "q": "pianificare i backup notturni verso pbs",
+    "expect": "backup-pbs-howto"
+  },
+  {
+    "q": "aggiungere una share nfs del nas a proxmox",
+    "expect": "montare-nfs"
+  },
+  {
+    "q": "meglio container privilegiato o unprivileged",
+    "expect": "container-privilegiati"
+  },
+  {
+    "q": "passare la chiavetta zigbee alla vm",
+    "expect": "usb-passthrough"
+  },
+  {
+    "q": "spostare una vm su un altro nodo senza spegnerla",
+    "expect": "migrazione-live"
+  },
+  {
+    "q": "mettere la gui di proxmox dietro caddy",
+    "expect": "proxmox-reverse-proxy"
+  },
+  {
+    "q": "installare home assistant su proxmox",
+    "expect": "home-assistant-proxmox"
+  },
+  {
+    "q": "conviene virtualizzare truenas?",
+    "expect": "truenas-proxmox"
+  },
+  {
+    "q": "homelab su mini pc n100",
+    "expect": "homelab-low-power"
+  },
+  {
+    "q": "la vm non si avvia piu",
+    "expect": "vm-non-parte"
+  },
+  {
+    "q": "tutti i nodi hanno il punto interrogativo grigio",
+    "expect": "quorum-perso"
+  },
+  {
+    "q": "local-lvm pieno al 100 per cento",
+    "expect": "storage-pieno"
+  },
+  {
+    "q": "io delay altissimo e tutto lento",
+    "expect": "io-delay"
+  },
+  {
+    "q": "la migrazione si blocca con errore",
+    "expect": "migrazione-fallisce"
+  },
+  {
+    "q": "come installo lxc autoscale",
+    "expect": "guida-lxc-autoscale"
+  },
+  {
+    "q": "come configuro vm autoscale con le soglie",
+    "expect": "guida-vm-autoscale"
+  },
+  {
+    "q": "primi comandi con proxxx",
+    "expect": "guida-proxxx"
+  },
+  {
+    "q": "ceph conviene con 3 nodi?",
+    "expect": "ceph"
+  },
+  {
+    "q": "come uso proxxx",
+    "expect": "guida-proxxx"
   }
 ]

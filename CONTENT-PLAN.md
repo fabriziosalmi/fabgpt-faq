@@ -218,13 +218,13 @@ Working rules (learned so far):
 - [B1] Perché usare ZFS su Proxmox?
 - [B1] Che differenza c'è tra snapshot e backup?
 - [B1] Cos'è Proxmox Backup Server?
-- Cos'è Ceph (e quando ha senso)?
-- Cos'è l'alta disponibilità (HA) su Proxmox?
-- Storage locale vs condiviso: LVM, ZFS, NFS, Ceph
-- Cos'è SDN in Proxmox?
-- Cos'è un hypervisor di tipo 1 vs tipo 2?
-- Cos'è la paravirtualizzazione (VirtIO)?
-- Nested virtualization: quando serve
+- [B4] Cos'è Ceph (e quando ha senso)?
+- [B4] Cos'è l'alta disponibilità (HA) su Proxmox?
+- [B4] Storage locale vs condiviso: LVM, ZFS, NFS, Ceph
+- [B4] Cos'è SDN in Proxmox?
+- [B4] Cos'è un hypervisor di tipo 1 vs tipo 2?
+- [B4] Cos'è la paravirtualizzazione (VirtIO)?
+- [B4] Nested virtualization: quando serve
 
 ### How-to
 
@@ -232,24 +232,27 @@ Working rules (learned so far):
 - [B1] Come si aggiorna Proxmox senza subscription?
 - [B1] Come si usano template e cloud-init su Proxmox?
 - [B1] Come si migra da VMware a Proxmox?
-- Come si dimensiona un nodo Proxmox (CPU, RAM, dischi)
-- Come si configurano i backup automatici verso PBS
-- Come si monta uno storage NFS/SMB
-- Container privilegiati vs non privilegiati
-- Come si passa un disco USB a una VM
-- Come si fa la migrazione live tra nodi
-- Come si mette Proxmox dietro un reverse proxy
-- Home Assistant su Proxmox: la via pulita
-- TrueNAS dentro Proxmox: pro e contro
-- Come si vira un homelab su low-power (mini PC)
+- [B4] Come si dimensiona un nodo Proxmox (CPU, RAM, dischi)
+- [B4] Come si configurano i backup automatici verso PBS
+- [B4] Come si monta uno storage NFS/SMB
+- [B4] Container privilegiati vs non privilegiati
+- [B4] Come si passa un disco USB a una VM
+- [B4] Come si fa la migrazione live tra nodi
+- [B4] Come si mette Proxmox dietro un reverse proxy
+- [B4] Home Assistant su Proxmox: la via pulita
+- [B4] TrueNAS dentro Proxmox: pro e contro
+- [B4] Come si vira un homelab su low-power (mini PC)
+- [B4] Come si installa e configura LXC AutoScale? (guida)
+- [B4] Come si installa e configura VM Autoscale? (guida)
+- [B4] Come si usa proxxx: installazione e primi comandi (guida)
 
 ### Troubleshooting
 
-- La VM non parte: i controlli in ordine
-- Nodo con la X rossa: quorum perso
-- Storage pieno: come liberare spazio senza disastri
-- I/O delay alto: capire da dove viene
-- La migrazione fallisce: cause tipiche
+- [B4] La VM non parte: i controlli in ordine
+- [B4] Nodo con la X rossa: quorum perso
+- [B4] Storage pieno: come liberare spazio senza disastri
+- [B4] I/O delay alto: capire da dove viene
+- [B4] La migrazione fallisce: cause tipiche
 
 ## Cloudflare e web
 

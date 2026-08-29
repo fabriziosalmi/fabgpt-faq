@@ -3380,6 +3380,481 @@
       ]
     },
     {
+      "id": "ceph",
+      "slug": "cos-e-ceph-e-quando-ha-senso",
+      "question": "Cos'è Ceph (e quando ha senso su Proxmox)?",
+      "vertical": "proxmox",
+      "keywords": [
+        "ceph",
+        "storage distribuito",
+        "rbd",
+        "osd",
+        "ceph proxmox",
+        "iperconvergenza",
+        "hyperconverged",
+        "3 nodi"
+      ],
+      "answers": [
+        "**Ceph** è uno storage distribuito che trasforma i dischi dei nodi del [cluster](q/cluster-proxmox-e-quorum/) in un unico pool ridondato: ogni dato vive in più copie su nodi diversi (replica 3 di default), un disco o un nodo che muore viene **riparato da solo**, e le VM vedono block device (RBD) condivisi – il che sblocca [migrazione live](q/migrazione-live-tra-nodi/) istantanea e [HA](q/alta-disponibilita-proxmox/) vera. Proxmox lo integra nativamente nella GUI: è la via all'iperconvergenza senza SAN.\n\nQuando ha senso, onestamente: da **3 nodi in su** (meglio 4-5, con 3 la resilienza è al limite), con **rete dedicata da 10G** e dischi decenti per gli OSD – sotto queste soglie le prestazioni deludono e la complessità resta. Per l'homelab a 2-3 nodi la via povera e solida è un'altra: [ZFS](q/perche-usare-zfs-su-proxmox/) con replica programmata (`pvesr`) – niente storage condiviso vero, ma failover a minuti con un decimo della complessità."
+      ]
+    },
+    {
+      "id": "ha-proxmox",
+      "slug": "alta-disponibilita-proxmox",
+      "question": "Cos'è l'alta disponibilità (HA) su Proxmox?",
+      "vertical": "proxmox",
+      "keywords": [
+        "alta disponibilita",
+        "high availability",
+        "failover",
+        "ha proxmox",
+        "vm che riparte da sola",
+        "ha manager",
+        "fencing"
+      ],
+      "answers": [
+        "L'**HA** di Proxmox fa ripartire automaticamente le VM di un nodo morto su un altro nodo: il `ha-manager` sorveglia le risorse marcate HA e, quando un nodo sparisce, le riavvia altrove. Attenzione al verbo: **riavvia**, non trasferisce – è un riavvio su un altro host (downtime di secondi/minuti), non magia a caldo.\n\nI prerequisiti che non si possono aggirare:\n\n- **storage condiviso** ([Ceph](q/cos-e-ceph-e-quando-ha-senso/), NFS) o replica [ZFS](q/perche-usare-zfs-su-proxmox/) – la VM deve poter leggere i suoi dischi dal nodo di destinazione (con la replica, si riparte dall'ultimo sync)\n- **[quorum](q/cluster-proxmox-e-quorum/)** sano: senza maggioranza, niente decisioni\n- **fencing**: il nodo sospetto viene isolato via watchdog prima di riavviarne le VM altrove – è la protezione dallo split brain, non un fastidio da disabilitare\n\nConsiglio pratico: HA solo per ciò che la merita davvero. Un servizio stateless dietro load balancer è più semplice da rendere resiliente a livello applicativo che a colpi di failover."
+      ]
+    },
+    {
+      "id": "storage-proxmox",
+      "slug": "storage-proxmox-lvm-zfs-nfs-ceph",
+      "question": "Storage locale o condiviso su Proxmox: LVM, ZFS, NFS o Ceph?",
+      "vertical": "proxmox",
+      "keywords": [
+        "storage",
+        "lvm",
+        "lvm-thin",
+        "storage condiviso",
+        "storage locale",
+        "quale storage",
+        "directory",
+        "confronto storage"
+      ],
+      "answers": [
+        "La scelta dello storage decide cosa potrai fare dopo:\n\n- **LVM-thin** (locale, il default) – thin provisioning e snapshot, semplice e veloce. Limite: è locale – [migrazione](q/migrazione-live-tra-nodi/) solo con copia dei dischi\n- **[ZFS](q/perche-usare-zfs-su-proxmox/)** (locale) – checksum, compressione, snapshot e soprattutto la **replica** verso altri nodi: il miglior locale per chi fa sul serio\n- **NFS/SMB** (condiviso) – [si monta in due click](q/montare-nfs-smb-proxmox/), tutti i nodi vedono tutto: migrazione istantanea e [HA](q/alta-disponibilita-proxmox/) facili. Contro: il NAS diventa il singolo punto di guasto, e le prestazioni sono quelle della rete\n- **[Ceph](q/cos-e-ceph-e-quando-ha-senso/)** (distribuito) – condiviso *e* ridondato, senza NAS: la scelta da 3+ nodi con 10G\n\nRegola pratica: nodo singolo → ZFS; piccolo cluster con NAS già in casa → NFS per le VM che devono migrare, ZFS per il resto; cluster serio → Ceph. E qualunque scelta: [i backup](q/backup-automatici-verso-pbs/) su uno storage *diverso* da quello delle VM."
+      ]
+    },
+    {
+      "id": "sdn-proxmox",
+      "slug": "cos-e-sdn-in-proxmox",
+      "question": "Cos'è l'SDN di Proxmox?",
+      "vertical": "proxmox",
+      "keywords": [
+        "sdn",
+        "software defined networking",
+        "vxlan",
+        "zone sdn",
+        "vnet",
+        "rete definita dal software",
+        "rete cluster",
+        "sdn di proxmox"
+      ],
+      "answers": [
+        "L'**SDN** (Software-Defined Networking) di Proxmox porta la definizione delle reti dal singolo nodo al **datacenter**: invece di configurare bridge e VLAN a mano su ogni host, definisci **zone** e **VNet** una volta sola e il cluster le applica ovunque – integrato nella GUI dalle versioni 8.x.\n\nI mattoni: le zone *VLAN* mappano le [VLAN fisiche](q/segmentare-la-rete-con-vlan/) esistenti; le zone **VXLAN/EVPN** creano reti overlay che viaggiano incapsulate sulla rete normale – utile per stendere una rete privata tra nodi (anche in sedi diverse) senza toccare gli switch; più IPAM integrato, subnet e DHCP gestiti.\n\nQuando usarlo: cluster con più di due nodi e reti per-tenant o per-ambiente (lab, staging, produzione isolate), o l'esigenza di reti che seguono le VM nella [migrazione](q/migrazione-live-tra-nodi/). Per il nodo singolo di casa, il bridge classico con VLAN resta più che sufficiente – l'SDN è potenza che si paga in complessità."
+      ]
+    },
+    {
+      "id": "hypervisor-tipo",
+      "slug": "hypervisor-tipo-1-e-tipo-2",
+      "question": "Hypervisor di tipo 1 e tipo 2: che differenza c'è?",
+      "vertical": "proxmox",
+      "keywords": [
+        "tipo 1",
+        "tipo 2",
+        "hypervisor tipo 1",
+        "bare metal",
+        "virtualbox",
+        "hosted",
+        "kvm tipo",
+        "vmware workstation"
+      ],
+      "answers": [
+        "La distinzione classica:\n\n- **tipo 1 (bare metal)** – l'hypervisor *è* il sistema che gira sull'hardware: [Proxmox VE](q/cos-e-proxmox-ve/) (KVM), ESXi, Hyper-V. Prestazioni quasi native, isolamento forte, fatto per stare acceso sempre: è la scelta per server e produzione\n- **tipo 2 (hosted)** – un'applicazione dentro un sistema operativo normale: VirtualBox, VMware Workstation, Parallels. Perfetto per la VM di prova sul portatile, paga il pedaggio del sistema ospite sotto\n\nLa nota pedante che vale la pena sapere: **KVM** sfuma la distinzione – è un modulo *dentro* il kernel Linux, quindi \"il sistema operativo\" e \"l'hypervisor\" coincidono: di fatto tipo 1 con l'ergonomia di Linux. È il motore di Proxmox, delle grandi cloud e di mezzo internet.\n\nRegola di scelta: se la macchina esiste *per* virtualizzare → tipo 1 (e con Proxmox [non paghi licenze](q/aggiornare-proxmox-senza-subscription/)); se virtualizzi *ogni tanto* sul computer di lavoro → tipo 2, senza sensi di colpa."
+      ]
+    },
+    {
+      "id": "virtio",
+      "slug": "cos-e-la-paravirtualizzazione-virtio",
+      "question": "Cos'è la paravirtualizzazione (VirtIO)?",
+      "vertical": "proxmox",
+      "keywords": [
+        "virtio",
+        "paravirtualizzazione",
+        "driver virtio",
+        "virtio-scsi",
+        "emulazione hardware",
+        "driver windows vm",
+        "rete lenta vm"
+      ],
+      "answers": [
+        "Un hypervisor può presentare alla VM hardware **emulato** (una finta scheda di rete Intel del 2003: compatibile con tutto, lentissima – ogni pacchetto passa per una pantomima di hardware inesistente) oppure dispositivi **paravirtualizzati**: la VM *sa* di essere virtuale e parla con l'host attraverso un'interfaccia progettata per quello. Lo standard è **VirtIO**: `virtio-net` per la rete, `virtio-scsi`/`virtio-blk` per i dischi, ballooning per la memoria.\n\nLa differenza non è accademica: rete e dischi VirtIO vanno **molte volte più veloci** dell'emulazione, con meno CPU. Linux ha i driver nel kernel da sempre: su Proxmox una VM Linux va creata direttamente con VirtIO ovunque. **Windows** non li ha di serie: serve la ISO dei driver VirtIO durante l'installazione – è il passaggio che frega tutti [alla prima migrazione da VMware](q/migrare-da-vmware-a-proxmox/) (il trucco della scheda SATA temporanea è lì per quello).\n\nSe una VM ha rete o dischi inspiegabilmente [lenti](q/io-delay-alto-proxmox/): controlla che non stia emulando – è la causa numero uno."
+      ]
+    },
+    {
+      "id": "nested-virtualization",
+      "slug": "nested-virtualization-quando-serve",
+      "question": "Nested virtualization: quando serve?",
+      "vertical": "proxmox",
+      "keywords": [
+        "nested",
+        "nested virtualization",
+        "virtualizzazione annidata",
+        "proxmox dentro proxmox",
+        "vm dentro vm",
+        "wsl2 in vm",
+        "vt-x nella vm"
+      ],
+      "answers": [
+        "La **nested virtualization** permette a una VM di fare da hypervisor a sua volta: VM dentro VM. Serve più spesso di quanto sembri:\n\n- **laboratori**: un intero [cluster Proxmox](q/cluster-proxmox-e-quorum/) di prova dentro tre VM su un solo host fisico – il modo giusto di imparare HA e Ceph senza comprare ferro\n- **Windows moderni in VM**: WSL2, il sandbox di Windows e le funzioni di sicurezza VBS *sono* virtualizzazione – senza nested, non partono\n- CI che esegue in VM, sviluppo di software di virtualizzazione, emulatori Android\n\nCome si abilita su Proxmox: il flag nested nel modulo KVM dell'host (di serie sulle versioni recenti) e soprattutto **CPU type `host`** nella VM – con il default generico i flag VT-x/AMD-V non arrivano dentro. Il conto da pagare: prestazioni a scendere a ogni livello di scatola cinese, e la [migrazione live](q/migrazione-live-tra-nodi/) di VM con CPU `host` pretende nodi con CPU identiche. Per i lab va benissimo; per la produzione, ripensaci."
+      ]
+    },
+    {
+      "id": "dimensionare-nodo",
+      "slug": "dimensionare-un-nodo-proxmox",
+      "question": "Come si dimensiona un nodo Proxmox (CPU, RAM, dischi)?",
+      "vertical": "proxmox",
+      "keywords": [
+        "dimensionare",
+        "quanto hardware",
+        "quanti core",
+        "quanta ram server",
+        "che hardware per proxmox",
+        "overcommit",
+        "dimensionamento nodo",
+        "nodo",
+        "ram nodo"
+      ],
+      "answers": [
+        "L'ordine dei colli di bottiglia, imparato da tutti nello stesso modo:\n\n- **la RAM finisce per prima**: le VM la prenotano, [ZFS](q/perche-usare-zfs-su-proxmox/) vuole il suo ARC (regola: limitalo, o si prende metà macchina), e l'overcommit di memoria è molto meno indulgente di quello CPU. Somma le VM previste, aggiungi 4-8 GB per host e ARC, arrotonda in su\n- **CPU**: si overcommitta serenamente 3-4:1 sui core per carichi misti – i [container](q/differenza-container-lxc-e-vm/) quasi non contano, le VM da lavoro contano parecchio. Più core medi battono pochi core veloci, salvo licenze per-core\n- **dischi**: un **mirror NVMe** per sistema e VM è il singolo upgrade che cambia la vita ([niente RAID hardware sotto ZFS](q/perche-usare-zfs-su-proxmox/)); i dischi grossi e lenti per [backup](q/backup-automatici-verso-pbs/) e media, **mai** sullo stesso pool delle VM\n- **rete**: 2.5G ormai regalato, 10G se c'è storage di rete di mezzo; una NIC in più per [corosync](q/cluster-proxmox-e-quorum/) nei cluster\n\nE quando il carico cambia nel tempo, [l'autoscaling](q/autoscaling-vm-lxc-proxmox/) tiene le risorse allineate al posto tuo."
+      ]
+    },
+    {
+      "id": "backup-pbs-howto",
+      "slug": "backup-automatici-verso-pbs",
+      "question": "Come si configurano i backup automatici verso PBS?",
+      "vertical": "proxmox",
+      "keywords": [
+        "backup automatici",
+        "vzdump",
+        "pianificare backup",
+        "job di backup",
+        "retention backup",
+        "pbs",
+        "prune",
+        "verify"
+      ],
+      "answers": [
+        "La sequenza completa, da zero a notti tranquille:\n\n- su [PBS](q/cos-e-proxmox-backup-server/): crea il **datastore** e un utente API dedicato; su PVE: Datacenter → Storage → aggiungi il PBS con il suo **fingerprint**\n- Datacenter → **Backup**: crea il job – selezione VM (meglio \"tutte\" con esclusioni esplicite: le VM nuove entrano da sole), orario notturno, modalità **snapshot** (la sola che non ferma nulla)\n- la **retention** falla decidere a PBS (keep-daily/weekly/monthly) con il **prune** automatico: 7 giornalieri + 4 settimanali + 6 mensili è un default sano\n- attiva i **verify** programmati – un backup corrotto scoperto al restore non è un backup, è una beffa – e le **notifiche sui fallimenti** (un job che fallisce in silenzio per mesi è un classico del terrore)\n- completa la [regola 3-2-1](q/backup-3-2-1/): **sync remota** verso un secondo PBS altrove\n\nUltimo passo che quasi nessuno fa: **prova un restore** adesso, che sei calmo. Il giorno che servirà non lo sarai."
+      ]
+    },
+    {
+      "id": "montare-nfs",
+      "slug": "montare-nfs-smb-proxmox",
+      "question": "Come si monta uno storage NFS o SMB su Proxmox?",
+      "vertical": "proxmox",
+      "keywords": [
+        "montare nfs",
+        "nfs proxmox",
+        "smb",
+        "cifs",
+        "nas su proxmox",
+        "aggiungere storage di rete",
+        "condivisione nas",
+        "montare share"
+      ],
+      "answers": [
+        "La via giusta è **via Datacenter, non via fstab**: Datacenter → Storage → Add → NFS (o SMB/CIFS), server e export, e soprattutto i **content type** giusti – è il dettaglio che confonde: *Disk image* e *Container* per metterci dischi di VM, *VZDump backup* per i [backup](q/backup-automatici-verso-pbs/), *ISO image* per le ISO. Lo storage aggiunto così è visibile a **tutti i nodi** del cluster, con lo stato gestito da Proxmox.\n\nLe note che risparmiano pomeriggi:\n\n- per SMB serve un utente dedicato sul NAS (mai guest), e le **versioni di protocollo** contano: forza SMB3\n- per NFS: allinea gli UID/GID o usa mapall sul NAS, e preferisci NFSv4.x; se il NAS sparisce, i mount appesi possono bloccare l'host – motivo per cui i dischi delle VM *di produzione* su NFS richiedono [un NAS all'altezza](q/storage-proxmox-lvm-zfs-nfs-ceph/)\n- l'uso più sano di uno share di rete in casa: **destinazione backup e ISO**, con i dischi VM su [ZFS locale](q/perche-usare-zfs-su-proxmox/)"
+      ]
+    },
+    {
+      "id": "container-privilegiati",
+      "slug": "container-privilegiati-o-non-privilegiati",
+      "question": "Container privilegiati o non privilegiati: quale usare?",
+      "vertical": "proxmox",
+      "keywords": [
+        "container privilegiato",
+        "unprivileged",
+        "non privilegiato",
+        "privilegiato",
+        "uid mapping",
+        "bind mount permessi",
+        "lxc sicurezza"
+      ],
+      "answers": [
+        "Il default di Proxmox – **unprivileged** – è quello giusto: il root del container è mappato su un utente qualunque dell'host (UID shiftati di 100000), così un'evasione dal [container](q/differenza-container-lxc-e-vm/) atterra su un utente senza poteri. Un container **privilegiato**, invece, ha il root che *è* root dell'host: un'evasione è game over – va trattato come [il minimo privilegio](q/principio-del-minimo-privilegio/) insegna: eccezione motivata, non abitudine.\n\nIl prezzo pratico degli unprivileged è uno solo, ma quotidiano: i **bind mount**. I file dell'host appartengono a UID veri, il container li vede shiftati – e i permessi non tornano. Soluzioni in ordine di eleganza: gruppo condiviso con GID mappato esplicitamente, `chown` degli alberi dedicati al container (100000+UID), o le ACL. Le feature `nesting` (per Docker dentro LXC) e `keyctl` si abilitano anche da unprivileged.\n\nQuando il privilegiato è legittimo: vecchi kernel NFS client dentro il container, hardware particolare, o [TrueNAS-style storage](q/truenas-dentro-proxmox/) – e anche lì, prima chiediti se non sia il caso di una VM."
+      ]
+    },
+    {
+      "id": "usb-passthrough",
+      "slug": "passare-un-disco-usb-a-una-vm",
+      "question": "Come si passa un dispositivo USB (o un disco) a una VM?",
+      "vertical": "proxmox",
+      "keywords": [
+        "usb",
+        "disco usb",
+        "passare usb",
+        "chiavetta usb vm",
+        "zigbee",
+        "dongle",
+        "usb passthrough",
+        "disco fisico vm"
+      ],
+      "answers": [
+        "Due problemi diversi che si somigliano:\n\n- **dispositivo USB** (chiavetta Zigbee per [Home Assistant](q/home-assistant-su-proxmox/), dongle, stampante): Hardware → Add → USB Device, scegliendo per **vendor/device ID** (sopravvive ai cambi di porta) o per porta fisica (sopravvive ai cambi di dispositivo). Per l'USB 3 serve il controller xhci nella VM\n- **disco fisico intero**: la via robusta non è l'USB ma il passthrough del disco per ID: `qm set 101 -scsi1 /dev/disk/by-id/ata-...` – il disco appare alla VM come suo, con prestazioni native. Sempre **by-id**, mai `/dev/sdb`: le lettere cambiano al riavvio\n\nLe avvertenze: un disco passato così è *della VM* – l'host non deve toccarlo (niente mount doppi); l'USB per lo storage di lavoro resta una scelta fragile (disconnessioni = [guai](q/vm-non-parte-proxmox/)); e il passthrough lega la VM all'hardware: la [migrazione live](q/migrazione-live-tra-nodi/) si ferma lì. Per interi controller (SATA/HBA verso una VM storage) si sale di livello: [passthrough PCI](q/truenas-dentro-proxmox/), parente stretto di [quello GPU](q/passthrough-gpu-proxmox/)."
+      ]
+    },
+    {
+      "id": "migrazione-live",
+      "slug": "migrazione-live-tra-nodi",
+      "question": "Come si fa la migrazione live tra nodi Proxmox?",
+      "vertical": "proxmox",
+      "keywords": [
+        "migrazione live",
+        "live migration",
+        "spostare vm",
+        "migrare vm tra nodi",
+        "tra nodi",
+        "senza spegnere",
+        "spostare a caldo"
+      ],
+      "answers": [
+        "La **migrazione live** sposta una VM accesa da un nodo all'altro senza interromperla: la RAM viene copiata mentre la VM lavora, le pagine cambiate ricopiate a giri successivi, e nell'istante finale – impercettibile – la VM riprende sull'altro nodo. Da GUI: tasto destro → Migrate; da CLI: `qm migrate 101 nodo2 --online`.\n\nCosa la rende possibile o la rompe:\n\n- **storage**: con [storage condiviso](q/storage-proxmox-lvm-zfs-nfs-ceph/) si copia solo la RAM (secondi); con dischi locali serve `--with-local-disks`, che copia anche quelli a caldo – funziona, ma i tempi crescono coi gigabyte\n- **CPU**: il tipo CPU della VM deve esistere su entrambi i nodi – è il motivo per cui nei cluster misti si usa un tipo comune (x86-64-v2/v3) invece di `host`\n- **risorse locali**: ISO montate da storage locale, [USB e GPU passate](q/passare-un-disco-usb-a-una-vm/) ancorano la VM al ferro – [la migrazione fallisce](q/migrazione-fallisce-cause/) finché non le stacchi\n\nÈ il mattone della manutenzione senza downtime: svuoti il nodo, aggiorni con calma, rimigri. I [container](q/differenza-container-lxc-e-vm/) invece si migrano solo da spenti (restart migration): riavvio di secondi."
+      ]
+    },
+    {
+      "id": "proxmox-reverse-proxy",
+      "slug": "proxmox-dietro-reverse-proxy",
+      "question": "Come si mette la GUI di Proxmox dietro un reverse proxy?",
+      "vertical": "proxmox",
+      "keywords": [
+        "proxmox dietro",
+        "reverse proxy proxmox",
+        "8006",
+        "porta 8006",
+        "novnc",
+        "websocket",
+        "proxy davanti a proxmox",
+        "proxmox"
+      ],
+      "answers": [
+        "La GUI di Proxmox vive sulla **8006** in HTTPS con certificato self-signed. Metterla dietro un [reverse proxy](q/cos-e-un-reverse-proxy/) dà un nome pulito e un [certificato vero](q/come-funziona-lets-encrypt-acme/) – i due dettagli che fregano tutti:\n\n- servono i **WebSocket**: senza upgrade, la GUI si apre ma la console noVNC resta nera. In Caddy `reverse_proxy` li gestisce da solo; in Nginx vanno gli header `Upgrade`/`Connection` espliciti\n- l'upstream parla **HTTPS con certificato self-signed**: il proxy deve accettarlo (`tls_insecure_skip_verify` verso l'upstream in Caddy, `proxy_ssl_verify off` in Nginx) – è traffico interno, il certificato vero sta sul proxy\n\nIn alternativa, Proxmox sa usare direttamente certificati ACME (nodo → Certificates), niente proxy per il solo TLS.\n\nLa parte che conta davvero: **la 8006 non va mai esposta a internet**, nemmeno dietro proxy con [WAF](q/cos-e-un-waf-web-application-firewall/) – è la porta del regno. Accesso da fuori = [VPN o overlay](q/esporre-servizi-senza-aprire-porte/), sempre. E la gestione remota senza GUI esiste già: [proxxx](https://github.com/fabriziosalmi/proxxx) parla con l'API via SSH/REST, [MFA](q/cos-e-autenticazione-due-fattori-mfa/) sull'account root comunque attiva."
+      ]
+    },
+    {
+      "id": "home-assistant-proxmox",
+      "slug": "home-assistant-su-proxmox",
+      "question": "Home Assistant su Proxmox: la via pulita",
+      "vertical": "proxmox",
+      "keywords": [
+        "home assistant",
+        "haos",
+        "hass",
+        "domotica",
+        "home assistant vm",
+        "zigbee proxmox",
+        "supervised"
+      ],
+      "answers": [
+        "La via pulita è una sola: **HAOS in una VM** – il sistema operativo ufficiale di Home Assistant, con supervisor, add-on e aggiornamenti dall'interfaccia. Le alternative sembrano furbe e si pagano: in LXC il *supervised* non è supportato (rotture a ogni aggiornamento), il *container* Docker puro rinuncia agli add-on.\n\nLa ricetta: scarica l'immagine qcow2 di HAOS, importala (`qm importdisk`) in una VM **UEFI (OVMF)** con 2 vCPU, 4 GB di RAM e [VirtIO](q/cos-e-la-paravirtualizzazione-virtio/) ovunque – o lascia fare allo script community (tteck/community-scripts), che prepara tutto in un minuto ed è ormai lo standard de facto del homelab.\n\nI dettagli che fanno la differenza: la **chiavetta Zigbee/Z-Wave** [passata per vendor ID](q/passare-un-disco-usb-a-una-vm/) (e con nome stabile via by-id); i **[backup](q/backup-automatici-verso-pbs/) di Proxmox** *più* quelli interni di HA (proteggono cose diverse); e l'accesso da fuori [via VPN/overlay](q/esporre-servizi-senza-aprire-porte/), non con la porta aperta – la tua casa non è un servizio pubblico. Su un [mini PC](q/homelab-a-basso-consumo/), HAOS più una manciata di container girano nel nulla."
+      ]
+    },
+    {
+      "id": "truenas-proxmox",
+      "slug": "truenas-dentro-proxmox",
+      "question": "TrueNAS dentro Proxmox: pro e contro",
+      "vertical": "proxmox",
+      "keywords": [
+        "truenas",
+        "nas virtuale",
+        "hba",
+        "hba passthrough",
+        "it mode",
+        "nas dentro proxmox",
+        "virtualizzare nas",
+        "truenas vm"
+      ],
+      "answers": [
+        "Si può fare bene, a **una condizione non negoziabile**: TrueNAS deve vedere i **dischi veri**, attraverso il passthrough di un intero controller **HBA in IT mode** (un LSI 9207/9300 da poche decine di euro) – parente del [passthrough GPU](q/passthrough-gpu-proxmox/), con IOMMU e vfio. ZFS vuole parlare con i dischi senza intermediari: TrueNAS sopra dischi *virtuali* è ZFS sopra ZFS con SMART invisibile – la ricetta del dolore silenzioso.\n\nCon l'HBA passato, la VM TrueNAS è un NAS legittimo: 8+ GB di RAM prenotati (niente ballooning), CPU `host`, e i servizi di condivisione che [tornano a Proxmox via NFS/SMB](q/montare-nfs-smb-proxmox/).\n\nIl contro strutturale: hai creato una **dipendenza circolare** – se la VM NAS ospita dischi di altre VM, l'avvio del cluster dipende da lei ([e il quorum ringrazia](q/nodo-x-rossa-quorum-perso/)). L'alternativa da considerare seriamente: **niente TrueNAS** – [ZFS nativo di Proxmox](q/perche-usare-zfs-su-proxmox/) più un container leggero per SMB fa lo stesso mestiere con un livello in meno. TrueNAS vince quando vuoi la sua UI, i suoi snapshot gestiti e le sue app – o quando il NAS deve sopravvivere concettualmente all'hypervisor."
+      ]
+    },
+    {
+      "id": "homelab-low-power",
+      "slug": "homelab-a-basso-consumo",
+      "question": "Homelab a basso consumo: mini PC al posto del server?",
+      "vertical": "proxmox",
+      "keywords": [
+        "mini pc",
+        "basso consumo",
+        "consumo",
+        "watt",
+        "n100",
+        "risparmio energetico",
+        "low power",
+        "bolletta server",
+        "server casa consumo"
+      ],
+      "answers": [
+        "Il server rack in cantina è romantico finché non arriva la bolletta: 100-150 W fissi sono 250-400 euro l'anno. Un **mini PC moderno fa quasi tutto a 6-15 W idle**:\n\n- un **N100/N305** (4-8 core efficienti, fino a 32-48 GB di RAM) regge [Proxmox](q/cos-e-proxmox-ve/) con una flotta di [container](q/differenza-container-lxc-e-vm/) e qualche VM leggera – [Home Assistant](q/home-assistant-su-proxmox/), Pi-hole, reverse proxy, [PBS](q/cos-e-proxmox-backup-server/), il monitoraggio: tutto insieme, nel silenzio\n- il gradino sopra (Ryzen mobile, Core ultracompatti, 64+ GB) aggiunge VM da lavoro e [modelli AI piccoli](q/quanta-ram-vram-serve-per-un-llm/) restando sotto i 30 W\n- tre mini PC = un [cluster con quorum vero](q/cluster-proxmox-e-quorum/) consumando come una lampadina di una volta\n\nI compromessi onesti: niente ECC (quasi sempre), pochi slot disco – il **NAS separato** (o un solo nodo \"storage\" più carrozzato) resta sensato – ed espansione limitata. Le mosse: NVMe in [mirror ZFS](q/perche-usare-zfs-su-proxmox/), un misuratore di consumo alla presa per decidere coi numeri, e [l'autoscaling](q/autoscaling-vm-lxc-proxmox/) che spreme il poco ferro al meglio."
+      ]
+    },
+    {
+      "id": "guida-lxc-autoscale",
+      "slug": "guida-installare-lxc-autoscale",
+      "question": "Come si installa e configura LXC AutoScale?",
+      "vertical": "proxmox",
+      "keywords": [
+        "lxc autoscale",
+        "installare lxc autoscale",
+        "configurare lxc autoscale",
+        "tier",
+        "tiers",
+        "soglie container",
+        "ignore lxc",
+        "backend api",
+        "off-peak"
+      ],
+      "answers": [
+        "La guida rapida per mettere al lavoro [LXC AutoScale](https://github.com/fabriziosalmi/proxmox-lxc-autoscale):\n\n- **installazione**: via **Docker** (la via pulita, anche in modalità API-only non-root) o con lo script di installazione direttamente sull'host Proxmox – servono PVE 7.x/8.x, Python 3.9+ e [container già esistenti](q/differenza-container-lxc-e-vm/)\n- **backend**: scegli tra comandi `pct` locali/SSH o la **REST API di Proxmox** (consigliata: token dedicato con [permessi minimi](q/principio-del-minimo-privilegio/), niente root remoto). La configurazione è **Pydantic-validata**, con i segreti via `${ENV_VAR}` – [mai in chiaro nel file](q/come-gestire-i-secrets/)\n- **soglie**: parti dai default (scala su CPU/memoria oltre le soglie, con riserve sull'host che impediscono l'over-allocation), poi raffina con i **tier** – gruppi di container con politiche proprie: aggressivo per i servizi web, conservativo per i database, `ignore_lxc` per ciò che non va toccato\n- le chicche da attivare dopo: **boost/revert** (risorse temporanee che rientrano da sole), scheduling **off-peak** per la notte, notifiche (SMTP, Gotify, Uptime Kuma) e il **core pinning** P/E-core sulle CPU Intel ibride\n\nOsservalo lavorare nel log JSON delle metriche prima di fidarti in produzione: un giorno di decisioni loggate dice tutto."
+      ]
+    },
+    {
+      "id": "guida-vm-autoscale",
+      "slug": "guida-installare-vm-autoscale",
+      "question": "Come si installa e configura VM Autoscale?",
+      "vertical": "proxmox",
+      "keywords": [
+        "vm autoscale",
+        "installare vm autoscale",
+        "configurare vm autoscale",
+        "soglie vm",
+        "hotplug automatico",
+        "install.sh",
+        "systemd autoscale",
+        "scaling vm config"
+      ],
+      "answers": [
+        "La messa in opera di [VM Autoscale](https://github.com/fabriziosalmi/proxmox-vm-autoscale) in quattro passi:\n\n- **installa** con lo script ufficiale: `bash <(curl -s https://raw.githubusercontent.com/fabriziosalmi/proxmox-vm-autoscale/main/install.sh)` – clona in `/usr/local/bin/vm_autoscale`, installa le dipendenze e registra la **unit systemd** (abilitata ma non avviata: parti tu con `systemctl start vm_autoscale.service` quando la configurazione è pronta)\n- **configura** il YAML: gli host Proxmox da governare (connessione **SSH** con chiave, [mai password nel file](q/come-gestire-i-secrets/)), le VM incluse e le **soglie** di CPU e RAM con minimi e massimi per VM – i limiti sono la tua rete di sicurezza\n- **prerequisiti a caldo**: lo scaling live vuole **NUMA e hotplug** attivi sulle VM – di default ci pensa lui (`auto_configure_hotplug`), ma ricorda [il limite fisico](q/autoscaling-vm-proxmox/): i cambi di core count si completano al riavvio della VM\n- attiva le **notifiche** (Gotify o SMTP) e, se fai hosting, il **billing CSV** che traccia i consumi per la fatturazione\n\nPoi lascia i log a raccontare: qualche giorno di osservazione, un giro di taratura delle soglie, e [le risorse seguono il carico](q/autoscaling-vm-lxc-proxmox/) invece di restare inchiodate alla stima del giorno uno."
+      ]
+    },
+    {
+      "id": "guida-proxxx",
+      "slug": "guida-usare-proxxx",
+      "question": "Come si usa proxxx: installazione e primi comandi",
+      "vertical": "proxmox",
+      "keywords": [
+        "usa proxxx",
+        "usare proxxx",
+        "installazione proxxx",
+        "proxxx describe",
+        "comandi proxxx",
+        "brew proxxx",
+        "proxxx mcp",
+        "proxxx json",
+        "profilo proxxx",
+        "uso proxxx"
+      ],
+      "answers": [
+        "Partire con [proxxx](https://github.com/fabriziosalmi/proxxx) richiede minuti, non pomeriggi:\n\n- **installa**: Homebrew (`brew install fabriziosalmi/proxxx/proxxx`) su macOS e Linux, o i **binari statici** dalle release – musl, senza dipendenze, girano da Alpine a RHEL fino al Raspberry. Nessun agente da mettere sul cluster: parla REST con PVE/PBS e SSH per il resto\n- **collega**: il wizard iniziale chiede endpoint e token API ([permessi minimi](q/principio-del-minimo-privilegio/), non root); con più cluster, i **profili** (`--profile lab`, `--profile prod`) tengono le identità separate\n- **primi comandi**: `proxxx describe` stampa l'intero cluster in una schermata – nodi, guest, storage – ed è già metà del valore; la **TUI** per l'uso interattivo, `--format json` quando [lo script sei tu](q/cos-e-gitops/): output deterministico ed exit code tipizzati fatti per le pipeline\n- **quando fa sul serio**: il **risk gate** pre-flight classifica le operazioni pericolose e il [gate HITL via Telegram](q/come-si-limita-un-agente-ai/) chiede conferma umana prima di toccare la produzione; ogni azione finisce nell'**audit log** con catena HMAC (`proxxx audit verify` per dimostrarne l'integrità)\n- bonus AI: il **server MCP** integrato (25 tool a registro fisso) collega [Claude o Cursor al cluster](q/cos-e-mcp-model-context-protocol/) con gli stessi guardrail\n\n[Documentazione completa](https://fabriziosalmi.github.io/proxxx/), quickstart homelab incluso."
+      ]
+    },
+    {
+      "id": "vm-non-parte",
+      "slug": "vm-non-parte-proxmox",
+      "question": "La VM non parte: i controlli in ordine",
+      "vertical": "proxmox",
+      "keywords": [
+        "vm non parte",
+        "non si avvia",
+        "vm bloccata",
+        "errore avvio vm",
+        "timeout vm",
+        "vm non si accende",
+        "start failed"
+      ],
+      "answers": [
+        "Prima regola: **leggi l'errore vero** – `qm start 101` in shell dice sempre più del bottone della GUI. Poi, in ordine di frequenza:\n\n- **lock residuo**: un backup o una migrazione interrotti lasciano la VM bloccata → `qm unlock 101` (dopo aver verificato che davvero non stia facendo nulla)\n- **storage mancante**: una ISO ancora montata da uno [share di rete](q/montare-nfs-smb-proxmox/) sparito, o lo storage dei dischi offline → stacca la ISO, controlla `pvesm status`\n- **RAM insufficiente**: la somma delle VM accese più [l'ARC di ZFS](q/perche-usare-zfs-su-proxmox/) non lascia posto → libera o ridimensiona\n- **passthrough rotto**: [GPU](q/passthrough-gpu-proxmox/) o [USB](q/passare-un-disco-usb-a-una-vm/) riferiti a hardware cambiato → rimuovi il device e riprova\n- parte ma **niente boot**: ordine di boot senza il disco, o disco [VirtIO](q/cos-e-la-paravirtualizzazione-virtio/) senza driver (Windows) → Options → Boot Order, o scheda SATA temporanea\n\nSe il nodo intero è strano, [guarda prima il quorum](q/nodo-x-rossa-quorum-perso/): metà dei \"non parte\" nei cluster sono in realtà \"non *posso* partire\"."
+      ]
+    },
+    {
+      "id": "quorum-perso",
+      "slug": "nodo-x-rossa-quorum-perso",
+      "question": "Nodo con la X rossa o punto interrogativo: quorum perso",
+      "vertical": "proxmox",
+      "keywords": [
+        "x rossa",
+        "quorum perso",
+        "nodo rosso",
+        "punto interrogativo",
+        "no quorum",
+        "nodo offline gui",
+        "cluster non risponde",
+        "expected"
+      ],
+      "answers": [
+        "La X rossa (o i punti interrogativi grigi su tutto) di solito non significa \"nodo morto\": significa che **il cluster ha perso il [quorum](q/cluster-proxmox-e-quorum/)** e si è messo in sola lettura per proteggersi – le VM che giravano continuano a girare, ma niente start, stop o modifiche.\n\nDiagnosi in due comandi: `pvecm status` (quanti voti ci sono, quanti ne servono) e un occhio a **corosync** (`journalctl -u corosync`): nove volte su dieci è la **rete tra i nodi** – uno switch riavviato, un cavo, un MTU cambiato, o la rete di corosync satura perché [condivisa col traffico di storage](q/dimensionare-un-nodo-proxmox/). Sistemata la rete, il quorum torna da solo.\n\nSe un nodo è morto *davvero* e siete rimasti in pari: il **QDevice** esiste per non trovarsi mai qui. E l'ultima spiaggia – `pvecm expected 1` per sbloccare un nodo superstite – va usata sapendo cosa si sta facendo: con due nodi attivi e separati, quel comando è la ricetta dello **split brain**. Mai come routine, [mai negli script](q/cluster-proxmox-e-quorum/)."
+      ]
+    },
+    {
+      "id": "storage-pieno",
+      "slug": "storage-pieno-liberare-spazio",
+      "question": "Storage pieno su Proxmox: come liberare spazio senza disastri",
+      "vertical": "proxmox",
+      "keywords": [
+        "storage pieno",
+        "spazio esaurito",
+        "disco pieno",
+        "liberare spazio",
+        "local-lvm pieno",
+        "thin pool",
+        "100 per cento disco",
+        "spazio su disco"
+      ],
+      "answers": [
+        "Prima la caccia, poi la pulizia – `df -h`, `zfs list -o space` o `lvs` dicono *dove* è finito lo spazio. I colpevoli abituali, in ordine:\n\n- **snapshot dimenticati**: [snapshot](q/differenza-snapshot-e-backup/) di mesi fa che trattengono gigabyte di blocchi – `qm listsnapshot`/`pct listsnapshot` e potatura\n- **backup locali**: dump accumulati su local senza retention → sposta i backup [su PBS o storage dedicato](q/backup-automatici-verso-pbs/) con prune vero\n- **log e journal**: `journalctl --vacuum-size=200M`, log applicativi nei container\n- dischi di VM **cancellate a metà** o ISO/template mai più usati: `pvesm list <storage>` e confronto con le VM esistenti – si elimina *dal pannello*, mai con `rm` alla cieca in `/var/lib/vz`\n\nL'avvertenza seria: un **thin pool LVM o uno ZFS oltre il ~90%** non è un fastidio estetico – le scritture delle VM cominciano a fallire e [ZFS rallenta vistosamente](q/io-delay-alto-proxmox/). Se sei già al muro: prima la potatura degli snapshot (libera subito), poi `fstrim` dentro le VM con discard attivo, e [monitoraggio con soglie](q/cos-e-proxmox-backup-server/) perché la prossima volta l'allarme arrivi all'80%, non al 100%."
+      ]
+    },
+    {
+      "id": "io-delay",
+      "slug": "io-delay-alto-proxmox",
+      "question": "I/O delay alto su Proxmox: da dove viene?",
+      "vertical": "proxmox",
+      "keywords": [
+        "io delay",
+        "iodelay",
+        "iowait",
+        "disco lento",
+        "tutto lento",
+        "lentezza dischi",
+        "wa alto",
+        "latenza disco",
+        "io delay proxmox",
+        "i o delay",
+        "delay",
+        "delay alto"
+      ],
+      "answers": [
+        "L'**I/O delay** in cima alla GUI è la percentuale di tempo che la CPU passa ad **aspettare i dischi**: se sale, tutto sembra lento anche con CPU scarica. La caccia, dal più probabile:\n\n- **chi sta scrivendo?** `iotop` sull'host: quasi sempre è un [job di backup](q/backup-automatici-verso-pbs/) in orario sbagliato, uno **scrub ZFS** mensile partito in punta di giorno, o una singola VM impazzita (log loop, database senza indici)\n- **hardware sotto pressione**: SSD consumer che esauriscono la cache SLC sotto scrittura sostenuta (partono veloci, crollano dopo minuti – i sintomi da [migrazione](q/migrazione-live-tra-nodi/) o restore lunghi), dischi SMR mascherati da NAS-grade, o un disco che sta *morendo*: `smartctl -a` prima di tutto\n- **configurazione**: VM senza [VirtIO](q/cos-e-la-paravirtualizzazione-virtio/) (emulazione = I/O moltiplicato), cache=none di default dove writeback sarebbe legittimo, [thin pool quasi pieno](q/storage-pieno-liberare-spazio/), ARC ZFS strangolato\n\nLe cure strutturali: separare i piatti – [backup e VM su storage diversi](q/storage-proxmox-lvm-zfs-nfs-ceph/), scrub e backup di notte – e per il quotidiano, **NVMe in mirror**: metà dei problemi di I/O delay si curano in ferramenta."
+      ]
+    },
+    {
+      "id": "migrazione-fallisce",
+      "slug": "migrazione-fallisce-cause",
+      "question": "La migrazione fallisce: cause tipiche",
+      "vertical": "proxmox",
+      "keywords": [
+        "migrazione fallisce",
+        "migration failed",
+        "errore migrazione",
+        "non migra",
+        "migrazione bloccata",
+        "migration aborted"
+      ],
+      "answers": [
+        "L'errore della [migrazione](q/migrazione-live-tra-nodi/) dice quasi sempre la causa – va solo letto. Le solite cinque:\n\n- **risorse locali agganciate**: una ISO montata da storage locale, un [dispositivo USB o una GPU passata](q/passare-un-disco-usb-a-una-vm/) – la VM è inchiodata al ferro finché non li stacchi (Hardware → rimuovi/ejetta, poi riprova)\n- **storage assente sul nodo di destinazione**: il disco vive su uno storage che l'altro nodo non vede → [storage condiviso](q/storage-proxmox-lvm-zfs-nfs-ceph/), oppure `--with-local-disks` per la copia a caldo\n- **CPU type incompatibile**: VM con CPU `host` verso un processore diverso → tipo comune (x86-64-v2/v3) e un riavvio pianificato per applicarlo\n- **RAM insufficiente di là**: il nodo di destinazione deve *contenere* la VM – libera o scegli un altro nodo\n- **rete/quorum ballerini**: migrazioni che si interrompono a metà con cluster instabile → [prima si guarisce il quorum](q/nodo-x-rossa-quorum-perso/), poi si migra; e un lock residuo dopo il fallimento si toglie con `qm unlock`\n\nPer i [container](q/differenza-container-lxc-e-vm/): la migrazione è **a freddo** (restart) – se \"fallisce\" perché la vuoi live, non è un bug, è il design."
+      ]
+    },
+    {
       "id": "certmate",
       "slug": "cos-e-certmate-gestione-certificati-tls",
       "question": "Cos'è CertMate e come gestisce i certificati TLS/SSL?",
