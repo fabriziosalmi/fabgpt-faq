@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Come si ricevono notifiche push self-hosted (ntfy, Gotify)? – FabGPT-FAQ</title>
+<meta name="description" content="Quando self-hosti, ti serve un modo per farti avvisare – backup fallito, servizio giù, [porta aperta](q/mettere-in-sicurezza-ssh/) – senza legarti a un…">
+<link rel="canonical" href="https://fabriziosalmi.github.io/fabgpt-faq/q/notifiche-push-self-hosted-ntfy-gotify/">
+<link rel="stylesheet" href="../../style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Come si ricevono notifiche push self-hosted (ntfy, Gotify)?", "acceptedAnswer": {"@type": "Answer", "text": "Quando self-hosti, ti serve un modo per farti avvisare – backup fallito, servizio giù, [porta aperta](q/mettere-in-sicurezza-ssh/) – senza legarti a un servizio push commerciale. Gli strumenti: ntfy – il più semplice e amato: pubblichi una notifica con una curl a un topic, e l'app (o il browser) la riceve. curl -d \"backup ok\" ntfy.sh/mio-topic e sei operativo; self-hostabile in un container minuscolo per tenere anche i topic in casa Gotify – server + app con token e gestione utenti, un filo più strutturato Apprise – non un server ma una libreria/CLI ponte: un'unica sintassi che spedisce verso 80+ servizi (ntfy, Telegram, email, Slack…) – utile per non riscrivere l'integrazione a ogni cambio Il valore: ogni tuo script, job [cron](q/cron-la-sintassi-spiegata/) o [container](q/cos-e-docker-compose/) può notificarti con una riga, e le notifiche restano dentro la tua infrastruttura. È il collante che rende il [monitoraggio del homelab](q/backup-automatici-verso-pbs/) qualcosa che sai quando si rompe, invece di scoprirlo tardi – lo stesso principio del [monitoraggio esterno di un sito](q/monitorare-siti-web-con-github-actions/), applicato in casa."}}]}</script>
+<style>
+  .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
+  .page h1 { font-size: 26px; line-height: 1.3; margin: 8px 0 20px; }
+  .page .answer a { color: var(--link); }
+  .page .vertical { font-size: 13px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }
+  .page .answer ul { padding-left: 22px; }
+  .page .answer code { background: var(--code-bg); border-radius: 5px; padding: 1px 5px; font-size: 0.9em; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+  .page .ask { display: inline-block; margin-top: 24px; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 9px 18px; text-decoration: none; font-weight: 600; }
+  .page .related { margin-top: 36px; border-top: 1px solid var(--border); padding-top: 18px; }
+  .page .related h2 { font-size: 16px; }
+  .page .related a { color: var(--link); text-decoration: none; }
+  .page .related a:hover { text-decoration: underline; }
+  .page .related li { margin: 6px 0; }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="../../" style="text-decoration:none;color:inherit">
+    <span class="brand-dot">F</span>
+    <span class="brand-name">FabGPT-FAQ</span>
+  </a>
+</header>
+<main class="page">
+  <div class="vertical">Proxmox e self-hosting</div>
+  <h1>Come si ricevono notifiche push self-hosted (ntfy, Gotify)?</h1>
+  <div class="answer"><p>Quando self-hosti, ti serve un modo per farti avvisare – backup fallito, servizio giù, <a href="../mettere-in-sicurezza-ssh/">porta aperta</a> – <strong>senza legarti a un servizio push commerciale</strong>. Gli strumenti:</p><ul><li><strong>ntfy</strong> – il più semplice e amato: pubblichi una notifica con una <code>curl</code> a un <em>topic</em>, e l&#x27;app (o il browser) la riceve. <code>curl -d &quot;backup ok&quot; ntfy.sh/mio-topic</code> e sei operativo; self-hostabile in un container minuscolo per tenere anche i topic in casa</li><li><strong>Gotify</strong> – server + app con token e gestione utenti, un filo più strutturato</li><li><strong>Apprise</strong> – non un server ma una <strong>libreria/CLI ponte</strong>: un&#x27;unica sintassi che spedisce verso 80+ servizi (ntfy, Telegram, email, Slack…) – utile per non riscrivere l&#x27;integrazione a ogni cambio</li></ul><p>Il valore: ogni tuo script, job <a href="../cron-la-sintassi-spiegata/">cron</a> o <a href="../cos-e-docker-compose/">container</a> può notificarti con una riga, e le notifiche restano dentro la <em>tua</em> infrastruttura. È il collante che rende il <a href="../backup-automatici-verso-pbs/">monitoraggio del homelab</a> qualcosa che <em>sai</em> quando si rompe, invece di scoprirlo tardi – lo stesso principio del <a href="../monitorare-siti-web-con-github-actions/">monitoraggio esterno di un sito</a>, applicato in casa.</p></div>
+  <a class="ask" href="../../?q=notifiche-selfhost">Chiedilo a FabGPT-FAQ →</a>
+  <div class="related">
+    <h2>Altre domande</h2>
+    <ul><li><a href="../cos-e-proxmox-ve/">Cos&#x27;è Proxmox VE e perché è così usato?</a></li><li><a href="../differenza-container-lxc-e-vm/">Che differenza c&#x27;è tra container LXC e VM?</a></li><li><a href="../self-hosting-pro-e-contro/">Self-hosting: cosa significa e quando conviene?</a></li><li><a href="../cluster-proxmox-e-quorum/">Come funziona un cluster Proxmox (e cos&#x27;è il quorum)?</a></li><li><a href="../perche-usare-zfs-su-proxmox/">Perché usare ZFS su Proxmox?</a></li><li><a href="../differenza-snapshot-e-backup/">Che differenza c&#x27;è tra snapshot e backup?</a></li></ul>
+  </div>
+</main>
+</body>
+</html>

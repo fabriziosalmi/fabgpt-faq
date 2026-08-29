@@ -345,7 +345,15 @@ non ha pagina propria) sono lavoro, non copertura.
   CNAPP/DevSecOps, AI-agentic security/MCP/guardrail/RAG-sec/AIBOM/observability,
   privacy/deGoogle/immutable-OS/Matrix/kill-switch). Post-B7: 166 covered, 228
   partial, 6 gap.
-- Prossimi giri di massa: convertire i ~228 partial in voci dedicate a blocchi
+- **B8 (mass #2, 34 voci)**: macro-blocco **self-hosting sovrano & privacy** —
+  cloud personale (Nextcloud/Immich/Jellyfin/Vaultwarden/Syncthing), domotica
+  locale (Zigbee/Matter/Zigbee2MQTT/ESPHome/Frigate/Node-RED), backup avanzati
+  (Restic-Borg/DB consistenti), AI self-host (Open WebUI/ChatGPT privato), email
+  indipendente (self-host/MTA-STS-DANE/ARC/Rspamd/alias/PGP-SMIME), privacy &
+  anonimato (Tails-Whonix/VeraCrypt/MAT2/offuscamento-censura), sovranità UE
+  (cloud provider EU/Proton-Tuta/SearXNG/DMA-DSA-DataAct/fediverso), messaggistica
+  sovrana (VoIP/team-chat). Post-B8: 199 covered, 197 partial, 4 gap.
+- Prossimi giri di massa: convertire i ~197 partial in voci dedicate a blocchi
   tematici (ogni giro riesegue `triage.py` per misurare l'avanzamento).
 
 ## Fase 2 – "livello super" (dopo il primo giro di contenuti)

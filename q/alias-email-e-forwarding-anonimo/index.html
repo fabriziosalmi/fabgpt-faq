@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Come si usano gli alias email (SimpleLogin, addy.io)? – FabGPT-FAQ</title>
+<meta name="description" content="Un alias email è un indirizzo-schermo che inoltra alla tua casella vera senza rivelarla: dai amazon@tuodominio ad Amazon, newsletter@ a una newsletter, e la…">
+<link rel="canonical" href="https://fabriziosalmi.github.io/fabgpt-faq/q/alias-email-e-forwarding-anonimo/">
+<link rel="stylesheet" href="../../style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Come si usano gli alias email (SimpleLogin, addy.io)?", "acceptedAnswer": {"@type": "Answer", "text": "Un alias email è un indirizzo-schermo che inoltra alla tua casella vera senza rivelarla: dai amazon@tuodominio ad Amazon, newsletter@ a una newsletter, e la tua email principale resta nascosta. SimpleLogin (di Proton) e addy.io (ex AnonAddy, self-hostabile) automatizzano tutto – generano alias al volo, inoltrano, e permettono di rispondere dall'alias senza smascherarsi. I due superpoteri: igiene anti-tracciamento: un alias diverso per servizio spezza la correlazione del tuo indirizzo tra database di marketing diversi rilevatore di breach: se banca@ inizia a ricevere spam, sai con certezza che è la banca ad aver [perso o rivenduto](q/scoprire-dati-in-un-data-breach/) i tuoi dati – e disattivi quell'alias in un click, chiudendo il rubinetto senza cambiare email È complementare al [routing di Cloudflare](q/email-routing-di-cloudflare/) (che fa forwarding ma senza la gestione ricca degli alias) e agli [alias su dominio proprio](q/self-hostare-un-server-di-posta/). La versione self-hostata (addy.io) tiene anche questo in casa, per chi porta la [sovranità](q/cos-e-la-sovranita-digitale/) fino in fondo. Uno di quegli accorgimenti a costo quasi zero che alzano di molto la tua privacy quotidiana."}}]}</script>
+<style>
+  .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
+  .page h1 { font-size: 26px; line-height: 1.3; margin: 8px 0 20px; }
+  .page .answer a { color: var(--link); }
+  .page .vertical { font-size: 13px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }
+  .page .answer ul { padding-left: 22px; }
+  .page .answer code { background: var(--code-bg); border-radius: 5px; padding: 1px 5px; font-size: 0.9em; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+  .page .ask { display: inline-block; margin-top: 24px; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 9px 18px; text-decoration: none; font-weight: 600; }
+  .page .related { margin-top: 36px; border-top: 1px solid var(--border); padding-top: 18px; }
+  .page .related h2 { font-size: 16px; }
+  .page .related a { color: var(--link); text-decoration: none; }
+  .page .related a:hover { text-decoration: underline; }
+  .page .related li { margin: 6px 0; }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="../../" style="text-decoration:none;color:inherit">
+    <span class="brand-dot">F</span>
+    <span class="brand-name">FabGPT-FAQ</span>
+  </a>
+</header>
+<main class="page">
+  <div class="vertical">Cybersecurity</div>
+  <h1>Come si usano gli alias email (SimpleLogin, addy.io)?</h1>
+  <div class="answer"><p>Un <strong>alias email</strong> è un indirizzo-schermo che inoltra alla tua casella vera senza rivelarla: dai <code>amazon@tuodominio</code> ad Amazon, <code>newsletter@</code> a una newsletter, e la tua email principale resta nascosta. <strong>SimpleLogin</strong> (di Proton) e <strong>addy.io</strong> (ex AnonAddy, self-hostabile) automatizzano tutto – generano alias al volo, inoltrano, e permettono di <strong>rispondere</strong> dall&#x27;alias senza smascherarsi.</p><p>I due superpoteri:</p><ul><li><strong>igiene anti-tracciamento</strong>: un alias diverso per servizio spezza la correlazione del tuo indirizzo tra database di marketing diversi</li><li><strong>rilevatore di breach</strong>: se <code>banca@</code> inizia a ricevere spam, sai <em>con certezza</em> che è la banca ad aver <a href="../scoprire-dati-in-un-data-breach/">perso o rivenduto</a> i tuoi dati – e disattivi quell&#x27;alias in un click, chiudendo il rubinetto senza cambiare email</li></ul><p>È complementare al <a href="../email-routing-di-cloudflare/">routing di Cloudflare</a> (che fa forwarding ma senza la gestione ricca degli alias) e agli <a href="../self-hostare-un-server-di-posta/">alias su dominio proprio</a>. La versione self-hostata (addy.io) tiene anche questo in casa, per chi porta la <a href="../cos-e-la-sovranita-digitale/">sovranità</a> fino in fondo. Uno di quegli accorgimenti a costo quasi zero che alzano di molto la tua privacy quotidiana.</p></div>
+  <a class="ask" href="../../?q=email-alias">Chiedilo a FabGPT-FAQ →</a>
+  <div class="related">
+    <h2>Altre domande</h2>
+    <ul><li><a href="../cos-e-un-waf-web-application-firewall/">Cos&#x27;è un WAF (Web Application Firewall) e a cosa serve?</a></li><li><a href="../cos-e-un-reverse-proxy/">Cos&#x27;è un reverse proxy e a cosa serve?</a></li><li><a href="../come-funziona-lets-encrypt-acme/">Come funziona Let&#x27;s Encrypt e il protocollo ACME?</a></li><li><a href="../certificato-tls-scaduto-cosa-fare/">Certificato TLS scaduto: perché succede e come evitarlo?</a></li><li><a href="../cos-e-un-siem-e-un-soar/">Cos&#x27;è un SIEM e cos&#x27;è un SOAR?</a></li><li><a href="../nis2-chi-deve-adeguarsi-italia/">Chi deve adeguarsi alla NIS2 in Italia e cosa rischia?</a></li></ul>
+  </div>
+</main>
+</body>
+</html>

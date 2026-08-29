@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Come si sostituisce Google Drive/Workspace con Nextcloud? – FabGPT-FAQ</title>
+<meta name="description" content="Nextcloud è il coltellino svizzero del cloud personale: file sync (come Drive/Dropbox), calendario e contatti (CalDAV/CardDAV, come Google), editing…">
+<link rel="canonical" href="https://fabriziosalmi.github.io/fabgpt-faq/q/sostituire-google-drive-con-nextcloud/">
+<link rel="stylesheet" href="../../style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Come si sostituisce Google Drive/Workspace con Nextcloud?", "acceptedAnswer": {"@type": "Answer", "text": "Nextcloud è il coltellino svizzero del cloud personale: file sync (come Drive/Dropbox), calendario e contatti (CalDAV/CardDAV, come Google), editing documenti collaborativo (Collabora/OnlyOffice), foto, note, chat – tutto sul tuo server. È la sostituzione più completa di Google Workspace nel self-hosting. Setup che regge davvero: niente SQLite in produzione (PostgreSQL), Redis per il caching e i lock dei file (senza, i client sync soffrono), e un [reverse proxy con TLS](q/cos-e-un-reverse-proxy/) davanti. La zavorra da conoscere: Nextcloud è pesante (PHP monolitico) e gli aggiornamenti major vanno pianificati – la variante moderna OCIS (ownCloud Infinite Scale, riscritta in Go, architettura a microservizi) è più leggera ma con meno app. Su [Proxmox](q/cos-e-proxmox-ve/) sta in [una VM o LXC](q/differenza-container-lxc-e-vm/) con [Docker Compose](q/cos-e-docker-compose/); [i dati vogliono backup seri](q/backup-3-2-1/) (è il tuo Drive, ora) e l'accesso da fuori passa da [VPN/mesh o reverse proxy con WAF](q/wireguard-e-mesh-vpn/). È [self-hosting](q/self-hosting-pro-e-contro/) allo stato puro: più controllo e [sovranità sui dati](q/cos-e-la-sovranita-digitale/), più manutenzione tua."}}]}</script>
+<style>
+  .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
+  .page h1 { font-size: 26px; line-height: 1.3; margin: 8px 0 20px; }
+  .page .answer a { color: var(--link); }
+  .page .vertical { font-size: 13px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }
+  .page .answer ul { padding-left: 22px; }
+  .page .answer code { background: var(--code-bg); border-radius: 5px; padding: 1px 5px; font-size: 0.9em; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+  .page .ask { display: inline-block; margin-top: 24px; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 9px 18px; text-decoration: none; font-weight: 600; }
+  .page .related { margin-top: 36px; border-top: 1px solid var(--border); padding-top: 18px; }
+  .page .related h2 { font-size: 16px; }
+  .page .related a { color: var(--link); text-decoration: none; }
+  .page .related a:hover { text-decoration: underline; }
+  .page .related li { margin: 6px 0; }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="../../" style="text-decoration:none;color:inherit">
+    <span class="brand-dot">F</span>
+    <span class="brand-name">FabGPT-FAQ</span>
+  </a>
+</header>
+<main class="page">
+  <div class="vertical">Proxmox e self-hosting</div>
+  <h1>Come si sostituisce Google Drive/Workspace con Nextcloud?</h1>
+  <div class="answer"><p><strong>Nextcloud</strong> è il coltellino svizzero del cloud personale: file sync (come Drive/Dropbox), calendario e contatti (CalDAV/CardDAV, come Google), editing documenti collaborativo (Collabora/OnlyOffice), foto, note, chat – tutto sul <em>tuo</em> server. È la sostituzione più completa di Google Workspace nel self-hosting.</p><p>Setup che regge davvero: <strong>niente SQLite in produzione</strong> (PostgreSQL), <strong>Redis</strong> per il caching e i lock dei file (senza, i client sync soffrono), e un <a href="../cos-e-un-reverse-proxy/">reverse proxy con TLS</a> davanti. La zavorra da conoscere: Nextcloud è pesante (PHP monolitico) e gli aggiornamenti major vanno pianificati – la variante moderna <strong>OCIS</strong> (ownCloud Infinite Scale, riscritta in Go, architettura a microservizi) è più leggera ma con meno app.</p><p>Su <a href="../cos-e-proxmox-ve/">Proxmox</a> sta in <a href="../differenza-container-lxc-e-vm/">una VM o LXC</a> con <a href="../cos-e-docker-compose/">Docker Compose</a>; <a href="../backup-3-2-1/">i dati vogliono backup seri</a> (è il tuo Drive, ora) e l&#x27;accesso da fuori passa da <a href="../wireguard-e-mesh-vpn/">VPN/mesh o reverse proxy con WAF</a>. È <a href="../self-hosting-pro-e-contro/">self-hosting</a> allo stato puro: più controllo e <a href="../cos-e-la-sovranita-digitale/">sovranità sui dati</a>, più manutenzione tua.</p></div>
+  <a class="ask" href="../../?q=nextcloud">Chiedilo a FabGPT-FAQ →</a>
+  <div class="related">
+    <h2>Altre domande</h2>
+    <ul><li><a href="../cos-e-proxmox-ve/">Cos&#x27;è Proxmox VE e perché è così usato?</a></li><li><a href="../differenza-container-lxc-e-vm/">Che differenza c&#x27;è tra container LXC e VM?</a></li><li><a href="../self-hosting-pro-e-contro/">Self-hosting: cosa significa e quando conviene?</a></li><li><a href="../cluster-proxmox-e-quorum/">Come funziona un cluster Proxmox (e cos&#x27;è il quorum)?</a></li><li><a href="../perche-usare-zfs-su-proxmox/">Perché usare ZFS su Proxmox?</a></li><li><a href="../differenza-snapshot-e-backup/">Che differenza c&#x27;è tra snapshot e backup?</a></li></ul>
+  </div>
+</main>
+</body>
+</html>

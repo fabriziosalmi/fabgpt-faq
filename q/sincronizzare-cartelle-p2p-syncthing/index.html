@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Come si sincronizzano cartelle in modo cifrato e P2P (Syncthing)? – FabGPT-FAQ</title>
+<meta name="description" content="Syncthing sincronizza cartelle direttamente tra i tuoi dispositivi, peer-to-peer e cifrato, senza un cloud in mezzo: non c&#x27;è un server che conserva i file…">
+<link rel="canonical" href="https://fabriziosalmi.github.io/fabgpt-faq/q/sincronizzare-cartelle-p2p-syncthing/">
+<link rel="stylesheet" href="../../style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Come si sincronizzano cartelle in modo cifrato e P2P (Syncthing)?", "acceptedAnswer": {"@type": "Answer", "text": "Syncthing sincronizza cartelle direttamente tra i tuoi dispositivi, peer-to-peer e cifrato, senza un cloud in mezzo: non c'è un server che conserva i file (nemmeno tuo) – i device si trovano e si scambiano solo i dati, di casa in casa. È la filosofia opposta a Dropbox: niente copia centrale, niente terzo di cui fidarsi. Come funziona: ogni dispositivo ha un ID crittografico, li accoppi tra loro e condividi le cartelle; le modifiche si propagano tra i peer connessi (con versioning dei file, utile contro le cancellazioni accidentali). Gira su Linux, Windows, Mac, Android – e su [un LXC Proxmox](q/differenza-container-lxc-e-vm/) come nodo sempre-acceso che fa da hub. La distinzione da tenere a mente: Syncthing sincronizza, non archivia – se cancelli un file, si cancella (con versioning) ovunque: non sostituisce [un backup vero](q/backup-3-2-1/), lo affianca. Il caso d'uso perfetto: [Vaultwarden](q/password-manager-self-hosted-vaultwarden/), foto dal telefono, documenti di lavoro sincronizzati tra i tuoi computer senza passare da [Google/Dropbox](q/cos-e-la-sovranita-digitale/) – privacy P2P, zero canone."}}]}</script>
+<style>
+  .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
+  .page h1 { font-size: 26px; line-height: 1.3; margin: 8px 0 20px; }
+  .page .answer a { color: var(--link); }
+  .page .vertical { font-size: 13px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }
+  .page .answer ul { padding-left: 22px; }
+  .page .answer code { background: var(--code-bg); border-radius: 5px; padding: 1px 5px; font-size: 0.9em; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+  .page .ask { display: inline-block; margin-top: 24px; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 9px 18px; text-decoration: none; font-weight: 600; }
+  .page .related { margin-top: 36px; border-top: 1px solid var(--border); padding-top: 18px; }
+  .page .related h2 { font-size: 16px; }
+  .page .related a { color: var(--link); text-decoration: none; }
+  .page .related a:hover { text-decoration: underline; }
+  .page .related li { margin: 6px 0; }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="../../" style="text-decoration:none;color:inherit">
+    <span class="brand-dot">F</span>
+    <span class="brand-name">FabGPT-FAQ</span>
+  </a>
+</header>
+<main class="page">
+  <div class="vertical">Proxmox e self-hosting</div>
+  <h1>Come si sincronizzano cartelle in modo cifrato e P2P (Syncthing)?</h1>
+  <div class="answer"><p><strong>Syncthing</strong> sincronizza cartelle <strong>direttamente tra i tuoi dispositivi</strong>, peer-to-peer e cifrato, senza un cloud in mezzo: non c&#x27;è un server che conserva i file (nemmeno tuo) – i device si trovano e si scambiano solo i dati, di casa in casa. È la filosofia opposta a Dropbox: niente copia centrale, niente terzo di cui fidarsi.</p><p>Come funziona: ogni dispositivo ha un <strong>ID crittografico</strong>, li accoppi tra loro e condividi le cartelle; le modifiche si propagano tra i peer connessi (con versioning dei file, utile contro le cancellazioni accidentali). Gira su Linux, Windows, Mac, Android – e su <a href="../differenza-container-lxc-e-vm/">un LXC Proxmox</a> come nodo sempre-acceso che fa da hub.</p><p>La distinzione da tenere a mente: Syncthing <strong>sincronizza, non archivia</strong> – se cancelli un file, si cancella (con versioning) <em>ovunque</em>: non sostituisce <a href="../backup-3-2-1/">un backup vero</a>, lo affianca. Il caso d&#x27;uso perfetto: <a href="../password-manager-self-hosted-vaultwarden/">Vaultwarden</a>, foto dal telefono, documenti di lavoro sincronizzati tra i tuoi computer senza passare da <a href="../cos-e-la-sovranita-digitale/">Google/Dropbox</a> – privacy P2P, zero canone.</p></div>
+  <a class="ask" href="../../?q=syncthing">Chiedilo a FabGPT-FAQ →</a>
+  <div class="related">
+    <h2>Altre domande</h2>
+    <ul><li><a href="../cos-e-proxmox-ve/">Cos&#x27;è Proxmox VE e perché è così usato?</a></li><li><a href="../differenza-container-lxc-e-vm/">Che differenza c&#x27;è tra container LXC e VM?</a></li><li><a href="../self-hosting-pro-e-contro/">Self-hosting: cosa significa e quando conviene?</a></li><li><a href="../cluster-proxmox-e-quorum/">Come funziona un cluster Proxmox (e cos&#x27;è il quorum)?</a></li><li><a href="../perche-usare-zfs-su-proxmox/">Perché usare ZFS su Proxmox?</a></li><li><a href="../differenza-snapshot-e-backup/">Che differenza c&#x27;è tra snapshot e backup?</a></li></ul>
+  </div>
+</main>
+</body>
+</html>

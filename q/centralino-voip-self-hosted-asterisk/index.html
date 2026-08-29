@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Come si self-hosta un centralino VoIP (Asterisk, FreePBX)? – FabGPT-FAQ</title>
+<meta name="description" content="Un centralino VoIP self-hosted dà a un&#x27;azionda o a un progetto la telefonia (numeri interni, IVR, code, registrazioni) senza legarsi a un fornitore cloud…">
+<link rel="canonical" href="https://fabriziosalmi.github.io/fabgpt-faq/q/centralino-voip-self-hosted-asterisk/">
+<link rel="stylesheet" href="../../style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Come si self-hosta un centralino VoIP (Asterisk, FreePBX)?", "acceptedAnswer": {"@type": "Answer", "text": "Un centralino VoIP self-hosted dà a un'azionda o a un progetto la telefonia (numeri interni, IVR, code, registrazioni) senza legarsi a un fornitore cloud proprietario. Asterisk è il motore storico (potentissimo, ma da configurare a mano); FreePBX ne è l'interfaccia web che lo rende gestibile; FusionPBX è un'alternativa multi-tenant. La nota che domina tutto il resto: la telefonia VoIP è un bersaglio costante. Un PBX SIP esposto viene scandagliato in continuazione per rubare l'accesso e generare chiamate fraudolente verso numeri a tariffa premium – conti da migliaia di euro in una notte. Le difese non sono opzionali: SRTP + TLS per cifrare segnalazione e audio (contro l'intercettazione) [fail2ban](q/fail2ban-e-alternative/) sui tentativi SIP, password forti (mai le default), estensioni non prevedibili restrizioni sulle chiamate internazionali/premium per limitare il danno di una compromissione non esporre l'admin: [dietro VPN](q/wireguard-e-mesh-vpn/), e il PBX su una [rete segmentata](q/segmentare-la-rete-con-vlan/) Su [Proxmox](q/cos-e-proxmox-ve/) sta in una VM dedicata. È self-hosting per chi ha esigenze telefoniche reali e sa presidiarne la sicurezza – la comodità si paga in vigilanza, come per [ogni servizio esposto](q/hardening-server-linux/)."}}]}</script>
+<style>
+  .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
+  .page h1 { font-size: 26px; line-height: 1.3; margin: 8px 0 20px; }
+  .page .answer a { color: var(--link); }
+  .page .vertical { font-size: 13px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }
+  .page .answer ul { padding-left: 22px; }
+  .page .answer code { background: var(--code-bg); border-radius: 5px; padding: 1px 5px; font-size: 0.9em; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+  .page .ask { display: inline-block; margin-top: 24px; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 9px 18px; text-decoration: none; font-weight: 600; }
+  .page .related { margin-top: 36px; border-top: 1px solid var(--border); padding-top: 18px; }
+  .page .related h2 { font-size: 16px; }
+  .page .related a { color: var(--link); text-decoration: none; }
+  .page .related a:hover { text-decoration: underline; }
+  .page .related li { margin: 6px 0; }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="../../" style="text-decoration:none;color:inherit">
+    <span class="brand-dot">F</span>
+    <span class="brand-name">FabGPT-FAQ</span>
+  </a>
+</header>
+<main class="page">
+  <div class="vertical">Cybersecurity</div>
+  <h1>Come si self-hosta un centralino VoIP (Asterisk, FreePBX)?</h1>
+  <div class="answer"><p>Un centralino <strong>VoIP self-hosted</strong> dà a un&#x27;azionda o a un progetto la telefonia (numeri interni, IVR, code, registrazioni) senza legarsi a un fornitore cloud proprietario. <strong>Asterisk</strong> è il motore storico (potentissimo, ma da configurare a mano); <strong>FreePBX</strong> ne è l&#x27;interfaccia web che lo rende gestibile; <strong>FusionPBX</strong> è un&#x27;alternativa multi-tenant.</p><p>La nota che domina tutto il resto: <strong>la telefonia VoIP è un bersaglio costante</strong>. Un PBX SIP esposto viene scandagliato in continuazione per rubare l&#x27;accesso e generare <strong>chiamate fraudolente</strong> verso numeri a tariffa premium – conti da migliaia di euro in una notte. Le difese non sono opzionali:</p><ul><li><strong>SRTP + TLS</strong> per cifrare segnalazione e audio (contro l&#x27;intercettazione)</li><li><strong><a href="../fail2ban-e-alternative/">fail2ban</a></strong> sui tentativi SIP, password forti (mai le default), estensioni non prevedibili</li><li><strong>restrizioni sulle chiamate internazionali/premium</strong> per limitare il danno di una compromissione</li><li>non esporre l&#x27;admin: <a href="../wireguard-e-mesh-vpn/">dietro VPN</a>, e il PBX su una <a href="../segmentare-la-rete-con-vlan/">rete segmentata</a></li></ul><p>Su <a href="../cos-e-proxmox-ve/">Proxmox</a> sta in una VM dedicata. È self-hosting per chi ha esigenze telefoniche reali e sa presidiarne la sicurezza – la comodità si paga in vigilanza, come per <a href="../hardening-server-linux/">ogni servizio esposto</a>.</p></div>
+  <a class="ask" href="../../?q=voip-selfhosted">Chiedilo a FabGPT-FAQ →</a>
+  <div class="related">
+    <h2>Altre domande</h2>
+    <ul><li><a href="../cos-e-un-waf-web-application-firewall/">Cos&#x27;è un WAF (Web Application Firewall) e a cosa serve?</a></li><li><a href="../cos-e-un-reverse-proxy/">Cos&#x27;è un reverse proxy e a cosa serve?</a></li><li><a href="../come-funziona-lets-encrypt-acme/">Come funziona Let&#x27;s Encrypt e il protocollo ACME?</a></li><li><a href="../certificato-tls-scaduto-cosa-fare/">Certificato TLS scaduto: perché succede e come evitarlo?</a></li><li><a href="../cos-e-un-siem-e-un-soar/">Cos&#x27;è un SIEM e cos&#x27;è un SOAR?</a></li><li><a href="../nis2-chi-deve-adeguarsi-italia/">Chi deve adeguarsi alla NIS2 in Italia e cosa rischia?</a></li></ul>
+  </div>
+</main>
+</body>
+</html>

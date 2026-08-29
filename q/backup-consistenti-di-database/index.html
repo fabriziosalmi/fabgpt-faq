@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Come si fanno backup consistenti di un database (PostgreSQL, MariaDB)? – FabGPT-FAQ</title>
+<meta name="description" content="Copiare i file di un database mentre gira dà un backup corrotto – la scrittura era a metà. Un backup di database va fatto in modo consistente dal punto di…">
+<link rel="canonical" href="https://fabriziosalmi.github.io/fabgpt-faq/q/backup-consistenti-di-database/">
+<link rel="stylesheet" href="../../style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Come si fanno backup consistenti di un database (PostgreSQL, MariaDB)?", "acceptedAnswer": {"@type": "Answer", "text": "Copiare i file di un database mentre gira dà un backup corrotto – la scrittura era a metà. Un backup di database va fatto in modo consistente dal punto di vista transazionale: dump logico – pg_dump (PostgreSQL) o mysqldump/mariabackup (MariaDB): esporta uno snapshot coerente in SQL. Semplice, portabile, ideale per database piccoli-medi; lo pianifichi in [cron](q/cron-la-sintassi-spiegata/) e ne mandi il risultato al [backup cifrato Restic/Borg](q/backup-cifrati-restic-borg/) backup fisico + WAL – per database grandi o con RPO basso (perdere pochi minuti di dati): pg_basebackup più l'archiviazione dei WAL abilita il point-in-time recovery – tornare a un istante preciso, non solo all'ultima notte La trappola classica del homelab: backuppare il volume di un container database con Restic senza fermarlo – è il file-mentre-gira, incoerente. La via giusta: uno script che fa il dump dentro il container e backuppa il dump, non i file vivi. E vale sempre la regola d'oro: un backup mai ripristinato è una speranza – prova un restore su un database di prova prima di averne bisogno, non dopo. È il pezzo che quasi tutti i tutorial saltano e che il giorno del disastro fa la differenza."}}]}</script>
+<style>
+  .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
+  .page h1 { font-size: 26px; line-height: 1.3; margin: 8px 0 20px; }
+  .page .answer a { color: var(--link); }
+  .page .vertical { font-size: 13px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }
+  .page .answer ul { padding-left: 22px; }
+  .page .answer code { background: var(--code-bg); border-radius: 5px; padding: 1px 5px; font-size: 0.9em; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+  .page .ask { display: inline-block; margin-top: 24px; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 9px 18px; text-decoration: none; font-weight: 600; }
+  .page .related { margin-top: 36px; border-top: 1px solid var(--border); padding-top: 18px; }
+  .page .related h2 { font-size: 16px; }
+  .page .related a { color: var(--link); text-decoration: none; }
+  .page .related a:hover { text-decoration: underline; }
+  .page .related li { margin: 6px 0; }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="../../" style="text-decoration:none;color:inherit">
+    <span class="brand-dot">F</span>
+    <span class="brand-name">FabGPT-FAQ</span>
+  </a>
+</header>
+<main class="page">
+  <div class="vertical">Cybersecurity</div>
+  <h1>Come si fanno backup consistenti di un database (PostgreSQL, MariaDB)?</h1>
+  <div class="answer"><p>Copiare i file di un database <em>mentre gira</em> dà un backup <strong>corrotto</strong> – la scrittura era a metà. Un backup di database va fatto <strong>in modo consistente dal punto di vista transazionale</strong>:</p><ul><li><strong>dump logico</strong> – <code>pg_dump</code> (PostgreSQL) o <code>mysqldump</code>/<code>mariabackup</code> (MariaDB): esporta uno snapshot coerente in SQL. Semplice, portabile, ideale per database piccoli-medi; lo pianifichi in <a href="../cron-la-sintassi-spiegata/">cron</a> e ne mandi il risultato al <a href="../backup-cifrati-restic-borg/">backup cifrato Restic/Borg</a></li><li><strong>backup fisico + WAL</strong> – per database grandi o con <strong>RPO</strong> basso (perdere pochi minuti di dati): <code>pg_basebackup</code> più l&#x27;archiviazione dei <strong>WAL</strong> abilita il <em>point-in-time recovery</em> – tornare a un istante preciso, non solo all&#x27;ultima notte</li></ul><p>La trappola classica del homelab: backuppare il <em>volume</em> di un container database con Restic <strong>senza fermarlo</strong> – è il file-mentre-gira, incoerente. La via giusta: uno script che fa il <strong>dump dentro il container</strong> e backuppa il <em>dump</em>, non i file vivi. E vale sempre la regola d&#x27;oro: un backup mai ripristinato è una speranza – <strong>prova un restore</strong> su un database di prova prima di averne bisogno, non dopo. È il pezzo che quasi tutti i tutorial saltano e che il giorno del disastro fa la differenza.</p></div>
+  <a class="ask" href="../../?q=backup-database">Chiedilo a FabGPT-FAQ →</a>
+  <div class="related">
+    <h2>Altre domande</h2>
+    <ul><li><a href="../cos-e-un-waf-web-application-firewall/">Cos&#x27;è un WAF (Web Application Firewall) e a cosa serve?</a></li><li><a href="../cos-e-un-reverse-proxy/">Cos&#x27;è un reverse proxy e a cosa serve?</a></li><li><a href="../come-funziona-lets-encrypt-acme/">Come funziona Let&#x27;s Encrypt e il protocollo ACME?</a></li><li><a href="../certificato-tls-scaduto-cosa-fare/">Certificato TLS scaduto: perché succede e come evitarlo?</a></li><li><a href="../cos-e-un-siem-e-un-soar/">Cos&#x27;è un SIEM e cos&#x27;è un SOAR?</a></li><li><a href="../nis2-chi-deve-adeguarsi-italia/">Chi deve adeguarsi alla NIS2 in Italia e cosa rischia?</a></li></ul>
+  </div>
+</main>
+</body>
+</html>

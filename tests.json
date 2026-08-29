@@ -1654,5 +1654,145 @@
   {
     "q": "perche il sito è solo in italiano",
     "expect": "st-perche-italiano"
+  },
+  {
+    "q": "sostituire google drive con nextcloud",
+    "expect": "nextcloud"
+  },
+  {
+    "q": "alternativa self-hosted a google foto",
+    "expect": "immich"
+  },
+  {
+    "q": "media server tipo netflix in casa",
+    "expect": "jellyfin"
+  },
+  {
+    "q": "password manager self hosted bitwarden",
+    "expect": "vaultwarden"
+  },
+  {
+    "q": "sincronizzare cartelle senza cloud",
+    "expect": "syncthing"
+  },
+  {
+    "q": "notifiche push self hosted con ntfy",
+    "expect": "notifiche-selfhost"
+  },
+  {
+    "q": "dashboard per i miei servizi self hosted",
+    "expect": "dashboard-selfhost"
+  },
+  {
+    "q": "aggiornare automaticamente i container docker",
+    "expect": "watchtower"
+  },
+  {
+    "q": "interfaccia chat per ollama",
+    "expect": "open-webui"
+  },
+  {
+    "q": "meglio zigbee o matter per la domotica",
+    "expect": "smart-home-protocolli"
+  },
+  {
+    "q": "gestire zigbee con un dongle usb",
+    "expect": "zigbee2mqtt"
+  },
+  {
+    "q": "mettere tasmota su una presa smart",
+    "expect": "esphome-tasmota"
+  },
+  {
+    "q": "videosorveglianza locale con ai",
+    "expect": "frigate"
+  },
+  {
+    "q": "automazioni domotiche con node-red",
+    "expect": "node-red-mqtt"
+  },
+  {
+    "q": "backup cifrato con restic",
+    "expect": "backup-restic-borg"
+  },
+  {
+    "q": "come faccio il backup di postgresql",
+    "expect": "backup-database"
+  },
+  {
+    "q": "dare un chatgpt privato al team",
+    "expect": "open-webui-note"
+  },
+  {
+    "q": "conviene self hostare la posta",
+    "expect": "self-hosted-email"
+  },
+  {
+    "q": "cosa sono mta-sts e dane",
+    "expect": "email-transport-security"
+  },
+  {
+    "q": "cosè arc per le email",
+    "expect": "arc-email"
+  },
+  {
+    "q": "antispam self hosted con rspamd",
+    "expect": "antispam-rspamd"
+  },
+  {
+    "q": "usare alias email con simplelogin",
+    "expect": "email-alias"
+  },
+  {
+    "q": "meglio pgp o smime per cifrare le email",
+    "expect": "pgp-vs-smime"
+  },
+  {
+    "q": "differenza tra tails e whonix",
+    "expect": "tails-whonix"
+  },
+  {
+    "q": "creare un volume cifrato con veracrypt",
+    "expect": "veracrypt"
+  },
+  {
+    "q": "rimuovere i metadati gps dalle foto",
+    "expect": "rimuovere-metadati"
+  },
+  {
+    "q": "aggirare la censura con shadowsocks",
+    "expect": "offuscamento-traffico"
+  },
+  {
+    "q": "cloud provider europeo come hetzner",
+    "expect": "cloud-provider-eu"
+  },
+  {
+    "q": "email cifrata europea proton o tuta",
+    "expect": "email-cifrata-eu"
+  },
+  {
+    "q": "motore di ricerca privato searxng",
+    "expect": "motori-ricerca-privacy"
+  },
+  {
+    "q": "cosa introduce il digital markets act",
+    "expect": "dma-dsa-dataact"
+  },
+  {
+    "q": "cosè il fediverso e mastodon",
+    "expect": "fediverso"
+  },
+  {
+    "q": "self hostare un centralino voip con asterisk",
+    "expect": "voip-selfhosted"
+  },
+  {
+    "q": "chat di team self hosted come mattermost",
+    "expect": "team-chat-selfhost"
+  },
+  {
+    "q": "centralino voip self hosted",
+    "expect": "voip-selfhosted"
   }
 ]

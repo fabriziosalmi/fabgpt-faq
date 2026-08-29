@@ -5386,6 +5386,700 @@
       ]
     },
     {
+      "id": "nextcloud",
+      "slug": "sostituire-google-drive-con-nextcloud",
+      "question": "Come si sostituisce Google Drive/Workspace con Nextcloud?",
+      "vertical": "proxmox",
+      "keywords": [
+        "nextcloud",
+        "google drive alternativa",
+        "cloud personale",
+        "owncloud",
+        "ocis",
+        "sostituire google workspace",
+        "file sync self-hosted",
+        "drive self-hosted",
+        "collaborazione file"
+      ],
+      "answers": [
+        "**Nextcloud** è il coltellino svizzero del cloud personale: file sync (come Drive/Dropbox), calendario e contatti (CalDAV/CardDAV, come Google), editing documenti collaborativo (Collabora/OnlyOffice), foto, note, chat – tutto sul *tuo* server. È la sostituzione più completa di Google Workspace nel self-hosting.\n\nSetup che regge davvero: **niente SQLite in produzione** (PostgreSQL), **Redis** per il caching e i lock dei file (senza, i client sync soffrono), e un [reverse proxy con TLS](q/cos-e-un-reverse-proxy/) davanti. La zavorra da conoscere: Nextcloud è pesante (PHP monolitico) e gli aggiornamenti major vanno pianificati – la variante moderna **OCIS** (ownCloud Infinite Scale, riscritta in Go, architettura a microservizi) è più leggera ma con meno app.\n\nSu [Proxmox](q/cos-e-proxmox-ve/) sta in [una VM o LXC](q/differenza-container-lxc-e-vm/) con [Docker Compose](q/cos-e-docker-compose/); [i dati vogliono backup seri](q/backup-3-2-1/) (è il tuo Drive, ora) e l'accesso da fuori passa da [VPN/mesh o reverse proxy con WAF](q/wireguard-e-mesh-vpn/). È [self-hosting](q/self-hosting-pro-e-contro/) allo stato puro: più controllo e [sovranità sui dati](q/cos-e-la-sovranita-digitale/), più manutenzione tua."
+      ]
+    },
+    {
+      "id": "immich",
+      "slug": "sostituire-google-foto-immich-photoprism",
+      "question": "Come si sostituisce Google Foto (Immich, PhotoPrism)?",
+      "vertical": "proxmox",
+      "keywords": [
+        "immich",
+        "photoprism",
+        "google foto alternativa",
+        "foto self-hosted",
+        "backup foto locale",
+        "riconoscimento facciale locale",
+        "galleria self-hosted",
+        "sostituire google foto"
+      ],
+      "answers": [
+        "Google Foto è comodissimo e sa tutto delle tue foto – il che è esattamente il problema. Le due alternative self-hosted mature:\n\n- **Immich** – l'erede spirituale: app mobile con **backup automatico** (l'unica cosa che la gente vuole davvero), timeline, ricerca semantica e riconoscimento facciale **in locale** (modelli AI sul tuo server, niente cloud), condivisione. In sviluppo rapidissimo, ormai pronto per l'uso quotidiano\n- **PhotoPrism** – più maturo e stabile, ottima organizzazione e tagging AI, app mobile meno centrale\n\nLa scelta pratica: **Immich** se il backup da telefono è la priorità (lo è quasi sempre), PhotoPrism se preferisci stabilità e catalogazione. Entrambi in [Docker Compose](q/cos-e-docker-compose/) su [Proxmox](q/cos-e-proxmox-ve/); l'inferenza AI locale gradisce [un po' di CPU/RAM](q/quanta-ram-vram-serve-per-un-llm/) (GPU opzionale). E il monito che vale doppio qui: le foto di famiglia sono insostituibili – la [regola 3-2-1](q/backup-3-2-1/) con una copia offsite non è un optional, è il motivo per cui te ne stai occupando."
+      ]
+    },
+    {
+      "id": "jellyfin",
+      "slug": "media-server-self-hosted-jellyfin",
+      "question": "Come si fa un media server self-hosted (Jellyfin)?",
+      "vertical": "proxmox",
+      "keywords": [
+        "jellyfin",
+        "media server",
+        "plex alternativa",
+        "streaming casa",
+        "server film",
+        "emby",
+        "transcoding",
+        "netflix personale",
+        "libreria multimediale",
+        "netflix in casa"
+      ],
+      "answers": [
+        "**Jellyfin** è il tuo Netflix personale: organizza film, serie, musica e li trasmette in streaming a ogni schermo di casa (e fuori) con app per TV, telefoni e browser. A differenza di Plex è **completamente libero e senza account cloud** – nessun login a un servizio terzo per vedere i *tuoi* file.\n\nI due dettagli che fanno la differenza:\n\n- **transcoding**: se un client non supporta un formato, Jellyfin lo riconverte al volo – operazione pesante che vive di **accelerazione hardware** (QuickSync Intel, NVENC): su [Proxmox](q/cos-e-proxmox-ve/) significa passare la GPU/iGPU, spesso a [un LXC](q/differenza-container-lxc-e-vm/) via [device passthrough](q/passare-un-disco-usb-a-una-vm/) – un [mini PC con iGPU Intel](q/homelab-a-basso-consumo/) transcodifica più flussi consumando pochi watt\n- **storage**: la libreria vive su [NAS/ZFS](q/storage-proxmox-lvm-zfs-nfs-ceph/), montata nel container\n\nL'accesso da fuori: [mesh VPN](q/wireguard-e-mesh-vpn/) per la famiglia, o [reverse proxy](q/cos-e-un-reverse-proxy/) con attenzione (Jellyfin esposto va tenuto aggiornato). Nell'orbita: gli \"-arr\" per l'automazione della libreria, e per gli audiolibri Audiobookshelf – o, se cerchi solo ascolto, [audiolibri.org](q/audiolibri-gratis-in-italiano/)."
+      ]
+    },
+    {
+      "id": "vaultwarden",
+      "slug": "password-manager-self-hosted-vaultwarden",
+      "question": "Come si self-hosta un password manager (Vaultwarden)?",
+      "vertical": "proxmox",
+      "keywords": [
+        "vaultwarden",
+        "bitwarden self-hosted",
+        "password manager self hosted",
+        "vault personale",
+        "gestore password proprio",
+        "bitwarden_rs",
+        "self host password",
+        "self hosta un password manager"
+      ],
+      "answers": [
+        "**Vaultwarden** è una reimplementazione leggera in Rust del server Bitwarden: gira con pochissime risorse (un container minuscolo), è **compatibile con tutti i client Bitwarden** ufficiali (browser, app, estensioni), e ti dà il tuo [password manager](q/perche-usare-un-password-manager/) completamente in casa – vault cifrato, [TOTP e passkey](q/cosa-sono-le-passkey/), condivisione tra utenti/famiglia, invii a scadenza.\n\nLe regole non negoziabili, perché qui si custodisce *tutto*:\n\n- **HTTPS obbligatorio** – i client rifiutano il vault in chiaro (certificato vero via [reverse proxy](q/cos-e-un-reverse-proxy/))\n- **[MFA](q/cos-e-autenticazione-due-fattori-mfa/) su ogni account** e master password forte: il vault è cifrato lato client, ma l'accesso va blindato\n- **backup cifrati e provati** del database ([Restic/Borg](q/backup-cifrati-restic-borg/)) – perdere il vault è perdere ogni credenziale; la [regola 3-2-1](q/backup-3-2-1/) qui è vitale\n- valuta di **non esporlo a internet**: [mesh VPN](q/wireguard-e-mesh-vpn/) è più che sufficiente per la sincronizzazione\n\nÈ uno dei self-host a più alto rapporto valore/sforzo: elimini la [dipendenza da un servizio cloud](q/cos-e-la-sovranita-digitale/) proprio sul dato più sensibile che hai, restando compatibile con l'ecosistema che già conosci."
+      ]
+    },
+    {
+      "id": "syncthing",
+      "slug": "sincronizzare-cartelle-p2p-syncthing",
+      "question": "Come si sincronizzano cartelle in modo cifrato e P2P (Syncthing)?",
+      "vertical": "proxmox",
+      "keywords": [
+        "syncthing",
+        "sincronizzazione p2p",
+        "sync cartelle",
+        "dropbox alternativa",
+        "sync senza cloud",
+        "peer to peer sync",
+        "sincronizzare senza server",
+        "resilio",
+        "sincronizzare cartelle",
+        "senza cloud"
+      ],
+      "answers": [
+        "**Syncthing** sincronizza cartelle **direttamente tra i tuoi dispositivi**, peer-to-peer e cifrato, senza un cloud in mezzo: non c'è un server che conserva i file (nemmeno tuo) – i device si trovano e si scambiano solo i dati, di casa in casa. È la filosofia opposta a Dropbox: niente copia centrale, niente terzo di cui fidarsi.\n\nCome funziona: ogni dispositivo ha un **ID crittografico**, li accoppi tra loro e condividi le cartelle; le modifiche si propagano tra i peer connessi (con versioning dei file, utile contro le cancellazioni accidentali). Gira su Linux, Windows, Mac, Android – e su [un LXC Proxmox](q/differenza-container-lxc-e-vm/) come nodo sempre-acceso che fa da hub.\n\nLa distinzione da tenere a mente: Syncthing **sincronizza, non archivia** – se cancelli un file, si cancella (con versioning) *ovunque*: non sostituisce [un backup vero](q/backup-3-2-1/), lo affianca. Il caso d'uso perfetto: [Vaultwarden](q/password-manager-self-hosted-vaultwarden/), foto dal telefono, documenti di lavoro sincronizzati tra i tuoi computer senza passare da [Google/Dropbox](q/cos-e-la-sovranita-digitale/) – privacy P2P, zero canone."
+      ]
+    },
+    {
+      "id": "notifiche-selfhost",
+      "slug": "notifiche-push-self-hosted-ntfy-gotify",
+      "question": "Come si ricevono notifiche push self-hosted (ntfy, Gotify)?",
+      "vertical": "proxmox",
+      "keywords": [
+        "ntfy",
+        "gotify",
+        "apprise",
+        "notifiche push",
+        "notifiche self-hosted",
+        "alert push",
+        "notifiche server",
+        "avvisi telegram alternativa",
+        "push casa"
+      ],
+      "answers": [
+        "Quando self-hosti, ti serve un modo per farti avvisare – backup fallito, servizio giù, [porta aperta](q/mettere-in-sicurezza-ssh/) – **senza legarti a un servizio push commerciale**. Gli strumenti:\n\n- **ntfy** – il più semplice e amato: pubblichi una notifica con una `curl` a un *topic*, e l'app (o il browser) la riceve. `curl -d \"backup ok\" ntfy.sh/mio-topic` e sei operativo; self-hostabile in un container minuscolo per tenere anche i topic in casa\n- **Gotify** – server + app con token e gestione utenti, un filo più strutturato\n- **Apprise** – non un server ma una **libreria/CLI ponte**: un'unica sintassi che spedisce verso 80+ servizi (ntfy, Telegram, email, Slack…) – utile per non riscrivere l'integrazione a ogni cambio\n\nIl valore: ogni tuo script, job [cron](q/cron-la-sintassi-spiegata/) o [container](q/cos-e-docker-compose/) può notificarti con una riga, e le notifiche restano dentro la *tua* infrastruttura. È il collante che rende il [monitoraggio del homelab](q/backup-automatici-verso-pbs/) qualcosa che *sai* quando si rompe, invece di scoprirlo tardi – lo stesso principio del [monitoraggio esterno di un sito](q/monitorare-siti-web-con-github-actions/), applicato in casa."
+      ]
+    },
+    {
+      "id": "dashboard-selfhost",
+      "slug": "dashboard-per-servizi-self-hosted",
+      "question": "Come si centralizza l'accesso ai servizi self-hosted (dashboard)?",
+      "vertical": "proxmox",
+      "keywords": [
+        "dashboard",
+        "homepage",
+        "dashy",
+        "homarr",
+        "heimdall",
+        "pagina start",
+        "centralizzare servizi",
+        "cruscotto servizi",
+        "portale self-hosted",
+        "dashboard servizi",
+        "servizi self hosted"
+      ],
+      "answers": [
+        "Quando i servizi self-hosted diventano dieci, ricordarne porte e URL è un incubo. Una **dashboard** fa da portale unico: i link a tutti i servizi in una pagina, spesso con lo **stato in tempo reale** (su/giù) e widget che mostrano metriche (spazio disco, container attivi, download in corso).\n\nLe opzioni:\n\n- **Homepage** – la più amata oggi: configurazione a file YAML (versionabile in [git](q/git-i-comandi-che-usi-davvero/)), si integra con decine di servizi via API per mostrarne lo stato, e legge le etichette dei [container Docker](q/cos-e-docker-compose/) per auto-scoprirli\n- **Dashy** / **Homarr** – più orientate all'interfaccia grafica, configurabili dal browser\n- **Heimdall** – il classico semplice, solo link\n\nÈ zucchero, non sicurezza – ma zucchero che cambia l'esperienza quotidiana del homelab. Il pattern completo: la dashboard come homepage, dietro lo stesso [reverse proxy](q/cos-e-un-reverse-proxy/) dei servizi, raggiungibile via [mesh VPN](q/wireguard-e-mesh-vpn/). Piccola nota di igiene: se mostra stato e link di *tutto*, trattala come [area riservata](q/proteggere-area-admin/) – non è la pagina che vuoi indicizzata o pubblica."
+      ]
+    },
+    {
+      "id": "watchtower",
+      "slug": "aggiornare-automaticamente-i-container",
+      "question": "Come si aggiornano automaticamente i container (Watchtower e alternative)?",
+      "vertical": "proxmox",
+      "keywords": [
+        "watchtower",
+        "aggiornare container",
+        "auto update docker",
+        "renovate",
+        "diun",
+        "aggiornamento immagini",
+        "container aggiornati",
+        "update automatico docker"
+      ],
+      "answers": [
+        "Le immagini [Docker](q/cos-e-docker-compose/) invecchiano e accumulano [CVE](q/cos-e-una-cve-e-il-cvss/): vanno aggiornate. Gli strumenti, con una tensione importante da capire:\n\n- **Watchtower** – controlla e **aggiorna in automatico** i container quando esce una nuova immagine. Comodo... e rischioso: un aggiornamento automatico può rompere un servizio senza preavviso, di notte, mentre dormi. Per i *tuoi* servizi in produzione non è quasi mai la scelta giusta\n- **Diun** – la variante saggia: **ti avvisa** (via [ntfy/Gotify](q/notifiche-push-self-hosted-ntfy-gotify/)) che c'è un aggiornamento, ma aggiorni tu, quando decidi e con backup pronto\n- **Renovate** – per chi tiene i compose [in git](q/cos-e-gitops/): apre pull request con i bump di versione, che rivedi e mergi – il modo più controllato\n\nLa regola d'oro, che vale [l'intera supply chain](q/cos-e-la-supply-chain-security/): **notifica sempre, aggiorna automaticamente solo ciò che puoi permetterti di veder rompere**. E qualunque strada, [pinna le versioni](q/sicurezza-delle-immagini-container/) (mai `:latest` cieco) e tieni un [backup](q/backup-3-2-1/) da cui tornare indietro – l'aggiornamento che rompe capita, la domanda è solo se hai la rete sotto."
+      ]
+    },
+    {
+      "id": "open-webui",
+      "slug": "interfaccia-chat-per-ollama-open-webui",
+      "question": "Come si dà un'interfaccia chat multiutente a Ollama (Open WebUI)?",
+      "vertical": "ai",
+      "keywords": [
+        "open webui",
+        "interfaccia ollama",
+        "chatgpt self-hosted",
+        "ui per llm locale",
+        "chat llm locale",
+        "librechat",
+        "frontend ollama",
+        "chatgpt privato",
+        "llm per il team"
+      ],
+      "answers": [
+        "[Ollama](q/cos-e-ollama/) da solo è un motore con una riga di comando; **Open WebUI** ci mette davanti l'interfaccia che ti aspetti – una chat stile ChatGPT, ma **in casa tua e multiutente**. Ottieni: conversazioni salvate, account e permessi per un team, selezione tra i [modelli locali](q/quanta-ram-vram-serve-per-un-llm/), caricamento documenti con [RAG](q/cos-e-rag-retrieval-augmented-generation/) integrato, prompt salvati.\n\nÈ la mossa che trasforma \"ho un LLM locale\" in \"la mia azienda ha un ChatGPT privato\": i dati non escono, niente canone per utente, e sparisce il problema della [shadow AI](q/cos-e-la-shadow-ai/) – dai alle persone un'alternativa ufficiale più comoda della scorciatoia. Alternative: **LibreChat** (multi-provider, anche API esterne dietro lo stesso pannello).\n\nSetup: un container [Docker](q/cos-e-docker-compose/) che punta all'endpoint Ollama, dietro [reverse proxy con TLS e MFA](q/proteggere-area-admin/). L'hardware è quello dell'inferenza locale ([RAM/VRAM secondo il modello](q/quanta-ram-vram-serve-per-un-llm/); su Mac, [SiliconDev](q/fine-tuning-llm-apple-silicon/) copre anche il fine-tuning). Per un dominio *davvero* ristretto e prevedibile, però, ricorda la lezione di [questo sito](q/risposte-pre-scritte-o-ai/): a volte la risposta migliore non è un LLM, è una FAQ scritta bene."
+      ]
+    },
+    {
+      "id": "smart-home-protocolli",
+      "slug": "protocolli-smart-home-locali-zigbee-matter",
+      "question": "Zigbee, Z-Wave, Matter, Thread: quali protocolli per una smart home locale?",
+      "vertical": "proxmox",
+      "keywords": [
+        "zigbee",
+        "z-wave",
+        "zwave",
+        "matter",
+        "thread",
+        "protocolli smart home",
+        "domotica locale",
+        "wifi domotica",
+        "senza cloud domotica",
+        "standard casa intelligente"
+      ],
+      "answers": [
+        "La regola d'oro della domotica che dura: **niente cloud tra te e la lampadina**. I dispositivi Wi-Fi cloud smettono di funzionare quando il produttore chiude i server (è successo, succederà) e mandano i tuoi dati fuori. I protocolli locali evitano entrambi:\n\n- **Zigbee** – lo standard più diffuso ed economico: mesh a basso consumo, ecosistema enorme, funziona **in locale** con un coordinatore USB e [Home Assistant](q/home-assistant-su-proxmox/)\n- **Z-Wave** – simile, frequenza diversa (meno affollata del Wi-Fi 2.4 GHz), meno dispositivi ma spesso più affidabile su lunghe distanze\n- **Thread + Matter** – il futuro che si sta assestando: **Matter** è lo standard di interoperabilità (dispositivi di marche diverse che si parlano **localmente**), **Thread** è la rete mesh IP sottostante. La promessa è la fine dei silos; la realtà è ancora in maturazione\n\nLa scelta pragmatica oggi: **Zigbee** per il grosso (col coordinatore in [Zigbee2MQTT](q/gestire-zigbee-con-zigbee2mqtt/)), Matter dove già funziona bene. Il cervello locale è [Home Assistant su un mini PC](q/home-assistant-su-proxmox/), e la regola di rete: [le telecamere e l'IoT su una VLAN separata](q/segmentare-la-rete-con-vlan/) senza uscita internet – il device compromesso non deve poter chiamare casa."
+      ]
+    },
+    {
+      "id": "zigbee2mqtt",
+      "slug": "gestire-zigbee-con-zigbee2mqtt",
+      "question": "Come si gestisce Zigbee con un coordinatore USB (Zigbee2MQTT)?",
+      "vertical": "proxmox",
+      "keywords": [
+        "zigbee2mqtt",
+        "coordinatore zigbee",
+        "dongle zigbee",
+        "mqtt",
+        "z2m",
+        "accoppiamento zigbee",
+        "sonoff dongle",
+        "conbee",
+        "controllare zigbee",
+        "gestire zigbee",
+        "dongle usb zigbee"
+      ],
+      "answers": [
+        "**Zigbee2MQTT** (Z2M) è il ponte che rende [Zigbee](q/protocolli-smart-home-locali-zigbee-matter/) **libero dal cloud e indipendente dalla marca del hub**: un **dongle USB coordinatore** (SONOFF, ConBee) collegato al tuo server crea la rete Zigbee, e Z2M espone ogni dispositivo su **MQTT** – il protocollo di messaggistica che [Home Assistant](q/home-assistant-su-proxmox/), [Node-RED](q/automazioni-casa-node-red-mqtt/) e qualsiasi altro sistema possono ascoltare e comandare.\n\nIl valore: **un** coordinatore per *tutte* le marche Zigbee (basta con un hub proprietario per ecosistema), controllo locale totale, e il supporto di un database enorme di dispositivi. Setup: dongle in passthrough alla [VM/LXC](q/passare-un-disco-usb-a-una-vm/) (via *by-id* per un nome stabile), un broker MQTT (Mosquitto) e Z2M in [container](q/cos-e-docker-compose/).\n\nLe accortezze che evitano frustrazione: **posiziona bene il coordinatore** (lontano da fonti di interferenza USB 3, con prolunga se serve – è la causa n°1 di reti instabili), aggiungi qualche dispositivo alimentato a rete come **router mesh** per estendere la copertura, e tieni un backup della configurazione. L'alternativa nativa Home Assistant è ZHA; Z2M vince per compatibilità e indipendenza."
+      ]
+    },
+    {
+      "id": "esphome-tasmota",
+      "slug": "firmware-locale-esphome-tasmota",
+      "question": "Come si mette firmware open source locale su dispositivi smart (ESPHome, Tasmota)?",
+      "vertical": "proxmox",
+      "keywords": [
+        "esphome",
+        "tasmota",
+        "firmware locale",
+        "flash firmware",
+        "esp32",
+        "esp8266",
+        "sonoff flash",
+        "shelly locale",
+        "svincolare dal cloud",
+        "reflash"
+      ],
+      "answers": [
+        "Molti dispositivi smart economici (prese, interruttori, sensori) girano su chip **ESP8266/ESP32** e di fabbrica parlano col cloud del produttore. Sostituendone il firmware con uno **open source e locale** li svincoli per sempre: nessuna chiamata esterna, nessun account, funzionano anche a internet spento.\n\n- **ESPHome** – integrato splendidamente con [Home Assistant](q/home-assistant-su-proxmox/): descrivi il dispositivo in YAML, compili e flashi (anche **over-the-air** dopo il primo flash via cavo), e appare in HA nativamente. La scelta per chi vive in HA\n- **Tasmota** – firmware pronto, configurabile da web UI, parla [MQTT](q/gestire-zigbee-con-zigbee2mqtt/): ottimo per svincolare device commerciali (molti Sonoff) con un flash e via\n\nLe cautele: il flashing via cavo richiede attenzione (piedini, tensioni – si può *brickare* un dispositivo), controlla la compatibilità del modello prima di comprare, e alcuni produttori hanno blindato i chip più recenti. I dispositivi **Shelly** sono la scorciatoia: nascono già con API locale e MQTT, spesso non serve reflashare. Il risultato comune: una casa intelligente che [risponde a te, in locale](q/protocolli-smart-home-locali-zigbee-matter/), immune alla morte dei server altrui – la stessa [sovranità](q/cos-e-la-sovranita-digitale/) applicata alle prese di corrente."
+      ]
+    },
+    {
+      "id": "frigate",
+      "slug": "videosorveglianza-locale-con-ai-frigate",
+      "question": "Come si fa videosorveglianza locale con AI (Frigate)?",
+      "vertical": "proxmox",
+      "keywords": [
+        "frigate",
+        "nvr open source",
+        "videosorveglianza locale",
+        "telecamere ip",
+        "rilevamento oggetti",
+        "coral",
+        "nvr ai",
+        "telecamere senza cloud",
+        "registrazione locale"
+      ],
+      "answers": [
+        "**Frigate** è un NVR (Network Video Recorder) open source che porta il **rilevamento oggetti AI in locale**: invece di registrare 24/7 (e riempire dischi di nulla) o mandare i flussi al cloud di una marca di telecamere, analizza lo stream in tempo reale e registra/allarma **solo quando riconosce** una persona, un'auto, un animale. Si integra nativamente con [Home Assistant](q/home-assistant-su-proxmox/).\n\nLa chiave è l'**accelerazione AI**: l'inferenza continua su più telecamere è pesante per la CPU – un **Google Coral TPU** (USB o M.2, pochi watt) o una [GPU/iGPU](q/passare-un-disco-usb-a-una-vm/) la rendono fluida. Le telecamere devono dare uno stream **RTSP** locale (ONVIF), non essere cloud-only.\n\nLa regola di rete che qui è **obbligatoria**: [le telecamere IP su una VLAN isolata](q/segmentare-la-rete-con-vlan/) **senza uscita internet** – le telecamere cinesi economiche sono note per chiamare casa, e una telecamera è un occhio dentro la tua vita: deve poter parlare *solo* con Frigate. Il risultato: sorveglianza intelligente, registrazioni [sul tuo storage](q/storage-proxmox-lvm-zfs-nfs-ceph/), zero abbonamenti e zero flussi video su server altrui – privacy che, per delle telecamere, non è un dettaglio ma il punto."
+      ]
+    },
+    {
+      "id": "node-red-mqtt",
+      "slug": "automazioni-casa-node-red-mqtt",
+      "question": "Come si fanno automazioni domotiche avanzate (Node-RED, MQTT)?",
+      "vertical": "proxmox",
+      "keywords": [
+        "node-red",
+        "automazioni avanzate",
+        "mqtt broker",
+        "mosquitto",
+        "flow automazioni",
+        "logica domotica",
+        "automazioni complesse casa",
+        "programmazione visuale domotica"
+      ],
+      "answers": [
+        "Le automazioni base le fa [Home Assistant](q/home-assistant-su-proxmox/) da solo; quando la logica diventa complessa (\"se nessuno è in casa da 2 ore E fuori piove E sono le 18, allora...\") molti passano a **Node-RED**: programmazione **visuale a nodi** – trascini blocchi (eventi, condizioni, azioni) e li colleghi in *flow* leggibili, senza scrivere codice ma con potenza da linguaggio vero (temporizzazioni, cicli, chiamate HTTP, stato).\n\nIl collante è **MQTT**: un broker (**Mosquitto**) fa da bus di messaggi dove tutto pubblica e ascolta – [Zigbee2MQTT](q/gestire-zigbee-con-zigbee2mqtt/), [ESPHome](q/firmware-locale-esphome-tasmota/), sensori, Node-RED, Home Assistant. Disaccoppia i pezzi: ognuno parla al bus, non agli altri direttamente – un'architettura pulita che scala.\n\nSetup: Mosquitto e Node-RED in [container](q/cos-e-docker-compose/) accanto a HA, tutto su [un mini PC](q/homelab-a-basso-consumo/). Il principio guida della domotica seria (e la ragione per cui si sceglie il locale): **le automazioni critiche devono funzionare a internet spento** – la luce delle scale non deve dipendere dal cloud di nessuno, e gli interruttori fisici devono sempre restare l'ultima parola. Node-RED aggiunge intelligenza, non fragilità, solo se resta in casa."
+      ]
+    },
+    {
+      "id": "backup-restic-borg",
+      "slug": "backup-cifrati-restic-borg",
+      "question": "Come si fanno backup cifrati e deduplicati (Restic, BorgBackup)?",
+      "vertical": "security",
+      "keywords": [
+        "restic",
+        "borg",
+        "borgbackup",
+        "backup cifrato",
+        "backup deduplicato",
+        "kopia",
+        "borgmatic",
+        "backup incrementale cifrato",
+        "backup su s3"
+      ],
+      "answers": [
+        "Per i file (non le [VM, che vogliono PBS](q/cos-e-proxmox-backup-server/)), lo standard moderno del backup self-hosted è **Restic** o **BorgBackup**: entrambi fanno backup **cifrati lato client, deduplicati e incrementali** – dopo il primo, ogni backup trasferisce solo i blocchi nuovi, e la cifratura avviene *prima* di partire, così la destinazione (anche cloud) vede solo dati illeggibili.\n\n- **Restic** – ama i backend remoti: S3, [storage europeo](q/trasferimento-dati-extra-ue-schrems/) (Hetzner, Scaleway), B2, SFTP – ottimo per la copia **offsite** della [regola 3-2-1](q/backup-3-2-1/)\n- **BorgBackup** – deduplicazione eccellente, storico solido; **Borgmatic** ne è il wrapper che rende dichiarativi job, retention e verifiche\n- **Kopia** – il più giovane, con interfaccia grafica\n\nLe tre cose che rendono un backup *reale* invece che teorico: la **passphrase custodita altrove** (persa la chiave, persi i dati – è cifratura vera, nessun recupero), la **retention** con pruning automatico, e soprattutto il **test di restore periodico** – possibilmente automatizzato ([cron](q/cron-la-sintassi-spiegata/) che ripristina un campione e verifica). Il complemento anti-[ransomware](q/cos-e-un-ransomware/): una destinazione **immutabile/append-only** (Backblaze B2 con object lock, rclone verso storage WORM), così nemmeno un attaccante con le tue chiavi può cancellare la storia."
+      ]
+    },
+    {
+      "id": "backup-database",
+      "slug": "backup-consistenti-di-database",
+      "question": "Come si fanno backup consistenti di un database (PostgreSQL, MariaDB)?",
+      "vertical": "security",
+      "keywords": [
+        "backup database",
+        "backup postgresql",
+        "backup mariadb",
+        "pg_dump",
+        "mysqldump",
+        "dump database",
+        "backup db consistente",
+        "point in time recovery",
+        "wal archiving",
+        "backup postgres",
+        "backup postgres db"
+      ],
+      "answers": [
+        "Copiare i file di un database *mentre gira* dà un backup **corrotto** – la scrittura era a metà. Un backup di database va fatto **in modo consistente dal punto di vista transazionale**:\n\n- **dump logico** – `pg_dump` (PostgreSQL) o `mysqldump`/`mariabackup` (MariaDB): esporta uno snapshot coerente in SQL. Semplice, portabile, ideale per database piccoli-medi; lo pianifichi in [cron](q/cron-la-sintassi-spiegata/) e ne mandi il risultato al [backup cifrato Restic/Borg](q/backup-cifrati-restic-borg/)\n- **backup fisico + WAL** – per database grandi o con **RPO** basso (perdere pochi minuti di dati): `pg_basebackup` più l'archiviazione dei **WAL** abilita il *point-in-time recovery* – tornare a un istante preciso, non solo all'ultima notte\n\nLa trappola classica del homelab: backuppare il *volume* di un container database con Restic **senza fermarlo** – è il file-mentre-gira, incoerente. La via giusta: uno script che fa il **dump dentro il container** e backuppa il *dump*, non i file vivi. E vale sempre la regola d'oro: un backup mai ripristinato è una speranza – **prova un restore** su un database di prova prima di averne bisogno, non dopo. È il pezzo che quasi tutti i tutorial saltano e che il giorno del disastro fa la differenza."
+      ]
+    },
+    {
+      "id": "open-webui-note",
+      "slug": "avviare-un-chatgpt-privato-per-il-team",
+      "question": "Come si dà al team un ChatGPT privato senza far uscire i dati?",
+      "vertical": "ai",
+      "keywords": [
+        "chatgpt privato",
+        "llm per il team",
+        "ai aziendale privata",
+        "chatgpt interno",
+        "assistente ai aziendale",
+        "llm interno azienda",
+        "ai senza far uscire dati",
+        "chat ai in azienda",
+        "chatgpt privato al team",
+        "ai privata team"
+      ],
+      "answers": [
+        "L'esigenza è comune: dare alle persone la comodità di ChatGPT **senza** che contratti, codice e dati dei clienti finiscano su server terzi ([il caso Samsung](q/data-leakage-via-llm/)). Due strade, non alternative:\n\n- **modello locale + interfaccia**: [Ollama](q/cos-e-ollama/) come motore, [Open WebUI](q/interfaccia-chat-per-ollama-open-webui/) come frontend multiutente – i dati non lasciano la tua infrastruttura, zero costo per token, [hardware dimensionato al modello](q/quanta-ram-vram-serve-per-un-llm/). Ideale per i dati davvero sensibili\n- **endpoint gestito con garanzie**: dove serve un modello di frontiera, un piano **business/API con DPA, no-training e residenza UE** ([GDPR normale](q/chatgpt-e-dati-personali-gdpr/)), messo dietro un **punto di controllo unico** con [guardrail e DLP](q/firewall-semantici-e-guardrail-runtime/) – è il ruolo di [llmproxy](q/mettere-in-sicurezza-endpoint-llm/) e [aidlp](q/data-leakage-via-llm/): un solo endpoint da governare, [PII e segreti intercettati](q/data-leakage-via-llm/) prima che partano\n\nQualunque strada, serve anche una [AI policy chiara](q/come-scrivere-una-ai-policy-aziendale/): il canale ufficiale dev'essere **più comodo** della scorciatoia, o la [shadow AI](q/cos-e-la-shadow-ai/) vince. E per le domande *prevedibili e ripetute* (onboarding, FAQ interne), la risposta più economica e affidabile non è un LLM affatto: è [una knowledge base pre-scritta](q/risposte-pre-scritte-o-ai/) – esattamente ciò che stai leggendo."
+      ]
+    },
+    {
+      "id": "self-hosted-email",
+      "slug": "self-hostare-un-server-di-posta",
+      "question": "Conviene self-hostare un server di posta? (e come, con Mailcow)",
+      "vertical": "security",
+      "keywords": [
+        "self-hosted email",
+        "server di posta",
+        "mailcow",
+        "mail-in-a-box",
+        "mailu",
+        "hostare la posta",
+        "email proprio server",
+        "postfix dovecot",
+        "posta in casa"
+      ],
+      "answers": [
+        "La verità che i tutorial nascondono: **self-hostare la posta è il self-hosting più difficile** – non per l'installazione (le suite pronte la rendono fattibile) ma per la **deliverability**. Il mondo della posta è ostile ai nuovi mittenti: un IP residenziale o \"giovane\" viene cestinato da Gmail e Outlook a prescindere, e recuperare reputazione è una battaglia lunga.\n\nSe decidi comunque, la via ragionevole è una **suite integrata** – **Mailcow** (Docker, completa) o **Mailu**, o **Mail-in-a-Box** per la semplicità – che mette insieme Postfix, Dovecot, [antispam](q/antispam-self-hosted-rspamd/) e webmail configurati bene. I requisiti non negoziabili: un **VPS con IP pulito** e possibilità di **reverse DNS (PTR)**, [SPF/DKIM/DMARC](q/spf-dkim-dmarc/) perfetti, e pazienza.\n\nIl consiglio onesto per la maggioranza: **ricezione self-hosted sì, invio via smart host**. Ospiti le caselle, ma l'invio lo instradi attraverso un **relay SMTP** con reputazione gestita ([smart host](q/self-hostare-un-server-di-posta/)) – ottieni il controllo dei dati senza la guerra della deliverability. E per chi vuole solo indirizzi sul proprio dominio senza gestire nulla: [l'email routing di Cloudflare](q/email-routing-di-cloudflare/) inoltra gratis. Il self-host completo ha senso per chi ha volumi, competenza e ragioni di [sovranità](q/cos-e-la-sovranita-digitale/) forti – non è il primo servizio da cui partire."
+      ]
+    },
+    {
+      "id": "email-transport-security",
+      "slug": "mta-sts-dane-e-tls-rpt",
+      "question": "Cosa sono MTA-STS, DANE e TLS-RPT (sicurezza del trasporto email)?",
+      "vertical": "security",
+      "keywords": [
+        "mta-sts",
+        "tlsa",
+        "tls-rpt",
+        "sicurezza trasporto email",
+        "email cifrata in transito",
+        "downgrade email",
+        "starttls stripping",
+        "posta cifrata trasporto",
+        "dane tlsa",
+        "record dane"
+      ],
+      "answers": [
+        "[SPF/DKIM/DMARC](q/spf-dkim-dmarc/) autenticano *chi* invia; questi standard proteggono il *tragitto* della posta tra i server. Il problema che risolvono: lo STARTTLS della posta è opportunistico e **degradabile** – un [man-in-the-middle](q/cos-e-un-attacco-man-in-the-middle/) può forzare il downgrade a testo in chiaro, e la mail viaggia leggibile.\n\n- **MTA-STS** – pubblichi una policy (via HTTPS + un record DNS) che dice ai server mittenti: \"con me, **TLS obbligatorio**, niente downgrade\". Semplice da adottare, si appoggia ai [certificati](q/come-funziona-lets-encrypt-acme/) web\n- **DANE** (record **TLSA**) – lega il certificato del server di posta al DNS, con l'autenticità garantita da [DNSSEC](q/cos-e-dnssec/): più forte di MTA-STS ma **richiede DNSSEC** attivo (il prerequisito che ne frena l'adozione)\n- **TLS-RPT** – i **report** che ti dicono quando una consegna cifrata verso di te è fallita: la visibilità per accorgerti dei problemi\n\nInsieme chiudono lo spazio per l'intercettazione del trasporto. Sono il livello \"avanzato\" della posta: prima si sistemano [autenticazione](q/spf-dkim-dmarc/) e [DMARC in reject](q/dmarc-senza-rompere-la-posta/), poi si irrobustisce il trasporto. [DomainMate](q/monitorare-dominio-ssl-reputazione/) e i validator dedicati verificano che i record ci siano e reggano."
+      ]
+    },
+    {
+      "id": "arc-email",
+      "slug": "cos-e-arc-authenticated-received-chain",
+      "question": "Cos'è ARC (Authenticated Received Chain) e a cosa serve?",
+      "vertical": "security",
+      "keywords": [
+        "arc",
+        "authenticated received chain",
+        "mailing list dmarc",
+        "inoltro rompe dmarc",
+        "forwarding email autenticazione",
+        "email inoltrata fallisce",
+        "arc email",
+        "authenticated received"
+      ],
+      "answers": [
+        "**ARC** risolve un problema fastidioso e comune: quando una mail passa attraverso un **intermediario** – una mailing list, un forwarder – che ne modifica il contenuto (aggiunge un footer, riscrive l'oggetto), le firme [DKIM](q/spf-dkim-dmarc/) originali si rompono, e con [DMARC in reject](q/dmarc-senza-rompere-la-posta/) il messaggio legittimo viene rifiutato. È il motivo per cui le liste e gli inoltri storicamente litigano con DMARC.\n\nARC (Authenticated Received Chain) aggiunge una **catena di firme**: ogni server intermediario che tocca la mail attesta \"quando è arrivata *a me*, l'autenticazione era valida\", firmando il risultato. Il destinatario finale, se si fida della catena ARC, può accettare la mail *anche se* DKIM originale non torna più – perché un attore fidato garantisce che all'origine era autentica.\n\nÈ un tassello che ti riguarda soprattutto se **gestisci una mailing list o un forwarder** (implementare ARC evita di rovinare la deliverability degli iscritti) o se usi [inoltri](q/alias-email-e-forwarding-anonimo/). Come destinatario, i server di posta seri lo valutano già in automatico. Non sostituisce nulla: è il pezzo che fa convivere [DMARC severo](q/dmarc-senza-rompere-la-posta/) con la realtà degli intermediari."
+      ]
+    },
+    {
+      "id": "antispam-rspamd",
+      "slug": "antispam-self-hosted-rspamd",
+      "question": "Come si fa antispam self-hosted (Rspamd)?",
+      "vertical": "security",
+      "keywords": [
+        "rspamd",
+        "antispam",
+        "spamassassin",
+        "filtro spam",
+        "bayesiano",
+        "antispam self hosted",
+        "spam in entrata",
+        "milter",
+        "greylisting"
+      ],
+      "answers": [
+        "Se [self-hosti la posta](q/self-hostare-un-server-di-posta/), l'antispam è la seconda battaglia dopo la deliverability. **Rspamd** è lo standard moderno (ha soppiantato SpamAssassin per prestazioni): valuta ogni mail con un **punteggio** che somma decine di segnali – reputazione del mittente, [autenticazione SPF/DKIM/DMARC](q/spf-dkim-dmarc/), analisi del contenuto, e soprattutto il **filtro bayesiano** che *impara* dal tuo flusso cosa è spam e cosa no.\n\nI meccanismi che funzionano davvero, in ordine di efficacia:\n\n- **greylisting** – rifiuta temporaneamente il primo tentativo da un mittente sconosciuto: i server legittimi ritentano (regola SMTP), gli spammer di massa spesso no. Semplice, brutale, efficace\n- **filtro bayesiano addestrato** – va nutrito con esempi (spam e ham) per calibrarsi sulla tua posta reale\n- reputazione IP/dominio, [blocklist DNS](q/come-bloccare-domini-malevoli/), controllo dei link\n\nSi integra come *milter* con Postfix (di serie nelle suite come [Mailcow](q/self-hostare-un-server-di-posta/)). La lezione trasversale, la stessa della [detection](q/detection-engineering-e-event-id/): il filtro va **tarato sui dati reali** e mantenuto – un antispam troppo aggressivo che cestina le fatture legittime fa più danni dello spam che blocca."
+      ]
+    },
+    {
+      "id": "email-alias",
+      "slug": "alias-email-e-forwarding-anonimo",
+      "question": "Come si usano gli alias email (SimpleLogin, addy.io)?",
+      "vertical": "security",
+      "keywords": [
+        "alias email",
+        "simplelogin",
+        "addy.io",
+        "anonaddy",
+        "email usa e getta",
+        "forwarding anonimo",
+        "email mascherata",
+        "un alias per servizio",
+        "proteggere email principale"
+      ],
+      "answers": [
+        "Un **alias email** è un indirizzo-schermo che inoltra alla tua casella vera senza rivelarla: dai `amazon@tuodominio` ad Amazon, `newsletter@` a una newsletter, e la tua email principale resta nascosta. **SimpleLogin** (di Proton) e **addy.io** (ex AnonAddy, self-hostabile) automatizzano tutto – generano alias al volo, inoltrano, e permettono di **rispondere** dall'alias senza smascherarsi.\n\nI due superpoteri:\n\n- **igiene anti-tracciamento**: un alias diverso per servizio spezza la correlazione del tuo indirizzo tra database di marketing diversi\n- **rilevatore di breach**: se `banca@` inizia a ricevere spam, sai *con certezza* che è la banca ad aver [perso o rivenduto](q/scoprire-dati-in-un-data-breach/) i tuoi dati – e disattivi quell'alias in un click, chiudendo il rubinetto senza cambiare email\n\nÈ complementare al [routing di Cloudflare](q/email-routing-di-cloudflare/) (che fa forwarding ma senza la gestione ricca degli alias) e agli [alias su dominio proprio](q/self-hostare-un-server-di-posta/). La versione self-hostata (addy.io) tiene anche questo in casa, per chi porta la [sovranità](q/cos-e-la-sovranita-digitale/) fino in fondo. Uno di quegli accorgimenti a costo quasi zero che alzano di molto la tua privacy quotidiana."
+      ]
+    },
+    {
+      "id": "pgp-vs-smime",
+      "slug": "pgp-gpg-o-smime-cifrare-le-email",
+      "question": "PGP/GPG o S/MIME: come si cifrano le email davvero (end-to-end)?",
+      "vertical": "security",
+      "keywords": [
+        "pgp",
+        "gpg",
+        "s/mime",
+        "smime",
+        "cifrare email",
+        "email cifrata end to end",
+        "openpgp",
+        "firma email",
+        "posta cifrata contenuto"
+      ],
+      "answers": [
+        "La [sicurezza del trasporto](q/mta-sts-dane-e-tls-rpt/) protegge la mail *tra i server*; per la cifratura **end-to-end** vera (solo mittente e destinatario leggono, il provider no) servono PGP o S/MIME – che cifrano il *contenuto* del messaggio:\n\n- **PGP/GPG** (OpenPGP) – modello decentralizzato: ognuno genera la sua coppia di [chiavi](q/crittografia-simmetrica-e-asimmetrica/) e le scambia direttamente (web of trust). Potente e senza autorità centrale, ma la gestione delle chiavi è notoriamente ostica – è il motivo per cui, dopo trent'anni, non è mai diventato di massa\n- **S/MIME** – usa certificati **X.509** emessi da una CA, come i [certificati web](q/certificato-wildcard-e-san/): più integrato nei client aziendali (Outlook), ma dipendi da una CA e dalla sua gestione\n\nEntrambi cifrano il corpo ma **non i metadati** (mittente, destinatario, oggetto restano visibili) – un limite importante da conoscere. La verità pragmatica del 2026: per la messaggistica cifrata quotidiana, **[Signal/Matrix](q/messaggistica-federata-matrix/) hanno vinto** su PGP proprio per l'usabilità. PGP resta insostituibile per [firmare software e commit](q/come-si-firma-il-codice/) e per casi specifici; per l'email cifrata comoda, i provider come [Proton/Tuta](q/email-cifrata-europea-proton-tuta/) lo fanno sparire sotto il cofano."
+      ]
+    },
+    {
+      "id": "tails-whonix",
+      "slug": "tails-e-whonix-anonimato-operativo",
+      "question": "Tails e Whonix: come si usano per l'anonimato operativo?",
+      "vertical": "security",
+      "keywords": [
+        "tails",
+        "whonix",
+        "sistema amnesico",
+        "anonimato",
+        "tor os",
+        "sistema operativo anonimo",
+        "usb live privacy",
+        "navigazione anonima",
+        "sistema anonimo"
+      ],
+      "answers": [
+        "Due approcci all'anonimato forte via [Tor](q/offuscamento-del-traffico-e-censura/), per esigenze diverse:\n\n- **Tails** – un sistema **amnesico** su chiavetta USB: avvii il computer da lì, tutto il traffico passa da Tor, e **allo spegnimento non resta nulla** (nessuna traccia sul disco, nessuna persistenza salvo volumi cifrati espliciti). È il sistema \"usa e dimentica\": perfetto per usare un computer non tuo, o per non lasciare impronte. Lo usano giornalisti e whistleblower\n- **Whonix** – architettura a **due macchine virtuali**: un *Gateway* che è l'unico a parlare con Tor, e una *Workstation* isolata che può uscire **solo** attraverso il Gateway. Anche se un'applicazione nella Workstation viene compromessa, **non può scoprire il tuo IP reale** – è fisicamente impossibile per come è cablata la rete. Persistente, per un uso continuativo (gira bene [in VM su Proxmox](q/cos-e-proxmox-ve/) o VirtualBox)\n\nLa scelta: **Tails** per il non lasciare tracce su un dispositivo, **Whonix** per un ambiente anonimo persistente e a prova di leak applicativi. Entrambi partono dal presupposto onesto che l'anonimato è **operativo, non un interruttore**: un errore comportamentale (loggarsi in un account personale, scrivere in un forum con il tuo stile) vanifica la migliore architettura. Sono strumenti per chi ha una minaccia reale, non gadget."
+      ]
+    },
+    {
+      "id": "veracrypt",
+      "slug": "cifrare-dati-con-veracrypt",
+      "question": "Come si cifrano i dati con VeraCrypt (e i volumi nascosti)?",
+      "vertical": "security",
+      "keywords": [
+        "veracrypt",
+        "truecrypt",
+        "volume cifrato",
+        "container cifrato",
+        "hidden volume",
+        "plausible deniability",
+        "cifrare chiavetta",
+        "disco cifrato",
+        "volume nascosto"
+      ],
+      "answers": [
+        "**VeraCrypt** (erede di TrueCrypt) crea **volumi cifrati**: un file-contenitore, una partizione o un intero disco che, montato con la password, appare come una normale unità e, smontato, è un blob indistinguibile da dati casuali. Cifratura forte, multipiattaforma, open source e ampiamente auditato – lo standard per la cifratura di file portatili (una chiavetta USB con dentro documenti sensibili).\n\nLa funzione firma è il **volume nascosto**: dentro un volume cifrato se ne annida un secondo, la cui *esistenza* non è dimostrabile. Serve la **plausible deniability** – se sei costretto a rivelare una password, sveli il volume esterno (con dati-esca credibili) mentre quello nascosto resta invisibile e indimostrabile. Difesa contro la coercizione, non contro l'analisi tecnica ordinaria.\n\nDistinzione importante da non confondere: VeraCrypt è per **volumi/file specifici**; per cifrare l'**intero disco di sistema** a riposo la scelta nativa è [LUKS su Linux](q/sicurezza-fisica-dei-server/) o BitLocker – protezione trasparente contro il [furto del dispositivo](q/sicurezza-fisica-dei-server/). Regola trasversale: la cifratura vale quanto la **passphrase** e quanto la sicurezza dell'**endpoint mentre il volume è montato** – a volume aperto, i dati sono in chiaro per chi controlla la macchina."
+      ]
+    },
+    {
+      "id": "rimuovere-metadati",
+      "slug": "rimuovere-metadati-dai-file-mat2",
+      "question": "Come si rimuovono i metadati sensibili dai file (MAT2)?",
+      "vertical": "security",
+      "keywords": [
+        "metadati",
+        "mat2",
+        "exif",
+        "rimuovere exif",
+        "gps foto",
+        "metadata removal",
+        "coordinate foto",
+        "pulire metadati",
+        "anonimizzare documenti"
+      ],
+      "answers": [
+        "Ogni file porta con sé **metadati** che raccontano più di quanto pensi: una foto include le **coordinate GPS** di dove è stata scattata, il modello di fotocamera/telefono, la data; un PDF o un documento Office incorporano autore, software, revisioni, a volte testo cancellato. Pubblicare un file senza ripulirlo è un [leak di privacy](q/gdpr-cosa-serve-a-un-sito-web/) silenzioso – ci sono stati arresti e de-anonimizzazioni proprio così.\n\n**MAT2** (Metadata Anonymisation Toolkit) è lo strumento da riga di comando che li rimuove da decine di formati (immagini, PDF, Office, audio, video): `mat2 foto.jpg` produce una copia pulita. Ha integrazioni nei file manager (Nautilus) e nel [de-Googled mondo](q/smartphone-de-googled-grapheneos/).\n\nLe accortezze: alcuni social **rimuovono già** l'EXIF all'upload (ma non fidarti per default – verifica), la rimozione va fatta **prima** di condividere (una volta caricato, il metadato potrebbe essere già stato letto), e per i documenti attenzione al *contenuto* nascosto (testo bianco su bianco, commenti, celle nascoste) che MAT2 non tocca – quello è revisione umana. È l'igiene di base di chi pubblica: un gesto di due secondi che chiude una delle fughe più comuni e sottovalutate."
+      ]
+    },
+    {
+      "id": "offuscamento-traffico",
+      "slug": "offuscamento-del-traffico-e-censura",
+      "question": "Come si aggira la censura di rete (Shadowsocks, V2Ray, Tor bridges)?",
+      "vertical": "security",
+      "keywords": [
+        "censura",
+        "aggirare censura",
+        "shadowsocks",
+        "v2ray",
+        "xray",
+        "tor bridge",
+        "obfs4",
+        "snowflake",
+        "dpi bypass",
+        "traffico offuscato",
+        "great firewall"
+      ],
+      "answers": [
+        "Nei paesi che censurano la rete, i blocchi non guardano solo *dove* vai ma *come appare* il traffico: la [deep packet inspection](q/ngfw-vs-firewall-stateful/) riconosce e blocca perfino le VPN e Tor. Gli strumenti di **offuscamento** fanno sembrare il traffico controllato del tutto normale:\n\n- **Shadowsocks** – nato apposta per il Great Firewall: un proxy cifrato progettato per **non sembrare** un proxy, difficile da distinguere dal normale HTTPS\n- **V2Ray/Xray** – la generazione successiva, più flessibile: protocolli come **VMess/VLESS** e **trasporti** (WebSocket+TLS, gRPC) che mimetizzano il traffico dentro connessioni web indistinguibili\n- **Tor bridges + pluggable transport** (**obfs4**, **Snowflake**): nodi Tor *non pubblici* con l'aggiunta di trasporti che offuscano il fatto stesso che stai usando Tor – Snowflake usa perfino connessioni WebRTC tramite volontari, difficilissime da bloccare\n\nÈ una **corsa agli armamenti** permanente: i censori affinano la DPI, gli strumenti si adattano. Nota d'uso responsabile: questi strumenti servono la libertà di informazione dove è negata – e vanno usati sapendo che in alcuni contesti il *loro uso* è a rischio. Per il threat model estremo si combinano con [Tails/Whonix](q/tails-e-whonix-anonimato-operativo/): offuscamento per *arrivare* a Tor, sistema amnesico per *non lasciare* tracce."
+      ]
+    },
+    {
+      "id": "cloud-provider-eu",
+      "slug": "cloud-provider-europei-sovrani",
+      "question": "Quali sono i cloud provider europei (alternative a AWS/Google)?",
+      "vertical": "cloudflare",
+      "keywords": [
+        "cloud europeo",
+        "hetzner",
+        "ovh",
+        "scaleway",
+        "provider eu",
+        "cloud sovrano",
+        "alternativa aws",
+        "vps europeo",
+        "data center europa",
+        "infomaniak"
+      ],
+      "answers": [
+        "Per chi vuole [sovranità sui dati](q/cos-e-la-sovranita-digitale/) o semplicemente sfuggire ai costi e al [CLOUD Act](q/trasferimento-dati-extra-ue-schrems/) statunitense, esistono provider **con infrastruttura interamente europea**:\n\n- **Hetzner** (Germania/Finlandia) – il re del rapporto prezzo/prestazioni: server dedicati e cloud a costi che imbarazzano gli iperscaler, ottimo per [self-hosting](q/self-hosting-pro-e-contro/) e [storage di backup](q/backup-cifrati-restic-borg/)\n- **OVHcloud** (Francia) – il più grande europeo, gamma completa dal VPS al bare metal\n- **Scaleway** (Francia) – cloud moderno, [object storage](q/cos-e-r2-egress-gratuito/) e istanze, buona esperienza sviluppatore\n- **Infomaniak** (Svizzera) – forte su privacy, [email](q/email-cifrata-europea-proton-tuta/) e servizi collaborativi green\n\nLa differenza reale rispetto agli iperscaler USA: giurisdizione europea (GDPR nativo, niente esposizione al CLOUD Act) e prezzi spesso molto più bassi per il calcolo grezzo. Il compromesso onesto: l'ecosistema di servizi gestiti \"a un click\" è meno vasto di AWS – ma per un VPS, dello [storage S3](q/backup-cifrati-restic-borg/) o dei server dove far girare [i tuoi container](q/cos-e-docker-compose/), coprono più di quanto la maggioranza usi davvero. Sono le fondamenta su cui poggiano strumenti come [flareover](q/migrare-da-cloudflare-self-hosted-eu/) e [RainLogs](q/conservare-log-cloudflare-nis2-gdpr/): infrastruttura dove la legge che protegge i dati è la stessa che li ospita."
+      ]
+    },
+    {
+      "id": "email-cifrata-eu",
+      "slug": "email-cifrata-europea-proton-tuta",
+      "question": "Come funziona l'email cifrata europea (Proton Mail, Tuta)?",
+      "vertical": "cloudflare",
+      "keywords": [
+        "proton mail",
+        "tuta",
+        "tutanota",
+        "email cifrata",
+        "email privata",
+        "email europea",
+        "posta cifrata provider",
+        "alternativa gmail privacy",
+        "mailbox.org"
+      ],
+      "answers": [
+        "**Proton Mail** (Svizzera) e **Tuta** (ex Tutanota, Germania) offrono email con **cifratura integrata** e sede in giurisdizioni europee forti sulla privacy – l'alternativa a Gmail per chi non vuole che il provider legga la posta né la usi per profilare. Tra utenti dello stesso servizio la posta è [end-to-end](q/pgp-gpg-o-smime-cifrare-le-email/); verso l'esterno c'è cifratura del trasporto e opzioni per messaggi protetti da password.\n\nCosa aspettarsi, senza illusioni:\n\n- la cifratura E2E vale *tra utenti compatibili* o con destinatari che aprono un link protetto; una mail verso un Gmail qualsiasi non diventa magicamente E2E – e i **metadati** (mittente, destinatario, oggetto) restano comunque parzialmente visibili al provider, come in [PGP](q/pgp-gpg-o-smime-cifrare-le-email/)\n- offrono anche calendario, drive e VPN nella stessa orbita (Proton), diventando piccoli ecosistemi sovrani\n- **mailbox.org** e **Posteo** (Germania) sono alternative con standard aperti (IMAP pieno, meno lock-in)\n\nLa scelta rispetto al [self-hosting della posta](q/self-hostare-un-server-di-posta/): questi ti danno privacy e sede UE **senza la guerra della deliverability** – deleghi la parte difficile a chi la fa di mestiere, tenendo garanzie contrattuali e giurisdizione europea. Per la maggioranza è il punto di equilibrio giusto tra [sovranità](q/cos-e-la-sovranita-digitale/) e praticità."
+      ]
+    },
+    {
+      "id": "motori-ricerca-privacy",
+      "slug": "motori-di-ricerca-privati-searxng",
+      "question": "Quali motori di ricerca rispettano la privacy (SearXNG, Brave)?",
+      "vertical": "tools",
+      "keywords": [
+        "motore di ricerca privato",
+        "searxng",
+        "brave search",
+        "qwant",
+        "duckduckgo",
+        "startpage",
+        "ricerca senza tracciamento",
+        "alternativa google search",
+        "metamotore"
+      ],
+      "answers": [
+        "Google Search costruisce un profilo di ogni tua ricerca. Le alternative, in tre categorie:\n\n- **metamotore self-hostabile**: **SearXNG** – aggrega i risultati di decine di motori **senza che nessuno di loro veda te**: fa lui le query e ti restituisce i risultati, niente tracciamento, niente profilo. Su [un LXC](q/differenza-container-lxc-e-vm/) è tuo al 100%. La scelta massima per la [sovranità](q/cos-e-la-sovranita-digitale/)\n- **indici indipendenti**: **Brave Search** (indice proprio, non solo un proxy di Google/Bing) e **Qwant** (europeo, francese) – non dipendono dai risultati altrui\n- **proxy sui grandi**: **DuckDuckGo** e **Startpage** danno i risultati di Bing/Google ma **anonimizzati** – privacy buona, ma la fonte resta a monte\n\nIl compromesso onesto: la qualità dei risultati di Google resta spesso avanti, e alcuni la rimpiangono. Ma per la maggioranza delle ricerche le alternative sono più che sufficienti, e il guadagno di privacy è reale. SearXNG in particolare è uno di quei self-host a basso costo e alto valore, che si integra bene nel resto dell'infrastruttura personale – e, cambiando prospettiva, il posizionamento su questi motori è parte della stessa partita della [visibilità nelle risposte AI](q/cos-e-ai-overview-e-come-finirci/)."
+      ]
+    },
+    {
+      "id": "dma-dsa-dataact",
+      "slug": "dma-dsa-e-data-act-diritti-ue",
+      "question": "Cosa introducono DMA, DSA e Data Act per l'interoperabilità?",
+      "vertical": "security",
+      "keywords": [
+        "dma",
+        "dsa",
+        "data act",
+        "digital markets act",
+        "digital services act",
+        "interoperabilita",
+        "gatekeeper",
+        "portabilita dati",
+        "diritti digitali ue",
+        "big tech regole"
+      ],
+      "answers": [
+        "Il pacchetto di regolamenti UE che sta ridisegnando i rapporti di forza col Big Tech, oltre al [GDPR](q/gdpr-cosa-serve-a-un-sito-web/):\n\n- **DMA** (Digital Markets Act) – prende di mira i **gatekeeper** (le grandi piattaforme) imponendo interoperabilità e libertà di scelta: sideloading delle app, browser e motori di ricerca predefiniti scelti dall'utente, messaggistica interoperabile, stop all'auto-preferenza. È il motivo per cui su iOS in Europa sono comparsi store alternativi e cambiamenti che altrove non ci sono\n- **DSA** (Digital Services Act) – responsabilità delle piattaforme sui contenuti illegali, trasparenza degli algoritmi e della pubblicità, tutele per gli utenti\n- **Data Act** – diritti sui **dati generati** dai dispositivi (IoT in primis): poterli ottenere e trasferire, e regole sul passaggio da un fornitore cloud all'altro (facilitare l'uscita, contro il [lock-in](q/cos-e-la-sovranita-digitale/))\n\nPerché ti riguarda in pratica: rendono più concreti la **portabilità** e l'interoperabilità che il self-hosting e il [fediverso](q/cos-e-il-fediverso-activitypub/) perseguono per via tecnica – la legge che spinge nella stessa direzione della [sovranità digitale](q/cos-e-la-sovranita-digitale/). Per chi *costruisce* servizi digitali, sono obblighi nuovi da conoscere accanto ad [AI Act](q/cosa-prevede-ai-act/), [NIS2](q/nis2-chi-deve-adeguarsi-italia/) e [DORA](q/cos-e-dora-regolamento/)."
+      ]
+    },
+    {
+      "id": "fediverso",
+      "slug": "cos-e-il-fediverso-activitypub",
+      "question": "Cos'è il fediverso (ActivityPub, Mastodon)?",
+      "vertical": "security",
+      "keywords": [
+        "fediverso",
+        "fediverse",
+        "activitypub",
+        "mastodon",
+        "pixelfed",
+        "peertube",
+        "social federato",
+        "social decentralizzato",
+        "alternativa twitter",
+        "istanza mastodon"
+      ],
+      "answers": [
+        "Il **fediverso** è una rete di social **federati e interoperabili**: server indipendenti che, parlando lo stesso protocollo (**ActivityPub**), si scambiano contenuti – come le email, dove utenti di provider diversi si scrivono senza un padrone unico. Ogni **istanza** ha regole e comunità proprie, ma gli utenti seguono e interagiscono attraverso i confini.\n\nI \"pezzi\" del fediverso replicano i social centralizzati senza il loro modello: **Mastodon** (microblogging, come Twitter/X), **PixelFed** (foto, come Instagram), **PeerTube** (video, come YouTube), **Lemmy** (forum, come Reddit) – e si seguono anche *tra* piattaforme diverse.\n\nCosa cambia rispetto a un social centralizzato: nessun algoritmo che massimizza l'engagement a scapito tuo, nessuna azienda che possiede i tuoi dati e può cambiare le regole (o chiudere) da un giorno all'altro, e la possibilità di **ospitare la tua istanza** ([su Proxmox](q/cos-e-proxmox-ve/)) o scegliere quella con i valori che condividi. Il compromesso: niente algoritmo significa che devi costruirti attivamente ciò che segui, e la massa critica è minore. È la stessa logica di [Matrix per la messaggistica](q/messaggistica-federata-matrix/) applicata ai social – decentralizzazione, [sovranità](q/cos-e-la-sovranita-digitale/), interoperabilità che il [Data Act e il DMA](q/dma-dsa-e-data-act-diritti-ue/) spingono anche per legge."
+      ]
+    },
+    {
+      "id": "voip-selfhosted",
+      "slug": "centralino-voip-self-hosted-asterisk",
+      "question": "Come si self-hosta un centralino VoIP (Asterisk, FreePBX)?",
+      "vertical": "security",
+      "keywords": [
+        "voip",
+        "asterisk",
+        "freepbx",
+        "centralino",
+        "pbx",
+        "telefonia self-hosted",
+        "sip",
+        "centralino aziendale",
+        "telefonia ip",
+        "3cx alternativa",
+        "centralino voip",
+        "voip self hosted"
+      ],
+      "answers": [
+        "Un centralino **VoIP self-hosted** dà a un'azionda o a un progetto la telefonia (numeri interni, IVR, code, registrazioni) senza legarsi a un fornitore cloud proprietario. **Asterisk** è il motore storico (potentissimo, ma da configurare a mano); **FreePBX** ne è l'interfaccia web che lo rende gestibile; **FusionPBX** è un'alternativa multi-tenant.\n\nLa nota che domina tutto il resto: **la telefonia VoIP è un bersaglio costante**. Un PBX SIP esposto viene scandagliato in continuazione per rubare l'accesso e generare **chiamate fraudolente** verso numeri a tariffa premium – conti da migliaia di euro in una notte. Le difese non sono opzionali:\n\n- **SRTP + TLS** per cifrare segnalazione e audio (contro l'intercettazione)\n- **[fail2ban](q/fail2ban-e-alternative/)** sui tentativi SIP, password forti (mai le default), estensioni non prevedibili\n- **restrizioni sulle chiamate internazionali/premium** per limitare il danno di una compromissione\n- non esporre l'admin: [dietro VPN](q/wireguard-e-mesh-vpn/), e il PBX su una [rete segmentata](q/segmentare-la-rete-con-vlan/)\n\nSu [Proxmox](q/cos-e-proxmox-ve/) sta in una VM dedicata. È self-hosting per chi ha esigenze telefoniche reali e sa presidiarne la sicurezza – la comodità si paga in vigilanza, come per [ogni servizio esposto](q/hardening-server-linux/)."
+      ]
+    },
+    {
+      "id": "team-chat-selfhost",
+      "slug": "chat-di-team-self-hosted-mattermost",
+      "question": "Come si self-hosta una chat di team (Mattermost, Zulip)?",
+      "vertical": "security",
+      "keywords": [
+        "mattermost",
+        "zulip",
+        "rocket.chat",
+        "chat team self hosted",
+        "slack alternativa self hosted",
+        "chat aziendale interna",
+        "messaggistica team",
+        "slack self hosted"
+      ],
+      "answers": [
+        "Per la collaborazione di un team senza mandare le conversazioni sui server di Slack/Teams, le opzioni self-hosted mature:\n\n- **Mattermost** – il sostituto più diretto di Slack: canali, thread, integrazioni, app desktop/mobile. Familiare a chiunque venga da Slack, solido, con edizione open source generosa\n- **Zulip** – modello a **conversazioni per argomento** (topic dentro i canali): sembra insolito all'inizio, ma per team asincroni e discussioni che non si perdono nel flusso è spesso *migliore* di Slack, non solo un clone\n- **Rocket.Chat** – molto configurabile, funzionalità ampie\n\nSono cose diverse da [Matrix](q/messaggistica-federata-matrix/): questi sono chat di team **centralizzate self-hosted** (un server, la tua organizzazione), Matrix è **federato** (server che si parlano tra organizzazioni). Per la chat *interna* di un'azienda, Mattermost/Zulip sono spesso più pratici; per federare con l'esterno, Matrix.\n\nSetup: [Docker Compose](q/cos-e-docker-compose/) su [Proxmox](q/cos-e-proxmox-ve/), PostgreSQL, [reverse proxy con TLS](q/cos-e-un-reverse-proxy/), [backup del database](q/backup-consistenti-di-database/) (ci sono le conversazioni del team). Il valore è lo stesso di tutto questo blocco: i dati della collaborazione restano tuoi, [nessun canone per utente, nessuna dipendenza](q/self-hosting-pro-e-contro/) da un fornitore che può cambiare prezzi o regole – al prezzo della manutenzione."
+      ]
+    },
+    {
       "id": "vm-non-parte",
       "slug": "vm-non-parte-proxmox",
       "question": "La VM non parte: i controlli in ordine",

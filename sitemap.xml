@@ -288,6 +288,40 @@
   <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/messaggistica-federata-matrix/</loc></url>
   <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/business-impact-analysis-bia/</loc></url>
   <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/gestione-delle-vulnerabilita-piattaforme/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/sostituire-google-drive-con-nextcloud/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/sostituire-google-foto-immich-photoprism/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/media-server-self-hosted-jellyfin/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/password-manager-self-hosted-vaultwarden/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/sincronizzare-cartelle-p2p-syncthing/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/notifiche-push-self-hosted-ntfy-gotify/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/dashboard-per-servizi-self-hosted/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/aggiornare-automaticamente-i-container/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/interfaccia-chat-per-ollama-open-webui/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/protocolli-smart-home-locali-zigbee-matter/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/gestire-zigbee-con-zigbee2mqtt/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/firmware-locale-esphome-tasmota/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/videosorveglianza-locale-con-ai-frigate/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/automazioni-casa-node-red-mqtt/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/backup-cifrati-restic-borg/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/backup-consistenti-di-database/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/avviare-un-chatgpt-privato-per-il-team/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/self-hostare-un-server-di-posta/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/mta-sts-dane-e-tls-rpt/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-arc-authenticated-received-chain/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/antispam-self-hosted-rspamd/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/alias-email-e-forwarding-anonimo/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/pgp-gpg-o-smime-cifrare-le-email/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/tails-e-whonix-anonimato-operativo/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/cifrare-dati-con-veracrypt/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/rimuovere-metadati-dai-file-mat2/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/offuscamento-del-traffico-e-censura/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/cloud-provider-europei-sovrani/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/email-cifrata-europea-proton-tuta/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/motori-di-ricerca-privati-searxng/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/dma-dsa-e-data-act-diritti-ue/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-il-fediverso-activitypub/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/centralino-voip-self-hosted-asterisk/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/chat-di-team-self-hosted-mattermost/</loc></url>
   <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/vm-non-parte-proxmox/</loc></url>
   <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/nodo-x-rossa-quorum-perso/</loc></url>
   <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/storage-pieno-liberare-spazio/</loc></url>

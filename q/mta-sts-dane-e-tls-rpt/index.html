@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cosa sono MTA-STS, DANE e TLS-RPT (sicurezza del trasporto email)? – FabGPT-FAQ</title>
+<meta name="description" content="[SPF/DKIM/DMARC](q/spf-dkim-dmarc/) autenticano chi invia; questi standard proteggono il tragitto della posta tra i server. Il problema che risolvono: lo…">
+<link rel="canonical" href="https://fabriziosalmi.github.io/fabgpt-faq/q/mta-sts-dane-e-tls-rpt/">
+<link rel="stylesheet" href="../../style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Cosa sono MTA-STS, DANE e TLS-RPT (sicurezza del trasporto email)?", "acceptedAnswer": {"@type": "Answer", "text": "[SPF/DKIM/DMARC](q/spf-dkim-dmarc/) autenticano chi invia; questi standard proteggono il tragitto della posta tra i server. Il problema che risolvono: lo STARTTLS della posta è opportunistico e degradabile – un [man-in-the-middle](q/cos-e-un-attacco-man-in-the-middle/) può forzare il downgrade a testo in chiaro, e la mail viaggia leggibile. MTA-STS – pubblichi una policy (via HTTPS + un record DNS) che dice ai server mittenti: \"con me, TLS obbligatorio, niente downgrade\". Semplice da adottare, si appoggia ai [certificati](q/come-funziona-lets-encrypt-acme/) web DANE (record TLSA) – lega il certificato del server di posta al DNS, con l'autenticità garantita da [DNSSEC](q/cos-e-dnssec/): più forte di MTA-STS ma richiede DNSSEC attivo (il prerequisito che ne frena l'adozione) TLS-RPT – i report che ti dicono quando una consegna cifrata verso di te è fallita: la visibilità per accorgerti dei problemi Insieme chiudono lo spazio per l'intercettazione del trasporto. Sono il livello \"avanzato\" della posta: prima si sistemano [autenticazione](q/spf-dkim-dmarc/) e [DMARC in reject](q/dmarc-senza-rompere-la-posta/), poi si irrobustisce il trasporto. [DomainMate](q/monitorare-dominio-ssl-reputazione/) e i validator dedicati verificano che i record ci siano e reggano."}}]}</script>
+<style>
+  .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
+  .page h1 { font-size: 26px; line-height: 1.3; margin: 8px 0 20px; }
+  .page .answer a { color: var(--link); }
+  .page .vertical { font-size: 13px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }
+  .page .answer ul { padding-left: 22px; }
+  .page .answer code { background: var(--code-bg); border-radius: 5px; padding: 1px 5px; font-size: 0.9em; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+  .page .ask { display: inline-block; margin-top: 24px; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 9px 18px; text-decoration: none; font-weight: 600; }
+  .page .related { margin-top: 36px; border-top: 1px solid var(--border); padding-top: 18px; }
+  .page .related h2 { font-size: 16px; }
+  .page .related a { color: var(--link); text-decoration: none; }
+  .page .related a:hover { text-decoration: underline; }
+  .page .related li { margin: 6px 0; }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="../../" style="text-decoration:none;color:inherit">
+    <span class="brand-dot">F</span>
+    <span class="brand-name">FabGPT-FAQ</span>
+  </a>
+</header>
+<main class="page">
+  <div class="vertical">Cybersecurity</div>
+  <h1>Cosa sono MTA-STS, DANE e TLS-RPT (sicurezza del trasporto email)?</h1>
+  <div class="answer"><p><a href="../spf-dkim-dmarc/">SPF/DKIM/DMARC</a> autenticano <em>chi</em> invia; questi standard proteggono il <em>tragitto</em> della posta tra i server. Il problema che risolvono: lo STARTTLS della posta è opportunistico e <strong>degradabile</strong> – un <a href="../cos-e-un-attacco-man-in-the-middle/">man-in-the-middle</a> può forzare il downgrade a testo in chiaro, e la mail viaggia leggibile.</p><ul><li><strong>MTA-STS</strong> – pubblichi una policy (via HTTPS + un record DNS) che dice ai server mittenti: &quot;con me, <strong>TLS obbligatorio</strong>, niente downgrade&quot;. Semplice da adottare, si appoggia ai <a href="../come-funziona-lets-encrypt-acme/">certificati</a> web</li><li><strong>DANE</strong> (record <strong>TLSA</strong>) – lega il certificato del server di posta al DNS, con l&#x27;autenticità garantita da <a href="../cos-e-dnssec/">DNSSEC</a>: più forte di MTA-STS ma <strong>richiede DNSSEC</strong> attivo (il prerequisito che ne frena l&#x27;adozione)</li><li><strong>TLS-RPT</strong> – i <strong>report</strong> che ti dicono quando una consegna cifrata verso di te è fallita: la visibilità per accorgerti dei problemi</li></ul><p>Insieme chiudono lo spazio per l&#x27;intercettazione del trasporto. Sono il livello &quot;avanzato&quot; della posta: prima si sistemano <a href="../spf-dkim-dmarc/">autenticazione</a> e <a href="../dmarc-senza-rompere-la-posta/">DMARC in reject</a>, poi si irrobustisce il trasporto. <a href="../monitorare-dominio-ssl-reputazione/">DomainMate</a> e i validator dedicati verificano che i record ci siano e reggano.</p></div>
+  <a class="ask" href="../../?q=email-transport-security">Chiedilo a FabGPT-FAQ →</a>
+  <div class="related">
+    <h2>Altre domande</h2>
+    <ul><li><a href="../cos-e-un-waf-web-application-firewall/">Cos&#x27;è un WAF (Web Application Firewall) e a cosa serve?</a></li><li><a href="../cos-e-un-reverse-proxy/">Cos&#x27;è un reverse proxy e a cosa serve?</a></li><li><a href="../come-funziona-lets-encrypt-acme/">Come funziona Let&#x27;s Encrypt e il protocollo ACME?</a></li><li><a href="../certificato-tls-scaduto-cosa-fare/">Certificato TLS scaduto: perché succede e come evitarlo?</a></li><li><a href="../cos-e-un-siem-e-un-soar/">Cos&#x27;è un SIEM e cos&#x27;è un SOAR?</a></li><li><a href="../nis2-chi-deve-adeguarsi-italia/">Chi deve adeguarsi alla NIS2 in Italia e cosa rischia?</a></li></ul>
+  </div>
+</main>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tails e Whonix: come si usano per l&#x27;anonimato operativo? – FabGPT-FAQ</title>
+<meta name="description" content="Due approcci all&#x27;anonimato forte via [Tor](q/offuscamento-del-traffico-e-censura/), per esigenze diverse: Tails – un sistema amnesico su chiavetta USB:…">
+<link rel="canonical" href="https://fabriziosalmi.github.io/fabgpt-faq/q/tails-e-whonix-anonimato-operativo/">
+<link rel="stylesheet" href="../../style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Tails e Whonix: come si usano per l'anonimato operativo?", "acceptedAnswer": {"@type": "Answer", "text": "Due approcci all'anonimato forte via [Tor](q/offuscamento-del-traffico-e-censura/), per esigenze diverse: Tails – un sistema amnesico su chiavetta USB: avvii il computer da lì, tutto il traffico passa da Tor, e allo spegnimento non resta nulla (nessuna traccia sul disco, nessuna persistenza salvo volumi cifrati espliciti). È il sistema \"usa e dimentica\": perfetto per usare un computer non tuo, o per non lasciare impronte. Lo usano giornalisti e whistleblower Whonix – architettura a due macchine virtuali: un Gateway che è l'unico a parlare con Tor, e una Workstation isolata che può uscire solo attraverso il Gateway. Anche se un'applicazione nella Workstation viene compromessa, non può scoprire il tuo IP reale – è fisicamente impossibile per come è cablata la rete. Persistente, per un uso continuativo (gira bene [in VM su Proxmox](q/cos-e-proxmox-ve/) o VirtualBox) La scelta: Tails per il non lasciare tracce su un dispositivo, Whonix per un ambiente anonimo persistente e a prova di leak applicativi. Entrambi partono dal presupposto onesto che l'anonimato è operativo, non un interruttore: un errore comportamentale (loggarsi in un account personale, scrivere in un forum con il tuo stile) vanifica la migliore architettura. Sono strumenti per chi ha una minaccia reale, non gadget."}}]}</script>
+<style>
+  .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
+  .page h1 { font-size: 26px; line-height: 1.3; margin: 8px 0 20px; }
+  .page .answer a { color: var(--link); }
+  .page .vertical { font-size: 13px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }
+  .page .answer ul { padding-left: 22px; }
+  .page .answer code { background: var(--code-bg); border-radius: 5px; padding: 1px 5px; font-size: 0.9em; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+  .page .ask { display: inline-block; margin-top: 24px; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 9px 18px; text-decoration: none; font-weight: 600; }
+  .page .related { margin-top: 36px; border-top: 1px solid var(--border); padding-top: 18px; }
+  .page .related h2 { font-size: 16px; }
+  .page .related a { color: var(--link); text-decoration: none; }
+  .page .related a:hover { text-decoration: underline; }
+  .page .related li { margin: 6px 0; }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="../../" style="text-decoration:none;color:inherit">
+    <span class="brand-dot">F</span>
+    <span class="brand-name">FabGPT-FAQ</span>
+  </a>
+</header>
+<main class="page">
+  <div class="vertical">Cybersecurity</div>
+  <h1>Tails e Whonix: come si usano per l&#x27;anonimato operativo?</h1>
+  <div class="answer"><p>Due approcci all&#x27;anonimato forte via <a href="../offuscamento-del-traffico-e-censura/">Tor</a>, per esigenze diverse:</p><ul><li><strong>Tails</strong> – un sistema <strong>amnesico</strong> su chiavetta USB: avvii il computer da lì, tutto il traffico passa da Tor, e <strong>allo spegnimento non resta nulla</strong> (nessuna traccia sul disco, nessuna persistenza salvo volumi cifrati espliciti). È il sistema &quot;usa e dimentica&quot;: perfetto per usare un computer non tuo, o per non lasciare impronte. Lo usano giornalisti e whistleblower</li><li><strong>Whonix</strong> – architettura a <strong>due macchine virtuali</strong>: un <em>Gateway</em> che è l&#x27;unico a parlare con Tor, e una <em>Workstation</em> isolata che può uscire <strong>solo</strong> attraverso il Gateway. Anche se un&#x27;applicazione nella Workstation viene compromessa, <strong>non può scoprire il tuo IP reale</strong> – è fisicamente impossibile per come è cablata la rete. Persistente, per un uso continuativo (gira bene <a href="../cos-e-proxmox-ve/">in VM su Proxmox</a> o VirtualBox)</li></ul><p>La scelta: <strong>Tails</strong> per il non lasciare tracce su un dispositivo, <strong>Whonix</strong> per un ambiente anonimo persistente e a prova di leak applicativi. Entrambi partono dal presupposto onesto che l&#x27;anonimato è <strong>operativo, non un interruttore</strong>: un errore comportamentale (loggarsi in un account personale, scrivere in un forum con il tuo stile) vanifica la migliore architettura. Sono strumenti per chi ha una minaccia reale, non gadget.</p></div>
+  <a class="ask" href="../../?q=tails-whonix">Chiedilo a FabGPT-FAQ →</a>
+  <div class="related">
+    <h2>Altre domande</h2>
+    <ul><li><a href="../cos-e-un-waf-web-application-firewall/">Cos&#x27;è un WAF (Web Application Firewall) e a cosa serve?</a></li><li><a href="../cos-e-un-reverse-proxy/">Cos&#x27;è un reverse proxy e a cosa serve?</a></li><li><a href="../come-funziona-lets-encrypt-acme/">Come funziona Let&#x27;s Encrypt e il protocollo ACME?</a></li><li><a href="../certificato-tls-scaduto-cosa-fare/">Certificato TLS scaduto: perché succede e come evitarlo?</a></li><li><a href="../cos-e-un-siem-e-un-soar/">Cos&#x27;è un SIEM e cos&#x27;è un SOAR?</a></li><li><a href="../nis2-chi-deve-adeguarsi-italia/">Chi deve adeguarsi alla NIS2 in Italia e cosa rischia?</a></li></ul>
+  </div>
+</main>
+</body>
+</html>

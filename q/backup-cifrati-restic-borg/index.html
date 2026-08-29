@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Come si fanno backup cifrati e deduplicati (Restic, BorgBackup)? – FabGPT-FAQ</title>
+<meta name="description" content="Per i file (non le [VM, che vogliono PBS](q/cos-e-proxmox-backup-server/)), lo standard moderno del backup self-hosted è Restic o BorgBackup: entrambi fanno…">
+<link rel="canonical" href="https://fabriziosalmi.github.io/fabgpt-faq/q/backup-cifrati-restic-borg/">
+<link rel="stylesheet" href="../../style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Come si fanno backup cifrati e deduplicati (Restic, BorgBackup)?", "acceptedAnswer": {"@type": "Answer", "text": "Per i file (non le [VM, che vogliono PBS](q/cos-e-proxmox-backup-server/)), lo standard moderno del backup self-hosted è Restic o BorgBackup: entrambi fanno backup cifrati lato client, deduplicati e incrementali – dopo il primo, ogni backup trasferisce solo i blocchi nuovi, e la cifratura avviene prima di partire, così la destinazione (anche cloud) vede solo dati illeggibili. Restic – ama i backend remoti: S3, [storage europeo](q/trasferimento-dati-extra-ue-schrems/) (Hetzner, Scaleway), B2, SFTP – ottimo per la copia offsite della [regola 3-2-1](q/backup-3-2-1/) BorgBackup – deduplicazione eccellente, storico solido; Borgmatic ne è il wrapper che rende dichiarativi job, retention e verifiche Kopia – il più giovane, con interfaccia grafica Le tre cose che rendono un backup reale invece che teorico: la passphrase custodita altrove (persa la chiave, persi i dati – è cifratura vera, nessun recupero), la retention con pruning automatico, e soprattutto il test di restore periodico – possibilmente automatizzato ([cron](q/cron-la-sintassi-spiegata/) che ripristina un campione e verifica). Il complemento anti-[ransomware](q/cos-e-un-ransomware/): una destinazione immutabile/append-only (Backblaze B2 con object lock, rclone verso storage WORM), così nemmeno un attaccante con le tue chiavi può cancellare la storia."}}]}</script>
+<style>
+  .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
+  .page h1 { font-size: 26px; line-height: 1.3; margin: 8px 0 20px; }
+  .page .answer a { color: var(--link); }
+  .page .vertical { font-size: 13px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }
+  .page .answer ul { padding-left: 22px; }
+  .page .answer code { background: var(--code-bg); border-radius: 5px; padding: 1px 5px; font-size: 0.9em; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+  .page .ask { display: inline-block; margin-top: 24px; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 9px 18px; text-decoration: none; font-weight: 600; }
+  .page .related { margin-top: 36px; border-top: 1px solid var(--border); padding-top: 18px; }
+  .page .related h2 { font-size: 16px; }
+  .page .related a { color: var(--link); text-decoration: none; }
+  .page .related a:hover { text-decoration: underline; }
+  .page .related li { margin: 6px 0; }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="../../" style="text-decoration:none;color:inherit">
+    <span class="brand-dot">F</span>
+    <span class="brand-name">FabGPT-FAQ</span>
+  </a>
+</header>
+<main class="page">
+  <div class="vertical">Cybersecurity</div>
+  <h1>Come si fanno backup cifrati e deduplicati (Restic, BorgBackup)?</h1>
+  <div class="answer"><p>Per i file (non le <a href="../cos-e-proxmox-backup-server/">VM, che vogliono PBS</a>), lo standard moderno del backup self-hosted è <strong>Restic</strong> o <strong>BorgBackup</strong>: entrambi fanno backup <strong>cifrati lato client, deduplicati e incrementali</strong> – dopo il primo, ogni backup trasferisce solo i blocchi nuovi, e la cifratura avviene <em>prima</em> di partire, così la destinazione (anche cloud) vede solo dati illeggibili.</p><ul><li><strong>Restic</strong> – ama i backend remoti: S3, <a href="../trasferimento-dati-extra-ue-schrems/">storage europeo</a> (Hetzner, Scaleway), B2, SFTP – ottimo per la copia <strong>offsite</strong> della <a href="../backup-3-2-1/">regola 3-2-1</a></li><li><strong>BorgBackup</strong> – deduplicazione eccellente, storico solido; <strong>Borgmatic</strong> ne è il wrapper che rende dichiarativi job, retention e verifiche</li><li><strong>Kopia</strong> – il più giovane, con interfaccia grafica</li></ul><p>Le tre cose che rendono un backup <em>reale</em> invece che teorico: la <strong>passphrase custodita altrove</strong> (persa la chiave, persi i dati – è cifratura vera, nessun recupero), la <strong>retention</strong> con pruning automatico, e soprattutto il <strong>test di restore periodico</strong> – possibilmente automatizzato (<a href="../cron-la-sintassi-spiegata/">cron</a> che ripristina un campione e verifica). Il complemento anti-<a href="../cos-e-un-ransomware/">ransomware</a>: una destinazione <strong>immutabile/append-only</strong> (Backblaze B2 con object lock, rclone verso storage WORM), così nemmeno un attaccante con le tue chiavi può cancellare la storia.</p></div>
+  <a class="ask" href="../../?q=backup-restic-borg">Chiedilo a FabGPT-FAQ →</a>
+  <div class="related">
+    <h2>Altre domande</h2>
+    <ul><li><a href="../cos-e-un-waf-web-application-firewall/">Cos&#x27;è un WAF (Web Application Firewall) e a cosa serve?</a></li><li><a href="../cos-e-un-reverse-proxy/">Cos&#x27;è un reverse proxy e a cosa serve?</a></li><li><a href="../come-funziona-lets-encrypt-acme/">Come funziona Let&#x27;s Encrypt e il protocollo ACME?</a></li><li><a href="../certificato-tls-scaduto-cosa-fare/">Certificato TLS scaduto: perché succede e come evitarlo?</a></li><li><a href="../cos-e-un-siem-e-un-soar/">Cos&#x27;è un SIEM e cos&#x27;è un SOAR?</a></li><li><a href="../nis2-chi-deve-adeguarsi-italia/">Chi deve adeguarsi alla NIS2 in Italia e cosa rischia?</a></li></ul>
+  </div>
+</main>
+</body>
+</html>

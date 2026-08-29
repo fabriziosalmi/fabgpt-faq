@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Come si gestisce Zigbee con un coordinatore USB (Zigbee2MQTT)? – FabGPT-FAQ</title>
+<meta name="description" content="Zigbee2MQTT (Z2M) è il ponte che rende [Zigbee](q/protocolli-smart-home-locali-zigbee-matter/) libero dal cloud e indipendente dalla marca del hub: un…">
+<link rel="canonical" href="https://fabriziosalmi.github.io/fabgpt-faq/q/gestire-zigbee-con-zigbee2mqtt/">
+<link rel="stylesheet" href="../../style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Come si gestisce Zigbee con un coordinatore USB (Zigbee2MQTT)?", "acceptedAnswer": {"@type": "Answer", "text": "Zigbee2MQTT (Z2M) è il ponte che rende [Zigbee](q/protocolli-smart-home-locali-zigbee-matter/) libero dal cloud e indipendente dalla marca del hub: un dongle USB coordinatore (SONOFF, ConBee) collegato al tuo server crea la rete Zigbee, e Z2M espone ogni dispositivo su MQTT – il protocollo di messaggistica che [Home Assistant](q/home-assistant-su-proxmox/), [Node-RED](q/automazioni-casa-node-red-mqtt/) e qualsiasi altro sistema possono ascoltare e comandare. Il valore: un coordinatore per tutte le marche Zigbee (basta con un hub proprietario per ecosistema), controllo locale totale, e il supporto di un database enorme di dispositivi. Setup: dongle in passthrough alla [VM/LXC](q/passare-un-disco-usb-a-una-vm/) (via by-id per un nome stabile), un broker MQTT (Mosquitto) e Z2M in [container](q/cos-e-docker-compose/). Le accortezze che evitano frustrazione: posiziona bene il coordinatore (lontano da fonti di interferenza USB 3, con prolunga se serve – è la causa n°1 di reti instabili), aggiungi qualche dispositivo alimentato a rete come router mesh per estendere la copertura, e tieni un backup della configurazione. L'alternativa nativa Home Assistant è ZHA; Z2M vince per compatibilità e indipendenza."}}]}</script>
+<style>
+  .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
+  .page h1 { font-size: 26px; line-height: 1.3; margin: 8px 0 20px; }
+  .page .answer a { color: var(--link); }
+  .page .vertical { font-size: 13px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }
+  .page .answer ul { padding-left: 22px; }
+  .page .answer code { background: var(--code-bg); border-radius: 5px; padding: 1px 5px; font-size: 0.9em; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+  .page .ask { display: inline-block; margin-top: 24px; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 9px 18px; text-decoration: none; font-weight: 600; }
+  .page .related { margin-top: 36px; border-top: 1px solid var(--border); padding-top: 18px; }
+  .page .related h2 { font-size: 16px; }
+  .page .related a { color: var(--link); text-decoration: none; }
+  .page .related a:hover { text-decoration: underline; }
+  .page .related li { margin: 6px 0; }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="../../" style="text-decoration:none;color:inherit">
+    <span class="brand-dot">F</span>
+    <span class="brand-name">FabGPT-FAQ</span>
+  </a>
+</header>
+<main class="page">
+  <div class="vertical">Proxmox e self-hosting</div>
+  <h1>Come si gestisce Zigbee con un coordinatore USB (Zigbee2MQTT)?</h1>
+  <div class="answer"><p><strong>Zigbee2MQTT</strong> (Z2M) è il ponte che rende <a href="../protocolli-smart-home-locali-zigbee-matter/">Zigbee</a> <strong>libero dal cloud e indipendente dalla marca del hub</strong>: un <strong>dongle USB coordinatore</strong> (SONOFF, ConBee) collegato al tuo server crea la rete Zigbee, e Z2M espone ogni dispositivo su <strong>MQTT</strong> – il protocollo di messaggistica che <a href="../home-assistant-su-proxmox/">Home Assistant</a>, <a href="../automazioni-casa-node-red-mqtt/">Node-RED</a> e qualsiasi altro sistema possono ascoltare e comandare.</p><p>Il valore: <strong>un</strong> coordinatore per <em>tutte</em> le marche Zigbee (basta con un hub proprietario per ecosistema), controllo locale totale, e il supporto di un database enorme di dispositivi. Setup: dongle in passthrough alla <a href="../passare-un-disco-usb-a-una-vm/">VM/LXC</a> (via <em>by-id</em> per un nome stabile), un broker MQTT (Mosquitto) e Z2M in <a href="../cos-e-docker-compose/">container</a>.</p><p>Le accortezze che evitano frustrazione: <strong>posiziona bene il coordinatore</strong> (lontano da fonti di interferenza USB 3, con prolunga se serve – è la causa n°1 di reti instabili), aggiungi qualche dispositivo alimentato a rete come <strong>router mesh</strong> per estendere la copertura, e tieni un backup della configurazione. L&#x27;alternativa nativa Home Assistant è ZHA; Z2M vince per compatibilità e indipendenza.</p></div>
+  <a class="ask" href="../../?q=zigbee2mqtt">Chiedilo a FabGPT-FAQ →</a>
+  <div class="related">
+    <h2>Altre domande</h2>
+    <ul><li><a href="../cos-e-proxmox-ve/">Cos&#x27;è Proxmox VE e perché è così usato?</a></li><li><a href="../differenza-container-lxc-e-vm/">Che differenza c&#x27;è tra container LXC e VM?</a></li><li><a href="../self-hosting-pro-e-contro/">Self-hosting: cosa significa e quando conviene?</a></li><li><a href="../cluster-proxmox-e-quorum/">Come funziona un cluster Proxmox (e cos&#x27;è il quorum)?</a></li><li><a href="../perche-usare-zfs-su-proxmox/">Perché usare ZFS su Proxmox?</a></li><li><a href="../differenza-snapshot-e-backup/">Che differenza c&#x27;è tra snapshot e backup?</a></li></ul>
+  </div>
+</main>
+</body>
+</html>

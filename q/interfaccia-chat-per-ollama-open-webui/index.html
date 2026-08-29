@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Come si dà un&#x27;interfaccia chat multiutente a Ollama (Open WebUI)? – FabGPT-FAQ</title>
+<meta name="description" content="[Ollama](q/cos-e-ollama/) da solo è un motore con una riga di comando; Open WebUI ci mette davanti l&#x27;interfaccia che ti aspetti – una chat stile ChatGPT, ma…">
+<link rel="canonical" href="https://fabriziosalmi.github.io/fabgpt-faq/q/interfaccia-chat-per-ollama-open-webui/">
+<link rel="stylesheet" href="../../style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Come si dà un'interfaccia chat multiutente a Ollama (Open WebUI)?", "acceptedAnswer": {"@type": "Answer", "text": "[Ollama](q/cos-e-ollama/) da solo è un motore con una riga di comando; Open WebUI ci mette davanti l'interfaccia che ti aspetti – una chat stile ChatGPT, ma in casa tua e multiutente. Ottieni: conversazioni salvate, account e permessi per un team, selezione tra i [modelli locali](q/quanta-ram-vram-serve-per-un-llm/), caricamento documenti con [RAG](q/cos-e-rag-retrieval-augmented-generation/) integrato, prompt salvati. È la mossa che trasforma \"ho un LLM locale\" in \"la mia azienda ha un ChatGPT privato\": i dati non escono, niente canone per utente, e sparisce il problema della [shadow AI](q/cos-e-la-shadow-ai/) – dai alle persone un'alternativa ufficiale più comoda della scorciatoia. Alternative: LibreChat (multi-provider, anche API esterne dietro lo stesso pannello). Setup: un container [Docker](q/cos-e-docker-compose/) che punta all'endpoint Ollama, dietro [reverse proxy con TLS e MFA](q/proteggere-area-admin/). L'hardware è quello dell'inferenza locale ([RAM/VRAM secondo il modello](q/quanta-ram-vram-serve-per-un-llm/); su Mac, [SiliconDev](q/fine-tuning-llm-apple-silicon/) copre anche il fine-tuning). Per un dominio davvero ristretto e prevedibile, però, ricorda la lezione di [questo sito](q/risposte-pre-scritte-o-ai/): a volte la risposta migliore non è un LLM, è una FAQ scritta bene."}}]}</script>
+<style>
+  .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
+  .page h1 { font-size: 26px; line-height: 1.3; margin: 8px 0 20px; }
+  .page .answer a { color: var(--link); }
+  .page .vertical { font-size: 13px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }
+  .page .answer ul { padding-left: 22px; }
+  .page .answer code { background: var(--code-bg); border-radius: 5px; padding: 1px 5px; font-size: 0.9em; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+  .page .ask { display: inline-block; margin-top: 24px; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 9px 18px; text-decoration: none; font-weight: 600; }
+  .page .related { margin-top: 36px; border-top: 1px solid var(--border); padding-top: 18px; }
+  .page .related h2 { font-size: 16px; }
+  .page .related a { color: var(--link); text-decoration: none; }
+  .page .related a:hover { text-decoration: underline; }
+  .page .related li { margin: 6px 0; }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="../../" style="text-decoration:none;color:inherit">
+    <span class="brand-dot">F</span>
+    <span class="brand-name">FabGPT-FAQ</span>
+  </a>
+</header>
+<main class="page">
+  <div class="vertical">AI e LLM</div>
+  <h1>Come si dà un&#x27;interfaccia chat multiutente a Ollama (Open WebUI)?</h1>
+  <div class="answer"><p><a href="../cos-e-ollama/">Ollama</a> da solo è un motore con una riga di comando; <strong>Open WebUI</strong> ci mette davanti l&#x27;interfaccia che ti aspetti – una chat stile ChatGPT, ma <strong>in casa tua e multiutente</strong>. Ottieni: conversazioni salvate, account e permessi per un team, selezione tra i <a href="../quanta-ram-vram-serve-per-un-llm/">modelli locali</a>, caricamento documenti con <a href="../cos-e-rag-retrieval-augmented-generation/">RAG</a> integrato, prompt salvati.</p><p>È la mossa che trasforma &quot;ho un LLM locale&quot; in &quot;la mia azienda ha un ChatGPT privato&quot;: i dati non escono, niente canone per utente, e sparisce il problema della <a href="../cos-e-la-shadow-ai/">shadow AI</a> – dai alle persone un&#x27;alternativa ufficiale più comoda della scorciatoia. Alternative: <strong>LibreChat</strong> (multi-provider, anche API esterne dietro lo stesso pannello).</p><p>Setup: un container <a href="../cos-e-docker-compose/">Docker</a> che punta all&#x27;endpoint Ollama, dietro <a href="../proteggere-area-admin/">reverse proxy con TLS e MFA</a>. L&#x27;hardware è quello dell&#x27;inferenza locale (<a href="../quanta-ram-vram-serve-per-un-llm/">RAM/VRAM secondo il modello</a>; su Mac, <a href="../fine-tuning-llm-apple-silicon/">SiliconDev</a> copre anche il fine-tuning). Per un dominio <em>davvero</em> ristretto e prevedibile, però, ricorda la lezione di <a href="../risposte-pre-scritte-o-ai/">questo sito</a>: a volte la risposta migliore non è un LLM, è una FAQ scritta bene.</p></div>
+  <a class="ask" href="../../?q=open-webui">Chiedilo a FabGPT-FAQ →</a>
+  <div class="related">
+    <h2>Altre domande</h2>
+    <ul><li><a href="../cos-e-la-prompt-injection/">Cos&#x27;è la prompt injection e come ci si difende?</a></li><li><a href="../cos-e-mcp-model-context-protocol/">Cos&#x27;è MCP (Model Context Protocol)?</a></li><li><a href="../cos-e-il-vibe-coding/">Cos&#x27;è il vibe coding e quali sono i rischi?</a></li><li><a href="../allucinazioni-llm-dipendenze-inventate/">Cosa sono le allucinazioni degli LLM (e le dipendenze inventate)?</a></li><li><a href="../cos-e-rag-retrieval-augmented-generation/">Cos&#x27;è RAG (Retrieval-Augmented Generation)?</a></li><li><a href="../cos-e-un-llm/">Cos&#x27;è un LLM (Large Language Model)?</a></li></ul>
+  </div>
+</main>
+</body>
+</html>
