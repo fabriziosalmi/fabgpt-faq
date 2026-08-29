@@ -140,6 +140,51 @@
   <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/cloudflare-o-self-hosted/</loc></url>
   <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/nginx-caddy-o-traefik/</loc></url>
   <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/wazuh-wildbox-o-elk/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-l-inferenza-e-perche-costa/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/parametri-7b-70b-cosa-significano/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-il-pretraining-e-post-training/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-rlhf/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-la-distillazione/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/modello-open-weights-vs-open-source/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-un-vector-database/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/chunking-spezzare-documenti-per-rag/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-il-reranking/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-la-kv-cache/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-lo-streaming-delle-risposte/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-il-prompt-caching/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/batch-api-e-inference-asincrona/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-un-eval-e-perche-i-benchmark-mentono/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/contaminazione-dei-benchmark/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-il-grounding/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/moderazione-automatica-dei-contenuti/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-la-multimodalita/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-lo-speculative-decoding/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/mixture-of-experts-moe/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-il-test-time-compute-reasoning/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/lm-studio-ollama-o-llama-cpp/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/quanta-ram-vram-serve-per-un-llm/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/apple-silicon-o-gpu-nvidia-per-ai/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/come-scegliere-il-modello-giusto/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/come-ridurre-le-allucinazioni/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/come-scrivere-un-buon-prompt/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/come-valutare-le-risposte-di-un-llm/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/whisper-trascrizione-audio-locale/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/generare-immagini-in-locale/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/chatbot-sui-documenti-aziendali/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-l-orchestrazione-multi-agente/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/memoria-a-breve-e-lungo-termine-negli-agenti/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-il-sandboxing-per-agenti/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/come-si-limita-un-agente-ai/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-l-observability-per-llm/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/come-si-testano-le-applicazioni-llm/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/structured-output-e-json-mode/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/come-si-costruisce-un-server-mcp/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/data-leakage-via-llm/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/llm-e-copyright-dove-siamo/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/watermarking-dei-contenuti-ai/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/deepfake-come-riconoscerli/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/chatgpt-e-dati-personali-gdpr/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/come-scrivere-una-ai-policy-aziendale/</loc></url>
   <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-certmate-gestione-certificati-tls/</loc></url>
   <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/come-aggiungere-un-waf-a-caddy/</loc></url>
   <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/bloccare-bad-bot-nginx-apache-traefik-haproxy/</loc></url>

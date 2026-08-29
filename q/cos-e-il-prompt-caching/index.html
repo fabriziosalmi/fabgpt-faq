@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cos&#x27;è il prompt caching? – FabGPT-FAQ</title>
+<meta name="description" content="Il prompt caching sfrutta un fatto banale: le tue richieste all&#x27;API iniziano quasi sempre con lo stesso blocco – [system prompt](q/cos-e-un-system-prompt/),…">
+<link rel="canonical" href="https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-il-prompt-caching/">
+<link rel="stylesheet" href="../../style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Cos'è il prompt caching?", "acceptedAnswer": {"@type": "Answer", "text": "Il prompt caching sfrutta un fatto banale: le tue richieste all'API iniziano quasi sempre con lo stesso blocco – [system prompt](q/cos-e-un-system-prompt/), istruzioni, documenti, definizioni dei tool – e cambia solo la coda. I provider possono conservare la [KV cache](q/cos-e-la-kv-cache/) di quel prefisso e riusarla: niente ricalcolo, latenza più bassa e sconti sostanziosi sui token in cache (tipicamente 50-90% a seconda del provider). Per beneficiarne serve disciplina di struttura: il contenuto stabile va all'inizio, identico al byte, e le parti variabili in fondo – un timestamp o un ID di sessione piazzato in cima al prompt invalida tutto a ogni chiamata. Le cache hanno un tempo di vita (minuti), quindi il beneficio è massimo su conversazioni e agenti che martellano lo stesso contesto. È il complemento dell'altra igiene: [meno contesto](q/token-e-context-window/) da cachare in primis – le due cose insieme cambiano la bolletta."}}]}</script>
+<style>
+  .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
+  .page h1 { font-size: 26px; line-height: 1.3; margin: 8px 0 20px; }
+  .page .answer a { color: var(--link); }
+  .page .vertical { font-size: 13px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }
+  .page .answer ul { padding-left: 22px; }
+  .page .answer code { background: var(--code-bg); border-radius: 5px; padding: 1px 5px; font-size: 0.9em; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+  .page .ask { display: inline-block; margin-top: 24px; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 9px 18px; text-decoration: none; font-weight: 600; }
+  .page .related { margin-top: 36px; border-top: 1px solid var(--border); padding-top: 18px; }
+  .page .related h2 { font-size: 16px; }
+  .page .related a { color: var(--link); text-decoration: none; }
+  .page .related a:hover { text-decoration: underline; }
+  .page .related li { margin: 6px 0; }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="../../" style="text-decoration:none;color:inherit">
+    <span class="brand-dot">F</span>
+    <span class="brand-name">FabGPT-FAQ</span>
+  </a>
+</header>
+<main class="page">
+  <div class="vertical">AI e LLM</div>
+  <h1>Cos&#x27;è il prompt caching?</h1>
+  <div class="answer"><p>Il <strong>prompt caching</strong> sfrutta un fatto banale: le tue richieste all&#x27;API iniziano quasi sempre con lo stesso blocco – <a href="../cos-e-un-system-prompt/">system prompt</a>, istruzioni, documenti, definizioni dei tool – e cambia solo la coda. I provider possono conservare la <a href="../cos-e-la-kv-cache/">KV cache</a> di quel <strong>prefisso</strong> e riusarla: niente ricalcolo, latenza più bassa e sconti sostanziosi sui token in cache (tipicamente 50-90% a seconda del provider).</p><p>Per beneficiarne serve disciplina di struttura: il <strong>contenuto stabile va all&#x27;inizio</strong>, identico al byte, e le parti variabili in fondo – un timestamp o un ID di sessione piazzato in cima al prompt invalida tutto a ogni chiamata. Le cache hanno un tempo di vita (minuti), quindi il beneficio è massimo su conversazioni e agenti che martellano lo stesso contesto.</p><p>È il complemento dell&#x27;altra igiene: <a href="../token-e-context-window/">meno contesto</a> da cachare in primis – le due cose insieme cambiano la bolletta.</p></div>
+  <a class="ask" href="../../?q=prompt-caching">Chiedilo a FabGPT-FAQ →</a>
+  <div class="related">
+    <h2>Altre domande</h2>
+    <ul><li><a href="../cos-e-la-prompt-injection/">Cos&#x27;è la prompt injection e come ci si difende?</a></li><li><a href="../cos-e-mcp-model-context-protocol/">Cos&#x27;è MCP (Model Context Protocol)?</a></li><li><a href="../cos-e-il-vibe-coding/">Cos&#x27;è il vibe coding e quali sono i rischi?</a></li><li><a href="../allucinazioni-llm-dipendenze-inventate/">Cosa sono le allucinazioni degli LLM (e le dipendenze inventate)?</a></li><li><a href="../cos-e-rag-retrieval-augmented-generation/">Cos&#x27;è RAG (Retrieval-Augmented Generation)?</a></li><li><a href="../cos-e-un-llm/">Cos&#x27;è un LLM (Large Language Model)?</a></li></ul>
+  </div>
+</main>
+</body>
+</html>

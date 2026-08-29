@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Si può usare ChatGPT con dati personali? (GDPR) – FabGPT-FAQ</title>
+<meta name="description" content="Si può – alle condizioni del GDPR, che non hanno nulla di speciale perché c&#x27;è di mezzo l&#x27;AI: serve una base giuridica, l&#x27;informativa aggiornata, e il…">
+<link rel="canonical" href="https://fabriziosalmi.github.io/fabgpt-faq/q/chatgpt-e-dati-personali-gdpr/">
+<link rel="stylesheet" href="../../style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Si può usare ChatGPT con dati personali? (GDPR)", "acceptedAnswer": {"@type": "Answer", "text": "Si può – alle condizioni del GDPR, che non hanno nulla di speciale perché c'è di mezzo l'AI: serve una base giuridica, l'informativa aggiornata, e il fornitore diventa un responsabile del trattamento con tanto di DPA firmato. Il Garante italiano l'ha reso memorabile bloccando ChatGPT nel 2023 e sanzionando OpenAI poi: trasparenza e basi giuridiche non erano a posto. La distinzione che decide tutto: i piani consumer (il ChatGPT gratuito del browser) non offrono garanzie da trattamento aziendale – e incollare lì dati di clienti è [il caso Samsung](q/data-leakage-via-llm/) in miniatura, da vietare in [policy](q/come-scrivere-una-ai-policy-aziendale/). I piani business/API con DPA, no-training e residenza dei dati sono un'altra storia: lì si ragiona da GDPR normale – minimizzazione ([serve davvero il nome, o basta lo pseudonimo?](q/anonimizzare-csv-nel-browser/)), [tempi di conservazione](q/conservazione-log-gdpr/), [trasferimenti extra-UE](q/trasferimento-dati-extra-ue-schrems/). E per i dati che non devono uscire affatto: [l'inferenza in casa](q/far-girare-un-llm-in-locale/) chiude la questione alla radice."}}]}</script>
+<style>
+  .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
+  .page h1 { font-size: 26px; line-height: 1.3; margin: 8px 0 20px; }
+  .page .answer a { color: var(--link); }
+  .page .vertical { font-size: 13px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }
+  .page .answer ul { padding-left: 22px; }
+  .page .answer code { background: var(--code-bg); border-radius: 5px; padding: 1px 5px; font-size: 0.9em; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+  .page .ask { display: inline-block; margin-top: 24px; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 9px 18px; text-decoration: none; font-weight: 600; }
+  .page .related { margin-top: 36px; border-top: 1px solid var(--border); padding-top: 18px; }
+  .page .related h2 { font-size: 16px; }
+  .page .related a { color: var(--link); text-decoration: none; }
+  .page .related a:hover { text-decoration: underline; }
+  .page .related li { margin: 6px 0; }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="../../" style="text-decoration:none;color:inherit">
+    <span class="brand-dot">F</span>
+    <span class="brand-name">FabGPT-FAQ</span>
+  </a>
+</header>
+<main class="page">
+  <div class="vertical">AI e LLM</div>
+  <h1>Si può usare ChatGPT con dati personali? (GDPR)</h1>
+  <div class="answer"><p>Si può – <strong>alle condizioni del GDPR</strong>, che non hanno nulla di speciale perché c&#x27;è di mezzo l&#x27;AI: serve una base giuridica, l&#x27;informativa aggiornata, e il fornitore diventa un <strong>responsabile del trattamento</strong> con tanto di <strong>DPA</strong> firmato. Il Garante italiano l&#x27;ha reso memorabile bloccando ChatGPT nel 2023 e sanzionando OpenAI poi: trasparenza e basi giuridiche non erano a posto.</p><p>La distinzione che decide tutto: i piani <strong>consumer</strong> (il ChatGPT gratuito del browser) non offrono garanzie da trattamento aziendale – e incollare lì dati di clienti è <a href="../data-leakage-via-llm/">il caso Samsung</a> in miniatura, da vietare in <a href="../come-scrivere-una-ai-policy-aziendale/">policy</a>. I piani <strong>business/API</strong> con DPA, no-training e residenza dei dati sono un&#x27;altra storia: lì si ragiona da GDPR normale – minimizzazione (<a href="../anonimizzare-csv-nel-browser/">serve davvero il nome, o basta lo pseudonimo?</a>), <a href="../conservazione-log-gdpr/">tempi di conservazione</a>, <a href="../trasferimento-dati-extra-ue-schrems/">trasferimenti extra-UE</a>.</p><p>E per i dati che non devono uscire affatto: <a href="../far-girare-un-llm-in-locale/">l&#x27;inferenza in casa</a> chiude la questione alla radice.</p></div>
+  <a class="ask" href="../../?q=chatgpt-gdpr">Chiedilo a FabGPT-FAQ →</a>
+  <div class="related">
+    <h2>Altre domande</h2>
+    <ul><li><a href="../cos-e-la-prompt-injection/">Cos&#x27;è la prompt injection e come ci si difende?</a></li><li><a href="../cos-e-mcp-model-context-protocol/">Cos&#x27;è MCP (Model Context Protocol)?</a></li><li><a href="../cos-e-il-vibe-coding/">Cos&#x27;è il vibe coding e quali sono i rischi?</a></li><li><a href="../allucinazioni-llm-dipendenze-inventate/">Cosa sono le allucinazioni degli LLM (e le dipendenze inventate)?</a></li><li><a href="../cos-e-rag-retrieval-augmented-generation/">Cos&#x27;è RAG (Retrieval-Augmented Generation)?</a></li><li><a href="../cos-e-un-llm/">Cos&#x27;è un LLM (Large Language Model)?</a></li></ul>
+  </div>
+</main>
+</body>
+</html>

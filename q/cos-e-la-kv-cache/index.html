@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cos&#x27;è la KV cache (e perché il contesto lungo costa)? – FabGPT-FAQ</title>
+<meta name="description" content="Dentro un transformer, ogni nuovo token &quot;guarda&quot; tutti i precedenti (il meccanismo di attention). Per non ricalcolare tutto a ogni passo, i valori intermedi…">
+<link rel="canonical" href="https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-la-kv-cache/">
+<link rel="stylesheet" href="../../style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Cos'è la KV cache (e perché il contesto lungo costa)?", "acceptedAnswer": {"@type": "Answer", "text": "Dentro un transformer, ogni nuovo token \"guarda\" tutti i precedenti (il meccanismo di attention). Per non ricalcolare tutto a ogni passo, i valori intermedi dei token già visti si tengono in memoria: è la KV cache (key-value). Senza, la generazione sarebbe insostenibile; con, il costo si sposta sulla memoria: la cache cresce linearmente con la lunghezza del contesto, e su contesti molto lunghi divora più VRAM dei pesi stessi. È la ragione fisica per cui [il contesto lungo costa](q/token-e-context-window/) e le API fatturano di più i prompt chilometrici. Le mitigazioni che incontrerai nei runtime: attention ottimizzata (FlashAttention), condivisione delle teste (GQA/MQA), quantizzazione della cache stessa, e il [prompt caching](q/cos-e-il-prompt-caching/) lato API, che riusa la cache dei prefissi ripetuti invece di ricostruirla. Morale operativa: contesto magro non è tirchieria, è ingegneria – l0-compressor esiste per questo."}}]}</script>
+<style>
+  .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
+  .page h1 { font-size: 26px; line-height: 1.3; margin: 8px 0 20px; }
+  .page .answer a { color: var(--link); }
+  .page .vertical { font-size: 13px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }
+  .page .answer ul { padding-left: 22px; }
+  .page .answer code { background: var(--code-bg); border-radius: 5px; padding: 1px 5px; font-size: 0.9em; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+  .page .ask { display: inline-block; margin-top: 24px; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 9px 18px; text-decoration: none; font-weight: 600; }
+  .page .related { margin-top: 36px; border-top: 1px solid var(--border); padding-top: 18px; }
+  .page .related h2 { font-size: 16px; }
+  .page .related a { color: var(--link); text-decoration: none; }
+  .page .related a:hover { text-decoration: underline; }
+  .page .related li { margin: 6px 0; }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="../../" style="text-decoration:none;color:inherit">
+    <span class="brand-dot">F</span>
+    <span class="brand-name">FabGPT-FAQ</span>
+  </a>
+</header>
+<main class="page">
+  <div class="vertical">AI e LLM</div>
+  <h1>Cos&#x27;è la KV cache (e perché il contesto lungo costa)?</h1>
+  <div class="answer"><p>Dentro un transformer, ogni nuovo token &quot;guarda&quot; tutti i precedenti (il meccanismo di <strong>attention</strong>). Per non ricalcolare tutto a ogni passo, i valori intermedi dei token già visti si tengono in memoria: è la <strong>KV cache</strong> (key-value). Senza, la generazione sarebbe insostenibile; con, il costo si sposta sulla <strong>memoria</strong>: la cache cresce linearmente con la lunghezza del contesto, e su contesti molto lunghi divora più VRAM dei pesi stessi.</p><p>È la ragione fisica per cui <a href="../token-e-context-window/">il contesto lungo costa</a> e le API fatturano di più i prompt chilometrici. Le mitigazioni che incontrerai nei runtime: attention ottimizzata (FlashAttention), condivisione delle teste (GQA/MQA), quantizzazione della cache stessa, e il <a href="../cos-e-il-prompt-caching/">prompt caching</a> lato API, che riusa la cache dei prefissi ripetuti invece di ricostruirla. Morale operativa: contesto magro non è tirchieria, è ingegneria – <a href="https://github.com/fabriziosalmi/l0-compressor" target="_blank" rel="noopener">l0-compressor</a> esiste per questo.</p></div>
+  <a class="ask" href="../../?q=kv-cache">Chiedilo a FabGPT-FAQ →</a>
+  <div class="related">
+    <h2>Altre domande</h2>
+    <ul><li><a href="../cos-e-la-prompt-injection/">Cos&#x27;è la prompt injection e come ci si difende?</a></li><li><a href="../cos-e-mcp-model-context-protocol/">Cos&#x27;è MCP (Model Context Protocol)?</a></li><li><a href="../cos-e-il-vibe-coding/">Cos&#x27;è il vibe coding e quali sono i rischi?</a></li><li><a href="../allucinazioni-llm-dipendenze-inventate/">Cosa sono le allucinazioni degli LLM (e le dipendenze inventate)?</a></li><li><a href="../cos-e-rag-retrieval-augmented-generation/">Cos&#x27;è RAG (Retrieval-Augmented Generation)?</a></li><li><a href="../cos-e-un-llm/">Cos&#x27;è un LLM (Large Language Model)?</a></li></ul>
+  </div>
+</main>
+</body>
+</html>

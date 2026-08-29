@@ -978,5 +978,189 @@
   {
     "q": "ho committato un token su github",
     "expect": "gestione-secrets"
+  },
+  {
+    "q": "perche l inferenza costa cosi tanto",
+    "expect": "inferenza"
+  },
+  {
+    "q": "cosa significa 7b in un modello",
+    "expect": "parametri-modello"
+  },
+  {
+    "q": "cosè il pretraining di un llm",
+    "expect": "pretraining"
+  },
+  {
+    "q": "come funziona rlhf",
+    "expect": "rlhf"
+  },
+  {
+    "q": "cosè la distillazione di un modello",
+    "expect": "distillazione"
+  },
+  {
+    "q": "differenza tra open weights e open source",
+    "expect": "open-weights"
+  },
+  {
+    "q": "quale vector database scegliere",
+    "expect": "vector-database"
+  },
+  {
+    "q": "come spezzo i documenti per il rag",
+    "expect": "chunking"
+  },
+  {
+    "q": "a cosa serve il reranking",
+    "expect": "reranking"
+  },
+  {
+    "q": "cosè la kv cache",
+    "expect": "kv-cache"
+  },
+  {
+    "q": "come funziona lo streaming delle risposte",
+    "expect": "streaming-risposte"
+  },
+  {
+    "q": "cosè il prompt caching",
+    "expect": "prompt-caching"
+  },
+  {
+    "q": "quando conviene la batch api",
+    "expect": "batch-api"
+  },
+  {
+    "q": "perche i benchmark degli llm mentono",
+    "expect": "eval-llm"
+  },
+  {
+    "q": "cosè la contaminazione dei benchmark",
+    "expect": "contaminazione-benchmark"
+  },
+  {
+    "q": "cosè il grounding delle risposte",
+    "expect": "grounding"
+  },
+  {
+    "q": "come funziona la moderazione automatica dei contenuti",
+    "expect": "moderazione-contenuti"
+  },
+  {
+    "q": "cosè un modello multimodale",
+    "expect": "multimodalita"
+  },
+  {
+    "q": "come funziona lo speculative decoding",
+    "expect": "speculative-decoding"
+  },
+  {
+    "q": "cosè un modello mixture of experts",
+    "expect": "moe"
+  },
+  {
+    "q": "cosa sono i modelli di reasoning",
+    "expect": "test-time-compute"
+  },
+  {
+    "q": "meglio lm studio o ollama",
+    "expect": "lmstudio-ollama-llamacpp"
+  },
+  {
+    "q": "quanta vram serve per un 13b",
+    "expect": "ram-vram-llm"
+  },
+  {
+    "q": "meglio un mac o una gpu nvidia per l ai",
+    "expect": "apple-vs-nvidia"
+  },
+  {
+    "q": "quale modello uso per il mio compito",
+    "expect": "scegliere-modello"
+  },
+  {
+    "q": "come riduco le allucinazioni",
+    "expect": "ridurre-allucinazioni"
+  },
+  {
+    "q": "come si scrive un buon prompt",
+    "expect": "prompt-engineering"
+  },
+  {
+    "q": "cosè llm as a judge",
+    "expect": "valutare-risposte"
+  },
+  {
+    "q": "trascrivere una riunione con whisper",
+    "expect": "whisper"
+  },
+  {
+    "q": "generare immagini con stable diffusion in locale",
+    "expect": "immagini-locale"
+  },
+  {
+    "q": "chatbot sui documenti aziendali",
+    "expect": "chatbot-documenti"
+  },
+  {
+    "q": "cosè l orchestrazione multi agente",
+    "expect": "multi-agente"
+  },
+  {
+    "q": "memoria a lungo termine per gli agenti",
+    "expect": "memoria-agenti"
+  },
+  {
+    "q": "perche serve una sandbox per gli agenti",
+    "expect": "sandboxing-agenti"
+  },
+  {
+    "q": "cosè lo human in the loop",
+    "expect": "limitare-agente"
+  },
+  {
+    "q": "come traccio i costi delle chiamate llm",
+    "expect": "observability-llm"
+  },
+  {
+    "q": "come testo la mia applicazione llm",
+    "expect": "testare-llm-app"
+  },
+  {
+    "q": "come ottengo json valido da un llm",
+    "expect": "structured-output"
+  },
+  {
+    "q": "come costruisco un server mcp",
+    "expect": "creare-mcp-server"
+  },
+  {
+    "q": "dipendenti che incollano dati in chatgpt",
+    "expect": "shadow-ai"
+  },
+  {
+    "q": "il training degli llm viola il copyright?",
+    "expect": "llm-copyright"
+  },
+  {
+    "q": "cosè il watermarking dei contenuti ai",
+    "expect": "watermarking-ai"
+  },
+  {
+    "q": "come riconosco un deepfake",
+    "expect": "deepfake"
+  },
+  {
+    "q": "posso usare chatgpt con i dati dei clienti?",
+    "expect": "chatgpt-gdpr"
+  },
+  {
+    "q": "come scrivo una ai policy per l azienda",
+    "expect": "ai-policy"
+  },
+  {
+    "q": "il fornitore ai ha avuto un leak dei dati caricati",
+    "expect": "data-leakage-llm"
   }
 ]

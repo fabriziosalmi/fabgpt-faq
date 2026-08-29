@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Come si costruisce un chatbot sui documenti aziendali? – FabGPT-FAQ</title>
+<meta name="description" content="L&#x27;architettura standard è [RAG](q/cos-e-rag-retrieval-augmented-generation/), e la qualità si decide nei dettagli: ingestione: estrai il testo (i PDF…">
+<link rel="canonical" href="https://fabriziosalmi.github.io/fabgpt-faq/q/chatbot-sui-documenti-aziendali/">
+<link rel="stylesheet" href="../../style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Come si costruisce un chatbot sui documenti aziendali?", "acceptedAnswer": {"@type": "Answer", "text": "L'architettura standard è [RAG](q/cos-e-rag-retrieval-augmented-generation/), e la qualità si decide nei dettagli: ingestione: estrai il testo (i PDF scansionati passano [dall'OCR](q/convertire-pdf-scansionato-in-testo/)), [spezza con criterio](q/chunking-spezzare-documenti-per-rag/), indicizza – [ibrido full-text + vettori](q/cos-e-un-vector-database/), con [reranking](q/cos-e-il-reranking/) sopra generazione [grounded](q/cos-e-il-grounding/): risponde solo dalle fonti, cita i documenti, ammette i buchi permessi: il chatbot non deve rispondere a chi non potrebbe aprire quel documento – il filtro per utente va nel retrieval, non nella speranza [valutazione](q/come-valutare-le-risposte-di-un-llm/) su domande vere prima del lancio, e i feedback degli utenti come carburante Per dati riservati, l'intera pipeline gira [in locale](q/far-girare-un-llm-in-locale/) con [Ollama](q/cos-e-ollama/). Esempio funzionante di questo pattern nel portfolio: certmate-agent – LLM locale + tool REST + RAG sulla documentazione. E questo stesso sito è [la versione a zero inferenza](q/cos-e-fabgpt-come-funziona/) dell'idea: quando le domande sono prevedibili, le risposte pre-scritte battono il RAG."}}]}</script>
+<style>
+  .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
+  .page h1 { font-size: 26px; line-height: 1.3; margin: 8px 0 20px; }
+  .page .answer a { color: var(--link); }
+  .page .vertical { font-size: 13px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }
+  .page .answer ul { padding-left: 22px; }
+  .page .answer code { background: var(--code-bg); border-radius: 5px; padding: 1px 5px; font-size: 0.9em; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+  .page .ask { display: inline-block; margin-top: 24px; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 9px 18px; text-decoration: none; font-weight: 600; }
+  .page .related { margin-top: 36px; border-top: 1px solid var(--border); padding-top: 18px; }
+  .page .related h2 { font-size: 16px; }
+  .page .related a { color: var(--link); text-decoration: none; }
+  .page .related a:hover { text-decoration: underline; }
+  .page .related li { margin: 6px 0; }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="../../" style="text-decoration:none;color:inherit">
+    <span class="brand-dot">F</span>
+    <span class="brand-name">FabGPT-FAQ</span>
+  </a>
+</header>
+<main class="page">
+  <div class="vertical">AI e LLM</div>
+  <h1>Come si costruisce un chatbot sui documenti aziendali?</h1>
+  <div class="answer"><p>L&#x27;architettura standard è <a href="../cos-e-rag-retrieval-augmented-generation/">RAG</a>, e la qualità si decide nei dettagli:</p><ul><li><strong>ingestione</strong>: estrai il testo (i PDF scansionati passano <a href="../convertire-pdf-scansionato-in-testo/">dall&#x27;OCR</a>), <a href="../chunking-spezzare-documenti-per-rag/">spezza con criterio</a>, indicizza – <a href="../cos-e-un-vector-database/">ibrido full-text + vettori</a>, con <a href="../cos-e-il-reranking/">reranking</a> sopra</li><li><strong>generazione <a href="../cos-e-il-grounding/">grounded</a></strong>: risponde solo dalle fonti, cita i documenti, ammette i buchi</li><li><strong>permessi</strong>: il chatbot non deve rispondere a chi non potrebbe <em>aprire</em> quel documento – il filtro per utente va nel retrieval, non nella speranza</li><li><strong><a href="../come-valutare-le-risposte-di-un-llm/">valutazione</a></strong> su domande vere prima del lancio, e i feedback degli utenti come carburante</li></ul><p>Per dati riservati, l&#x27;intera pipeline gira <a href="../far-girare-un-llm-in-locale/">in locale</a> con <a href="../cos-e-ollama/">Ollama</a>. Esempio funzionante di questo pattern nel portfolio: <a href="https://github.com/fabriziosalmi/certmate-agent" target="_blank" rel="noopener">certmate-agent</a> – LLM locale + tool REST + RAG sulla documentazione. E questo stesso sito è <a href="../cos-e-fabgpt-come-funziona/">la versione a zero inferenza</a> dell&#x27;idea: quando le domande sono prevedibili, le risposte pre-scritte battono il RAG.</p></div>
+  <a class="ask" href="../../?q=chatbot-documenti">Chiedilo a FabGPT-FAQ →</a>
+  <div class="related">
+    <h2>Altre domande</h2>
+    <ul><li><a href="../cos-e-la-prompt-injection/">Cos&#x27;è la prompt injection e come ci si difende?</a></li><li><a href="../cos-e-mcp-model-context-protocol/">Cos&#x27;è MCP (Model Context Protocol)?</a></li><li><a href="../cos-e-il-vibe-coding/">Cos&#x27;è il vibe coding e quali sono i rischi?</a></li><li><a href="../allucinazioni-llm-dipendenze-inventate/">Cosa sono le allucinazioni degli LLM (e le dipendenze inventate)?</a></li><li><a href="../cos-e-rag-retrieval-augmented-generation/">Cos&#x27;è RAG (Retrieval-Augmented Generation)?</a></li><li><a href="../cos-e-un-llm/">Cos&#x27;è un LLM (Large Language Model)?</a></li></ul>
+  </div>
+</main>
+</body>
+</html>

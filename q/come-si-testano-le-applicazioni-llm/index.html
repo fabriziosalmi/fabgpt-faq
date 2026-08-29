@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Come si testano le applicazioni LLM? – FabGPT-FAQ</title>
+<meta name="description" content="Il problema: l&#x27;output non è deterministico, il assertEqual classico non basta. La cassetta degli attrezzi: separa il testabile: parsing, retrieval, tool,…">
+<link rel="canonical" href="https://fabriziosalmi.github.io/fabgpt-faq/q/come-si-testano-le-applicazioni-llm/">
+<link rel="stylesheet" href="../../style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Come si testano le applicazioni LLM?", "acceptedAnswer": {"@type": "Answer", "text": "Il problema: l'output non è deterministico, il assertEqual classico non basta. La cassetta degli attrezzi: separa il testabile: parsing, retrieval, tool, validazioni sono codice normale – test normali. Il modello va isolato dietro un'interfaccia, così i test d'integrazione girano anche con un mock golden test sul non deterministico: il [golden set](q/come-valutare-le-risposte-di-un-llm/) gira in CI – metriche esatte dove l'output è strutturato, LLM-as-a-judge con rubrica dove è prosa, soglie che fanno fallire la build (\"correttezza < 90% = rosso\") test di regressione sui prompt: ogni modifica al prompt passa dal golden set prima del merge – i prompt sono codice, [si trattano da codice](q/come-scrivere-un-buon-prompt/) test avversariali: input malformati, [tentativi di injection](q/cos-e-la-prompt-injection/), casi limite – è il red teaming dei poveri, e trova sempre qualcosa Filosofia collaudata qui: [questo stesso sito](q/cos-e-fabgpt-come-funziona/) ha una batteria draconiana che blocca ogni modifica se una risposta canonica smette di matchare – il principio è identico, deterministico o no."}}]}</script>
+<style>
+  .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
+  .page h1 { font-size: 26px; line-height: 1.3; margin: 8px 0 20px; }
+  .page .answer a { color: var(--link); }
+  .page .vertical { font-size: 13px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }
+  .page .answer ul { padding-left: 22px; }
+  .page .answer code { background: var(--code-bg); border-radius: 5px; padding: 1px 5px; font-size: 0.9em; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+  .page .ask { display: inline-block; margin-top: 24px; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 9px 18px; text-decoration: none; font-weight: 600; }
+  .page .related { margin-top: 36px; border-top: 1px solid var(--border); padding-top: 18px; }
+  .page .related h2 { font-size: 16px; }
+  .page .related a { color: var(--link); text-decoration: none; }
+  .page .related a:hover { text-decoration: underline; }
+  .page .related li { margin: 6px 0; }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="../../" style="text-decoration:none;color:inherit">
+    <span class="brand-dot">F</span>
+    <span class="brand-name">FabGPT-FAQ</span>
+  </a>
+</header>
+<main class="page">
+  <div class="vertical">AI e LLM</div>
+  <h1>Come si testano le applicazioni LLM?</h1>
+  <div class="answer"><p>Il problema: l&#x27;output non è deterministico, il <code>assertEqual</code> classico non basta. La cassetta degli attrezzi:</p><ul><li><strong>separa il testabile</strong>: parsing, retrieval, tool, validazioni sono codice normale – test normali. Il modello va isolato dietro un&#x27;interfaccia, così i test d&#x27;integrazione girano anche con un <strong>mock</strong></li><li><strong>golden test sul non deterministico</strong>: il <a href="../come-valutare-le-risposte-di-un-llm/">golden set</a> gira in CI – metriche esatte dove l&#x27;output è strutturato, LLM-as-a-judge con rubrica dove è prosa, soglie che fanno fallire la build (&quot;correttezza &lt; 90% = rosso&quot;)</li><li><strong>test di regressione sui prompt</strong>: ogni modifica al prompt passa dal golden set <em>prima</em> del merge – i prompt sono codice, <a href="../come-scrivere-un-buon-prompt/">si trattano da codice</a></li><li><strong>test avversariali</strong>: input malformati, <a href="../cos-e-la-prompt-injection/">tentativi di injection</a>, casi limite – è il red teaming dei poveri, e trova sempre qualcosa</li></ul><p>Filosofia collaudata qui: <a href="../cos-e-fabgpt-come-funziona/">questo stesso sito</a> ha una batteria draconiana che blocca ogni modifica se una risposta canonica smette di matchare – il principio è identico, deterministico o no.</p></div>
+  <a class="ask" href="../../?q=testare-llm-app">Chiedilo a FabGPT-FAQ →</a>
+  <div class="related">
+    <h2>Altre domande</h2>
+    <ul><li><a href="../cos-e-la-prompt-injection/">Cos&#x27;è la prompt injection e come ci si difende?</a></li><li><a href="../cos-e-mcp-model-context-protocol/">Cos&#x27;è MCP (Model Context Protocol)?</a></li><li><a href="../cos-e-il-vibe-coding/">Cos&#x27;è il vibe coding e quali sono i rischi?</a></li><li><a href="../allucinazioni-llm-dipendenze-inventate/">Cosa sono le allucinazioni degli LLM (e le dipendenze inventate)?</a></li><li><a href="../cos-e-rag-retrieval-augmented-generation/">Cos&#x27;è RAG (Retrieval-Augmented Generation)?</a></li><li><a href="../cos-e-un-llm/">Cos&#x27;è un LLM (Large Language Model)?</a></li></ul>
+  </div>
+</main>
+</body>
+</html>

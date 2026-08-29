@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Come si trascrive l&#x27;audio in locale (Whisper)? – FabGPT-FAQ</title>
+<meta name="description" content="Whisper (OpenAI, open source) ha reso la trascrizione un problema risolto anche [in locale](q/far-girare-un-llm-in-locale/): modelli da tiny a large-v3,…">
+<link rel="canonical" href="https://fabriziosalmi.github.io/fabgpt-faq/q/whisper-trascrizione-audio-locale/">
+<link rel="stylesheet" href="../../style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Come si trascrive l'audio in locale (Whisper)?", "acceptedAnswer": {"@type": "Answer", "text": "Whisper (OpenAI, open source) ha reso la trascrizione un problema risolto anche [in locale](q/far-girare-un-llm-in-locale/): modelli da tiny a large-v3, ottimo con l'italiano, robusto con rumore e accenti. Niente audio caricato su server altrui – per riunioni e materiale sensibile non è un dettaglio. Le implementazioni da usare davvero: faster-whisper (4-5× più veloce dell'originale, stessa qualità) e whisper.cpp (CPU e Apple Silicon, gira ovunque); su Mac anche le varianti MLX. Il modello large-v3 per la qualità, medium o small quando la velocità conta più delle sfumature; una GPU aiuta ma non è obbligatoria. I trucchi di resa: audio pulito in ingresso (il microfono conta più del modello), diarizzazione separata se serve chi ha detto cosa (pyannote), e il colpo finale: passare la trascrizione grezza a [un LLM](q/cos-e-ollama/) per punteggiatura, paragrafi e riassunto – la coppia trascrittore+redattore, tutta in casa."}}]}</script>
+<style>
+  .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
+  .page h1 { font-size: 26px; line-height: 1.3; margin: 8px 0 20px; }
+  .page .answer a { color: var(--link); }
+  .page .vertical { font-size: 13px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }
+  .page .answer ul { padding-left: 22px; }
+  .page .answer code { background: var(--code-bg); border-radius: 5px; padding: 1px 5px; font-size: 0.9em; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+  .page .ask { display: inline-block; margin-top: 24px; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 9px 18px; text-decoration: none; font-weight: 600; }
+  .page .related { margin-top: 36px; border-top: 1px solid var(--border); padding-top: 18px; }
+  .page .related h2 { font-size: 16px; }
+  .page .related a { color: var(--link); text-decoration: none; }
+  .page .related a:hover { text-decoration: underline; }
+  .page .related li { margin: 6px 0; }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="../../" style="text-decoration:none;color:inherit">
+    <span class="brand-dot">F</span>
+    <span class="brand-name">FabGPT-FAQ</span>
+  </a>
+</header>
+<main class="page">
+  <div class="vertical">AI e LLM</div>
+  <h1>Come si trascrive l&#x27;audio in locale (Whisper)?</h1>
+  <div class="answer"><p><strong>Whisper</strong> (OpenAI, open source) ha reso la trascrizione un problema risolto anche <a href="../far-girare-un-llm-in-locale/">in locale</a>: modelli da tiny a large-v3, ottimo con l&#x27;italiano, robusto con rumore e accenti. Niente audio caricato su server altrui – per riunioni e materiale sensibile non è un dettaglio.</p><p>Le implementazioni da usare davvero: <strong>faster-whisper</strong> (4-5× più veloce dell&#x27;originale, stessa qualità) e <strong>whisper.cpp</strong> (CPU e Apple Silicon, gira ovunque); su Mac anche le varianti MLX. Il modello <strong>large-v3</strong> per la qualità, <em>medium</em> o <em>small</em> quando la velocità conta più delle sfumature; una GPU aiuta ma non è obbligatoria.</p><p>I trucchi di resa: audio pulito in ingresso (il microfono conta più del modello), diarizzazione separata se serve <em>chi</em> ha detto cosa (pyannote), e il colpo finale: passare la trascrizione grezza a <a href="../cos-e-ollama/">un LLM</a> per punteggiatura, paragrafi e riassunto – la coppia trascrittore+redattore, tutta in casa.</p></div>
+  <a class="ask" href="../../?q=whisper">Chiedilo a FabGPT-FAQ →</a>
+  <div class="related">
+    <h2>Altre domande</h2>
+    <ul><li><a href="../cos-e-la-prompt-injection/">Cos&#x27;è la prompt injection e come ci si difende?</a></li><li><a href="../cos-e-mcp-model-context-protocol/">Cos&#x27;è MCP (Model Context Protocol)?</a></li><li><a href="../cos-e-il-vibe-coding/">Cos&#x27;è il vibe coding e quali sono i rischi?</a></li><li><a href="../allucinazioni-llm-dipendenze-inventate/">Cosa sono le allucinazioni degli LLM (e le dipendenze inventate)?</a></li><li><a href="../cos-e-rag-retrieval-augmented-generation/">Cos&#x27;è RAG (Retrieval-Augmented Generation)?</a></li><li><a href="../cos-e-un-llm/">Cos&#x27;è un LLM (Large Language Model)?</a></li></ul>
+  </div>
+</main>
+</body>
+</html>

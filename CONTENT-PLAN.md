@@ -151,64 +151,64 @@ Working rules (learned so far):
 - [B1] Cosa sono i guardrail per LLM?
 - [B1] Cos'è un system prompt?
 - [B1] Cosa sono gli embeddings?
-- Cos'è l'inferenza (e perché costa)?
-- Parametri di un modello: 7B, 70B – cosa significano?
-- Cos'è il pretraining (e il post-training)?
-- Cos'è RLHF?
-- Cos'è la distillazione di un modello?
-- Cos'è un modello open-weights (vs open source)?
-- Cos'è un vector database?
-- Chunking: come si spezzano i documenti per il RAG
-- Cos'è il reranking?
-- Cos'è la finestra di attenzione / KV cache?
-- Cos'è lo streaming delle risposte?
-- Cos'è il prompt caching?
-- Batch API e inference asincrona: quando usarle
-- Cos'è un eval (e perché i benchmark mentono)?
-- Cos'è la contaminazione dei benchmark?
-- Cos'è il grounding?
-- Cos'è la moderazione dei contenuti automatica?
-- Multimodalità: testo, immagini, audio nello stesso modello
-- Cos'è lo speculative decoding?
-- Mixture of Experts (MoE): come funziona
-- Cos'è il test-time compute / reasoning?
+- [B3] Cos'è l'inferenza (e perché costa)?
+- [B3] Parametri di un modello: 7B, 70B – cosa significano?
+- [B3] Cos'è il pretraining (e il post-training)?
+- [B3] Cos'è RLHF?
+- [B3] Cos'è la distillazione di un modello?
+- [B3] Cos'è un modello open-weights (vs open source)?
+- [B3] Cos'è un vector database?
+- [B3] Chunking: come si spezzano i documenti per il RAG
+- [B3] Cos'è il reranking?
+- [B3] Cos'è la finestra di attenzione / KV cache?
+- [B3] Cos'è lo streaming delle risposte?
+- [B3] Cos'è il prompt caching?
+- [B3] Batch API e inference asincrona: quando usarle
+- [B3] Cos'è un eval (e perché i benchmark mentono)?
+- [B3] Cos'è la contaminazione dei benchmark?
+- [B3] Cos'è il grounding?
+- [B3] Cos'è la moderazione dei contenuti automatica?
+- [B3] Multimodalità: testo, immagini, audio nello stesso modello
+- [B3] Cos'è lo speculative decoding?
+- [B3] Mixture of Experts (MoE): come funziona
+- [B3] Cos'è il test-time compute / reasoning?
 
 ### Local AI / pratica
 
 - [B1] Come si fa girare un LLM in locale (e che hardware serve)?
 - [B1] Cos'è Ollama e come si usa?
-- LM Studio vs Ollama vs llama.cpp
-- Quanta RAM/VRAM serve per un modello 7B/13B/70B?
-- Apple Silicon vs GPU NVIDIA per l'AI locale
-- Come si sceglie il modello giusto per un compito
-- Come si riducono le allucinazioni in pratica
-- Come si scrive un buon prompt (prompt engineering essenziale)
-- Come si valuta la qualità delle risposte di un LLM
-- Whisper e la trascrizione audio locale
-- Generazione di immagini in locale (Stable Diffusion, Flux)
-- Come si costruisce un chatbot su documenti aziendali
+- [B3] LM Studio vs Ollama vs llama.cpp
+- [B3] Quanta RAM/VRAM serve per un modello 7B/13B/70B?
+- [B3] Apple Silicon vs GPU NVIDIA per l'AI locale
+- [B3] Come si sceglie il modello giusto per un compito
+- [B3] Come si riducono le allucinazioni in pratica
+- [B3] Come si scrive un buon prompt (prompt engineering essenziale)
+- [B3] Come si valuta la qualità delle risposte di un LLM
+- [B3] Whisper e la trascrizione audio locale
+- [B3] Generazione di immagini in locale (Stable Diffusion, Flux)
+- [B3] Come si costruisce un chatbot su documenti aziendali
 
 ### AI engineering & agents
 
-- Cos'è l'orchestrazione multi-agente?
-- Memoria a breve vs lungo termine negli agenti
-- Cos'è il sandboxing per agenti AI?
-- Come si limita cosa può fare un agente (permessi, HITL)
-- Cos'è l'observability per LLM (tracing, costi)?
-- Come si testano le applicazioni LLM?
-- Structured output e JSON mode
-- Cos'è un MCP server (approfondimento pratico)?
+- [B3] Cos'è l'orchestrazione multi-agente?
+- [B3] Memoria a breve vs lungo termine negli agenti
+- [B3] Cos'è il sandboxing per agenti AI?
+- [B3] Come si limita cosa può fare un agente (permessi, HITL)
+- [B3] Cos'è l'observability per LLM (tracing, costi)?
+- [B3] Come si testano le applicazioni LLM?
+- [B3] Structured output e JSON mode
+- [B3] Cos'è un MCP server (approfondimento pratico)?
 
 ### AI e sicurezza / normative
 
 - [B1] Cosa prevede l'AI Act europeo (e da quando si applica)?
 - [B1] Cos'è la shadow AI in azienda?
-- Data leakage via LLM: i casi reali
-- Gli LLM e il copyright: dove siamo
-- Cos'è il watermarking dei contenuti AI?
-- Deepfake: come riconoscerli
-- Si può usare ChatGPT con dati personali? (GDPR)
-- Come si scrive una AI policy aziendale
+- [B3] Data leakage via LLM: i casi reali
+- [B3] Gli LLM e il copyright: dove siamo
+- [B3] Cos'è il watermarking dei contenuti AI?
+- [B3] Deepfake: come riconoscerli
+- [B3] Si può usare ChatGPT con dati personali? (GDPR)
+- [B3] Come si scrive una AI policy aziendale
 
 ## Proxmox e self-hosting
 

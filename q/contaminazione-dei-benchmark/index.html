@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cos&#x27;è la contaminazione dei benchmark? – FabGPT-FAQ</title>
+<meta name="description" content="La contaminazione avviene quando le domande (e magari le risposte) di un benchmark finiscono nei dati di addestramento: il modello non risolve il test, lo…">
+<link rel="canonical" href="https://fabriziosalmi.github.io/fabgpt-faq/q/contaminazione-dei-benchmark/">
+<link rel="stylesheet" href="../../style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Cos'è la contaminazione dei benchmark?", "acceptedAnswer": {"@type": "Answer", "text": "La contaminazione avviene quando le domande (e magari le risposte) di un benchmark finiscono nei dati di addestramento: il modello non risolve il test, lo ricorda. Con modelli addestrati su copie di mezzo internet è quasi inevitabile – i benchmark pubblici vivono su internet – e i punteggi ne escono gonfiati in modo invisibile. Gli indizi: punteggi che crollano sulla versione riformulata dello stesso problema, differenze sospette tra la versione pubblica e una privata del test, modelli che completano a memoria le domande a metà. Le contromisure: benchmark con set privati, test generati proceduralmente, versioni datate dopo il cutoff del modello, e le arene di preferenze umane (più difficili da memorizzare, con altri bias però). Morale per chi sceglie modelli: è un motivo in più per non fidarsi del [numero in classifica](q/cos-e-un-eval-e-perche-i-benchmark-mentono/) e misurare sul proprio dominio, con dati che il modello non può aver visto: i tuoi."}}]}</script>
+<style>
+  .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
+  .page h1 { font-size: 26px; line-height: 1.3; margin: 8px 0 20px; }
+  .page .answer a { color: var(--link); }
+  .page .vertical { font-size: 13px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }
+  .page .answer ul { padding-left: 22px; }
+  .page .answer code { background: var(--code-bg); border-radius: 5px; padding: 1px 5px; font-size: 0.9em; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+  .page .ask { display: inline-block; margin-top: 24px; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 9px 18px; text-decoration: none; font-weight: 600; }
+  .page .related { margin-top: 36px; border-top: 1px solid var(--border); padding-top: 18px; }
+  .page .related h2 { font-size: 16px; }
+  .page .related a { color: var(--link); text-decoration: none; }
+  .page .related a:hover { text-decoration: underline; }
+  .page .related li { margin: 6px 0; }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="../../" style="text-decoration:none;color:inherit">
+    <span class="brand-dot">F</span>
+    <span class="brand-name">FabGPT-FAQ</span>
+  </a>
+</header>
+<main class="page">
+  <div class="vertical">AI e LLM</div>
+  <h1>Cos&#x27;è la contaminazione dei benchmark?</h1>
+  <div class="answer"><p>La <strong>contaminazione</strong> avviene quando le domande (e magari le risposte) di un benchmark finiscono nei dati di addestramento: il modello non <em>risolve</em> il test, lo <strong>ricorda</strong>. Con modelli addestrati su copie di mezzo internet è quasi inevitabile – i benchmark pubblici vivono su internet – e i punteggi ne escono gonfiati in modo invisibile.</p><p>Gli indizi: punteggi che crollano sulla <em>versione riformulata</em> dello stesso problema, differenze sospette tra la versione pubblica e una privata del test, modelli che completano a memoria le domande a metà. Le contromisure: benchmark con <strong>set privati</strong>, test generati proceduralmente, versioni datate <em>dopo</em> il cutoff del modello, e le arene di preferenze umane (più difficili da memorizzare, con altri bias però).</p><p>Morale per chi sceglie modelli: è un motivo in più per non fidarsi del <a href="../cos-e-un-eval-e-perche-i-benchmark-mentono/">numero in classifica</a> e misurare sul proprio dominio, con dati che il modello non può aver visto: i tuoi.</p></div>
+  <a class="ask" href="../../?q=contaminazione-benchmark">Chiedilo a FabGPT-FAQ →</a>
+  <div class="related">
+    <h2>Altre domande</h2>
+    <ul><li><a href="../cos-e-la-prompt-injection/">Cos&#x27;è la prompt injection e come ci si difende?</a></li><li><a href="../cos-e-mcp-model-context-protocol/">Cos&#x27;è MCP (Model Context Protocol)?</a></li><li><a href="../cos-e-il-vibe-coding/">Cos&#x27;è il vibe coding e quali sono i rischi?</a></li><li><a href="../allucinazioni-llm-dipendenze-inventate/">Cosa sono le allucinazioni degli LLM (e le dipendenze inventate)?</a></li><li><a href="../cos-e-rag-retrieval-augmented-generation/">Cos&#x27;è RAG (Retrieval-Augmented Generation)?</a></li><li><a href="../cos-e-un-llm/">Cos&#x27;è un LLM (Large Language Model)?</a></li></ul>
+  </div>
+</main>
+</body>
+</html>

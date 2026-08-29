@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cos&#x27;è il sandboxing per agenti AI? – FabGPT-FAQ</title>
+<meta name="description" content="Un [agente](q/cos-e-un-agente-ai/) che esegue codice e comandi è, tecnicamente, esecuzione di codice non fidato – perché tra [prompt…">
+<link rel="canonical" href="https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-il-sandboxing-per-agenti/">
+<link rel="stylesheet" href="../../style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Cos'è il sandboxing per agenti AI?", "acceptedAnswer": {"@type": "Answer", "text": "Un [agente](q/cos-e-un-agente-ai/) che esegue codice e comandi è, tecnicamente, esecuzione di codice non fidato – perché tra [prompt injection](q/cos-e-la-prompt-injection/) e [allucinazioni](q/allucinazioni-llm-dipendenze-inventate/), non controlli davvero cosa deciderà di fare. Il sandboxing applica la risposta classica: un recinto dove anche l'azione sbagliata non fa danni. Gli strati pratici: filesystem: l'agente lavora in una directory dedicata o in un container – mai con il tuo home a portata di rm rete: [egress](q/secure-web-gateway-self-hosted/) chiuso o su allowlist – un agente iniettato che non può chiamare fuori non può esfiltrare credenziali: [minime e a scadenza](q/principio-del-minimo-privilegio/), mai i segreti veri nel suo ambiente (aidlp sorveglia cosa finisce nei prompt) risorse e tempo: limiti che spengono il loop impazzito Le versioni robuste usano container o microVM usa-e-getta per sessione; per il codice del progetto, un worktree isolato che si può buttare. Poi, sopra il recinto, [i permessi sulle azioni](q/come-si-limita-un-agente-ai/): il sandbox limita i danni, i permessi le intenzioni."}}]}</script>
+<style>
+  .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
+  .page h1 { font-size: 26px; line-height: 1.3; margin: 8px 0 20px; }
+  .page .answer a { color: var(--link); }
+  .page .vertical { font-size: 13px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }
+  .page .answer ul { padding-left: 22px; }
+  .page .answer code { background: var(--code-bg); border-radius: 5px; padding: 1px 5px; font-size: 0.9em; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+  .page .ask { display: inline-block; margin-top: 24px; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 9px 18px; text-decoration: none; font-weight: 600; }
+  .page .related { margin-top: 36px; border-top: 1px solid var(--border); padding-top: 18px; }
+  .page .related h2 { font-size: 16px; }
+  .page .related a { color: var(--link); text-decoration: none; }
+  .page .related a:hover { text-decoration: underline; }
+  .page .related li { margin: 6px 0; }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="../../" style="text-decoration:none;color:inherit">
+    <span class="brand-dot">F</span>
+    <span class="brand-name">FabGPT-FAQ</span>
+  </a>
+</header>
+<main class="page">
+  <div class="vertical">AI e LLM</div>
+  <h1>Cos&#x27;è il sandboxing per agenti AI?</h1>
+  <div class="answer"><p>Un <a href="../cos-e-un-agente-ai/">agente</a> che esegue codice e comandi è, tecnicamente, <strong>esecuzione di codice non fidato</strong> – perché tra <a href="../cos-e-la-prompt-injection/">prompt injection</a> e <a href="../allucinazioni-llm-dipendenze-inventate/">allucinazioni</a>, non controlli davvero cosa deciderà di fare. Il <strong>sandboxing</strong> applica la risposta classica: un recinto dove anche l&#x27;azione sbagliata non fa danni.</p><p>Gli strati pratici:</p><ul><li><strong>filesystem</strong>: l&#x27;agente lavora in una directory dedicata o in un container – mai con il tuo home a portata di <code>rm</code></li><li><strong>rete</strong>: <a href="../secure-web-gateway-self-hosted/">egress</a> chiuso o su allowlist – un agente iniettato che non può chiamare fuori non può esfiltrare</li><li><strong>credenziali</strong>: <a href="../principio-del-minimo-privilegio/">minime e a scadenza</a>, mai i segreti veri nel suo ambiente (<a href="https://github.com/fabriziosalmi/aidlp" target="_blank" rel="noopener">aidlp</a> sorveglia cosa finisce nei prompt)</li><li><strong>risorse e tempo</strong>: limiti che spengono il loop impazzito</li></ul><p>Le versioni robuste usano container o microVM usa-e-getta per sessione; per il codice del progetto, un worktree isolato che si può buttare. Poi, sopra il recinto, <a href="../come-si-limita-un-agente-ai/">i permessi sulle azioni</a>: il sandbox limita i danni, i permessi le intenzioni.</p></div>
+  <a class="ask" href="../../?q=sandboxing-agenti">Chiedilo a FabGPT-FAQ →</a>
+  <div class="related">
+    <h2>Altre domande</h2>
+    <ul><li><a href="../cos-e-la-prompt-injection/">Cos&#x27;è la prompt injection e come ci si difende?</a></li><li><a href="../cos-e-mcp-model-context-protocol/">Cos&#x27;è MCP (Model Context Protocol)?</a></li><li><a href="../cos-e-il-vibe-coding/">Cos&#x27;è il vibe coding e quali sono i rischi?</a></li><li><a href="../allucinazioni-llm-dipendenze-inventate/">Cosa sono le allucinazioni degli LLM (e le dipendenze inventate)?</a></li><li><a href="../cos-e-rag-retrieval-augmented-generation/">Cos&#x27;è RAG (Retrieval-Augmented Generation)?</a></li><li><a href="../cos-e-un-llm/">Cos&#x27;è un LLM (Large Language Model)?</a></li></ul>
+  </div>
+</main>
+</body>
+</html>

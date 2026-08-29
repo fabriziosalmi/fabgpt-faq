@@ -313,7 +313,6 @@
         "rag",
         "retrieval augmented",
         "cos e rag",
-        "vector database",
         "ricerca semantica",
         "documenti llm"
       ],
@@ -2548,6 +2547,839 @@
       ]
     },
     {
+      "id": "inferenza",
+      "slug": "cos-e-l-inferenza-e-perche-costa",
+      "question": "Cos'è l'inferenza (e perché costa)?",
+      "vertical": "ai",
+      "keywords": [
+        "inferenza",
+        "inference",
+        "perche costa l ai",
+        "costo per token",
+        "gpu inferenza",
+        "servire un modello",
+        "costa l inferenza"
+      ],
+      "answers": [
+        "L'**inferenza** è il modello al lavoro: dato il tuo prompt, generare la risposta. Si contrappone all'*addestramento* (che si paga una volta) perché si paga **a ogni richiesta** – ed è il motivo per cui le API fatturano [a token](q/token-e-context-window/).\n\nPerché costa: generare è **sequenziale** – un token alla volta, ciascuno richiede un passaggio nell'intero modello – e tiene occupata memoria costosa (i pesi più la [KV cache](q/cos-e-la-kv-cache/) che cresce col contesto). Le leve per abbatterlo esistono a ogni strato: [quantizzazione](q/quantizzazione-modelli-gguf/), [prompt caching](q/cos-e-il-prompt-caching/), [batch API](q/batch-api-e-inference-asincrona/), [speculative decoding](q/cos-e-lo-speculative-decoding/), modelli piccoli dove bastano ([routing a livelli](q/ridurre-costi-inferenza-llm/), l'idea di Silence) e contesto più magro ([l0-compressor](https://github.com/fabriziosalmi/l0-compressor) per gli agenti). O l'inferenza [a casa tua](q/far-girare-un-llm-in-locale/): costo marginale zero, elettricità esclusa."
+      ]
+    },
+    {
+      "id": "parametri-modello",
+      "slug": "parametri-7b-70b-cosa-significano",
+      "question": "Parametri di un modello: 7B, 70B – cosa significano?",
+      "vertical": "ai",
+      "keywords": [
+        "parametri",
+        "7b",
+        "miliardi di parametri",
+        "dimensione modello",
+        "grandezza modello",
+        "modello piccolo o grande",
+        "quanti parametri"
+      ],
+      "answers": [
+        "I **parametri** sono i pesi della rete neurale – i numeri regolati durante l'addestramento che codificano tutto ciò che il modello \"sa\". **7B** = 7 miliardi, **70B** = 70 miliardi. In prima approssimazione: più parametri, più capacità – e più [memoria e costo](q/quanta-ram-vram-serve-per-un-llm/).\n\nMa la scala non è tutto, e la storia recente lo dimostra: la **qualità dei dati** e le tecniche di addestramento contano quanto la stazza – i migliori modelli piccoli di oggi battono i giganti di due anni fa – e la [distillazione](q/cos-e-la-distillazione/) travasa capacità dai grandi ai piccoli. In più il numero dichiarato può ingannare: nei modelli [MoE](q/mixture-of-experts-moe/) i parametri *totali* e quelli *attivi* per token sono cose diverse. Regola pratica: per un compito ristretto, il modello più piccolo che lo risolve è quello giusto – [come sceglierlo](q/come-scegliere-il-modello-giusto/)."
+      ]
+    },
+    {
+      "id": "pretraining",
+      "slug": "cos-e-il-pretraining-e-post-training",
+      "question": "Cos'è il pretraining (e il post-training)?",
+      "vertical": "ai",
+      "keywords": [
+        "pretraining",
+        "pre-training",
+        "post-training",
+        "addestramento modello",
+        "come si addestra un llm",
+        "fasi addestramento",
+        "sft",
+        "pretraining llm"
+      ],
+      "answers": [
+        "Un LLM nasce in due fasi molto diverse:\n\n- il **pretraining** è la forgiatura: mesi di GPU su trilioni di [token](q/token-e-context-window/) di testo, con un unico obiettivo – predire il token successivo. Da qui escono conoscenza e capacità linguistiche, ma un modello \"base\" che completa il testo, non un assistente: se gli chiedi qualcosa, potrebbe risponderti con altre tre domande simili.\n- il **post-training** è l'educazione: il **fine-tuning supervisionato (SFT)** su esempi di dialogo gli insegna il formato domanda-risposta, e l'allineamento alle preferenze ([RLHF/DPO](q/cos-e-rlhf/)) lo rende utile, prudente, gradevole. È qui che nasce il \"carattere\".\n\nLa parte interessante per chi costruisce: il pretraining è roba da laboratori con budget a nove cifre, ma il post-training è accessibile – un [fine-tuning LoRA](q/meglio-fine-tuning-o-rag/) su un modello aperto si fa [anche su un Mac](q/fine-tuning-llm-apple-silicon/)."
+      ]
+    },
+    {
+      "id": "rlhf",
+      "slug": "cos-e-rlhf",
+      "question": "Cos'è RLHF (e l'alternativa DPO)?",
+      "vertical": "ai",
+      "keywords": [
+        "rlhf",
+        "dpo",
+        "reinforcement learning",
+        "preferenze umane",
+        "reward model",
+        "allineamento modello",
+        "human feedback"
+      ],
+      "answers": [
+        "**RLHF** (Reinforcement Learning from Human Feedback) è la tecnica che ha trasformato i modelli da completatori di testo ad assistenti: si mostrano a persone coppie di risposte (\"quale preferisci?\"), con quei giudizi si addestra un **reward model** che impara a prevedere le preferenze umane, e con il reinforcement learning si spinge l'LLM a produrre risposte che quel giudice premia.\n\nÈ potente e delicato: il modello impara a piacere, che non è esattamente *essere corretto* – da qui la piaggeria (\"ottima domanda!\") e le risposte prudenti fino alla mutilazione. **DPO** (Direct Preference Optimization) ottiene un effetto simile saltando il reward model e il RL: si ottimizza direttamente sulle coppie preferita/scartata – più semplice e stabile, ed è il motivo per cui lo trovi nelle pipeline open source. I dataset di preferenze pubblici (HH di Anthropic, UltraFeedback, OASST) sono la materia prima di entrambi."
+      ]
+    },
+    {
+      "id": "distillazione",
+      "slug": "cos-e-la-distillazione",
+      "question": "Cos'è la distillazione di un modello?",
+      "vertical": "ai",
+      "keywords": [
+        "distillazione",
+        "distillation",
+        "teacher student",
+        "modello insegnante",
+        "comprimere conoscenza",
+        "modelli piccoli potenti"
+      ],
+      "answers": [
+        "La **distillazione** travasa le capacità di un modello grande (*teacher*) in uno piccolo (*student*): lo student non impara dai dati grezzi ma **dall'output del teacher** – le sue risposte, o addirittura le sue distribuzioni di probabilità, che contengono più informazione della sola risposta giusta (\"quasi certamente A, ma B era plausibile\").\n\nÈ il motivo per cui i [modelli piccoli](q/parametri-7b-70b-cosa-significano/) moderni sono così sorprendenti: molti sono distillati da giganti, ereditando una frazione notevole della qualità a una frazione minima del [costo di inferenza](q/cos-e-l-inferenza-e-perche-costa/). La variante più comune oggi: generare **dati sintetici** col modello grande e farci fine-tuning del piccolo.\n\nNota legale non banale: distillare dall'API di un concorrente viola in genere i termini d'uso – la pratica esiste comunque, ma è terreno conteso. Per uso interno (grande → piccolo tuoi) è invece la strada maestra per abbattere i costi."
+      ]
+    },
+    {
+      "id": "open-weights",
+      "slug": "modello-open-weights-vs-open-source",
+      "question": "Cos'è un modello open-weights (e perché non è open source)?",
+      "vertical": "ai",
+      "keywords": [
+        "open weights",
+        "pesi aperti",
+        "modello aperto",
+        "licenza modello",
+        "llama licenza",
+        "veramente open source",
+        "apache modello",
+        "weights"
+      ],
+      "answers": [
+        "**Open-weights** significa che i pesi del modello sono scaricabili: puoi eseguirlo [in locale](q/far-girare-un-llm-in-locale/), farci fine-tuning, ispezionarlo. Ma open-weights **non è open source** in senso pieno: per quello servirebbero anche dati di addestramento, codice e ricetta – che quasi nessuno pubblica – e una licenza senza clausole d'uso.\n\nLo spettro reale: modelli con licenze permissive vere (Apache 2.0/MIT: Mistral, Qwen, molti altri), modelli con **licenze custom e restrizioni** (la famiglia Llama: soglie di utenti, limiti d'uso – aperta ma non libera), e i chiusi puri dietro API. Le eccezioni virtuose che pubblicano *tutto*, dati inclusi, esistono (OLMo, progetti di ricerca) e meritano il nome open source.\n\nPerché ti riguarda: la licenza decide se puoi usarlo commercialmente, ridistribuire un fine-tuning, o [distillarlo](q/cos-e-la-distillazione/). Prima di costruirci sopra un prodotto: leggila, non è un dettaglio."
+      ]
+    },
+    {
+      "id": "vector-database",
+      "slug": "cos-e-un-vector-database",
+      "question": "Cos'è un vector database?",
+      "vertical": "ai",
+      "keywords": [
+        "vector database",
+        "database vettoriale",
+        "qdrant",
+        "pgvector",
+        "chroma",
+        "indice vettoriale",
+        "faiss",
+        "ricerca per similarita"
+      ],
+      "answers": [
+        "Un **vector database** archivia [embeddings](q/cosa-sono-gli-embeddings/) e risponde a una domanda sola, ma velocissimamente: *quali vettori sono più vicini a questo?* È la ricerca per similarità che fa funzionare il [RAG](q/cos-e-rag-retrieval-augmented-generation/), i sistemi di raccomandazione, la deduplicazione semantica. Sotto il cofano, indici approssimati (HNSW e simili) che scambiano un pizzico di esattezza per ordini di grandezza in velocità.\n\nIl panorama, con una dose di pragmatismo:\n\n- **pgvector** – l'estensione Postgres: se hai già Postgres, per la maggior parte dei progetti è la risposta (un database in meno da gestire)\n- **Qdrant, Weaviate, Milvus** – i dedicati, quando i vettori sono milioni e servono filtri e scala\n- **Chroma, FAISS, SQLite-vec** – embedded, per prototipi e progetti locali\n\nVerità controcorrente: sotto le centinaia di migliaia di documenti, un **ibrido full-text + vettori** batte spesso i soli vettori – è la scelta di [l0-memory](https://github.com/fabriziosalmi/l0-memory): FTS5 di default, vettori come opzione."
+      ]
+    },
+    {
+      "id": "chunking",
+      "slug": "chunking-spezzare-documenti-per-rag",
+      "question": "Chunking: come si spezzano i documenti per il RAG?",
+      "vertical": "ai",
+      "keywords": [
+        "chunking",
+        "chunk",
+        "spezzare documenti",
+        "dividere documenti",
+        "chunk size",
+        "overlap",
+        "segmentazione documenti",
+        "documenti",
+        "documenti per il rag"
+      ],
+      "answers": [
+        "Il **chunking** decide più della qualità del tuo [RAG](q/cos-e-rag-retrieval-augmented-generation/) di quanto decida il modello: i documenti vanno spezzati in frammenti da indicizzare, e se i tagli cadono male – una tabella divisa a metà, una risposta separata dalla sua domanda – il retrieval recupera briciole senza senso.\n\nLe regole che reggono:\n\n- taglia sui **confini semantici** (titoli, paragrafi, sezioni), mai a numero fisso di caratteri nel mezzo di una frase; per il codice, su funzioni e classi\n- dimensioni tipiche 200-800 token con un **overlap** del 10-20% per non perdere il contesto ai bordi\n- arricchisci ogni chunk con i **metadati** (titolo del documento, sezione, data): il testo \"la porta è la 8437\" non serve a nulla senza sapere di quale servizio parla\n- la variante furba: indicizza chunk piccoli ma **restituisci al modello il contesto allargato** (parent retrieval)\n\nE misura sul tuo corpus reale: la [valutazione](q/come-valutare-le-risposte-di-un-llm/) di venti domande vere vale più di ogni teoria sul chunk perfetto."
+      ]
+    },
+    {
+      "id": "reranking",
+      "slug": "cos-e-il-reranking",
+      "question": "Cos'è il reranking?",
+      "vertical": "ai",
+      "keywords": [
+        "reranking",
+        "reranker",
+        "riordinare risultati",
+        "cross encoder",
+        "migliorare retrieval",
+        "seconda passata"
+      ],
+      "answers": [
+        "Il **reranking** è la seconda passata del retrieval: la ricerca veloce ([vettoriale](q/cos-e-un-vector-database/) o full-text) recupera i primi 20-100 candidati, poi un **reranker** – un modello che legge davvero la coppia domanda+documento, non due vettori precalcolati – li riordina per pertinenza vera, e al [RAG](q/cos-e-rag-retrieval-augmented-generation/) arrivano solo i migliori 3-5.\n\nPerché funziona: gli embeddings comprimono ogni testo in un vettore *prima* di sapere quale sarà la domanda – per forza perdono sfumature. Il reranker (tipicamente un cross-encoder) valuta la coppia specifica: più lento per documento, ma su pochi candidati il conto torna. È spesso **il singolo upgrade con il miglior rapporto resa/sforzo** di una pipeline RAG: pochi punti percentuali di latenza, molta meno spazzatura nel contesto – e [meno contesto sprecato](q/token-e-context-window/) significa anche risposte migliori e più economiche."
+      ]
+    },
+    {
+      "id": "kv-cache",
+      "slug": "cos-e-la-kv-cache",
+      "question": "Cos'è la KV cache (e perché il contesto lungo costa)?",
+      "vertical": "ai",
+      "keywords": [
+        "kv cache",
+        "attenzione",
+        "attention",
+        "contesto lungo costo",
+        "memoria contesto",
+        "cache chiavi valori",
+        "quadratico"
+      ],
+      "answers": [
+        "Dentro un transformer, ogni nuovo token \"guarda\" tutti i precedenti (il meccanismo di **attention**). Per non ricalcolare tutto a ogni passo, i valori intermedi dei token già visti si tengono in memoria: è la **KV cache** (key-value). Senza, la generazione sarebbe insostenibile; con, il costo si sposta sulla **memoria**: la cache cresce linearmente con la lunghezza del contesto, e su contesti molto lunghi divora più VRAM dei pesi stessi.\n\nÈ la ragione fisica per cui [il contesto lungo costa](q/token-e-context-window/) e le API fatturano di più i prompt chilometrici. Le mitigazioni che incontrerai nei runtime: attention ottimizzata (FlashAttention), condivisione delle teste (GQA/MQA), quantizzazione della cache stessa, e il [prompt caching](q/cos-e-il-prompt-caching/) lato API, che riusa la cache dei prefissi ripetuti invece di ricostruirla. Morale operativa: contesto magro non è tirchieria, è ingegneria – [l0-compressor](https://github.com/fabriziosalmi/l0-compressor) esiste per questo."
+      ]
+    },
+    {
+      "id": "streaming-risposte",
+      "slug": "cos-e-lo-streaming-delle-risposte",
+      "question": "Cos'è lo streaming delle risposte di un LLM?",
+      "vertical": "ai",
+      "keywords": [
+        "streaming",
+        "risposta in streaming",
+        "token per token",
+        "sse",
+        "effetto macchina da scrivere",
+        "risposta progressiva",
+        "ttft"
+      ],
+      "answers": [
+        "Lo **streaming** mostra la risposta man mano che i token vengono generati, invece di aspettare la fine: la latenza *totale* non cambia, ma quella **percepita** crolla – il primo token arriva in decimi di secondo (TTFT, time to first token) e l'utente legge mentre il modello scrive. Per le interfacce chat è irrinunciabile: dieci secondi di spinner sono un'eternità, dieci secondi di testo che scorre sono normali.\n\nTecnica: le API lo espongono via **SSE** (server-sent events) – eventi con frammenti di testo da concatenare; i tool call e i metadati arrivano come eventi tipizzati. Le complicazioni pratiche: il markdown parziale da renderizzare senza sfarfallio, l'interruzione pulita, gli errori a metà flusso.\n\nConfessione a tema: l'effetto macchina da scrivere di [questo sito](q/cos-e-fabgpt-come-funziona/) è *finto streaming* – le risposte esistono già intere. Il che, a pensarci, è uno streaming con TTFT perfetto e zero costo di inferenza."
+      ]
+    },
+    {
+      "id": "prompt-caching",
+      "slug": "cos-e-il-prompt-caching",
+      "question": "Cos'è il prompt caching?",
+      "vertical": "ai",
+      "keywords": [
+        "prompt caching",
+        "cache del prompt",
+        "prefisso ripetuto",
+        "sconto cache",
+        "cache hit api",
+        "riusare il prompt"
+      ],
+      "answers": [
+        "Il **prompt caching** sfrutta un fatto banale: le tue richieste all'API iniziano quasi sempre con lo stesso blocco – [system prompt](q/cos-e-un-system-prompt/), istruzioni, documenti, definizioni dei tool – e cambia solo la coda. I provider possono conservare la [KV cache](q/cos-e-la-kv-cache/) di quel **prefisso** e riusarla: niente ricalcolo, latenza più bassa e sconti sostanziosi sui token in cache (tipicamente 50-90% a seconda del provider).\n\nPer beneficiarne serve disciplina di struttura: il **contenuto stabile va all'inizio**, identico al byte, e le parti variabili in fondo – un timestamp o un ID di sessione piazzato in cima al prompt invalida tutto a ogni chiamata. Le cache hanno un tempo di vita (minuti), quindi il beneficio è massimo su conversazioni e agenti che martellano lo stesso contesto.\n\nÈ il complemento dell'altra igiene: [meno contesto](q/token-e-context-window/) da cachare in primis – le due cose insieme cambiano la bolletta."
+      ]
+    },
+    {
+      "id": "batch-api",
+      "slug": "batch-api-e-inference-asincrona",
+      "question": "Batch API e inferenza asincrona: quando usarle?",
+      "vertical": "ai",
+      "keywords": [
+        "batch api",
+        "batch",
+        "inferenza asincrona",
+        "elaborazione notturna",
+        "sconto batch",
+        "job asincroni llm",
+        "a lotti"
+      ],
+      "answers": [
+        "Le **batch API** rovesciano il patto: rinunci alla risposta immediata – carichi un lotto di richieste e i risultati arrivano entro ore (di solito con garanzia entro 24) – e in cambio paghi **circa la metà**. Per il provider è capacità riempita nei momenti morti; per te è uno sconto strutturale su tutto ciò che non è interattivo.\n\nI casi giusti: classificare o arricchire un dataset, generare descrizioni per diecimila prodotti, [valutazioni](q/come-valutare-le-risposte-di-un-llm/) notturne, riscritture di massa (il caso [UglyFeed](https://github.com/fabriziosalmi/UglyFeed): rielaborare feed RSS non ha bisogno del tempo reale), report periodici. Il pattern architetturale: separa nel tuo sistema ciò che l'utente aspetta *adesso* da ciò che può maturare in coda – spesso è più di quanto pensi, e ogni chiamata spostata sul binario lento costa metà. Combinato con [prompt caching](q/cos-e-il-prompt-caching/) e modelli dimensionati, il conto dell'API si ridimensiona davvero."
+      ]
+    },
+    {
+      "id": "eval-llm",
+      "slug": "cos-e-un-eval-e-perche-i-benchmark-mentono",
+      "question": "Cos'è un eval (e perché i benchmark mentono)?",
+      "vertical": "ai",
+      "keywords": [
+        "eval",
+        "evals",
+        "benchmark",
+        "mmlu",
+        "leaderboard",
+        "valutazione modelli",
+        "benchmark saturi",
+        "misurare i modelli",
+        "benchmark mentono"
+      ],
+      "answers": [
+        "Un **eval** è un test ripetibile per misurare un modello: domande con risposte attese, una metrica, un punteggio. I **benchmark pubblici** (MMLU, HumanEval, le arene di preferenze) sono eval standardizzati su cui si costruiscono le classifiche – utilissimi per orientarsi, pericolosi se creduti alla lettera.\n\nPerché \"mentono\": la [contaminazione](q/contaminazione-dei-benchmark/) (il test finito nei dati di addestramento), la **saturazione** (quando tutti fanno 90%, il benchmark non distingue più), l'ottimizzazione mirata (Goodhart: la misura diventa l'obiettivo e smette di misurare), e la distanza dal tuo caso: un modello forte in matematica olimpionica può essere mediocre sul tuo estrattore di fatture in italiano.\n\nLa conseguenza pratica è una sola: le leaderboard per la *rosa dei candidati*, i **tuoi eval** per la scelta – venti casi reali del tuo dominio battono qualsiasi classifica ([come costruirli](q/come-valutare-le-risposte-di-un-llm/)). Nel piccolo è l'approccio di [llm-benchmarks](https://github.com/fabriziosalmi/llm-benchmarks): compiti semplici, misurabili, senza gloria."
+      ]
+    },
+    {
+      "id": "contaminazione-benchmark",
+      "slug": "contaminazione-dei-benchmark",
+      "question": "Cos'è la contaminazione dei benchmark?",
+      "vertical": "ai",
+      "keywords": [
+        "contaminazione",
+        "contamination",
+        "dati di test nel training",
+        "benchmark contaminato",
+        "memorizzato il test",
+        "punteggi gonfiati"
+      ],
+      "answers": [
+        "La **contaminazione** avviene quando le domande (e magari le risposte) di un benchmark finiscono nei dati di addestramento: il modello non *risolve* il test, lo **ricorda**. Con modelli addestrati su copie di mezzo internet è quasi inevitabile – i benchmark pubblici vivono su internet – e i punteggi ne escono gonfiati in modo invisibile.\n\nGli indizi: punteggi che crollano sulla *versione riformulata* dello stesso problema, differenze sospette tra la versione pubblica e una privata del test, modelli che completano a memoria le domande a metà. Le contromisure: benchmark con **set privati**, test generati proceduralmente, versioni datate *dopo* il cutoff del modello, e le arene di preferenze umane (più difficili da memorizzare, con altri bias però).\n\nMorale per chi sceglie modelli: è un motivo in più per non fidarsi del [numero in classifica](q/cos-e-un-eval-e-perche-i-benchmark-mentono/) e misurare sul proprio dominio, con dati che il modello non può aver visto: i tuoi."
+      ]
+    },
+    {
+      "id": "grounding",
+      "slug": "cos-e-il-grounding",
+      "question": "Cos'è il grounding?",
+      "vertical": "ai",
+      "keywords": [
+        "grounding",
+        "ancorare le risposte",
+        "risposte con fonti",
+        "citare le fonti",
+        "risposta basata sui documenti",
+        "verificabilita"
+      ],
+      "answers": [
+        "**Grounding** significa ancorare le risposte del modello a fonti verificabili invece che alla sua memoria statistica: il modello risponde *a partire da* documenti forniti ([RAG](q/cos-e-rag-retrieval-augmented-generation/)), risultati di ricerca o dati strutturati – idealmente **citando** da dove viene ogni affermazione, così chi legge può controllare.\n\nÈ la differenza tra \"probabilmente è così\" e \"è così, fonte alla mano\", e la leva principale contro le [allucinazioni](q/allucinazioni-llm-dipendenze-inventate/) sui fatti. Le pratiche che lo rendono reale: istruire il modello a rispondere **solo dal contesto fornito** e a dichiarare quando non basta (\"non lo so\" è una risposta grounded), citazioni con riferimento al passaggio, e [valutazioni](q/come-valutare-le-risposte-di-un-llm/) che misurino la fedeltà alle fonti, non solo la fluidità.\n\nCuriosità autoreferenziale: una FAQ pre-scritta come [questa](q/cos-e-fabgpt-come-funziona/) è grounding portato all'estremo – la risposta *è* la fonte, verificata in anticipo."
+      ]
+    },
+    {
+      "id": "moderazione-contenuti",
+      "slug": "moderazione-automatica-dei-contenuti",
+      "question": "Come funziona la moderazione automatica dei contenuti?",
+      "vertical": "ai",
+      "keywords": [
+        "moderazione",
+        "content moderation",
+        "filtro contenuti",
+        "contenuti vietati",
+        "moderation api",
+        "classificatore contenuti",
+        "filtrare input utenti"
+      ],
+      "answers": [
+        "La **moderazione automatica** classifica testi (o immagini) rispetto a categorie di rischio – violenza, odio, sessuale, autolesionismo – e decide: passa, blocca, o segnala a un umano. Nelle applicazioni LLM serve in **due direzioni**: sull'input degli utenti (per non far processare al sistema ciò che non deve) e sull'output del modello (per non pubblicare ciò che non dovrebbe uscire).\n\nGli strumenti: API di moderazione dedicate (spesso gratuite a corredo delle API principali), modelli aperti specializzati (famiglia Llama Guard), o classificatori addestrati sulle *tue* categorie – perché ogni piattaforma ha confini suoi. Le lezioni apprese sul campo: le soglie vanno tarate sui dati reali (il falso positivo che censura una discussione medica è un danno anche lui), l'italiano e i contesti ironici sono terreno fragile, e la moderazione è **un** [guardrail](q/cosa-sono-i-guardrail-llm/), non il sistema di sicurezza intero."
+      ]
+    },
+    {
+      "id": "multimodalita",
+      "slug": "cos-e-la-multimodalita",
+      "question": "Multimodalità: testo, immagini e audio nello stesso modello",
+      "vertical": "ai",
+      "keywords": [
+        "multimodale",
+        "multimodalita",
+        "vision",
+        "capire le immagini",
+        "modello che vede",
+        "audio nel modello",
+        "vlm",
+        "ocr con llm"
+      ],
+      "answers": [
+        "Un modello **multimodale** tratta più tipi di dato nello stesso spazio: legge immagini e testo insieme (e sempre più spesso audio e video), ragionandoci in modo unificato – descrivere una foto, estrarre dati da una fattura scansionata, spiegare un grafico, trascrivere e riassumere una riunione.\n\nCome funziona, in breve: un encoder trasforma l'immagine in token che il transformer tratta accanto a quelli del testo – per il modello, \"vedere\" è leggere un altro alfabeto. I limiti da conoscere: la risoluzione effettiva è limitata (i dettagli minuti si perdono), il conteggio di oggetti e la lettura di layout complessi restano fragili, e le [allucinazioni](q/allucinazioni-llm-dipendenze-inventate/) valgono anche sulle immagini – descrizioni sicure di cose che non ci sono.\n\nSul pratico: per l'OCR puro di documenti, [gli strumenti dedicati](q/convertire-pdf-scansionato-in-testo/) restano più prevedibili; il multimodale vince quando serve *capire*, non solo leggere. E i VLM aperti girano ormai [anche in locale](q/far-girare-un-llm-in-locale/)."
+      ]
+    },
+    {
+      "id": "speculative-decoding",
+      "slug": "cos-e-lo-speculative-decoding",
+      "question": "Cos'è lo speculative decoding?",
+      "vertical": "ai",
+      "keywords": [
+        "speculative decoding",
+        "draft model",
+        "accelerare generazione",
+        "modello bozza",
+        "velocizzare llm",
+        "decoding veloce"
+      ],
+      "answers": [
+        "Lo **speculative decoding** accelera la generazione con un trucco elegante: un modello **piccolo e veloce** (draft) propone i prossimi 4-8 token, e il modello **grande** li verifica *tutti in un colpo solo* – accettando quelli su cui concorda e correggendo il primo che sbaglia. Siccome verificare in parallelo costa quanto generare un token, e il piccolo indovina spesso (le parti facili del testo sono... facili), il risultato sono **2-3× di velocità con output matematicamente identico** a quello del modello grande da solo.\n\nNiente pasti gratis, ma quasi: serve tenere in memoria due modelli, e il guadagno dipende da quanto il draft \"somiglia\" al grande (spesso è una versione [distillata](q/cos-e-la-distillazione/) dello stesso). Lo trovi già acceso in molti runtime e API senza che tu debba fare nulla – è uno dei motivi per cui l'[inferenza](q/cos-e-l-inferenza-e-perche-costa/) continua a diventare più economica a parità di qualità."
+      ]
+    },
+    {
+      "id": "moe",
+      "slug": "mixture-of-experts-moe",
+      "question": "Mixture of Experts (MoE): come funziona?",
+      "vertical": "ai",
+      "keywords": [
+        "mixture of experts",
+        "moe",
+        "esperti",
+        "router",
+        "parametri attivi",
+        "sparse model",
+        "8x7b"
+      ],
+      "answers": [
+        "In un modello **MoE**, i blocchi feed-forward sono sostituiti da una squadra di **esperti** (sotto-reti) più un **router** che, token per token, attiva solo i 2-4 più adatti. Risultato: un modello con moltissimi parametri *totali* ma una frazione di parametri **attivi** per ogni token – capacità da gigante, costo di calcolo da medio.\n\nÈ l'architettura dietro molti dei modelli migliori degli ultimi anni (da Mixtral 8x7B in poi, e diversi frontier chiusi). Le sfumature oneste: la **memoria** serve comunque tutta (tutti gli esperti vanno caricati: un MoE da 47B totali/13B attivi occupa come un 47B), il che li rende ottimi per chi serve API a volume e meno per [la GPU di casa](q/quanta-ram-vram-serve-per-un-llm/); e gli \"esperti\" non sono specialisti tematici leggibili (\"quello di matematica\") ma pattern statistici – il nome promette più antropomorfismo di quanto mantenga.\n\nQuando leggi le specifiche di un MoE, [conta i parametri giusti](q/parametri-7b-70b-cosa-significano/): quelli attivi dicono il costo, quelli totali la memoria."
+      ]
+    },
+    {
+      "id": "test-time-compute",
+      "slug": "cos-e-il-test-time-compute-reasoning",
+      "question": "Cos'è il test-time compute (e i modelli di reasoning)?",
+      "vertical": "ai",
+      "keywords": [
+        "reasoning",
+        "test time compute",
+        "modelli di ragionamento",
+        "chain of thought",
+        "pensare prima di rispondere",
+        "thinking",
+        "o1"
+      ],
+      "answers": [
+        "L'idea che ha aperto l'ultima frontiera: invece di spendere di più solo in *addestramento*, si lascia che il modello **spenda più calcolo al momento della risposta** – generando un ragionamento interno (catene di pensiero, tentativi, autoverifiche) prima di produrre la risposta finale. I \"modelli di reasoning\" sono addestrati apposta, con RL sui problemi verificabili, a usare bene questo tempo di riflessione.\n\nIl guadagno è reale su matematica, codice e pianificazione – problemi dove si può *controllare* un tentativo – e scala con il budget: più token di pensiero, risposte migliori, fino a un punto. I costi altrettanto reali: **latenza e prezzo** (i token di ragionamento si pagano), e su compiti semplici il sovrappensiero non aggiunge nulla.\n\nRegola operativa: reasoning per i problemi difficili e verificabili, modelli classici per estrazione, chat e compiti di routine – [scegliere il modello](q/come-scegliere-il-modello-giusto/) ora include anche *quanto farlo pensare*."
+      ]
+    },
+    {
+      "id": "lmstudio-ollama-llamacpp",
+      "slug": "lm-studio-ollama-o-llama-cpp",
+      "question": "LM Studio, Ollama o llama.cpp: quale usare?",
+      "vertical": "ai",
+      "keywords": [
+        "lm studio",
+        "llama cpp",
+        "ollama o lm studio",
+        "quale runtime locale",
+        "eseguire modelli confronto",
+        "llamacpp",
+        "vllm"
+      ],
+      "answers": [
+        "Tre strade per lo stesso motore – quasi tutto il locale, sotto, è **llama.cpp**:\n\n- **LM Studio** – l'app desktop: interfaccia grafica per scaricare modelli, chattare e servire un'API locale. La porta d'ingresso più morbida; contro: applicazione proprietaria (gratuita), più pesante.\n- **[Ollama](q/cos-e-ollama/)** – il demone da riga di comando: `ollama run` e via, API sulla 11434 che ogni tool può consumare. Il default sensato per chi integra – è l'endpoint che si aspettano [l0-memory](https://github.com/fabriziosalmi/l0-memory), [NASO](https://github.com/fabriziosalmi/naso) e mezzo ecosistema.\n- **llama.cpp** – il motore nudo: massimo controllo su flag, quantizzazioni e build, zero comodità. Per chi spreme l'hardware o compila su piattaforme esotiche.\n\nMenzioni doverose: **vLLM** quando serve *servire* con throughput serio su GPU, e su Mac il mondo **MLX** ([SiliconDev](https://github.com/fabriziosalmi/silicondev) per l'esperienza completa con fine-tuning). Regola: parti da Ollama; passa sotto solo quando sai perché."
+      ]
+    },
+    {
+      "id": "ram-vram-llm",
+      "slug": "quanta-ram-vram-serve-per-un-llm",
+      "question": "Quanta RAM o VRAM serve per un LLM (7B, 13B, 70B)?",
+      "vertical": "ai",
+      "keywords": [
+        "quanta vram",
+        "ram per llm",
+        "requisiti modello",
+        "memoria per modello",
+        "13b",
+        "quanti gb",
+        "vram necessaria",
+        "sta in memoria"
+      ],
+      "answers": [
+        "La regola spannometrica per i modelli [quantizzati](q/quantizzazione-modelli-gguf/) in Q4: **~0,6 GB per miliardo di parametri**, più 1-3 GB per il contesto (la [KV cache](q/cos-e-la-kv-cache/) cresce col contesto: contesti lunghi = gigabyte in più):\n\n- **7-9B** → 5-7 GB: gira su laptop con 16 GB di RAM o GPU da 8 GB\n- **13-14B** → 9-11 GB: GPU da 12-16 GB o Mac da 16-24 GB\n- **30-34B** → 20-24 GB: RTX 3090/4090 (24 GB) o Mac da 32 GB e su\n- **70B** → 40-48 GB: doppia GPU, oppure Mac Studio/MacBook con 64+ GB di memoria unificata\n\nNote che salvano acquisti: la **memoria unificata** Apple conta tutta come \"VRAM\" ([il confronto con NVIDIA](q/apple-silicon-o-gpu-nvidia-per-ai/)); un modello che *entra per un pelo* lascia spazio zero al contesto; e un [MoE](q/mixture-of-experts-moe/) occupa per i parametri totali, non per gli attivi. In caso di dubbio: meglio [un modello più piccolo che respira](q/come-scegliere-il-modello-giusto/) di uno grande che soffoca."
+      ]
+    },
+    {
+      "id": "apple-vs-nvidia",
+      "slug": "apple-silicon-o-gpu-nvidia-per-ai",
+      "question": "Apple Silicon o GPU NVIDIA per l'AI locale?",
+      "vertical": "ai",
+      "keywords": [
+        "apple silicon o nvidia",
+        "mac o nvidia",
+        "nvidia",
+        "memoria unificata",
+        "cuda",
+        "4090",
+        "gpu per llm",
+        "mac per ai"
+      ],
+      "answers": [
+        "Dipende da cosa ottimizzi:\n\n- **NVIDIA** vince in **velocità pura** (banda di memoria e compute: una 4090 macina token che un Mac sogna) e in ecosistema – CUDA è la lingua franca: training serio, Stable Diffusion, vLLM, tutto nasce lì. Contro: la **VRAM si compra a caro prezzo** (24 GB consumer è il tetto pratico), consumi e rumore da workstation.\n- **Apple Silicon** vince in **capacità**: la memoria unificata arriva a 128+ GB – [modelli 70B in locale](q/quanta-ram-vram-serve-per-un-llm/) su una macchina silenziosa che sta in borsa. Contro: banda e compute inferiori (i modelli grandi *entrano* ma generano con calma), ed ecosistema più giovane (MLX cresce bene – [SiliconDev](https://github.com/fabriziosalmi/silicondev) ci costruisce sopra chat e fine-tuning – ma CUDA resta avanti).\n\nRegola di tasca: già hai un Mac con tanta memoria → usalo, copre più di quanto credi. Compri apposta per l'AI → una GPU NVIDIA usata con 24 GB è il miglior rapporto token/euro. Vuoi 70B+ sempre acceso → o Mac Studio, o [il salto al multi-GPU](q/far-girare-un-llm-in-locale/)."
+      ]
+    },
+    {
+      "id": "scegliere-modello",
+      "slug": "come-scegliere-il-modello-giusto",
+      "question": "Come si sceglie il modello giusto per un compito?",
+      "vertical": "ai",
+      "keywords": [
+        "quale modello",
+        "scegliere modello",
+        "modello giusto",
+        "che modello uso",
+        "modello per compito",
+        "confronto modelli",
+        "quale llm scegliere"
+      ],
+      "answers": [
+        "Il metodo, in cinque mosse:\n\n- **parti dal compito, non dalla classifica**: estrazione dati, chat, codice, riassunti hanno vincitori diversi – [i benchmark](q/cos-e-un-eval-e-perche-i-benchmark-mentono/) generici dicono poco sul tuo caso\n- **vincoli prima**: dati sensibili → [locale](q/far-girare-un-llm-in-locale/) o UE; volumi alti → il piccolo che basta; problemi difficili verificabili → [reasoning](q/cos-e-il-test-time-compute-reasoning/); [licenza](q/modello-open-weights-vs-open-source/) se ridistribuisci\n- costruisci **20-50 casi reali tuoi** con risposte attese ([un mini-eval](q/come-valutare-le-risposte-di-un-llm/)): un pomeriggio di lavoro che ripaga per mesi\n- prova **tre taglie** (piccolo/medio/grande) sugli stessi casi e scegli il più piccolo che supera l'asticella – di solito sorprende in basso\n- **rivaluta ogni pochi mesi**: il panorama ruota in fretta e il tuo eval rende il ricambio indolore\n\nE per i sistemi in produzione: il routing per difficoltà – piccolo di default, grande a chiamata – è [la leva di costo più sottovalutata](q/ridurre-costi-inferenza-llm/)."
+      ]
+    },
+    {
+      "id": "ridurre-allucinazioni",
+      "slug": "come-ridurre-le-allucinazioni",
+      "question": "Come si riducono le allucinazioni in pratica?",
+      "vertical": "ai",
+      "keywords": [
+        "ridurre allucinazioni",
+        "evitare allucinazioni",
+        "meno allucinazioni",
+        "risposte inventate",
+        "llm che inventa",
+        "affidabilita risposte",
+        "non inventare",
+        "riduco",
+        "ridurre",
+        "allucinazioni"
+      ],
+      "answers": [
+        "Le [allucinazioni](q/allucinazioni-llm-dipendenze-inventate/) non si eliminano – sono nel design – ma si riducono di molto, per strati:\n\n- **[grounding](q/cos-e-il-grounding/)**: dai al modello i documenti giusti ([RAG](q/cos-e-rag-retrieval-augmented-generation/)) e istruiscilo a rispondere *solo da quelli*, citando – e a dire \"non lo so\" quando il contesto non basta: il permesso di ignorare è l'anti-allucinogeno più economico che esista\n- **[temperatura](q/temperatura-di-un-llm/) bassa** sui compiti fattuali\n- **verifica deterministica dove possibile**: i fatti critici si controllano col codice, non con la fiducia – date, numeri, [nomi di pacchetti](https://github.com/fabriziosalmi/ai-dependency-guard), link\n- **structured output**: costringere a uno schema riduce lo spazio per divagare\n- per i casi che contano: una seconda passata di **verifica** (stesso modello con cappello da revisore, o [un giudice](q/come-valutare-le-risposte-di-un-llm/))\n\nE la regola d'oro di prodotto: mostra le fonti. Un utente che può verificare perdona; uno che non può, no."
+      ]
+    },
+    {
+      "id": "prompt-engineering",
+      "slug": "come-scrivere-un-buon-prompt",
+      "question": "Come si scrive un buon prompt (prompt engineering essenziale)?",
+      "vertical": "ai",
+      "keywords": [
+        "prompt",
+        "prompt engineering",
+        "scrivere prompt",
+        "buon prompt",
+        "migliorare il prompt",
+        "istruzioni al modello",
+        "few shot"
+      ],
+      "answers": [
+        "Il 90% del prompt engineering è scrivere **istruzioni chiare come le scriveresti a un collega nuovo, competente ma ignaro del contesto**:\n\n- **contesto e ruolo**: cosa sta facendo, per chi, con quali vincoli\n- **il formato d'uscita, esplicito**: struttura, lunghezza, lingua, cosa NON includere – e per i formati rigidi, [structured output](q/structured-output-e-json-mode/)\n- **esempi** (few-shot): due o tre coppie input→output valgono più di dieci righe di aggettivi – i modelli imitano meglio di quanto obbediscano\n- i **casi limite**: cosa fare quando l'input è vuoto, ambiguo, fuori tema – è lì che i prompt ingenui crollano\n- per i compiti complessi: **spezza i passaggi** (\"prima analizza, poi rispondi\") o affidati a [modelli di reasoning](q/cos-e-il-test-time-compute-reasoning/)\n\nE il segreto vero, poco glamour: **itera sui fallimenti** – raccogli i casi in cui sbaglia, aggiusta, [rimisura](q/come-valutare-le-risposte-di-un-llm/). Il prompt è codice: si versiona, si testa, si migliora – non si scolpisce."
+      ]
+    },
+    {
+      "id": "valutare-risposte",
+      "slug": "come-valutare-le-risposte-di-un-llm",
+      "question": "Come si valuta la qualità delle risposte di un LLM?",
+      "vertical": "ai",
+      "keywords": [
+        "valutare risposte",
+        "qualita risposte",
+        "llm as a judge",
+        "golden set",
+        "giudice llm",
+        "misurare qualita",
+        "valutazione risposte"
+      ],
+      "answers": [
+        "Il kit minimo, in ordine di solidità:\n\n- **golden set**: 20-100 input reali con risposte attese o criteri scritti. È l'investimento fondante – senza, ogni cambio di prompt o modello è un salto nel buio\n- **metriche esatte dove si può**: se l'output è strutturato (JSON, classi, numeri), confronta col codice – gratis, oggettivo, [perfetto per la CI](q/come-si-testano-le-applicazioni-llm/)\n- **LLM-as-a-judge** per il resto: un modello valuta le risposte contro una *rubrica esplicita* (correttezza, fedeltà alle fonti, tono). Funziona, con i suoi bias noti – preferisce risposte lunghe, la prima posizione, lo stile suo: rubrica stretta, posizioni mescolate, e una taratura contro giudizi umani su un campione\n- **umani** sui casi che contano e per calibrare il giudice\n\nLa trappola da evitare: valutare a sensazione sull'ultimo esempio provato. La memoria aneddotica è il peggior benchmark che esista – [i numeri battono le impressioni](q/cos-e-un-eval-e-perche-i-benchmark-mentono/)."
+      ]
+    },
+    {
+      "id": "whisper",
+      "slug": "whisper-trascrizione-audio-locale",
+      "question": "Come si trascrive l'audio in locale (Whisper)?",
+      "vertical": "ai",
+      "keywords": [
+        "whisper",
+        "trascrizione",
+        "trascrivere audio",
+        "speech to text",
+        "sottotitoli",
+        "trascrivere riunione",
+        "faster whisper",
+        "vocale in testo"
+      ],
+      "answers": [
+        "**Whisper** (OpenAI, open source) ha reso la trascrizione un problema risolto anche [in locale](q/far-girare-un-llm-in-locale/): modelli da tiny a large-v3, ottimo con l'italiano, robusto con rumore e accenti. Niente audio caricato su server altrui – per riunioni e materiale sensibile non è un dettaglio.\n\nLe implementazioni da usare davvero: **faster-whisper** (4-5× più veloce dell'originale, stessa qualità) e **whisper.cpp** (CPU e Apple Silicon, gira ovunque); su Mac anche le varianti MLX. Il modello **large-v3** per la qualità, *medium* o *small* quando la velocità conta più delle sfumature; una GPU aiuta ma non è obbligatoria.\n\nI trucchi di resa: audio pulito in ingresso (il microfono conta più del modello), diarizzazione separata se serve *chi* ha detto cosa (pyannote), e il colpo finale: passare la trascrizione grezza a [un LLM](q/cos-e-ollama/) per punteggiatura, paragrafi e riassunto – la coppia trascrittore+redattore, tutta in casa."
+      ]
+    },
+    {
+      "id": "immagini-locale",
+      "slug": "generare-immagini-in-locale",
+      "question": "Come si generano immagini in locale (Stable Diffusion, Flux)?",
+      "vertical": "ai",
+      "keywords": [
+        "stable diffusion",
+        "flux",
+        "generare immagini",
+        "comfyui",
+        "immagini ai locale",
+        "txt2img",
+        "sdxl",
+        "diffusione"
+      ],
+      "answers": [
+        "I modelli di diffusione aperti girano benissimo su hardware da gaming:\n\n- **famiglia Stable Diffusion**: SD 1.5 parte da 4-6 GB di VRAM, **SDXL** vuole 8-12 GB e resa migliore\n- **Flux**: qualità e aderenza al prompt superiori, appetito maggiore – 12-24 GB per stare comodi (le varianti quantizzate scendono)\n\nLe interfacce: **ComfyUI** è lo standard di fatto – grafo a nodi, ripetibile, potentissimo (curva di apprendimento inclusa); le alternative semplici (Forge/A1111) restano valide per iniziare. Su Mac tutto funziona via memoria unificata, [con la calma del caso](q/apple-silicon-o-gpu-nvidia-per-ai/); qui il vantaggio NVIDIA si sente forte.\n\nPerché in locale: nessun filtro esterno, controllo totale (LoRA di stile, ControlNet per la composizione, inpainting), costo marginale zero per iterare cento varianti. Cugino musicale nel portfolio: [la generazione audio con l'AI](q/strumenti-open-source-produzione-musicale/). E ricorda [l'etichetta legale in arrivo](q/watermarking-dei-contenuti-ai/) per i contenuti sintetici pubblicati."
+      ]
+    },
+    {
+      "id": "chatbot-documenti",
+      "slug": "chatbot-sui-documenti-aziendali",
+      "question": "Come si costruisce un chatbot sui documenti aziendali?",
+      "vertical": "ai",
+      "keywords": [
+        "chatbot",
+        "chatbot documenti",
+        "chatbot aziendale",
+        "assistente documenti",
+        "chattare con i pdf",
+        "knowledge base ai",
+        "chatbot interno"
+      ],
+      "answers": [
+        "L'architettura standard è [RAG](q/cos-e-rag-retrieval-augmented-generation/), e la qualità si decide nei dettagli:\n\n- **ingestione**: estrai il testo (i PDF scansionati passano [dall'OCR](q/convertire-pdf-scansionato-in-testo/)), [spezza con criterio](q/chunking-spezzare-documenti-per-rag/), indicizza – [ibrido full-text + vettori](q/cos-e-un-vector-database/), con [reranking](q/cos-e-il-reranking/) sopra\n- **generazione [grounded](q/cos-e-il-grounding/)**: risponde solo dalle fonti, cita i documenti, ammette i buchi\n- **permessi**: il chatbot non deve rispondere a chi non potrebbe *aprire* quel documento – il filtro per utente va nel retrieval, non nella speranza\n- **[valutazione](q/come-valutare-le-risposte-di-un-llm/)** su domande vere prima del lancio, e i feedback degli utenti come carburante\n\nPer dati riservati, l'intera pipeline gira [in locale](q/far-girare-un-llm-in-locale/) con [Ollama](q/cos-e-ollama/). Esempio funzionante di questo pattern nel portfolio: [certmate-agent](https://github.com/fabriziosalmi/certmate-agent) – LLM locale + tool REST + RAG sulla documentazione. E questo stesso sito è [la versione a zero inferenza](q/cos-e-fabgpt-come-funziona/) dell'idea: quando le domande sono prevedibili, le risposte pre-scritte battono il RAG."
+      ]
+    },
+    {
+      "id": "multi-agente",
+      "slug": "cos-e-l-orchestrazione-multi-agente",
+      "question": "Cos'è l'orchestrazione multi-agente?",
+      "vertical": "ai",
+      "keywords": [
+        "multi agente",
+        "multi-agent",
+        "orchestrazione agenti",
+        "piu agenti",
+        "agenti che collaborano",
+        "subagenti",
+        "swarm"
+      ],
+      "answers": [
+        "L'**orchestrazione multi-agente** fa collaborare più [agenti](q/cos-e-un-agente-ai/) su un obiettivo: un orchestratore scompone il lavoro, i sotto-agenti eseguono in parallelo (ricerca, scrittura, verifica), i risultati si ricompongono. I pattern ricorrenti: gerarchico (capo e specialisti), pipeline (catena di trasformazioni), e il più prezioso – **generatore + critico**, dove un agente produce e un altro, con prompt avversariale, demolisce.\n\nLa verità da cantiere: il multi-agente **moltiplica i costi e i modi di fallire** – errori che si propagano, agenti che si perdono, [token che volano](q/cos-e-l-inferenza-e-perche-costa/). La domanda giusta prima di orchestrare: *un solo agente con strumenti migliori ce la farebbe?* Spesso sì. Ha senso quando il lavoro è davvero parallelizzabile, quando serve indipendenza dei giudizi (verificatori che non sanno cosa \"dovrebbe\" uscire), o quando [il contesto di uno solo non basta](q/token-e-context-window/). E le fondamenta restano quelle dei singoli agenti: [permessi](q/come-si-limita-un-agente-ai/), [sandbox](q/cos-e-il-sandboxing-per-agenti/), [observability](q/cos-e-l-observability-per-llm/)."
+      ]
+    },
+    {
+      "id": "memoria-agenti",
+      "slug": "memoria-a-breve-e-lungo-termine-negli-agenti",
+      "question": "Memoria a breve e lungo termine negli agenti AI",
+      "vertical": "ai",
+      "keywords": [
+        "memoria agenti",
+        "breve termine",
+        "lungo termine",
+        "memoria conversazione",
+        "si dimentica tutto",
+        "memoria tra sessioni",
+        "stato agente"
+      ],
+      "answers": [
+        "Un agente ha due memorie con nature opposte:\n\n- la **breve termine** è la [context window](q/token-e-context-window/): tutto ciò che è nella conversazione corrente. Volatile per costruzione – a sessione nuova, tabula rasa – e limitata: le sessioni lunghe vanno **compattate** (riassunti progressivi, [compressione dell'output degli strumenti](https://github.com/fabriziosalmi/l0-compressor)) o l'agente affoga nel proprio passato\n- la **lunga termine** va costruita *fuori* dal modello: uno store persistente dove l'agente scrive fatti, decisioni e preferenze, e da cui **recupera** ciò che serve alla sessione dopo – per pertinenza, non tutto insieme\n\nLe regole apprese sul campo: la memoria va **curata** (fatti atomici, deduplicati, con freshness – ricordare tutto è il modo migliore per non trovare niente), va **partizionata** (per progetto, per utente), e a fine sessione un passaggio di consolidamento paga. È esattamente il design di [l0-memory](https://github.com/fabriziosalmi/l0-memory): store locale MCP con scope, pin, grafo tipizzato e tracking di freschezza – la memoria come file tuo, non come servizio altrui."
+      ]
+    },
+    {
+      "id": "sandboxing-agenti",
+      "slug": "cos-e-il-sandboxing-per-agenti",
+      "question": "Cos'è il sandboxing per agenti AI?",
+      "vertical": "ai",
+      "keywords": [
+        "sandbox",
+        "sandboxing",
+        "isolare agente",
+        "agente isolato",
+        "container agente",
+        "eseguire codice ai",
+        "ambiente isolato"
+      ],
+      "answers": [
+        "Un [agente](q/cos-e-un-agente-ai/) che esegue codice e comandi è, tecnicamente, **esecuzione di codice non fidato** – perché tra [prompt injection](q/cos-e-la-prompt-injection/) e [allucinazioni](q/allucinazioni-llm-dipendenze-inventate/), non controlli davvero cosa deciderà di fare. Il **sandboxing** applica la risposta classica: un recinto dove anche l'azione sbagliata non fa danni.\n\nGli strati pratici:\n\n- **filesystem**: l'agente lavora in una directory dedicata o in un container – mai con il tuo home a portata di `rm`\n- **rete**: [egress](q/secure-web-gateway-self-hosted/) chiuso o su allowlist – un agente iniettato che non può chiamare fuori non può esfiltrare\n- **credenziali**: [minime e a scadenza](q/principio-del-minimo-privilegio/), mai i segreti veri nel suo ambiente ([aidlp](https://github.com/fabriziosalmi/aidlp) sorveglia cosa finisce nei prompt)\n- **risorse e tempo**: limiti che spengono il loop impazzito\n\nLe versioni robuste usano container o microVM usa-e-getta per sessione; per il codice del progetto, un worktree isolato che si può buttare. Poi, sopra il recinto, [i permessi sulle azioni](q/come-si-limita-un-agente-ai/): il sandbox limita i danni, i permessi le intenzioni."
+      ]
+    },
+    {
+      "id": "limitare-agente",
+      "slug": "come-si-limita-un-agente-ai",
+      "question": "Come si limita cosa può fare un agente AI (permessi e HITL)?",
+      "vertical": "ai",
+      "keywords": [
+        "hitl",
+        "human in the loop",
+        "permessi agente",
+        "approvazione umana",
+        "limitare agente",
+        "conferma azioni",
+        "autonomia controllata",
+        "gate approvazione"
+      ],
+      "answers": [
+        "Il principio: l'autonomia si concede **per categoria di azione**, non in blocco.\n\n- **azioni libere**: leggere, cercare, calcolare – reversibili e innocue\n- **azioni loggate**: scritture locali, modifiche in ambienti di prova – l'agente procede, tu puoi ricostruire\n- **azioni con approvazione (HITL, human-in-the-loop)**: tutto ciò che è **irreversibile o esce dal recinto** – deploy, cancellazioni, denaro, messaggi a persone vere, comandi su sistemi di produzione. L'agente prepara, l'umano firma\n\nLe regole d'ingegneria: i permessi si applicano **a livello di strumento** (un tool tipizzato che *non può* cancellare batte mille istruzioni nel prompt – [MCP](q/cos-e-mcp-model-context-protocol/) aiuta proprio qui), le richieste di approvazione devono mostrare *esattamente* cosa verrà eseguito, e il replay va impedito. Implementazione da manuale nel portfolio: il **gate HITL via Telegram di [proxxx](https://github.com/fabriziosalmi/proxxx)** – le operazioni rischiose sul cluster Proxmox aspettano un sì umano, con protezione anti-replay e [audit log firmato](q/security-logging-fatto-bene/)."
+      ]
+    },
+    {
+      "id": "observability-llm",
+      "slug": "cos-e-l-observability-per-llm",
+      "question": "Cos'è l'observability per LLM (tracing e costi)?",
+      "vertical": "ai",
+      "keywords": [
+        "observability",
+        "tracing",
+        "tracciare llm",
+        "monitorare llm",
+        "costi llm",
+        "langfuse",
+        "token usage",
+        "telemetria llm",
+        "drift"
+      ],
+      "answers": [
+        "Un'applicazione LLM senza observability è una scatola nera che brucia soldi: serve vedere **cosa succede dentro** ogni richiesta. I tre pilastri:\n\n- **tracing**: per ogni interazione, l'albero completo – prompt, contesto recuperato, chiamate ai tool, risposte, latenze per passo. Quando l'utente dice \"ha risposto male\", il trace è l'unico modo di capire *dove* si è rotto: retrieval? prompt? modello?\n- **costi e token**: consumo per richiesta, per utente, per funzionalità – le sorprese in bolletta nascono sempre da un ciclo che nessuno guardava ([e si riducono con metodo](q/ridurre-costi-inferenza-llm/))\n- **qualità nel tempo**: campionare le risposte in produzione e [valutarle](q/come-valutare-le-risposte-di-un-llm/) di continuo – il *drift* silenzioso (un aggiornamento del modello, un cambio nei dati) si vede solo così\n\nStrumenti: Langfuse (open source, self-hostabile – coerente con [la filosofia dei dati in casa](q/self-hosting-pro-e-contro/)), Phoenix, OpenTelemetry con le convenzioni GenAI. La regola minima: **nessuna chiamata LLM senza trace ID** – il resto si costruisce."
+      ]
+    },
+    {
+      "id": "testare-llm-app",
+      "slug": "come-si-testano-le-applicazioni-llm",
+      "question": "Come si testano le applicazioni LLM?",
+      "vertical": "ai",
+      "keywords": [
+        "testare llm",
+        "test applicazioni llm",
+        "test prompt",
+        "regression test",
+        "ci per llm",
+        "test non deterministici",
+        "rompere il prompt",
+        "applicazione llm"
+      ],
+      "answers": [
+        "Il problema: l'output non è deterministico, il `assertEqual` classico non basta. La cassetta degli attrezzi:\n\n- **separa il testabile**: parsing, retrieval, tool, validazioni sono codice normale – test normali. Il modello va isolato dietro un'interfaccia, così i test d'integrazione girano anche con un **mock**\n- **golden test sul non deterministico**: il [golden set](q/come-valutare-le-risposte-di-un-llm/) gira in CI – metriche esatte dove l'output è strutturato, LLM-as-a-judge con rubrica dove è prosa, soglie che fanno fallire la build (\"correttezza < 90% = rosso\")\n- **test di regressione sui prompt**: ogni modifica al prompt passa dal golden set *prima* del merge – i prompt sono codice, [si trattano da codice](q/come-scrivere-un-buon-prompt/)\n- **test avversariali**: input malformati, [tentativi di injection](q/cos-e-la-prompt-injection/), casi limite – è il red teaming dei poveri, e trova sempre qualcosa\n\nFilosofia collaudata qui: [questo stesso sito](q/cos-e-fabgpt-come-funziona/) ha una batteria draconiana che blocca ogni modifica se una risposta canonica smette di matchare – il principio è identico, deterministico o no."
+      ]
+    },
+    {
+      "id": "structured-output",
+      "slug": "structured-output-e-json-mode",
+      "question": "Cosa sono lo structured output e il JSON mode?",
+      "vertical": "ai",
+      "keywords": [
+        "structured output",
+        "json mode",
+        "output strutturato",
+        "json schema",
+        "output json",
+        "risposta strutturata",
+        "estrarre json",
+        "json",
+        "json llm"
+      ],
+      "answers": [
+        "Quando l'output di un LLM deve entrare in un sistema – non sotto gli occhi di un umano – il testo libero è una bomba a orologeria: virgole in più, markdown attorno al JSON, campi inventati. Le soluzioni, in ordine di forza:\n\n- **JSON mode**: il modello è vincolato a emettere JSON sintatticamente valido – ma con lo schema che vuole lui\n- **structured output vero**: fornisci un **JSON Schema** e il vincolo agisce *durante la generazione* (constrained decoding): l'output rispetta lo schema per costruzione, campi e tipi inclusi. Dove disponibile, è la scelta giusta – e il [function calling](q/cos-e-il-function-calling/) ne è il caso speciale più famoso\n- cintura e bretelle: **valida comunque** (lo schema non garantisce la *sensatezza* dei valori) e gestisci il caso raro di rifiuto o campo nullo\n\nBonus di qualità: uno schema stretto con descrizioni dei campi è anche un ottimo prompt – costringe te a definire cosa vuoi e [il modello a divagare meno](q/come-ridurre-le-allucinazioni/)."
+      ]
+    },
+    {
+      "id": "creare-mcp-server",
+      "slug": "come-si-costruisce-un-server-mcp",
+      "question": "Come si costruisce un server MCP?",
+      "vertical": "ai",
+      "keywords": [
+        "mcp",
+        "costruire un server mcp",
+        "creare mcp",
+        "sdk mcp",
+        "fastmcp",
+        "mio server mcp",
+        "esporre tool",
+        "scrivere server mcp"
+      ],
+      "answers": [
+        "Un server [MCP](q/cos-e-mcp-model-context-protocol/) è più semplice di quanto suoni: un processo che espone **tool tipizzati** (nome, schema dei parametri, descrizione) su stdio o HTTP, e risponde alle chiamate. Con gli SDK ufficiali (Python/TypeScript – FastMCP rende il Python quasi dichiarativo), un tool è una funzione decorata: nome, docstring, tipi – lo schema si genera da solo.\n\nLe scelte che separano un giocattolo da un server serio:\n\n- **descrizioni scritte per il modello**: il tool viene *scelto* in base a nome e descrizione – ambigue = tool ignorato o abusato\n- **tool stretti**: dieci strumenti specifici e tipizzati battono un `run_command` generico – è il [principio dei permessi](q/come-si-limita-un-agente-ai/) applicato al design\n- **output parchi**: il risultato finisce [nel contesto](q/token-e-context-window/) – pagina, filtra, riassumi\n- registro **fisso e auditabile** per i contesti seri: [proxxx](https://github.com/fabriziosalmi/proxxx) blocca i suoi 25 tool a compile-time, per la supply chain\n\nEsempi nel portfolio da cui copiare: [l0-memory](https://github.com/fabriziosalmi/l0-memory) (Go, stdio+CLI), [agssh](https://github.com/fabriziosalmi/agssh) (scansioni da agente)."
+      ]
+    },
+    {
+      "id": "data-leakage-llm",
+      "slug": "data-leakage-via-llm",
+      "question": "Data leakage via LLM: i casi reali",
+      "vertical": "ai",
+      "keywords": [
+        "data leakage",
+        "fuga di dati",
+        "dati nei prompt",
+        "dati aziendali chatgpt",
+        "samsung",
+        "leak tramite ai",
+        "esfiltrazione dati llm",
+        "leak",
+        "dati caricati"
+      ],
+      "answers": [
+        "I dati escono dalle aziende via LLM per tre porte diverse:\n\n- **l'upload volontario**: il caso Samsung (2023) è il classico – dipendenti che incollano codice sorgente e verbali in ChatGPT per farsi aiutare. Nessun attacco: solo [shadow AI](q/cos-e-la-shadow-ai/) e servizi consumer che all'epoca usavano gli input per l'addestramento\n- **l'esfiltrazione indotta**: con la [prompt injection](q/cos-e-la-prompt-injection/), un contenuto malevolo convince un assistente *con accesso ai tuoi dati* a spedirli fuori – nei sistemi agentici è il rischio numero uno\n- **la memoria del modello**: informazioni finite nel training che riemergono generate – raro ma documentato\n\nLe difese, per porta: canali AI ufficiali con garanzie contrattuali e [policy chiara](q/come-scrivere-una-ai-policy-aziendale/); **DLP sul flusso** – [aidlp](https://github.com/fabriziosalmi/aidlp) intercetta credenziali e PII prima che entrino nel prompt, [llmproxy](https://github.com/fabriziosalmi/llmproxy) fa da punto di controllo unico; egress vigilato per gli agenti ([sandbox](q/cos-e-il-sandboxing-per-agenti/)); e [modelli locali](q/far-girare-un-llm-in-locale/) per ciò che non deve uscire *mai*."
+      ]
+    },
+    {
+      "id": "llm-copyright",
+      "slug": "llm-e-copyright-dove-siamo",
+      "question": "Gli LLM e il copyright: dove siamo?",
+      "vertical": "ai",
+      "keywords": [
+        "copyright",
+        "diritto d autore",
+        "opere protette",
+        "training e copyright",
+        "causa openai",
+        "text and data mining",
+        "opt out",
+        "llm copyright"
+      ],
+      "answers": [
+        "Il quadro, con l'onestà di un cantiere aperto:\n\n- **sul training**: negli USA la questione è nei tribunali (NYT contro OpenAI in testa) attorno al *fair use*; in **Europa** esiste l'eccezione per il text and data mining con **diritto di opt-out** – i titolari possono riservarsi, e l'[AI Act](q/cosa-prevede-ai-act/) chiede ai modelli general-purpose trasparenza sui dati e rispetto di quelle riserve. L'opt-out pratico passa (imperfettamente) da [robots.txt e affini](q/bloccare-crawler-ai-gptbot/)\n- **sull'output**: nella maggior parte delle giurisdizioni il generato puramente dalla macchina **non è proteggibile** – serve apporto creativo umano; e l'output può a sua volta violare, se riproduce sostanzialmente un'opera (i casi limite esistono)\n- **per chi lo usa nel software**: il codice generato va trattato come contributo da revisionare anche in senso di provenienza; per i contenuti pubblicati, [l'etichettatura è in arrivo per legge](q/watermarking-dei-contenuti-ai/)\n\nLa sintesi operativa: documenta le fonti, rispetta gli opt-out, non spacciare il generato per protetto. E aspettati che le regole si muovano ancora."
+      ]
+    },
+    {
+      "id": "watermarking-ai",
+      "slug": "watermarking-dei-contenuti-ai",
+      "question": "Cos'è il watermarking dei contenuti AI?",
+      "vertical": "ai",
+      "keywords": [
+        "watermarking ai",
+        "contenuti generati",
+        "c2pa",
+        "synthid",
+        "etichettare ai",
+        "contrassegnare contenuti",
+        "provenienza contenuti",
+        "content credentials",
+        "watermarking",
+        "sintetici"
+      ],
+      "answers": [
+        "Il **watermarking dei contenuti AI** serve a rendere riconoscibile ciò che è sintetico. Due filosofie complementari:\n\n- **watermark statistici** nel contenuto stesso: pattern invisibili nei pixel o nella scelta dei token (SynthID e simili) – rilevabili da chi ha lo strumento, ma degradabili con modifiche e ricodifiche\n- **provenienza firmata** dei metadati: lo standard **C2PA / Content Credentials** allega al file una catena firmata di *chi ha creato cosa, con quale strumento, con quali modifiche* – più robusto concettualmente, ma i metadati si possono spogliare\n\nIl contesto normativo li sta trasformando da opzione a obbligo: l'[AI Act](q/cosa-prevede-ai-act/) richiede la marcatura leggibile dalle macchine dei contenuti sintetici e l'etichettatura dei deepfake. Verità tecnica da tenere a mente: **nessun watermark è indistruttibile** – alzano il costo dell'inganno, non lo azzerano ([come per i deepfake](q/deepfake-come-riconoscerli/)). Il cugino difensivo classico: [il watermarking anti-leak dei video](https://github.com/fabriziosalmi/open-video-watermark), stessa matematica, scopo opposto."
+      ]
+    },
+    {
+      "id": "deepfake",
+      "slug": "deepfake-come-riconoscerli",
+      "question": "Deepfake: come riconoscerli (e come difendersi)?",
+      "vertical": "ai",
+      "keywords": [
+        "deepfake",
+        "video falsi",
+        "voce clonata",
+        "truffa video",
+        "riconoscere deepfake",
+        "falso video",
+        "clonazione voce",
+        "ceo fraud"
+      ],
+      "answers": [
+        "I **deepfake** – video e voci sintetiche di persone reali – sono passati da curiosità a strumento di truffa: il caso scuola è il finto CFO in videochiamata che autorizza un bonifico (successo davvero, decine di milioni). E la qualità corre: i vecchi consigli (\"guarda le mani, il lampeggiare degli occhi\") invecchiano a ogni generazione di modelli.\n\nLa difesa che regge non è forense ma **procedurale**:\n\n- per i soldi e le decisioni: **verifica su un canale diverso** – richiami tu, su un numero che avevi già. Nessuna urgenza in video giustifica il saltare la controverifica\n- parole in codice concordate in famiglia/azienda per le richieste sensibili\n- lato piattaforme: [provenienza firmata C2PA](q/watermarking-dei-contenuti-ai/) e obblighi di etichettatura dall'[AI Act](q/cosa-prevede-ai-act/)\n- lato mentale: il video non è più prova di per sé – trattalo come [una mail non verificata](q/cos-e-il-phishing/)\n\nÈ ingegneria sociale con effetti speciali migliori: le contromisure sono le stesse di sempre, applicate senza eccezioni per \"ma l'ho visto in faccia\"."
+      ]
+    },
+    {
+      "id": "chatgpt-gdpr",
+      "slug": "chatgpt-e-dati-personali-gdpr",
+      "question": "Si può usare ChatGPT con dati personali? (GDPR)",
+      "vertical": "ai",
+      "keywords": [
+        "chatgpt gdpr",
+        "dati personali ai",
+        "chatgpt privacy",
+        "garante chatgpt",
+        "dati clienti ai",
+        "caricare dati personali",
+        "dpa ai"
+      ],
+      "answers": [
+        "Si può – **alle condizioni del GDPR**, che non hanno nulla di speciale perché c'è di mezzo l'AI: serve una base giuridica, l'informativa aggiornata, e il fornitore diventa un **responsabile del trattamento** con tanto di **DPA** firmato. Il Garante italiano l'ha reso memorabile bloccando ChatGPT nel 2023 e sanzionando OpenAI poi: trasparenza e basi giuridiche non erano a posto.\n\nLa distinzione che decide tutto: i piani **consumer** (il ChatGPT gratuito del browser) non offrono garanzie da trattamento aziendale – e incollare lì dati di clienti è [il caso Samsung](q/data-leakage-via-llm/) in miniatura, da vietare in [policy](q/come-scrivere-una-ai-policy-aziendale/). I piani **business/API** con DPA, no-training e residenza dei dati sono un'altra storia: lì si ragiona da GDPR normale – minimizzazione ([serve davvero il nome, o basta lo pseudonimo?](q/anonimizzare-csv-nel-browser/)), [tempi di conservazione](q/conservazione-log-gdpr/), [trasferimenti extra-UE](q/trasferimento-dati-extra-ue-schrems/).\n\nE per i dati che non devono uscire affatto: [l'inferenza in casa](q/far-girare-un-llm-in-locale/) chiude la questione alla radice."
+      ]
+    },
+    {
+      "id": "ai-policy",
+      "slug": "come-scrivere-una-ai-policy-aziendale",
+      "question": "Come si scrive una AI policy aziendale?",
+      "vertical": "ai",
+      "keywords": [
+        "ai policy",
+        "policy",
+        "regole uso ai",
+        "linee guida ai",
+        "policy aziendale ai",
+        "uso consentito ai",
+        "governance ai"
+      ],
+      "answers": [
+        "Una AI policy che funziona sta in **due pagine** e risponde a domande concrete – quella di cinquanta pagine la leggono solo gli auditor:\n\n- **strumenti approvati** e come accedervi (il canale ufficiale dev'essere [più comodo della scorciatoia](q/cos-e-la-shadow-ai/), o la policy è carta)\n- **cosa non si incolla mai**: dati di clienti e dipendenti, segreti industriali, [credenziali](q/come-gestire-i-secrets/) – con gli esempi, perché \"dati sensibili\" non parla a nessuno\n- **verifica umana obbligatoria** per output che escono dall'azienda o entrano nelle decisioni: [le allucinazioni](q/come-ridurre-le-allucinazioni/) sono un rischio professionale, non un aneddoto\n- responsabilità: chi risponde dell'output usato, chi approva nuovi strumenti, a chi si segnala l'incidente\n- il registro dei **casi d'uso** con classificazione di rischio – che è anche il primo mattone della [conformità AI Act](q/cosa-prevede-ai-act/)\n\nCornice tecnica a supporto: canale unico con [DLP](q/data-leakage-via-llm/) ([llmproxy](https://github.com/fabriziosalmi/llmproxy) + [aidlp](https://github.com/fabriziosalmi/aidlp)), e [modelli interni](q/far-girare-un-llm-in-locale/) per i dati che non escono. La policy dice il perché; l'infrastruttura lo rende facile."
+      ]
+    },
+    {
       "id": "certmate",
       "slug": "cos-e-certmate-gestione-certificati-tls",
       "question": "Cos'è CertMate e come gestisce i certificati TLS/SSL?",
@@ -3224,7 +4056,10 @@
         "risparmiare api",
         "semantic zoom",
         "routing modelli",
-        "inferenza"
+        "inferenza",
+        "ridurre i costi",
+        "riducono i costi",
+        "abbattere i costi"
       ],
       "answers": [
         "La leva più grossa è **non chiamare il modello grande quando non serve**. È l'idea di [Silence](https://github.com/fabriziosalmi/silence), un router di inferenza multi-livello: ogni query attraversa strati progressivamente più costosi – pattern matcher deterministico, template leggeri, e solo alla fine un vero LLM – e si ferma al primo strato **abbastanza confidente** da rispondere. In più esplora il *silenzio semantico*: trattare \"non rispondere ancora\" come un esito valido invece di generare testo a tutti i costi.\n\nTrasparenza dovuta: è un **prototipo di ricerca in alpha**, API instabili e nessun benchmark pubblicato – da studiare, non da mettere in produzione. Nel frattempo, per tagliare i costi degli agenti di coding c'è la strada complementare e già matura: comprimere l'output dei comandi con [l0-compressor](https://github.com/fabriziosalmi/l0-compressor)."

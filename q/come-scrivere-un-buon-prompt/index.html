@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Come si scrive un buon prompt (prompt engineering essenziale)? – FabGPT-FAQ</title>
+<meta name="description" content="Il 90% del prompt engineering è scrivere istruzioni chiare come le scriveresti a un collega nuovo, competente ma ignaro del contesto: contesto e ruolo: cosa…">
+<link rel="canonical" href="https://fabriziosalmi.github.io/fabgpt-faq/q/come-scrivere-un-buon-prompt/">
+<link rel="stylesheet" href="../../style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Come si scrive un buon prompt (prompt engineering essenziale)?", "acceptedAnswer": {"@type": "Answer", "text": "Il 90% del prompt engineering è scrivere istruzioni chiare come le scriveresti a un collega nuovo, competente ma ignaro del contesto: contesto e ruolo: cosa sta facendo, per chi, con quali vincoli il formato d'uscita, esplicito: struttura, lunghezza, lingua, cosa NON includere – e per i formati rigidi, [structured output](q/structured-output-e-json-mode/) esempi (few-shot): due o tre coppie input→output valgono più di dieci righe di aggettivi – i modelli imitano meglio di quanto obbediscano i casi limite: cosa fare quando l'input è vuoto, ambiguo, fuori tema – è lì che i prompt ingenui crollano per i compiti complessi: spezza i passaggi (\"prima analizza, poi rispondi\") o affidati a [modelli di reasoning](q/cos-e-il-test-time-compute-reasoning/) E il segreto vero, poco glamour: itera sui fallimenti – raccogli i casi in cui sbaglia, aggiusta, [rimisura](q/come-valutare-le-risposte-di-un-llm/). Il prompt è codice: si versiona, si testa, si migliora – non si scolpisce."}}]}</script>
+<style>
+  .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
+  .page h1 { font-size: 26px; line-height: 1.3; margin: 8px 0 20px; }
+  .page .answer a { color: var(--link); }
+  .page .vertical { font-size: 13px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }
+  .page .answer ul { padding-left: 22px; }
+  .page .answer code { background: var(--code-bg); border-radius: 5px; padding: 1px 5px; font-size: 0.9em; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+  .page .ask { display: inline-block; margin-top: 24px; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 9px 18px; text-decoration: none; font-weight: 600; }
+  .page .related { margin-top: 36px; border-top: 1px solid var(--border); padding-top: 18px; }
+  .page .related h2 { font-size: 16px; }
+  .page .related a { color: var(--link); text-decoration: none; }
+  .page .related a:hover { text-decoration: underline; }
+  .page .related li { margin: 6px 0; }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="../../" style="text-decoration:none;color:inherit">
+    <span class="brand-dot">F</span>
+    <span class="brand-name">FabGPT-FAQ</span>
+  </a>
+</header>
+<main class="page">
+  <div class="vertical">AI e LLM</div>
+  <h1>Come si scrive un buon prompt (prompt engineering essenziale)?</h1>
+  <div class="answer"><p>Il 90% del prompt engineering è scrivere <strong>istruzioni chiare come le scriveresti a un collega nuovo, competente ma ignaro del contesto</strong>:</p><ul><li><strong>contesto e ruolo</strong>: cosa sta facendo, per chi, con quali vincoli</li><li><strong>il formato d&#x27;uscita, esplicito</strong>: struttura, lunghezza, lingua, cosa NON includere – e per i formati rigidi, <a href="../structured-output-e-json-mode/">structured output</a></li><li><strong>esempi</strong> (few-shot): due o tre coppie input→output valgono più di dieci righe di aggettivi – i modelli imitano meglio di quanto obbediscano</li><li>i <strong>casi limite</strong>: cosa fare quando l&#x27;input è vuoto, ambiguo, fuori tema – è lì che i prompt ingenui crollano</li><li>per i compiti complessi: <strong>spezza i passaggi</strong> (&quot;prima analizza, poi rispondi&quot;) o affidati a <a href="../cos-e-il-test-time-compute-reasoning/">modelli di reasoning</a></li></ul><p>E il segreto vero, poco glamour: <strong>itera sui fallimenti</strong> – raccogli i casi in cui sbaglia, aggiusta, <a href="../come-valutare-le-risposte-di-un-llm/">rimisura</a>. Il prompt è codice: si versiona, si testa, si migliora – non si scolpisce.</p></div>
+  <a class="ask" href="../../?q=prompt-engineering">Chiedilo a FabGPT-FAQ →</a>
+  <div class="related">
+    <h2>Altre domande</h2>
+    <ul><li><a href="../cos-e-la-prompt-injection/">Cos&#x27;è la prompt injection e come ci si difende?</a></li><li><a href="../cos-e-mcp-model-context-protocol/">Cos&#x27;è MCP (Model Context Protocol)?</a></li><li><a href="../cos-e-il-vibe-coding/">Cos&#x27;è il vibe coding e quali sono i rischi?</a></li><li><a href="../allucinazioni-llm-dipendenze-inventate/">Cosa sono le allucinazioni degli LLM (e le dipendenze inventate)?</a></li><li><a href="../cos-e-rag-retrieval-augmented-generation/">Cos&#x27;è RAG (Retrieval-Augmented Generation)?</a></li><li><a href="../cos-e-un-llm/">Cos&#x27;è un LLM (Large Language Model)?</a></li></ul>
+  </div>
+</main>
+</body>
+</html>
