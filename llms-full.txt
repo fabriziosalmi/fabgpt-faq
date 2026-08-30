@@ -1169,11 +1169,6 @@ https://fabriziosalmi.github.io/fabgpt-faq/q/file-integrity-monitoring-fim-wazuh
 
 Il File Integrity Monitoring (FIM) è un controllo fondamentale per rilevare tempestivamente rootkit, backdoor o alterazioni non autorizzate dei file di configurazione (/etc/passwd, /etc/pam.d/) e dei binari di sistema (/bin/, /usr/sbin/): 1. AIDE (Advanced Intrusion Detection Environment): utility locale leggera che genera un database crittografico di hash (SHA-256/SHA-512), permessi e timestamp; un cron periodico confronta lo stato attuale con il database (aide --check) e segnala ogni discrepanza. 2. Wazuh Syscheck (Real-Time FIM): il modulo FIM dell'agente [Wazuh](q/cos-e-un-soc-security-operations-center/) monitora il filesystem tramite notifiche inotify del kernel Linux in tempo reale. Invia alert immediati al server centrale quando un file critico viene modificato, creato o cancellato, registrando l'utente esecutore e il diff esatto.
 
-## Cos'è Secure Proxy Manager (SPM) e come funziona come Secure Web Gateway?
-https://fabriziosalmi.github.io/fabgpt-faq/q/secure-web-gateway-self-hosted/
-
-Secure Proxy Manager (SPM) (github.com/fabriziosalmi/secure-proxy-manager) è un Secure Web Gateway (SWG) self-hosted open source: un punto di uscita controllato per reti home, lab o uffici che impedisce a client e server di contattare destinazioni malevole o non autorizzate. Architettura a microservizi (Docker Compose): Squid forward proxy (porta 3128): gestisce l'egress e invia il traffico HTTP/S al WAF via protocollo ICAP. WAF in Go: ispeziona richieste e risposte su 21 categorie di minaccia (testate con approccio adversarial FN=0). DNS Sinkhole (dnsmasq): intercetta e blocca domini di malware, tracker e C2 a livello DNS. Management UI: dashboard moderna in React 19 + Vite con backend Go ultra-leggero (~20 MB RAM) e sidecar Tailscale opzionale per l'accesso remoto. Quick Start: git clone https://github.com/fabriziosalmi/secure-proxy-manager.git cd secure-proxy-manager docker compose up -d Accesso alla dashboard di gestione su https://localhost:8443.
-
 # AI e LLM
 
 ## Cos'è la prompt injection e come ci si difende?

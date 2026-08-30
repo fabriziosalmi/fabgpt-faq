@@ -2,7 +2,7 @@
   "config": {
     "botName": "FabGPT-FAQ",
     "siteUrl": "https://fabriziosalmi.github.io/fabgpt-faq",
-    "welcome": "Ciao! Sono **FabGPT-FAQ**. Rispondo a domande su cybersecurity, AI, Proxmox, Cloudflare e sui progetti open source di Fabrizio Salmi. Prova a chiedermi qualcosa: ad esempio *come si aggiunge un WAF a Caddy*, *come si fa autoscaling su Proxmox* o *cos'è CertMate*.",
+    "welcome": "**535 risposte tecniche verificate** su Cybersecurity, AI & LLM, Proxmox e Cloudflare. Zero allucinazioni, architetture e comandi operativi.",
     "placeholder": "Chiedimi qualcosa…",
     "footerNote": "FabGPT-FAQ può commettere errori. Considera di verificare le informazioni importanti.",
     "matchThreshold": 0.75,
@@ -10428,7 +10428,8 @@
       "suggest": [
         "configurare-rate-limiting-web-server",
         "generare-regole-waf-con-machine-learning",
-        "proxy-waf-per-macos"
+        "proxy-waf-per-macos",
+        "cos-e-un-waf-web-application-firewall"
       ]
     },
     {
@@ -10453,7 +10454,8 @@
       "suggest": [
         "scoprire-dati-in-un-data-breach",
         "generare-regole-waf-con-machine-learning",
-        "proxy-waf-per-macos"
+        "proxy-waf-per-macos",
+        "cos-e-un-waf-web-application-firewall"
       ]
     },
     {
@@ -10478,7 +10480,8 @@
       "suggest": [
         "configurare-rate-limiting-web-server",
         "proxy-waf-per-macos",
-        "scoprire-dati-in-un-data-breach"
+        "scoprire-dati-in-un-data-breach",
+        "cos-e-un-waf-web-application-firewall"
       ]
     },
     {
@@ -10504,7 +10507,8 @@
       "suggest": [
         "generare-regole-waf-con-machine-learning",
         "monitorare-dominio-ssl-reputazione",
-        "configurare-rate-limiting-web-server"
+        "configurare-rate-limiting-web-server",
+        "cos-e-un-waf-web-application-firewall"
       ]
     },
     {
@@ -10532,7 +10536,8 @@
       "suggest": [
         "proxy-waf-per-macos",
         "bannare-ip-brute-force-caddy",
-        "generare-regole-waf-con-machine-learning"
+        "generare-regole-waf-con-machine-learning",
+        "cos-e-un-waf-web-application-firewall"
       ]
     },
     {
@@ -10557,7 +10562,8 @@
       "suggest": [
         "monitorare-dominio-ssl-reputazione",
         "secure-web-gateway-self-hosted",
-        "proxy-waf-per-macos"
+        "proxy-waf-per-macos",
+        "cos-e-un-waf-web-application-firewall"
       ]
     },
     {
@@ -10584,7 +10590,8 @@
       "suggest": [
         "bannare-ip-brute-force-caddy",
         "monitorare-dominio-ssl-reputazione",
-        "proxy-waf-per-macos"
+        "proxy-waf-per-macos",
+        "cos-e-un-waf-web-application-firewall"
       ]
     },
     {
@@ -13093,32 +13100,6 @@
         "misurare-mitigare-lost-in-the-middle-context-effect-agenti"
       ],
       "question": "Cos'è Nanocode e come si usa per il coding assistito da terminale?"
-    },
-    {
-      "id": "secure-proxy-manager",
-      "slug": "secure-web-gateway-self-hosted",
-      "question": "Cos'è Secure Proxy Manager (SPM) e come funziona come Secure Web Gateway?",
-      "vertical": "security",
-      "keywords": [
-        "secure proxy manager",
-        "spm",
-        "secure web gateway",
-        "swg",
-        "forward proxy",
-        "squid icap waf",
-        "dns sinkhole",
-        "egress control",
-        "blocco connessioni in uscita"
-      ],
-      "answers": [
-        "**Secure Proxy Manager (SPM)** ([github.com/fabriziosalmi/secure-proxy-manager](https://github.com/fabriziosalmi/secure-proxy-manager)) è un **Secure Web Gateway (SWG)** self-hosted open source: un punto di uscita controllato per reti home, lab o uffici che impedisce a client e server di contattare destinazioni malevole o non autorizzate.\n\nArchitettura a microservizi (Docker Compose):\n- **Squid forward proxy** (porta 3128): gestisce l'egress e invia il traffico HTTP/S al WAF via protocollo ICAP.\n- **WAF in Go**: ispeziona richieste e risposte su 21 categorie di minaccia (testate con approccio adversarial FN=0).\n- **DNS Sinkhole (dnsmasq)**: intercetta e blocca domini di malware, tracker e C2 a livello DNS.\n- **Management UI**: dashboard moderna in React 19 + Vite con backend Go ultra-leggero (~20 MB RAM) e sidecar Tailscale opzionale per l'accesso remoto.\n\nQuick Start:\n```bash\ngit clone https://github.com/fabriziosalmi/secure-proxy-manager.git\ncd secure-proxy-manager\ndocker compose up -d\n```\nAccesso alla dashboard di gestione su `https://localhost:8443`.",
-        "In sintesi: **Secure Proxy Manager** è la controparte open source e self-hosted di Zscaler o Cloudflare Gateway: combina forward proxy Squid, WAF ICAP e sinkhole DNS per bloccare minacce in uscita senza che i tuoi dati lascino la rete locale."
-      ],
-      "suggest": [
-        "file-integrity-monitoring-fim-wazuh-aide-rilevamento-manomissioni",
-        "third-party-risk-management-tprm-sicurezza-fornitori-software",
-        "tiber-eu-threat-led-penetration-testing-framework-finanziario"
-      ]
     }
   ],
   "fallbacks": [

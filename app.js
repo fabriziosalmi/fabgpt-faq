@@ -224,7 +224,7 @@
     for (const slug of suggest) {
       const entry = bySlug[slug];
       if (entry && !askedSlugs.has(slug)) picks.push(entry);
-      if (picks.length >= 3) break;
+      if (picks.length >= 4) break;
     }
     if (!picks.length) return;
     const wrap = document.createElement('div');
