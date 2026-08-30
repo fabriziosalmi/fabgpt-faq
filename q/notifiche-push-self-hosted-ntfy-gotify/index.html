@@ -95,6 +95,24 @@ document.getElementById('copy-page-btn')?.addEventListener('click', function(){
     });
   }
 });
+document.querySelectorAll('.copy-diagram-btn').forEach(function(btn){
+  btn.addEventListener('click', function(e){
+    e.stopPropagation();
+    var fig = btn.closest('.diagram');
+    var svg = fig ? fig.querySelector('svg:not(.copy-diagram-btn svg)') : null;
+    if(!svg) return;
+    if(navigator.clipboard){
+      navigator.clipboard.writeText(svg.outerHTML).then(function(){
+        btn.classList.add('copied');
+        btn.querySelector('span').textContent = 'Copiato!';
+        setTimeout(function(){
+          btn.classList.remove('copied');
+          btn.querySelector('span').textContent = 'SVG';
+        }, 1500);
+      });
+    }
+  });
+});
 </script>
 </body>
 </html>

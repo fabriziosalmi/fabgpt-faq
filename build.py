@@ -213,6 +213,24 @@ document.getElementById('copy-page-btn')?.addEventListener('click', function(){{
     }});
   }}
 }});
+document.querySelectorAll('.copy-diagram-btn').forEach(function(btn){{
+  btn.addEventListener('click', function(e){{
+    e.stopPropagation();
+    var fig = btn.closest('.diagram');
+    var svg = fig ? fig.querySelector('svg:not(.copy-diagram-btn svg)') : null;
+    if(!svg) return;
+    if(navigator.clipboard){{
+      navigator.clipboard.writeText(svg.outerHTML).then(function(){{
+        btn.classList.add('copied');
+        btn.querySelector('span').textContent = 'Copiato!';
+        setTimeout(function(){{
+          btn.classList.remove('copied');
+          btn.querySelector('span').textContent = 'SVG';
+        }}, 1500);
+      }});
+    }}
+  }});
+}});
 </script>
 </body>
 </html>
@@ -348,8 +366,13 @@ def build() -> None:
         d.mkdir()
         # concept diagram (inline SVG) after the answer, in a <figure>
         dg = diagrams.get(e["id"], "")
-        figure = (f'<figure class="diagram" aria-label="Schema: {html.escape(e["question"])}">'
-                  f'{dg}</figure>') if dg else ""
+        figure = (
+            f'<figure class="diagram" aria-label="Schema: {html.escape(e["question"])}">'
+            f'<button type="button" class="copy-diagram-btn" aria-label="Copia codice SVG dello schema">'
+            f'<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>'
+            f'<span>SVG</span></button>'
+            f'{dg}</figure>'
+        ) if dg else ""
         # entries with a diagram get a tailored OG card (the diagram on a branded canvas)
         if dg:
             (d / "og.svg").write_text(og_card(e["question"], dg), encoding="utf-8")

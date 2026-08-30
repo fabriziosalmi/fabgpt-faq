@@ -226,33 +226,68 @@
   // Type `text` into a fresh bot row, re-rendering partial markdown each tick.
   let finishStream = null; // set while streaming: fast-forwards to the full answer
 
-  // Copy Q&A action button (copies user/canonical question and full answer for fine-tuning & docs).
-  function copyQaAction(questionText, answerText) {
+  // Track complete dialogue turns for incremental session export
+  const sessionTurns = [];
+
+  // Copy Q&A action bar (copies single turn Q&A, and full incremental session thread up to this point).
+  function copyQaAction(questionText, answerText, historySnapshot) {
     const bar = document.createElement('div');
     bar.className = 'qa-actions';
-    const btn = document.createElement('button');
-    btn.type = 'button';
-    btn.className = 'copy-qa-btn';
-    btn.setAttribute('aria-label', 'Copia domanda e risposta');
-    btn.innerHTML = "<svg width='13' height='13' viewBox='0 0 24 24' fill='none' "
+
+    // 1. Copy single turn Q&A
+    const btnQa = document.createElement('button');
+    btnQa.type = 'button';
+    btnQa.className = 'copy-qa-btn';
+    btnQa.setAttribute('aria-label', 'Copia questo turno domanda e risposta');
+    btnQa.innerHTML = "<svg width='13' height='13' viewBox='0 0 24 24' fill='none' "
       + "stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>"
       + "<rect x='9' y='9' width='13' height='13' rx='2' ry='2'></rect>"
       + "<path d='M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1'></path></svg>"
-      + "<span>Copia</span>";
-    btn.addEventListener('click', () => {
+      + "<span>Copia Q&A</span>";
+    btnQa.addEventListener('click', () => {
       const formatted = `Q: ${questionText}\n\nA:\n${answerText}`;
       if (navigator.clipboard) {
         navigator.clipboard.writeText(formatted).then(() => {
-          btn.classList.add('copied');
-          btn.querySelector('span').textContent = 'Copiato!';
+          btnQa.classList.add('copied');
+          btnQa.querySelector('span').textContent = 'Copiato!';
           setTimeout(() => {
-            btn.classList.remove('copied');
-            btn.querySelector('span').textContent = 'Copia';
+            btnQa.classList.remove('copied');
+            btnQa.querySelector('span').textContent = 'Copia Q&A';
           }, 1500);
         });
       }
     });
-    bar.appendChild(btn);
+    bar.appendChild(btnQa);
+
+    // 2. Copy incremental session thread (all turns up to this point)
+    if (historySnapshot && historySnapshot.length > 1) {
+      const btnSess = document.createElement('button');
+      btnSess.type = 'button';
+      btnSess.className = 'copy-session-btn';
+      btnSess.setAttribute('aria-label', `Copia intera sessione (${historySnapshot.length} turni)`);
+      btnSess.innerHTML = "<svg width='13' height='13' viewBox='0 0 24 24' fill='none' "
+        + "stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>"
+        + "<path d='M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z'></path>"
+        + "<polyline points='14 2 14 8 20 8'></polyline><line x1='16' y1='13' x2='8' y2='13'></line>"
+        + "<line x1='16' y1='17' x2='8' y2='17'></line><polyline points='10 9 9 9 8 9'></polyline></svg>"
+        + `<span>Copia sessione (${historySnapshot.length})</span>`;
+      btnSess.addEventListener('click', () => {
+        const mdTurns = historySnapshot.map((t, idx) => `### ${idx + 1}. ${t.q}\n\n${t.a}`).join('\n\n---\n\n');
+        const exportText = `# Sessione FabGPT-FAQ (${historySnapshot.length} turni)\n\n${mdTurns}`;
+        if (navigator.clipboard) {
+          navigator.clipboard.writeText(exportText).then(() => {
+            btnSess.classList.add('copied');
+            btnSess.querySelector('span').textContent = 'Sessione copiata!';
+            setTimeout(() => {
+              btnSess.classList.remove('copied');
+              btnSess.querySelector('span').textContent = `Copia sessione (${historySnapshot.length})`;
+            }, 1500);
+          });
+        }
+      });
+      bar.appendChild(btnSess);
+    }
+
     return bar;
   }
 
@@ -275,10 +310,36 @@
       if (svg) {
         const fig = document.createElement('figure');
         fig.className = 'diagram';
-        fig.innerHTML = svg;
+        fig.setAttribute('aria-label', `Schema: ${questionText || ''}`);
+        const copySvgBtn = document.createElement('button');
+        copySvgBtn.type = 'button';
+        copySvgBtn.className = 'copy-diagram-btn';
+        copySvgBtn.setAttribute('aria-label', 'Copia codice SVG dello schema');
+        copySvgBtn.innerHTML = "<svg width='11' height='11' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><rect x='9' y='9' width='13' height='13' rx='2' ry='2'></rect><path d='M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1'></path></svg> <span>SVG</span>";
+        copySvgBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          if (navigator.clipboard) {
+            navigator.clipboard.writeText(svg).then(() => {
+              copySvgBtn.classList.add('copied');
+              copySvgBtn.querySelector('span').textContent = 'Copiato!';
+              setTimeout(() => {
+                copySvgBtn.classList.remove('copied');
+                copySvgBtn.querySelector('span').textContent = 'SVG';
+              }, 1500);
+            });
+          }
+        });
+        fig.appendChild(copySvgBtn);
+        const svgContainer = document.createElement('div');
+        svgContainer.innerHTML = svg;
+        fig.appendChild(svgContainer.firstElementChild);
         target.appendChild(fig);
       }
-      if (questionText) target.appendChild(copyQaAction(questionText, text));
+      if (questionText) {
+        sessionTurns.push({ q: questionText, a: text, diagramId: diagramId || null, svg: svg || null });
+        const snapshot = sessionTurns.slice();
+        target.appendChild(copyQaAction(questionText, text, snapshot));
+      }
       renderChips(suggest, target);
       scrollToBottom(false);
       if (onDone) onDone();
