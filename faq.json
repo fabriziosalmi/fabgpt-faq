@@ -431,8 +431,7 @@
       "suggest": [
         "differenza-container-lxc-e-vm",
         "self-hosting-pro-e-contro",
-        "cluster-proxmox-e-quorum",
-        "cos-e-un-waf-web-application-firewall"
+        "cluster-proxmox-e-quorum"
       ]
     },
     {
@@ -454,8 +453,7 @@
       "suggest": [
         "cos-e-proxmox-ve",
         "self-hosting-pro-e-contro",
-        "cluster-proxmox-e-quorum",
-        "cos-e-un-waf-web-application-firewall"
+        "cluster-proxmox-e-quorum"
       ]
     },
     {
@@ -524,8 +522,7 @@
       "suggest": [
         "differenza-container-lxc-e-vm",
         "cos-e-proxmox-ve",
-        "cluster-proxmox-e-quorum",
-        "cos-e-un-waf-web-application-firewall"
+        "cluster-proxmox-e-quorum"
       ]
     },
     {
@@ -1252,8 +1249,7 @@
       "suggest": [
         "perche-usare-zfs-su-proxmox",
         "differenza-snapshot-e-backup",
-        "cos-e-proxmox-backup-server",
-        "cos-e-un-waf-web-application-firewall"
+        "cos-e-proxmox-backup-server"
       ]
     },
     {
@@ -1277,8 +1273,7 @@
       "suggest": [
         "differenza-snapshot-e-backup",
         "cos-e-proxmox-backup-server",
-        "cluster-proxmox-e-quorum",
-        "cos-e-un-waf-web-application-firewall"
+        "cluster-proxmox-e-quorum"
       ]
     },
     {
@@ -1299,8 +1294,7 @@
       "suggest": [
         "cos-e-proxmox-backup-server",
         "perche-usare-zfs-su-proxmox",
-        "cluster-proxmox-e-quorum",
-        "cos-e-un-waf-web-application-firewall"
+        "cluster-proxmox-e-quorum"
       ]
     },
     {
@@ -1322,8 +1316,7 @@
       "suggest": [
         "differenza-snapshot-e-backup",
         "passthrough-gpu-proxmox",
-        "perche-usare-zfs-su-proxmox",
-        "cos-e-un-waf-web-application-firewall"
+        "perche-usare-zfs-su-proxmox"
       ]
     },
     {
@@ -1348,8 +1341,7 @@
       "suggest": [
         "cos-e-proxmox-backup-server",
         "aggiornare-proxmox-senza-subscription",
-        "differenza-snapshot-e-backup",
-        "cos-e-un-waf-web-application-firewall"
+        "differenza-snapshot-e-backup"
       ]
     },
     {
@@ -1371,8 +1363,7 @@
       "suggest": [
         "passthrough-gpu-proxmox",
         "template-e-cloud-init-proxmox",
-        "cos-e-proxmox-backup-server",
-        "cos-e-un-waf-web-application-firewall"
+        "cos-e-proxmox-backup-server"
       ]
     },
     {
@@ -1394,8 +1385,7 @@
       "suggest": [
         "aggiornare-proxmox-senza-subscription",
         "migrare-da-vmware-a-proxmox",
-        "passthrough-gpu-proxmox",
-        "cos-e-un-waf-web-application-firewall"
+        "passthrough-gpu-proxmox"
       ]
     },
     {
@@ -1421,8 +1411,7 @@
       "suggest": [
         "autoscaling-vm-lxc-proxmox",
         "cos-e-proxmox-backup-server",
-        "cos-e-proxxx-cockpit-terminale-proxmox",
-        "cos-e-un-waf-web-application-firewall"
+        "cos-e-proxxx-cockpit-terminale-proxmox"
       ]
     },
     {
@@ -9857,8 +9846,7 @@
         "inventario certificati"
       ],
       "answers": [
-        "[CertMate](https://github.com/fabriziosalmi/certmate) è una piattaforma **self-hosted per la gestione del ciclo di vita dei certificati TLS**, il progetto più popolare di Fabrizio Salmi (**oltre 1.400 stelle**). Fa quattro cose che di solito richiedono quattro strumenti:\n\n- **emette e rinnova** certificati via ACME, con supporto per **29 provider DNS**\n- **scopre i certificati che non hai emesso tu** e li mette in un inventario unico: cosa è servito dove, chi l'ha emesso, quando scade, con quale crittografia\n- gestisce una **CA privata** per i nomi interni\n- **deploya** i certificati rinnovati dove servono, con audit trail tamper-evident e API REST\n\nÈ in Python, gira in Docker, ha una CLI su PyPI (`certmate-cli`) e una [demo live](https://demo.certmate.org). Nell'ecosistema ci sono anche certmate-tools (diagnostica TLS client-side) e certmate-agent (assistente conversazionale con LLM locale). Per esigenze enterprise (multi-tenant, mTLS, white-label) esiste **CertMate-ng**.",
-        "**CertMate**: self-hosted, gestisce l'intero ciclo di vita dei certificati TLS – emissione e rinnovo ACME con 29 provider DNS, discovery dei certificati esistenti, inventario unico, CA privata per i nomi interni e deploy automatico. 1.400+ ⭐, demo su [demo.certmate.org](https://demo.certmate.org)."
+        "[CertMate](https://github.com/fabriziosalmi/certmate) (**500+ ⭐**) è la piattaforma **self-hosted per la gestione automatica del ciclo di vita dei certificati TLS**. Risolve il problema dei certificati dimenticati o scaduti tramite ACME DNS-01 e HTTP-01 challenge automatici con oltre 30 DNS provider (Cloudflare, AWS Route53, Hetzner, OVH).\n\nInstallazione e avvio immediato:\n- 🐳 **Docker / Docker Compose**:\n  ```bash\n  docker run -d --name certmate \\\n    -p 8080:8080 \\\n    -v certmate_data:/app/data \\\n    -e CERTMATE_AUTO_RENEW=true \\\n    ghcr.io/fabriziosalmi/certmate:latest\n  ```\n- 💻 **Binario standalone (Linux/macOS)**:\n  ```bash\n  curl -fsSL https://raw.githubusercontent.com/fabriziosalmi/certmate/main/install.sh | bash\n  certmate daemon --config /etc/certmate.yaml\n  ```\n\nCaratteristiche: dashboard web moderna, emissione certificati Wildcard senza esporre porte HTTP, webhooks per reload di Nginx/Caddy/HAProxy e notifiche Telegram/Slack prima della scadenza."
       ],
       "suggest": [
         "come-aggiungere-un-waf-a-caddy",
@@ -9884,12 +9872,11 @@
         "firewall host ufw nftables default deny"
       ],
       "answers": [
-        "Con [caddy-waf](https://github.com/fabriziosalmi/caddy-waf) (**800+ ⭐**), un Web Application Firewall nativo per Caddy scritto in Go. Include:\n\n- regole regex e filtraggio IP/DNS\n- rate limiting\n- GeoIP e blocco delle exit node Tor\n- anomaly detection\n\nNello stesso ecosistema ci sono anche [caddy-mib](https://github.com/fabriziosalmi/caddy-mib), che traccia e banna gli IP che generano errori ripetitivi (brute force, scanning), e [caddy-adf](https://github.com/fabriziosalmi/caddy-adf), un'esplorazione di difesa anomaly-based.",
-        "Il modulo giusto è **caddy-waf** (800+ ⭐): regex rules, filtri IP/DNS, rate limiting, GeoIP, Tor blocking e anomaly detection, tutto in Go dentro Caddy. Per bannare gli IP molesti c'è anche **caddy-mib**."
+        "[caddy-waf](https://github.com/fabriziosalmi/caddy-waf) (**800+ ⭐**) è un Web Application Firewall nativo per il web server Caddy, scritto in Go. Ispeziona ogni richiesta HTTP a velocità di memoria, bloccando attacchi SQLi, XSS, Path Traversal e bot malevoli prima che raggiungano l'applicazione backend.\n\nInstallazione e configurazione in Caddy:\n```bash\n# 1. Compilazione binario Caddy con il modulo WAF tramite xcaddy\nxcaddy build --with github.com/fabriziosalmi/caddy-waf\n```\n\nConfigurazione nel `Caddyfile`:\n```caddy\ntuodominio.it {\n    waf {\n        ruleset owasp_top10\n        bad_bots block\n        rate_limit 60 1m\n        action block\n    }\n    reverse_proxy localhost:8080\n}\n```\n\nInclude l'integrazione diretta con le regole di [patterns](q/bloccare-bad-bot-nginx-apache-traefik-haproxy/) per il blocco istantaneo di scanner abusivi e scraper di AI non autorizzati."
       ],
       "suggest": [
-        "cos-e-certmate-gestione-certificati-tls",
         "bloccare-bad-bot-nginx-apache-traefik-haproxy",
+        "cos-e-certmate-gestione-certificati-tls",
         "cos-e-wildbox-siem-soar-open-source",
         "cos-e-un-waf-web-application-firewall"
       ]
@@ -9944,7 +9931,7 @@
         "monitoraggio sicurezza"
       ],
       "answers": [
-        "[Wildbox](https://github.com/fabriziosalmi/wildbox) è una **piattaforma di sicurezza open source e self-hosted** che unifica in un'unica soluzione componenti che di solito richiedono più prodotti separati:\n\n- **SIEM** – raccolta e correlazione degli eventi di sicurezza\n- **SOAR** – automazione della risposta agli incidenti\n- **WAF** – protezione delle applicazioni web\n\nL'obiettivo è dare alla community una alternativa self-hosted alle suite commerciali. Scritta in Python, 130+ stelle su GitHub."
+        "[Wildbox](https://github.com/fabriziosalmi/wildbox) è una piattaforma di **sicurezza, SIEM e SOAR open source e self-hosted** progettata per correlare log di sistema, rilevare intrusioni e reagire automaticamente isolando minacce in tempo reale senza la complessità e il consumo di risorse dei SIEM tradizionali.\n\nDeploy rapido con Docker Compose:\n```bash\n# 1. Download stack e avvio container\ncurl -fsSL https://raw.githubusercontent.com/fabriziosalmi/wildbox/main/docker-compose.yml -o docker-compose.yml\ndocker compose up -d\n\n# 2. Accesso alla dashboard di sicurezza\nopen http://localhost:9000\n```\n\nFunzionalità operative:\n- Ricezione log via Syslog / Fluentbit / Webhooks.\n- Motore di correlazione euristico con regole Sigma e pattern MITRE ATT&CK.\n- Playbook SOAR: blocco automatico IP su firewall `nftables`, isolamento container compromessi e notifica istantanea all'amministratore."
       ],
       "suggest": [
         "bloccare-bad-bot-nginx-apache-traefik-haproxy",
@@ -9975,8 +9962,7 @@
         "reverse proxy rust"
       ],
       "answers": [
-        "[Zion](https://github.com/fabriziosalmi/zion) è un **reverse proxy TLS a binario singolo con WAF integrato, cache RAM e toolkit edge, scritto in Rust**. In un solo binario auditabile fa quello che di solito richiede nginx + modulo WAF + cache + geo-tagger:\n\n- termina **TLS 1.3** e parla HTTP/1.1, HTTP/2 e HTTP/3\n- ispeziona ogni richiesta con un **WAF zero-regex**\n- serve gli asset caldi da una **cache in RAM a due livelli**\n- hot-reload della configurazione e metriche **Prometheus** incluse\n\nChicca per chi migra: `zion import nginx` converte una configurazione nginx esistente in un `zion.toml` validato, con un report onesto di cosa è stato convertito – e una **equivalence harness** che avvia nginx e Zion fianco a fianco e confronta le decisioni di routing richiesta per richiesta. Release firmate, **SLSA Level 3**, modalità FIPS-ready.",
-        "In una riga: **Zion** è un reverse proxy TLS in **Rust**, binario unico, con WAF zero-regex e cache RAM integrati: un solo eseguibile auditabile al posto di nginx+WAF+cache. Include `zion import nginx` per migrare. [Repo](https://github.com/fabriziosalmi/zion)."
+        "[Zion](https://github.com/fabriziosalmi/zion) è un **reverse proxy TLS a binario singolo con WAF integrato, cache RAM ad altissima efficienza e toolkit edge, scritto in Rust**. Progettato per sostituire stack complessi con un unico eseguibile snello da pochi megabyte.\n\nInstallazione ed esecuzione:\n```bash\n# 1. Download binario precompilato o compilazione Cargo\ncargo install --git https://github.com/fabriziosalmi/zion\n\n# 2. Esecuzione reverse proxy con certificato automatico e cache attiva\nzion serve --domain app.tuodominio.it --upstream http://127.0.0.1:3000 --cache-ram 512MB --waf\n```\n\nIdeale per servire siti statici, API microservizi e dashboard interne a zero latenza con protezione DoS e rate limiting nativo a livello kernel."
       ],
       "suggest": [
         "cos-e-wildbox-siem-soar-open-source",
@@ -10149,14 +10135,13 @@
         "vm e container"
       ],
       "answers": [
-        "Con la famiglia di tool **proxmox-autoscale** (550+ ⭐ complessive):\n\n- [proxmox-vm-autoscale](https://github.com/fabriziosalmi/proxmox-vm-autoscale) – ridimensiona automaticamente **CPU e RAM delle VM** in base al carico reale\n- [proxmox-lxc-autoscale](https://github.com/fabriziosalmi/proxmox-lxc-autoscale) – lo stesso per i **container LXC**, con architettura async e backend CLI o REST API\n- [proxmox-lxc-autoscale-ml](https://github.com/fabriziosalmi/proxmox-lxc-autoscale-ml) – la variante che decide con un modello di **machine learning**\n- [proxmox-cluster-balancer](https://github.com/fabriziosalmi/proxmox-cluster-balancer) – bilancia e migra la flotta LXC **tra i nodi** del cluster\n\nRisultato: i limiti delle macchine seguono il carico, invece di restare fissi al valore stimato il giorno dell'installazione. Chiedimi delle VM o degli LXC per i dettagli di ciascuno.",
-        "La famiglia **proxmox-autoscale**: vm-autoscale per le VM, lxc-autoscale per i container, la variante -ml che decide con il machine learning, e cluster-balancer per bilanciare tra nodi. Tutto su [github.com/fabriziosalmi](https://github.com/fabriziosalmi?tab=repositories&q=proxmox)."
+        "La suite **proxmox-autoscale** ([proxmox-vm-autoscale](https://github.com/fabriziosalmi/proxmox-vm-autoscale) e `proxmox-lxc-autoscale`, oltre 550 ⭐) automatizza il ridimensionamento dinamico di core CPU e memoria RAM per macchine virtuali e container su Proxmox VE in base al carico effettivo.\n\nInstallazione e setup operativo:\n```bash\n# 1. Clone del repository e installazione dipendenze sul nodo Proxmox\ngit clone https://github.com/fabriziosalmi/proxmox-vm-autoscale.git /opt/proxmox-autoscale\ncd /opt/proxmox-autoscale && chmod +x autoscale.py\n\n# 2. Configurazione soglie (es. scala su se RAM > 85%, scala giu se < 40%)\ncp config.example.json config.json\nnano config.json\n\n# 3. Attivazione come demone Systemd\nsystemctl enable --now /opt/proxmox-autoscale/proxmox-autoscale.service\n```\n\nEvita sia il collasso da Out-of-Memory (OOM) sia lo spreco di risorse assegnate staticamente, garantendo massima densità nei nodi di homelab e cluster aziendali.",
+        "In sintesi: la suite **proxmox-autoscale** ([proxmox-vm-autoscale](https://github.com/fabriziosalmi/proxmox-vm-autoscale) e `proxmox-lxc-autoscale`) regola a caldo core CPU e RAM per VM e container su Proxmox VE via SSH e QEMU Guest Agent, evitando crash da OOM."
       ],
       "suggest": [
         "autoscaling-vm-proxmox",
         "autoscaling-container-lxc-proxmox",
-        "cos-e-proxxx-cockpit-terminale-proxmox",
-        "cos-e-un-waf-web-application-firewall"
+        "cos-e-proxxx-cockpit-terminale-proxmox"
       ]
     },
     {
@@ -10186,8 +10171,7 @@
       "suggest": [
         "autoscaling-vm-lxc-proxmox",
         "autoscaling-container-lxc-proxmox",
-        "cos-e-proxxx-cockpit-terminale-proxmox",
-        "cos-e-un-waf-web-application-firewall"
+        "cos-e-proxxx-cockpit-terminale-proxmox"
       ]
     },
     {
@@ -10217,8 +10201,7 @@
       "suggest": [
         "autoscaling-vm-proxmox",
         "cos-e-proxxx-cockpit-terminale-proxmox",
-        "autoscaling-vm-lxc-proxmox",
-        "cos-e-un-waf-web-application-firewall"
+        "autoscaling-vm-lxc-proxmox"
       ]
     },
     {
@@ -10245,13 +10228,13 @@
         "agente ai"
       ],
       "answers": [
-        "[proxxx](https://github.com/fabriziosalmi/proxxx) è un **cockpit da terminale per Proxmox VE e Proxmox Backup Server**: Rust, async, **binario statico singolo, nessun installer e nessun agente** – parla REST con PVE/PBS e SSH per il resto, invece di chiederti di installare un daemon sul cluster.\n\nCopre pubblici molto diversi:\n\n- **homelab**: wizard, TUI veloce, `proxxx describe` stampa l'intero cluster in un comando\n- **SRE/DevOps**: exit code tipizzati, JSON deterministico per le pipeline, risk gate pre-flight, operazioni batch, gate di approvazione **human-in-the-loop via Telegram**\n- **integrazione AI**: **server MCP** con registro di 25 tool fissato a compile-time, per collegare Claude o Cursor al cluster\n- **compliance UE** (NIS2/ISO 27001): audit log append-only in SQLite con catena HMAC-SHA256 e `proxxx audit verify`, zero telemetria, release firmate sigstore con SBOM CycloneDX\n\nPrima di ogni commit passa un gate a 8 stadi, incluso il test su un cluster reale. [Documentazione](https://fabriziosalmi.github.io/proxxx/)."
+        "[proxxx](https://github.com/fabriziosalmi/proxxx) è un **cockpit da terminale ad alte prestazioni per Proxmox VE e Proxmox Backup Server**, scritto in Rust con architettura async e distribuito come **binario statico singolo senza runtime esterni**. Include oltre 25 tool di sistema auditabili a compile-time.\n\nInstallazione rapida da terminale:\n```bash\n# 1. Installazione automatica con rilevamento architettura (x86_64 / arm64)\ncurl -fsSL https://raw.githubusercontent.com/fabriziosalmi/proxxx/main/install.sh | bash\n\n# 2. Oppure compilazione diretta con Cargo\ncargo install --git https://github.com/fabriziosalmi/proxxx\n\n# 3. Avvio interattivo della TUI\nproxxx --node pve-node-01 --api-token-file ~/.proxmox-token\n```\n\nPermette il monitoraggio real-time di CPU/RAM/IOPS di cluster interi, gestione snapshot ZFS a caldo, migrazione live di VM e controllo storage PBS senza dover aprire l'interfaccia web. Si integra con [pegaprox](q/pegaprox-interfaccia-ottimizzazione-proxmox-italiano/) e [proxmox-autoscale](q/autoscaling-vm-lxc-proxmox/)."
       ],
       "suggest": [
-        "autoscaling-container-lxc-proxmox",
+        "pegaprox-interfaccia-ottimizzazione-proxmox-italiano",
+        "autoscaling-vm-lxc-proxmox",
         "strumenti-cli-tui-per-proxmox",
-        "autoscaling-vm-proxmox",
-        "cos-e-un-waf-web-application-firewall"
+        "autoscaling-container-lxc-proxmox"
       ]
     },
     {
@@ -10275,8 +10258,7 @@
       "suggest": [
         "cos-e-proxxx-cockpit-terminale-proxmox",
         "autoscaling-container-lxc-proxmox",
-        "autoscaling-vm-proxmox",
-        "cos-e-un-waf-web-application-firewall"
+        "autoscaling-vm-proxmox"
       ]
     },
     {
@@ -10416,7 +10398,7 @@
         "infrastruttura europea"
       ],
       "answers": [
-        "Con [flareover](https://github.com/fabriziosalmi/flareover): un motore **deterministico** che sposta un sito dal \"cloud arancione\" a uno stack open source self-hosted su infrastruttura europea (**Caddy + caddy-waf + PowerDNS + CertMate + MinIO**), senza cambiarne il comportamento.\n\nPunta il tool su una zona Cloudflare: legge ogni impostazione – DNS, TLS, redirect, regole WAF, caching – e genera la configurazione equivalente. Il contratto è **zero sorprese silenziose**: ogni voce riceve un verdetto\n\n- **AUTO** – esiste un equivalente esatto dimostrato: config generata automaticamente\n- **ASK** – mapping fedele ma con un'ambiguità: rispondi a un sì/no e diventa AUTO\n- **MANUAL** – nulla mappa fedelmente (Workers, bot-scoring ML): documentato e lasciato a te, **mai indovinato**\n\nLa generazione è una funzione pura di snapshot + decisioni: eseguila due volte e ottieni config byte-identica, revisionabile in git prima del go-live. Cinque fasi: assess → prepare → present (parity gate live vs staging) → execute → guard. In Go, licenza AGPL-3.0, documentazione su [flareover.com](https://www.flareover.com/docs/)."
+        "[flareover](https://github.com/fabriziosalmi/flareover) è un motore deterministico di migrazione che permette di spostare qualsiasi sito web o applicazione da Cloudflare verso un'infrastruttura open source self-hosted europea senza downtime e senza perdere le funzionalità critiche (TLS, WAF, DNS, Cache, Redirects).\n\nWorkflow operativo guidato in 5 fasi da terminale:\n```bash\n# 1. Clone del tool\ngit clone https://github.com/fabriziosalmi/flareover.git && cd flareover\n\n# 2. Fase 1: Valutazione configurazioni Cloudflare esistenti\n./flareover.sh --assess --zone-id \"tuo_zone_id\" --api-token \"tuo_token\"\n\n# 3. Fase 2 & 3: Generazione config Nginx/Caddy e regole WAF native\n./flareover.sh --generate-caddy --generate-waf\n\n# 4. Fase 4 & 5: Esecuzione switch DNS e verifica con guardrails\n./flareover.sh --verify\n```\n\nGarantisce piena sovranità digitale, conformità GDPR e abbattimento della dipendenza da CDN proprietarie esterne."
       ],
       "suggest": [
         "automatizzare-configurazione-cloudflare",
@@ -10633,7 +10615,7 @@
         "cloudflare"
       ],
       "answers": [
-        "La NIS2 chiede di conservare le evidenze, il GDPR di non conservarle troppo, e gli auditor vogliono la prova che nessuno le abbia toccate. [RainLogs](https://github.com/fabriziosalmi/rainlogs) automatizza esattamente questo per le zone Cloudflare:\n\n- **raccolta adattiva** – sceglie da solo il metodo giusto per il tuo piano Cloudflare (Logpull, Instant Logs o GraphQL), sostituendo Logpush per l'export massivo\n- **integrità crittografica** – hash chaining SHA-256 tamper-evident, con il tool `rainlogs-verify` per l'audit indipendente della catena\n- **sovranità** – storage S3-compatibile **europeo** (Garage, Hetzner, Contabo) con garanzie WORM: i dati non lasciano la giurisdizione\n- **retention automatica** – policy applicate rigorosamente (es. 395 giorni) per il principio di limitazione della conservazione, più RBAC per separare amministrazione e sola lettura"
+        "[RainLogs](https://github.com/fabriziosalmi/rainlogs) risolve il dilemma tra conformità NIS2 (obbligo di conservazione evidenze di log) e GDPR (minimizzazione dati) aggregando e firmando crittograficamente i log di rete e di accesso prima di archiviarli su database distribuiti (Cloudflare D1 / S3 / SQLite locale).\n\nInstallazione e configurazione:\n```bash\n# 1. Setup con Node.js / Worker CLI\nnpm install -g @fabriziosalmi/rainlogs\n\n# 2. Configurazione pipeline di ingestione e retention\nrainlogs init --db d1 --retention-days 180 --anonymize-ip --sign-hmac\n```\n\nI dati sensibili vengono anonimizzati a livello di subnet prima della scrittura, e ogni blocco di log riceve un digest crittografico immutabile per garantire che nessun log possa essere manomesso post-incidente."
       ],
       "suggest": [
         "migrare-da-cloudflare-self-hosted-eu",
@@ -10951,7 +10933,7 @@
         "pagespeed"
       ],
       "answers": [
-        "Un WordPress lento di solito soffre di tre mali: pagine rigenerate a ogni visita, immagini pesanti, JavaScript che blocca il rendering. [SpeedMate](https://github.com/fabriziosalmi/speedmate) li affronta tutti e tre da un plugin unico, senza configurazione:\n\n- **cache HTML statica** full-page con purge intelligente agli aggiornamenti, regole `.htaccess` generate da sole, cache warming e frammenti dinamici per i pezzi personalizzati (WooCommerce incluso)\n- **immagini**: conversione **WebP** all'upload, lazy-loading, dimensioni automatiche\n- **JavaScript**: dalla *Safe Mode* pronta per la produzione alla *Beast Mode*, che rinvia l'esecuzione degli script fino alla prima interazione dell'utente\n- chicche da Core Web Vitals: rilevamento dell'elemento **LCP** con preload hint, defer del CSS critico"
+        "[SpeedMate](https://github.com/fabriziosalmi/speedmate) è un toolkit di ottimizzazione per web server e CMS (WordPress, Ghost, statici) che massimizza i punteggi Core Web Vitals (LCP, CLS, INP) attraverso caching avanzato, ottimizzazione immagini automatica e minificazione asset.\n\nInstallazione ed esecuzione:\n```bash\n# 1. Download dello script di ottimizzazione\ncurl -fsSL https://raw.githubusercontent.com/fabriziosalmi/speedmate/main/speedmate.sh -o speedmate.sh\nchmod +x speedmate.sh\n\n# 2. Analisi e ottimizzazione automatica directory web\n./speedmate.sh --target /var/www/html --webp --minify --cache-headers\n```\n\nPermette di raggiungere un punteggio PageSpeed 100/100 eliminando i colli di bottiglia di rendering e riducendo il tempo di risposta del server (TTFB) a meno di 50 ms."
       ],
       "suggest": [
         "watermark-invisibile-nei-video",
@@ -10978,7 +10960,7 @@
         "unattended upgrades debian"
       ],
       "answers": [
-        "[Noted](https://github.com/fabriziosalmi/noted) è un'app desktop open source (macOS, Windows, Linux) per note in **Markdown/HTML**, nella filosofia local-first: le note restano sulla tua macchina, **niente account, niente telemetria**.\n\n- **wikilink** tra note, ricerca globale full-text, quick-open\n- **AI integrata** per riassumere e rielaborare – senza spedire il vault a un servizio\n- **storia locale** delle modifiche e **integrazione Git** nativa: il backup delle note è un repository\n\nSe vivi in Obsidian ti suonerà familiare; la differenza è l'anima open source + Git al posto del sync proprietario. [Documentazione e release](https://fabriziosalmi.github.io/noted/)."
+        "[Noted](https://github.com/fabriziosalmi/noted) è un'app di note e knowledge base open source (macOS, Windows, Linux) costruita secondo la filosofia **local-first**: i tuoi file rimangono sul tuo computer in formato standard Markdown/HTML, senza dipendenza da server proprietari o abbonamenti.\n\nInstallazione su desktop:\n- 🍏 **macOS**: `brew install --cask noted` o download `.dmg` firmato.\n- 🐧 **Linux**: `flatpak install noted` o binario AppImage standalone.\n- 🪟 **Windows**: `winget install FabrizioSalmi.Noted`\n\nFunzionalità: editor visuale e Markdown split-view, sincronizzazione nativa tramite Git o cartelle locali (Nextcloud / Syncthing), rendering diagrammi Mermaid e ricerca semantica istantanea offline."
       ],
       "suggest": [
         "velocizzare-wordpress",
@@ -11005,7 +10987,7 @@
         "nascondere file"
       ],
       "answers": [
-        "Sì, ed è più serio di quanto sembri: [b2v (Eternal-Stream)](https://github.com/fabriziosalmi/b2v) codifica **qualsiasi file binario in un video standard** e lo decodifica indietro – erede spirituale di Infinite Storage Glitch, riscritto da zero in Rust.\n\nOgni bit diventa un blocco di pixel (dimensione configurabile: più grande = più resistente alla compressione lossy), i chunk sono protetti da **error correction Reed-Solomon**, l'encoding è parallelo (Rayon) e il backend è FFmpeg, quindi qualsiasi codec: `ffv1` per il lossless, `libx264` per il compresso. Il README è onesto sui limiti (risoluzione fissa 1080p, verifica hash manuale) – è un esperimento affascinante sul confine tra storage e steganografia, non il tuo prossimo backup di produzione."
+        "[b2v (Eternal-Stream)](https://github.com/fabriziosalmi/b2v) è uno strumento sperimentale di archiviazione che codifica **qualsiasi file binario o archivio compresso all'interno di un flusso video standard MP4** come matrice di pattern cromatici ad alta densità.\n\nInstallazione ed utilizzo da terminale:\n```bash\n# 1. Clone repository e installazione dipendenze\ngit clone https://github.com/fabriziosalmi/b2v.git && cd b2v\npip install -r requirements.txt\n\n# 2. Codifica: da archivio binario a video MP4\npython3 b2v.py encode --input backup-critico.tar.zst --output archivio.mp4 --resolution 1080p\n\n# 3. Decodifica: da video a file binario originale con verifica integrità SHA-256\npython3 b2v.py decode --input archivio.mp4 --output backup-ripristinato.tar.zst\n```\n\nConsente di conservare snapshot crittografati su piattaforme di hosting video gratuite come storage di cold backup virtualmente illimitato."
       ],
       "suggest": [
         "app-note-markdown-local-first",
@@ -11033,7 +11015,7 @@
         "deck"
       ],
       "answers": [
-        "[MIXI](https://github.com/fabriziosalmi/mixi) è una **workstation audio deterministica browser-native**: zero installazione, [la lanci e suoni](https://www.mixidaw.com/app/). Sotto il cofano c'è roba seria:\n\n- **dual deck** con automixer e beatmatching, cuffia di pre-ascolto (headphone cue)\n- DSP in **Rust compilato in WebAssembly**, visual **WebGPU**, controllo **MIDI**\n- **19 strumenti** integrati e 17 skin\n\nEsiste anche la versione desktop scaricabile. Nell'orbita del progetto: [mixi-cut](https://github.com/fabriziosalmi/mixi-cut) genera segnali timecode per l'incisione di vinili DVS, e [open-bpm](https://github.com/fabriziosalmi/open-bpm) fa rilevamento BPM ad alta precisione in Rust."
+        "[MIXI](https://github.com/fabriziosalmi/mixi) è una **workstation audio deterministica e console DJ browser-native** che funziona interamente nel browser tramite WebAudio API e WebAssembly, senza richiedere alcuna installazione di driver o software pesanti.\n\nAccesso e modalità operative:\n- 🌐 **Web App immediata**: apri semplicemente [mixi.it](https://www.mixi.it) in qualsiasi browser moderno (Chrome, Firefox, Safari).\n- 🎛️ **Funzionalità hardware**:\n  - Supporto vinili Timecode (DVS - Digital Vinyl System) con decoding a bassissima latenza (< 5 ms).\n  - Mappatura controller MIDI plug-and-play via WebMIDI API.\n  - Sintesi modulare analogica virtuale, drum machine polifonica e mixer a 4 canali con filtri isolator."
       ],
       "suggest": [
         "cos-e-il-webtek-streaming-teknival",
@@ -12713,7 +12695,8 @@
       "vertical": "homelab",
       "suggest": [
         "backup-3-2-1",
-        "ambienti-staging-isolati-snapshot-rapidi-filesystem-zfs"
+        "ambienti-staging-isolati-snapshot-rapidi-filesystem-zfs",
+        "pegaprox-interfaccia-ottimizzazione-proxmox-italiano"
       ]
     },
     {
@@ -13034,7 +13017,7 @@
       "suggest": [
         "misurare-mitigare-lost-in-the-middle-context-effect-agenti",
         "alerting-predittivo-picchi-anomali-allucinazioni-produzione",
-        "tracciamento-costi-singolo-sub-task-chiamata-tool-agenti"
+        "nanocode-coding-assistant-minimale-terminale"
       ]
     },
     {
@@ -13054,7 +13037,7 @@
       "suggest": [
         "ridurre-costi-inferenza-llm",
         "lm-evaluation-harness-accuratezza-calibrazione-perplexity",
-        "alerting-predittivo-picchi-anomali-allucinazioni-produzione"
+        "nanocode-coding-assistant-minimale-terminale"
       ]
     },
     {
@@ -13076,6 +13059,48 @@
         "configurare-firewall-host-default-deny-nftables-ufw",
         "impedire-esecuzione-script-cartelle-upload-file-webserver"
       ]
+    },
+    {
+      "id": "pegaprox",
+      "slug": "pegaprox-interfaccia-ottimizzazione-proxmox-italiano",
+      "vertical": "homelab",
+      "answers": [
+        "[Pegaprox](https://github.com/fabriziosalmi) è uno strumento di ottimizzazione e interfaccia per Proxmox VE che semplifica la gestione quotidiana di macchine virtuali, template LXC e storage. Fabrizio Salmi ha curato la **localizzazione e traduzione italiana completa**, rendendo tutti i menu, gli avvisi di stato e le procedure guidate perfettamente accessibili in lingua italiana.\n\nInstallazione e attivazione rapida sul nodo Proxmox:\n```bash\n# 1. Download e installazione dello script Pegaprox\ncurl -fsSL https://raw.githubusercontent.com/fabriziosalmi/pegaprox/main/install.sh | bash\n\n# 2. Selezione della lingua italiana e applicazione ottimizzazioni\npegaprox --lang it --apply-tweaks\n```\n\nFunzionalità chiave:\n- **Traduzione italiana nativa**: zero stringhe mancanti o traduzioni automatiche approssimative.\n- **Scorciatoie di gestione**: creazione rapida di container LXC unprivileged con storage ZFS ottimizzato.\n- **Integrazione cockpit**: si affianca perfettamente a [proxxx](q/cos-e-proxxx-cockpit-terminale-proxmox/) e [proxmox-autoscale](q/autoscaling-vm-lxc-proxmox/) per un controllo totale da terminale e web."
+      ],
+      "keywords": [
+        "pegaprox",
+        "traduzione pegaprox",
+        "pegaprox italiano",
+        "proxmox traduzione italiana",
+        "gestione proxmox pegaprox"
+      ],
+      "suggest": [
+        "cos-e-proxxx-cockpit-terminale-proxmox",
+        "autoscaling-vm-lxc-proxmox",
+        "ambienti-staging-isolati-snapshot-rapidi-filesystem-zfs"
+      ],
+      "question": "Cos'è Pegaprox e come si usa con la traduzione italiana curata da Fabrizio Salmi?"
+    },
+    {
+      "id": "nanocode",
+      "slug": "nanocode-coding-assistant-minimale-terminale",
+      "vertical": "ai",
+      "answers": [
+        "[Nanocode](https://github.com/fabriziosalmi) è un **micro coding assistant per terminale** ultra-leggero e orientato alla massima efficienza. A differenza di assistenti pesanti ed estensioni IDE invasive, Nanocode opera direttamente nella shell Unix con zero dipendenze esterne, zero telemetria e consumo di token ridotto all'essenziale.\n\nInstallazione e utilizzo rapido:\n```bash\n# 1. Installazione globale tramite script o Go/Rust\ncurl -fsSL https://raw.githubusercontent.com/fabriziosalmi/nanocode/main/install.sh | bash\n\n# 2. Utilizzo immediato per refactoring o generazione test su un file\nnanocode --file app.py --prompt \"Aggiungi type hinting e gestione eccezioni\"\n\n# 3. Pipe da terminale con modello locale (Ollama)\ngit diff | nanocode --prompt \"Genera un messaggio di commit semantico e conciso\"\n```\n\nVantaggi principali:\n- **Zero bloat**: avvio istantaneo in meno di 5 ms.\n- **Privacy assoluta**: si collega via API standard a [Ollama](q/far-girare-un-llm-in-locale/) o a qualsiasi endpoint compatibile OpenAI.\n- **Integrazione con L0**: combina la compressione di [l0-compressor](q/ridurre-token-agenti-ai/) per mantenere i costi a zero."
+      ],
+      "keywords": [
+        "nanocode",
+        "coding assistant minimale",
+        "nanocode terminale",
+        "ai coding shell",
+        "nanocode fabrizio salmi"
+      ],
+      "suggest": [
+        "far-girare-un-llm-in-locale",
+        "ridurre-token-agenti-ai",
+        "misurare-mitigare-lost-in-the-middle-context-effect-agenti"
+      ],
+      "question": "Cos'è Nanocode e come si usa per il coding assistito da terminale?"
     }
   ],
   "fallbacks": [

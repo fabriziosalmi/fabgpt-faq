@@ -2446,5 +2446,29 @@
   {
     "expect": "agent-ci-cd-branch-protection",
     "q": "Quali minacce emergono quando un agente ai ha accesso in scrittura a repository e pipeline ci cd?"
+  },
+  {
+    "q": "cos'è pegaprox",
+    "expect": "pegaprox"
+  },
+  {
+    "q": "traduzione italiana pegaprox proxmox",
+    "expect": "pegaprox"
+  },
+  {
+    "q": "come installo pegaprox",
+    "expect": "pegaprox"
+  },
+  {
+    "q": "cos'è nanocode",
+    "expect": "nanocode"
+  },
+  {
+    "q": "coding assistant minimale terminale nanocode",
+    "expect": "nanocode"
+  },
+  {
+    "q": "come si usa nanocode per programmare",
+    "expect": "nanocode"
   }
 ]
