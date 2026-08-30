@@ -175,13 +175,13 @@
         "encrypt"
       ],
       "answers": [
-        "**Let's Encrypt** emette certificati TLS gratuiti tramite **ACME**, un protocollo in cui dimostri di controllare il dominio superando una *challenge*: pubblicare un token via HTTP (`http-01`) o creare un record DNS (`dns-01`, necessario per i certificati wildcard). I certificati durano 90 giorni: il rinnovo **deve** essere automatizzato, non è un optional.\n\nFinché hai due domini, basta certbot. Quando i domini diventano decine su macchine diverse, serve gestione centralizzata: [CertMate](https://github.com/fabriziosalmi/certmate) (1.400+ ⭐) automatizza emissione e rinnovo ACME con **29 provider DNS**, scopre i certificati già esistenti nell'infrastruttura, li inventaria e li deploya dove servono."
+        "Il protocollo ACME (Automated Certificate Management Environment) automatizza l'emissione e il rinnovo dei certificati TLS/SSL validati da autorità pubbliche come Let's Encrypt o ZeroSSL.\n\nComandi pratici per emissione automatica:\n\n1. **ACME HTTP-01 Challenge (per server con porte 80/443 aperte)**:\n   In Caddy è automatico: basta inserire il nome di dominio nel `Caddyfile`.\n2. **ACME DNS-01 Challenge (per server interni / homelab senza porte aperte)**:\n   Con [CertMate](q/cos-e-certmate-gestione-certificati-tls/) o `certbot`:\n   ```bash\n   # Emissione certificato Wildcard (*.tuodominio.it) con API Cloudflare\n   certbot certonly --dns-cloudflare \\\n     --dns-cloudflare-credentials ~/.secrets/cloudflare.ini \\\n     -d \"*.tuodominio.it\" -d \"tuodominio.it\"\n   ```\n3. **Rinnovo automatico via crontab / systemd timer**:\n   `0 3 * * * certbot renew --quiet --post-hook \"systemctl reload caddy\"`\n\nQuesto garantisce certificati crittografici sempre validi senza intervento manuale."
       ],
       "suggest": [
+        "cos-e-certmate-gestione-certificati-tls",
         "cos-e-un-reverse-proxy",
         "certificato-tls-scaduto-cosa-fare",
-        "cos-e-un-waf-web-application-firewall",
-        "cosa-prevede-ai-act"
+        "cos-e-un-waf-web-application-firewall"
       ]
     },
     {
@@ -548,8 +548,7 @@
       "suggest": [
         "come-funziona-lets-encrypt-acme",
         "cos-e-un-attacco-ddos",
-        "cos-e-la-owasp-top-10",
-        "cos-e-un-waf-web-application-firewall"
+        "cos-e-la-owasp-top-10"
       ]
     },
     {
@@ -572,8 +571,7 @@
       "suggest": [
         "differenza-http-https-tls",
         "cos-e-la-owasp-top-10",
-        "cos-e-la-sql-injection",
-        "cos-e-un-waf-web-application-firewall"
+        "cos-e-la-sql-injection"
       ]
     },
     {
@@ -595,8 +593,7 @@
       "suggest": [
         "cos-e-un-attacco-ddos",
         "cos-e-la-sql-injection",
-        "differenza-http-https-tls",
-        "cos-e-un-waf-web-application-firewall"
+        "differenza-http-https-tls"
       ]
     },
     {
@@ -618,8 +615,7 @@
       "suggest": [
         "cos-e-la-owasp-top-10",
         "cos-e-il-cross-site-scripting-xss",
-        "cos-e-un-attacco-ddos",
-        "cos-e-un-waf-web-application-firewall"
+        "cos-e-un-attacco-ddos"
       ]
     },
     {
@@ -640,8 +636,7 @@
       "suggest": [
         "cos-e-la-sql-injection",
         "cos-e-il-modello-zero-trust",
-        "cos-e-la-owasp-top-10",
-        "cos-e-un-waf-web-application-firewall"
+        "cos-e-la-owasp-top-10"
       ]
     },
     {
@@ -664,8 +659,7 @@
       "suggest": [
         "cos-e-il-cross-site-scripting-xss",
         "cos-e-autenticazione-due-fattori-mfa",
-        "cos-e-la-sql-injection",
-        "cos-e-un-waf-web-application-firewall"
+        "cos-e-la-sql-injection"
       ]
     },
     {
@@ -688,8 +682,7 @@
       "suggest": [
         "cos-e-il-modello-zero-trust",
         "mettere-in-sicurezza-ssh",
-        "cos-e-il-cross-site-scripting-xss",
-        "cos-e-un-waf-web-application-firewall"
+        "cos-e-il-cross-site-scripting-xss"
       ]
     },
     {
@@ -713,8 +706,7 @@
       "suggest": [
         "cos-e-il-modello-zero-trust",
         "cos-e-autenticazione-due-fattori-mfa",
-        "quali-security-header-servono",
-        "cos-e-un-waf-web-application-firewall"
+        "quali-security-header-servono"
       ]
     },
     {
@@ -737,8 +729,7 @@
       "suggest": [
         "mettere-in-sicurezza-ssh",
         "bloccare-crawler-ai-gptbot",
-        "cos-e-autenticazione-due-fattori-mfa",
-        "cos-e-un-waf-web-application-firewall"
+        "cos-e-autenticazione-due-fattori-mfa"
       ]
     },
     {
@@ -764,8 +755,7 @@
       "suggest": [
         "quali-security-header-servono",
         "errore-err-cert-authority-invalid",
-        "mettere-in-sicurezza-ssh",
-        "cos-e-un-waf-web-application-firewall"
+        "mettere-in-sicurezza-ssh"
       ]
     },
     {
@@ -788,8 +778,7 @@
       "suggest": [
         "bloccare-crawler-ai-gptbot",
         "errore-502-bad-gateway",
-        "quali-security-header-servono",
-        "cos-e-un-waf-web-application-firewall"
+        "quali-security-header-servono"
       ]
     },
     {
@@ -811,8 +800,7 @@
       "suggest": [
         "errore-err-cert-authority-invalid",
         "errore-429-too-many-requests",
-        "bloccare-crawler-ai-gptbot",
-        "cos-e-un-waf-web-application-firewall"
+        "bloccare-crawler-ai-gptbot"
       ]
     },
     {
@@ -834,8 +822,7 @@
       "suggest": [
         "errore-502-bad-gateway",
         "cos-e-il-mixed-content",
-        "errore-err-cert-authority-invalid",
-        "cos-e-un-waf-web-application-firewall"
+        "errore-err-cert-authority-invalid"
       ]
     },
     {
@@ -856,8 +843,7 @@
       "suggest": [
         "errore-429-too-many-requests",
         "fail2ban-e-alternative",
-        "errore-502-bad-gateway",
-        "cos-e-un-waf-web-application-firewall"
+        "errore-502-bad-gateway"
       ]
     },
     {
@@ -875,13 +861,12 @@
         "fail2ban crowdsec brute force"
       ],
       "answers": [
-        "**Fail2ban** legge i log dei servizi (SSH, mail, web), riconosce i tentativi falliti ripetuti e banna l'IP con una regola firewall temporanea. Vecchio, affidabile, ovunque – con i suoi limiti: configurazione a regex per ogni servizio, stato locale alla singola macchina.\n\nAlternative a seconda del contesto:\n\n- **CrowdSec** – stesso principio ma moderno: parser dichiarativi e blocklist collaborativa alimentata dalla community\n- **[caddy-mib](https://github.com/fabriziosalmi/caddy-mib)** – se il punto d'ingresso è Caddy: ban degli IP che generano errori ripetuti, direttamente nel proxy, con ban esponenziali per i recidivi\n- a monte di tutto, una **blocklist DNS/IP** dei domini malevoli noti ([blacklists](https://github.com/fabriziosalmi/blacklists)) riduce il rumore prima ancora che diventi un tentativo"
+        "Fail2ban monitora i log di sistema (SSH, web server, posta) e blocca automaticamente gli indirizzi IP che tentano accessi non autorizzati o attacchi di brute-force.\n\nConfigurazione consigliata su Linux (`/etc/fail2ban/jail.local`):\n```ini\n[DEFAULT]\nbantime = 1h\nfindtime = 10m\nmaxretry = 5\nbanaction = nftables-multiport\n\n[sshd]\nenabled = true\nport = ssh,2222\nbackend = systemd\nmode = aggressive\n\n[caddy-auth]\nenabled = true\nfilter = caddy-auth\nlogpath = /var/log/caddy/access.log\nmaxretry = 3\n```\n\nComandi da terminale:\n- Avvio e reload: `systemctl enable --now fail2ban && fail2ban-client reload`\n- Verifica stato carceri: `fail2ban-client status sshd`\n- Sblocco manuale IP: `fail2ban-client set sshd unbanip 192.168.1.50`\n\nPer un'alternativa moderna integrata, consulta anche [caddy-waf](q/come-aggiungere-un-waf-a-caddy/)."
       ],
       "suggest": [
+        "come-aggiungere-un-waf-a-caddy",
         "cos-e-il-mixed-content",
-        "cos-e-il-cyber-resilience-act",
-        "errore-429-too-many-requests",
-        "cos-e-un-waf-web-application-firewall"
+        "cos-e-il-cyber-resilience-act"
       ]
     },
     {
@@ -903,8 +888,7 @@
       "suggest": [
         "cos-e-la-supply-chain-security",
         "fail2ban-e-alternative",
-        "conservazione-log-gdpr",
-        "cos-e-un-waf-web-application-firewall"
+        "conservazione-log-gdpr"
       ]
     },
     {
@@ -929,8 +913,7 @@
       "suggest": [
         "cos-e-il-cyber-resilience-act",
         "fail2ban-e-alternative",
-        "cos-e-il-mixed-content",
-        "cos-e-un-waf-web-application-firewall"
+        "cos-e-il-mixed-content"
       ]
     },
     {
@@ -1017,13 +1000,12 @@
         "modello in locale"
       ],
       "answers": [
-        "Oggi è alla portata di chiunque: si scarica un modello **open-weights** quantizzato e lo si esegue con [Ollama](q/cos-e-ollama/), LM Studio o llama.cpp. La variabile che comanda è la **memoria** (VRAM su GPU NVIDIA, RAM unificata su Apple Silicon):\n\n- **7–9B quantizzato** – ~6-8 GB: gira su un portatile decente, qualità da assistente quotidiano\n- **13–14B** – ~10-12 GB: il punto dolce qualità/costo per molti usi\n- **70B** – 40+ GB: Mac Studio con tanta RAM unificata o multi-GPU\n\nPerché farlo: privacy totale (niente esce), zero costi per token, latenza prevedibile, e i dati aziendali restano in casa. Su Mac, per l'intero ciclo – esecuzione, chat, **fine-tuning LoRA** – c'è [SiliconDev](https://github.com/fabriziosalmi/silicondev), tutto su MLX, tutto on-device.",
-        "In sintesi: scarichi un modello open-weights [quantizzato](q/quantizzazione-modelli-gguf/) e lo esegui con [Ollama](q/cos-e-ollama/) o LM Studio; la [RAM/VRAM](q/quanta-ram-vram-serve-per-un-llm/) comanda tutto. Vantaggi: privacy totale, costo per token zero, dati che restano in casa."
+        "Far girare un LLM in locale garantisce privacy assoluta e zero costi per token. I comandi operativi per piattaforma:\n\n- 🐧 **Linux (con GPU NVIDIA o CPU)**:\n  `curl -fsSL https://ollama.com/install.sh | sh && ollama run llama3.2`\n  Per container: `docker run -d --gpus=all -v ollama:/root/.ollama -p 11434:11434 --name ollama ollama/ollama`\n- 🍏 **macOS (Apple Silicon M1/M2/M3/M4)**:\n  `brew install ollama && ollama serve` (sfrutta nativamente la memoria unificata e Metal MPS a massima banda)\n- 🪟 **Windows / WSL2**:\n  Scarica l'installer nativo o via terminale: `winget install Ollama.Ollama` oppure in WSL2 Ubuntu `ollama run mistral`\n- 🌐 **Chiamata API locale (OpenAI compatible)**:\n  `curl http://localhost:11434/v1/chat/completions -H \"Content-Type: application/json\" -d '{\"model\":\"llama3.2\",\"messages\":[{\"role\":\"user\",\"content\":\"Ciao\"}]}'`\n\nPer frontend grafico, collega [Open WebUI](q/interfaccia-chat-per-ollama-open-webui/) o usa [SiliconDev](q/fine-tuning-llm-apple-silicon/) per ottimizzare i modelli."
       ],
       "suggest": [
-        "cos-e-ollama",
-        "temperatura-di-un-llm",
-        "token-e-context-window"
+        "interfaccia-chat-per-ollama-open-webui",
+        "fine-tuning-llm-apple-silicon",
+        "temperatura-di-un-llm"
       ]
     },
     {
@@ -1064,7 +1046,7 @@
         "gptq"
       ],
       "answers": [
-        "I pesi di un modello nascono in 16 bit per numero. La **quantizzazione** li rappresenta con meno bit – 8, 5, 4, perfino 2 – riducendo memoria e calcolo quasi proporzionalmente: un 7B passa da ~14 GB a ~4 GB in 4-bit, ed è il motivo per cui gli LLM girano sui portatili.\n\nIl costo è una perdita di qualità sorprendentemente piccola fino ai 4-bit fatti bene (i formati `Q4_K_M` del mondo **GGUF**, lo standard di llama.cpp/Ollama), e via via più visibile sotto. Regola empirica consolidata: **un modello più grande quantizzato batte un modello più piccolo a precisione piena** a parità di memoria. Per l'inferenza su GPU esistono anche AWQ e GPTQ; su Mac, MLX ha i suoi formati – è quello che usa [SiliconDev](https://github.com/fabriziosalmi/silicondev)."
+        "La quantizzazione riduce la precisione dei pesi (da FP16 a INT8/INT4/INT2), abbattendo l'uso di RAM/VRAM con perdita di qualità quasi impercettibile nei formati K-quant.\n\nComandi pratici con `llama.cpp`:\n```bash\n# 1. Conversione checkpoint HuggingFace in GGUF FP16\npython3 convert_hf_to_gguf.py ./models/Llama-3-8B/ --outfile model-f16.gguf\n\n# 2. Quantizzazione bilanciata consigliata (Q4_K_M = ~4.5 bit per peso)\n./llama-quantize model-f16.gguf model-Q4_K_M.gguf Q4_K_M\n\n# 3. Esecuzione e benchmark velocità token/s da terminale\n./llama-cli -m model-Q4_K_M.gguf -p \"Spiega il modello OSI in 3 punti\" -ngl 33 -c 4096\n```\n\nTabella di scelta rapida:\n- **Q4_K_M**: miglior rapporto memoria/accuratezza per homelab (8B gira in ~6 GB VRAM).\n- **Q8_0**: quasi identico a FP16, ideale se hai RAM abbondante.\n- **Q2_K / Q3_K_S**: solo per far entrare modelli enormi (70B) in hardware consumer con perdita semantica sensibile."
       ],
       "suggest": [
         "cos-e-ollama",
@@ -4234,12 +4216,12 @@
         "scrivere server mcp"
       ],
       "answers": [
-        "Un server [MCP](q/cos-e-mcp-model-context-protocol/) è più semplice di quanto suoni: un processo che espone **tool tipizzati** (nome, schema dei parametri, descrizione) su stdio o HTTP, e risponde alle chiamate. Con gli SDK ufficiali (Python/TypeScript – FastMCP rende il Python quasi dichiarativo), un tool è una funzione decorata: nome, docstring, tipi – lo schema si genera da solo.\n\nLe scelte che separano un giocattolo da un server serio:\n\n- **descrizioni scritte per il modello**: il tool viene *scelto* in base a nome e descrizione – ambigue = tool ignorato o abusato\n- **tool stretti**: dieci strumenti specifici e tipizzati battono un `run_command` generico – è il [principio dei permessi](q/come-si-limita-un-agente-ai/) applicato al design\n- **output parchi**: il risultato finisce [nel contesto](q/token-e-context-window/) – pagina, filtra, riassumi\n- registro **fisso e auditabile** per i contesti seri: [proxxx](https://github.com/fabriziosalmi/proxxx) blocca i suoi 25 tool a compile-time, per la supply chain\n\nEsempi nel portfolio da cui copiare: [l0-memory](https://github.com/fabriziosalmi/l0-memory) (Go, stdio+CLI), [agssh](https://github.com/fabriziosalmi/agssh) (scansioni da agente)."
+        "Il Model Context Protocol (MCP) standardizza la connessione tra agenti AI e strumenti locali (filesystem, database, API).\n\nSetup rapido per sviluppare o eseguire server MCP:\n\n- 🐍 **Python con uvx (immediato senza installazione globale)**:\n  ```bash\n  # Test immediato di un server SQLite o Filesystem\n  uvx mcp-server-sqlite --db-path ./database.sqlite\n  ```\n- 🟨 **Node.js / TypeScript**:\n  ```bash\n  npx -y @modelcontextprotocol/server-filesystem /path/to/allowed/folder\n  ```\n- ⚙️ **Integrazione in config JSON (`claude_desktop_config.json` o agent runner)**:\n  ```json\n  {\n    \"mcpServers\": {\n      \"sqlite\": {\n        \"command\": \"uvx\",\n        \"args\": [\"mcp-server-sqlite\", \"--db-path\", \"/var/data/app.db\"]\n      }\n    }\n  }\n  ```\n\nPer la sicurezza in produzione, vincola i percorsi e convalida i parametri tramite gateway rigidi come [proxxx](q/cos-e-proxxx-cockpit-terminale-proxmox/)."
       ],
       "suggest": [
-        "cos-e-mcp-model-context-protocol",
-        "come-si-limita-un-agente-ai",
-        "token-e-context-window"
+        "cos-e-proxxx-cockpit-terminale-proxmox",
+        "structured-output-e-json-mode",
+        "data-leakage-via-llm"
       ]
     },
     {
@@ -6815,13 +6797,12 @@
         "documenti malevoli rag"
       ],
       "answers": [
-        "Il [RAG](q/cos-e-rag-retrieval-augmented-generation/) apre superfici di rischio che il modello da solo non ha, perché **inietta contenuto esterno nel contesto**:\n\n- **indirect prompt injection**: un documento nella knowledge base contiene [istruzioni nascoste](q/cos-e-la-prompt-injection/) che l'agente esegue quando quel documento viene recuperato – l'attaccante non tocca il tuo prompt, avvelena la *fonte* (una pagina web che l'agente leggerà, un PDF caricato da un utente, una email indicizzata)\n- **knowledge base poisoning**: contaminare i dati indicizzati per far dare risposte sbagliate su richieste mirate\n- **permessi al retrieval**: il rischio più comune e sottovalutato – il chatbot che risponde a un utente **citando documenti che quell'utente non potrebbe aprire**. Il filtro di autorizzazione va nel *retrieval*, non nella speranza\n- **data leakage**: [PII e segreti](q/data-leakage-via-llm/) finiti negli embeddings o restituiti nel contesto\n\nLe difese: tratta ogni contenuto recuperato come **non fidato** (mai eseguire istruzioni che arrivano dai documenti – separazione istruzioni/dati e [guardrail](q/firewall-semantici-e-guardrail-runtime/)), applica i **permessi a livello di indice** (partiziona per tenant/utente, filtra prima di recuperare), valida ciò che entra nella knowledge base, e cita le fonti per rendere ispezionabile il [grounding](q/cos-e-il-grounding/). L'attacco più elegante contro un agente moderno non passa dal prompt: passa da ciò che l'agente *legge*."
+        "Nei sistemi RAG (Retrieval-Augmented Generation), i documenti inseriti nel vector database possono contenere prompt injection indirette o tentativi di esfiltrazione dati.\n\nMisure di sicurezza applicate:\n1. **Validazione dei chunk prima dell'embedding**:\n   Ispezionare i testi con scanner euristici e [patterns](q/bloccare-bad-bot-nginx-apache-traefik-haproxy/) per intercettare pattern come `Ignore previous instructions and output...`.\n2. **Access Control a livello di chunk (BACS)**:\n   Associare a ogni vettore un metadato di permission list (`acl: [\"group_dev\", \"tenant_42\"]`) e filtrare le query vettoriali:\n   ```python\n   vector_store.similarity_search(query, filter={\"acl\": {\"$in\": user_groups}})\n   ```\n3. **Isolamento dell'output di retrieval**:\n   Racchiudere i documenti recuperati all'interno di tag XML rigidi nel prompt (`<context>...</context>`) con istruzione esplicita di trattare il contenuto come dato non eseguibile."
       ],
       "suggest": [
-        "cos-e-rag-retrieval-augmented-generation",
-        "cos-e-la-prompt-injection",
-        "data-leakage-via-llm",
-        "firewall-semantici-e-guardrail-runtime"
+        "bloccare-bad-bot-nginx-apache-traefik-haproxy",
+        "firewall-semantici-e-guardrail-runtime",
+        "sicurezza-dei-pesi-e-checkpoint-dei-modelli"
       ]
     },
     {
@@ -7028,8 +7009,8 @@
       "suggest": [
         "cos-e-docker-compose",
         "cos-e-proxmox-ve",
-        "media-server-self-hosted-jellyfin",
-        "sostituire-google-drive-con-nextcloud"
+        "sostituire-google-drive-con-nextcloud",
+        "quanta-ram-vram-serve-per-un-llm"
       ]
     },
     {
@@ -7075,13 +7056,12 @@
         "self hosta un password manager"
       ],
       "answers": [
-        "**Vaultwarden** è una reimplementazione leggera in Rust del server Bitwarden: gira con pochissime risorse (un container minuscolo), è **compatibile con tutti i client Bitwarden** ufficiali (browser, app, estensioni), e ti dà il tuo [password manager](q/perche-usare-un-password-manager/) completamente in casa – vault cifrato, [TOTP e passkey](q/cosa-sono-le-passkey/), condivisione tra utenti/famiglia, invii a scadenza.\n\nLe regole non negoziabili, perché qui si custodisce *tutto*:\n\n- **HTTPS obbligatorio** – i client rifiutano il vault in chiaro (certificato vero via [reverse proxy](q/cos-e-un-reverse-proxy/))\n- **[MFA](q/cos-e-autenticazione-due-fattori-mfa/) su ogni account** e master password forte: il vault è cifrato lato client, ma l'accesso va blindato\n- **backup cifrati e provati** del database ([Restic/Borg](q/backup-cifrati-restic-borg/)) – perdere il vault è perdere ogni credenziale; la [regola 3-2-1](q/backup-3-2-1/) qui è vitale\n- valuta di **non esporlo a internet**: [mesh VPN](q/wireguard-e-mesh-vpn/) è più che sufficiente per la sincronizzazione\n\nÈ uno dei self-host a più alto rapporto valore/sforzo: elimini la [dipendenza da un servizio cloud](q/cos-e-la-sovranita-digitale/) proprio sul dato più sensibile che hai, restando compatibile con l'ecosistema che già conosci."
+        "[Vaultwarden](q/password-manager-self-hosted-vaultwarden/) è l'implementazione leggera in Rust del server Bitwarden, ideale per homelab e piccoli team per gestire password e passkey in totale sovranità.\n\nDeploy rapido e sicuro con Docker Compose (`docker-compose.yml`):\n```yaml\nservices:\n  vaultwarden:\n    image: vaultwarden/server:latest\n    container_name: vaultwarden\n    environment:\n      - SIGNUPS_ALLOWED=false # Disabilita registrazioni aperte dopo aver creato il tuo account\n      - INVITATIONS_ALLOWED=true\n      - WEBSOCKET_ENABLED=true\n    volumes:\n      - ./vw-data:/data\n    restart: unless-stopped\n```\n\nRequisiti obbligatori:\n- **HTTPS obbligatorio**: il client Bitwarden rifiuta la sincronizzazione HTTP. Usa [CertMate](q/cos-e-certmate-gestione-certificati-tls/) o Caddy per il certificato TLS.\n- **Backup database**: script crontab giornaliero `sqlite3 /data/db.sqlite3 \".backup '/backup/db-$(date +%F).sqlite3'\"`."
       ],
       "suggest": [
-        "perche-usare-un-password-manager",
-        "cosa-sono-le-passkey",
-        "sincronizzare-cartelle-p2p-syncthing",
-        "cos-e-un-reverse-proxy"
+        "cos-e-certmate-gestione-certificati-tls",
+        "media-server-self-hosted-jellyfin",
+        "sincronizzare-cartelle-p2p-syncthing"
       ]
     },
     {
@@ -10083,7 +10063,7 @@
         "chiamate esterne"
       ],
       "answers": [
-        "[agssh](https://github.com/fabriziosalmi/agssh) è il runner di conformità dello standard **AGSSH-STD-001** (Air-Gapped Static Surface Hardening): dimostra in modo **deterministico e fail-closed** che un sito statico non fa nessuna chiamata di rete inattesa – niente font da CDN, niente beacon di analytics, niente CSP spalancata che trasformi il browser in un canale di esfiltrazione.\n\n- **57 regole in 9 famiglie**: egress, CSP, security headers, DNS, supply chain e altre\n- verifica il **deployment live**, non una promessa: verdetto, punteggio e coda di fix ordinata per severità\n- ciò che non può verificare finisce in *inconclusive*, mai in un silent pass\n- tre modi d'uso: **CLI Go**, **GitHub Action** che fa da gate a ogni push, e **server MCP** per farlo usare a un agente AI\n\nScritto in Go, licenza Apache 2.0, con evidenze firmate. Il principio: *nothing is green unless proven*."
+        "La gestione sicura degli accessi SSH elimina l'uso di password e chiavi RSA obsolete, adottando chiavi ED25519 o certificati protetti da token hardware FIDO2/YubiKey.\n\nGuida operativa da terminale:\n\n1. **Generazione chiave ED25519 standard**:\n   `ssh-keygen -t ed25519 -C \"admin@homelab\" -f ~/.ssh/id_ed25519`\n2. **Generazione chiave protetta da YubiKey hardware (FIDO2)**:\n   `ssh-keygen -t ed25519-sk -O resident -C \"yubikey-fido2\"`\n3. **Configurazione client (`~/.ssh/config`)**:\n   ```ssh\n   Host server-prod\n       HostName 192.168.1.100\n       User root\n       Port 2222\n       IdentityFile ~/.ssh/id_ed25519_sk\n       IdentitiesOnly yes\n   ```\n4. **Hardening del server (`/etc/ssh/sshd_config`)**:\n   ```\n   PasswordAuthentication no\n   PermitRootLogin prohibit-password\n   PubkeyAuthentication yes\n   ```\n\nPer l'automazione dell'infrastruttura, usa lo strumento [agssh](q/cos-e-agssh-hardening-siti-statici/)."
       ],
       "suggest": [
         "come-bloccare-domini-malevoli",
@@ -10343,12 +10323,12 @@
         "endpoint llm"
       ],
       "answers": [
-        "Il portfolio copre i due lati del problema:\n\n- [llmproxy](https://github.com/fabriziosalmi/llmproxy) – un **proxy security-first per Large Language Models**: si mette davanti all'endpoint e applica controlli di sicurezza sul traffico da e verso il modello.\n- [aidlp](https://github.com/fabriziosalmi/aidlp) – **Data Loss Prevention specifica per endpoint LLM**: intercetta dati sensibili (credenziali, PII) prima che finiscano nel prompt e quindi nei log o nel training di qualcun altro.\n\nIl principio: il modello non va mai esposto nudo, esattamente come non esponi un database senza un layer davanti."
+        "Mettere in sicurezza un endpoint di inferenza LLM richiede protezione a strati prima che la richiesta tocchi il modello.\n\nArchitettura di protezione:\n1. **Reverse Proxy con Caddy / Nginx**:\n   ```caddy\n   ai.tuodominio.internal {\n       # Autenticazione Bearer Token obbligatoria\n       @no_auth not header Authorization \"Bearer segreto-forte-aziendale\"\n       respond @no_auth \"Unauthorized\" 401\n       \n       # Limite di richieste per IP (protezione DoS/cost exhaustion)\n       rate_limit {\n           zone ai_zone {\n               key {remote_host}\n               events 30\n               window 1m\n           }\n       }\n       reverse_proxy localhost:11434\n   }\n   ```\n2. **Isolamento di rete**: bind su `127.0.0.1` o socket Unix, vietando l'ascolto su `0.0.0.0`.\n3. **Firewall WAF applicativo**: ispezione con [caddy-waf](q/come-aggiungere-un-waf-a-caddy/) per bloccare pattern di prompt injection noti."
       ],
       "suggest": [
+        "come-aggiungere-un-waf-a-caddy",
         "riscrivere-feed-rss-con-llm",
-        "controllare-qualita-codice-generato-ai",
-        "fine-tuning-llm-apple-silicon"
+        "controllare-qualita-codice-generato-ai"
       ]
     },
     {
@@ -10678,7 +10658,7 @@
         "addestrare"
       ],
       "answers": [
-        "Con [SiliconDev](https://github.com/fabriziosalmi/silicondev): un'app desktop per **eseguire, addestrare e chattare con LLM interamente sul tuo Mac**, costruita sul framework [MLX](https://github.com/ml-explore/mlx) di Apple. Niente cloud, niente API key, zero telemetria: i dati non lasciano la macchina.\n\n- **fine-tuning LoRA e QLoRA** direttamente su Apple Silicon, con curve di loss in tempo reale\n- un'app sola invece di sei: preparazione dati, gestione modelli, training, chat, **RAG, tool MCP** e un terminale agentico\n- si parte con `make setup && make run`, o col [DMG dalle release](https://github.com/fabriziosalmi/silicondev/releases/latest)\n\nSe il fine-tuning non ti serve e vuoi solo inferenza locale, guarda anche LM Studio o Ollama – ma per l'intero ciclo dati→training→chat su Mac, questa è la via."
+        "Sui Mac con processori Apple Silicon (M1/M2/M3/M4 Pro/Max/Ultra), il framework open source MLX di Apple permette fine-tuning LoRA e inferenza sfruttando l'architettura a memoria unificata ad altissima velocità.\n\nGuida operativa da terminale macOS:\n```bash\n# 1. Installazione ambiente MLX dedicato\npython3 -m venv .venv && source .venv/bin/activate\npip install mlx-lm\n\n# 2. Fine-tuning LoRA su dataset JSONL personalizzato\nmlx_lm.lora --model mistralai/Mistral-7B-v0.1 \\\n  --data ./dataset/ \\\n  --train \\\n  --batch-size 4 --iters 600 --lora-layers 16\n\n# 3. Test interattivo del modello adattato\nmlx_lm.generate --model mistralai/Mistral-7B-v0.1 \\\n  --adapter-path ./adapters \\\n  --prompt \"Analisi del log di sicurezza:\"\n\n# 4. Fusione pesi ed esportazione GGUF\nmlx_lm.fuse --model mistralai/Mistral-7B-v0.1 --adapter-path ./adapters --save-path ./fused-model\n```\n\nPer il tooling di gestione e profiling su macOS, consulta [SiliconDev](q/fine-tuning-llm-apple-silicon/)."
       ],
       "suggest": [
         "ridurre-costi-inferenza-llm",
@@ -10762,7 +10742,7 @@
         "token di un agente"
       ],
       "answers": [
-        "Gli agenti di coding bruciano token leggendo output di comandi pieni di rumore: log di build, stack trace ripetuti, progress bar. [l0-compressor](https://github.com/fabriziosalmi/l0-compressor) è un proxy CLI in Rust che **filtra, tronca e comprime l'output prima che l'agente lo legga**: prefiggi qualsiasi comando con `l0-compressor` (o attivi l'hook trasparente per Claude Code / Gemini CLI) e il consumo scende del **50–80% su sessioni tipiche** e dell'**88–97% sugli output rumorosi** – misurato col tokenizer, benchmarks pubblici nel repo.\n\nIl punto ingegneristico: invece di mantenere un parser per ogni tool, usa **filtri generici format-aware**, preservando exit code, code degli errori e ordine dell'output. macOS e Linux (Windows sperimentale); [documentazione](https://fabriziosalmi.github.io/l0-compressor/)."
+        "I loop agentici e le sessioni RAG accumulano cronologie enormi, degradando l'attenzione e moltiplicando i costi API. [l0-compressor](q/ridurre-token-agenti-ai/) risolve comprimendo il contesto a livello di token prima dell'invio.\n\nMetodi di applicazione pratica:\n1. **Compressione dinamica a monte del client**:\n   ```bash\n   # Invio del prompt attraverso il proxy di compressione L0\n   curl -X POST http://localhost:8080/v1/compress \\\n     -H \"Content-Type: application/json\" \\\n     -d '{\"text\": \"lungo contesto di log o codice...\", \"ratio\": 0.4}'\n   ```\n2. **Context Pruning strutturato**: rimozione di tag HTML, spazi ridondanti e traceback di debug non necessari.\n3. **Sliding Window con Summary Anchor**: mantenimento del System Prompt iniziale, sintesi semantica dei turni centrali e mantenimento degli ultimi 3 scambi completi.\n\nQuesta tecnica riduce il consumo dei token fino al 60% preservando l'accuratezza semantica."
       ],
       "suggest": [
         "memoria-persistente-assistenti-ai",
@@ -11308,8 +11288,7 @@
         "checksum sha256 verifica firma"
       ],
       "answers": [
-        "La verifica crittografica prima dell'installazione previene l'esecuzione di file corrotti o manomessi tramite attacchi man-in-the-middle o mirror compromessi:\n\n1. **Verifica Checksum SHA-256**: calcola l'hash del file scaricato (`sha256sum distro.iso`) e confrontalo con il file `SHA256SUMS`. Questo assicura l'integrità contro errori di download.\n2. **Verifica della Firma GPG**: un attaccante che controlla il mirror potrebbe sostituire sia la ISO che il file degli hash. Per provare l'autenticità dell'autore, importa la chiave pubblica ufficiale (`gpg --recv-keys <KEY_ID>`) e valida la firma crittografica:\n```bash\ngpg --verify SHA256SUMS.gpg SHA256SUMS\n```\nSe l'esito è *Good signature*, l'integrità e la provenienza del distributore ufficiale sono garantite.",
-        "Usa sha256sum per assicurarti che il download non sia corrotto, e gpg --verify sul file SHA256SUMS per validare che gli hash provengano autenticamente dallo sviluppatore ufficiale."
+        "Verificare l'integrità e la firma crittografica delle immagini ISO e dei binari prima dell'installazione protegge da download corrotti o immagini manomesse.\n\nComandi per piattaforma:\n\n- 🐧 **Linux / 🍏 macOS**:\n  ```bash\n  # 1. Calcolo del checksum SHA-256\n  sha256sum ubuntu-24.04.iso  # (su macOS: shasum -a 256 ubuntu-24.04.iso)\n\n  # 2. Importazione della chiave pubblica dello sviluppatore\n  gpg --keyserver keyserver.ubuntu.com --recv-keys 843938DF228D22F7B3742BC0D94AA3F0EFE21092\n\n  # 3. Verifica della firma crittografica detached\n  gpg --verify SHA256SUMS.gpg SHA256SUMS\n  ```\n- 🪟 **Windows (PowerShell)**:\n  `Get-FileHash .\\ubuntu-24.04.iso -Algorithm SHA256`\n\nSe l'output di GPG riporta `Good signature from...` e l'hash combacia esattamente, il file è integro e autentico al 100%."
       ],
       "suggest": [
         "intel-me-cleaner-neutralizzazione-firmware",
@@ -11487,13 +11466,12 @@
         "zfs send receive syncoid"
       ],
       "answers": [
-        "**Sanoid** e **Syncoid** sono strumenti open source che automatizzano la gestione del ciclo di vita e la replica degli snapshot su file system [ZFS](q/perche-usare-zfs-su-proxmox/):\n\n- **Sanoid**: demone di policy che crea e ripulisce snapshot locali a intervalli programmati (orari, giornalieri, mensili, annuali) secondo schemi di retention definiti in `/etc/sanoid/sanoid.conf`.\n- **Syncoid**: utility di trasporto che esegue la replica asincrona efficiente tra pool locali o su host remoti via SSH: calcola la differenza incrementale tra l'ultimo snapshot comune e quello più recente, trasferendo solo i blocchi modificati via `zfs send | zfs receive`.\n\nQuesto approccio garantisce backup atomici, consistenti e a bassissimo impatto di I/O senza interrompere macchine virtuali o container in esecuzione.",
-        "Sanoid pianifica e ruota automaticamente gli snapshot ZFS locali, mentre Syncoid sincronizza in modo incrementale solo i blocchi modificati verso server remoti via SSH con zfs send/receive."
+        "La combinazione di Sanoid e Syncoid offre una gestione automatica e affidabile per snapshot e replica remota di dataset ZFS.\n\n1. **Configurazione Sanoid (`/etc/sanoid/sanoid.conf`)**:\n   ```ini\n   [rpool/data]\n       use_template = production\n       recursive = yes\n\n   [template_production]\n       frequently = 0\n       hourly = 24\n       daily = 30\n       monthly = 12\n       yearly = 1\n       autosnap = yes\n       autoprune = yes\n   ```\n2. **Replica incrementale remota con Syncoid (via SSH)**:\n   ```bash\n   # Replica a caldo da nodo locale a server di backup secondario\n   syncoid --no-sync-snap rpool/data backup-user@192.168.1.50:backuppool/data\n   ```\n3. **Automazione via Systemd timer**:\n   Attiva i timer nativi: `systemctl enable --now sanoid.timer`\n\nQuesto setup garantisce un RPO (Recovery Point Objective) inferiore a un'ora a costo zero di I/O."
       ],
       "suggest": [
-        "perche-usare-zfs-su-proxmox",
         "drbd-vs-sincronizzazione-filesystem-differenze",
-        "matter-standard-domotica-locale-senza-cloud"
+        "matter-standard-domotica-locale-senza-cloud",
+        "assistente-vocale-offline-whisper-piper-wyoming-home-assistant"
       ]
     },
     {
@@ -11509,8 +11487,7 @@
         "borgmatic configurazione crittografia"
       ],
       "answers": [
-        "**Borgmatic** è un wrapper dichiarativo per **BorgBackup** che consente di definire backup deduplicati, compressi e cifrati tramite file di configurazione YAML (`/etc/borgmatic/config.yaml`).\n\nLa crittografia lato client funziona così:\n\n- Il repository remoto viene inizializzato in modalità cifrata (`repokey-blake2` o `keyfile-blake2` con AES-256-OCB o ChaCha20-Poly1305).\n- Tutti i blocchi di dati vengono deduplicati, compressi e **cifrati sull'host locale** prima di qualsiasi trasmissione di rete.\n- Il server di destinazione (es. Storage Box Hetzner o VPS) memorizza solo blocchi opachi cifrati e non possiede le chiavi di decifratura, garantendo protezione totale anche in caso di compromissione del server di backup.",
-        "Con Borgmatic e Borg i file vengono deduplicati e cifrati direttamente sul tuo server con AES-256 prima dell'invio: il server di backup remoto memorizza solo dati cifrati e non può leggerne il contenuto."
+        "Borgmatic automatizza i backup cifrati e deduplicati con BorgBackup, garantendo che i dati vengano crittografati lato client prima di lasciare il server.\n\nRicetta di configurazione (`/etc/borgmatic/config.yaml`):\n```yaml\nsource_directories:\n  - /var/www\n  - /etc\n  - /var/data\n\nrepositories:\n  - path: ssh://borg@backup.server.remote:22/./repo\n    label: offsite-backup\n\nencryption_passphrase: \"password-lunghissima-e-sicura-del-vault\"\n\nretention:\n  keep_daily: 7\n  keep_weekly: 4\n  keep_monthly: 6\n\nhooks:\n  before_backup:\n    - echo \"Inizio backup atomico\"\n  postgresql_databases:\n    - name: app_db\n```\n\nComandi da terminale:\n- Creazione archivio iniziale: `borgmatic init --encryption repokey-blake2`\n- Esecuzione backup e pruning: `borgmatic --stats`\n- Ripristino file: `borgmatic extract --archive latest --path /var/www`"
       ],
       "suggest": [
         "relax-and-recover-rear-disaster-recovery-bare-metal",
@@ -11667,14 +11644,12 @@
         "garantire json conforme outlines"
       ],
       "answers": [
-        "La generazione di [output strutturato (JSON)](q/structured-output-e-json-mode/) tramite prompt o retry è probabilistica e può fallire su schemi complessi.\n\nLibrerie di **Structured Decoding** come **Outlines** o **Guidance** intervengono direttamente durante la fase di campionamento dei token (logit masking):\n\n1. Lo schema target (Pydantic o espressione regolare) viene convertito in un automa a stati finiti (FSM) o in una grammatica context-free (CFG).\n2. A ogni passo di generazione, l'engine calcola l'insieme dei soli token del vocabolario che mantengono la stringa grammaticalmente valida.\n3. Tutti i logit dei token non validi vengono mascherati a $-\\infty$.\n\nIl risultato è garantito al 100% conforme allo schema matematicamente, con zero errori di parsing JSON e senza overhead di retry.",
-        "Outlines e Guidance mascherano i token non validi a livello di logit durante l'inferenza: l'LLM è fisicamente impossibilitato a generare token che violano lo schema JSON o la regex desiderata."
+        "Lo structured decoding guida la generazione del modello a livello di campionamento dei token tramite automi a stati finiti (FSM) o grammatiche Context-Free, garantendo al 100% che l'output rispetti uno schema JSON senza errori di sintassi.\n\nEsempio pratico con libreria Outlines e Pydantic:\n```python\nfrom enum import Enum\nfrom pydantic import BaseModel\nimport outlines\n\nclass Severity(str, Enum):\n    low = \"low\"\n    medium = \"medium\"\n    high = \"high\"\n\nclass VulnerabilityReport(BaseModel):\n    cve_id: str\n    severity: Severity\n    remediation_steps: list[str]\n\n# Caricamento del modello locale\nmodel = outlines.models.transformers(\"meta-llama/Llama-3.2-3B-Instruct\")\n\n# Generatore vincolato allo schema Pydantic\ngenerator = outlines.generate.json(model, VulnerabilityReport)\nresult = generator(\"Analizza la vulnerabilità OpenSSL Heartbleed\")\nprint(result.cve_id)  # Accesso tipizzato sicuro\n```\n\nQuesto approccio elimina i retry di parsing JSON e previene allucinazioni strutturali negli agenti."
       ],
       "suggest": [
-        "structured-output-e-json-mode",
         "llm-as-a-judge-mitigare-bias-valutazione",
-        "open-policy-agent-opa-rego-policy-as-code-agenti-ai",
-        "ragas-framework-valutazione-metriche-rag"
+        "ragas-framework-valutazione-metriche-rag",
+        "open-policy-agent-opa-rego-policy-as-code-agenti-ai"
       ]
     },
     {
@@ -11690,11 +11665,10 @@
         "mascherare carte credito codici fiscali"
       ],
       "answers": [
-        "Prima che i prompt degli utenti vengano trasmessi a un LLM esterno, è fondamentale filtrare informazioni personali identificabili (PII), credenziali e numeri di carte di credito per garantire la conformità [GDPR](q/chatgpt-e-dati-personali-gdpr/):\n\n- **Pattern Matching deterministico (Regex / Checksum)**: individua entità a struttura fissa (codici fiscali, numeri di carta di credito con algoritmo di Luhn, indirizzi email, IBAN e token API).\n- **Modelli NER leggeri locali (es. SpaCy, Microsoft Presidio o RoBERTa)**: estraggono entità contestuali come nomi di persona, indirizzi fisici e nomi di organizzazioni private.\n- **Pseudonimizzazione reversibile**: i valori rilevati vengono sostituiti da token opachi (es. `[PERSON_1]`, `[EMAIL_1]`) prima dell'invio all'LLM e ripristinati nella risposta finale per preservare la leggibilità.",
-        "Combina espressioni regolari per codici fiscali/carte di credito con modelli NER locali per nomi e indirizzi, sostituendo i dati sensibili con placeholder anonimi prima dell'invio ai modelli AI."
+        "Il mascheramento di dati personali (PII: Personally Identifiable Information) impedisce che numeri di carte, codici fiscali, IBAN o segreti finiscano nei log dei modelli commerciali o nei dataset di training.\n\nImplementazione operativa:\n- **Pipeline Python (Presidio / Regex locale)**:\n  ```python\n  import re\n\n  def sanitize_pii(text: str) -> str:\n      # Mascheramento Codice Fiscale italiano\n      cf_pattern = r'[A-Z]{6}\\d{2}[A-Z]\\d{2}[A-Z]\\d{3}[A-Z]'\n      text = re.sub(cf_pattern, '[CODICE_FISCALE_MASKED]', text, flags=re.IGNORECASE)\n      # Mascheramento IBAN\n      iban_pattern = r'[A-Z]{2}\\d{2}[A-Z0-9]{11,30}'\n      text = re.sub(iban_pattern, '[IBAN_MASKED]', text)\n      # Mascheramento API Key Bearer / Token\n      text = re.sub(r'(sk-[a-zA-Z0-9]{32,}|ghp_[a-zA-Z0-9]{36})', '[TOKEN_MASKED]', text)\n      return text\n  ```\n- **Filtro da terminale prima del piping**:\n  `cat log.txt | sed -E 's/[0-9]{4}-[0-9]{4}-[0-9]{4}-[0-9]{4}/[CC_MASKED]/g' | ollama run mistral`\n\nIntegrare il controllo nelle pipeline CI/CD con [patterns](q/bloccare-bad-bot-nginx-apache-traefik-haproxy/)."
       ],
       "suggest": [
-        "chatgpt-e-dati-personali-gdpr",
+        "bloccare-bad-bot-nginx-apache-traefik-haproxy",
         "m-disc-b-dxl-conservazione-ottica-lungo-termine",
         "isolare-telecamere-ip-videosorveglianza-vlan-sicurezza"
       ]
@@ -11757,13 +11731,12 @@
         "wyoming protocol piper whisper"
       ],
       "answers": [
-        "Per sostituire assistenti commerciali (Alexa, Google Assistant) con una soluzione [self-hosted](q/self-hosting-pro-e-contro/) che non trasmetta registrazioni audio all'esterno, si usa lo stack **Wyoming** integrato in [Home Assistant](q/home-assistant-su-proxmox/):\n\n1. **Speech-to-Text (STT)**: container **Whisper** (con modelli quantizzati in italiano) per trascrivere l'audio locale catturato dai microfoni.\n2. **Intent Parsing**: motore **Assist** di Home Assistant che interpreta la frase ed esegue l'automazione (accendi luci, regola temperatura).\n3. **Text-to-Speech (TTS)**: container **Piper** per sintetizzare la risposta vocale naturale in locale con latenza inferiore a 300ms.\n4. **Integrazione Wyoming**: il protocollo Wyoming connette i microfoni satellite (es. ESP32-S3 con ESPHome) al server centrale.",
-        "Usa il protocollo Wyoming su Home Assistant combinando Whisper per la trascrizione vocale locale, Assist per i comandi e Piper per la sintesi vocale: zero dipendenze dal cloud e privacy totale."
+        "Un assistente vocale locale e offline elimina la dipendenza da cloud commerciali (Amazon Alexa, Google Home) garantendo risposta istantanea e riservatezza domestica.\n\nConfigurazione `docker-compose.yml` su server Homelab / Raspberry Pi:\n```yaml\nservices:\n  whisper:\n    image: rhasspy/wyoming-whisper:latest\n    command: --model small --language it\n    volumes:\n      - ./whisper-data:/data\n    ports:\n      - \"10300:10300\"\n    restart: unless-stopped\n\n  piper:\n    image: rhasspy/wyoming-piper:latest\n    command: --voice it_IT-riccardo-medium\n    volumes:\n      - ./piper-data:/data\n    ports:\n      - \"10200:10200\"\n    restart: unless-stopped\n```\n\nIntegrazione in Home Assistant:\n1. Impostazioni → Dispositivi e Servizi → Aggiungi Integrazione **Wyoming Protocol**.\n2. Connetti `IP_SERVER:10300` per Speech-to-Text (Whisper) e `IP_SERVER:10200` per Text-to-Speech (Piper)."
       ],
       "suggest": [
-        "self-hosting-pro-e-contro",
-        "home-assistant-su-proxmox",
-        "matter-standard-domotica-locale-senza-cloud"
+        "matter-standard-domotica-locale-senza-cloud",
+        "fallback-manuale-interruttori-domotica-crash-server",
+        "drbd-vs-sincronizzazione-filesystem-differenze"
       ]
     },
     {
@@ -11875,8 +11848,7 @@
         "gitleaks git hook configurazione"
       ],
       "answers": [
-        "Il push accidentale di token API, certificati privati e password nei repository Git (specialmente su [GitHub](https://github.com/fabriziosalmi)) è una delle cause più frequenti di incidenti di sicurezza. Una volta pushato, il secret va considerato compromesso anche se cancellato nei commit successivi.\n\nPer bloccarlo alla radice prima del commit locale:\n\n1. Installa il framework `pre-commit` e configura `.pre-commit-config.yaml`:\n```yaml\nrepos:\n  - repo: https://github.com/gitleaks/gitleaks\n    rev: v8.18.2\n    hooks:\n      - id: gitleaks\n```\n2. Esegui `pre-commit install` per agganciare il controllo all'azione `git commit`.\n3. A ogni commit locale, **Gitleaks** esamina il diff con regole regex e rilevamento entropico: se intercetta un segreto, il commit viene interrotto all'istante.",
-        "Usa Gitleaks con il framework pre-commit: a ogni tentativo di commit locale lo scanner analizza i file modificati e blocca l'operazione se rileva chiavi API, token o password in chiaro."
+        "Evitare che password, chiavi SSH o token API vengano committati nei repository Git è fondamentale. Un hook di pre-commit locale blocca il push prima che i dati lascino la tua macchina.\n\nConfigurazione rapida:\n\n1. **Installazione Gitleaks**:\n   - 🐧 Linux: `brew install gitleaks` o download binario standalone.\n   - 🍏 macOS: `brew install gitleaks`\n   - 🪟 Windows: `winget install Gitleaks.Gitleaks`\n2. **Setup di `.pre-commit-config.yaml` nella root del repository**:\n   ```yaml\n   repos:\n     - repo: https://github.com/gitleaks/gitleaks\n       rev: v8.18.2\n       hooks:\n         - id: gitleaks\n   ```\n3. **Abilitazione automatica**:\n   ```bash\n   pip install pre-commit && pre-commit install\n   ```\n4. **Scansione manuale di tutto lo storico Git**:\n   `gitleaks detect --source . -v`\n\nIn questo modo, nessun commit con credenziali potrà essere registrato accidentalmente."
       ],
       "suggest": [
         "greenbone-openvas-scansione-vulnerabilita-rete-interna",
@@ -12047,8 +12019,7 @@
         "wasm wasi sandboxing agenti"
       ],
       "answers": [
-        "I container tradizionali e le VM introducono latenze di avvio (centinaia di millisecondi o secondi) e consumi di memoria incompatibili con l'esecuzione di decine di micro-tool al secondo per agente. **WebAssembly (Wasm)** con interfaccia **WASI** offre una sandbox ideale a livello di processo:\n\n1. **Isolamento Capability-Based**: un modulo Wasm non possiede alcun accesso implicito al sistema operativo; directory, variabili d'ambiente e socket di rete devono essere concessi esplicitamente dall'host al momento del caricamento.\n2. **Vincoli di Resource Metering**: il runtime (es. Wasmtime, Wasmer) consente di impostare limiti rigidi sul consumo di memoria lineare (es. max 64 MB) e di interrompere l'esecuzione contando le istruzioni CPU consumate (Fuel Consumption), prevenendo loop infiniti e DoS.\n3. **Avvio istantaneo**: avvio a freddo in meno di 1 millisecondo e overhead minimo, perfetto per eseguire codice Python/JS generato dall'LLM.",
-        "Wasm/WASI offre isolamento capability-based a basso overhead (avvio sub-millisecondo), vincolando per via deterministica memoria, istruzioni CPU e accesso alla rete dei tool generati dagli agenti."
+        "Quando un agente AI genera o esegue codice arbitrario, isolarlo in una sandbox WebAssembly (Wasm) con WASI (WebAssembly System Interface) garantisce che non possa accedere al filesystem dell'host o alla rete se non esplicitamente autorizzato.\n\nEsecuzione sicura da terminale con Wasmtime:\n```bash\n# 1. Installazione runtime Wasmtime\ncurl https://wasmtime.dev/install.sh -sSf | bash\n\n# 2. Esecuzione a zero privilegi (nessun accesso a file, rete o env)\nwasmtime run untrusted_tool.wasm\n\n# 3. Concessione granulare della sola cartella /tmp/sandbox\nwasmtime run --dir=/tmp/sandbox::/sandbox untrusted_tool.wasm\n```\n\nVantaggi rispetto ai container Docker:\n- Avvio in microsecondi (< 1 ms).\n- Consumo di memoria quasi nullo (< 2 MB di overhead).\n- Sandboxing matematicamente provato basato su capability security."
       ],
       "suggest": [
         "tracciamento-distribuito-agenti-ai-opentelemetry-trace-id",
@@ -12261,13 +12232,12 @@
         "transcodifica hardware intel quicksync"
       ],
       "answers": [
-        "**Jellyfin** è la principale alternativa open source e privacy-first a piattaforme commerciali come Plex ed Emby: è completamente privo di tracciamento, non richiede la creazione di account su server centralizzati e non applica paywall sulle funzionalità avanzate.\n\n**Punti chiave per una configurazione ottimale**:\n\n1. **Transcodifica Hardware (HWA)**: abilita l'accelerazione GPU (Intel QuickSync con `/dev/dri/renderD128`, NVIDIA NVENC o AMD VA-API) all'interno del container LXC [Proxmox](q/cos-e-proxmox-ve/) o Docker per transcodificare flussi 4K HDR in tempo reale con impatto CPU vicino allo zero.\n2. **Accesso Remoto Sicuro**: non esporre la porta 8096 direttamente su Internet; pubblica l'interfaccia dietro [Caddy-WAF](q/cos-e-un-waf-web-application-firewall/) o accedi tramite una VPN mesh cifrata come [WireGuard/Tailscale](q/vulnerability-assessment-vs-penetration-test/).\n3. **App Client Multi-Piattaforma**: supporta client nativi per Android TV, Apple TV, Roku e Web browser con gestione multi-utente e profili protetti da PIN locale.",
-        "Jellyfin permette lo streaming multimediale sovrano senza account esterni. Abilita la transcodifica hardware GPU (Intel QSV / NVENC) e proteggi l'accesso remoto con Caddy o WireGuard."
+        "Jellyfin è il media server self-hosted open source privo di tracciamento e costi di licenza. Per riprodurre flussi video 4K/HEVC su client multipli, è fondamentale abilitare la transcodifica hardware (Intel QuickSync o NVIDIA NVENC).\n\nConfigurazione Docker con Intel QuickSync (`/dev/dri`):\n```yaml\nservices:\n  jellyfin:\n    image: jellyfin/jellyfin:latest\n    container_name: jellyfin\n    user: 1000:1000\n    group_add:\n      - \"44\" # GID del gruppo video / render\n    devices:\n      - /dev/dri/renderD128:/dev/dri/renderD128\n      - /dev/dri/card0:/dev/dri/card0\n    volumes:\n      - ./config:/config\n      - /mnt/storage/media:/media\n    ports:\n      - 8096:8096\n    restart: unless-stopped\n```\n\nNel pannello di Jellyfin:\n*Dashboard → Riproduzione → Accelerazione Hardware* → Seleziona **Intel QuickSync (QSV)** e spunta i codec H.264, HEVC e AV1."
       ],
       "suggest": [
-        "cos-e-proxmox-ve",
-        "cos-e-un-waf-web-application-firewall",
-        "vulnerability-assessment-vs-penetration-test"
+        "nextcloud-ottimizzazione-redis-caching-postgresql",
+        "salvataggio-segnalibri-articoli-offline-wallabag-linkwarden",
+        "docker-named-volumes-vs-bind-mounts-differenze-prestazioni"
       ]
     },
     {
@@ -12325,8 +12295,7 @@
         "sanitizzazione dischi ssd hdd nist"
       ],
       "answers": [
-        "La semplice formattazione o eliminazione di file lascia i blocchi fisici intatti e facilmente recuperabili con software forensi. Lo standard internazionale **NIST SP 800-88 Rev. 1** definisce tre livelli di sanitizzazione:\n\n1. **Clear**: sovrascrittura logica di tutti i settori indirizzabili (es. con utility come `shred` o zeroing su HDD magnetici).\n2. **Purge**: rende il recupero impossibile anche con strumenti di laboratorio avanzati. Sugli SSD moderni (SATA/NVMe), dove il wear-leveling impedisce la sovrascrittura diretta di tutti i blocchi, si utilizzano comandi firmware nativi:\n   `nvme format /dev/nvme0n1 --namespace-id=1 --ses=1` (Crypto Erase o User Data Erase).\n3. **Destroy**: distruzione fisica irreversibile del supporto (triturazione o degaussing magnetico per HDD).",
-        "Segui lo standard NIST SP 800-88: per gli SSD NVMe esegui il comando firmware `nvme format --ses=1` (Cryptographic/User Erase) per cancellare istantaneamente tutte le celle di memoria."
+        "La sanificazione dei supporti di memorizzazione secondo lo standard NIST SP 800-88 garantisce la cancellazione sicura e irrecuperabile dei dati prima della dismissione o riassegnazione di un disco.\n\nComandi operativi da Linux live/terminale:\n\n- ⚡ **SSD NVMe (Cryptographic Erase istantaneo via controller)**:\n  ```bash\n  # Elenca i namespace NVMe\n  nvme list\n  # Formattazione sicura crittografica (cancella la chiave di cifratura interna in 1 secondo)\n  nvme format /dev/nvme0n1 --namespace-id=1 --ses=2\n  ```\n- 💽 **SSD SATA / TRIM discard completo**:\n  `blkdiscard -s /dev/sdb` (invia comando TRIM a tutti i blocchi flash)\n- 💾 **Hard Disk meccanico HDD (Sovrascrittura conforme NIST Purge)**:\n  `shred -v -n 1 --random-source=/dev/urandom /dev/sdX`\n\nAl termine della procedura, nessun laboratorio di recupero dati può ricostruire i file eliminati."
       ],
       "suggest": [
         "condividere-comunicazioni-credenziali-privatebin-vaultwarden-sends",
@@ -12409,8 +12378,7 @@
         "docker log driver max size max file"
       ],
       "answers": [
-        "Per impostazione predefinita, il driver di logging standard di Docker (`json-file`) memorizza tutto lo standard output e standard error dei container senza alcun limite di dimensione: su container rumorosi, i file in `/var/lib/docker/containers/` possono rapidamente riempire l'intero disco provocando crash di sistema.\n\n**Configurazione globale consigliata in `/etc/docker/daemon.json`**:\n\n```json\n{\n  \"log-driver\": \"json-file\",\n  \"log-opts\": {\n    \"max-size\": \"50m\",\n    \"max-file\": \"3\"\n  }\n}\n```\n\nQuesta direttiva impone un tetto massimo di 50 MB per singolo file di log e conserva al massimo 3 file di rotazione (occupazione massima garantita di 150 MB per container). Riavvia il servizio con `systemctl restart docker` per applicare le policy.",
-        "Configura `max-size: 50m` e `max-file: 3` in `/etc/docker/daemon.json` per limitare la dimensione dei log di tutti i container ed evitare il blocco del server per saturazione disco."
+        "Per impostazione predefinita, Docker non limita le dimensioni dei log JSON dei container, portando rapidamente all'esaurimento dello spazio su disco dell'host.\n\nConfigurazione globale `/etc/docker/daemon.json`:\n```json\n{\n  \"log-driver\": \"json-file\",\n  \"log-opts\": {\n    \"max-size\": \"50m\",\n    \"max-file\": \"3\"\n  }\n}\n```\n\nApplicazione:\n`sudo systemctl reload docker`\n\nConfigurazione specifica in `docker-compose.yml` (per singolo container):\n```yaml\nservices:\n  database:\n    image: postgres:16-alpine\n    logging:\n      driver: \"json-file\"\n      options:\n        max-size: \"20m\"\n        max-file: \"2\"\n```\n\nIn questo modo, ogni container conserva al massimo 60-150 MB di cronologia, eliminando i file più vecchi automaticamente."
       ],
       "suggest": [
         "docker-named-volumes-vs-bind-mounts-differenze-prestazioni",
@@ -12430,13 +12398,12 @@
         "instradare container su vpn gluetun"
       ],
       "answers": [
-        "Invece di installare client VPN all'interno di ogni singolo container applicativo o deviare tutto il traffico del server, è possibile isolare il routing instradando i soli container desiderati attraverso un container gateway VPN dedicato come **Gluetun**:\n\n1. **Container Gluetun**: stabilisce il tunnel cifrato ([WireGuard](q/differenza-vpn-e-proxy/) o OpenVPN) verso il provider scelto ed espone le porte necessarie, integrando un kill-switch firewall automatico che blocca qualsiasi pacchetto se il tunnel cade.\n2. **Network Mode Condiviso**: i container secondari vengono configurati con la direttiva `network_mode: \"service:gluetun\"` nel file `docker-compose.yml`.\n3. **Risultato**: i container secondari condividono lo stack di rete di Gluetun, ereditano l'indirizzo IP della VPN e non possiedono interfacce di rete dirette verso l'esterno.",
-        "Configura un container Gluetun che stabilisce il tunnel VPN, quindi assegna ai container da proteggere la direttiva `network_mode: \"service:gluetun\"` per vincolarli al routing cifrato con kill-switch."
+        "Instradare container specifici attraverso un tunnel VPN WireGuard/OpenVPN evita leak di indirizzo IP e garantisce isolamento del traffico.\n\nConfigurazione `docker-compose.yml` completa:\n```yaml\nservices:\n  gluetun:\n    image: qmcgaw/gluetun:latest\n    container_name: gluetun\n    cap_add:\n      - NET_ADMIN\n    environment:\n      - VPN_SERVICE_PROVIDER=custom\n      - VPN_TYPE=wireguard\n      - WIREGUARD_PRIVATE_KEY=tua_chiave_privata_base64\n      - WIREGUARD_ADDRESSES=10.2.0.2/32\n    ports:\n      - 8080:8080 # Porta del servizio interno esposta tramite il tunnel\n    restart: unless-stopped\n\n  app-downloader:\n    image: lscr.io/linuxserver/qbittorrent:latest\n    container_name: app-downloader\n    network_mode: \"service:gluetun\" # Vincolato al network namespace di Gluetun\n    depends_on:\n      - gluetun\n    restart: unless-stopped\n```\n\nVerifica IP in uscita del container:\n`docker exec app-downloader curl -s https://ifconfig.me` (deve restituire l'IP della VPN, non quello di casa)."
       ],
       "suggest": [
-        "differenza-vpn-e-proxy",
         "rotazione-log-docker-configurazione-max-size-max-file",
-        "docker-named-volumes-vs-bind-mounts-differenze-prestazioni"
+        "docker-named-volumes-vs-bind-mounts-differenze-prestazioni",
+        "configurare-smart-host-relay-smtp-cifrato-ip-residenziali"
       ]
     },
     {
@@ -13041,14 +13008,13 @@
         "imposta il firewall dell host tramite ufw o regole native nftables"
       ],
       "answers": [
-        "La sicurezza perimetrale di un server Linux richiede che ogni connessione in entrata, transito e facoltativamente in uscita sia bloccata per impostazione predefinita. Con `nftables`, la tabella base imposta le policy predefinite: `type filter hook input priority 0; policy drop;`, consentendo esplicitamente solo lo stato `ct state established,related accept`, il traffico sull'interfaccia di loopback `iif lo accept`, e le porte esposte autorizzate (es. SSH su porta non standard e HTTPS). Con `ufw`: `ufw default deny incoming`, `ufw default allow outgoing`, abilitando poi singolarmente solo le porte necessarie. La gestione degli accessi amministrativi è ulteriormente protetta da [agssh](q/cos-e-il-modello-zero-trust/)."
+        "Configurare il firewall dell'host con policy di default deny garantisce che qualsiasi porta o servizio non autorizzato venga scartato all'origine.\n\n- 🐧 **Linux (con `nftables` nativo)**:\n  Crea `/etc/nftables.conf`:\n  ```nftables\n  flush ruleset\n  table inet filter {\n      chain input {\n          type filter hook input priority 0; policy drop;\n          ct state established,related accept\n          iif lo accept\n          tcp dport 22 accept\n          tcp dport { 80, 443 } accept\n      }\n      chain forward { type filter hook forward priority 0; policy drop; }\n      chain output { type filter hook output priority 0; policy accept; }\n  }\n  ```\n  Applica con `nft -f /etc/nftables.conf && systemctl enable --now nftables`.\n\n- 🍏 **macOS (`pfctl`)**:\n  Aggiungi a `/etc/pf.conf`: `block in all` e `pass out all keep state`, poi attiva con `sudo pfctl -e -f /etc/pf.conf`.\n\n- 🪟 **Windows (PowerShell 7+ come Amministratore)**:\n  `Set-NetFirewallProfile -Profile Domain,Public,Private -DefaultInboundAction Block`\n  `New-NetFirewallRule -DisplayName \"Consenti SSH\" -Direction Inbound -Protocol TCP -LocalPort 22 -Action Allow`"
       ],
       "vertical": "cybersecurity",
       "suggest": [
-        "cos-e-il-modello-zero-trust",
         "impedire-esecuzione-script-cartelle-upload-file-webserver",
-        "sicurezza-agenti-ai-scrittura-repository-pipeline-ci-cd",
-        "rotazione-automatica-chiavi-sessione-token-servizio-zero-downtime"
+        "rotazione-automatica-chiavi-sessione-token-servizio-zero-downtime",
+        "sicurezza-agenti-ai-scrittura-repository-pipeline-ci-cd"
       ]
     },
     {
