@@ -15,7 +15,14 @@ Quality loop (autonomous iteration):
 
 - `python3 qa.py` – curated battery (tests.json, one test per entry) + collision report;
   `python3 qa.py "query"` explains any single match.
-- `python3 bench.py` – the draconian gate: G1 integrity (dup keywords, word-set dup
+- `python3 traj.py` – the draconian MULTI-TURN gate (conversation trajectories &
+  chip navigation graph): T1 graph integrity (no dangling/self suggest, min-degree),
+  T2 no orphans (every entry suggested somewhere, in-degree>=1), T3 no trap pockets
+  (BFS chip-reachable set >= 30 from every node), T4 scripted multi-turn sessions in
+  trajectories.json (variant + fallback rotation, smalltalk<->KB interleave). Nothing
+  ships on a red traj either. gen_suggest.py now guarantees no orphans + adds a
+  cross-vertical bridge to any small pocket (surfaces when local chips run out).
+- `python3 bench.py` – the draconian single-turn gate: G1 integrity (dup keywords, word-set dup
   phrases, em-dashes, broken internal links), G2 canonical questions 100%, G3
   typo-mutated questions >= 90%, G4 battery 100%, G5 negatives 100%. Non-blocking
   fragility report = the standing hardening backlog. Nothing ships on a red bench.

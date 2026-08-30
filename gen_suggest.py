@@ -40,13 +40,66 @@ for idx, e in enumerate(entries):
                 break
     e["suggest"] = found[:CAP]
 
+# --- orphan elimination: guarantee in-degree >= 1 so every entry is reachable
+# by clicking a chip *somewhere*. Insert each orphan into a nearby same-vertical
+# entry's suggest, in a shown position (top 3), capping at CAP.
+by_idx = {e["slug"]: i for i, e in enumerate(entries)}
+for _ in range(4):  # a few passes; converges fast
+    indeg = {e["slug"]: 0 for e in entries}
+    for e in entries:
+        for s in e["suggest"]:
+            indeg[s] = indeg.get(s, 0) + 1
+    orphans = [e for e in entries if indeg[e["slug"]] == 0]
+    if not orphans:
+        break
+    for o in orphans:
+        # nearest same-vertical host that doesn't already suggest it and isn't itself
+        cands = sorted(by_vertical.get(o["vertical"], []), key=lambda t: abs(t[0] - by_idx[o["slug"]]))
+        for hi, hslug in cands:
+            if hslug == o["slug"]:
+                continue
+            host = entries[hi]
+            if o["slug"] in host["suggest"]:
+                continue
+            host["suggest"].insert(min(2, len(host["suggest"])), o["slug"])
+            host["suggest"] = host["suggest"][:CAP]
+            break
+
 # starter chips after the welcome: a broad, inviting cross-vertical sample
-db["config"]["suggest"] = [
+HUBS = [
     "cos-e-un-waf-web-application-firewall",
     "cosa-prevede-ai-act",
     "autoscaling-vm-lxc-proxmox",
     "cos-e-ai-overview-e-come-finirci",
 ]
+db["config"]["suggest"] = HUBS
+
+# --- connectivity pass: no user should get trapped in a tiny cluster while
+# clicking chips. For any entry whose chip-reachable set is small, append a
+# cross-vertical hub (surfaces in the UI exactly when the local chips run out).
+BRIDGE_CAP = 5       # allow a 5th slot for the escape-hatch bridge
+TARGET_REACH = 30
+
+def reach_size(start, adj):
+    seen = {start}; frontier = [start]
+    while frontier:
+        nxt = []
+        for s in frontier:
+            for t in adj.get(s, []):
+                if t not in seen:
+                    seen.add(t); nxt.append(t)
+        frontier = nxt
+    return len(seen) - 1
+
+for _ in range(4):
+    adj = {e["slug"]: [s for s in e["suggest"] if s in slugs] for e in entries}
+    small = [e for e in entries if reach_size(e["slug"], adj) < TARGET_REACH]
+    if not small:
+        break
+    for e in small:
+        bridge = next((h for h in HUBS if h != e["slug"] and h not in e["suggest"]), None)
+        if bridge:
+            e["suggest"] = (e["suggest"] + [bridge])[:BRIDGE_CAP]
 
 # integrity: every suggest slug must resolve
 for e in entries:

@@ -1,0 +1,108 @@
+[
+  {
+    "name": "newcomer-greeting-to-topic",
+    "turns": [
+      {"q": "ciao", "expect": "st-saluto"},
+      {"q": "cos'è un waf?", "expect": "cos-e-un-waf"},
+      {"q": "Cos'è un reverse proxy e a cosa serve?", "expect": "cos-e-un-reverse-proxy"},
+      {"q": "grazie mille", "expect": "st-grazie"}
+    ]
+  },
+  {
+    "name": "repeat-ask-variant-rotation",
+    "turns": [
+      {"q": "cos'è un waf", "expect": "cos-e-un-waf"},
+      {"q": "cos'è un waf", "expect": "cos-e-un-waf", "variant": true},
+      {"q": "come si fa autoscaling su proxmox", "expect": "proxmox-autoscale"},
+      {"q": "come si fa autoscaling su proxmox", "expect": "proxmox-autoscale", "variant": true}
+    ]
+  },
+  {
+    "name": "fallback-rotation",
+    "turns": [
+      {"q": "asdfgh qwerty", "expect": "fallback"},
+      {"q": "zxcvbn poiuyt", "expect": "fallback", "new_fallback": true},
+      {"q": "il gatto sul tetto che scotta", "expect": "fallback", "new_fallback": true},
+      {"q": "cos'è certmate", "expect": "certmate"}
+    ]
+  },
+  {
+    "name": "smalltalk-kb-interleave",
+    "turns": [
+      {"q": "quanto costi?", "expect": "st-prezzo"},
+      {"q": "come funzioni tecnicamente?", "expect": "st-come-funzioni"},
+      {"q": "cos'è certmate", "expect": "certmate"},
+      {"q": "sei una vera ai?", "expect": "sei-vera-ai"},
+      {"q": "mi tracci?", "expect": "st-privacy"}
+    ]
+  },
+  {
+    "name": "security-deep-dive",
+    "turns": [
+      {"q": "cos'è il phishing", "expect": "phishing"},
+      {"q": "cosa sono le passkey", "expect": "passkey"},
+      {"q": "conviene usare un password manager", "expect": "password-manager"},
+      {"q": "come mi difendo dagli attacchi aitm", "expect": "aitm"},
+      {"q": "cosa sono le chiavi hardware yubikey", "expect": "hardware-key"}
+    ]
+  },
+  {
+    "name": "ai-llm-journey",
+    "turns": [
+      {"q": "cos'è un llm", "expect": "cos-e-un-llm"},
+      {"q": "cosa sono i token e la context window", "expect": "token-context"},
+      {"q": "come faccio girare un llm in locale", "expect": "llm-in-locale"},
+      {"q": "quanta vram serve", "expect": "ram-vram-llm"},
+      {"q": "meglio fine tuning o rag", "expect": "fine-tuning-vs-rag"}
+    ]
+  },
+  {
+    "name": "proxmox-homelab-flow",
+    "turns": [
+      {"q": "cos'è proxmox", "expect": "cos-e-proxmox"},
+      {"q": "meglio container lxc o vm", "expect": "lxc-vs-vm"},
+      {"q": "come faccio i backup verso pbs", "expect": "backup-pbs-howto"},
+      {"q": "homelab a basso consumo con mini pc", "expect": "homelab-low-power"},
+      {"q": "come collego un ups per lo spegnimento sicuro", "expect": "ups-nut"}
+    ]
+  },
+  {
+    "name": "self-hosting-sovereign",
+    "turns": [
+      {"q": "sostituire google drive con nextcloud", "expect": "nextcloud"},
+      {"q": "password manager self hosted", "expect": "vaultwarden"},
+      {"q": "cos'è il fediverso", "expect": "fediverso"},
+      {"q": "cloud provider europeo", "expect": "cloud-provider-eu"},
+      {"q": "email cifrata europea", "expect": "email-cifrata-eu"}
+    ]
+  },
+  {
+    "name": "seo-answer-engine",
+    "turns": [
+      {"q": "come finisco nell ai overview di google", "expect": "ai-overview"},
+      {"q": "cos'è il file llms.txt", "expect": "llms-txt"},
+      {"q": "dati strutturati json-ld per la seo", "expect": "json-ld"},
+      {"q": "cosa sono i core web vitals", "expect": "core-web-vitals"}
+    ]
+  },
+  {
+    "name": "meta-and-projects",
+    "turns": [
+      {"q": "cos'è fabgpt", "expect": "cos-e-fabgpt"},
+      {"q": "quanto costa far girare questo sito", "expect": "costo-zero"},
+      {"q": "meglio una faq statica o un chatbot", "expect": "prescritte-vs-ai"},
+      {"q": "come creo la mia faq con questo motore", "expect": "fork-guida"},
+      {"q": "come contatto fabrizio", "expect": "st-contatto-fab"}
+    ]
+  },
+  {
+    "name": "confused-user-recovers",
+    "turns": [
+      {"q": "boh non so", "expect": "fallback"},
+      {"q": "cosa sai fare", "expect": "st-capacita"},
+      {"q": "ok", "expect": "st-ok"},
+      {"q": "come blocco i bot ai sul mio sito", "expect": "bloccare-crawler-ai"},
+      {"q": "grazie", "expect": "st-grazie"}
+    ]
+  }
+]

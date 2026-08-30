@@ -128,7 +128,8 @@
       "suggest": [
         "cos-e-un-reverse-proxy",
         "come-funziona-lets-encrypt-acme",
-        "certificato-tls-scaduto-cosa-fare"
+        "certificato-tls-scaduto-cosa-fare",
+        "cosa-prevede-ai-act"
       ]
     },
     {
@@ -151,7 +152,8 @@
       "suggest": [
         "cos-e-un-waf-web-application-firewall",
         "come-funziona-lets-encrypt-acme",
-        "certificato-tls-scaduto-cosa-fare"
+        "certificato-tls-scaduto-cosa-fare",
+        "cosa-prevede-ai-act"
       ]
     },
     {
@@ -178,7 +180,8 @@
       "suggest": [
         "cos-e-un-reverse-proxy",
         "certificato-tls-scaduto-cosa-fare",
-        "cos-e-un-waf-web-application-firewall"
+        "cos-e-un-waf-web-application-firewall",
+        "cosa-prevede-ai-act"
       ]
     },
     {
@@ -203,7 +206,8 @@
       "suggest": [
         "come-funziona-lets-encrypt-acme",
         "cos-e-un-siem-e-un-soar",
-        "cos-e-un-reverse-proxy"
+        "cos-e-un-reverse-proxy",
+        "cos-e-un-waf-web-application-firewall"
       ]
     },
     {
@@ -226,7 +230,8 @@
       "suggest": [
         "certificato-tls-scaduto-cosa-fare",
         "nis2-chi-deve-adeguarsi-italia",
-        "come-funziona-lets-encrypt-acme"
+        "come-funziona-lets-encrypt-acme",
+        "cos-e-un-waf-web-application-firewall"
       ]
     },
     {
@@ -252,7 +257,8 @@
       "suggest": [
         "cos-e-un-siem-e-un-soar",
         "cos-e-la-supply-chain-security",
-        "certificato-tls-scaduto-cosa-fare"
+        "certificato-tls-scaduto-cosa-fare",
+        "cos-e-un-waf-web-application-firewall"
       ]
     },
     {
@@ -280,7 +286,8 @@
       "suggest": [
         "nis2-chi-deve-adeguarsi-italia",
         "cos-e-un-siem-e-un-soar",
-        "certificato-tls-scaduto-cosa-fare"
+        "certificato-tls-scaduto-cosa-fare",
+        "cos-e-un-waf-web-application-firewall"
       ]
     },
     {
@@ -302,7 +309,8 @@
       "suggest": [
         "cos-e-mcp-model-context-protocol",
         "cos-e-il-vibe-coding",
-        "allucinazioni-llm-dipendenze-inventate"
+        "allucinazioni-llm-dipendenze-inventate",
+        "cos-e-un-waf-web-application-firewall"
       ]
     },
     {
@@ -325,7 +333,8 @@
       "suggest": [
         "cos-e-la-prompt-injection",
         "cos-e-il-vibe-coding",
-        "allucinazioni-llm-dipendenze-inventate"
+        "allucinazioni-llm-dipendenze-inventate",
+        "cos-e-un-waf-web-application-firewall"
       ]
     },
     {
@@ -346,7 +355,8 @@
       "suggest": [
         "cos-e-mcp-model-context-protocol",
         "allucinazioni-llm-dipendenze-inventate",
-        "cos-e-la-prompt-injection"
+        "cos-e-la-prompt-injection",
+        "cos-e-un-waf-web-application-firewall"
       ]
     },
     {
@@ -374,7 +384,8 @@
       "suggest": [
         "cos-e-il-vibe-coding",
         "cos-e-rag-retrieval-augmented-generation",
-        "cos-e-mcp-model-context-protocol"
+        "cos-e-mcp-model-context-protocol",
+        "cos-e-un-waf-web-application-firewall"
       ]
     },
     {
@@ -396,7 +407,8 @@
       "suggest": [
         "allucinazioni-llm-dipendenze-inventate",
         "cos-e-il-vibe-coding",
-        "cos-e-mcp-model-context-protocol"
+        "cos-e-mcp-model-context-protocol",
+        "cos-e-un-waf-web-application-firewall"
       ]
     },
     {
@@ -419,7 +431,8 @@
       "suggest": [
         "differenza-container-lxc-e-vm",
         "self-hosting-pro-e-contro",
-        "cluster-proxmox-e-quorum"
+        "cluster-proxmox-e-quorum",
+        "cos-e-un-waf-web-application-firewall"
       ]
     },
     {
@@ -441,7 +454,8 @@
       "suggest": [
         "cos-e-proxmox-ve",
         "self-hosting-pro-e-contro",
-        "cluster-proxmox-e-quorum"
+        "cluster-proxmox-e-quorum",
+        "cos-e-un-waf-web-application-firewall"
       ]
     },
     {
@@ -510,7 +524,8 @@
       "suggest": [
         "differenza-container-lxc-e-vm",
         "cos-e-proxmox-ve",
-        "cluster-proxmox-e-quorum"
+        "cluster-proxmox-e-quorum",
+        "cos-e-un-waf-web-application-firewall"
       ]
     },
     {
@@ -533,7 +548,8 @@
       "suggest": [
         "come-funziona-lets-encrypt-acme",
         "cos-e-un-attacco-ddos",
-        "cos-e-la-owasp-top-10"
+        "cos-e-la-owasp-top-10",
+        "cos-e-un-waf-web-application-firewall"
       ]
     },
     {
@@ -556,7 +572,8 @@
       "suggest": [
         "differenza-http-https-tls",
         "cos-e-la-owasp-top-10",
-        "cos-e-la-sql-injection"
+        "cos-e-la-sql-injection",
+        "cos-e-un-waf-web-application-firewall"
       ]
     },
     {
@@ -578,7 +595,8 @@
       "suggest": [
         "cos-e-un-attacco-ddos",
         "cos-e-la-sql-injection",
-        "differenza-http-https-tls"
+        "differenza-http-https-tls",
+        "cos-e-un-waf-web-application-firewall"
       ]
     },
     {
@@ -600,7 +618,8 @@
       "suggest": [
         "cos-e-la-owasp-top-10",
         "cos-e-il-cross-site-scripting-xss",
-        "cos-e-un-attacco-ddos"
+        "cos-e-un-attacco-ddos",
+        "cos-e-un-waf-web-application-firewall"
       ]
     },
     {
@@ -621,7 +640,8 @@
       "suggest": [
         "cos-e-la-sql-injection",
         "cos-e-il-modello-zero-trust",
-        "cos-e-la-owasp-top-10"
+        "cos-e-la-owasp-top-10",
+        "cos-e-un-waf-web-application-firewall"
       ]
     },
     {
@@ -644,7 +664,8 @@
       "suggest": [
         "cos-e-il-cross-site-scripting-xss",
         "cos-e-autenticazione-due-fattori-mfa",
-        "cos-e-la-sql-injection"
+        "cos-e-la-sql-injection",
+        "cos-e-un-waf-web-application-firewall"
       ]
     },
     {
@@ -667,7 +688,8 @@
       "suggest": [
         "cos-e-il-modello-zero-trust",
         "mettere-in-sicurezza-ssh",
-        "cos-e-il-cross-site-scripting-xss"
+        "cos-e-il-cross-site-scripting-xss",
+        "cos-e-un-waf-web-application-firewall"
       ]
     },
     {
@@ -691,7 +713,8 @@
       "suggest": [
         "cos-e-il-modello-zero-trust",
         "cos-e-autenticazione-due-fattori-mfa",
-        "quali-security-header-servono"
+        "quali-security-header-servono",
+        "cos-e-un-waf-web-application-firewall"
       ]
     },
     {
@@ -714,7 +737,8 @@
       "suggest": [
         "mettere-in-sicurezza-ssh",
         "bloccare-crawler-ai-gptbot",
-        "cos-e-autenticazione-due-fattori-mfa"
+        "cos-e-autenticazione-due-fattori-mfa",
+        "cos-e-un-waf-web-application-firewall"
       ]
     },
     {
@@ -740,7 +764,8 @@
       "suggest": [
         "quali-security-header-servono",
         "errore-err-cert-authority-invalid",
-        "mettere-in-sicurezza-ssh"
+        "mettere-in-sicurezza-ssh",
+        "cos-e-un-waf-web-application-firewall"
       ]
     },
     {
@@ -763,7 +788,8 @@
       "suggest": [
         "bloccare-crawler-ai-gptbot",
         "errore-502-bad-gateway",
-        "quali-security-header-servono"
+        "quali-security-header-servono",
+        "cos-e-un-waf-web-application-firewall"
       ]
     },
     {
@@ -785,7 +811,8 @@
       "suggest": [
         "errore-err-cert-authority-invalid",
         "errore-429-too-many-requests",
-        "bloccare-crawler-ai-gptbot"
+        "bloccare-crawler-ai-gptbot",
+        "cos-e-un-waf-web-application-firewall"
       ]
     },
     {
@@ -807,7 +834,8 @@
       "suggest": [
         "errore-502-bad-gateway",
         "cos-e-il-mixed-content",
-        "errore-err-cert-authority-invalid"
+        "errore-err-cert-authority-invalid",
+        "cos-e-un-waf-web-application-firewall"
       ]
     },
     {
@@ -828,7 +856,8 @@
       "suggest": [
         "errore-429-too-many-requests",
         "fail2ban-e-alternative",
-        "errore-502-bad-gateway"
+        "errore-502-bad-gateway",
+        "cos-e-un-waf-web-application-firewall"
       ]
     },
     {
@@ -850,7 +879,8 @@
       "suggest": [
         "cos-e-il-mixed-content",
         "cos-e-il-cyber-resilience-act",
-        "errore-429-too-many-requests"
+        "errore-429-too-many-requests",
+        "cos-e-un-waf-web-application-firewall"
       ]
     },
     {
@@ -872,7 +902,8 @@
       "suggest": [
         "cos-e-la-supply-chain-security",
         "fail2ban-e-alternative",
-        "conservazione-log-gdpr"
+        "conservazione-log-gdpr",
+        "cos-e-un-waf-web-application-firewall"
       ]
     },
     {
@@ -897,7 +928,8 @@
       "suggest": [
         "cos-e-il-cyber-resilience-act",
         "fail2ban-e-alternative",
-        "cos-e-il-mixed-content"
+        "cos-e-il-mixed-content",
+        "cos-e-un-waf-web-application-firewall"
       ]
     },
     {
@@ -920,7 +952,8 @@
       "suggest": [
         "allucinazioni-llm-dipendenze-inventate",
         "token-e-context-window",
-        "temperatura-di-un-llm"
+        "temperatura-di-un-llm",
+        "cos-e-un-waf-web-application-firewall"
       ]
     },
     {
@@ -944,7 +977,8 @@
       "suggest": [
         "cos-e-rag-retrieval-augmented-generation",
         "cos-e-un-llm",
-        "temperatura-di-un-llm"
+        "temperatura-di-un-llm",
+        "cos-e-un-waf-web-application-firewall"
       ]
     },
     {
@@ -966,7 +1000,8 @@
       "suggest": [
         "token-e-context-window",
         "far-girare-un-llm-in-locale",
-        "cos-e-un-llm"
+        "cos-e-un-llm",
+        "cos-e-un-waf-web-application-firewall"
       ]
     },
     {
@@ -990,7 +1025,8 @@
       "suggest": [
         "cos-e-ollama",
         "temperatura-di-un-llm",
-        "token-e-context-window"
+        "token-e-context-window",
+        "cos-e-un-waf-web-application-firewall"
       ]
     },
     {
@@ -1011,7 +1047,8 @@
       "suggest": [
         "far-girare-un-llm-in-locale",
         "quantizzazione-modelli-gguf",
-        "temperatura-di-un-llm"
+        "temperatura-di-un-llm",
+        "cos-e-un-waf-web-application-firewall"
       ]
     },
     {
@@ -1036,7 +1073,8 @@
       "suggest": [
         "cos-e-ollama",
         "meglio-fine-tuning-o-rag",
-        "far-girare-un-llm-in-locale"
+        "far-girare-un-llm-in-locale",
+        "cos-e-un-waf-web-application-firewall"
       ]
     },
     {
@@ -1057,7 +1095,8 @@
       "suggest": [
         "cos-e-rag-retrieval-augmented-generation",
         "fine-tuning-llm-apple-silicon",
-        "quantizzazione-modelli-gguf"
+        "quantizzazione-modelli-gguf",
+        "cos-e-un-waf-web-application-firewall"
       ]
     },
     {
@@ -1079,7 +1118,8 @@
       "suggest": [
         "cos-e-il-function-calling",
         "cos-e-la-prompt-injection",
-        "cos-e-mcp-model-context-protocol"
+        "cos-e-mcp-model-context-protocol",
+        "cos-e-un-waf-web-application-firewall"
       ]
     },
     {
@@ -1101,7 +1141,8 @@
       "suggest": [
         "cos-e-un-agente-ai",
         "cos-e-mcp-model-context-protocol",
-        "cosa-sono-i-guardrail-llm"
+        "cosa-sono-i-guardrail-llm",
+        "cos-e-un-waf-web-application-firewall"
       ]
     },
     {
@@ -1123,7 +1164,8 @@
       "suggest": [
         "cos-e-la-prompt-injection",
         "cos-e-il-function-calling",
-        "cos-e-un-system-prompt"
+        "cos-e-un-system-prompt",
+        "cos-e-un-waf-web-application-firewall"
       ]
     },
     {
@@ -1144,7 +1186,8 @@
       "suggest": [
         "cosa-sono-i-guardrail-llm",
         "cosa-sono-gli-embeddings",
-        "cos-e-il-function-calling"
+        "cos-e-il-function-calling",
+        "cos-e-un-waf-web-application-firewall"
       ]
     },
     {
@@ -1165,7 +1208,8 @@
       "suggest": [
         "cos-e-rag-retrieval-augmented-generation",
         "cos-e-un-system-prompt",
-        "cosa-prevede-ai-act"
+        "cosa-prevede-ai-act",
+        "cos-e-un-waf-web-application-firewall"
       ]
     },
     {
@@ -1187,7 +1231,8 @@
       "suggest": [
         "cos-e-la-shadow-ai",
         "cosa-sono-gli-embeddings",
-        "cos-e-un-system-prompt"
+        "cos-e-un-system-prompt",
+        "cos-e-un-waf-web-application-firewall"
       ]
     },
     {
@@ -1211,7 +1256,8 @@
       "suggest": [
         "cosa-sono-i-guardrail-llm",
         "far-girare-un-llm-in-locale",
-        "cosa-prevede-ai-act"
+        "cosa-prevede-ai-act",
+        "cos-e-un-waf-web-application-firewall"
       ]
     },
     {
@@ -1235,7 +1281,8 @@
       "suggest": [
         "perche-usare-zfs-su-proxmox",
         "differenza-snapshot-e-backup",
-        "cos-e-proxmox-backup-server"
+        "cos-e-proxmox-backup-server",
+        "cos-e-un-waf-web-application-firewall"
       ]
     },
     {
@@ -1259,7 +1306,8 @@
       "suggest": [
         "differenza-snapshot-e-backup",
         "cos-e-proxmox-backup-server",
-        "cluster-proxmox-e-quorum"
+        "cluster-proxmox-e-quorum",
+        "cos-e-un-waf-web-application-firewall"
       ]
     },
     {
@@ -1280,7 +1328,8 @@
       "suggest": [
         "cos-e-proxmox-backup-server",
         "perche-usare-zfs-su-proxmox",
-        "cluster-proxmox-e-quorum"
+        "cluster-proxmox-e-quorum",
+        "cos-e-un-waf-web-application-firewall"
       ]
     },
     {
@@ -1302,7 +1351,8 @@
       "suggest": [
         "differenza-snapshot-e-backup",
         "passthrough-gpu-proxmox",
-        "perche-usare-zfs-su-proxmox"
+        "perche-usare-zfs-su-proxmox",
+        "cos-e-un-waf-web-application-firewall"
       ]
     },
     {
@@ -1327,7 +1377,8 @@
       "suggest": [
         "cos-e-proxmox-backup-server",
         "aggiornare-proxmox-senza-subscription",
-        "differenza-snapshot-e-backup"
+        "differenza-snapshot-e-backup",
+        "cos-e-un-waf-web-application-firewall"
       ]
     },
     {
@@ -1349,7 +1400,8 @@
       "suggest": [
         "passthrough-gpu-proxmox",
         "template-e-cloud-init-proxmox",
-        "cos-e-proxmox-backup-server"
+        "cos-e-proxmox-backup-server",
+        "cos-e-un-waf-web-application-firewall"
       ]
     },
     {
@@ -1371,7 +1423,8 @@
       "suggest": [
         "aggiornare-proxmox-senza-subscription",
         "migrare-da-vmware-a-proxmox",
-        "passthrough-gpu-proxmox"
+        "passthrough-gpu-proxmox",
+        "cos-e-un-waf-web-application-firewall"
       ]
     },
     {
@@ -1397,7 +1450,8 @@
       "suggest": [
         "autoscaling-vm-lxc-proxmox",
         "cos-e-proxmox-backup-server",
-        "cos-e-proxxx-cockpit-terminale-proxmox"
+        "cos-e-proxxx-cockpit-terminale-proxmox",
+        "cos-e-un-waf-web-application-firewall"
       ]
     },
     {
@@ -1716,6 +1770,7 @@
       "suggest": [
         "a-cosa-serve-la-sitemap",
         "json-ld-schema-org-seo",
+        "il-sito-e-lento-come-si-diagnostica",
         "cos-e-il-file-llms-txt"
       ]
     },
@@ -2979,6 +3034,7 @@
       "suggest": [
         "piano-di-disaster-recovery-minimo",
         "security-logging-fatto-bene",
+        "uscire-da-google-safe-browsing",
         "incident-response-le-prime-ore"
       ]
     },
@@ -3498,6 +3554,7 @@
       "suggest": [
         "token-e-context-window",
         "cos-e-il-prompt-caching",
+        "cos-e-lo-streaming-delle-risposte",
         "cos-e-il-reranking"
       ]
     },
@@ -3683,7 +3740,8 @@
       "suggest": [
         "allucinazioni-llm-dipendenze-inventate",
         "convertire-pdf-scansionato-in-testo",
-        "far-girare-un-llm-in-locale"
+        "far-girare-un-llm-in-locale",
+        "cos-e-un-waf-web-application-firewall"
       ]
     },
     {
@@ -3920,6 +3978,7 @@
       "suggest": [
         "come-si-testano-le-applicazioni-llm",
         "cos-e-un-eval-e-perche-i-benchmark-mentono",
+        "whisper-trascrizione-audio-locale",
         "come-scrivere-un-buon-prompt"
       ]
     },
@@ -3944,6 +4003,7 @@
       "suggest": [
         "far-girare-un-llm-in-locale",
         "cos-e-ollama",
+        "generare-immagini-in-locale",
         "come-valutare-le-risposte-di-un-llm"
       ]
     },
@@ -3968,6 +4028,7 @@
       "suggest": [
         "apple-silicon-o-gpu-nvidia-per-ai",
         "strumenti-open-source-produzione-musicale",
+        "chatbot-sui-documenti-aziendali",
         "watermarking-dei-contenuti-ai"
       ]
     },
@@ -4015,8 +4076,8 @@
       "suggest": [
         "cos-e-un-agente-ai",
         "cos-e-l-inferenza-e-perche-costa",
-        "token-e-context-window",
-        "come-si-limita-un-agente-ai"
+        "memoria-a-breve-e-lungo-termine-negli-agenti",
+        "token-e-context-window"
       ]
     },
     {
@@ -4478,6 +4539,7 @@
       "suggest": [
         "migrare-da-vmware-a-proxmox",
         "io-delay-alto-proxmox",
+        "nested-virtualization-quando-serve",
         "hypervisor-tipo-1-e-tipo-2"
       ]
     },
@@ -4543,7 +4605,9 @@
         "retention backup",
         "pbs",
         "prune",
-        "verify"
+        "verify",
+        "backup verso pbs",
+        "backup su pbs"
       ],
       "answers": [
         "La sequenza completa, da zero a notti tranquille:\n\n- su [PBS](q/cos-e-proxmox-backup-server/): crea il **datastore** e un utente API dedicato; su PVE: Datacenter → Storage → aggiungi il PBS con il suo **fingerprint**\n- Datacenter → **Backup**: crea il job – selezione VM (meglio \"tutte\" con esclusioni esplicite: le VM nuove entrano da sole), orario notturno, modalità **snapshot** (la sola che non ferma nulla)\n- la **retention** falla decidere a PBS (keep-daily/weekly/monthly) con il **prune** automatico: 7 giornalieri + 4 settimanali + 6 mensili è un default sano\n- attiva i **verify** programmati – un backup corrotto scoperto al restore non è un backup, è una beffa – e le **notifiche sui fallimenti** (un job che fallisce in silenzio per mesi è un classico del terrore)\n- completa la [regola 3-2-1](q/backup-3-2-1/): **sync remota** verso un secondo PBS altrove\n\nUltimo passo che quasi nessuno fa: **prova un restore** adesso, che sei calmo. Il giorno che servirà non lo sarai."
@@ -4746,8 +4810,8 @@
       "suggest": [
         "cos-e-proxmox-ve",
         "differenza-container-lxc-e-vm",
-        "home-assistant-su-proxmox",
-        "cos-e-proxmox-backup-server"
+        "guida-installare-lxc-autoscale",
+        "home-assistant-su-proxmox"
       ]
     },
     {
@@ -4772,6 +4836,7 @@
       "suggest": [
         "differenza-container-lxc-e-vm",
         "principio-del-minimo-privilegio",
+        "guida-installare-vm-autoscale",
         "come-gestire-i-secrets"
       ]
     },
@@ -4796,6 +4861,7 @@
       "suggest": [
         "come-gestire-i-secrets",
         "autoscaling-vm-proxmox",
+        "guida-usare-proxxx",
         "autoscaling-vm-lxc-proxmox"
       ]
     },
@@ -4918,6 +4984,7 @@
       "suggest": [
         "cos-e-un-reverse-proxy",
         "cos-e-l-anycast",
+        "cos-e-r2-egress-gratuito",
         "alta-disponibilita-proxmox"
       ]
     },
@@ -5087,8 +5154,8 @@
       "suggest": [
         "cos-e-un-generatore-di-siti-statici",
         "pages-workers-o-functions",
-        "redirect-www-apex",
-        "quali-security-header-servono"
+        "proteggere-origine-dietro-cloudflare",
+        "redirect-www-apex"
       ]
     },
     {
@@ -5115,8 +5182,8 @@
       "suggest": [
         "nuvoletta-arancione-cloudflare",
         "come-funziona-lets-encrypt-acme",
-        "automatizzare-configurazione-cloudflare",
-        "cos-e-mtls"
+        "diagnosticare-la-propagazione-dns",
+        "automatizzare-configurazione-cloudflare"
       ]
     },
     {
@@ -5268,6 +5335,7 @@
       "suggest": [
         "come-funziona-robots-txt",
         "cos-e-un-generatore-di-siti-statici",
+        "cos-e-indexnow",
         "cos-e-hreflang"
       ]
     },
@@ -5291,8 +5359,8 @@
       "suggest": [
         "cos-e-ai-overview-e-come-finirci",
         "cos-e-fabgpt-come-funziona",
-        "cos-e-gitops",
-        "a-cosa-serve-la-sitemap"
+        "lighthouse-e-pagespeed-come-leggerli",
+        "cos-e-gitops"
       ]
     },
     {
@@ -5391,6 +5459,7 @@
       "suggest": [
         "gdpr-cosa-serve-a-un-sito-web",
         "cos-e-un-air-gap",
+        "service-worker-e-pwa",
         "cos-e-fabgpt-come-funziona"
       ]
     },
@@ -5539,6 +5608,7 @@
       "suggest": [
         "backup-automatici-verso-pbs",
         "io-delay-alto-proxmox",
+        "regex-le-basi-che-servono",
         "security-logging-fatto-bene"
       ]
     },
@@ -5563,6 +5633,7 @@
       "suggest": [
         "fail2ban-e-alternative",
         "modsecurity-e-alternative-moderne",
+        "motori-di-ricerca-privati-searxng",
         "cron-la-sintassi-spiegata"
       ]
     },
@@ -5906,6 +5977,7 @@
       "suggest": [
         "mettere-in-sicurezza-ssh",
         "segmentare-la-rete-con-vlan",
+        "data-breach-famosi-cosa-insegnano",
         "backup-3-2-1"
       ]
     },
@@ -5931,8 +6003,8 @@
       "suggest": [
         "cos-e-un-attacco-brute-force",
         "esporre-servizi-senza-aprire-porte",
-        "proxmox-dietro-reverse-proxy",
-        "errore-403-forbidden"
+        "fatturazione-elettronica-e-conservazione",
+        "proxmox-dietro-reverse-proxy"
       ]
     },
     {
@@ -6288,8 +6360,8 @@
       "suggest": [
         "cos-e-doh-dns-over-https",
         "pi-hole-vs-adguard-home",
-        "differenza-container-lxc-e-vm",
-        "cos-e-dnssec"
+        "bloccare-pubblicita-e-tracker-in-rete",
+        "differenza-container-lxc-e-vm"
       ]
     },
     {
@@ -6568,8 +6640,8 @@
       "suggest": [
         "cos-e-la-supply-chain-security",
         "cos-e-gitops",
-        "container-privilegiati-o-non-privilegiati",
-        "come-gestire-i-secrets"
+        "sistemi-operativi-immutabili",
+        "container-privilegiati-o-non-privilegiati"
       ]
     },
     {
@@ -6647,8 +6719,8 @@
       "suggest": [
         "cos-e-un-agente-ai",
         "cos-e-l-inferenza-e-perche-costa",
-        "time-travel-debugging-agenti",
-        "cos-e-l-orchestrazione-multi-agente"
+        "attacchi-avversariali-al-machine-learning",
+        "time-travel-debugging-agenti"
       ]
     },
     {
@@ -6673,8 +6745,8 @@
       "suggest": [
         "cos-e-un-agente-ai",
         "pattern-di-orchestrazione-agentica",
-        "come-si-limita-un-agente-ai",
-        "come-si-testano-le-applicazioni-llm"
+        "sicurezza-dei-tool-e-plugin-mcp",
+        "come-si-limita-un-agente-ai"
       ]
     },
     {
@@ -6774,6 +6846,7 @@
       "suggest": [
         "cos-e-la-supply-chain-security",
         "sicurezza-nella-pipeline-cicd",
+        "osservabilita-e-tracing-di-sistemi-ai",
         "cosa-prevede-ai-act"
       ]
     },
@@ -6801,8 +6874,8 @@
       "suggest": [
         "cos-e-l-observability-per-llm",
         "pattern-di-orchestrazione-agentica",
-        "self-hosting-pro-e-contro",
-        "cos-e-rag-retrieval-augmented-generation"
+        "identita-degli-agenti-e-kill-switch",
+        "self-hosting-pro-e-contro"
       ]
     },
     {
@@ -6879,8 +6952,8 @@
       "suggest": [
         "piano-di-disaster-recovery-minimo",
         "backup-3-2-1",
-        "cos-e-dora-regolamento",
-        "cos-e-iso-27001"
+        "gestione-delle-vulnerabilita-piattaforme",
+        "cos-e-dora-regolamento"
       ]
     },
     {
@@ -6931,8 +7004,8 @@
       "suggest": [
         "cos-e-un-reverse-proxy",
         "cos-e-proxmox-ve",
-        "differenza-container-lxc-e-vm",
-        "cos-e-docker-compose"
+        "sostituire-google-foto-immich-photoprism",
+        "differenza-container-lxc-e-vm"
       ]
     },
     {
@@ -6956,8 +7029,8 @@
       "suggest": [
         "cos-e-docker-compose",
         "cos-e-proxmox-ve",
-        "quanta-ram-vram-serve-per-un-llm",
-        "backup-3-2-1"
+        "media-server-self-hosted-jellyfin",
+        "sostituire-google-drive-con-nextcloud"
       ]
     },
     {
@@ -7008,8 +7081,8 @@
       "suggest": [
         "perche-usare-un-password-manager",
         "cosa-sono-le-passkey",
-        "cos-e-un-reverse-proxy",
-        "cos-e-autenticazione-due-fattori-mfa"
+        "sincronizzare-cartelle-p2p-syncthing",
+        "cos-e-un-reverse-proxy"
       ]
     },
     {
@@ -7061,8 +7134,8 @@
       "suggest": [
         "mettere-in-sicurezza-ssh",
         "cron-la-sintassi-spiegata",
-        "cos-e-docker-compose",
-        "backup-automatici-verso-pbs"
+        "dashboard-per-servizi-self-hosted",
+        "cos-e-docker-compose"
       ]
     },
     {
@@ -7089,8 +7162,8 @@
       "suggest": [
         "git-i-comandi-che-usi-davvero",
         "cos-e-docker-compose",
-        "cos-e-un-reverse-proxy",
-        "wireguard-e-mesh-vpn"
+        "aggiornare-automaticamente-i-container",
+        "cos-e-un-reverse-proxy"
       ]
     },
     {
@@ -7140,8 +7213,8 @@
       "suggest": [
         "cos-e-ollama",
         "quanta-ram-vram-serve-per-un-llm",
-        "cos-e-rag-retrieval-augmented-generation",
-        "cos-e-la-shadow-ai"
+        "avviare-un-chatgpt-privato-per-il-team",
+        "cos-e-rag-retrieval-augmented-generation"
       ]
     },
     {
@@ -7222,8 +7295,8 @@
       "suggest": [
         "home-assistant-su-proxmox",
         "gestire-zigbee-con-zigbee2mqtt",
-        "protocolli-smart-home-locali-zigbee-matter",
-        "cos-e-la-sovranita-digitale"
+        "videosorveglianza-locale-con-ai-frigate",
+        "protocolli-smart-home-locali-zigbee-matter"
       ]
     },
     {
@@ -7406,8 +7479,8 @@
       "suggest": [
         "spf-dkim-dmarc",
         "cos-e-un-attacco-man-in-the-middle",
-        "come-funziona-lets-encrypt-acme",
-        "cos-e-dnssec"
+        "cos-e-arc-authenticated-received-chain",
+        "come-funziona-lets-encrypt-acme"
       ]
     },
     {
@@ -7663,6 +7736,7 @@
       "suggest": [
         "pgp-gpg-o-smime-cifrare-le-email",
         "self-hostare-un-server-di-posta",
+        "cloud-provider-europei-sovrani",
         "cos-e-la-sovranita-digitale"
       ]
     },
@@ -7741,8 +7815,8 @@
       "suggest": [
         "cos-e-proxmox-ve",
         "messaggistica-federata-matrix",
-        "cos-e-la-sovranita-digitale",
-        "dma-dsa-e-data-act-diritti-ue"
+        "dma-dsa-e-data-act-diritti-ue",
+        "centralino-voip-self-hosted-asterisk"
       ]
     },
     {
@@ -7770,8 +7844,8 @@
       "suggest": [
         "fail2ban-e-alternative",
         "wireguard-e-mesh-vpn",
-        "segmentare-la-rete-con-vlan",
-        "cos-e-proxmox-ve"
+        "chat-di-team-self-hosted-mattermost",
+        "segmentare-la-rete-con-vlan"
       ]
     },
     {
@@ -7846,8 +7920,8 @@
       "suggest": [
         "cos-e-un-attacco-living-off-the-land",
         "differenza-edr-xdr-antivirus",
-        "detection-engineering-e-event-id",
-        "cos-e-memory-tagging-extension-mte"
+        "cos-e-la-matrice-mitre-attack",
+        "detection-engineering-e-event-id"
       ]
     },
     {
@@ -7922,8 +7996,8 @@
       "suggest": [
         "attacchi-active-directory-kerberoasting",
         "principio-del-minimo-privilegio",
-        "pam-e-accesso-just-in-time",
-        "detection-engineering-e-event-id"
+        "cos-e-la-dependency-confusion",
+        "pam-e-accesso-just-in-time"
       ]
     },
     {
@@ -8048,8 +8122,8 @@
       "suggest": [
         "differenza-edr-xdr-antivirus",
         "cos-e-pass-the-hash",
-        "cos-e-una-botnet",
-        "cosa-sono-ids-e-ips"
+        "metriche-soc-mttd-mttr",
+        "cos-e-una-botnet"
       ]
     },
     {
@@ -8232,8 +8306,8 @@
       "suggest": [
         "cos-e-un-ransomware",
         "fasi-incident-response-nist",
-        "piano-di-disaster-recovery-minimo",
-        "cos-e-dora-regolamento"
+        "contenimento-compromissione-domain-controller",
+        "piano-di-disaster-recovery-minimo"
       ]
     },
     {
@@ -8257,8 +8331,8 @@
       "suggest": [
         "attacchi-active-directory-kerberoasting",
         "analisi-forense-della-memoria-ram",
-        "artefatti-forensi-windows",
-        "pam-e-accesso-just-in-time"
+        "comunicazione-di-crisi-cyber",
+        "artefatti-forensi-windows"
       ]
     },
     {
@@ -8308,8 +8382,8 @@
       "suggest": [
         "cos-e-un-rootkit-e-un-bootkit",
         "secure-element-vs-firmware-aperto",
-        "sicurezza-fisica-dei-server",
-        "cos-e-un-air-gap"
+        "usbguard-bloccare-badusb",
+        "sicurezza-fisica-dei-server"
       ]
     },
     {
@@ -8334,6 +8408,7 @@
       "suggest": [
         "kill-switch-hardware-privacy",
         "sicurezza-fisica-dei-server",
+        "ebpf-osservabilita-e-sicurezza-kernel",
         "secure-boot-personalizzato-chiavi-proprie"
       ]
     },
@@ -8463,6 +8538,7 @@
       "suggest": [
         "secure-boot-personalizzato-chiavi-proprie",
         "analisi-forense-della-memoria-ram",
+        "malware-polimorfico-e-offuscamento",
         "security-baseline-e-automazione-hardening"
       ]
     },
@@ -8513,8 +8589,8 @@
       "suggest": [
         "cos-e-la-prompt-injection",
         "sicurezza-del-rag-e-dei-vector-database",
-        "cos-e-un-agente-ai",
-        "esfiltrazione-dati-tramite-agenti-ai"
+        "model-inversion-e-membership-inference",
+        "cos-e-un-agente-ai"
       ]
     },
     {
@@ -8538,8 +8614,8 @@
       "suggest": [
         "chatgpt-e-dati-personali-gdpr",
         "gdpr-cosa-serve-a-un-sito-web",
-        "allucinazioni-llm-dipendenze-inventate",
-        "sicurezza-del-rag-e-dei-vector-database"
+        "nist-ai-risk-management-framework",
+        "allucinazioni-llm-dipendenze-inventate"
       ]
     },
     {
@@ -8588,8 +8664,8 @@
       "suggest": [
         "cos-e-un-infostealer",
         "cos-e-un-insider-threat",
-        "alert-fatigue-nel-soc",
-        "differenza-siem-soar-xdr"
+        "prevenire-il-runaway-agent-loop",
+        "alert-fatigue-nel-soc"
       ]
     },
     {
@@ -8614,8 +8690,8 @@
       "suggest": [
         "cos-e-un-agente-ai",
         "cos-e-l-inferenza-e-perche-costa",
-        "direct-e-indirect-prompt-injection",
-        "identita-degli-agenti-e-kill-switch"
+        "sandbox-syscall-seccomp-gvisor",
+        "direct-e-indirect-prompt-injection"
       ]
     },
     {
@@ -8640,8 +8716,8 @@
       "suggest": [
         "cos-e-il-sandboxing-per-agenti",
         "sicurezza-delle-immagini-container",
-        "differenza-container-lxc-e-vm",
-        "secure-web-gateway-self-hosted"
+        "esfiltrazione-dati-tramite-agenti-ai",
+        "differenza-container-lxc-e-vm"
       ]
     },
     {
@@ -8694,8 +8770,8 @@
       "suggest": [
         "come-si-firma-il-codice",
         "secure-boot-personalizzato-chiavi-proprie",
-        "secure-element-vs-firmware-aperto",
-        "kill-switch-hardware-privacy"
+        "clonazione-nfc-rfid-e-difese",
+        "secure-element-vs-firmware-aperto"
       ]
     },
     {
@@ -8721,6 +8797,7 @@
       "suggest": [
         "cos-e-autenticazione-due-fattori-mfa",
         "cos-e-la-defense-in-depth",
+        "impianti-hardware-e-firmware-malevolo",
         "chiavi-di-sicurezza-hardware-yubikey"
       ]
     },
@@ -8878,8 +8955,8 @@
       "suggest": [
         "cos-e-autenticazione-due-fattori-mfa",
         "wireguard-e-mesh-vpn",
-        "cos-e-headscale",
-        "esporre-servizi-senza-aprire-porte"
+        "cifratura-a-riposo-dei-dischi-luks",
+        "cos-e-headscale"
       ]
     },
     {
@@ -8929,6 +9006,7 @@
       "suggest": [
         "cos-e-proxmox-ve",
         "cos-e-un-load-balancer",
+        "mdns-repeater-tra-vlan",
         "piano-di-disaster-recovery-minimo"
       ]
     },
@@ -8955,6 +9033,7 @@
       "suggest": [
         "segmentare-la-rete-con-vlan",
         "cos-e-una-botnet",
+        "bgp-con-bfd-verso-un-vps",
         "failover-e-bilanciamento-multi-wan"
       ]
     },
@@ -8981,8 +9060,8 @@
       "suggest": [
         "self-hosting-pro-e-contro",
         "nat-statico-dinamico-e-pat",
-        "wireguard-o-openvpn",
-        "differenza-container-lxc-e-vm"
+        "filtraggio-geoip-e-liste-di-reputazione",
+        "wireguard-o-openvpn"
       ]
     },
     {
@@ -9115,8 +9194,8 @@
       "suggest": [
         "cos-e-proxmox-ve",
         "homelab-a-basso-consumo",
-        "pi-hole-vs-adguard-home",
-        "notifiche-push-self-hosted-ntfy-gotify"
+        "ups-e-spegnimento-sicuro-nut",
+        "pi-hole-vs-adguard-home"
       ]
     },
     {
@@ -9142,8 +9221,8 @@
       "suggest": [
         "cos-e-openzfs-snapshot-copy-on-write",
         "backup-consistenti-di-database",
-        "perche-usare-zfs-su-proxmox",
-        "cos-e-proxmox-ve"
+        "stack-di-monitoraggio-prometheus-grafana",
+        "single-board-computer-nel-homelab"
       ]
     },
     {
@@ -9300,6 +9379,7 @@
       "suggest": [
         "cos-e-gitops",
         "principio-del-minimo-privilegio",
+        "modello-di-responsabilita-condivisa-cloud",
         "continuous-access-evaluation-cae"
       ]
     },
@@ -9348,8 +9428,8 @@
       "suggest": [
         "segmentare-la-rete-con-vlan",
         "rbac-abac-e-pbac-modelli-di-accesso",
-        "principio-del-minimo-privilegio",
-        "sicurezza-delle-immagini-container"
+        "cos-e-un-container-breakout",
+        "principio-del-minimo-privilegio"
       ]
     },
     {
@@ -9373,8 +9453,8 @@
       "suggest": [
         "differenza-container-lxc-e-vm",
         "sicurezza-delle-immagini-container",
-        "container-privilegiati-o-non-privilegiati",
-        "sandbox-syscall-seccomp-gvisor"
+        "sicurezza-di-kubernetes-pod-security",
+        "container-privilegiati-o-non-privilegiati"
       ]
     },
     {
@@ -9399,8 +9479,8 @@
       "suggest": [
         "harvest-now-decrypt-later",
         "cos-e-zion-reverse-proxy-rust",
-        "cos-e-memory-tagging-extension-mte",
-        "configurare-https-su-caddy"
+        "cos-e-la-fully-homomorphic-encryption",
+        "cos-e-memory-tagging-extension-mte"
       ]
     },
     {
@@ -9475,6 +9555,7 @@
       "suggest": [
         "sicurezza-nella-pipeline-cicd",
         "rbac-abac-e-pbac-modelli-di-accesso",
+        "cos-e-mass-assignment",
         "cos-e-la-crypto-agility"
       ]
     },
@@ -9525,8 +9606,8 @@
       "suggest": [
         "cos-e-il-cross-site-scripting-xss",
         "cos-e-un-attacco-man-in-the-middle",
-        "cos-e-la-owasp-top-10",
-        "continuous-access-evaluation-cae"
+        "deserializzazione-insicura",
+        "cos-e-la-owasp-top-10"
       ]
     },
     {
@@ -9551,6 +9632,7 @@
       "suggest": [
         "sicurezza-dei-pesi-e-checkpoint-dei-modelli",
         "cos-e-la-owasp-top-10",
+        "vulnerabilita-nei-redirect-oauth",
         "flag-di-sicurezza-dei-cookie"
       ]
     },
@@ -9602,8 +9684,8 @@
       "suggest": [
         "cos-e-autenticazione-due-fattori-mfa",
         "cos-e-un-reverse-proxy",
-        "conditional-access-policy-basate-sul-rischio",
-        "saml-oauth-e-oidc"
+        "vincolare-i-database-a-localhost",
+        "conditional-access-policy-basate-sul-rischio"
       ]
     },
     {
@@ -9790,7 +9872,8 @@
       "suggest": [
         "come-aggiungere-un-waf-a-caddy",
         "bloccare-bad-bot-nginx-apache-traefik-haproxy",
-        "cos-e-wildbox-siem-soar-open-source"
+        "cos-e-wildbox-siem-soar-open-source",
+        "cos-e-un-waf-web-application-firewall"
       ]
     },
     {
@@ -9815,7 +9898,8 @@
       "suggest": [
         "cos-e-certmate-gestione-certificati-tls",
         "bloccare-bad-bot-nginx-apache-traefik-haproxy",
-        "cos-e-wildbox-siem-soar-open-source"
+        "cos-e-wildbox-siem-soar-open-source",
+        "cos-e-un-waf-web-application-firewall"
       ]
     },
     {
@@ -9849,7 +9933,8 @@
       "suggest": [
         "come-aggiungere-un-waf-a-caddy",
         "cos-e-wildbox-siem-soar-open-source",
-        "cos-e-certmate-gestione-certificati-tls"
+        "cos-e-certmate-gestione-certificati-tls",
+        "cos-e-un-waf-web-application-firewall"
       ]
     },
     {
@@ -9872,7 +9957,8 @@
       "suggest": [
         "bloccare-bad-bot-nginx-apache-traefik-haproxy",
         "cos-e-zion-reverse-proxy-rust",
-        "come-aggiungere-un-waf-a-caddy"
+        "come-aggiungere-un-waf-a-caddy",
+        "cos-e-un-waf-web-application-firewall"
       ]
     },
     {
@@ -9903,7 +9989,8 @@
       "suggest": [
         "cos-e-wildbox-siem-soar-open-source",
         "reverse-proxy-con-waf-integrato",
-        "bloccare-bad-bot-nginx-apache-traefik-haproxy"
+        "bloccare-bad-bot-nginx-apache-traefik-haproxy",
+        "cos-e-un-waf-web-application-firewall"
       ]
     },
     {
@@ -9924,7 +10011,8 @@
       "suggest": [
         "cos-e-zion-reverse-proxy-rust",
         "come-bloccare-domini-malevoli",
-        "cos-e-wildbox-siem-soar-open-source"
+        "cos-e-wildbox-siem-soar-open-source",
+        "cos-e-un-waf-web-application-firewall"
       ]
     },
     {
@@ -9956,7 +10044,8 @@
       "suggest": [
         "reverse-proxy-con-waf-integrato",
         "cos-e-agssh-hardening-siti-statici",
-        "cos-e-zion-reverse-proxy-rust"
+        "cos-e-zion-reverse-proxy-rust",
+        "cos-e-un-waf-web-application-firewall"
       ]
     },
     {
@@ -9987,7 +10076,8 @@
       "suggest": [
         "come-bloccare-domini-malevoli",
         "nis2-monitoraggio-conformita",
-        "reverse-proxy-con-waf-integrato"
+        "reverse-proxy-con-waf-integrato",
+        "cos-e-un-waf-web-application-firewall"
       ]
     },
     {
@@ -10016,7 +10106,8 @@
       "suggest": [
         "cos-e-agssh-hardening-siti-statici",
         "monitorare-siti-web-con-github-actions",
-        "come-bloccare-domini-malevoli"
+        "come-bloccare-domini-malevoli",
+        "cos-e-un-waf-web-application-firewall"
       ]
     },
     {
@@ -10043,7 +10134,8 @@
       "suggest": [
         "nis2-monitoraggio-conformita",
         "cos-e-agssh-hardening-siti-statici",
-        "come-bloccare-domini-malevoli"
+        "come-bloccare-domini-malevoli",
+        "cos-e-un-waf-web-application-firewall"
       ]
     },
     {
@@ -10071,7 +10163,8 @@
       "suggest": [
         "autoscaling-vm-proxmox",
         "autoscaling-container-lxc-proxmox",
-        "cos-e-proxxx-cockpit-terminale-proxmox"
+        "cos-e-proxxx-cockpit-terminale-proxmox",
+        "cos-e-un-waf-web-application-firewall"
       ]
     },
     {
@@ -10100,7 +10193,8 @@
       "suggest": [
         "autoscaling-vm-lxc-proxmox",
         "autoscaling-container-lxc-proxmox",
-        "cos-e-proxxx-cockpit-terminale-proxmox"
+        "cos-e-proxxx-cockpit-terminale-proxmox",
+        "cos-e-un-waf-web-application-firewall"
       ]
     },
     {
@@ -10130,7 +10224,8 @@
       "suggest": [
         "autoscaling-vm-proxmox",
         "cos-e-proxxx-cockpit-terminale-proxmox",
-        "autoscaling-vm-lxc-proxmox"
+        "autoscaling-vm-lxc-proxmox",
+        "cos-e-un-waf-web-application-firewall"
       ]
     },
     {
@@ -10162,7 +10257,8 @@
       "suggest": [
         "autoscaling-container-lxc-proxmox",
         "strumenti-cli-tui-per-proxmox",
-        "autoscaling-vm-proxmox"
+        "autoscaling-vm-proxmox",
+        "cos-e-un-waf-web-application-firewall"
       ]
     },
     {
@@ -10186,7 +10282,8 @@
       "suggest": [
         "cos-e-proxxx-cockpit-terminale-proxmox",
         "autoscaling-container-lxc-proxmox",
-        "autoscaling-vm-proxmox"
+        "autoscaling-vm-proxmox",
+        "cos-e-un-waf-web-application-firewall"
       ]
     },
     {
@@ -10212,7 +10309,8 @@
       "suggest": [
         "mettere-in-sicurezza-endpoint-llm",
         "controllare-qualita-codice-generato-ai",
-        "fine-tuning-llm-apple-silicon"
+        "fine-tuning-llm-apple-silicon",
+        "cos-e-un-waf-web-application-firewall"
       ]
     },
     {
@@ -10238,7 +10336,8 @@
       "suggest": [
         "riscrivere-feed-rss-con-llm",
         "controllare-qualita-codice-generato-ai",
-        "fine-tuning-llm-apple-silicon"
+        "fine-tuning-llm-apple-silicon",
+        "cos-e-un-waf-web-application-firewall"
       ]
     },
     {
@@ -10266,7 +10365,8 @@
       "suggest": [
         "mettere-in-sicurezza-endpoint-llm",
         "riscrivere-feed-rss-con-llm",
-        "fine-tuning-llm-apple-silicon"
+        "fine-tuning-llm-apple-silicon",
+        "cos-e-un-waf-web-application-firewall"
       ]
     },
     {
@@ -10356,7 +10456,8 @@
       "suggest": [
         "configurare-rate-limiting-web-server",
         "generare-regole-waf-con-machine-learning",
-        "proxy-waf-per-macos"
+        "proxy-waf-per-macos",
+        "cos-e-un-waf-web-application-firewall"
       ]
     },
     {
@@ -10381,7 +10482,8 @@
       "suggest": [
         "scoprire-dati-in-un-data-breach",
         "generare-regole-waf-con-machine-learning",
-        "proxy-waf-per-macos"
+        "proxy-waf-per-macos",
+        "cos-e-un-waf-web-application-firewall"
       ]
     },
     {
@@ -10406,7 +10508,8 @@
       "suggest": [
         "configurare-rate-limiting-web-server",
         "proxy-waf-per-macos",
-        "scoprire-dati-in-un-data-breach"
+        "scoprire-dati-in-un-data-breach",
+        "cos-e-un-waf-web-application-firewall"
       ]
     },
     {
@@ -10432,7 +10535,8 @@
       "suggest": [
         "generare-regole-waf-con-machine-learning",
         "monitorare-dominio-ssl-reputazione",
-        "configurare-rate-limiting-web-server"
+        "configurare-rate-limiting-web-server",
+        "cos-e-un-waf-web-application-firewall"
       ]
     },
     {
@@ -10460,7 +10564,8 @@
       "suggest": [
         "proxy-waf-per-macos",
         "bannare-ip-brute-force-caddy",
-        "generare-regole-waf-con-machine-learning"
+        "generare-regole-waf-con-machine-learning",
+        "cos-e-un-waf-web-application-firewall"
       ]
     },
     {
@@ -10485,7 +10590,8 @@
       "suggest": [
         "monitorare-dominio-ssl-reputazione",
         "secure-web-gateway-self-hosted",
-        "proxy-waf-per-macos"
+        "proxy-waf-per-macos",
+        "cos-e-un-waf-web-application-firewall"
       ]
     },
     {
@@ -10512,7 +10618,8 @@
       "suggest": [
         "bannare-ip-brute-force-caddy",
         "monitorare-dominio-ssl-reputazione",
-        "proxy-waf-per-macos"
+        "proxy-waf-per-macos",
+        "cos-e-un-waf-web-application-firewall"
       ]
     },
     {
@@ -10565,7 +10672,8 @@
       "suggest": [
         "ridurre-costi-inferenza-llm",
         "memoria-persistente-assistenti-ai",
-        "ridurre-token-agenti-ai"
+        "ridurre-token-agenti-ai",
+        "cos-e-un-waf-web-application-firewall"
       ]
     },
     {
@@ -10593,7 +10701,8 @@
       "suggest": [
         "fine-tuning-llm-apple-silicon",
         "memoria-persistente-assistenti-ai",
-        "ridurre-token-agenti-ai"
+        "ridurre-token-agenti-ai",
+        "cos-e-un-waf-web-application-firewall"
       ]
     },
     {
@@ -10621,7 +10730,8 @@
       "suggest": [
         "ridurre-costi-inferenza-llm",
         "ridurre-token-agenti-ai",
-        "fine-tuning-llm-apple-silicon"
+        "fine-tuning-llm-apple-silicon",
+        "cos-e-un-waf-web-application-firewall"
       ]
     },
     {
@@ -10649,7 +10759,8 @@
       "suggest": [
         "memoria-persistente-assistenti-ai",
         "valutare-etica-di-un-llm",
-        "ridurre-costi-inferenza-llm"
+        "ridurre-costi-inferenza-llm",
+        "cos-e-un-waf-web-application-firewall"
       ]
     },
     {
@@ -10676,7 +10787,8 @@
       "suggest": [
         "ridurre-token-agenti-ai",
         "llm-e-matematica-benchmark",
-        "memoria-persistente-assistenti-ai"
+        "memoria-persistente-assistenti-ai",
+        "cos-e-un-waf-web-application-firewall"
       ]
     },
     {
@@ -10703,7 +10815,8 @@
       "suggest": [
         "valutare-etica-di-un-llm",
         "sincronizzare-agenti-ai-reti-instabili",
-        "ridurre-token-agenti-ai"
+        "ridurre-token-agenti-ai",
+        "cos-e-un-waf-web-application-firewall"
       ]
     },
     {
@@ -10731,7 +10844,8 @@
       "suggest": [
         "llm-e-matematica-benchmark",
         "valutare-etica-di-un-llm",
-        "ridurre-token-agenti-ai"
+        "ridurre-token-agenti-ai",
+        "cos-e-un-waf-web-application-firewall"
       ]
     },
     {
@@ -10756,7 +10870,8 @@
       "suggest": [
         "generare-asset-brand-logo-favicon",
         "anonimizzare-csv-nel-browser",
-        "watermark-invisibile-nei-video"
+        "watermark-invisibile-nei-video",
+        "cos-e-un-waf-web-application-firewall"
       ]
     },
     {
@@ -10781,7 +10896,8 @@
       "suggest": [
         "convertire-pdf-scansionato-in-testo",
         "anonimizzare-csv-nel-browser",
-        "watermark-invisibile-nei-video"
+        "watermark-invisibile-nei-video",
+        "cos-e-un-waf-web-application-firewall"
       ]
     },
     {
@@ -10806,7 +10922,8 @@
       "suggest": [
         "generare-asset-brand-logo-favicon",
         "watermark-invisibile-nei-video",
-        "convertire-pdf-scansionato-in-testo"
+        "convertire-pdf-scansionato-in-testo",
+        "cos-e-un-waf-web-application-firewall"
       ]
     },
     {
@@ -10829,7 +10946,8 @@
       "suggest": [
         "anonimizzare-csv-nel-browser",
         "velocizzare-wordpress",
-        "generare-asset-brand-logo-favicon"
+        "generare-asset-brand-logo-favicon",
+        "cos-e-un-waf-web-application-firewall"
       ]
     },
     {
@@ -10853,7 +10971,8 @@
       "suggest": [
         "watermark-invisibile-nei-video",
         "app-note-markdown-local-first",
-        "anonimizzare-csv-nel-browser"
+        "anonimizzare-csv-nel-browser",
+        "cos-e-un-waf-web-application-firewall"
       ]
     },
     {
@@ -10878,7 +10997,8 @@
       "suggest": [
         "velocizzare-wordpress",
         "archiviare-file-dentro-un-video",
-        "watermark-invisibile-nei-video"
+        "watermark-invisibile-nei-video",
+        "cos-e-un-waf-web-application-firewall"
       ]
     },
     {
@@ -10904,7 +11024,8 @@
       "suggest": [
         "app-note-markdown-local-first",
         "velocizzare-wordpress",
-        "watermark-invisibile-nei-video"
+        "watermark-invisibile-nei-video",
+        "cos-e-un-waf-web-application-firewall"
       ]
     },
     {
@@ -10931,7 +11052,8 @@
       "suggest": [
         "cos-e-il-webtek-streaming-teknival",
         "audiolibri-gratis-in-italiano",
-        "strumenti-open-source-produzione-musicale"
+        "strumenti-open-source-produzione-musicale",
+        "cos-e-un-waf-web-application-firewall"
       ]
     },
     {
@@ -10956,7 +11078,8 @@
       "suggest": [
         "daw-console-dj-nel-browser",
         "audiolibri-gratis-in-italiano",
-        "strumenti-open-source-produzione-musicale"
+        "strumenti-open-source-produzione-musicale",
+        "cos-e-un-waf-web-application-firewall"
       ]
     },
     {
@@ -10980,7 +11103,8 @@
       "suggest": [
         "cos-e-il-webtek-streaming-teknival",
         "strumenti-open-source-produzione-musicale",
-        "daw-console-dj-nel-browser"
+        "daw-console-dj-nel-browser",
+        "cos-e-un-waf-web-application-firewall"
       ]
     },
     {
@@ -11012,7 +11136,8 @@
       "suggest": [
         "audiolibri-gratis-in-italiano",
         "cos-e-il-webtek-streaming-teknival",
-        "daw-console-dj-nel-browser"
+        "daw-console-dj-nel-browser",
+        "cos-e-un-waf-web-application-firewall"
       ]
     },
     {
