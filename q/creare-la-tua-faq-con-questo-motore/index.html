@@ -42,6 +42,12 @@
   .answer code { cursor: pointer; }
   .answer code:hover { outline: 1px solid var(--border); }
   .answer code.copied { outline: 1px solid var(--accent); color: var(--accent); }
+  .verified { display: flex; align-items: center; gap: 7px; margin-top: 18px; font-size: 13px; color: var(--text-dim); }
+  .verified .vchk { flex: 0 0 auto; }
+  @media (prefers-reduced-motion: no-preference) {
+    .vchk path { stroke-dasharray: 24; stroke-dashoffset: 24; animation: vchk-draw .5s .15s ease forwards; }
+  }
+  @keyframes vchk-draw { to { stroke-dashoffset: 0; } }
 </style>
 </head>
 <body>
@@ -55,6 +61,7 @@
   <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › FabGPT-FAQ</nav>
   <h1>Come creo la mia FAQ con questo motore (guida al fork)?</h1>
   <div class="answer"><p>Il motore è <a href="../cos-e-fabgpt-come-funziona/">open source e pensato per il riuso</a>: tutto il contenuto vive in <strong>un solo file</strong>, <code>faq.json</code>. La ricetta:</p><ul><li><strong>forka/clona</strong> il repository e svuota <code>faq.json</code>: config (nome del bot, messaggio di benvenuto, <code>siteUrl</code>), verticali, e le tue voci – ognuna con <code>question</code>, <code>keywords</code> (parole singole = match fuzzy, frasi = match più pesante), <code>answers</code> in <a href="../markdown-la-sintassi-essenziale/">Markdown minimo</a></li><li><strong>prova in locale</strong>: <code>python3 -m http.server</code> e apri il browser – il matcher, il typewriter e lo smalltalk funzionano subito</li><li><strong>testa come si deve</strong>: una riga per voce in <code>tests.json</code>, poi <code>python3 qa.py</code> (con lo <em>explain</em> per il debug dei match) e il benchmark <code>python3 bench.py</code> che valida domande canoniche, refusi e falsi positivi – è il guardrail che tiene onesta la qualità mentre cresci</li><li><strong>genera e pubblica</strong>: <code>python3 build.py</code> produce le pagine statiche SEO (una per domanda, con JSON-LD), sitemap e robots – e <a href="../servire-un-sito-statico-gratis/">l&#x27;hosting è gratis</a></li></ul><p>Licenza MIT: usalo per la FAQ del tuo progetto, del tuo prodotto, del tuo comune. L&#x27;unico ingrediente non incluso: risposte scritte bene.</p></div>
+  <div class="verified"><svg class="vchk" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Verificata a mano · zero allucinazioni</span></div>
   <a class="ask" href="../../?q=fork-guida">Chiedilo a FabGPT-FAQ →</a>
   <div class="related">
     <h2>Altre domande</h2>

@@ -42,6 +42,12 @@
   .answer code { cursor: pointer; }
   .answer code:hover { outline: 1px solid var(--border); }
   .answer code.copied { outline: 1px solid var(--accent); color: var(--accent); }
+  .verified { display: flex; align-items: center; gap: 7px; margin-top: 18px; font-size: 13px; color: var(--text-dim); }
+  .verified .vchk { flex: 0 0 auto; }
+  @media (prefers-reduced-motion: no-preference) {
+    .vchk path { stroke-dasharray: 24; stroke-dashoffset: 24; animation: vchk-draw .5s .15s ease forwards; }
+  }
+  @keyframes vchk-draw { to { stroke-dashoffset: 0; } }
 </style>
 </head>
 <body>
@@ -55,6 +61,7 @@
   <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › Cybersecurity</nav>
   <h1>Come si gestisce la comunicazione di crisi in un incidente cyber?</h1>
   <div class="answer"><p>In un incidente, ciò che <em>dici</em> (e a chi, e quando) conta quanto ciò che fai tecnicamente: una comunicazione sbagliata trasforma un problema di sicurezza in una crisi reputazionale e legale. I principi:</p><ul><li><strong>canali fuori banda</strong>: comunica su sistemi <em>non</em> compromessi – l&#x27;attaccante potrebbe leggere l&#x27;email aziendale mentre pianifichi la risposta</li><li><strong>non compromettere l&#x27;indagine</strong>: dettagli pubblicati troppo presto avvisano l&#x27;attaccante di cosa sai; ma il silenzio prolungato distrugge la fiducia più del danno – è un equilibrio da gestire con il legale</li><li><strong>rispetta gli obblighi di legge</strong>: la <a href="../notifica-data-breach-garante/">notifica al Garante entro 72 ore</a> e agli interessati se il rischio è alto, i termini <a href="../nis2-chi-deve-adeguarsi-italia/">NIS2/ACN</a> – questi <em>non sono</em> scelte di PR, sono doveri</li><li><strong>una voce sola, coordinata</strong>: un portavoce, messaggi allineati verso dipendenti, clienti, autorità, stampa – le versioni contraddittorie sono benzina</li><li><strong>onestà misurata</strong>: dire ciò che si sa con certezza, ammettere ciò che non si sa ancora, non promettere ciò che non puoi garantire. Le aziende che hanno gestito bene un breach sono spesso quelle che hanno comunicato <em>presto e onestamente</em>; quelle che hanno minimizzato o nascosto hanno pagato molto di più</li></ul><p>È una fase da preparare <strong>prima</strong> – template, ruoli, decisori, contatti – ed è esattamente ciò che un <a href="../tabletop-exercise-simulazione-crisi/">tabletop exercise</a> mette alla prova. La comunicazione di crisi è parte dell&#x27;<a href="../fasi-incident-response-nist/">incident response</a>, non un&#x27;appendice.</p></div>
+  <div class="verified"><svg class="vchk" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Verificata a mano · zero allucinazioni</span></div>
   <a class="ask" href="../../?q=crisis-communication">Chiedilo a FabGPT-FAQ →</a>
   <div class="related">
     <h2>Altre domande</h2>

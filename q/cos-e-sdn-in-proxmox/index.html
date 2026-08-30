@@ -42,6 +42,12 @@
   .answer code { cursor: pointer; }
   .answer code:hover { outline: 1px solid var(--border); }
   .answer code.copied { outline: 1px solid var(--accent); color: var(--accent); }
+  .verified { display: flex; align-items: center; gap: 7px; margin-top: 18px; font-size: 13px; color: var(--text-dim); }
+  .verified .vchk { flex: 0 0 auto; }
+  @media (prefers-reduced-motion: no-preference) {
+    .vchk path { stroke-dasharray: 24; stroke-dashoffset: 24; animation: vchk-draw .5s .15s ease forwards; }
+  }
+  @keyframes vchk-draw { to { stroke-dashoffset: 0; } }
 </style>
 </head>
 <body>
@@ -55,6 +61,7 @@
   <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › Proxmox e self-hosting</nav>
   <h1>Cos&#x27;è l&#x27;SDN di Proxmox?</h1>
   <div class="answer"><p>L&#x27;<strong>SDN</strong> (Software-Defined Networking) di Proxmox porta la definizione delle reti dal singolo nodo al <strong>datacenter</strong>: invece di configurare bridge e VLAN a mano su ogni host, definisci <strong>zone</strong> e <strong>VNet</strong> una volta sola e il cluster le applica ovunque – integrato nella GUI dalle versioni 8.x.</p><p>I mattoni: le zone <em>VLAN</em> mappano le <a href="../segmentare-la-rete-con-vlan/">VLAN fisiche</a> esistenti; le zone <strong>VXLAN/EVPN</strong> creano reti overlay che viaggiano incapsulate sulla rete normale – utile per stendere una rete privata tra nodi (anche in sedi diverse) senza toccare gli switch; più IPAM integrato, subnet e DHCP gestiti.</p><p>Quando usarlo: cluster con più di due nodi e reti per-tenant o per-ambiente (lab, staging, produzione isolate), o l&#x27;esigenza di reti che seguono le VM nella <a href="../migrazione-live-tra-nodi/">migrazione</a>. Per il nodo singolo di casa, il bridge classico con VLAN resta più che sufficiente – l&#x27;SDN è potenza che si paga in complessità.</p></div>
+  <div class="verified"><svg class="vchk" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Verificata a mano · zero allucinazioni</span></div>
   <a class="ask" href="../../?q=sdn-proxmox">Chiedilo a FabGPT-FAQ →</a>
   <div class="related">
     <h2>Altre domande</h2>

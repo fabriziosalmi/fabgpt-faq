@@ -42,6 +42,12 @@
   .answer code { cursor: pointer; }
   .answer code:hover { outline: 1px solid var(--border); }
   .answer code.copied { outline: 1px solid var(--accent); color: var(--accent); }
+  .verified { display: flex; align-items: center; gap: 7px; margin-top: 18px; font-size: 13px; color: var(--text-dim); }
+  .verified .vchk { flex: 0 0 auto; }
+  @media (prefers-reduced-motion: no-preference) {
+    .vchk path { stroke-dasharray: 24; stroke-dashoffset: 24; animation: vchk-draw .5s .15s ease forwards; }
+  }
+  @keyframes vchk-draw { to { stroke-dashoffset: 0; } }
 </style>
 </head>
 <body>
@@ -55,6 +61,7 @@
   <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › AI e LLM</nav>
   <h1>Cos&#x27;è l&#x27;identità di un agente AI (e a cosa serve un kill-switch)?</h1>
   <div class="answer"><p>Quando gli <a href="../cos-e-un-agente-ai/">agenti</a> agiscono sui sistemi, diventano <strong>attori con privilegi</strong> – e vanno governati come tali. L&#x27;<strong>agent identity</strong> è la risposta al &quot;chi ha fatto cosa&quot; nel mondo delle <em>non-human identity</em>: ogni agente ha una propria identità distinta (non le credenziali di un umano prese in prestito), con <a href="../principio-del-minimo-privilegio/">permessi minimi</a>, scope e scadenza propri, e un <a href="../security-logging-fatto-bene/">audit log</a> che attribuisce ogni azione. Così un agente compromesso o impazzito si <strong>isola e si revoca</strong> senza toccare gli altri, e ogni sua mossa è ricostruibile.</p><p>Il <strong>kill-switch</strong> è il controllo di ultima istanza: la capacità di <strong>fermare immediatamente</strong> un agente (o l&#x27;intera flotta) – revocare le sue credenziali, interrompere il <a href="../pattern-di-orchestrazione-agentica/">loop</a>, bloccare le sue azioni – quando fa qualcosa di indesiderato. Non è paranoia teorica: un agente in un loop costoso, o indotto da <a href="../cos-e-la-prompt-injection/">prompt injection</a> a fare danni, deve poter essere spento da un umano <em>ora</em>, non alla prossima release.</p><p>È governance che l&#x27;<a href="../cosa-prevede-ai-act/">AI Act</a> spinge verso l&#x27;obbligo per i sistemi ad alto rischio (supervisione umana significativa). I mattoni concreti: identità e token dedicati per agente, <a href="../come-si-limita-un-agente-ai/">HITL sulle azioni irreversibili</a>, <a href="../cos-e-il-sandboxing-per-agenti/">sandbox</a> che confina i danni, e un interruttore che qualcuno sappia dove trovare – prima di averne bisogno.</p></div>
+  <div class="verified"><svg class="vchk" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Verificata a mano · zero allucinazioni</span></div>
   <a class="ask" href="../../?q=agent-identity-killswitch">Chiedilo a FabGPT-FAQ →</a>
   <div class="related">
     <h2>Altre domande</h2>

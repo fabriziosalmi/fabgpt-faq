@@ -42,6 +42,12 @@
   .answer code { cursor: pointer; }
   .answer code:hover { outline: 1px solid var(--border); }
   .answer code.copied { outline: 1px solid var(--accent); color: var(--accent); }
+  .verified { display: flex; align-items: center; gap: 7px; margin-top: 18px; font-size: 13px; color: var(--text-dim); }
+  .verified .vchk { flex: 0 0 auto; }
+  @media (prefers-reduced-motion: no-preference) {
+    .vchk path { stroke-dasharray: 24; stroke-dashoffset: 24; animation: vchk-draw .5s .15s ease forwards; }
+  }
+  @keyframes vchk-draw { to { stroke-dashoffset: 0; } }
 </style>
 </head>
 <body>
@@ -55,6 +61,7 @@
   <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › Cloudflare</nav>
   <h1>Cache HIT, MISS, BYPASS: come si leggono le risposte di una CDN?</h1>
   <div class="answer"><p>L&#x27;header <code>CF-Cache-Status</code> (o <code>X-Cache</code> altrove) racconta cosa ha fatto la <a href="../cos-e-una-cdn/">CDN</a> con la tua richiesta:</p><ul><li><strong>HIT</strong> – servita dalla cache edge: l&#x27;origine non è stata toccata (l&#x27;obiettivo)</li><li><strong>MISS</strong> – non c&#x27;era: presa dall&#x27;origine e <em>ora</em> cachata; qualche MISS è fisiologico per nodo/scadenza</li><li><strong>EXPIRED / REVALIDATED</strong> – c&#x27;era ma scaduta: ricontrollata sull&#x27;origine</li><li><strong>DYNAMIC</strong> – Cloudflare ha deciso che non si cacha (default per l&#x27;<strong>HTML</strong>: sorpresa frequente – di serie CF cacha asset statici, non le pagine)</li><li><strong>BYPASS</strong> – qualcosa ha detto di non cachare: <code>Cache-Control: no-store</code>, un cookie di sessione, una page rule</li></ul><p>Chi comanda davvero è <strong><code>Cache-Control</code></strong> dall&#x27;origine (<code>s-maxage</code> parla proprio alle CDN) più le regole edge. Il flusso di debug: <code>curl -sI https://... | grep -i cache</code> due volte di fila – se la seconda non è HIT, la risposta è negli header che l&#x27;origine manda. E per l&#x27;HTML statico che <em>può</em> stare in cache: cache everything + TTL, o <a href="https://github.com/fabriziosalmi/zion" target="_blank" rel="noopener">una cache che controlli tu</a>.</p></div>
+  <div class="verified"><svg class="vchk" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Verificata a mano · zero allucinazioni</span></div>
   <a class="ask" href="../../?q=cache-status">Chiedilo a FabGPT-FAQ →</a>
   <div class="related">
     <h2>Altre domande</h2>

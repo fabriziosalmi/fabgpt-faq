@@ -42,6 +42,12 @@
   .answer code { cursor: pointer; }
   .answer code:hover { outline: 1px solid var(--border); }
   .answer code.copied { outline: 1px solid var(--accent); color: var(--accent); }
+  .verified { display: flex; align-items: center; gap: 7px; margin-top: 18px; font-size: 13px; color: var(--text-dim); }
+  .verified .vchk { flex: 0 0 auto; }
+  @media (prefers-reduced-motion: no-preference) {
+    .vchk path { stroke-dasharray: 24; stroke-dashoffset: 24; animation: vchk-draw .5s .15s ease forwards; }
+  }
+  @keyframes vchk-draw { to { stroke-dashoffset: 0; } }
 </style>
 </head>
 <body>
@@ -55,6 +61,7 @@
   <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › Proxmox e self-hosting</nav>
   <h1>Come si mette firmware open source locale su dispositivi smart (ESPHome, Tasmota)?</h1>
   <div class="answer"><p>Molti dispositivi smart economici (prese, interruttori, sensori) girano su chip <strong>ESP8266/ESP32</strong> e di fabbrica parlano col cloud del produttore. Sostituendone il firmware con uno <strong>open source e locale</strong> li svincoli per sempre: nessuna chiamata esterna, nessun account, funzionano anche a internet spento.</p><ul><li><strong>ESPHome</strong> – integrato splendidamente con <a href="../home-assistant-su-proxmox/">Home Assistant</a>: descrivi il dispositivo in YAML, compili e flashi (anche <strong>over-the-air</strong> dopo il primo flash via cavo), e appare in HA nativamente. La scelta per chi vive in HA</li><li><strong>Tasmota</strong> – firmware pronto, configurabile da web UI, parla <a href="../gestire-zigbee-con-zigbee2mqtt/">MQTT</a>: ottimo per svincolare device commerciali (molti Sonoff) con un flash e via</li></ul><p>Le cautele: il flashing via cavo richiede attenzione (piedini, tensioni – si può <em>brickare</em> un dispositivo), controlla la compatibilità del modello prima di comprare, e alcuni produttori hanno blindato i chip più recenti. I dispositivi <strong>Shelly</strong> sono la scorciatoia: nascono già con API locale e MQTT, spesso non serve reflashare. Il risultato comune: una casa intelligente che <a href="../protocolli-smart-home-locali-zigbee-matter/">risponde a te, in locale</a>, immune alla morte dei server altrui – la stessa <a href="../cos-e-la-sovranita-digitale/">sovranità</a> applicata alle prese di corrente.</p></div>
+  <div class="verified"><svg class="vchk" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Verificata a mano · zero allucinazioni</span></div>
   <a class="ask" href="../../?q=esphome-tasmota">Chiedilo a FabGPT-FAQ →</a>
   <div class="related">
     <h2>Altre domande</h2>

@@ -42,6 +42,12 @@
   .answer code { cursor: pointer; }
   .answer code:hover { outline: 1px solid var(--border); }
   .answer code.copied { outline: 1px solid var(--accent); color: var(--accent); }
+  .verified { display: flex; align-items: center; gap: 7px; margin-top: 18px; font-size: 13px; color: var(--text-dim); }
+  .verified .vchk { flex: 0 0 auto; }
+  @media (prefers-reduced-motion: no-preference) {
+    .vchk path { stroke-dasharray: 24; stroke-dashoffset: 24; animation: vchk-draw .5s .15s ease forwards; }
+  }
+  @keyframes vchk-draw { to { stroke-dashoffset: 0; } }
 </style>
 </head>
 <body>
@@ -55,6 +61,7 @@
   <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › Strumenti e app</nav>
   <h1>Cosa sono i Core Web Vitals (LCP, INP, CLS)?</h1>
   <div class="answer"><p>I <strong>Core Web Vitals</strong> sono le tre metriche con cui Google misura l&#x27;esperienza reale di caricamento (e che pesano sul ranking):</p><ul><li><strong>LCP</strong> (Largest Contentful Paint) – quando appare l&#x27;elemento principale: buono sotto i <strong>2,5 s</strong></li><li><strong>INP</strong> (Interaction to Next Paint) – quanto reattiva è la pagina ai click e input: buono sotto i <strong>200 ms</strong></li><li><strong>CLS</strong> (Cumulative Layout Shift) – quanto la pagina &quot;salta&quot; durante il caricamento: buono sotto <strong>0,1</strong></li></ul><p>Contano i dati degli <strong>utenti reali</strong> (CrUX), non solo il test di laboratorio. Le leve tipiche: immagini con dimensioni dichiarate e preload dell&#x27;elemento LCP, meno JavaScript bloccante, font senza flash di reflow. Su WordPress, <a href="https://github.com/fabriziosalmi/speedmate" target="_blank" rel="noopener">SpeedMate</a> attacca esattamente queste leve; per il monitoraggio continuo c&#x27;è <a href="https://github.com/fabriziosalmi/websites-monitor" target="_blank" rel="noopener">websites-monitor</a>.</p></div>
+  <div class="verified"><svg class="vchk" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Verificata a mano · zero allucinazioni</span></div>
   <a class="ask" href="../../?q=core-web-vitals">Chiedilo a FabGPT-FAQ →</a>
   <div class="related">
     <h2>Altre domande</h2>

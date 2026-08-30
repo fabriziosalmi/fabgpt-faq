@@ -42,6 +42,12 @@
   .answer code { cursor: pointer; }
   .answer code:hover { outline: 1px solid var(--border); }
   .answer code.copied { outline: 1px solid var(--accent); color: var(--accent); }
+  .verified { display: flex; align-items: center; gap: 7px; margin-top: 18px; font-size: 13px; color: var(--text-dim); }
+  .verified .vchk { flex: 0 0 auto; }
+  @media (prefers-reduced-motion: no-preference) {
+    .vchk path { stroke-dasharray: 24; stroke-dashoffset: 24; animation: vchk-draw .5s .15s ease forwards; }
+  }
+  @keyframes vchk-draw { to { stroke-dashoffset: 0; } }
 </style>
 </head>
 <body>
@@ -55,6 +61,7 @@
   <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › AI e LLM</nav>
   <h1>Come si verifica l&#x27;integrità dei pesi di un modello (e i rischi del pickle)?</h1>
   <div class="answer"><p>Scaricare un modello è <a href="../cos-e-la-supply-chain-security/">eseguire codice di terzi con i tuoi permessi</a> – e per anni il rischio è stato letteralmente questo: il formato <strong>pickle</strong> di PyTorch è codice Python serializzato, e caricarlo può <strong>eseguire comandi arbitrari</strong>. Un checkpoint &quot;innocuo&quot; su un hub pubblico poteva aprire una reverse shell all&#x27;import. I rischi in fila:</p><ul><li><strong>deserializzazione malevola</strong> (pickle): la ragione per cui esiste <strong>safetensors</strong> – un formato che contiene <em>solo</em> dati, nessun codice eseguibile. Preferiscilo sempre; scansiona i pickle (picklescan) quando sei costretto a usarli</li><li><strong>checkpoint manomessi</strong>: pesi alterati con backdoor o comportamenti nascosti – da qui l&#x27;importanza di <strong>hash e firme</strong> verificabili, non del solo &quot;scaricato dal repo giusto&quot;</li><li><strong>librerie non validate</strong>: <code>transformers</code>, <code>tokenizers</code> e affini sono dipendenze come le altre – <a href="../sicurezza-nella-pipeline-cicd/">CVE, versioni pinnate, SBOM</a></li></ul><p>La risposta emergente è l&#x27;<strong>AIBOM</strong> (AI Bill of Materials): l&#x27;inventario firmato di <em>cosa</em> c&#x27;è in un sistema AI – modello, dataset di provenienza, licenze, dipendenze – l&#x27;equivalente dell&#x27;<a href="../cos-e-la-supply-chain-security/">SBOM</a> per l&#x27;era dei modelli, e un tassello di conformità <a href="../cosa-prevede-ai-act/">AI Act</a>. La regola pratica minima: <strong>safetensors</strong>, hash verificati, fonti fidate, e trattare ogni modello scaricato come <a href="../sicurezza-nella-pipeline-cicd/">una dipendenza da governare</a>, non come un file di dati inerte.</p></div>
+  <div class="verified"><svg class="vchk" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Verificata a mano · zero allucinazioni</span></div>
   <a class="ask" href="../../?q=ai-supply-chain-weights">Chiedilo a FabGPT-FAQ →</a>
   <div class="related">
     <h2>Altre domande</h2>

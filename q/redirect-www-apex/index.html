@@ -42,6 +42,12 @@
   .answer code { cursor: pointer; }
   .answer code:hover { outline: 1px solid var(--border); }
   .answer code.copied { outline: 1px solid var(--accent); color: var(--accent); }
+  .verified { display: flex; align-items: center; gap: 7px; margin-top: 18px; font-size: 13px; color: var(--text-dim); }
+  .verified .vchk { flex: 0 0 auto; }
+  @media (prefers-reduced-motion: no-preference) {
+    .vchk path { stroke-dasharray: 24; stroke-dashoffset: 24; animation: vchk-draw .5s .15s ease forwards; }
+  }
+  @keyframes vchk-draw { to { stroke-dashoffset: 0; } }
 </style>
 </head>
 <body>
@@ -55,6 +61,7 @@
   <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › Cloudflare</nav>
   <h1>Come si fa il redirect www → apex (o viceversa)?</h1>
   <div class="answer"><p>Prima la decisione, poi la tecnica: <strong>una sola forma canonica</strong> – <code>www.example.com</code> <em>o</em> <code>example.com</code> – e l&#x27;altra fa un <strong>301</strong> verso di lei. Quale? Questione di gusto (l&#x27;apex è più pulito; il www è tecnicamente più flessibile per i CNAME): l&#x27;importante è sceglierne una e dichiararla anche col <a href="../canonical-url-quando-e-perche/">canonical</a>.</p><p>Le implementazioni tipiche:</p><ul><li><strong>su Cloudflare</strong>: entrambi i nomi <a href="../nuvoletta-arancione-cloudflare/">proxied</a> e una <strong>Redirect Rule</strong> (301, preserva path e query – il redirect che scarta il percorso è un classico da negozio rotto)</li><li><strong>su Caddy/Nginx</strong>: un server block per la forma sbagliata che fa solo <code>redir</code> 301 alla giusta</li><li><strong>su GitHub Pages</strong> e simili: il www si gestisce col CNAME, l&#x27;apex con gli IP/ALIAS del provider – <a href="../servire-un-sito-statico-gratis/">la coppia va comunque testata</a></li></ul><p>Verifica onesta: <code>curl -sIL http://example.com | grep -iE &#x27;location|HTTP/&#x27;</code> sulle <strong>quattro</strong> combinazioni (http/https × www/apex) – devono convergere tutte, in un salto solo, sulla forma canonica in HTTPS. Due 301 in fila sono latenza regalata; <a href="../err-too-many-redirects/">un loop</a> è un altro capitolo.</p></div>
+  <div class="verified"><svg class="vchk" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Verificata a mano · zero allucinazioni</span></div>
   <a class="ask" href="../../?q=www-apex-redirect">Chiedilo a FabGPT-FAQ →</a>
   <div class="related">
     <h2>Altre domande</h2>

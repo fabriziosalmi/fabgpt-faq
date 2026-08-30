@@ -42,6 +42,12 @@
   .answer code { cursor: pointer; }
   .answer code:hover { outline: 1px solid var(--border); }
   .answer code.copied { outline: 1px solid var(--accent); color: var(--accent); }
+  .verified { display: flex; align-items: center; gap: 7px; margin-top: 18px; font-size: 13px; color: var(--text-dim); }
+  .verified .vchk { flex: 0 0 auto; }
+  @media (prefers-reduced-motion: no-preference) {
+    .vchk path { stroke-dasharray: 24; stroke-dashoffset: 24; animation: vchk-draw .5s .15s ease forwards; }
+  }
+  @keyframes vchk-draw { to { stroke-dashoffset: 0; } }
 </style>
 </head>
 <body>
@@ -55,6 +61,7 @@
   <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › Proxmox e self-hosting</nav>
   <h1>La migrazione fallisce: cause tipiche</h1>
   <div class="answer"><p>L&#x27;errore della <a href="../migrazione-live-tra-nodi/">migrazione</a> dice quasi sempre la causa – va solo letto. Le solite cinque:</p><ul><li><strong>risorse locali agganciate</strong>: una ISO montata da storage locale, un <a href="../passare-un-disco-usb-a-una-vm/">dispositivo USB o una GPU passata</a> – la VM è inchiodata al ferro finché non li stacchi (Hardware → rimuovi/ejetta, poi riprova)</li><li><strong>storage assente sul nodo di destinazione</strong>: il disco vive su uno storage che l&#x27;altro nodo non vede → <a href="../storage-proxmox-lvm-zfs-nfs-ceph/">storage condiviso</a>, oppure <code>--with-local-disks</code> per la copia a caldo</li><li><strong>CPU type incompatibile</strong>: VM con CPU <code>host</code> verso un processore diverso → tipo comune (x86-64-v2/v3) e un riavvio pianificato per applicarlo</li><li><strong>RAM insufficiente di là</strong>: il nodo di destinazione deve <em>contenere</em> la VM – libera o scegli un altro nodo</li><li><strong>rete/quorum ballerini</strong>: migrazioni che si interrompono a metà con cluster instabile → <a href="../nodo-x-rossa-quorum-perso/">prima si guarisce il quorum</a>, poi si migra; e un lock residuo dopo il fallimento si toglie con <code>qm unlock</code></li></ul><p>Per i <a href="../differenza-container-lxc-e-vm/">container</a>: la migrazione è <strong>a freddo</strong> (restart) – se &quot;fallisce&quot; perché la vuoi live, non è un bug, è il design.</p></div>
+  <div class="verified"><svg class="vchk" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Verificata a mano · zero allucinazioni</span></div>
   <a class="ask" href="../../?q=migrazione-fallisce">Chiedilo a FabGPT-FAQ →</a>
   <div class="related">
     <h2>Altre domande</h2>

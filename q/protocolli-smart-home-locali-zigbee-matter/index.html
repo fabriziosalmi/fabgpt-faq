@@ -42,6 +42,12 @@
   .answer code { cursor: pointer; }
   .answer code:hover { outline: 1px solid var(--border); }
   .answer code.copied { outline: 1px solid var(--accent); color: var(--accent); }
+  .verified { display: flex; align-items: center; gap: 7px; margin-top: 18px; font-size: 13px; color: var(--text-dim); }
+  .verified .vchk { flex: 0 0 auto; }
+  @media (prefers-reduced-motion: no-preference) {
+    .vchk path { stroke-dasharray: 24; stroke-dashoffset: 24; animation: vchk-draw .5s .15s ease forwards; }
+  }
+  @keyframes vchk-draw { to { stroke-dashoffset: 0; } }
 </style>
 </head>
 <body>
@@ -55,6 +61,7 @@
   <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › Proxmox e self-hosting</nav>
   <h1>Zigbee, Z-Wave, Matter, Thread: quali protocolli per una smart home locale?</h1>
   <div class="answer"><p>La regola d&#x27;oro della domotica che dura: <strong>niente cloud tra te e la lampadina</strong>. I dispositivi Wi-Fi cloud smettono di funzionare quando il produttore chiude i server (è successo, succederà) e mandano i tuoi dati fuori. I protocolli locali evitano entrambi:</p><ul><li><strong>Zigbee</strong> – lo standard più diffuso ed economico: mesh a basso consumo, ecosistema enorme, funziona <strong>in locale</strong> con un coordinatore USB e <a href="../home-assistant-su-proxmox/">Home Assistant</a></li><li><strong>Z-Wave</strong> – simile, frequenza diversa (meno affollata del Wi-Fi 2.4 GHz), meno dispositivi ma spesso più affidabile su lunghe distanze</li><li><strong>Thread + Matter</strong> – il futuro che si sta assestando: <strong>Matter</strong> è lo standard di interoperabilità (dispositivi di marche diverse che si parlano <strong>localmente</strong>), <strong>Thread</strong> è la rete mesh IP sottostante. La promessa è la fine dei silos; la realtà è ancora in maturazione</li></ul><p>La scelta pragmatica oggi: <strong>Zigbee</strong> per il grosso (col coordinatore in <a href="../gestire-zigbee-con-zigbee2mqtt/">Zigbee2MQTT</a>), Matter dove già funziona bene. Il cervello locale è <a href="../home-assistant-su-proxmox/">Home Assistant su un mini PC</a>, e la regola di rete: <a href="../segmentare-la-rete-con-vlan/">le telecamere e l&#x27;IoT su una VLAN separata</a> senza uscita internet – il device compromesso non deve poter chiamare casa.</p></div>
+  <div class="verified"><svg class="vchk" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Verificata a mano · zero allucinazioni</span></div>
   <a class="ask" href="../../?q=smart-home-protocolli">Chiedilo a FabGPT-FAQ →</a>
   <div class="related">
     <h2>Altre domande</h2>

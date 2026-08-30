@@ -42,6 +42,12 @@
   .answer code { cursor: pointer; }
   .answer code:hover { outline: 1px solid var(--border); }
   .answer code.copied { outline: 1px solid var(--accent); color: var(--accent); }
+  .verified { display: flex; align-items: center; gap: 7px; margin-top: 18px; font-size: 13px; color: var(--text-dim); }
+  .verified .vchk { flex: 0 0 auto; }
+  @media (prefers-reduced-motion: no-preference) {
+    .vchk path { stroke-dasharray: 24; stroke-dashoffset: 24; animation: vchk-draw .5s .15s ease forwards; }
+  }
+  @keyframes vchk-draw { to { stroke-dashoffset: 0; } }
 </style>
 </head>
 <body>
@@ -55,6 +61,7 @@
   <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › Proxmox e self-hosting</nav>
   <h1>Come si monta uno storage NFS o SMB su Proxmox?</h1>
   <div class="answer"><p>La via giusta è <strong>via Datacenter, non via fstab</strong>: Datacenter → Storage → Add → NFS (o SMB/CIFS), server e export, e soprattutto i <strong>content type</strong> giusti – è il dettaglio che confonde: <em>Disk image</em> e <em>Container</em> per metterci dischi di VM, <em>VZDump backup</em> per i <a href="../backup-automatici-verso-pbs/">backup</a>, <em>ISO image</em> per le ISO. Lo storage aggiunto così è visibile a <strong>tutti i nodi</strong> del cluster, con lo stato gestito da Proxmox.</p><p>Le note che risparmiano pomeriggi:</p><ul><li>per SMB serve un utente dedicato sul NAS (mai guest), e le <strong>versioni di protocollo</strong> contano: forza SMB3</li><li>per NFS: allinea gli UID/GID o usa mapall sul NAS, e preferisci NFSv4.x; se il NAS sparisce, i mount appesi possono bloccare l&#x27;host – motivo per cui i dischi delle VM <em>di produzione</em> su NFS richiedono <a href="../storage-proxmox-lvm-zfs-nfs-ceph/">un NAS all&#x27;altezza</a></li><li>l&#x27;uso più sano di uno share di rete in casa: <strong>destinazione backup e ISO</strong>, con i dischi VM su <a href="../perche-usare-zfs-su-proxmox/">ZFS locale</a></li></ul></div>
+  <div class="verified"><svg class="vchk" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Verificata a mano · zero allucinazioni</span></div>
   <a class="ask" href="../../?q=montare-nfs">Chiedilo a FabGPT-FAQ →</a>
   <div class="related">
     <h2>Altre domande</h2>

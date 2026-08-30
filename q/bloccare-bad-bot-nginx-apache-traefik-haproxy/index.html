@@ -42,6 +42,12 @@
   .answer code { cursor: pointer; }
   .answer code:hover { outline: 1px solid var(--border); }
   .answer code.copied { outline: 1px solid var(--accent); color: var(--accent); }
+  .verified { display: flex; align-items: center; gap: 7px; margin-top: 18px; font-size: 13px; color: var(--text-dim); }
+  .verified .vchk { flex: 0 0 auto; }
+  @media (prefers-reduced-motion: no-preference) {
+    .vchk path { stroke-dasharray: 24; stroke-dashoffset: 24; animation: vchk-draw .5s .15s ease forwards; }
+  }
+  @keyframes vchk-draw { to { stroke-dashoffset: 0; } }
 </style>
 </head>
 <body>
@@ -55,6 +61,7 @@
   <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › Cybersecurity</nav>
   <h1>Come si bloccano i bad bot su Nginx, Apache, Traefik e HAProxy?</h1>
   <div class="answer"><p>Con <a href="https://github.com/fabriziosalmi/patterns" target="_blank" rel="noopener">patterns</a> (<strong>300+ ⭐</strong>): regole <strong>OWASP Core Rule Set e bad-bot detection</strong> convertite automaticamente nella sintassi <strong>nativa</strong> di Nginx, Apache, Traefik e HAProxy – non un adattatore generico.</p><p>La pipeline è automatica: preleva le regole CRS aggiornate dall&#x27;upstream, le converte per ciascun server (<code>map</code>/<code>if</code> per Nginx, <code>SecRule</code> per Apache, middleware TOML per Traefik, ACL per HAProxy) e pubblica ogni giorno <strong>archivi pronti da scaricare</strong> (<code>nginx_waf.zip</code>, <code>apache_waf.zip</code>, ecc.) via GitHub Actions.</p><p>Copertura: SQL injection, XSS, RCE, LFI/RFI, violazioni di protocollo e bad bot – con default sicuri che <strong>non</strong> bloccano i motori di ricerca. Se usi Caddy, il progetto dedicato è <a href="https://github.com/fabriziosalmi/caddy-waf" target="_blank" rel="noopener">caddy-waf</a>.</p></div>
+  <div class="verified"><svg class="vchk" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Verificata a mano · zero allucinazioni</span></div>
   <a class="ask" href="../../?q=patterns">Chiedilo a FabGPT-FAQ →</a>
   <div class="related">
     <h2>Altre domande</h2>

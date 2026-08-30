@@ -42,6 +42,12 @@
   .answer code { cursor: pointer; }
   .answer code:hover { outline: 1px solid var(--border); }
   .answer code.copied { outline: 1px solid var(--accent); color: var(--accent); }
+  .verified { display: flex; align-items: center; gap: 7px; margin-top: 18px; font-size: 13px; color: var(--text-dim); }
+  .verified .vchk { flex: 0 0 auto; }
+  @media (prefers-reduced-motion: no-preference) {
+    .vchk path { stroke-dasharray: 24; stroke-dashoffset: 24; animation: vchk-draw .5s .15s ease forwards; }
+  }
+  @keyframes vchk-draw { to { stroke-dashoffset: 0; } }
 </style>
 </head>
 <body>
@@ -55,6 +61,7 @@
   <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › Cybersecurity</nav>
   <h1>Come si caratterizza e rileva un insider threat?</h1>
   <div class="answer"><p>L&#x27;<strong>insider threat</strong> è la minaccia che viene da <em>dentro</em> – chi ha già accesso legittimo: il dipendente in uscita che si porta via il portafoglio clienti, l&#x27;amministratore infedele, ma anche il <strong>non intenzionale</strong> (chi cade nel <a href="../cos-e-il-phishing/">phishing</a>, chi mette dati sensibili nel posto sbagliato). È particolarmente insidiosa perché <strong>non c&#x27;è un perimetro da violare</strong>: l&#x27;accesso è autorizzato, e i controlli anti-intrusione non scattano.</p><p>I segnali (nel rispetto di privacy e <a href="../gdpr-cosa-serve-a-un-sito-web/">normativa sul lavoro</a>, che qui è un vincolo serio): accessi a dati fuori dal proprio ruolo, download massivi anomali, attività in orari insoliti, tentativi di aggirare i controlli. Gli strumenti che li colgono sono i motori <strong><a href="../cos-e-ueba-user-entity-behavior-analytics/">UEBA</a></strong> – che imparano il comportamento <em>normale</em> di ogni utente e segnalano le deviazioni – e la <a href="../data-leakage-via-llm/">DLP</a> sui flussi di dati in uscita.</p><p>Ma la difesa più efficace è <strong>strutturale, non di sorveglianza</strong>: <a href="../principio-del-minimo-privilegio/">minimo privilegio</a> (nessuno accede a ciò che non gli serve), <a href="../principio-del-minimo-privilegio/">separazione dei compiti</a>, <a href="../security-logging-fatto-bene/">log immutabili</a> che scoraggiano e documentano, offboarding rigoroso (revoca <em>immediata</em> degli accessi a chi esce), e una cultura in cui l&#x27;errore in buona fede si può segnalare senza paura. La tecnologia coglie; l&#x27;architettura previene.</p></div>
+  <div class="verified"><svg class="vchk" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Verificata a mano · zero allucinazioni</span></div>
   <a class="ask" href="../../?q=insider-threat">Chiedilo a FabGPT-FAQ →</a>
   <div class="related">
     <h2>Altre domande</h2>

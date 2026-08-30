@@ -42,6 +42,12 @@
   .answer code { cursor: pointer; }
   .answer code:hover { outline: 1px solid var(--border); }
   .answer code.copied { outline: 1px solid var(--accent); color: var(--accent); }
+  .verified { display: flex; align-items: center; gap: 7px; margin-top: 18px; font-size: 13px; color: var(--text-dim); }
+  .verified .vchk { flex: 0 0 auto; }
+  @media (prefers-reduced-motion: no-preference) {
+    .vchk path { stroke-dasharray: 24; stroke-dashoffset: 24; animation: vchk-draw .5s .15s ease forwards; }
+  }
+  @keyframes vchk-draw { to { stroke-dashoffset: 0; } }
 </style>
 </head>
 <body>
@@ -55,6 +61,7 @@
   <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › AI e LLM</nav>
   <h1>Gli LLM e il copyright: dove siamo?</h1>
   <div class="answer"><p>Il quadro, con l&#x27;onestà di un cantiere aperto:</p><ul><li><strong>sul training</strong>: negli USA la questione è nei tribunali (NYT contro OpenAI in testa) attorno al <em>fair use</em>; in <strong>Europa</strong> esiste l&#x27;eccezione per il text and data mining con <strong>diritto di opt-out</strong> – i titolari possono riservarsi, e l&#x27;<a href="../cosa-prevede-ai-act/">AI Act</a> chiede ai modelli general-purpose trasparenza sui dati e rispetto di quelle riserve. L&#x27;opt-out pratico passa (imperfettamente) da <a href="../bloccare-crawler-ai-gptbot/">robots.txt e affini</a></li><li><strong>sull&#x27;output</strong>: nella maggior parte delle giurisdizioni il generato puramente dalla macchina <strong>non è proteggibile</strong> – serve apporto creativo umano; e l&#x27;output può a sua volta violare, se riproduce sostanzialmente un&#x27;opera (i casi limite esistono)</li><li><strong>per chi lo usa nel software</strong>: il codice generato va trattato come contributo da revisionare anche in senso di provenienza; per i contenuti pubblicati, <a href="../watermarking-dei-contenuti-ai/">l&#x27;etichettatura è in arrivo per legge</a></li></ul><p>La sintesi operativa: documenta le fonti, rispetta gli opt-out, non spacciare il generato per protetto. E aspettati che le regole si muovano ancora.</p></div>
+  <div class="verified"><svg class="vchk" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Verificata a mano · zero allucinazioni</span></div>
   <a class="ask" href="../../?q=llm-copyright">Chiedilo a FabGPT-FAQ →</a>
   <div class="related">
     <h2>Altre domande</h2>

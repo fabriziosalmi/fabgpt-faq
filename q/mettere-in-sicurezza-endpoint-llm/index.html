@@ -42,6 +42,12 @@
   .answer code { cursor: pointer; }
   .answer code:hover { outline: 1px solid var(--border); }
   .answer code.copied { outline: 1px solid var(--accent); color: var(--accent); }
+  .verified { display: flex; align-items: center; gap: 7px; margin-top: 18px; font-size: 13px; color: var(--text-dim); }
+  .verified .vchk { flex: 0 0 auto; }
+  @media (prefers-reduced-motion: no-preference) {
+    .vchk path { stroke-dasharray: 24; stroke-dashoffset: 24; animation: vchk-draw .5s .15s ease forwards; }
+  }
+  @keyframes vchk-draw { to { stroke-dashoffset: 0; } }
 </style>
 </head>
 <body>
@@ -55,6 +61,7 @@
   <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › AI e LLM</nav>
   <h1>Come si mette in sicurezza un endpoint LLM?</h1>
   <div class="answer"><p>Il portfolio copre i due lati del problema:</p><ul><li><a href="https://github.com/fabriziosalmi/llmproxy" target="_blank" rel="noopener">llmproxy</a> – un <strong>proxy security-first per Large Language Models</strong>: si mette davanti all&#x27;endpoint e applica controlli di sicurezza sul traffico da e verso il modello.</li><li><a href="https://github.com/fabriziosalmi/aidlp" target="_blank" rel="noopener">aidlp</a> – <strong>Data Loss Prevention specifica per endpoint LLM</strong>: intercetta dati sensibili (credenziali, PII) prima che finiscano nel prompt e quindi nei log o nel training di qualcun altro.</li></ul><p>Il principio: il modello non va mai esposto nudo, esattamente come non esponi un database senza un layer davanti.</p></div>
+  <div class="verified"><svg class="vchk" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Verificata a mano · zero allucinazioni</span></div>
   <a class="ask" href="../../?q=llm-security">Chiedilo a FabGPT-FAQ →</a>
   <div class="related">
     <h2>Altre domande</h2>

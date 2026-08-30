@@ -42,6 +42,12 @@
   .answer code { cursor: pointer; }
   .answer code:hover { outline: 1px solid var(--border); }
   .answer code.copied { outline: 1px solid var(--accent); color: var(--accent); }
+  .verified { display: flex; align-items: center; gap: 7px; margin-top: 18px; font-size: 13px; color: var(--text-dim); }
+  .verified .vchk { flex: 0 0 auto; }
+  @media (prefers-reduced-motion: no-preference) {
+    .vchk path { stroke-dasharray: 24; stroke-dashoffset: 24; animation: vchk-draw .5s .15s ease forwards; }
+  }
+  @keyframes vchk-draw { to { stroke-dashoffset: 0; } }
 </style>
 </head>
 <body>
@@ -55,6 +61,7 @@
   <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › Proxmox e self-hosting</nav>
   <h1>Container privilegiati o non privilegiati: quale usare?</h1>
   <div class="answer"><p>Il default di Proxmox – <strong>unprivileged</strong> – è quello giusto: il root del container è mappato su un utente qualunque dell&#x27;host (UID shiftati di 100000), così un&#x27;evasione dal <a href="../differenza-container-lxc-e-vm/">container</a> atterra su un utente senza poteri. Un container <strong>privilegiato</strong>, invece, ha il root che <em>è</em> root dell&#x27;host: un&#x27;evasione è game over – va trattato come <a href="../principio-del-minimo-privilegio/">il minimo privilegio</a> insegna: eccezione motivata, non abitudine.</p><p>Il prezzo pratico degli unprivileged è uno solo, ma quotidiano: i <strong>bind mount</strong>. I file dell&#x27;host appartengono a UID veri, il container li vede shiftati – e i permessi non tornano. Soluzioni in ordine di eleganza: gruppo condiviso con GID mappato esplicitamente, <code>chown</code> degli alberi dedicati al container (100000+UID), o le ACL. Le feature <code>nesting</code> (per Docker dentro LXC) e <code>keyctl</code> si abilitano anche da unprivileged.</p><p>Quando il privilegiato è legittimo: vecchi kernel NFS client dentro il container, hardware particolare, o <a href="../truenas-dentro-proxmox/">TrueNAS-style storage</a> – e anche lì, prima chiediti se non sia il caso di una VM.</p></div>
+  <div class="verified"><svg class="vchk" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Verificata a mano · zero allucinazioni</span></div>
   <a class="ask" href="../../?q=container-privilegiati">Chiedilo a FabGPT-FAQ →</a>
   <div class="related">
     <h2>Altre domande</h2>

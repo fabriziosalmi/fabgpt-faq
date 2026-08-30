@@ -42,6 +42,12 @@
   .answer code { cursor: pointer; }
   .answer code:hover { outline: 1px solid var(--border); }
   .answer code.copied { outline: 1px solid var(--accent); color: var(--accent); }
+  .verified { display: flex; align-items: center; gap: 7px; margin-top: 18px; font-size: 13px; color: var(--text-dim); }
+  .verified .vchk { flex: 0 0 auto; }
+  @media (prefers-reduced-motion: no-preference) {
+    .vchk path { stroke-dasharray: 24; stroke-dashoffset: 24; animation: vchk-draw .5s .15s ease forwards; }
+  }
+  @keyframes vchk-draw { to { stroke-dashoffset: 0; } }
 </style>
 </head>
 <body>
@@ -55,6 +61,7 @@
   <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › Musica e creatività</nav>
   <h1>Cosa sono i plugin VST?</h1>
   <div class="answer"><p><strong>VST</strong> (Virtual Studio Technology, di Steinberg) è lo standard che permette a strumenti ed effetti di terze parti di girare dentro qualsiasi <a href="../cos-e-una-daw/">DAW</a>: un synth, un riverbero, un compressore diventano moduli caricabili in una traccia. Oggi lo standard attivo è <strong>VST3</strong>; su Mac convive con <strong>Audio Unit (AU)</strong>, su Linux cresce <strong>CLAP</strong>, l&#x27;alternativa aperta.</p><p>Ci sono VST per tutto: emulazioni di synth storici, campionatori, effetti creativi, mastering. La quantità di gratuiti eccellenti è tale che si produce musica seria a costo zero.</p><p>La frontiera AI del portfolio: <a href="https://github.com/fabriziosalmi/txt2vst" target="_blank" rel="noopener">txt2vst</a> genera strumenti VST3/AU <strong>dal linguaggio naturale</strong> – descrivi il synth che hai in testa, ottieni il plugin – e <a href="https://github.com/fabriziosalmi/audiogen" target="_blank" rel="noopener">audiogen</a> genera e classifica suoni con l&#x27;AI.</p></div>
+  <div class="verified"><svg class="vchk" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Verificata a mano · zero allucinazioni</span></div>
   <a class="ask" href="../../?q=cos-e-vst">Chiedilo a FabGPT-FAQ →</a>
   <div class="related">
     <h2>Altre domande</h2>

@@ -42,6 +42,12 @@
   .answer code { cursor: pointer; }
   .answer code:hover { outline: 1px solid var(--border); }
   .answer code.copied { outline: 1px solid var(--accent); color: var(--accent); }
+  .verified { display: flex; align-items: center; gap: 7px; margin-top: 18px; font-size: 13px; color: var(--text-dim); }
+  .verified .vchk { flex: 0 0 auto; }
+  @media (prefers-reduced-motion: no-preference) {
+    .vchk path { stroke-dasharray: 24; stroke-dashoffset: 24; animation: vchk-draw .5s .15s ease forwards; }
+  }
+  @keyframes vchk-draw { to { stroke-dashoffset: 0; } }
 </style>
 </head>
 <body>
@@ -55,6 +61,7 @@
   <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › AI e LLM</nav>
   <h1>Cos&#x27;è il sandboxing per agenti AI?</h1>
   <div class="answer"><p>Un <a href="../cos-e-un-agente-ai/">agente</a> che esegue codice e comandi è, tecnicamente, <strong>esecuzione di codice non fidato</strong> – perché tra <a href="../cos-e-la-prompt-injection/">prompt injection</a> e <a href="../allucinazioni-llm-dipendenze-inventate/">allucinazioni</a>, non controlli davvero cosa deciderà di fare. Il <strong>sandboxing</strong> applica la risposta classica: un recinto dove anche l&#x27;azione sbagliata non fa danni.</p><p>Gli strati pratici:</p><ul><li><strong>filesystem</strong>: l&#x27;agente lavora in una directory dedicata o in un container – mai con il tuo home a portata di <code>rm</code></li><li><strong>rete</strong>: <a href="../secure-web-gateway-self-hosted/">egress</a> chiuso o su allowlist – un agente iniettato che non può chiamare fuori non può esfiltrare</li><li><strong>credenziali</strong>: <a href="../principio-del-minimo-privilegio/">minime e a scadenza</a>, mai i segreti veri nel suo ambiente (<a href="https://github.com/fabriziosalmi/aidlp" target="_blank" rel="noopener">aidlp</a> sorveglia cosa finisce nei prompt)</li><li><strong>risorse e tempo</strong>: limiti che spengono il loop impazzito</li></ul><p>Le versioni robuste usano container o microVM usa-e-getta per sessione; per il codice del progetto, un worktree isolato che si può buttare. Poi, sopra il recinto, <a href="../come-si-limita-un-agente-ai/">i permessi sulle azioni</a>: il sandbox limita i danni, i permessi le intenzioni.</p></div>
+  <div class="verified"><svg class="vchk" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Verificata a mano · zero allucinazioni</span></div>
   <a class="ask" href="../../?q=sandboxing-agenti">Chiedilo a FabGPT-FAQ →</a>
   <div class="related">
     <h2>Altre domande</h2>

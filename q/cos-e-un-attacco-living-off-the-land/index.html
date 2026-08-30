@@ -42,6 +42,12 @@
   .answer code { cursor: pointer; }
   .answer code:hover { outline: 1px solid var(--border); }
   .answer code.copied { outline: 1px solid var(--accent); color: var(--accent); }
+  .verified { display: flex; align-items: center; gap: 7px; margin-top: 18px; font-size: 13px; color: var(--text-dim); }
+  .verified .vchk { flex: 0 0 auto; }
+  @media (prefers-reduced-motion: no-preference) {
+    .vchk path { stroke-dasharray: 24; stroke-dashoffset: 24; animation: vchk-draw .5s .15s ease forwards; }
+  }
+  @keyframes vchk-draw { to { stroke-dashoffset: 0; } }
 </style>
 </head>
 <body>
@@ -55,6 +61,7 @@
   <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › Cybersecurity</nav>
   <h1>Cos&#x27;è un attacco Living-off-the-Land (LotL)?</h1>
   <div class="answer"><p>In un attacco <strong>Living-off-the-Land</strong> l&#x27;aggressore non porta malware: usa gli <strong>strumenti legittimi già presenti</strong> sul sistema – PowerShell, WMI, <code>certutil</code>, <code>rundll32</code>, le utility di amministrazione (i cosiddetti <strong>LOLBins</strong>). Scaricare un payload, muoversi lateralmente, esfiltrare: tutto con binari firmati Microsoft che nessun antivirus segnala.</p><p>Perché elude le firme: <a href="../differenza-edr-xdr-antivirus/">l&#x27;antivirus tradizionale</a> cerca <em>file</em> malevoli noti – ma qui non c&#x27;è nessun file nuovo, solo strumenti fidati usati con cattive intenzioni. È il motivo per cui la detection è dovuta migrare dalle firme al <strong>comportamento</strong>: non &quot;questo file è malware&quot; ma &quot;perché <code>winword.exe</code> ha lanciato PowerShell che ha scaricato ed eseguito uno script?&quot;.</p><p>Le difese: <a href="../differenza-edr-xdr-antivirus/">EDR</a> che ragiona sulle catene di processo, <a href="../detection-engineering-e-event-id/">detection engineering</a> sulle command line anomale (Event ID 4688/Sysmon), <a href="../security-baseline-e-automazione-hardening/">application control</a> che limita cosa può girare, <a href="../principio-del-minimo-privilegio/">minimo privilegio</a> che riduce ciò che un LOLBin può combinare, e <a href="../cos-e-il-threat-hunting/">threat hunting</a> proattivo. È l&#x27;archetipo della minaccia moderna: invisibile a chi cerca file, ovvia a chi guarda i comportamenti.</p></div>
+  <div class="verified"><svg class="vchk" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Verificata a mano · zero allucinazioni</span></div>
   <a class="ask" href="../../?q=living-off-the-land">Chiedilo a FabGPT-FAQ →</a>
   <div class="related">
     <h2>Altre domande</h2>

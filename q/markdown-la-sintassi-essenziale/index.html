@@ -42,6 +42,12 @@
   .answer code { cursor: pointer; }
   .answer code:hover { outline: 1px solid var(--border); }
   .answer code.copied { outline: 1px solid var(--accent); color: var(--accent); }
+  .verified { display: flex; align-items: center; gap: 7px; margin-top: 18px; font-size: 13px; color: var(--text-dim); }
+  .verified .vchk { flex: 0 0 auto; }
+  @media (prefers-reduced-motion: no-preference) {
+    .vchk path { stroke-dasharray: 24; stroke-dashoffset: 24; animation: vchk-draw .5s .15s ease forwards; }
+  }
+  @keyframes vchk-draw { to { stroke-dashoffset: 0; } }
 </style>
 </head>
 <body>
@@ -55,6 +61,7 @@
   <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › Strumenti e app</nav>
   <h1>Markdown: la sintassi essenziale</h1>
   <div class="answer"><p><strong>Markdown</strong> è testo semplice con convenzioni leggibili anche da crude: è diventato <em>la</em> lingua di README, documentazione, note e chat tecniche. L&#x27;essenziale che copre il 95% dell&#x27;uso:</p><ul><li><code># Titolo</code>, <code>## Sottotitolo</code> – le intestazioni</li><li><code><strong>grassetto</strong></code>, <code><em>corsivo</em></code>, `<code> </code>codice<code> </code>` – l&#x27;enfasi</li><li><code>- voce</code> per gli elenchi (numerati: <code>1.</code>), <code>&gt; citazione</code></li><li><code><a href="https://url" target="_blank" rel="noopener">testo</a></code> per i link, <code>!<a href="immagine.png">alt</a></code> per le immagini</li><li>blocchi di codice tra triple backtick (con il linguaggio per l&#x27;evidenziazione), tabelle con <code>|</code> e trattini</li></ul><p>La filosofia che l&#x27;ha fatto vincere: i file <code>.md</code> sono <strong>testo puro</strong> – versionabili in git, grepabili, leggibili tra cent&#x27;anni senza nessun software particolare. È il formato di <a href="https://github.com/fabriziosalmi/noted" target="_blank" rel="noopener">Noted</a> (note local-first con wikilink), degli <a href="../cos-e-un-generatore-di-siti-statici/">SSG</a> che trasformano cartelle di .md in siti, di <a href="../cos-e-il-file-llms-txt/">llms.txt</a> – e delle risposte che stai leggendo, <a href="../cos-e-fabgpt-come-funziona/">scritte in un markdown minimo</a> e renderizzate da venti righe di codice.</p></div>
+  <div class="verified"><svg class="vchk" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Verificata a mano · zero allucinazioni</span></div>
   <a class="ask" href="../../?q=markdown-sintassi">Chiedilo a FabGPT-FAQ →</a>
   <div class="related">
     <h2>Altre domande</h2>

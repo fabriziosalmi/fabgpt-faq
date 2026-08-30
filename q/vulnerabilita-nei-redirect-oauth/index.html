@@ -42,6 +42,12 @@
   .answer code { cursor: pointer; }
   .answer code:hover { outline: 1px solid var(--border); }
   .answer code.copied { outline: 1px solid var(--accent); color: var(--accent); }
+  .verified { display: flex; align-items: center; gap: 7px; margin-top: 18px; font-size: 13px; color: var(--text-dim); }
+  .verified .vchk { flex: 0 0 auto; }
+  @media (prefers-reduced-motion: no-preference) {
+    .vchk path { stroke-dasharray: 24; stroke-dashoffset: 24; animation: vchk-draw .5s .15s ease forwards; }
+  }
+  @keyframes vchk-draw { to { stroke-dashoffset: 0; } }
 </style>
 </head>
 <body>
@@ -55,6 +61,7 @@
   <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › Cybersecurity</nav>
   <h1>Come i redirect mal validati in OAuth permettono il furto di token?</h1>
   <div class="answer"><p>Il flusso <a href="../saml-oauth-e-oidc/">OAuth 2.0</a> usa un parametro <strong><code>redirect_uri</code></strong>: dopo l&#x27;autorizzazione, il server rimanda l&#x27;utente (con il codice di autorizzazione o il token) a quell&#x27;URL. Se il server <strong>non valida rigorosamente</strong> dove può reindirizzare, un attaccante manipola quel parametro per farsi consegnare il codice/token a un URL che controlla lui – e con quello accede all&#x27;account della vittima.</p><p>Le varianti dell&#x27;attacco: <code>redirect_uri</code> puntato a un dominio dell&#x27;attaccante, o a un <strong>open redirect</strong> presente sul sito legittimo (una pagina <code>?url=...</code> che rimbalza ovunque – da cui il codice viene poi rubato tramite il referer o un secondo salto), o il furto del codice sfruttando validazioni deboli (match parziale del dominio, sottodomini non previsti).</p><p>Le difese, lato server di autorizzazione e client:</p><ul><li><strong>allowlist esatta</strong> dei <code>redirect_uri</code> registrati – <strong>match completo</strong>, non parziale, non per prefisso (il match per prefisso è aggirabile: <code>https://sito.com.attaccante.com</code>)</li><li><strong>PKCE</strong> (Proof Key for Code Exchange) – ormai raccomandato per <em>tutti</em> i client: lega il codice di autorizzazione a chi lo ha richiesto, così un codice intercettato è inutilizzabile da altri</li><li>il parametro <strong><code>state</code></strong> per legare la richiesta alla risposta (anti-CSRF del flusso), niente token nei frammenti URL dove non serve</li></ul><p>È un promemoria che l&#x27;<a href="../saml-oauth-e-oidc/">OAuth/OIDC</a> è potente ma pieno di dettagli che, sbagliati, aprono voragini – il redirect è il più classico. La regola trasversale: <strong>validare rigorosamente dove mandi dati sensibili</strong>, con allowlist esatte e mai match approssimativi – lo stesso principio che vale contro l&#x27;<a href="../cos-e-la-ssrf-server-side-request-forgery/">SSRF</a> e l&#x27;<a href="../cos-e-la-owasp-top-10/">open redirect</a> in generale.</p></div>
+  <div class="verified"><svg class="vchk" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Verificata a mano · zero allucinazioni</span></div>
   <a class="ask" href="../../?q=oauth-redirect">Chiedilo a FabGPT-FAQ →</a>
   <div class="related">
     <h2>Altre domande</h2>

@@ -42,6 +42,12 @@
   .answer code { cursor: pointer; }
   .answer code:hover { outline: 1px solid var(--border); }
   .answer code.copied { outline: 1px solid var(--accent); color: var(--accent); }
+  .verified { display: flex; align-items: center; gap: 7px; margin-top: 18px; font-size: 13px; color: var(--text-dim); }
+  .verified .vchk { flex: 0 0 auto; }
+  @media (prefers-reduced-motion: no-preference) {
+    .vchk path { stroke-dasharray: 24; stroke-dashoffset: 24; animation: vchk-draw .5s .15s ease forwards; }
+  }
+  @keyframes vchk-draw { to { stroke-dashoffset: 0; } }
 </style>
 </head>
 <body>
@@ -55,6 +61,7 @@
   <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › AI e LLM</nav>
   <h1>Cos&#x27;è un eval (e perché i benchmark mentono)?</h1>
   <div class="answer"><p>Un <strong>eval</strong> è un test ripetibile per misurare un modello: domande con risposte attese, una metrica, un punteggio. I <strong>benchmark pubblici</strong> (MMLU, HumanEval, le arene di preferenze) sono eval standardizzati su cui si costruiscono le classifiche – utilissimi per orientarsi, pericolosi se creduti alla lettera.</p><p>Perché &quot;mentono&quot;: la <a href="../contaminazione-dei-benchmark/">contaminazione</a> (il test finito nei dati di addestramento), la <strong>saturazione</strong> (quando tutti fanno 90%, il benchmark non distingue più), l&#x27;ottimizzazione mirata (Goodhart: la misura diventa l&#x27;obiettivo e smette di misurare), e la distanza dal tuo caso: un modello forte in matematica olimpionica può essere mediocre sul tuo estrattore di fatture in italiano.</p><p>La conseguenza pratica è una sola: le leaderboard per la <em>rosa dei candidati</em>, i <strong>tuoi eval</strong> per la scelta – venti casi reali del tuo dominio battono qualsiasi classifica (<a href="../come-valutare-le-risposte-di-un-llm/">come costruirli</a>). Nel piccolo è l&#x27;approccio di <a href="https://github.com/fabriziosalmi/llm-benchmarks" target="_blank" rel="noopener">llm-benchmarks</a>: compiti semplici, misurabili, senza gloria.</p></div>
+  <div class="verified"><svg class="vchk" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Verificata a mano · zero allucinazioni</span></div>
   <a class="ask" href="../../?q=eval-llm">Chiedilo a FabGPT-FAQ →</a>
   <div class="related">
     <h2>Altre domande</h2>

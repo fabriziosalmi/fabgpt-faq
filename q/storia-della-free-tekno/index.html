@@ -42,6 +42,12 @@
   .answer code { cursor: pointer; }
   .answer code:hover { outline: 1px solid var(--border); }
   .answer code.copied { outline: 1px solid var(--accent); color: var(--accent); }
+  .verified { display: flex; align-items: center; gap: 7px; margin-top: 18px; font-size: 13px; color: var(--text-dim); }
+  .verified .vchk { flex: 0 0 auto; }
+  @media (prefers-reduced-motion: no-preference) {
+    .vchk path { stroke-dasharray: 24; stroke-dashoffset: 24; animation: vchk-draw .5s .15s ease forwards; }
+  }
+  @keyframes vchk-draw { to { stroke-dashoffset: 0; } }
 </style>
 </head>
 <body>
@@ -55,6 +61,7 @@
   <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › Musica e creatività</nav>
   <h1>Storia della free tekno in due paragrafi</h1>
   <div class="answer"><p>Primi anni &#x27;90, Regno Unito: i <strong>sound system</strong> – Spiral Tribe su tutti – saldano l&#x27;eredità dei traveller e dei warehouse party in qualcosa di nuovo: feste <strong>libere e gratuite</strong>, casse autocostruite, techno più dura e veloce, nessun biglietto e nessun padrone. Il culmine è <strong>Castlemorton</strong> (1992): una settimana, decine di migliaia di persone, il panico mediatico che partorisce il <strong>Criminal Justice Act</strong> (1994) – la legge che criminalizza i raduni con musica &quot;caratterizzata da beat ripetitivi&quot;. Risultato opposto alle intenzioni: la scena non muore, <strong>migra sul continente</strong>.</p><p>In Francia, Italia, Repubblica Ceca e oltre nascono i <strong>teknival</strong> – raduni di più sound system, giorni interi, campagne e capannoni – e una cultura che si tramanda: autogestione, DIY, il mitologico <strong>23</strong>, produzioni musicali fuori da ogni industria. L&#x27;Italia è protagonista con sound system storici e teknival enormi. E quando la scena incontra la rete, il passo è naturale: <a href="../streaming-musicale-live/">radio underground</a> come Free Underground Tekno (dal 2008) e il <strong><a href="../cos-e-il-webtek-streaming-teknival/">WebTeK</a></strong>, il teknival in streaming che collega i sound system di mezzo mondo – stessa etica, nuovo mezzo.</p></div>
+  <div class="verified"><svg class="vchk" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Verificata a mano · zero allucinazioni</span></div>
   <a class="ask" href="../../?q=storia-free-tekno">Chiedilo a FabGPT-FAQ →</a>
   <div class="related">
     <h2>Altre domande</h2>

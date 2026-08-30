@@ -42,6 +42,12 @@
   .answer code { cursor: pointer; }
   .answer code:hover { outline: 1px solid var(--border); }
   .answer code.copied { outline: 1px solid var(--accent); color: var(--accent); }
+  .verified { display: flex; align-items: center; gap: 7px; margin-top: 18px; font-size: 13px; color: var(--text-dim); }
+  .verified .vchk { flex: 0 0 auto; }
+  @media (prefers-reduced-motion: no-preference) {
+    .vchk path { stroke-dasharray: 24; stroke-dashoffset: 24; animation: vchk-draw .5s .15s ease forwards; }
+  }
+  @keyframes vchk-draw { to { stroke-dashoffset: 0; } }
 </style>
 </head>
 <body>
@@ -55,6 +61,7 @@
   <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › AI e LLM</nav>
   <h1>Cosa sono i firewall semantici e i guardrail a runtime per LLM?</h1>
   <div class="answer"><p>Un <strong>guardrail a runtime</strong> è il controllo deterministico che avvolge ogni interazione con un LLM in produzione – perché il modello, <a href="../cosa-sono-i-guardrail-llm/">per costruzione, non offre garanzie</a>. Il &quot;firewall semantico&quot; è il nome che descrive quelli che ragionano sul <em>significato</em>, non solo su pattern:</p><ul><li><strong>in ingresso</strong>: rileva <a href="../cos-e-la-prompt-injection/">prompt injection</a> e jailbreak, filtra PII e argomenti vietati, classifica l&#x27;intento prima che raggiunga il modello</li><li><strong>in uscita</strong>: <a href="../moderazione-automatica-dei-contenuti/">moderazione</a>, controllo che non escano segreti o <a href="../data-leakage-via-llm/">dati sensibili</a>, validazione di <a href="../structured-output-e-json-mode/">formato</a>, verifica di aderenza alle policy</li></ul><p>Gli strumenti (NeMo Guardrails, Llama Guard, Guardrails AI) combinano regole, classificatori e a volte un secondo LLM-giudice. Il principio architetturale che li rende efficaci: <strong>non sono nel prompt, sono nel codice attorno</strong> – un guardrail che il modello stesso applica è un guardrail che il modello stesso può essere convinto a saltare. Vanno messi in un <strong>punto di controllo unico</strong> davanti a ogni endpoint, ed è esattamente il ruolo di <a href="https://github.com/fabriziosalmi/llmproxy" target="_blank" rel="noopener">llmproxy</a> (proxy security-first) e <a href="https://github.com/fabriziosalmi/aidlp" target="_blank" rel="noopener">aidlp</a> (DLP sul flusso) nel portfolio: il posto giusto dove applicare la policy è <em>prima</em> e <em>dopo</em> il modello, non <em>dentro</em>.</p></div>
+  <div class="verified"><svg class="vchk" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Verificata a mano · zero allucinazioni</span></div>
   <a class="ask" href="../../?q=guardrail-runtime">Chiedilo a FabGPT-FAQ →</a>
   <div class="related">
     <h2>Altre domande</h2>

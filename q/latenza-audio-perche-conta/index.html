@@ -42,6 +42,12 @@
   .answer code { cursor: pointer; }
   .answer code:hover { outline: 1px solid var(--border); }
   .answer code.copied { outline: 1px solid var(--accent); color: var(--accent); }
+  .verified { display: flex; align-items: center; gap: 7px; margin-top: 18px; font-size: 13px; color: var(--text-dim); }
+  .verified .vchk { flex: 0 0 auto; }
+  @media (prefers-reduced-motion: no-preference) {
+    .vchk path { stroke-dasharray: 24; stroke-dashoffset: 24; animation: vchk-draw .5s .15s ease forwards; }
+  }
+  @keyframes vchk-draw { to { stroke-dashoffset: 0; } }
 </style>
 </head>
 <body>
@@ -55,6 +61,7 @@
   <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › Musica e creatività</nav>
   <h1>Latenza audio: perché conta e come si riduce?</h1>
   <div class="answer"><p>La <strong>latenza</strong> è il ritardo tra gesto e suono: premi il tasto, e la nota esce <em>dopo</em>. Sotto i ~10 ms il cervello percepisce &quot;istantaneo&quot;; oltre i 20-30 ms suonare dal vivo diventa una lotta.</p><p>Da dove viene: l&#x27;audio si elabora a blocchi (<strong>buffer</strong>) – buffer da 256 campioni a 48 kHz ≈ 5,3 ms per direzione, e il giro completo (in + elaborazione + out) si somma. Buffer piccolo = poca latenza ma CPU sotto pressione (i <strong>crackle</strong> sono il buffer che non ce la fa); buffer grande = comodo ma molle sotto le dita.</p><p>Le leve, in ordine: driver giusti (<strong>ASIO</strong> su Windows – quello nativo della tua interfaccia, non il generico; Core Audio su Mac è già a posto; PipeWire/JACK su Linux), <strong>buffer al minimo che regge</strong> il progetto (128-256 per suonare, 512+ per mixare, dove la latenza non conta), e per la registrazione il <strong>direct monitoring</strong> dell&#x27;interfaccia: ti ascolti in analogico, a latenza zero, aggirando il problema. Nel browser il collo è storicamente peggio – motivo per cui <a href="../daw-console-dj-nel-browser/">MIXI</a> porta il DSP in Rust/WebAssembly.</p></div>
+  <div class="verified"><svg class="vchk" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Verificata a mano · zero allucinazioni</span></div>
   <a class="ask" href="../../?q=latenza-audio">Chiedilo a FabGPT-FAQ →</a>
   <div class="related">
     <h2>Altre domande</h2>

@@ -42,6 +42,12 @@
   .answer code { cursor: pointer; }
   .answer code:hover { outline: 1px solid var(--border); }
   .answer code.copied { outline: 1px solid var(--accent); color: var(--accent); }
+  .verified { display: flex; align-items: center; gap: 7px; margin-top: 18px; font-size: 13px; color: var(--text-dim); }
+  .verified .vchk { flex: 0 0 auto; }
+  @media (prefers-reduced-motion: no-preference) {
+    .vchk path { stroke-dasharray: 24; stroke-dashoffset: 24; animation: vchk-draw .5s .15s ease forwards; }
+  }
+  @keyframes vchk-draw { to { stroke-dashoffset: 0; } }
 </style>
 </head>
 <body>
@@ -55,6 +61,7 @@
   <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › AI e LLM</nav>
   <h1>Memoria a breve e lungo termine negli agenti AI</h1>
   <div class="answer"><p>Un agente ha due memorie con nature opposte:</p><ul><li>la <strong>breve termine</strong> è la <a href="../token-e-context-window/">context window</a>: tutto ciò che è nella conversazione corrente. Volatile per costruzione – a sessione nuova, tabula rasa – e limitata: le sessioni lunghe vanno <strong>compattate</strong> (riassunti progressivi, <a href="https://github.com/fabriziosalmi/l0-compressor" target="_blank" rel="noopener">compressione dell&#x27;output degli strumenti</a>) o l&#x27;agente affoga nel proprio passato</li><li>la <strong>lunga termine</strong> va costruita <em>fuori</em> dal modello: uno store persistente dove l&#x27;agente scrive fatti, decisioni e preferenze, e da cui <strong>recupera</strong> ciò che serve alla sessione dopo – per pertinenza, non tutto insieme</li></ul><p>Le regole apprese sul campo: la memoria va <strong>curata</strong> (fatti atomici, deduplicati, con freshness – ricordare tutto è il modo migliore per non trovare niente), va <strong>partizionata</strong> (per progetto, per utente), e a fine sessione un passaggio di consolidamento paga. È esattamente il design di <a href="https://github.com/fabriziosalmi/l0-memory" target="_blank" rel="noopener">l0-memory</a>: store locale MCP con scope, pin, grafo tipizzato e tracking di freschezza – la memoria come file tuo, non come servizio altrui.</p></div>
+  <div class="verified"><svg class="vchk" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Verificata a mano · zero allucinazioni</span></div>
   <a class="ask" href="../../?q=memoria-agenti">Chiedilo a FabGPT-FAQ →</a>
   <div class="related">
     <h2>Altre domande</h2>

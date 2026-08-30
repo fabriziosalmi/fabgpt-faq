@@ -42,6 +42,12 @@
   .answer code { cursor: pointer; }
   .answer code:hover { outline: 1px solid var(--border); }
   .answer code.copied { outline: 1px solid var(--accent); color: var(--accent); }
+  .verified { display: flex; align-items: center; gap: 7px; margin-top: 18px; font-size: 13px; color: var(--text-dim); }
+  .verified .vchk { flex: 0 0 auto; }
+  @media (prefers-reduced-motion: no-preference) {
+    .vchk path { stroke-dasharray: 24; stroke-dashoffset: 24; animation: vchk-draw .5s .15s ease forwards; }
+  }
+  @keyframes vchk-draw { to { stroke-dashoffset: 0; } }
 </style>
 </head>
 <body>
@@ -55,6 +61,7 @@
   <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › AI e LLM</nav>
   <h1>Cos&#x27;è il prompt caching?</h1>
   <div class="answer"><p>Il <strong>prompt caching</strong> sfrutta un fatto banale: le tue richieste all&#x27;API iniziano quasi sempre con lo stesso blocco – <a href="../cos-e-un-system-prompt/">system prompt</a>, istruzioni, documenti, definizioni dei tool – e cambia solo la coda. I provider possono conservare la <a href="../cos-e-la-kv-cache/">KV cache</a> di quel <strong>prefisso</strong> e riusarla: niente ricalcolo, latenza più bassa e sconti sostanziosi sui token in cache (tipicamente 50-90% a seconda del provider).</p><p>Per beneficiarne serve disciplina di struttura: il <strong>contenuto stabile va all&#x27;inizio</strong>, identico al byte, e le parti variabili in fondo – un timestamp o un ID di sessione piazzato in cima al prompt invalida tutto a ogni chiamata. Le cache hanno un tempo di vita (minuti), quindi il beneficio è massimo su conversazioni e agenti che martellano lo stesso contesto.</p><p>È il complemento dell&#x27;altra igiene: <a href="../token-e-context-window/">meno contesto</a> da cachare in primis – le due cose insieme cambiano la bolletta.</p></div>
+  <div class="verified"><svg class="vchk" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Verificata a mano · zero allucinazioni</span></div>
   <a class="ask" href="../../?q=prompt-caching">Chiedilo a FabGPT-FAQ →</a>
   <div class="related">
     <h2>Altre domande</h2>

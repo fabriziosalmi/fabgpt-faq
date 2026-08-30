@@ -42,6 +42,12 @@
   .answer code { cursor: pointer; }
   .answer code:hover { outline: 1px solid var(--border); }
   .answer code.copied { outline: 1px solid var(--accent); color: var(--accent); }
+  .verified { display: flex; align-items: center; gap: 7px; margin-top: 18px; font-size: 13px; color: var(--text-dim); }
+  .verified .vchk { flex: 0 0 auto; }
+  @media (prefers-reduced-motion: no-preference) {
+    .vchk path { stroke-dasharray: 24; stroke-dashoffset: 24; animation: vchk-draw .5s .15s ease forwards; }
+  }
+  @keyframes vchk-draw { to { stroke-dashoffset: 0; } }
 </style>
 </head>
 <body>
@@ -55,6 +61,7 @@
   <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › Proxmox e self-hosting</nav>
   <h1>Hypervisor di tipo 1 e tipo 2: che differenza c&#x27;è?</h1>
   <div class="answer"><p>La distinzione classica:</p><ul><li><strong>tipo 1 (bare metal)</strong> – l&#x27;hypervisor <em>è</em> il sistema che gira sull&#x27;hardware: <a href="../cos-e-proxmox-ve/">Proxmox VE</a> (KVM), ESXi, Hyper-V. Prestazioni quasi native, isolamento forte, fatto per stare acceso sempre: è la scelta per server e produzione</li><li><strong>tipo 2 (hosted)</strong> – un&#x27;applicazione dentro un sistema operativo normale: VirtualBox, VMware Workstation, Parallels. Perfetto per la VM di prova sul portatile, paga il pedaggio del sistema ospite sotto</li></ul><p>La nota pedante che vale la pena sapere: <strong>KVM</strong> sfuma la distinzione – è un modulo <em>dentro</em> il kernel Linux, quindi &quot;il sistema operativo&quot; e &quot;l&#x27;hypervisor&quot; coincidono: di fatto tipo 1 con l&#x27;ergonomia di Linux. È il motore di Proxmox, delle grandi cloud e di mezzo internet.</p><p>Regola di scelta: se la macchina esiste <em>per</em> virtualizzare → tipo 1 (e con Proxmox <a href="../aggiornare-proxmox-senza-subscription/">non paghi licenze</a>); se virtualizzi <em>ogni tanto</em> sul computer di lavoro → tipo 2, senza sensi di colpa.</p></div>
+  <div class="verified"><svg class="vchk" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Verificata a mano · zero allucinazioni</span></div>
   <a class="ask" href="../../?q=hypervisor-tipo">Chiedilo a FabGPT-FAQ →</a>
   <div class="related">
     <h2>Altre domande</h2>

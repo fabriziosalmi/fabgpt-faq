@@ -42,6 +42,12 @@
   .answer code { cursor: pointer; }
   .answer code:hover { outline: 1px solid var(--border); }
   .answer code.copied { outline: 1px solid var(--accent); color: var(--accent); }
+  .verified { display: flex; align-items: center; gap: 7px; margin-top: 18px; font-size: 13px; color: var(--text-dim); }
+  .verified .vchk { flex: 0 0 auto; }
+  @media (prefers-reduced-motion: no-preference) {
+    .vchk path { stroke-dasharray: 24; stroke-dashoffset: 24; animation: vchk-draw .5s .15s ease forwards; }
+  }
+  @keyframes vchk-draw { to { stroke-dashoffset: 0; } }
 </style>
 </head>
 <body>
@@ -55,6 +61,7 @@
   <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › Proxmox e self-hosting</nav>
   <h1>Homelab a basso consumo: mini PC al posto del server?</h1>
   <div class="answer"><p>Il server rack in cantina è romantico finché non arriva la bolletta: 100-150 W fissi sono 250-400 euro l&#x27;anno. Un <strong>mini PC moderno fa quasi tutto a 6-15 W idle</strong>:</p><ul><li>un <strong>N100/N305</strong> (4-8 core efficienti, fino a 32-48 GB di RAM) regge <a href="../cos-e-proxmox-ve/">Proxmox</a> con una flotta di <a href="../differenza-container-lxc-e-vm/">container</a> e qualche VM leggera – <a href="../home-assistant-su-proxmox/">Home Assistant</a>, Pi-hole, reverse proxy, <a href="../cos-e-proxmox-backup-server/">PBS</a>, il monitoraggio: tutto insieme, nel silenzio</li><li>il gradino sopra (Ryzen mobile, Core ultracompatti, 64+ GB) aggiunge VM da lavoro e <a href="../quanta-ram-vram-serve-per-un-llm/">modelli AI piccoli</a> restando sotto i 30 W</li><li>tre mini PC = un <a href="../cluster-proxmox-e-quorum/">cluster con quorum vero</a> consumando come una lampadina di una volta</li></ul><p>I compromessi onesti: niente ECC (quasi sempre), pochi slot disco – il <strong>NAS separato</strong> (o un solo nodo &quot;storage&quot; più carrozzato) resta sensato – ed espansione limitata. Le mosse: NVMe in <a href="../perche-usare-zfs-su-proxmox/">mirror ZFS</a>, un misuratore di consumo alla presa per decidere coi numeri, e <a href="../autoscaling-vm-lxc-proxmox/">l&#x27;autoscaling</a> che spreme il poco ferro al meglio.</p></div>
+  <div class="verified"><svg class="vchk" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Verificata a mano · zero allucinazioni</span></div>
   <a class="ask" href="../../?q=homelab-low-power">Chiedilo a FabGPT-FAQ →</a>
   <div class="related">
     <h2>Altre domande</h2>

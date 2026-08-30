@@ -42,6 +42,12 @@
   .answer code { cursor: pointer; }
   .answer code:hover { outline: 1px solid var(--border); }
   .answer code.copied { outline: 1px solid var(--accent); color: var(--accent); }
+  .verified { display: flex; align-items: center; gap: 7px; margin-top: 18px; font-size: 13px; color: var(--text-dim); }
+  .verified .vchk { flex: 0 0 auto; }
+  @media (prefers-reduced-motion: no-preference) {
+    .vchk path { stroke-dasharray: 24; stroke-dashoffset: 24; animation: vchk-draw .5s .15s ease forwards; }
+  }
+  @keyframes vchk-draw { to { stroke-dashoffset: 0; } }
 </style>
 </head>
 <body>
@@ -55,6 +61,7 @@
   <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › Cybersecurity</nav>
   <h1>Cos&#x27;è un certificato wildcard (e i SAN)?</h1>
   <div class="answer"><p>Un certificato <strong>wildcard</strong> copre tutti i sottodomini di primo livello di un dominio: <code>*.example.com</code> vale per <code>www</code>, <code>api</code>, <code>mail</code> – ma non per <code>example.com</code> nudo né per <code>a.b.example.com</code> (l&#x27;asterisco copre un solo livello). I <strong>SAN</strong> (Subject Alternative Names) sono la lista di nomi che un certificato copre: ogni certificato moderno è tecnicamente un certificato SAN, e può mescolare domini diversi e wildcard insieme.</p><p>Trade-off del wildcard: comodo (un certificato per tutto) ma <strong>una sola chiave privata per tutto</strong> – se la rubano da un server marginale, coprono anche i sottodomini critici. Dettaglio operativo: Let&#x27;s Encrypt emette wildcard <strong>solo con challenge <a href="../come-funziona-lets-encrypt-acme/">DNS-01</a></strong>, quindi serve l&#x27;automazione DNS – con 29 provider supportati, è il pane quotidiano di <a href="https://github.com/fabriziosalmi/certmate" target="_blank" rel="noopener">CertMate</a>, che tiene anche l&#x27;inventario di <em>quali</em> nomi copre ogni certificato in giro per l&#x27;infrastruttura.</p></div>
+  <div class="verified"><svg class="vchk" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Verificata a mano · zero allucinazioni</span></div>
   <a class="ask" href="../../?q=wildcard-san">Chiedilo a FabGPT-FAQ →</a>
   <div class="related">
     <h2>Altre domande</h2>

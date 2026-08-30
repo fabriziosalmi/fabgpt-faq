@@ -42,6 +42,12 @@
   .answer code { cursor: pointer; }
   .answer code:hover { outline: 1px solid var(--border); }
   .answer code.copied { outline: 1px solid var(--accent); color: var(--accent); }
+  .verified { display: flex; align-items: center; gap: 7px; margin-top: 18px; font-size: 13px; color: var(--text-dim); }
+  .verified .vchk { flex: 0 0 auto; }
+  @media (prefers-reduced-motion: no-preference) {
+    .vchk path { stroke-dasharray: 24; stroke-dashoffset: 24; animation: vchk-draw .5s .15s ease forwards; }
+  }
+  @keyframes vchk-draw { to { stroke-dashoffset: 0; } }
 </style>
 </head>
 <body>
@@ -55,6 +61,7 @@
   <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › Strumenti e app</nav>
   <h1>Quali motori di ricerca rispettano la privacy (SearXNG, Brave)?</h1>
   <div class="answer"><p>Google Search costruisce un profilo di ogni tua ricerca. Le alternative, in tre categorie:</p><ul><li><strong>metamotore self-hostabile</strong>: <strong>SearXNG</strong> – aggrega i risultati di decine di motori <strong>senza che nessuno di loro veda te</strong>: fa lui le query e ti restituisce i risultati, niente tracciamento, niente profilo. Su <a href="../differenza-container-lxc-e-vm/">un LXC</a> è tuo al 100%. La scelta massima per la <a href="../cos-e-la-sovranita-digitale/">sovranità</a></li><li><strong>indici indipendenti</strong>: <strong>Brave Search</strong> (indice proprio, non solo un proxy di Google/Bing) e <strong>Qwant</strong> (europeo, francese) – non dipendono dai risultati altrui</li><li><strong>proxy sui grandi</strong>: <strong>DuckDuckGo</strong> e <strong>Startpage</strong> danno i risultati di Bing/Google ma <strong>anonimizzati</strong> – privacy buona, ma la fonte resta a monte</li></ul><p>Il compromesso onesto: la qualità dei risultati di Google resta spesso avanti, e alcuni la rimpiangono. Ma per la maggioranza delle ricerche le alternative sono più che sufficienti, e il guadagno di privacy è reale. SearXNG in particolare è uno di quei self-host a basso costo e alto valore, che si integra bene nel resto dell&#x27;infrastruttura personale – e, cambiando prospettiva, il posizionamento su questi motori è parte della stessa partita della <a href="../cos-e-ai-overview-e-come-finirci/">visibilità nelle risposte AI</a>.</p></div>
+  <div class="verified"><svg class="vchk" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Verificata a mano · zero allucinazioni</span></div>
   <a class="ask" href="../../?q=motori-ricerca-privacy">Chiedilo a FabGPT-FAQ →</a>
   <div class="related">
     <h2>Altre domande</h2>

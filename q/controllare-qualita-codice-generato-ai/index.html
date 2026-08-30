@@ -42,6 +42,12 @@
   .answer code { cursor: pointer; }
   .answer code:hover { outline: 1px solid var(--border); }
   .answer code.copied { outline: 1px solid var(--accent); color: var(--accent); }
+  .verified { display: flex; align-items: center; gap: 7px; margin-top: 18px; font-size: 13px; color: var(--text-dim); }
+  .verified .vchk { flex: 0 0 auto; }
+  @media (prefers-reduced-motion: no-preference) {
+    .vchk path { stroke-dasharray: 24; stroke-dashoffset: 24; animation: vchk-draw .5s .15s ease forwards; }
+  }
+  @keyframes vchk-draw { to { stroke-dashoffset: 0; } }
 </style>
 </head>
 <body>
@@ -55,6 +61,7 @@
   <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › AI e LLM</nav>
   <h1>Come si controlla la qualità del codice generato dall&#x27;AI?</h1>
   <div class="answer"><p>Il &quot;vibe coding&quot; produce in fretta, ma produce anche <strong>slop</strong>: codice che sembra giusto e non lo è. Due strumenti per difendersi:</p><ul><li><a href="https://github.com/fabriziosalmi/vibe-check" target="_blank" rel="noopener">vibe-check</a> – una <strong>GitHub Action anti-slop</strong>: fa da gatekeeper in CI/CD e blocca le pull request che non superano i controlli di qualità.</li><li><a href="https://github.com/fabriziosalmi/brutal-coding-tool" target="_blank" rel="noopener">brutal-coding-tool</a> – fa l&#x27;audit del tuo vibecode e lo rende <em>brutalmente</em> solido, in TypeScript.</li></ul><p>Sul fronte generativo ci sono anche <a href="https://github.com/fabriziosalmi/iamnotacoder" target="_blank" rel="noopener">iamnotacoder</a> (generazione e improvement automatico di codice) e <a href="https://github.com/fabriziosalmi/DevGPT" target="_blank" rel="noopener">DevGPT</a>, uno dei primi esperimenti di assistente di coding GPT.</p></div>
+  <div class="verified"><svg class="vchk" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Verificata a mano · zero allucinazioni</span></div>
   <a class="ask" href="../../?q=ai-code-quality">Chiedilo a FabGPT-FAQ →</a>
   <div class="related">
     <h2>Altre domande</h2>

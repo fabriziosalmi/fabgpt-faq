@@ -42,6 +42,12 @@
   .answer code { cursor: pointer; }
   .answer code:hover { outline: 1px solid var(--border); }
   .answer code.copied { outline: 1px solid var(--accent); color: var(--accent); }
+  .verified { display: flex; align-items: center; gap: 7px; margin-top: 18px; font-size: 13px; color: var(--text-dim); }
+  .verified .vchk { flex: 0 0 auto; }
+  @media (prefers-reduced-motion: no-preference) {
+    .vchk path { stroke-dasharray: 24; stroke-dashoffset: 24; animation: vchk-draw .5s .15s ease forwards; }
+  }
+  @keyframes vchk-draw { to { stroke-dashoffset: 0; } }
 </style>
 </head>
 <body>
@@ -55,6 +61,7 @@
   <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › Proxmox e self-hosting</nav>
   <h1>Cos&#x27;è OpenZFS (snapshot atomici, copy-on-write, checksumming)?</h1>
   <div class="answer"><p><strong>OpenZFS</strong> è filesystem e gestore di volumi in uno, progettato attorno a un&#x27;ossessione: <strong>l&#x27;integrità dei dati</strong>. I meccanismi che lo rendono speciale:</p><ul><li><strong>copy-on-write (CoW)</strong> – non sovrascrive mai un blocco in posto: scrive la modifica altrove e poi aggiorna il puntatore, in modo <strong>atomico</strong>. Un crash a metà scrittura non lascia mai il filesystem in stato incoerente, e abilita gli <strong>snapshot istantanei</strong> (un segnalibro dei puntatori, costo quasi zero)</li><li><strong>checksumming continuo</strong> – ogni blocco ha un checksum verificato a ogni lettura: il <strong>bit rot</strong> (la corruzione silenziosa dei dischi che nessun filesystem tradizionale rileva) viene scoperto e, con <a href="../raid-e-raidz-livelli-e-scelta/">ridondanza (mirror/RAIDZ)</a>, <strong>riparato automaticamente</strong>. Lo <strong>scrub</strong> periodico verifica proattivamente tutto il pool</li><li>compressione trasparente, replica incrementale, e la gestione integrata dei volumi (niente RAID hardware sotto)</li></ul><p>È il motivo per cui ZFS è lo standard del <a href="../self-hosting-pro-e-contro/">NAS e del self-hosting serio</a>: i tuoi dati vengono <em>verificati</em>, non solo scritti e sperati. I compromessi da conoscere: ama la <a href="../perche-la-ram-ecc-nel-nas/">RAM (meglio ECC</a>), vuole dischi dedicati senza RAID hardware di mezzo, e gli snapshot <a href="../differenza-snapshot-e-backup/">non sono backup</a>. Su <a href="../perche-usare-zfs-su-proxmox/">Proxmox è integrato nativamente</a>; su un NAS lo trovi sotto TrueNAS o direttamente su Linux/BSD.</p></div>
+  <div class="verified"><svg class="vchk" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Verificata a mano · zero allucinazioni</span></div>
   <a class="ask" href="../../?q=openzfs">Chiedilo a FabGPT-FAQ →</a>
   <div class="related">
     <h2>Altre domande</h2>

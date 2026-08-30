@@ -42,6 +42,12 @@
   .answer code { cursor: pointer; }
   .answer code:hover { outline: 1px solid var(--border); }
   .answer code.copied { outline: 1px solid var(--accent); color: var(--accent); }
+  .verified { display: flex; align-items: center; gap: 7px; margin-top: 18px; font-size: 13px; color: var(--text-dim); }
+  .verified .vchk { flex: 0 0 auto; }
+  @media (prefers-reduced-motion: no-preference) {
+    .vchk path { stroke-dasharray: 24; stroke-dashoffset: 24; animation: vchk-draw .5s .15s ease forwards; }
+  }
+  @keyframes vchk-draw { to { stroke-dashoffset: 0; } }
 </style>
 </head>
 <body>
@@ -55,6 +61,7 @@
   <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › Proxmox e self-hosting</nav>
   <h1>Come si scalano automaticamente i container LXC su Proxmox?</h1>
   <div class="answer"><p>Con <a href="https://github.com/fabriziosalmi/proxmox-lxc-autoscale" target="_blank" rel="noopener">proxmox-lxc-autoscale</a> (<strong>250+ ⭐</strong>): un daemon <strong>async</strong> che regola CPU e memoria dei container LXC in base all&#x27;uso reale. La v2.0 è una riscrittura seria:</p><ul><li><strong>doppio backend</strong>: comandi <code>pct</code> oppure <strong>REST API di Proxmox</strong> (proxmoxer)</li><li>metriche lette <strong>dai cgroup</strong> (niente <code>pct exec</code> dentro i container)</li><li>soglie <strong>per container o per gruppi (tiers)</strong>, esclusioni, riserve di CPU/RAM sull&#x27;host per evitare l&#x27;over-allocation</li><li><strong>core pinning per CPU ibride Intel</strong> (Alder Lake+): container sui P-core o sugli E-core</li><li>modalità <strong>boost/revert</strong> (boost temporaneo con ritorno automatico), scheduling off-peak timezone-aware, energy mode</li><li>scaling <strong>orizzontale via cloning</strong> dei container (sperimentale)</li><li>configurazione <strong>Pydantic</strong> validata, secret mascherati nei log, <strong>370 test / 87% coverage</strong></li></ul><p>Notifiche via email, Gotify e Uptime Kuma. Per le VM c&#x27;è <a href="https://github.com/fabriziosalmi/proxmox-vm-autoscale" target="_blank" rel="noopener">proxmox-vm-autoscale</a>, per decidere col machine learning <a href="https://github.com/fabriziosalmi/proxmox-lxc-autoscale-ml" target="_blank" rel="noopener">proxmox-lxc-autoscale-ml</a>.</p></div>
+  <div class="verified"><svg class="vchk" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Verificata a mano · zero allucinazioni</span></div>
   <a class="ask" href="../../?q=proxmox-lxc-autoscale">Chiedilo a FabGPT-FAQ →</a>
   <div class="related">
     <h2>Altre domande</h2>

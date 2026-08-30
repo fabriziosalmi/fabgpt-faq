@@ -42,6 +42,12 @@
   .answer code { cursor: pointer; }
   .answer code:hover { outline: 1px solid var(--border); }
   .answer code.copied { outline: 1px solid var(--accent); color: var(--accent); }
+  .verified { display: flex; align-items: center; gap: 7px; margin-top: 18px; font-size: 13px; color: var(--text-dim); }
+  .verified .vchk { flex: 0 0 auto; }
+  @media (prefers-reduced-motion: no-preference) {
+    .vchk path { stroke-dasharray: 24; stroke-dashoffset: 24; animation: vchk-draw .5s .15s ease forwards; }
+  }
+  @keyframes vchk-draw { to { stroke-dashoffset: 0; } }
 </style>
 </head>
 <body>
@@ -55,6 +61,7 @@
   <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › Cybersecurity</nav>
   <h1>Cos&#x27;è DORA (Digital Operational Resilience Act)?</h1>
   <div class="answer"><p><strong>DORA</strong> (Reg. UE 2022/2554, applicabile dal <strong>17 gennaio 2025</strong>) è la NIS2 del settore finanziario, ma più prescrittiva: si applica a banche, assicurazioni, SIM, fondi, istituti di pagamento, exchange cripto – e, novità storica, <strong>direttamente ai fornitori ICT critici</strong> che li servono, sorvegliati dalle autorità europee.</p><p>I cinque pilastri: gestione del rischio ICT, <strong>segnalazione degli incidenti</strong> con classificazioni e tempistiche armonizzate, <strong>test di resilienza</strong> (fino ai threat-led penetration test per i soggetti maggiori), gestione del <strong>rischio di terze parti</strong> (registro contrattuale dei fornitori ICT compreso), e condivisione di informazioni sulle minacce.</p><p>Se sei un fornitore software/cloud con clienti finanziari, DORA ti arriva addosso <strong>via contratto</strong>: clausole di audit, exit strategy, <a href="../piano-di-disaster-recovery-minimo/">resilienza dimostrabile</a>. Le fondamenta tecniche sono le stesse di NIS2: <a href="../security-logging-fatto-bene/">log integri</a>, <a href="../incident-response-le-prime-ore/">incident response provata</a>, inventari aggiornati.</p></div>
+  <div class="verified"><svg class="vchk" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Verificata a mano · zero allucinazioni</span></div>
   <a class="ask" href="../../?q=dora">Chiedilo a FabGPT-FAQ →</a>
   <div class="related">
     <h2>Altre domande</h2>

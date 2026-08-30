@@ -42,6 +42,12 @@
   .answer code { cursor: pointer; }
   .answer code:hover { outline: 1px solid var(--border); }
   .answer code.copied { outline: 1px solid var(--accent); color: var(--accent); }
+  .verified { display: flex; align-items: center; gap: 7px; margin-top: 18px; font-size: 13px; color: var(--text-dim); }
+  .verified .vchk { flex: 0 0 auto; }
+  @media (prefers-reduced-motion: no-preference) {
+    .vchk path { stroke-dasharray: 24; stroke-dashoffset: 24; animation: vchk-draw .5s .15s ease forwards; }
+  }
+  @keyframes vchk-draw { to { stroke-dashoffset: 0; } }
 </style>
 </head>
 <body>
@@ -55,6 +61,7 @@
   <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › Cybersecurity</nav>
   <h1>Come si scopre se i propri dati sono finiti in un data breach?</h1>
   <div class="answer"><p>Per un controllo una tantum esistono servizi come Have I Been Pwned. Ma per un&#x27;<strong>organizzazione</strong> serve monitoraggio continuo, e farlo con un SaaS significa consegnare a terzi la lista di ciò che ti fa più male. <a href="https://github.com/fabriziosalmi/naso" target="_blank" rel="noopener">NASO</a> è l&#x27;alternativa <strong>self-hosted</strong>: sorveglia corpora di breach, paste site, GitHub pubblico, canali Telegram e servizi onion cercando l&#x27;esposizione della tua organizzazione, <strong>correla i ritrovamenti in identità</strong> e li smista con un LLM che fai girare tu.</p><p>L&#x27;intero stack – database, indice di ricerca, object store, modello – vive nel tuo Docker Compose: niente esce. È dichiaratamente uno strumento <strong>dual-use, per uso difensivo e autorizzato</strong>: maneggia dati personali altrui, e il posto più sicuro per farlo è un&#x27;infrastruttura che puoi indicare col dito.</p></div>
+  <div class="verified"><svg class="vchk" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Verificata a mano · zero allucinazioni</span></div>
   <a class="ask" href="../../?q=naso">Chiedilo a FabGPT-FAQ →</a>
   <div class="related">
     <h2>Altre domande</h2>

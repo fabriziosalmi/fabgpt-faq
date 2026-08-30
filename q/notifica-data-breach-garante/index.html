@@ -42,6 +42,12 @@
   .answer code { cursor: pointer; }
   .answer code:hover { outline: 1px solid var(--border); }
   .answer code.copied { outline: 1px solid var(--accent); color: var(--accent); }
+  .verified { display: flex; align-items: center; gap: 7px; margin-top: 18px; font-size: 13px; color: var(--text-dim); }
+  .verified .vchk { flex: 0 0 auto; }
+  @media (prefers-reduced-motion: no-preference) {
+    .vchk path { stroke-dasharray: 24; stroke-dashoffset: 24; animation: vchk-draw .5s .15s ease forwards; }
+  }
+  @keyframes vchk-draw { to { stroke-dashoffset: 0; } }
 </style>
 </head>
 <body>
@@ -55,6 +61,7 @@
   <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › Cybersecurity</nav>
   <h1>Data breach: entro quanto va notificato al Garante?</h1>
   <div class="answer"><p>Il GDPR (art. 33) dà <strong>72 ore</strong> dalla <em>conoscenza</em> della violazione per notificare al Garante – weekend compresi. Non tutte le violazioni vanno notificate: solo quelle con <strong>rischio</strong> per gli interessati (il laptop cifrato smarrito può non esserlo; il database clienti esfiltrato lo è). Se il rischio è <strong>elevato</strong>, scatta anche la comunicazione <strong>agli interessati</strong> (art. 34), senza ritardo ingiustificato.</p><p>Le 72 ore sono poche se ci si organizza durante l&#x27;incendio: serve la procedura <em>prima</em> – chi valuta, chi decide, chi scrive, con i <a href="../security-logging-fatto-bene/">log</a> e la <a href="../incident-response-le-prime-ore/">cronologia dell&#x27;incidente</a> già in ordine, perché la notifica richiede natura della violazione, dati e persone coinvolte, misure prese. Si può notificare <strong>per fasi</strong> se non si sa ancora tutto: meglio una notifica preliminare nei termini che una completa in ritardo. E chi è nel perimetro NIS2 ha <em>anche</em> i termini ACN (early warning <strong>24 ore</strong>, notifica 72): due binari paralleli – <a href="https://github.com/fabriziosalmi/nis2-public" target="_blank" rel="noopener">nis2-public</a> tiene il workflow degli incidenti allineato all&#x27;Art. 23.</p></div>
+  <div class="verified"><svg class="vchk" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Verificata a mano · zero allucinazioni</span></div>
   <a class="ask" href="../../?q=notifica-garante">Chiedilo a FabGPT-FAQ →</a>
   <div class="related">
     <h2>Altre domande</h2>

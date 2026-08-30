@@ -42,6 +42,12 @@
   .answer code { cursor: pointer; }
   .answer code:hover { outline: 1px solid var(--border); }
   .answer code.copied { outline: 1px solid var(--accent); color: var(--accent); }
+  .verified { display: flex; align-items: center; gap: 7px; margin-top: 18px; font-size: 13px; color: var(--text-dim); }
+  .verified .vchk { flex: 0 0 auto; }
+  @media (prefers-reduced-motion: no-preference) {
+    .vchk path { stroke-dasharray: 24; stroke-dashoffset: 24; animation: vchk-draw .5s .15s ease forwards; }
+  }
+  @keyframes vchk-draw { to { stroke-dashoffset: 0; } }
 </style>
 </head>
 <body>
@@ -55,6 +61,7 @@
   <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › Proxmox e self-hosting</nav>
   <h1>Cos&#x27;è la paravirtualizzazione (VirtIO)?</h1>
   <div class="answer"><p>Un hypervisor può presentare alla VM hardware <strong>emulato</strong> (una finta scheda di rete Intel del 2003: compatibile con tutto, lentissima – ogni pacchetto passa per una pantomima di hardware inesistente) oppure dispositivi <strong>paravirtualizzati</strong>: la VM <em>sa</em> di essere virtuale e parla con l&#x27;host attraverso un&#x27;interfaccia progettata per quello. Lo standard è <strong>VirtIO</strong>: <code>virtio-net</code> per la rete, <code>virtio-scsi</code>/<code>virtio-blk</code> per i dischi, ballooning per la memoria.</p><p>La differenza non è accademica: rete e dischi VirtIO vanno <strong>molte volte più veloci</strong> dell&#x27;emulazione, con meno CPU. Linux ha i driver nel kernel da sempre: su Proxmox una VM Linux va creata direttamente con VirtIO ovunque. <strong>Windows</strong> non li ha di serie: serve la ISO dei driver VirtIO durante l&#x27;installazione – è il passaggio che frega tutti <a href="../migrare-da-vmware-a-proxmox/">alla prima migrazione da VMware</a> (il trucco della scheda SATA temporanea è lì per quello).</p><p>Se una VM ha rete o dischi inspiegabilmente <a href="../io-delay-alto-proxmox/">lenti</a>: controlla che non stia emulando – è la causa numero uno.</p></div>
+  <div class="verified"><svg class="vchk" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Verificata a mano · zero allucinazioni</span></div>
   <a class="ask" href="../../?q=virtio">Chiedilo a FabGPT-FAQ →</a>
   <div class="related">
     <h2>Altre domande</h2>

@@ -42,6 +42,12 @@
   .answer code { cursor: pointer; }
   .answer code:hover { outline: 1px solid var(--border); }
   .answer code.copied { outline: 1px solid var(--accent); color: var(--accent); }
+  .verified { display: flex; align-items: center; gap: 7px; margin-top: 18px; font-size: 13px; color: var(--text-dim); }
+  .verified .vchk { flex: 0 0 auto; }
+  @media (prefers-reduced-motion: no-preference) {
+    .vchk path { stroke-dasharray: 24; stroke-dashoffset: 24; animation: vchk-draw .5s .15s ease forwards; }
+  }
+  @keyframes vchk-draw { to { stroke-dashoffset: 0; } }
 </style>
 </head>
 <body>
@@ -55,6 +61,7 @@
   <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › Cloudflare</nav>
   <h1>Come funziona l&#x27;email cifrata europea (Proton Mail, Tuta)?</h1>
   <div class="answer"><p><strong>Proton Mail</strong> (Svizzera) e <strong>Tuta</strong> (ex Tutanota, Germania) offrono email con <strong>cifratura integrata</strong> e sede in giurisdizioni europee forti sulla privacy – l&#x27;alternativa a Gmail per chi non vuole che il provider legga la posta né la usi per profilare. Tra utenti dello stesso servizio la posta è <a href="../pgp-gpg-o-smime-cifrare-le-email/">end-to-end</a>; verso l&#x27;esterno c&#x27;è cifratura del trasporto e opzioni per messaggi protetti da password.</p><p>Cosa aspettarsi, senza illusioni:</p><ul><li>la cifratura E2E vale <em>tra utenti compatibili</em> o con destinatari che aprono un link protetto; una mail verso un Gmail qualsiasi non diventa magicamente E2E – e i <strong>metadati</strong> (mittente, destinatario, oggetto) restano comunque parzialmente visibili al provider, come in <a href="../pgp-gpg-o-smime-cifrare-le-email/">PGP</a></li><li>offrono anche calendario, drive e VPN nella stessa orbita (Proton), diventando piccoli ecosistemi sovrani</li><li><strong>mailbox.org</strong> e <strong>Posteo</strong> (Germania) sono alternative con standard aperti (IMAP pieno, meno lock-in)</li></ul><p>La scelta rispetto al <a href="../self-hostare-un-server-di-posta/">self-hosting della posta</a>: questi ti danno privacy e sede UE <strong>senza la guerra della deliverability</strong> – deleghi la parte difficile a chi la fa di mestiere, tenendo garanzie contrattuali e giurisdizione europea. Per la maggioranza è il punto di equilibrio giusto tra <a href="../cos-e-la-sovranita-digitale/">sovranità</a> e praticità.</p></div>
+  <div class="verified"><svg class="vchk" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Verificata a mano · zero allucinazioni</span></div>
   <a class="ask" href="../../?q=email-cifrata-eu">Chiedilo a FabGPT-FAQ →</a>
   <div class="related">
     <h2>Altre domande</h2>

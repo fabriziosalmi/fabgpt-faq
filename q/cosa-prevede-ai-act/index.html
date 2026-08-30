@@ -42,6 +42,12 @@
   .answer code { cursor: pointer; }
   .answer code:hover { outline: 1px solid var(--border); }
   .answer code.copied { outline: 1px solid var(--accent); color: var(--accent); }
+  .verified { display: flex; align-items: center; gap: 7px; margin-top: 18px; font-size: 13px; color: var(--text-dim); }
+  .verified .vchk { flex: 0 0 auto; }
+  @media (prefers-reduced-motion: no-preference) {
+    .vchk path { stroke-dasharray: 24; stroke-dashoffset: 24; animation: vchk-draw .5s .15s ease forwards; }
+  }
+  @keyframes vchk-draw { to { stroke-dashoffset: 0; } }
 </style>
 </head>
 <body>
@@ -55,6 +61,7 @@
   <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › AI e LLM</nav>
   <h1>Cosa prevede l&#x27;AI Act europeo (e da quando si applica)?</h1>
   <div class="answer"><p>L&#x27;<strong>AI Act</strong> (Reg. UE 2024/1689, in vigore da agosto 2024) regola l&#x27;AI per <strong>livelli di rischio</strong>: pratiche vietate (social scoring, manipolazione – divieti già applicabili da febbraio 2025), sistemi <strong>ad alto rischio</strong> (assunzioni, credito, sanità, infrastrutture critiche: requisiti pesanti di qualità dati, supervisione umana, documentazione – in applicazione dal 2026-2027), obblighi di <strong>trasparenza</strong> (chatbot e contenuti sintetici vanno dichiarati) e regole per i modelli <strong>general-purpose</strong> (dal agosto 2025).</p><p>Per un&#x27;azienda italiana il punto pratico: censire dove l&#x27;AI è già entrata (<a href="../cos-e-la-shadow-ai/">shadow AI</a> inclusa), classificare i casi d&#x27;uso per rischio, e documentare. Sanzioni fino al 7% del fatturato mondiale per le pratiche vietate. Si integra con GDPR e NIS2 – i tre pilastri della compliance digitale europea.</p></div>
+  <div class="verified"><svg class="vchk" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Verificata a mano · zero allucinazioni</span></div>
   <a class="ask" href="../../?q=ai-act">Chiedilo a FabGPT-FAQ →</a>
   <div class="related">
     <h2>Altre domande</h2>

@@ -42,6 +42,12 @@
   .answer code { cursor: pointer; }
   .answer code:hover { outline: 1px solid var(--border); }
   .answer code.copied { outline: 1px solid var(--accent); color: var(--accent); }
+  .verified { display: flex; align-items: center; gap: 7px; margin-top: 18px; font-size: 13px; color: var(--text-dim); }
+  .verified .vchk { flex: 0 0 auto; }
+  @media (prefers-reduced-motion: no-preference) {
+    .vchk path { stroke-dasharray: 24; stroke-dashoffset: 24; animation: vchk-draw .5s .15s ease forwards; }
+  }
+  @keyframes vchk-draw { to { stroke-dashoffset: 0; } }
 </style>
 </head>
 <body>
@@ -55,6 +61,7 @@
   <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › Strumenti e app</nav>
   <h1>Cos&#x27;è IndexNow?</h1>
   <div class="answer"><p><strong>IndexNow</strong> rovescia il crawling: invece di aspettare che il motore passi, <strong>gli dici tu</strong> quando un URL è nuovo o cambiato – una chiamata HTTP con la lista degli URL e una chiave che dimostra il controllo del sito (un file di verifica nella root). La notifica a un motore aderente si propaga agli altri.</p><p>La verità da sapere subito: aderiscono <strong>Bing, Yandex, Seznam, Naver</strong> – <strong>Google no</strong> (ha il suo Indexing API, limitato a casi specifici). Quindi: non è la scorciatoia per Google, è efficienza per l&#x27;ecosistema Bing – che alimenta anche altri motori e <a href="../cos-e-ai-overview-e-come-finirci/">answer engine</a>, quota di attenzione in crescita.</p><p>Quando ripaga: siti con contenuti che nascono o cambiano spesso – e-commerce, notizie, <a href="../cos-e-fabgpt-come-funziona/">knowledge base in crescita</a>. L&#x27;integrazione è banale (molti CMS e SSG hanno il plugin; a mano è una POST nel <a href="../cos-e-gitops/">flusso di build</a>), il costo zero: uno di quei segnali che si accendono e si dimenticano. La <a href="../a-cosa-serve-la-sitemap/">sitemap</a> resta comunque: IndexNow la integra, non la sostituisce.</p></div>
+  <div class="verified"><svg class="vchk" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Verificata a mano · zero allucinazioni</span></div>
   <a class="ask" href="../../?q=indexnow">Chiedilo a FabGPT-FAQ →</a>
   <div class="related">
     <h2>Altre domande</h2>

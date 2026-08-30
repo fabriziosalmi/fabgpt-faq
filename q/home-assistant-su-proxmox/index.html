@@ -42,6 +42,12 @@
   .answer code { cursor: pointer; }
   .answer code:hover { outline: 1px solid var(--border); }
   .answer code.copied { outline: 1px solid var(--accent); color: var(--accent); }
+  .verified { display: flex; align-items: center; gap: 7px; margin-top: 18px; font-size: 13px; color: var(--text-dim); }
+  .verified .vchk { flex: 0 0 auto; }
+  @media (prefers-reduced-motion: no-preference) {
+    .vchk path { stroke-dasharray: 24; stroke-dashoffset: 24; animation: vchk-draw .5s .15s ease forwards; }
+  }
+  @keyframes vchk-draw { to { stroke-dashoffset: 0; } }
 </style>
 </head>
 <body>
@@ -55,6 +61,7 @@
   <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › Proxmox e self-hosting</nav>
   <h1>Home Assistant su Proxmox: la via pulita</h1>
   <div class="answer"><p>La via pulita è una sola: <strong>HAOS in una VM</strong> – il sistema operativo ufficiale di Home Assistant, con supervisor, add-on e aggiornamenti dall&#x27;interfaccia. Le alternative sembrano furbe e si pagano: in LXC il <em>supervised</em> non è supportato (rotture a ogni aggiornamento), il <em>container</em> Docker puro rinuncia agli add-on.</p><p>La ricetta: scarica l&#x27;immagine qcow2 di HAOS, importala (<code>qm importdisk</code>) in una VM <strong>UEFI (OVMF)</strong> con 2 vCPU, 4 GB di RAM e <a href="../cos-e-la-paravirtualizzazione-virtio/">VirtIO</a> ovunque – o lascia fare allo script community (tteck/community-scripts), che prepara tutto in un minuto ed è ormai lo standard de facto del homelab.</p><p>I dettagli che fanno la differenza: la <strong>chiavetta Zigbee/Z-Wave</strong> <a href="../passare-un-disco-usb-a-una-vm/">passata per vendor ID</a> (e con nome stabile via by-id); i <strong><a href="../backup-automatici-verso-pbs/">backup</a> di Proxmox</strong> <em>più</em> quelli interni di HA (proteggono cose diverse); e l&#x27;accesso da fuori <a href="../esporre-servizi-senza-aprire-porte/">via VPN/overlay</a>, non con la porta aperta – la tua casa non è un servizio pubblico. Su un <a href="../homelab-a-basso-consumo/">mini PC</a>, HAOS più una manciata di container girano nel nulla.</p></div>
+  <div class="verified"><svg class="vchk" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Verificata a mano · zero allucinazioni</span></div>
   <a class="ask" href="../../?q=home-assistant-proxmox">Chiedilo a FabGPT-FAQ →</a>
   <div class="related">
     <h2>Altre domande</h2>

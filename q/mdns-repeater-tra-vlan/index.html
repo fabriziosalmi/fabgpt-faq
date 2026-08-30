@@ -42,6 +42,12 @@
   .answer code { cursor: pointer; }
   .answer code:hover { outline: 1px solid var(--border); }
   .answer code.copied { outline: 1px solid var(--accent); color: var(--accent); }
+  .verified { display: flex; align-items: center; gap: 7px; margin-top: 18px; font-size: 13px; color: var(--text-dim); }
+  .verified .vchk { flex: 0 0 auto; }
+  @media (prefers-reduced-motion: no-preference) {
+    .vchk path { stroke-dasharray: 24; stroke-dashoffset: 24; animation: vchk-draw .5s .15s ease forwards; }
+  }
+  @keyframes vchk-draw { to { stroke-dashoffset: 0; } }
 </style>
 </head>
 <body>
@@ -55,6 +61,7 @@
   <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › Cybersecurity</nav>
   <h1>Come si fa funzionare mDNS tra VLAN diverse (repeater/reflector)?</h1>
   <div class="answer"><p>Il problema classico di chi <a href="../segmentare-la-rete-con-vlan/">segmenta la rete in VLAN</a>: protocolli di discovery come <strong>mDNS</strong> (Bonjour/Avahi – dietro Chromecast, AirPlay, stampanti, HomeKit) usano il <strong>multicast</strong>, che per progettazione <strong>non attraversa</strong> i confini tra VLAN. Risultato: metti la TV o la stampante in una VLAN separata (giusto, per sicurezza) e il telefono nella VLAN principale non le &quot;vede&quot; più.</p><p>La soluzione è un <strong>mDNS repeater/reflector</strong>: un servizio (nei firewall come OPNsense/pfSense, o Avahi con <code>reflector=yes</code>) che <strong>ripete selettivamente</strong> gli annunci mDNS tra le VLAN che decidi tu – il telefono nella rete fidata scopre la Chromecast nella VLAN IoT, ma le due VLAN restano per il resto isolate.</p><p>La cautela di sicurezza, importante: il reflector è un <strong>buco controllato</strong> nella segmentazione – va limitato alle VLAN e ai servizi che <em>devono</em> comunicare, non aperto a tutto (altrimenti vanifichi la segmentazione stessa). Il pattern sano: IoT/media in VLAN isolata <strong>senza uscita internet</strong> (contro i device che <a href="../cos-e-una-botnet/">chiamano casa</a>), reflector mDNS <em>solo</em> verso la VLAN dei dispositivi fidati, e le regole firewall che permettono <em>solo</em> le porte del servrizio (il casting) e non l&#x27;intero traffico. È il compromesso quotidiano tra la comodità della smart home e l&#x27;isolamento che la rende sicura.</p></div>
+  <div class="verified"><svg class="vchk" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Verificata a mano · zero allucinazioni</span></div>
   <a class="ask" href="../../?q=mdns-reflector">Chiedilo a FabGPT-FAQ →</a>
   <div class="related">
     <h2>Altre domande</h2>

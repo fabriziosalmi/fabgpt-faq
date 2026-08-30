@@ -42,6 +42,12 @@
   .answer code { cursor: pointer; }
   .answer code:hover { outline: 1px solid var(--border); }
   .answer code.copied { outline: 1px solid var(--accent); color: var(--accent); }
+  .verified { display: flex; align-items: center; gap: 7px; margin-top: 18px; font-size: 13px; color: var(--text-dim); }
+  .verified .vchk { flex: 0 0 auto; }
+  @media (prefers-reduced-motion: no-preference) {
+    .vchk path { stroke-dasharray: 24; stroke-dashoffset: 24; animation: vchk-draw .5s .15s ease forwards; }
+  }
+  @keyframes vchk-draw { to { stroke-dashoffset: 0; } }
 </style>
 </head>
 <body>
@@ -55,6 +61,7 @@
   <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › Proxmox e self-hosting</nav>
   <h1>TrueNAS dentro Proxmox: pro e contro</h1>
   <div class="answer"><p>Si può fare bene, a <strong>una condizione non negoziabile</strong>: TrueNAS deve vedere i <strong>dischi veri</strong>, attraverso il passthrough di un intero controller <strong>HBA in IT mode</strong> (un LSI 9207/9300 da poche decine di euro) – parente del <a href="../passthrough-gpu-proxmox/">passthrough GPU</a>, con IOMMU e vfio. ZFS vuole parlare con i dischi senza intermediari: TrueNAS sopra dischi <em>virtuali</em> è ZFS sopra ZFS con SMART invisibile – la ricetta del dolore silenzioso.</p><p>Con l&#x27;HBA passato, la VM TrueNAS è un NAS legittimo: 8+ GB di RAM prenotati (niente ballooning), CPU <code>host</code>, e i servizi di condivisione che <a href="../montare-nfs-smb-proxmox/">tornano a Proxmox via NFS/SMB</a>.</p><p>Il contro strutturale: hai creato una <strong>dipendenza circolare</strong> – se la VM NAS ospita dischi di altre VM, l&#x27;avvio del cluster dipende da lei (<a href="../nodo-x-rossa-quorum-perso/">e il quorum ringrazia</a>). L&#x27;alternativa da considerare seriamente: <strong>niente TrueNAS</strong> – <a href="../perche-usare-zfs-su-proxmox/">ZFS nativo di Proxmox</a> più un container leggero per SMB fa lo stesso mestiere con un livello in meno. TrueNAS vince quando vuoi la sua UI, i suoi snapshot gestiti e le sue app – o quando il NAS deve sopravvivere concettualmente all&#x27;hypervisor.</p></div>
+  <div class="verified"><svg class="vchk" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Verificata a mano · zero allucinazioni</span></div>
   <a class="ask" href="../../?q=truenas-proxmox">Chiedilo a FabGPT-FAQ →</a>
   <div class="related">
     <h2>Altre domande</h2>

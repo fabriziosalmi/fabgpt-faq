@@ -42,6 +42,12 @@
   .answer code { cursor: pointer; }
   .answer code:hover { outline: 1px solid var(--border); }
   .answer code.copied { outline: 1px solid var(--accent); color: var(--accent); }
+  .verified { display: flex; align-items: center; gap: 7px; margin-top: 18px; font-size: 13px; color: var(--text-dim); }
+  .verified .vchk { flex: 0 0 auto; }
+  @media (prefers-reduced-motion: no-preference) {
+    .vchk path { stroke-dasharray: 24; stroke-dashoffset: 24; animation: vchk-draw .5s .15s ease forwards; }
+  }
+  @keyframes vchk-draw { to { stroke-dashoffset: 0; } }
 </style>
 </head>
 <body>
@@ -55,6 +61,7 @@
   <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › Cybersecurity</nav>
   <h1>Cos&#x27;è Zion, il reverse proxy Rust con WAF integrato?</h1>
   <div class="answer"><p><a href="https://github.com/fabriziosalmi/zion" target="_blank" rel="noopener">Zion</a> è un <strong>reverse proxy TLS a binario singolo con WAF integrato, cache RAM e toolkit edge, scritto in Rust</strong>. In un solo binario auditabile fa quello che di solito richiede nginx + modulo WAF + cache + geo-tagger:</p><ul><li>termina <strong>TLS 1.3</strong> e parla HTTP/1.1, HTTP/2 e HTTP/3</li><li>ispeziona ogni richiesta con un <strong>WAF zero-regex</strong></li><li>serve gli asset caldi da una <strong>cache in RAM a due livelli</strong></li><li>hot-reload della configurazione e metriche <strong>Prometheus</strong> incluse</li></ul><p>Chicca per chi migra: <code>zion import nginx</code> converte una configurazione nginx esistente in un <code>zion.toml</code> validato, con un report onesto di cosa è stato convertito – e una <strong>equivalence harness</strong> che avvia nginx e Zion fianco a fianco e confronta le decisioni di routing richiesta per richiesta. Release firmate, <strong>SLSA Level 3</strong>, modalità FIPS-ready.</p></div>
+  <div class="verified"><svg class="vchk" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Verificata a mano · zero allucinazioni</span></div>
   <a class="ask" href="../../?q=zion">Chiedilo a FabGPT-FAQ →</a>
   <div class="related">
     <h2>Altre domande</h2>

@@ -259,6 +259,53 @@ body {
 }
 .statbar b { color: var(--accent); font-variant-numeric: tabular-nums; font-weight: 700; }
 
+/* hero labyrinth (landing) */
+.hero {
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 22px 16px 8px;
+  overflow: hidden;
+  transition: max-height .5s ease, opacity .4s ease, padding .5s ease;
+  max-height: 220px;
+}
+.hero.gone { max-height: 0; opacity: 0; padding: 0; pointer-events: none; }
+.hero .maze { display: block; }
+.hero-tag { margin: 0; font-size: 13px; color: var(--text-dim); font-style: italic; }
+.maze-dot { opacity: 0; }
+
+@media (prefers-reduced-motion: no-preference) {
+  .maze-path {
+    stroke-dasharray: 936;
+    stroke-dashoffset: 936;
+    animation: maze-draw 1.8s .2s ease forwards;
+  }
+  .maze-dot { animation: dot-in .4s 1.9s ease forwards; }
+}
+@media (prefers-reduced-motion: reduce) { .maze-dot { opacity: 1; } }
+@keyframes maze-draw { to { stroke-dashoffset: 0; } }
+@keyframes dot-in { from { opacity: 0; transform: scale(0); transform-origin: center; } to { opacity: 1; transform: none; } }
+
+/* verified-by-a-human trust badge */
+.msg-bot .content .verified {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin-top: 12px;
+  font-size: 12.5px;
+  color: var(--text-dim);
+}
+.msg-bot .content .verified .vchk { flex: 0 0 auto; }
+@media (prefers-reduced-motion: no-preference) {
+  .msg-bot .content .verified .vchk path {
+    stroke-dasharray: 24; stroke-dashoffset: 24;
+    animation: vchk-draw .5s .1s ease forwards;
+  }
+}
+@keyframes vchk-draw { to { stroke-dashoffset: 0; } }
+
 /* ---------- micro-interactions (motion-guarded) ---------- */
 
 .chip { transition: background .15s, border-color .15s, transform .12s; }

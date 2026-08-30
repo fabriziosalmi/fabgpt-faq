@@ -226,7 +226,18 @@
   // Type `text` into a fresh bot row, re-rendering partial markdown each tick.
   let finishStream = null; // set while streaming: fast-forwards to the full answer
 
-  function streamAnswer(text, onDone, suggest, diagramId) {
+  // "Verified by a human" trust badge (KB answers only, not smalltalk/fallback).
+  function verifiedBadge() {
+    const b = document.createElement('div');
+    b.className = 'verified';
+    b.innerHTML = "<svg class='vchk' viewBox='0 0 24 24' width='15' height='15' fill='none' "
+      + "stroke='var(--accent)' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round' "
+      + "aria-hidden='true'><path d='M20 6L9 17l-5-5'/></svg>"
+      + "<span>Verificata a mano · zero allucinazioni</span>";
+    return b;
+  }
+
+  function streamAnswer(text, onDone, suggest, diagramId, verified) {
     streaming = true;
     updateSendState();
     const target = addBotRow();
@@ -248,6 +259,7 @@
         fig.innerHTML = svg;
         target.appendChild(fig);
       }
+      if (verified) target.appendChild(verifiedBadge());
       renderChips(suggest, target);
       scrollToBottom(false);
       if (onDone) onDone();
@@ -292,12 +304,18 @@
     return DB.fallbacks[fallbackIdx];
   }
 
+  let heroGone = false;
   function ask(text) {
+    if (!heroGone) {                     // collapse the landing hero on first interaction
+      const hero = document.getElementById('hero');
+      if (hero) hero.classList.add('gone');
+      heroGone = true;
+    }
     addUserMessage(text);
     const entry = match(text);
     const answer = entry ? pickAnswer(entry) : pickFallback();
     if (entry && entry.slug) askedSlugs.add(entry.slug); // thread history
-    streamAnswer(answer, null, entry && entry.suggest, entry && entry.id);
+    streamAnswer(answer, null, entry && entry.suggest, entry && entry.id, !!(entry && entry.slug));
   }
 
   /* ---------- composer ---------- */

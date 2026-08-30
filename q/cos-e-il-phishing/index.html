@@ -42,6 +42,12 @@
   .answer code { cursor: pointer; }
   .answer code:hover { outline: 1px solid var(--border); }
   .answer code.copied { outline: 1px solid var(--accent); color: var(--accent); }
+  .verified { display: flex; align-items: center; gap: 7px; margin-top: 18px; font-size: 13px; color: var(--text-dim); }
+  .verified .vchk { flex: 0 0 auto; }
+  @media (prefers-reduced-motion: no-preference) {
+    .vchk path { stroke-dasharray: 24; stroke-dashoffset: 24; animation: vchk-draw .5s .15s ease forwards; }
+  }
+  @keyframes vchk-draw { to { stroke-dashoffset: 0; } }
 </style>
 </head>
 <body>
@@ -55,6 +61,7 @@
   <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › Cybersecurity</nav>
   <h1>Cos&#x27;è il phishing (e lo spear phishing)?</h1>
   <div class="answer"><p>Il <strong>phishing</strong> è l&#x27;arte di farsi consegnare credenziali e dati fingendosi qualcun altro: la mail della &quot;banca&quot; che chiede di verificare il conto, il corriere con il pacco fermo, il collega che ha urgenza di un bonifico. Lo <strong>spear phishing</strong> è la versione su misura: l&#x27;attaccante studia la vittima e confeziona un&#x27;esca credibile proprio per lei – è così che cadono anche i tecnici.</p><p>Difese che funzionano: <strong>passkey/FIDO2</strong> (su un sito clone semplicemente non scattano, a differenza dei codici SMS), verifica dei link prima del click, e canali separati per confermare le richieste di denaro. Lato infrastruttura: <a href="../spf-dkim-dmarc/">SPF, DKIM e DMARC</a> impediscono che qualcuno spedisca a nome del tuo dominio, e le blocklist come <a href="https://github.com/fabriziosalmi/blacklists" target="_blank" rel="noopener">blacklists</a> tagliano i domini di phishing noti a livello DNS.</p></div>
+  <div class="verified"><svg class="vchk" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Verificata a mano · zero allucinazioni</span></div>
   <a class="ask" href="../../?q=phishing">Chiedilo a FabGPT-FAQ →</a>
   <div class="related">
     <h2>Altre domande</h2>

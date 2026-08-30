@@ -42,6 +42,12 @@
   .answer code { cursor: pointer; }
   .answer code:hover { outline: 1px solid var(--border); }
   .answer code.copied { outline: 1px solid var(--accent); color: var(--accent); }
+  .verified { display: flex; align-items: center; gap: 7px; margin-top: 18px; font-size: 13px; color: var(--text-dim); }
+  .verified .vchk { flex: 0 0 auto; }
+  @media (prefers-reduced-motion: no-preference) {
+    .vchk path { stroke-dasharray: 24; stroke-dashoffset: 24; animation: vchk-draw .5s .15s ease forwards; }
+  }
+  @keyframes vchk-draw { to { stroke-dashoffset: 0; } }
 </style>
 </head>
 <body>
@@ -55,6 +61,7 @@
   <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › Proxmox e self-hosting</nav>
   <h1>Come si aggiornano automaticamente i container (Watchtower e alternative)?</h1>
   <div class="answer"><p>Le immagini <a href="../cos-e-docker-compose/">Docker</a> invecchiano e accumulano <a href="../cos-e-una-cve-e-il-cvss/">CVE</a>: vanno aggiornate. Gli strumenti, con una tensione importante da capire:</p><ul><li><strong>Watchtower</strong> – controlla e <strong>aggiorna in automatico</strong> i container quando esce una nuova immagine. Comodo... e rischioso: un aggiornamento automatico può rompere un servizio senza preavviso, di notte, mentre dormi. Per i <em>tuoi</em> servizi in produzione non è quasi mai la scelta giusta</li><li><strong>Diun</strong> – la variante saggia: <strong>ti avvisa</strong> (via <a href="../notifiche-push-self-hosted-ntfy-gotify/">ntfy/Gotify</a>) che c&#x27;è un aggiornamento, ma aggiorni tu, quando decidi e con backup pronto</li><li><strong>Renovate</strong> – per chi tiene i compose <a href="../cos-e-gitops/">in git</a>: apre pull request con i bump di versione, che rivedi e mergi – il modo più controllato</li></ul><p>La regola d&#x27;oro, che vale <a href="../cos-e-la-supply-chain-security/">l&#x27;intera supply chain</a>: <strong>notifica sempre, aggiorna automaticamente solo ciò che puoi permetterti di veder rompere</strong>. E qualunque strada, <a href="../sicurezza-delle-immagini-container/">pinna le versioni</a> (mai <code>:latest</code> cieco) e tieni un <a href="../backup-3-2-1/">backup</a> da cui tornare indietro – l&#x27;aggiornamento che rompe capita, la domanda è solo se hai la rete sotto.</p></div>
+  <div class="verified"><svg class="vchk" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Verificata a mano · zero allucinazioni</span></div>
   <a class="ask" href="../../?q=watchtower">Chiedilo a FabGPT-FAQ →</a>
   <div class="related">
     <h2>Altre domande</h2>

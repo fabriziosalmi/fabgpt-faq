@@ -42,6 +42,12 @@
   .answer code { cursor: pointer; }
   .answer code:hover { outline: 1px solid var(--border); }
   .answer code.copied { outline: 1px solid var(--accent); color: var(--accent); }
+  .verified { display: flex; align-items: center; gap: 7px; margin-top: 18px; font-size: 13px; color: var(--text-dim); }
+  .verified .vchk { flex: 0 0 auto; }
+  @media (prefers-reduced-motion: no-preference) {
+    .vchk path { stroke-dasharray: 24; stroke-dashoffset: 24; animation: vchk-draw .5s .15s ease forwards; }
+  }
+  @keyframes vchk-draw { to { stroke-dashoffset: 0; } }
 </style>
 </head>
 <body>
@@ -55,6 +61,7 @@
   <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › Cybersecurity</nav>
   <h1>Trasferimento dati extra-UE: cosa dice Schrems II?</h1>
   <div class="answer"><p><strong>Schrems II</strong> (Corte di Giustizia UE, 2020) ha invalidato il Privacy Shield: trasferire dati personali negli USA non era più coperto, perché la sorveglianza americana (FISA 702, <a href="../cos-e-la-sovranita-digitale/">CLOUD Act</a>) confligge con i diritti UE. Da lì anni di limbo: le <strong>SCC</strong> (clausole contrattuali standard) restavano valide ma con obbligo di <em>valutazione caso per caso</em> (TIA) e misure supplementari – cifratura con chiavi in mano europea in testa.</p><p>Oggi c&#x27;è il <strong>Data Privacy Framework</strong> (2023): l&#x27;adeguatezza è tornata per i fornitori USA certificati. Ma la storia insegna: è il <strong>terzo</strong> accordo della serie, i primi due sono caduti in tribunale, e il ricorso è già in cantiere – chi costruisce oggi architetture dipendenti dall&#x27;adeguatezza USA accetta un rischio regolatorio ricorrente.</p><p>La risposta strutturale è ridurre i trasferimenti alla radice: fornitori UE, <a href="../self-hosting-pro-e-contro/">self-hosting</a>, dati che restano dove nasce la legge che li protegge – <a href="https://github.com/fabriziosalmi/flareover" target="_blank" rel="noopener">flareover</a> e <a href="https://github.com/fabriziosalmi/rainlogs" target="_blank" rel="noopener">RainLogs</a> esistono esattamente per questo.</p></div>
+  <div class="verified"><svg class="vchk" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Verificata a mano · zero allucinazioni</span></div>
   <a class="ask" href="../../?q=schrems">Chiedilo a FabGPT-FAQ →</a>
   <div class="related">
     <h2>Altre domande</h2>

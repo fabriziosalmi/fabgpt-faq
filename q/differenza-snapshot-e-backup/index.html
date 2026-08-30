@@ -42,6 +42,12 @@
   .answer code { cursor: pointer; }
   .answer code:hover { outline: 1px solid var(--border); }
   .answer code.copied { outline: 1px solid var(--accent); color: var(--accent); }
+  .verified { display: flex; align-items: center; gap: 7px; margin-top: 18px; font-size: 13px; color: var(--text-dim); }
+  .verified .vchk { flex: 0 0 auto; }
+  @media (prefers-reduced-motion: no-preference) {
+    .vchk path { stroke-dasharray: 24; stroke-dashoffset: 24; animation: vchk-draw .5s .15s ease forwards; }
+  }
+  @keyframes vchk-draw { to { stroke-dashoffset: 0; } }
 </style>
 </head>
 <body>
@@ -55,6 +61,7 @@
   <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › Proxmox e self-hosting</nav>
   <h1>Che differenza c&#x27;è tra snapshot e backup?</h1>
   <div class="answer"><p>Uno <strong>snapshot</strong> è un segnalibro nel tempo <em>sullo stesso storage</em>: si crea in un secondo, si torna indietro in un secondo. Comodissimo prima di un aggiornamento rischioso. Ma vive <strong>insieme ai dati che protegge</strong>: se muore il disco, lo storage o il nodo, muore anche lui. E gli snapshot accumulati degradano le prestazioni e crescono in silenzio.</p><p>Un <strong>backup</strong> è una copia <strong>indipendente</strong>, altrove: altro disco, altro host, altro luogo. Sopravvive al disastro dell&#x27;originale. La regola 3-2-1: tre copie, due supporti diversi, una fuori sede.</p><p>Su Proxmox: snapshot per il &quot;provo questa cosa e magari torno indietro&quot;, <strong><a href="../cos-e-proxmox-backup-server/">Proxmox Backup Server</a></strong> per i backup veri – incrementali, deduplicati, verificabili. Usarli entrambi, non confonderli mai.</p></div>
+  <div class="verified"><svg class="vchk" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Verificata a mano · zero allucinazioni</span></div>
   <a class="ask" href="../../?q=snapshot-vs-backup">Chiedilo a FabGPT-FAQ →</a>
   <div class="related">
     <h2>Altre domande</h2>

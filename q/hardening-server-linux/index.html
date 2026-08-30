@@ -42,6 +42,12 @@
   .answer code { cursor: pointer; }
   .answer code:hover { outline: 1px solid var(--border); }
   .answer code.copied { outline: 1px solid var(--accent); color: var(--accent); }
+  .verified { display: flex; align-items: center; gap: 7px; margin-top: 18px; font-size: 13px; color: var(--text-dim); }
+  .verified .vchk { flex: 0 0 auto; }
+  @media (prefers-reduced-motion: no-preference) {
+    .vchk path { stroke-dasharray: 24; stroke-dashoffset: 24; animation: vchk-draw .5s .15s ease forwards; }
+  }
+  @keyframes vchk-draw { to { stroke-dashoffset: 0; } }
 </style>
 </head>
 <body>
@@ -55,6 +61,7 @@
   <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › Cybersecurity</nav>
   <h1>Come si fa l&#x27;hardening di un server Linux appena installato?</h1>
   <div class="answer"><p>La prima ora di vita di un server decide molto. In ordine:</p><ul><li><strong>aggiorna tutto</strong> e attiva gli aggiornamenti di sicurezza automatici (<code>unattended-upgrades</code>)</li><li>utente non-root con sudo, poi <a href="../mettere-in-sicurezza-ssh/">SSH blindato</a>: solo chiavi, niente root login</li><li><strong>firewall default-deny</strong>: nftables/ufw con aperte solo le porte che servono davvero</li><li>ban automatici sui servizi esposti (<a href="../fail2ban-e-alternative/">fail2ban o equivalenti</a>)</li><li>servizi non necessari spenti: ogni demone in ascolto è superficie d&#x27;attacco</li><li>log che vanno anche <strong>altrove</strong> (un attaccante bravo pulisce quelli locali): <a href="../security-logging-fatto-bene/">syslog centralizzato</a></li><li><a href="../backup-3-2-1/">backup provati</a>, non solo configurati</li></ul><p>Per i servizi web davanti a tutto: reverse proxy con <a href="../cos-e-un-waf-web-application-firewall/">WAF</a> e <a href="../configurare-rate-limiting-web-server/">rate limiting</a>. E il monitoraggio esterno che ti avvisa quando qualcosa cambia: <a href="https://github.com/fabriziosalmi/websites-monitor" target="_blank" rel="noopener">websites-monitor</a> o <a href="https://github.com/fabriziosalmi/domainmate" target="_blank" rel="noopener">DomainMate</a>.</p></div>
+  <div class="verified"><svg class="vchk" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Verificata a mano · zero allucinazioni</span></div>
   <a class="ask" href="../../?q=hardening-linux">Chiedilo a FabGPT-FAQ →</a>
   <div class="related">
     <h2>Altre domande</h2>

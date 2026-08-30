@@ -42,6 +42,12 @@
   .answer code { cursor: pointer; }
   .answer code:hover { outline: 1px solid var(--border); }
   .answer code.copied { outline: 1px solid var(--accent); color: var(--accent); }
+  .verified { display: flex; align-items: center; gap: 7px; margin-top: 18px; font-size: 13px; color: var(--text-dim); }
+  .verified .vchk { flex: 0 0 auto; }
+  @media (prefers-reduced-motion: no-preference) {
+    .vchk path { stroke-dasharray: 24; stroke-dashoffset: 24; animation: vchk-draw .5s .15s ease forwards; }
+  }
+  @keyframes vchk-draw { to { stroke-dashoffset: 0; } }
 </style>
 </head>
 <body>
@@ -55,6 +61,7 @@
   <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › AI e LLM</nav>
   <h1>Cos&#x27;è lo speculative decoding?</h1>
   <div class="answer"><p>Lo <strong>speculative decoding</strong> accelera la generazione con un trucco elegante: un modello <strong>piccolo e veloce</strong> (draft) propone i prossimi 4-8 token, e il modello <strong>grande</strong> li verifica <em>tutti in un colpo solo</em> – accettando quelli su cui concorda e correggendo il primo che sbaglia. Siccome verificare in parallelo costa quanto generare un token, e il piccolo indovina spesso (le parti facili del testo sono... facili), il risultato sono <strong>2-3× di velocità con output matematicamente identico</strong> a quello del modello grande da solo.</p><p>Niente pasti gratis, ma quasi: serve tenere in memoria due modelli, e il guadagno dipende da quanto il draft &quot;somiglia&quot; al grande (spesso è una versione <a href="../cos-e-la-distillazione/">distillata</a> dello stesso). Lo trovi già acceso in molti runtime e API senza che tu debba fare nulla – è uno dei motivi per cui l&#x27;<a href="../cos-e-l-inferenza-e-perche-costa/">inferenza</a> continua a diventare più economica a parità di qualità.</p></div>
+  <div class="verified"><svg class="vchk" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Verificata a mano · zero allucinazioni</span></div>
   <a class="ask" href="../../?q=speculative-decoding">Chiedilo a FabGPT-FAQ →</a>
   <div class="related">
     <h2>Altre domande</h2>

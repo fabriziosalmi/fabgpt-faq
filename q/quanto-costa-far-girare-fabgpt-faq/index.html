@@ -42,6 +42,12 @@
   .answer code { cursor: pointer; }
   .answer code:hover { outline: 1px solid var(--border); }
   .answer code.copied { outline: 1px solid var(--accent); color: var(--accent); }
+  .verified { display: flex; align-items: center; gap: 7px; margin-top: 18px; font-size: 13px; color: var(--text-dim); }
+  .verified .vchk { flex: 0 0 auto; }
+  @media (prefers-reduced-motion: no-preference) {
+    .vchk path { stroke-dasharray: 24; stroke-dashoffset: 24; animation: vchk-draw .5s .15s ease forwards; }
+  }
+  @keyframes vchk-draw { to { stroke-dashoffset: 0; } }
 </style>
 </head>
 <body>
@@ -55,6 +61,7 @@
   <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › FabGPT-FAQ</nav>
   <h1>Quanto costa far girare FabGPT-FAQ?</h1>
   <div class="answer"><p><strong>Zero euro al mese</strong>, ed è una scelta di architettura, non una promozione:</p><ul><li>niente inferenza: le risposte sono <a href="../risposte-pre-scritte-o-ai/">pre-scritte</a>, quindi <strong>zero GPU e zero API</strong> – il costo marginale di una domanda in più è un lookup in un file JSON già nel browser</li><li>niente backend: <a href="../cos-e-un-generatore-di-siti-statici/">file statici</a> serviti da <a href="../servire-un-sito-statico-gratis/">un hosting gratuito</a> qualsiasi – quasi 300 pagine pesano pochi megabyte</li><li>niente database, niente coda, niente container da patchare: la <a href="../cos-e-un-air-gap/">superficie d&#x27;attacco</a> è quella di una cartella di HTML</li></ul><p>Il confronto che fa impressione: un chatbot RAG equivalente paga retrieval + inferenza a <em>ogni</em> domanda – da decine a centinaia di euro al mese già con poco traffico, più il monitoraggio delle <a href="../come-ridurre-le-allucinazioni/">allucinazioni</a>. Qui il costo è spostato dove rende: <strong>il tempo umano per scrivere risposte giuste</strong>, una volta, versionate in git.</p><p>L&#x27;unico esborso opzionale: il dominio (~10 €/anno). Tutto il resto – build, test, <a href="../come-si-testano-le-applicazioni-llm/">benchmark</a>, deploy – gira in CI gratuita o sul tuo portatile.</p></div>
+  <div class="verified"><svg class="vchk" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Verificata a mano · zero allucinazioni</span></div>
   <a class="ask" href="../../?q=costo-zero">Chiedilo a FabGPT-FAQ →</a>
   <div class="related">
     <h2>Altre domande</h2>

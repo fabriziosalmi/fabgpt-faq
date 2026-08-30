@@ -42,6 +42,12 @@
   .answer code { cursor: pointer; }
   .answer code:hover { outline: 1px solid var(--border); }
   .answer code.copied { outline: 1px solid var(--accent); color: var(--accent); }
+  .verified { display: flex; align-items: center; gap: 7px; margin-top: 18px; font-size: 13px; color: var(--text-dim); }
+  .verified .vchk { flex: 0 0 auto; }
+  @media (prefers-reduced-motion: no-preference) {
+    .vchk path { stroke-dasharray: 24; stroke-dashoffset: 24; animation: vchk-draw .5s .15s ease forwards; }
+  }
+  @keyframes vchk-draw { to { stroke-dashoffset: 0; } }
 </style>
 </head>
 <body>
@@ -55,6 +61,7 @@
   <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › FabGPT-FAQ</nav>
   <h1>Chi è Fabrizio Salmi?</h1>
   <div class="answer"><p><strong>Fabrizio Salmi</strong> è un security researcher indipendente con base a Genova. Sviluppa e mantiene quasi un centinaio di progetti open source su <a href="https://github.com/fabriziosalmi" target="_blank" rel="noopener">GitHub</a>, concentrati su quattro aree:</p><ul><li><strong>Cybersecurity</strong>: WAF, reverse proxy, gestione certificati, threat detection</li><li><strong>AI e LLM</strong>: proxy di sicurezza per modelli, controllo qualità del codice generato</li><li><strong>Proxmox e self-hosting</strong>: autoscaling, bilanciamento, strumenti CLI</li><li><strong>Automazione Cloudflare</strong>: gestione zone, WAF e DNS via GitHub Actions</li></ul><p>Il suo progetto più noto è <a href="https://github.com/fabriziosalmi/certmate" target="_blank" rel="noopener">CertMate</a>, oltre 1.400 stelle su GitHub.</p></div>
+  <div class="verified"><svg class="vchk" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Verificata a mano · zero allucinazioni</span></div>
   <a class="ask" href="../../?q=chi-sei">Chiedilo a FabGPT-FAQ →</a>
   <div class="related">
     <h2>Altre domande</h2>

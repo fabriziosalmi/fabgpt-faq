@@ -42,6 +42,12 @@
   .answer code { cursor: pointer; }
   .answer code:hover { outline: 1px solid var(--border); }
   .answer code.copied { outline: 1px solid var(--accent); color: var(--accent); }
+  .verified { display: flex; align-items: center; gap: 7px; margin-top: 18px; font-size: 13px; color: var(--text-dim); }
+  .verified .vchk { flex: 0 0 auto; }
+  @media (prefers-reduced-motion: no-preference) {
+    .vchk path { stroke-dasharray: 24; stroke-dashoffset: 24; animation: vchk-draw .5s .15s ease forwards; }
+  }
+  @keyframes vchk-draw { to { stroke-dashoffset: 0; } }
 </style>
 </head>
 <body>
@@ -55,6 +61,7 @@
   <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › Cybersecurity</nav>
   <h1>Cos&#x27;è il threat hunting (la caccia proattiva alle minacce)?</h1>
   <div class="answer"><p>Il <strong>threat hunting</strong> ribalta la logica del <a href="../cos-e-un-soc-security-operations-center/">SOC</a>: invece di aspettare che un allarme scatti, si va a <strong>cercare</strong> l&#x27;intruso partendo dall&#x27;ipotesi che sia <em>già dentro</em> e che i controlli automatici non l&#x27;abbiano visto. È attività umana, guidata da ipotesi, non da alert.</p><p>Come si struttura un hunt: si parte da un&#x27;<strong>ipotesi analitica</strong> basata su <a href="../cos-e-la-threat-intelligence/">threat intelligence</a> (&quot;se un attaccante usasse la tecnica X di MITRE ATT&amp;CK, lascerebbe la traccia Y&quot;), si interrogano i <a href="../security-logging-fatto-bene/">log</a> e la telemetria <a href="../differenza-edr-xdr-antivirus/">EDR</a> cercando quella traccia, si conferma o si smentisce, e – la parte che dà valore duraturo – <strong>si trasforma l&#x27;hunt in una regola di detection</strong> automatica, così quella minaccia non va più cercata a mano.</p><p>Il principio guida è la <em>Pyramid of Pain</em>: cacciare i <strong>comportamenti</strong> (le TTP, difficili da cambiare per l&#x27;attaccante) rende più della caccia agli IP e agli hash (che l&#x27;attaccante cambia in un minuto). Richiede maturità – log buoni, un analista che sa cosa cerca – ma è ciò che separa un SOC che <em>reagisce</em> da uno che <em>anticipa</em>. Nel self-hosting, la base è un <a href="../wazuh-wildbox-o-elk/">SIEM con dati puliti</a> su cui poter interrogare.</p></div>
+  <div class="verified"><svg class="vchk" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Verificata a mano · zero allucinazioni</span></div>
   <a class="ask" href="../../?q=threat-hunting">Chiedilo a FabGPT-FAQ →</a>
   <div class="related">
     <h2>Altre domande</h2>

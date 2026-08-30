@@ -42,6 +42,12 @@
   .answer code { cursor: pointer; }
   .answer code:hover { outline: 1px solid var(--border); }
   .answer code.copied { outline: 1px solid var(--accent); color: var(--accent); }
+  .verified { display: flex; align-items: center; gap: 7px; margin-top: 18px; font-size: 13px; color: var(--text-dim); }
+  .verified .vchk { flex: 0 0 auto; }
+  @media (prefers-reduced-motion: no-preference) {
+    .vchk path { stroke-dasharray: 24; stroke-dashoffset: 24; animation: vchk-draw .5s .15s ease forwards; }
+  }
+  @keyframes vchk-draw { to { stroke-dashoffset: 0; } }
 </style>
 </head>
 <body>
@@ -55,6 +61,7 @@
   <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › Strumenti e app</nav>
   <h1>Git: i comandi che usi davvero</h1>
   <div class="answer"><p>Git ha centocinquanta comandi; la vita quotidiana ne usa dieci:</p><ul><li>il ciclo: <code>git status</code> (sempre, prima di tutto) → <code>git add -p</code> (a pezzi, rileggendo) → <code>git commit -m &quot;...&quot;</code> → <code>git push</code> / <code>git pull</code></li><li>i rami: <code>git switch -c feature-x</code> per aprirne uno, <code>git merge</code> per riportarlo, <code>git log --oneline --graph</code> per capire dove sei</li><li>i salvataggi: <code>git stash</code> quando serve cambiare contesto a mani sporche, <code>git restore file</code> per buttare modifiche locali</li><li>il pentimento: <code>git revert</code> annulla <em>con un nuovo commit</em> (sicuro, sempre), <code>git reset</code> riscrive (solo su ciò che non hai ancora condiviso); <strong>rebase vs merge</strong> in una riga: rebase riordina la storia locale prima di pubblicarla, merge preserva ciò che è già pubblico</li></ul><p>Le abitudini che ripagano più dei comandi: commit <strong>piccoli e tematici</strong> con messaggi che spiegano il <em>perché</em>, <a href="../come-gestire-i-secrets/">mai segreti nel repository</a>, e <a href="../come-si-firma-il-codice/">le firme sui commit</a> dove conta. Git è anche un ottimo backup distribuito gratuito: <a href="../app-note-markdown-local-first/">i tuoi appunti</a>, la configurazione, <a href="../cos-e-gitops/">l&#x27;infrastruttura</a> – tutto ciò che è testo merita un repository.</p></div>
+  <div class="verified"><svg class="vchk" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Verificata a mano · zero allucinazioni</span></div>
   <a class="ask" href="../../?q=git-comandi">Chiedilo a FabGPT-FAQ →</a>
   <div class="related">
     <h2>Altre domande</h2>

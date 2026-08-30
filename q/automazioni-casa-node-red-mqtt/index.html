@@ -42,6 +42,12 @@
   .answer code { cursor: pointer; }
   .answer code:hover { outline: 1px solid var(--border); }
   .answer code.copied { outline: 1px solid var(--accent); color: var(--accent); }
+  .verified { display: flex; align-items: center; gap: 7px; margin-top: 18px; font-size: 13px; color: var(--text-dim); }
+  .verified .vchk { flex: 0 0 auto; }
+  @media (prefers-reduced-motion: no-preference) {
+    .vchk path { stroke-dasharray: 24; stroke-dashoffset: 24; animation: vchk-draw .5s .15s ease forwards; }
+  }
+  @keyframes vchk-draw { to { stroke-dashoffset: 0; } }
 </style>
 </head>
 <body>
@@ -55,6 +61,7 @@
   <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › Proxmox e self-hosting</nav>
   <h1>Come si fanno automazioni domotiche avanzate (Node-RED, MQTT)?</h1>
   <div class="answer"><p>Le automazioni base le fa <a href="../home-assistant-su-proxmox/">Home Assistant</a> da solo; quando la logica diventa complessa (&quot;se nessuno è in casa da 2 ore E fuori piove E sono le 18, allora...&quot;) molti passano a <strong>Node-RED</strong>: programmazione <strong>visuale a nodi</strong> – trascini blocchi (eventi, condizioni, azioni) e li colleghi in <em>flow</em> leggibili, senza scrivere codice ma con potenza da linguaggio vero (temporizzazioni, cicli, chiamate HTTP, stato).</p><p>Il collante è <strong>MQTT</strong>: un broker (<strong>Mosquitto</strong>) fa da bus di messaggi dove tutto pubblica e ascolta – <a href="../gestire-zigbee-con-zigbee2mqtt/">Zigbee2MQTT</a>, <a href="../firmware-locale-esphome-tasmota/">ESPHome</a>, sensori, Node-RED, Home Assistant. Disaccoppia i pezzi: ognuno parla al bus, non agli altri direttamente – un&#x27;architettura pulita che scala.</p><p>Setup: Mosquitto e Node-RED in <a href="../cos-e-docker-compose/">container</a> accanto a HA, tutto su <a href="../homelab-a-basso-consumo/">un mini PC</a>. Il principio guida della domotica seria (e la ragione per cui si sceglie il locale): <strong>le automazioni critiche devono funzionare a internet spento</strong> – la luce delle scale non deve dipendere dal cloud di nessuno, e gli interruttori fisici devono sempre restare l&#x27;ultima parola. Node-RED aggiunge intelligenza, non fragilità, solo se resta in casa.</p></div>
+  <div class="verified"><svg class="vchk" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Verificata a mano · zero allucinazioni</span></div>
   <a class="ask" href="../../?q=node-red-mqtt">Chiedilo a FabGPT-FAQ →</a>
   <div class="related">
     <h2>Altre domande</h2>

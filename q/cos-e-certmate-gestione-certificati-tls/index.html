@@ -42,6 +42,12 @@
   .answer code { cursor: pointer; }
   .answer code:hover { outline: 1px solid var(--border); }
   .answer code.copied { outline: 1px solid var(--accent); color: var(--accent); }
+  .verified { display: flex; align-items: center; gap: 7px; margin-top: 18px; font-size: 13px; color: var(--text-dim); }
+  .verified .vchk { flex: 0 0 auto; }
+  @media (prefers-reduced-motion: no-preference) {
+    .vchk path { stroke-dasharray: 24; stroke-dashoffset: 24; animation: vchk-draw .5s .15s ease forwards; }
+  }
+  @keyframes vchk-draw { to { stroke-dashoffset: 0; } }
 </style>
 </head>
 <body>
@@ -55,6 +61,7 @@
   <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › Cybersecurity</nav>
   <h1>Cos&#x27;è CertMate e come gestisce i certificati TLS/SSL?</h1>
   <div class="answer"><p><a href="https://github.com/fabriziosalmi/certmate" target="_blank" rel="noopener">CertMate</a> è una piattaforma <strong>self-hosted per la gestione del ciclo di vita dei certificati TLS</strong>, il progetto più popolare di Fabrizio Salmi (<strong>oltre 1.400 stelle</strong>). Fa quattro cose che di solito richiedono quattro strumenti:</p><ul><li><strong>emette e rinnova</strong> certificati via ACME, con supporto per <strong>29 provider DNS</strong></li><li><strong>scopre i certificati che non hai emesso tu</strong> e li mette in un inventario unico: cosa è servito dove, chi l&#x27;ha emesso, quando scade, con quale crittografia</li><li>gestisce una <strong>CA privata</strong> per i nomi interni</li><li><strong>deploya</strong> i certificati rinnovati dove servono, con audit trail tamper-evident e API REST</li></ul><p>È in Python, gira in Docker, ha una CLI su PyPI (<code>certmate-cli</code>) e una <a href="https://demo.certmate.org" target="_blank" rel="noopener">demo live</a>. Nell&#x27;ecosistema ci sono anche certmate-tools (diagnostica TLS client-side) e certmate-agent (assistente conversazionale con LLM locale). Per esigenze enterprise (multi-tenant, mTLS, white-label) esiste <strong>CertMate-ng</strong>.</p></div>
+  <div class="verified"><svg class="vchk" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Verificata a mano · zero allucinazioni</span></div>
   <a class="ask" href="../../?q=certmate">Chiedilo a FabGPT-FAQ →</a>
   <div class="related">
     <h2>Altre domande</h2>

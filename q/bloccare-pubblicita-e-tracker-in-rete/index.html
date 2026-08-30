@@ -42,6 +42,12 @@
   .answer code { cursor: pointer; }
   .answer code:hover { outline: 1px solid var(--border); }
   .answer code.copied { outline: 1px solid var(--accent); color: var(--accent); }
+  .verified { display: flex; align-items: center; gap: 7px; margin-top: 18px; font-size: 13px; color: var(--text-dim); }
+  .verified .vchk { flex: 0 0 auto; }
+  @media (prefers-reduced-motion: no-preference) {
+    .vchk path { stroke-dasharray: 24; stroke-dashoffset: 24; animation: vchk-draw .5s .15s ease forwards; }
+  }
+  @keyframes vchk-draw { to { stroke-dashoffset: 0; } }
 </style>
 </head>
 <body>
@@ -55,6 +61,7 @@
   <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › Cybersecurity</nav>
   <h1>Come si bloccano pubblicità e tracker per tutta la rete?</h1>
   <div class="answer"><p>Il blocco a livello <strong>DNS</strong> protegge ogni dispositivo della rete – telefono, smart TV, IoT – senza installare nulla su ciascuno: quando un dominio pubblicitario o di tracking viene richiesto, il resolver risponde &quot;non esiste&quot; e la chiamata muore lì. Meno pubblicità, meno tracciamento, <a href="../cos-e-una-botnet/">meno traffico verso i domini malevoli</a>, pagine più veloci.</p><p>Gli strumenti sono <a href="../pi-hole-vs-adguard-home/">Pi-hole o AdGuard Home</a>, su <a href="../differenza-container-lxc-e-vm/">un piccolo LXC Proxmox</a> o un Raspberry: si impostano come <a href="../resolver-dns-privato-e-sicuro/">resolver della rete</a> (dal DHCP del router, così tutti li usano) e si alimentano con le <strong>liste</strong>. Ed è lì che si vince o si perde: <a href="https://github.com/fabriziosalmi/blacklists" target="_blank" rel="noopener">blacklists</a> aggrega ogni giorno 5M+ domini da 46 fonti con whitelist curata contro i falsi positivi – si carica identica su entrambi.</p><p>I due accorgimenti che evitano frustrazione: qualche falso positivo è inevitabile (una whitelist a portata di mano serve), e i dispositivi che usano <a href="../cos-e-doh-dns-over-https/">DoH proprio</a> scavalcano il filtro – vanno forzati sul resolver di casa. Per il traffico applicativo (non solo DNS) si sale al <a href="../secure-web-gateway-self-hosted/">Secure Web Gateway</a>.</p></div>
+  <div class="verified"><svg class="vchk" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Verificata a mano · zero allucinazioni</span></div>
   <a class="ask" href="../../?q=dns-blocklist-selfhost">Chiedilo a FabGPT-FAQ →</a>
   <div class="related">
     <h2>Altre domande</h2>

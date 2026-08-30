@@ -42,6 +42,12 @@
   .answer code { cursor: pointer; }
   .answer code:hover { outline: 1px solid var(--border); }
   .answer code.copied { outline: 1px solid var(--accent); color: var(--accent); }
+  .verified { display: flex; align-items: center; gap: 7px; margin-top: 18px; font-size: 13px; color: var(--text-dim); }
+  .verified .vchk { flex: 0 0 auto; }
+  @media (prefers-reduced-motion: no-preference) {
+    .vchk path { stroke-dasharray: 24; stroke-dashoffset: 24; animation: vchk-draw .5s .15s ease forwards; }
+  }
+  @keyframes vchk-draw { to { stroke-dashoffset: 0; } }
 </style>
 </head>
 <body>
@@ -55,6 +61,7 @@
   <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › Cybersecurity</nav>
   <h1>Come si acquisisce e analizza la memoria volatile (RAM forensics)?</h1>
   <div class="answer"><p>La <strong>RAM è la fonte forense più ricca e più fragile</strong>: contiene ciò che i dischi non hanno – chiavi di cifratura, processi in esecuzione (incluso il malware <a href="../cos-e-un-attacco-living-off-the-land/">fileless</a> che <em>non tocca il disco</em>), connessioni di rete attive, comandi in chiaro, credenziali in memoria. E sparisce allo spegnimento: per questo, in un <a href="../incident-response-le-prime-ore/">incidente</a>, si isola la macchina <strong>senza spegnerla</strong>.</p><p>La procedura:</p><ul><li><strong>acquisizione</strong> – un dump della memoria con strumenti dedicati (WinPmem, LiME su Linux, AVML), rispettando l&#x27;<a href="../catena-di-custodia-forense/">ordine di volatilità</a> (la RAM per prima) e la <a href="../catena-di-custodia-forense/">catena di custodia</a> (hash, documentazione). L&#x27;acquisizione stessa altera un po&#x27; la memoria: è inevitabile e va documentato</li><li><strong>analisi</strong> – <strong>Volatility</strong> è lo standard: elenca processi (anche quelli <em>nascosti</em> alla vista del sistema – i rootkit si smascherano qui), connessioni di rete, DLL iniettate, chiavi di cifratura estraibili, artefatti di <a href="../process-injection-e-dll-sideloading/">process injection</a></li></ul><p>È la disciplina che risponde a &quot;cosa stava <em>facendo</em> la macchina nell&#x27;istante della compromissione?&quot; – domanda a cui il disco, che vede solo ciò che è stato scritto, non può rispondere. Fondamentale contro il malware moderno che vive in memoria per non lasciare tracce; complementare all&#x27;<a href="../artefatti-forensi-windows/">analisi degli artefatti su disco</a>.</p></div>
+  <div class="verified"><svg class="vchk" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Verificata a mano · zero allucinazioni</span></div>
   <a class="ask" href="../../?q=memory-forensics">Chiedilo a FabGPT-FAQ →</a>
   <div class="related">
     <h2>Altre domande</h2>

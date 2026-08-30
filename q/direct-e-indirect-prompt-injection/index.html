@@ -42,6 +42,12 @@
   .answer code { cursor: pointer; }
   .answer code:hover { outline: 1px solid var(--border); }
   .answer code.copied { outline: 1px solid var(--accent); color: var(--accent); }
+  .verified { display: flex; align-items: center; gap: 7px; margin-top: 18px; font-size: 13px; color: var(--text-dim); }
+  .verified .vchk { flex: 0 0 auto; }
+  @media (prefers-reduced-motion: no-preference) {
+    .vchk path { stroke-dasharray: 24; stroke-dashoffset: 24; animation: vchk-draw .5s .15s ease forwards; }
+  }
+  @keyframes vchk-draw { to { stroke-dashoffset: 0; } }
 </style>
 </head>
 <body>
@@ -55,6 +61,7 @@
   <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › AI e LLM</nav>
   <h1>Qual è la differenza tra Direct e Indirect Prompt Injection?</h1>
   <div class="answer"><p>Entrambe sono <a href="../cos-e-la-prompt-injection/">prompt injection</a> – far eseguire a un LLM istruzioni ostili – ma il <em>vettore</em> cambia tutto:</p><ul><li><strong>Direct</strong> – l&#x27;attaccante inserisce le istruzioni malevole <strong>direttamente nel proprio input</strong>: è l&#x27;utente stesso che cerca di jailbreakare il modello (&quot;ignora le regole e...&quot;). Il rischio è limitato a ciò che <em>quell&#x27;utente</em> potrebbe già fare – aggira i filtri, ma agisce con i propri permessi</li><li><strong>Indirect</strong> – le istruzioni sono nascoste in <strong>contenuto esterno che l&#x27;agente leggerà</strong>: una pagina web, un&#x27;email, un PDF, un documento nella <a href="../sicurezza-del-rag-e-dei-vector-database/">knowledge base</a>, un commento in un repository. La vittima è <strong>un altro utente</strong> (o un agente automatico) il cui assistente, leggendo quel contenuto, esegue le istruzioni dell&#x27;attaccante <em>con i permessi della vittima</em></li></ul><p>È la Indirect la più pericolosa e la più difficile da difendere: l&#x27;attaccante non ha bisogno di accedere al tuo sistema, gli basta piazzare il payload dove il tuo agente andrà a leggere – e negli <a href="../cos-e-un-agente-ai/">agenti</a> che navigano, leggono email o documenti, la superficie è enorme. È il vettore dietro l&#x27;<a href="../esfiltrazione-dati-tramite-agenti-ai/">esfiltrazione via canali laterali</a> e i <a href="../sicurezza-dei-tool-e-plugin-mcp/">confused deputy</a>. Le difese: trattare <em>ogni</em> contenuto esterno come <a href="../sicurezza-del-rag-e-dei-vector-database/">non fidato</a>, separare istruzioni e dati, <a href="../firewall-semantici-e-guardrail-runtime/">guardrail</a>, e soprattutto <a href="../come-si-limita-un-agente-ai/">permessi minimi + HITL</a> – se l&#x27;agente non <em>può</em> fare l&#x27;azione dannosa, l&#x27;injection che gliela ordina fallisce.</p></div>
+  <div class="verified"><svg class="vchk" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Verificata a mano · zero allucinazioni</span></div>
   <a class="ask" href="../../?q=direct-indirect-injection">Chiedilo a FabGPT-FAQ →</a>
   <div class="related">
     <h2>Altre domande</h2>

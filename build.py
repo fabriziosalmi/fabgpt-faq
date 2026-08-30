@@ -160,6 +160,12 @@ PAGE = """<!DOCTYPE html>
   .answer code {{ cursor: pointer; }}
   .answer code:hover {{ outline: 1px solid var(--border); }}
   .answer code.copied {{ outline: 1px solid var(--accent); color: var(--accent); }}
+  .verified {{ display: flex; align-items: center; gap: 7px; margin-top: 18px; font-size: 13px; color: var(--text-dim); }}
+  .verified .vchk {{ flex: 0 0 auto; }}
+  @media (prefers-reduced-motion: no-preference) {{
+    .vchk path {{ stroke-dasharray: 24; stroke-dashoffset: 24; animation: vchk-draw .5s .15s ease forwards; }}
+  }}
+  @keyframes vchk-draw {{ to {{ stroke-dashoffset: 0; }} }}
 </style>
 </head>
 <body>
@@ -173,6 +179,7 @@ PAGE = """<!DOCTYPE html>
   <nav class="crumbs"><a href="{base}">FabGPT-FAQ</a> › <a href="{base}q/">Tutte le domande</a> › {vertical}</nav>
   <h1>{question}</h1>
   <div class="answer">{answer}</div>
+  <div class="verified"><svg class="vchk" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Verificata a mano · zero allucinazioni</span></div>
   <a class="ask" href="{base}?q={id}">Chiedilo a FabGPT-FAQ →</a>
   <div class="related">
     <h2>Altre domande</h2>

@@ -42,6 +42,12 @@
   .answer code { cursor: pointer; }
   .answer code:hover { outline: 1px solid var(--border); }
   .answer code.copied { outline: 1px solid var(--accent); color: var(--accent); }
+  .verified { display: flex; align-items: center; gap: 7px; margin-top: 18px; font-size: 13px; color: var(--text-dim); }
+  .verified .vchk { flex: 0 0 auto; }
+  @media (prefers-reduced-motion: no-preference) {
+    .vchk path { stroke-dasharray: 24; stroke-dashoffset: 24; animation: vchk-draw .5s .15s ease forwards; }
+  }
+  @keyframes vchk-draw { to { stroke-dashoffset: 0; } }
 </style>
 </head>
 <body>
@@ -55,6 +61,7 @@
   <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › AI e LLM</nav>
   <h1>Come si trascrive l&#x27;audio in locale (Whisper)?</h1>
   <div class="answer"><p><strong>Whisper</strong> (OpenAI, open source) ha reso la trascrizione un problema risolto anche <a href="../far-girare-un-llm-in-locale/">in locale</a>: modelli da tiny a large-v3, ottimo con l&#x27;italiano, robusto con rumore e accenti. Niente audio caricato su server altrui – per riunioni e materiale sensibile non è un dettaglio.</p><p>Le implementazioni da usare davvero: <strong>faster-whisper</strong> (4-5× più veloce dell&#x27;originale, stessa qualità) e <strong>whisper.cpp</strong> (CPU e Apple Silicon, gira ovunque); su Mac anche le varianti MLX. Il modello <strong>large-v3</strong> per la qualità, <em>medium</em> o <em>small</em> quando la velocità conta più delle sfumature; una GPU aiuta ma non è obbligatoria.</p><p>I trucchi di resa: audio pulito in ingresso (il microfono conta più del modello), diarizzazione separata se serve <em>chi</em> ha detto cosa (pyannote), e il colpo finale: passare la trascrizione grezza a <a href="../cos-e-ollama/">un LLM</a> per punteggiatura, paragrafi e riassunto – la coppia trascrittore+redattore, tutta in casa.</p></div>
+  <div class="verified"><svg class="vchk" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Verificata a mano · zero allucinazioni</span></div>
   <a class="ask" href="../../?q=whisper">Chiedilo a FabGPT-FAQ →</a>
   <div class="related">
     <h2>Altre domande</h2>

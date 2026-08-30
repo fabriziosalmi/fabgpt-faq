@@ -42,6 +42,12 @@
   .answer code { cursor: pointer; }
   .answer code:hover { outline: 1px solid var(--border); }
   .answer code.copied { outline: 1px solid var(--accent); color: var(--accent); }
+  .verified { display: flex; align-items: center; gap: 7px; margin-top: 18px; font-size: 13px; color: var(--text-dim); }
+  .verified .vchk { flex: 0 0 auto; }
+  @media (prefers-reduced-motion: no-preference) {
+    .vchk path { stroke-dasharray: 24; stroke-dashoffset: 24; animation: vchk-draw .5s .15s ease forwards; }
+  }
+  @keyframes vchk-draw { to { stroke-dashoffset: 0; } }
 </style>
 </head>
 <body>
@@ -55,6 +61,7 @@
   <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › Proxmox e self-hosting</nav>
   <h1>Cos&#x27;è un container breakout (evasione verso l&#x27;host)?</h1>
   <div class="answer"><p>Un <strong>container breakout</strong> (o escape) è l&#x27;incubo dei container: un processo evade dall&#x27;isolamento e ottiene accesso all&#x27;<strong>host kernel sottostante</strong> – e quindi, potenzialmente, a <em>tutti</em> gli altri container e ai dati dell&#x27;host. È possibile perché i container, a differenza delle <a href="../differenza-container-lxc-e-vm/">VM</a>, <strong>condividono il kernel</strong> dell&#x27;host: &quot;isolato&quot; ha un asterisco.</p><p>Le cause tipiche:</p><ul><li><strong>container privilegiato</strong> (<code>--privileged</code>) o con capabilities eccessive – di fatto già mezzo fuori: è il caso più comune e più evitabile</li><li><strong>mount pericolosi</strong> – montare il socket Docker, <code>/</code>, o dispositivi dell&#x27;host dentro il container (il socket Docker montato = controllo dell&#x27;host, un errore diffusissimo)</li><li><strong>vulnerabilità del runtime o del kernel</strong> – CVE in runc/containerd che permettono l&#x27;escape</li><li><strong>root nel container</strong> che, sfruttando una falla, diventa root sull&#x27;host</li></ul><p>Le difese, a strati: <a href="../sicurezza-delle-immagini-container/">non girare come root e niente privileged</a>, <a href="../container-privilegiati-o-non-privilegiati/">container unprivileged</a> (il default giusto), <a href="../sandbox-syscall-seccomp-gvisor/">seccomp/gVisor</a> per filtrare le syscall, kernel e runtime <strong>aggiornati</strong> (le CVE di escape si patchano), <a href="../ebpf-osservabilita-e-sicurezza-kernel/">eBPF/Falco</a> per <em>rilevare</em> i tentativi a runtime, e per i carichi non fidati il salto a un isolamento vero (<a href="../sandbox-syscall-seccomp-gvisor/">micro-VM Kata</a> o <a href="../differenza-container-lxc-e-vm/">VM piene</a>). La regola d&#x27;oro: <strong>più il carico è non fidato, più forte deve essere l&#x27;isolamento</strong> – un container va benissimo per il <em>tuo</em> codice, molto meno per eseguire quello di sconosciuti.</p></div>
+  <div class="verified"><svg class="vchk" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Verificata a mano · zero allucinazioni</span></div>
   <a class="ask" href="../../?q=container-breakout">Chiedilo a FabGPT-FAQ →</a>
   <div class="related">
     <h2>Altre domande</h2>

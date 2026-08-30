@@ -42,6 +42,12 @@
   .answer code { cursor: pointer; }
   .answer code:hover { outline: 1px solid var(--border); }
   .answer code.copied { outline: 1px solid var(--accent); color: var(--accent); }
+  .verified { display: flex; align-items: center; gap: 7px; margin-top: 18px; font-size: 13px; color: var(--text-dim); }
+  .verified .vchk { flex: 0 0 auto; }
+  @media (prefers-reduced-motion: no-preference) {
+    .vchk path { stroke-dasharray: 24; stroke-dashoffset: 24; animation: vchk-draw .5s .15s ease forwards; }
+  }
+  @keyframes vchk-draw { to { stroke-dashoffset: 0; } }
 </style>
 </head>
 <body>
@@ -55,6 +61,7 @@
   <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › FabGPT-FAQ</nav>
   <h1>Cos&#x27;è FabGPT-FAQ e come funziona?</h1>
   <div class="answer"><p><strong>FabGPT-FAQ</strong> è una FAQ travestita da chat AI: l&#x27;interfaccia è quella di un chatbot, ma le risposte sono <strong>pre-scritte e verificate</strong>, organizzate in una knowledge base JSON e selezionate da un motore di matching a parole chiave con tolleranza ai refusi.</p><p>È anche un <strong>motore generico riutilizzabile</strong>: cambi il file <code>faq.json</code> e diventa la FAQ di qualsiasi altra cosa. Tutto statico – HTML, CSS e JavaScript puri, zero backend, zero dipendenze – e ogni domanda esiste anche come pagina statica indicizzabile.</p></div>
+  <div class="verified"><svg class="vchk" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Verificata a mano · zero allucinazioni</span></div>
   <a class="ask" href="../../?q=cos-e-fabgpt">Chiedilo a FabGPT-FAQ →</a>
   <div class="related">
     <h2>Altre domande</h2>

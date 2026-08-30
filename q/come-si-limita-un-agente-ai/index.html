@@ -42,6 +42,12 @@
   .answer code { cursor: pointer; }
   .answer code:hover { outline: 1px solid var(--border); }
   .answer code.copied { outline: 1px solid var(--accent); color: var(--accent); }
+  .verified { display: flex; align-items: center; gap: 7px; margin-top: 18px; font-size: 13px; color: var(--text-dim); }
+  .verified .vchk { flex: 0 0 auto; }
+  @media (prefers-reduced-motion: no-preference) {
+    .vchk path { stroke-dasharray: 24; stroke-dashoffset: 24; animation: vchk-draw .5s .15s ease forwards; }
+  }
+  @keyframes vchk-draw { to { stroke-dashoffset: 0; } }
 </style>
 </head>
 <body>
@@ -55,6 +61,7 @@
   <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › AI e LLM</nav>
   <h1>Come si limita cosa può fare un agente AI (permessi e HITL)?</h1>
   <div class="answer"><p>Il principio: l&#x27;autonomia si concede <strong>per categoria di azione</strong>, non in blocco.</p><ul><li><strong>azioni libere</strong>: leggere, cercare, calcolare – reversibili e innocue</li><li><strong>azioni loggate</strong>: scritture locali, modifiche in ambienti di prova – l&#x27;agente procede, tu puoi ricostruire</li><li><strong>azioni con approvazione (HITL, human-in-the-loop)</strong>: tutto ciò che è <strong>irreversibile o esce dal recinto</strong> – deploy, cancellazioni, denaro, messaggi a persone vere, comandi su sistemi di produzione. L&#x27;agente prepara, l&#x27;umano firma</li></ul><p>Le regole d&#x27;ingegneria: i permessi si applicano <strong>a livello di strumento</strong> (un tool tipizzato che <em>non può</em> cancellare batte mille istruzioni nel prompt – <a href="../cos-e-mcp-model-context-protocol/">MCP</a> aiuta proprio qui), le richieste di approvazione devono mostrare <em>esattamente</em> cosa verrà eseguito, e il replay va impedito. Implementazione da manuale nel portfolio: il <strong>gate HITL via Telegram di <a href="https://github.com/fabriziosalmi/proxxx" target="_blank" rel="noopener">proxxx</a></strong> – le operazioni rischiose sul cluster Proxmox aspettano un sì umano, con protezione anti-replay e <a href="../security-logging-fatto-bene/">audit log firmato</a>.</p></div>
+  <div class="verified"><svg class="vchk" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Verificata a mano · zero allucinazioni</span></div>
   <a class="ask" href="../../?q=limitare-agente">Chiedilo a FabGPT-FAQ →</a>
   <div class="related">
     <h2>Altre domande</h2>

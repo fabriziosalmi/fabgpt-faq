@@ -42,6 +42,12 @@
   .answer code { cursor: pointer; }
   .answer code:hover { outline: 1px solid var(--border); }
   .answer code.copied { outline: 1px solid var(--accent); color: var(--accent); }
+  .verified { display: flex; align-items: center; gap: 7px; margin-top: 18px; font-size: 13px; color: var(--text-dim); }
+  .verified .vchk { flex: 0 0 auto; }
+  @media (prefers-reduced-motion: no-preference) {
+    .vchk path { stroke-dasharray: 24; stroke-dashoffset: 24; animation: vchk-draw .5s .15s ease forwards; }
+  }
+  @keyframes vchk-draw { to { stroke-dashoffset: 0; } }
 </style>
 </head>
 <body>
@@ -55,6 +61,7 @@
   <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › Cybersecurity</nav>
   <h1>VPN e proxy: cosa cambia?</h1>
   <div class="answer"><p>Entrambi mettono un intermediario tra te e la destinazione, ma a profondità diverse:</p><ul><li>un <strong>proxy</strong> lavora per applicazione (di solito il browser): inoltra le richieste HTTP/SOCKS e cambia l&#x27;IP visto dal sito. Configurabile per-app, niente cifratura aggiuntiva di suo.</li><li>una <strong>VPN</strong> incapsula e cifra <strong>tutto il traffico del dispositivo</strong> a livello di rete (WireGuard, OpenVPN): ogni app ci passa, il provider locale vede solo un tunnel cifrato.</li></ul><p>Miti da sfatare: la VPN commerciale non ti rende &quot;anonimo&quot; – sposta la fiducia dal tuo ISP al fornitore VPN, che il traffico lo vede eccome. E per l&#x27;accesso aziendale la VPN classica che apre l&#x27;intera rete interna è il modello che <a href="../cos-e-il-modello-zero-trust/">Zero Trust</a> sta mandando in pensione. Curiosità di portfolio: su Mac, <a href="https://github.com/fabriziosalmi/proxymate" target="_blank" rel="noopener">Proxymate</a> porta il modello proxy al livello successivo, con WAF e controlli integrati.</p></div>
+  <div class="verified"><svg class="vchk" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Verificata a mano · zero allucinazioni</span></div>
   <a class="ask" href="../../?q=vpn-vs-proxy">Chiedilo a FabGPT-FAQ →</a>
   <div class="related">
     <h2>Altre domande</h2>

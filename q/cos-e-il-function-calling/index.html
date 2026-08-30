@@ -42,6 +42,12 @@
   .answer code { cursor: pointer; }
   .answer code:hover { outline: 1px solid var(--border); }
   .answer code.copied { outline: 1px solid var(--accent); color: var(--accent); }
+  .verified { display: flex; align-items: center; gap: 7px; margin-top: 18px; font-size: 13px; color: var(--text-dim); }
+  .verified .vchk { flex: 0 0 auto; }
+  @media (prefers-reduced-motion: no-preference) {
+    .vchk path { stroke-dasharray: 24; stroke-dashoffset: 24; animation: vchk-draw .5s .15s ease forwards; }
+  }
+  @keyframes vchk-draw { to { stroke-dashoffset: 0; } }
 </style>
 </head>
 <body>
@@ -55,6 +61,7 @@
   <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › AI e LLM</nav>
   <h1>Cos&#x27;è il function calling (tool use) negli LLM?</h1>
   <div class="answer"><p>Il <strong>function calling</strong> permette a un LLM di usare strumenti: gli descrivi delle funzioni (nome, parametri, a cosa servono) e lui, quando serve, invece di rispondere a parole emette una <strong>chiamata strutturata</strong> – <code>get_weather(city=&quot;Genova&quot;)</code>. Il tuo codice la esegue, restituisce il risultato, e il modello continua con quell&#x27;informazione.</p><p>È il mattone che trasforma il testo in azione: senza, un LLM può solo <em>descrivere</em> cosa farebbe. Sopra questo meccanismo si costruiscono gli <a href="../cos-e-un-agente-ai/">agenti</a>, e per non reinventare l&#x27;integrazione per ogni applicazione è nato <a href="../cos-e-mcp-model-context-protocol/">MCP</a>, che standardizza come i tool vengono esposti. La regola di sicurezza resta quella degli agenti: ogni funzione esposta è superficie d&#x27;attacco – tipizzala, limitala, loggala.</p></div>
+  <div class="verified"><svg class="vchk" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Verificata a mano · zero allucinazioni</span></div>
   <a class="ask" href="../../?q=function-calling">Chiedilo a FabGPT-FAQ →</a>
   <div class="related">
     <h2>Altre domande</h2>

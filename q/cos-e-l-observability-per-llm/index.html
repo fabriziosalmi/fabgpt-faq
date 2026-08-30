@@ -42,6 +42,12 @@
   .answer code { cursor: pointer; }
   .answer code:hover { outline: 1px solid var(--border); }
   .answer code.copied { outline: 1px solid var(--accent); color: var(--accent); }
+  .verified { display: flex; align-items: center; gap: 7px; margin-top: 18px; font-size: 13px; color: var(--text-dim); }
+  .verified .vchk { flex: 0 0 auto; }
+  @media (prefers-reduced-motion: no-preference) {
+    .vchk path { stroke-dasharray: 24; stroke-dashoffset: 24; animation: vchk-draw .5s .15s ease forwards; }
+  }
+  @keyframes vchk-draw { to { stroke-dashoffset: 0; } }
 </style>
 </head>
 <body>
@@ -55,6 +61,7 @@
   <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › AI e LLM</nav>
   <h1>Cos&#x27;è l&#x27;observability per LLM (tracing e costi)?</h1>
   <div class="answer"><p>Un&#x27;applicazione LLM senza observability è una scatola nera che brucia soldi: serve vedere <strong>cosa succede dentro</strong> ogni richiesta. I tre pilastri:</p><ul><li><strong>tracing</strong>: per ogni interazione, l&#x27;albero completo – prompt, contesto recuperato, chiamate ai tool, risposte, latenze per passo. Quando l&#x27;utente dice &quot;ha risposto male&quot;, il trace è l&#x27;unico modo di capire <em>dove</em> si è rotto: retrieval? prompt? modello?</li><li><strong>costi e token</strong>: consumo per richiesta, per utente, per funzionalità – le sorprese in bolletta nascono sempre da un ciclo che nessuno guardava (<a href="../ridurre-costi-inferenza-llm/">e si riducono con metodo</a>)</li><li><strong>qualità nel tempo</strong>: campionare le risposte in produzione e <a href="../come-valutare-le-risposte-di-un-llm/">valutarle</a> di continuo – il <em>drift</em> silenzioso (un aggiornamento del modello, un cambio nei dati) si vede solo così</li></ul><p>Strumenti: Langfuse (open source, self-hostabile – coerente con <a href="../self-hosting-pro-e-contro/">la filosofia dei dati in casa</a>), Phoenix, OpenTelemetry con le convenzioni GenAI. La regola minima: <strong>nessuna chiamata LLM senza trace ID</strong> – il resto si costruisce.</p></div>
+  <div class="verified"><svg class="vchk" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Verificata a mano · zero allucinazioni</span></div>
   <a class="ask" href="../../?q=observability-llm">Chiedilo a FabGPT-FAQ →</a>
   <div class="related">
     <h2>Altre domande</h2>

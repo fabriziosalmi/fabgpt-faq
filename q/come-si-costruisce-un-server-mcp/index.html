@@ -42,6 +42,12 @@
   .answer code { cursor: pointer; }
   .answer code:hover { outline: 1px solid var(--border); }
   .answer code.copied { outline: 1px solid var(--accent); color: var(--accent); }
+  .verified { display: flex; align-items: center; gap: 7px; margin-top: 18px; font-size: 13px; color: var(--text-dim); }
+  .verified .vchk { flex: 0 0 auto; }
+  @media (prefers-reduced-motion: no-preference) {
+    .vchk path { stroke-dasharray: 24; stroke-dashoffset: 24; animation: vchk-draw .5s .15s ease forwards; }
+  }
+  @keyframes vchk-draw { to { stroke-dashoffset: 0; } }
 </style>
 </head>
 <body>
@@ -55,6 +61,7 @@
   <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › AI e LLM</nav>
   <h1>Come si costruisce un server MCP?</h1>
   <div class="answer"><p>Un server <a href="../cos-e-mcp-model-context-protocol/">MCP</a> è più semplice di quanto suoni: un processo che espone <strong>tool tipizzati</strong> (nome, schema dei parametri, descrizione) su stdio o HTTP, e risponde alle chiamate. Con gli SDK ufficiali (Python/TypeScript – FastMCP rende il Python quasi dichiarativo), un tool è una funzione decorata: nome, docstring, tipi – lo schema si genera da solo.</p><p>Le scelte che separano un giocattolo da un server serio:</p><ul><li><strong>descrizioni scritte per il modello</strong>: il tool viene <em>scelto</em> in base a nome e descrizione – ambigue = tool ignorato o abusato</li><li><strong>tool stretti</strong>: dieci strumenti specifici e tipizzati battono un <code>run_command</code> generico – è il <a href="../come-si-limita-un-agente-ai/">principio dei permessi</a> applicato al design</li><li><strong>output parchi</strong>: il risultato finisce <a href="../token-e-context-window/">nel contesto</a> – pagina, filtra, riassumi</li><li>registro <strong>fisso e auditabile</strong> per i contesti seri: <a href="https://github.com/fabriziosalmi/proxxx" target="_blank" rel="noopener">proxxx</a> blocca i suoi 25 tool a compile-time, per la supply chain</li></ul><p>Esempi nel portfolio da cui copiare: <a href="https://github.com/fabriziosalmi/l0-memory" target="_blank" rel="noopener">l0-memory</a> (Go, stdio+CLI), <a href="https://github.com/fabriziosalmi/agssh" target="_blank" rel="noopener">agssh</a> (scansioni da agente).</p></div>
+  <div class="verified"><svg class="vchk" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Verificata a mano · zero allucinazioni</span></div>
   <a class="ask" href="../../?q=creare-mcp-server">Chiedilo a FabGPT-FAQ →</a>
   <div class="related">
     <h2>Altre domande</h2>

@@ -42,6 +42,12 @@
   .answer code { cursor: pointer; }
   .answer code:hover { outline: 1px solid var(--border); }
   .answer code.copied { outline: 1px solid var(--accent); color: var(--accent); }
+  .verified { display: flex; align-items: center; gap: 7px; margin-top: 18px; font-size: 13px; color: var(--text-dim); }
+  .verified .vchk { flex: 0 0 auto; }
+  @media (prefers-reduced-motion: no-preference) {
+    .vchk path { stroke-dasharray: 24; stroke-dashoffset: 24; animation: vchk-draw .5s .15s ease forwards; }
+  }
+  @keyframes vchk-draw { to { stroke-dashoffset: 0; } }
 </style>
 </head>
 <body>
@@ -55,6 +61,7 @@
   <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › Cybersecurity</nav>
   <h1>Come si self-hosta un centralino VoIP (Asterisk, FreePBX)?</h1>
   <div class="answer"><p>Un centralino <strong>VoIP self-hosted</strong> dà a un&#x27;azionda o a un progetto la telefonia (numeri interni, IVR, code, registrazioni) senza legarsi a un fornitore cloud proprietario. <strong>Asterisk</strong> è il motore storico (potentissimo, ma da configurare a mano); <strong>FreePBX</strong> ne è l&#x27;interfaccia web che lo rende gestibile; <strong>FusionPBX</strong> è un&#x27;alternativa multi-tenant.</p><p>La nota che domina tutto il resto: <strong>la telefonia VoIP è un bersaglio costante</strong>. Un PBX SIP esposto viene scandagliato in continuazione per rubare l&#x27;accesso e generare <strong>chiamate fraudolente</strong> verso numeri a tariffa premium – conti da migliaia di euro in una notte. Le difese non sono opzionali:</p><ul><li><strong>SRTP + TLS</strong> per cifrare segnalazione e audio (contro l&#x27;intercettazione)</li><li><strong><a href="../fail2ban-e-alternative/">fail2ban</a></strong> sui tentativi SIP, password forti (mai le default), estensioni non prevedibili</li><li><strong>restrizioni sulle chiamate internazionali/premium</strong> per limitare il danno di una compromissione</li><li>non esporre l&#x27;admin: <a href="../wireguard-e-mesh-vpn/">dietro VPN</a>, e il PBX su una <a href="../segmentare-la-rete-con-vlan/">rete segmentata</a></li></ul><p>Su <a href="../cos-e-proxmox-ve/">Proxmox</a> sta in una VM dedicata. È self-hosting per chi ha esigenze telefoniche reali e sa presidiarne la sicurezza – la comodità si paga in vigilanza, come per <a href="../hardening-server-linux/">ogni servizio esposto</a>.</p></div>
+  <div class="verified"><svg class="vchk" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Verificata a mano · zero allucinazioni</span></div>
   <a class="ask" href="../../?q=voip-selfhosted">Chiedilo a FabGPT-FAQ →</a>
   <div class="related">
     <h2>Altre domande</h2>

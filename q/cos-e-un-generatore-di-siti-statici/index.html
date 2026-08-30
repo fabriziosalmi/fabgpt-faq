@@ -42,6 +42,12 @@
   .answer code { cursor: pointer; }
   .answer code:hover { outline: 1px solid var(--border); }
   .answer code.copied { outline: 1px solid var(--accent); color: var(--accent); }
+  .verified { display: flex; align-items: center; gap: 7px; margin-top: 18px; font-size: 13px; color: var(--text-dim); }
+  .verified .vchk { flex: 0 0 auto; }
+  @media (prefers-reduced-motion: no-preference) {
+    .vchk path { stroke-dasharray: 24; stroke-dashoffset: 24; animation: vchk-draw .5s .15s ease forwards; }
+  }
+  @keyframes vchk-draw { to { stroke-dashoffset: 0; } }
 </style>
 </head>
 <body>
@@ -55,6 +61,7 @@
   <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › Strumenti e app</nav>
   <h1>Cos&#x27;è un generatore di siti statici (SSG)?</h1>
   <div class="answer"><p>Un <strong>SSG</strong> trasforma contenuti (<a href="../markdown-la-sintassi-essenziale/">Markdown</a>, dati) e template in <strong>HTML già pronto</strong>, in fase di build: il risultato sono file statici da mettere <a href="../servire-un-sito-statico-gratis/">su qualsiasi hosting</a> – veloci per natura (niente da calcolare a richiesta), sicuri per natura (niente backend da bucare, <a href="../cos-e-un-air-gap/">superficie d&#x27;attacco quasi nulla</a>), versionati in git.</p><p>I nomi: <strong>Hugo</strong> (velocità brutale, binario singolo), <strong>Astro</strong> (il moderno: componenti, zero JS di default), <strong>Eleventy</strong> (flessibile e leggero), <strong>Jekyll</strong> (il nonno, integrato in GitHub Pages). La scelta conta meno della filosofia: contenuto separato dal motore, build riproducibile, deploy = copiare file.</p><p>Quando NON basta: contenuti per-utente, ricerca server-side, dati che cambiano al minuto – lì serve del dinamico (<a href="../pages-workers-o-functions/">o un filo di edge</a>). Ma la quota di web che potrebbe essere statica e non lo è resta enorme. Confessione in tema: <a href="../cos-e-fabgpt-come-funziona/">questo sito</a> è generato da <strong>uno script Python di 200 righe</strong> – un micro-SSG artigianale: la categoria è più semplice di quanto i framework lascino credere.</p></div>
+  <div class="verified"><svg class="vchk" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Verificata a mano · zero allucinazioni</span></div>
   <a class="ask" href="../../?q=ssg">Chiedilo a FabGPT-FAQ →</a>
   <div class="related">
     <h2>Altre domande</h2>

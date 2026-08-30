@@ -42,6 +42,12 @@
   .answer code { cursor: pointer; }
   .answer code:hover { outline: 1px solid var(--border); }
   .answer code.copied { outline: 1px solid var(--accent); color: var(--accent); }
+  .verified { display: flex; align-items: center; gap: 7px; margin-top: 18px; font-size: 13px; color: var(--text-dim); }
+  .verified .vchk { flex: 0 0 auto; }
+  @media (prefers-reduced-motion: no-preference) {
+    .vchk path { stroke-dasharray: 24; stroke-dashoffset: 24; animation: vchk-draw .5s .15s ease forwards; }
+  }
+  @keyframes vchk-draw { to { stroke-dashoffset: 0; } }
 </style>
 </head>
 <body>
@@ -55,6 +61,7 @@
   <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › Cybersecurity</nav>
   <h1>Cosa sono DNS-over-HTTPS (DoH) e DNS-over-TLS (DoT)?</h1>
   <div class="answer"><p>Le query DNS classiche viaggiano <strong>in chiaro</strong>: chiunque sul percorso (Wi-Fi pubblico, ISP) vede ogni dominio che risolvi – una cronologia di navigazione gratuita. <strong>DoT</strong> (porta 853) e <strong>DoH</strong> (dentro HTTPS sulla 443) cifrano il tragitto fino al resolver; DoH in più si mimetizza nel traffico web normale, il che lo rende difficile da bloccare – caratteristica apprezzata dagli utenti e maledetta dagli amministratori di rete.</p><p>Da sapere: la privacy non si crea, <strong>si sposta</strong> – l&#x27;ISP non vede più le query, il resolver scelto (Cloudflare, Google, Quad9…) sì: la scelta del resolver è la vera decisione. E in una rete con <a href="../come-bloccare-domini-malevoli/">Pi-hole o blocklist DNS</a>, il DoH dei singoli dispositivi <strong>scavalca i filtri</strong>: va intercettato o disabilitato, facendo passare tutti dal resolver di casa – che può a sua volta parlare DoH verso l&#x27;esterno. Completa il quadro dell&#x27;autenticità: <a href="../cos-e-dnssec/">DNSSEC</a>.</p></div>
+  <div class="verified"><svg class="vchk" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Verificata a mano · zero allucinazioni</span></div>
   <a class="ask" href="../../?q=doh-dot">Chiedilo a FabGPT-FAQ →</a>
   <div class="related">
     <h2>Altre domande</h2>

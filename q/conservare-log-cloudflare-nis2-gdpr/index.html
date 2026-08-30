@@ -42,6 +42,12 @@
   .answer code { cursor: pointer; }
   .answer code:hover { outline: 1px solid var(--border); }
   .answer code.copied { outline: 1px solid var(--accent); color: var(--accent); }
+  .verified { display: flex; align-items: center; gap: 7px; margin-top: 18px; font-size: 13px; color: var(--text-dim); }
+  .verified .vchk { flex: 0 0 auto; }
+  @media (prefers-reduced-motion: no-preference) {
+    .vchk path { stroke-dasharray: 24; stroke-dashoffset: 24; animation: vchk-draw .5s .15s ease forwards; }
+  }
+  @keyframes vchk-draw { to { stroke-dashoffset: 0; } }
 </style>
 </head>
 <body>
@@ -55,6 +61,7 @@
   <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › Cloudflare</nav>
   <h1>Come si conservano i log di Cloudflare a norma NIS2 e GDPR?</h1>
   <div class="answer"><p>La NIS2 chiede di conservare le evidenze, il GDPR di non conservarle troppo, e gli auditor vogliono la prova che nessuno le abbia toccate. <a href="https://github.com/fabriziosalmi/rainlogs" target="_blank" rel="noopener">RainLogs</a> automatizza esattamente questo per le zone Cloudflare:</p><ul><li><strong>raccolta adattiva</strong> – sceglie da solo il metodo giusto per il tuo piano Cloudflare (Logpull, Instant Logs o GraphQL), sostituendo Logpush per l&#x27;export massivo</li><li><strong>integrità crittografica</strong> – hash chaining SHA-256 tamper-evident, con il tool <code>rainlogs-verify</code> per l&#x27;audit indipendente della catena</li><li><strong>sovranità</strong> – storage S3-compatibile <strong>europeo</strong> (Garage, Hetzner, Contabo) con garanzie WORM: i dati non lasciano la giurisdizione</li><li><strong>retention automatica</strong> – policy applicate rigorosamente (es. 395 giorni) per il principio di limitazione della conservazione, più RBAC per separare amministrazione e sola lettura</li></ul></div>
+  <div class="verified"><svg class="vchk" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Verificata a mano · zero allucinazioni</span></div>
   <a class="ask" href="../../?q=rainlogs">Chiedilo a FabGPT-FAQ →</a>
   <div class="related">
     <h2>Altre domande</h2>

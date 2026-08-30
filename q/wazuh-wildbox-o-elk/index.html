@@ -42,6 +42,12 @@
   .answer code { cursor: pointer; }
   .answer code:hover { outline: 1px solid var(--border); }
   .answer code.copied { outline: 1px solid var(--accent); color: var(--accent); }
+  .verified { display: flex; align-items: center; gap: 7px; margin-top: 18px; font-size: 13px; color: var(--text-dim); }
+  .verified .vchk { flex: 0 0 auto; }
+  @media (prefers-reduced-motion: no-preference) {
+    .vchk path { stroke-dasharray: 24; stroke-dashoffset: 24; animation: vchk-draw .5s .15s ease forwards; }
+  }
+  @keyframes vchk-draw { to { stroke-dashoffset: 0; } }
 </style>
 </head>
 <body>
@@ -55,6 +61,7 @@
   <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › Cybersecurity</nav>
   <h1>Wazuh, Wildbox o stack ELK per il monitoraggio sicurezza?</h1>
   <div class="answer"><p>Tre filosofie per lo stesso bisogno – <a href="../cos-e-un-siem-e-un-soar/">vedere cosa succede</a> nella propria infrastruttura:</p><ul><li><strong>Wazuh</strong> – il SIEM open source più adottato: agent maturi (FIM, vulnerabilità, compliance PCI/CIS), regole pronte, comunità grande. Contro: architettura pesante (sotto c&#x27;è comunque un cluster di indicizzazione) e tuning iniziale impegnativo.</li><li><strong>stack ELK/OpenSearch</strong> – non un SIEM ma un motore di ricerca su log: flessibilità totale, ci costruisci <em>qualsiasi</em> cosa – a patto di costruirla. Le funzioni di detection pronte all&#x27;uso sono il pezzo che manca o si paga.</li><li><strong><a href="https://github.com/fabriziosalmi/wildbox" target="_blank" rel="noopener">Wildbox</a></strong> – la scommessa del portfolio: SIEM, SOAR e WAF <strong>unificati</strong> in una piattaforma self-hosted pensata per abbassare la soglia d&#x27;ingresso – meno potente dell&#x27;artiglieria enterprise, ma un&#x27;installazione invece di tre progetti d&#x27;integrazione.</li></ul><p>Criterio di scelta: team dedicato e requisiti di compliance → Wazuh; ingegneri che amano costruire → ELK; una persona sola che deve coprire tutto → l&#x27;integrato. Qualunque strada: senza <a href="../security-logging-fatto-bene/">log fatti bene</a> a monte, nessun SIEM salva nessuno.</p></div>
+  <div class="verified"><svg class="vchk" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Verificata a mano · zero allucinazioni</span></div>
   <a class="ask" href="../../?q=wazuh-wildbox-elk">Chiedilo a FabGPT-FAQ →</a>
   <div class="related">
     <h2>Altre domande</h2>

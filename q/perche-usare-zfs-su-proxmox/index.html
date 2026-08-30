@@ -42,6 +42,12 @@
   .answer code { cursor: pointer; }
   .answer code:hover { outline: 1px solid var(--border); }
   .answer code.copied { outline: 1px solid var(--accent); color: var(--accent); }
+  .verified { display: flex; align-items: center; gap: 7px; margin-top: 18px; font-size: 13px; color: var(--text-dim); }
+  .verified .vchk { flex: 0 0 auto; }
+  @media (prefers-reduced-motion: no-preference) {
+    .vchk path { stroke-dasharray: 24; stroke-dashoffset: 24; animation: vchk-draw .5s .15s ease forwards; }
+  }
+  @keyframes vchk-draw { to { stroke-dashoffset: 0; } }
 </style>
 </head>
 <body>
@@ -55,6 +61,7 @@
   <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › Proxmox e self-hosting</nav>
   <h1>Perché usare ZFS su Proxmox?</h1>
   <div class="answer"><p><strong>ZFS</strong> è filesystem e gestore di volumi insieme, e su Proxmox è integrato nativamente. Cosa compri:</p><ul><li><strong>integrità</strong>: checksum su ogni blocco – il bit rot viene rilevato e, con ridondanza (mirror/RAIDZ), riparato da solo</li><li><strong>snapshot istantanei</strong> e cloni, perfetti per le VM</li><li><strong>replica</strong> incrementale tra nodi (<code>pvesr</code>), il modo povero e solido di avere un quasi-failover</li><li>compressione trasparente (lz4: gratis in pratica)</li></ul><p>I compromessi: ZFS ama la <strong>RAM</strong> (l&#x27;ARC si prende quello che trova – limitalo su macchine piccole), vuole dischi dedicati <strong>senza RAID hardware</strong> di mezzo, e sui consumer SSD scrive parecchio. Per un nodo serio: mirror di due NVMe per VM e sistema. E ricorda: <a href="../differenza-snapshot-e-backup/">gli snapshot non sono backup</a> – per quello c&#x27;è <a href="../cos-e-proxmox-backup-server/">PBS</a>.</p></div>
+  <div class="verified"><svg class="vchk" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Verificata a mano · zero allucinazioni</span></div>
   <a class="ask" href="../../?q=zfs-proxmox">Chiedilo a FabGPT-FAQ →</a>
   <div class="related">
     <h2>Altre domande</h2>

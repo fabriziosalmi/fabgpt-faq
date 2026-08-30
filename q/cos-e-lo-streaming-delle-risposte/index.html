@@ -42,6 +42,12 @@
   .answer code { cursor: pointer; }
   .answer code:hover { outline: 1px solid var(--border); }
   .answer code.copied { outline: 1px solid var(--accent); color: var(--accent); }
+  .verified { display: flex; align-items: center; gap: 7px; margin-top: 18px; font-size: 13px; color: var(--text-dim); }
+  .verified .vchk { flex: 0 0 auto; }
+  @media (prefers-reduced-motion: no-preference) {
+    .vchk path { stroke-dasharray: 24; stroke-dashoffset: 24; animation: vchk-draw .5s .15s ease forwards; }
+  }
+  @keyframes vchk-draw { to { stroke-dashoffset: 0; } }
 </style>
 </head>
 <body>
@@ -55,6 +61,7 @@
   <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › AI e LLM</nav>
   <h1>Cos&#x27;è lo streaming delle risposte di un LLM?</h1>
   <div class="answer"><p>Lo <strong>streaming</strong> mostra la risposta man mano che i token vengono generati, invece di aspettare la fine: la latenza <em>totale</em> non cambia, ma quella <strong>percepita</strong> crolla – il primo token arriva in decimi di secondo (TTFT, time to first token) e l&#x27;utente legge mentre il modello scrive. Per le interfacce chat è irrinunciabile: dieci secondi di spinner sono un&#x27;eternità, dieci secondi di testo che scorre sono normali.</p><p>Tecnica: le API lo espongono via <strong>SSE</strong> (server-sent events) – eventi con frammenti di testo da concatenare; i tool call e i metadati arrivano come eventi tipizzati. Le complicazioni pratiche: il markdown parziale da renderizzare senza sfarfallio, l&#x27;interruzione pulita, gli errori a metà flusso.</p><p>Confessione a tema: l&#x27;effetto macchina da scrivere di <a href="../cos-e-fabgpt-come-funziona/">questo sito</a> è <em>finto streaming</em> – le risposte esistono già intere. Il che, a pensarci, è uno streaming con TTFT perfetto e zero costo di inferenza.</p></div>
+  <div class="verified"><svg class="vchk" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Verificata a mano · zero allucinazioni</span></div>
   <a class="ask" href="../../?q=streaming-risposte">Chiedilo a FabGPT-FAQ →</a>
   <div class="related">
     <h2>Altre domande</h2>

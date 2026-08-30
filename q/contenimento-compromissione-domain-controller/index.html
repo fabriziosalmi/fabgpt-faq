@@ -42,6 +42,12 @@
   .answer code { cursor: pointer; }
   .answer code:hover { outline: 1px solid var(--border); }
   .answer code.copied { outline: 1px solid var(--accent); color: var(--accent); }
+  .verified { display: flex; align-items: center; gap: 7px; margin-top: 18px; font-size: 13px; color: var(--text-dim); }
+  .verified .vchk { flex: 0 0 auto; }
+  @media (prefers-reduced-motion: no-preference) {
+    .vchk path { stroke-dasharray: 24; stroke-dashoffset: 24; animation: vchk-draw .5s .15s ease forwards; }
+  }
+  @keyframes vchk-draw { to { stroke-dashoffset: 0; } }
 </style>
 </head>
 <body>
@@ -55,6 +61,7 @@
   <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › Cybersecurity</nav>
   <h1>Domain Controller compromesso: i passaggi prioritari di contenimento</h1>
   <div class="answer"><p>Il compromesso di un <strong>Domain Controller</strong> è lo scenario peggiore in una rete Windows: chi controlla il DC controlla <em>tutte</em> le identità, può forgiare ticket (<a href="../attacchi-active-directory-kerberoasting/">Golden Ticket</a>) e ha accesso persistente a tutto. Il contenimento richiede lucidità sotto pressione:</p><ul><li><strong>non fidarti di nulla nel dominio</strong>: l&#x27;attaccante potrebbe avere credenziali di <em>ogni</em> account. Non usare account potenzialmente compromessi per la risposta</li><li><strong>preserva le prove</strong> (<a href="../analisi-forense-della-memoria-ram/">RAM</a> e <a href="../artefatti-forensi-windows/">artefatti</a>) <em>prima</em> di bonificare – ma bilanciando col fermare l&#x27;emorragia</li><li><strong>reset di <code>krbtgt</code> due volte</strong> – è la mossa specifica che invalida i Golden Ticket forgiati (va fatto due volte per la rotazione delle chiavi, con l&#x27;intervallo giusto per non rompere il dominio)</li><li><strong>reset massivo delle credenziali</strong> privilegiate e degli account di servizio, revoca delle sessioni</li><li><strong>capire l&#x27;estensione prima di riaprire</strong>: come sono entrati? Da quanto? Cos&#x27;altro toccano? Bonificare il DC mentre l&#x27;attaccante ha altri punti d&#x27;appoggio insegna solo a nascondersi meglio</li></ul><p>La verità scomoda: da un DC compromesso <em>seriamente</em>, molti esperti raccomandano la <strong>ricostruzione da zero</strong> del dominio – la fiducia, una volta persa a quel livello, è difficilissima da ripristinare con certezza. È il motivo per cui la <a href="../attacchi-active-directory-kerberoasting/">prevenzione architetturale</a> (tiering, <a href="../pam-e-accesso-just-in-time/">PAM</a>, <a href="../detection-engineering-e-event-id/">detection</a> sugli accessi anomali) conta più di qualsiasi piano di risposta: qui il piano B è dolorosissimo.</p></div>
+  <div class="verified"><svg class="vchk" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Verificata a mano · zero allucinazioni</span></div>
   <a class="ask" href="../../?q=dc-compromise">Chiedilo a FabGPT-FAQ →</a>
   <div class="related">
     <h2>Altre domande</h2>

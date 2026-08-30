@@ -42,6 +42,12 @@
   .answer code { cursor: pointer; }
   .answer code:hover { outline: 1px solid var(--border); }
   .answer code.copied { outline: 1px solid var(--accent); color: var(--accent); }
+  .verified { display: flex; align-items: center; gap: 7px; margin-top: 18px; font-size: 13px; color: var(--text-dim); }
+  .verified .vchk { flex: 0 0 auto; }
+  @media (prefers-reduced-motion: no-preference) {
+    .vchk path { stroke-dasharray: 24; stroke-dashoffset: 24; animation: vchk-draw .5s .15s ease forwards; }
+  }
+  @keyframes vchk-draw { to { stroke-dashoffset: 0; } }
 </style>
 </head>
 <body>
@@ -55,6 +61,7 @@
   <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › AI e LLM</nav>
   <h1>Cosa sono i token e la context window di un LLM?</h1>
   <div class="answer"><p>Gli LLM non leggono parole ma <strong>token</strong>: frammenti di testo (in media ~4 caratteri in inglese, meno in italiano) prodotti dal tokenizer. &quot;gatto&quot; può essere un token, &quot;gattopardo&quot; tre. Si paga e si misura tutto in token.</p><p>La <strong>context window</strong> è quanti token il modello può tenere &quot;in mente&quot; contemporaneamente: prompt + conversazione + documenti + risposta. Sforata quella, il modello semplicemente non vede più il resto – non c&#x27;è memoria nascosta. Le finestre moderne vanno da 8k a milioni di token, ma attenzione: finestra grande ≠ attenzione uniforme (i modelli tendono a perdersi il centro dei contesti lunghi) e i costi crescono. Per questo si comprime ciò che entra (<a href="https://github.com/fabriziosalmi/l0-compressor" target="_blank" rel="noopener">l0-compressor</a> per l&#x27;output dei comandi) e si recupera solo il rilevante (<a href="../cos-e-rag-retrieval-augmented-generation/">RAG</a>).</p></div>
+  <div class="verified"><svg class="vchk" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Verificata a mano · zero allucinazioni</span></div>
   <a class="ask" href="../../?q=token-context">Chiedilo a FabGPT-FAQ →</a>
   <div class="related">
     <h2>Altre domande</h2>

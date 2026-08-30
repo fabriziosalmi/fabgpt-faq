@@ -42,6 +42,12 @@
   .answer code { cursor: pointer; }
   .answer code:hover { outline: 1px solid var(--border); }
   .answer code.copied { outline: 1px solid var(--accent); color: var(--accent); }
+  .verified { display: flex; align-items: center; gap: 7px; margin-top: 18px; font-size: 13px; color: var(--text-dim); }
+  .verified .vchk { flex: 0 0 auto; }
+  @media (prefers-reduced-motion: no-preference) {
+    .vchk path { stroke-dasharray: 24; stroke-dashoffset: 24; animation: vchk-draw .5s .15s ease forwards; }
+  }
+  @keyframes vchk-draw { to { stroke-dashoffset: 0; } }
 </style>
 </head>
 <body>
@@ -55,6 +61,7 @@
   <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › Strumenti e app</nav>
   <h1>Si possono archiviare file arbitrari dentro un video?</h1>
   <div class="answer"><p>Sì, ed è più serio di quanto sembri: <a href="https://github.com/fabriziosalmi/b2v" target="_blank" rel="noopener">b2v (Eternal-Stream)</a> codifica <strong>qualsiasi file binario in un video standard</strong> e lo decodifica indietro – erede spirituale di Infinite Storage Glitch, riscritto da zero in Rust.</p><p>Ogni bit diventa un blocco di pixel (dimensione configurabile: più grande = più resistente alla compressione lossy), i chunk sono protetti da <strong>error correction Reed-Solomon</strong>, l&#x27;encoding è parallelo (Rayon) e il backend è FFmpeg, quindi qualsiasi codec: <code>ffv1</code> per il lossless, <code>libx264</code> per il compresso. Il README è onesto sui limiti (risoluzione fissa 1080p, verifica hash manuale) – è un esperimento affascinante sul confine tra storage e steganografia, non il tuo prossimo backup di produzione.</p></div>
+  <div class="verified"><svg class="vchk" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Verificata a mano · zero allucinazioni</span></div>
   <a class="ask" href="../../?q=b2v">Chiedilo a FabGPT-FAQ →</a>
   <div class="related">
     <h2>Altre domande</h2>

@@ -42,6 +42,12 @@
   .answer code { cursor: pointer; }
   .answer code:hover { outline: 1px solid var(--border); }
   .answer code.copied { outline: 1px solid var(--accent); color: var(--accent); }
+  .verified { display: flex; align-items: center; gap: 7px; margin-top: 18px; font-size: 13px; color: var(--text-dim); }
+  .verified .vchk { flex: 0 0 auto; }
+  @media (prefers-reduced-motion: no-preference) {
+    .vchk path { stroke-dasharray: 24; stroke-dashoffset: 24; animation: vchk-draw .5s .15s ease forwards; }
+  }
+  @keyframes vchk-draw { to { stroke-dashoffset: 0; } }
 </style>
 </head>
 <body>
@@ -55,6 +61,7 @@
   <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › Strumenti e app</nav>
   <h1>Cos&#x27;è JSON-LD (schema.org) e a cosa serve per la SEO?</h1>
   <div class="answer"><p><strong>JSON-LD</strong> è il formato con cui si danno ai motori <strong>dati strutturati</strong>: un blocco <code>&lt;script type=&quot;application/ld+json&quot;&gt;</code> che descrive la pagina nel vocabolario di <strong>schema.org</strong> – questo è un articolo, questa una ricetta, questa una FAQ con queste domande e risposte.</p><p>A cosa serve: ai <strong>rich results</strong> (stelline, FAQ espandibili, breadcrumb nei risultati) e, sempre più, a farsi capire dai sistemi di risposta AI – una <code>FAQPage</code> marcata bene è testo già pronto per essere citato. Ogni pagina statica di questo sito ne porta una, <a href="../cos-e-fabgpt-come-funziona/">generata automaticamente</a> dalla knowledge base.</p><p>Regole: il markup deve rispecchiare il contenuto visibile (Google penalizza il markup fantasma), si valida con il Rich Results Test, e i tipi che rendono di più sono pochi: Article, Product, FAQPage, HowTo, BreadcrumbList, Organization.</p></div>
+  <div class="verified"><svg class="vchk" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Verificata a mano · zero allucinazioni</span></div>
   <a class="ask" href="../../?q=json-ld">Chiedilo a FabGPT-FAQ →</a>
   <div class="related">
     <h2>Altre domande</h2>

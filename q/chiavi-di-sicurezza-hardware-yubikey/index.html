@@ -42,6 +42,12 @@
   .answer code { cursor: pointer; }
   .answer code:hover { outline: 1px solid var(--border); }
   .answer code.copied { outline: 1px solid var(--accent); color: var(--accent); }
+  .verified { display: flex; align-items: center; gap: 7px; margin-top: 18px; font-size: 13px; color: var(--text-dim); }
+  .verified .vchk { flex: 0 0 auto; }
+  @media (prefers-reduced-motion: no-preference) {
+    .vchk path { stroke-dasharray: 24; stroke-dashoffset: 24; animation: vchk-draw .5s .15s ease forwards; }
+  }
+  @keyframes vchk-draw { to { stroke-dashoffset: 0; } }
 </style>
 </head>
 <body>
@@ -55,6 +61,7 @@
   <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › Cybersecurity</nav>
   <h1>Cosa sono le chiavi di sicurezza hardware (YubiKey e simili)?</h1>
   <div class="answer"><p>Una <strong>chiave di sicurezza hardware</strong> è un piccolo dispositivo (USB/NFC) che custodisce chiavi crittografiche in un chip <strong>inestraibile</strong> e firma le richieste di autenticazione premendo un tasto. È la forma più forte di <a href="../cos-e-autenticazione-due-fattori-mfa/">secondo fattore</a> e il modo più robusto di usare le <a href="../cosa-sono-le-passkey/">passkey</a>.</p><p>Perché batte tutto il resto: <strong>resiste al phishing</strong> (la firma FIDO2/WebAuthn è legata al dominio vero – su un sito clone non parte), non c&#x27;è un segreto condiviso da rubare dal server, e nulla lascia il dispositivo. A differenza dei codici TOTP (che un sito-esca può farsi digitare) o degli SMS (intercettabili), la chiave hardware chiude gli attacchi <a href="../cos-e-un-attacco-man-in-the-middle/">AiTM</a> che oggi bucano l&#x27;MFA debole.</p><p>I nomi: <strong>YubiKey</strong> (lo standard), <strong>Nitrokey/SoloKeys</strong> (aperte, per chi vuole <a href="../secure-element-vs-firmware-aperto/">ispezionare il firmware</a>). Oltre a FIDO2 fanno spesso anche OATH-TOTP, PGP e smartcard. La regola d&#x27;oro pratica: <strong>due chiavi</strong>, una in uso e una di backup in cassaforte – perché una chiave hardware persa senza recupero è un lockout, e il phishing-resistant non serve se poi il recovery è via SMS.</p></div>
+  <div class="verified"><svg class="vchk" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Verificata a mano · zero allucinazioni</span></div>
   <a class="ask" href="../../?q=hardware-key">Chiedilo a FabGPT-FAQ →</a>
   <div class="related">
     <h2>Altre domande</h2>

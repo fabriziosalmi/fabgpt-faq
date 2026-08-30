@@ -42,6 +42,12 @@
   .answer code { cursor: pointer; }
   .answer code:hover { outline: 1px solid var(--border); }
   .answer code.copied { outline: 1px solid var(--accent); color: var(--accent); }
+  .verified { display: flex; align-items: center; gap: 7px; margin-top: 18px; font-size: 13px; color: var(--text-dim); }
+  .verified .vchk { flex: 0 0 auto; }
+  @media (prefers-reduced-motion: no-preference) {
+    .vchk path { stroke-dasharray: 24; stroke-dashoffset: 24; animation: vchk-draw .5s .15s ease forwards; }
+  }
+  @keyframes vchk-draw { to { stroke-dashoffset: 0; } }
 </style>
 </head>
 <body>
@@ -55,6 +61,7 @@
   <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › Musica e creatività</nav>
   <h1>Cos&#x27;è il WebTeK, lo streaming teknival?</h1>
   <div class="answer"><p>Il <a href="https://github.com/fabriziosalmi/webtek" target="_blank" rel="noopener">WebTeK</a> è <strong>il più grande teknival in streaming</strong>: un festival online gratuito con dj set live da tutto il mondo, aperto ad artisti, collettivi, hacker e alieni. Le radio della galassia free tekno – a partire da <a href="https://radio.free-tekno.com" target="_blank" rel="noopener">Free Underground Tekno</a>, on air dal 2008 – rilanciano gli stream durante l&#x27;evento, e il sito è <a href="https://webtek.live/" target="_blank" rel="noopener">webtek.live</a>.</p><p>Il repository è il quartier generale: elenco di dj, sound system e network che hanno partecipato negli anni, archivio dei flyer dal 2010, link a Telegram e community. Sì, è dello stesso autore dei WAF e delle piattaforme NIS2 – le repo di Fabrizio hanno anche un&#x27;anima da sound system.</p></div>
+  <div class="verified"><svg class="vchk" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Verificata a mano · zero allucinazioni</span></div>
   <a class="ask" href="../../?q=webtek">Chiedilo a FabGPT-FAQ →</a>
   <div class="related">
     <h2>Altre domande</h2>

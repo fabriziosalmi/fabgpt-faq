@@ -42,6 +42,12 @@
   .answer code { cursor: pointer; }
   .answer code:hover { outline: 1px solid var(--border); }
   .answer code.copied { outline: 1px solid var(--accent); color: var(--accent); }
+  .verified { display: flex; align-items: center; gap: 7px; margin-top: 18px; font-size: 13px; color: var(--text-dim); }
+  .verified .vchk { flex: 0 0 auto; }
+  @media (prefers-reduced-motion: no-preference) {
+    .vchk path { stroke-dasharray: 24; stroke-dashoffset: 24; animation: vchk-draw .5s .15s ease forwards; }
+  }
+  @keyframes vchk-draw { to { stroke-dashoffset: 0; } }
 </style>
 </head>
 <body>
@@ -55,6 +61,7 @@
   <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › Cybersecurity</nav>
   <h1>NGFW e firewall stateful: che differenza c&#x27;è?</h1>
   <div class="answer"><p>Un firewall <strong>stateful</strong> tiene traccia dello stato delle connessioni (sa che una risposta appartiene a una richiesta che hai fatto tu) e decide su IP, porte e protocolli – il livello L3/L4. Efficace, veloce, cieco al contenuto: per lui la 443 aperta è la 443 aperta, qualunque cosa ci passi dentro.</p><p>Un <strong>NGFW</strong> (Next-Generation Firewall) aggiunge l&#x27;occhio sul contenuto: <strong>deep packet inspection</strong>, riconoscimento dell&#x27;<strong>applicazione</strong> (distingue &quot;web&quot; da &quot;questa specifica app che tunnella su 443&quot;), integrazione con <a href="../cosa-sono-ids-e-ips/">IDS/IPS</a> e <a href="../cos-e-la-threat-intelligence/">threat intelligence</a>, spesso ispezione TLS. Di fatto fonde firewall di rete e controlli applicativi in un apparato.</p><p>Nel mondo open source la linea è sfumata: <strong>OPNsense/pfSense</strong> con Suricata e i plugin coprono buona parte del territorio NGFW su hardware modesto o <a href="../cos-e-proxmox-ve/">in una VM Proxmox</a>. Il trade-off da conoscere: la DPI e l&#x27;ispezione TLS costano CPU e sollevano <a href="../gdpr-cosa-serve-a-un-sito-web/">questioni di privacy</a> – più ispezioni, più devi fidarti (e proteggere) l&#x27;apparato che ispeziona.</p></div>
+  <div class="verified"><svg class="vchk" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Verificata a mano · zero allucinazioni</span></div>
   <a class="ask" href="../../?q=ngfw">Chiedilo a FabGPT-FAQ →</a>
   <div class="related">
     <h2>Altre domande</h2>

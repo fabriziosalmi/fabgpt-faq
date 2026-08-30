@@ -42,6 +42,12 @@
   .answer code { cursor: pointer; }
   .answer code:hover { outline: 1px solid var(--border); }
   .answer code.copied { outline: 1px solid var(--accent); color: var(--accent); }
+  .verified { display: flex; align-items: center; gap: 7px; margin-top: 18px; font-size: 13px; color: var(--text-dim); }
+  .verified .vchk { flex: 0 0 auto; }
+  @media (prefers-reduced-motion: no-preference) {
+    .vchk path { stroke-dasharray: 24; stroke-dashoffset: 24; animation: vchk-draw .5s .15s ease forwards; }
+  }
+  @keyframes vchk-draw { to { stroke-dashoffset: 0; } }
 </style>
 </head>
 <body>
@@ -55,6 +61,7 @@
   <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › FabGPT-FAQ</nav>
   <h1>Perché le risposte pre-scritte battono l&#x27;AI su domini ristretti?</h1>
   <div class="answer"><p>Su un dominio <strong>ristretto e prevedibile</strong> – il tuo prodotto, la tua azienda, il tuo campo – la FAQ pre-scritta vince il confronto con il chatbot generativo su quasi ogni asse:</p><ul><li><strong>correttezza</strong>: ogni risposta è stata verificata da una persona <em>prima</em> di essere data; <a href="../come-ridurre-le-allucinazioni/">l&#x27;allucinazione</a> è impossibile per costruzione, e un errore si corregge <strong>per tutti, per sempre</strong>, con un commit</li><li><strong>citabilità</strong>: ogni risposta è <a href="../json-ld-schema-org-seo/">una pagina statica con URL e markup</a> – i motori e le <a href="../cos-e-ai-overview-e-come-finirci/">risposte AI</a> possono trovarla e citarla; la risposta di un chatbot evapora nel nulla</li><li><strong><a href="../quanto-costa-far-girare-fabgpt-faq/">costo</a> e latenza</strong>: zero inferenza, risposta istantanea, <a href="../gdpr-cosa-serve-a-un-sito-web/">nessun dato utente che parte</a> verso terzi</li><li><strong>manutenzione onesta</strong>: il contenuto è testo in git – diff, review, <a href="../come-si-testano-le-applicazioni-llm/">test</a>, storia</li></ul><p>Dove il chatbot vince davvero: la <strong>coda lunga</strong> imprevedibile, le domande composte, il dialogo che raffina. Per questo la sintesi matura è <strong>ibrida</strong>: pre-scritto per il 90% prevedibile (il corpo della conoscenza), un LLM <a href="../cosa-sono-i-guardrail-llm/">con guardrail</a> come rete per il resto – o, <a href="../cos-e-fabgpt-come-funziona/">come qui</a>, un matcher onesto che quando non sa, lo dice.</p></div>
+  <div class="verified"><svg class="vchk" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Verificata a mano · zero allucinazioni</span></div>
   <a class="ask" href="../../?q=prescritte-vs-ai">Chiedilo a FabGPT-FAQ →</a>
   <div class="related">
     <h2>Altre domande</h2>

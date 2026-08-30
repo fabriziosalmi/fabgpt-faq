@@ -42,6 +42,12 @@
   .answer code { cursor: pointer; }
   .answer code:hover { outline: 1px solid var(--border); }
   .answer code.copied { outline: 1px solid var(--accent); color: var(--accent); }
+  .verified { display: flex; align-items: center; gap: 7px; margin-top: 18px; font-size: 13px; color: var(--text-dim); }
+  .verified .vchk { flex: 0 0 auto; }
+  @media (prefers-reduced-motion: no-preference) {
+    .vchk path { stroke-dasharray: 24; stroke-dashoffset: 24; animation: vchk-draw .5s .15s ease forwards; }
+  }
+  @keyframes vchk-draw { to { stroke-dashoffset: 0; } }
 </style>
 </head>
 <body>
@@ -55,6 +61,7 @@
   <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › Cybersecurity</nav>
   <h1>Come si risolvono i problemi di MTU e frammentazione su una VPN?</h1>
   <div class="answer"><p>Un sintomo classico e sconcertante: la <a href="../wireguard-o-openvpn/">VPN</a> è &quot;su&quot;, il ping funziona, ma <strong>alcuni siti non caricano o si bloccano a metà</strong>. Quasi sempre è un problema di <strong>MTU</strong>.</p><p>La causa: ogni pacchetto ha una dimensione massima (la MTU, tipicamente 1500 byte). Un tunnel VPN aggiunge il proprio <strong>overhead di incapsulamento</strong> (header di cifratura), quindi dentro il tunnel lo spazio utile è minore – se un pacchetto viaggia a 1500 ma nel tunnel ce ne stanno solo ~1420, deve essere <strong>frammentato</strong>... e se qualcosa lungo il percorso blocca i messaggi ICMP di &quot;Path MTU Discovery&quot; (comune con firewall troppo zelanti), i pacchetti grandi vengono <strong>scartati in silenzio</strong> – il ping (pacchetti piccoli) passa, il traffico reale (pacchetti grandi) muore. Da qui il comportamento &quot;funziona ma non funziona&quot;.</p><p>Le soluzioni:</p><ul><li><strong>MSS clamping</strong> – la più efficace: il gateway riscrive la dimensione massima di segmento (MSS) annunciata nell&#x27;handshake TCP, così i due estremi concordano da subito pacchetti che <em>entrano</em> nel tunnel senza frammentazione. Nei firewall si attiva con &quot;clamp MSS to PMTU&quot;</li><li><strong>abbassare la MTU</strong> dell&#x27;interfaccia VPN al valore giusto (<a href="../wireguard-e-mesh-vpn/">WireGuard</a> di solito la gestisce bene di suo, 1420)</li><li>non bloccare l&#x27;ICMP necessario alla Path MTU Discovery</li></ul><p>È uno di quei problemi che sembrano stregoneria finché non conosci il meccanismo – e allora si risolvono in una riga di configurazione. Il <strong>packet leakage</strong> (traffico che sfugge fuori dal tunnel) è un tema imparentato: <a href="../wireguard-o-openvpn/">kill-switch della VPN</a> e routing corretto assicurano che <em>tutto</em> passi cifrato, senza fughe.</p></div>
+  <div class="verified"><svg class="vchk" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Verificata a mano · zero allucinazioni</span></div>
   <a class="ask" href="../../?q=mtu-mss-vpn">Chiedilo a FabGPT-FAQ →</a>
   <div class="related">
     <h2>Altre domande</h2>

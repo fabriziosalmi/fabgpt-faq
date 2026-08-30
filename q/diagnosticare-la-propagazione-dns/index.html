@@ -42,6 +42,12 @@
   .answer code { cursor: pointer; }
   .answer code:hover { outline: 1px solid var(--border); }
   .answer code.copied { outline: 1px solid var(--accent); color: var(--accent); }
+  .verified { display: flex; align-items: center; gap: 7px; margin-top: 18px; font-size: 13px; color: var(--text-dim); }
+  .verified .vchk { flex: 0 0 auto; }
+  @media (prefers-reduced-motion: no-preference) {
+    .vchk path { stroke-dasharray: 24; stroke-dashoffset: 24; animation: vchk-draw .5s .15s ease forwards; }
+  }
+  @keyframes vchk-draw { to { stroke-dashoffset: 0; } }
 </style>
 </head>
 <body>
@@ -55,6 +61,7 @@
   <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › Cloudflare</nav>
   <h1>Come si diagnostica la propagazione DNS?</h1>
   <div class="answer"><p>&quot;Propagazione&quot; è un nome fuorviante: nessuno propaga nulla – ci sono solo <strong>cache che scadono</strong> al ritmo del <a href="../cos-e-il-ttl-dns/">TTL</a>. La diagnosi vera in tre comandi:</p><ul><li><strong>chiedi all&#x27;autoritativo</strong>, saltando ogni cache: <code>dig example.com @NAMESERVER-AUTORITATIVO</code> (o <code>dig +trace</code>) – se qui il valore è vecchio, non è propagazione: <strong>il record è proprio sbagliato</strong> alla fonte</li><li><strong>confronta i resolver pubblici</strong>: <code>dig @1.1.1.1</code> vs <code>dig @8.8.8.8</code> – valori diversi = cache in scadenza, e il TTL nella risposta dice <em>quanto manca</em></li><li><strong>il tuo problema è locale?</strong> Il resolver di casa/azienda e la cache del sistema tengono duro: <code>resolvectl flush-caches</code> (o equivalente), o prova da rete mobile</li></ul><p>Gli strumenti web (dnschecker e simili) mostrano la mappa mondiale delle cache – scenografici, ma i tre comandi sopra rispondono prima. I casi che <em>sembrano</em> DNS e non lo sono: <a href="../err-too-many-redirects/">il browser che cachava il redirect</a> 301, la <a href="../cache-hit-miss-bypass-cdn/">CDN che serve dalla cache</a>, il <a href="../configurare-dominio-su-cloudflare/">nameserver cambiato ma con la zona vuota</a>. Regola d&#x27;oro per la prossima volta: <a href="../cos-e-il-ttl-dns/">TTL giù il giorno prima</a>, cambio, verifica, TTL su.</p></div>
+  <div class="verified"><svg class="vchk" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Verificata a mano · zero allucinazioni</span></div>
   <a class="ask" href="../../?q=propagazione-dns">Chiedilo a FabGPT-FAQ →</a>
   <div class="related">
     <h2>Altre domande</h2>

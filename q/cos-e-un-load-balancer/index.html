@@ -42,6 +42,12 @@
   .answer code { cursor: pointer; }
   .answer code:hover { outline: 1px solid var(--border); }
   .answer code.copied { outline: 1px solid var(--accent); color: var(--accent); }
+  .verified { display: flex; align-items: center; gap: 7px; margin-top: 18px; font-size: 13px; color: var(--text-dim); }
+  .verified .vchk { flex: 0 0 auto; }
+  @media (prefers-reduced-motion: no-preference) {
+    .vchk path { stroke-dasharray: 24; stroke-dashoffset: 24; animation: vchk-draw .5s .15s ease forwards; }
+  }
+  @keyframes vchk-draw { to { stroke-dashoffset: 0; } }
 </style>
 </head>
 <body>
@@ -55,6 +61,7 @@
   <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › Cloudflare</nav>
   <h1>Cos&#x27;è un load balancer?</h1>
   <div class="answer"><p>Un <strong>load balancer</strong> distribuisce il traffico su più server: scala oltre la singola macchina e, soprattutto, <strong>sopravvive ai guasti</strong> – gli <strong>health check</strong> sondano i backend e il traffico smette di andare verso chi non risponde. Senza health check non è bilanciamento, è roulette.</p><p>Le distinzioni utili:</p><ul><li><strong>L4 vs L7</strong>: a livello di connessione (veloce, cieco) o di richiesta HTTP (può instradare per path/header, terminare TLS – di fatto ogni <a href="../cos-e-un-reverse-proxy/">reverse proxy</a> moderno è anche un LB L7: Caddy, Nginx, HAProxy, <a href="https://github.com/fabriziosalmi/zion" target="_blank" rel="noopener">zion</a>)</li><li><strong>algoritmi</strong>: round robin di base, least-connections quando le richieste pesano diverso, IP-hash quando serve <em>stickiness</em> (finché lo stato di sessione non lo togli di mezzo – la cura vera)</li><li><strong>il LB stesso è un single point</strong>: si raddoppia (keepalived/VRRP), o si delega al DNS/<a href="../cos-e-l-anycast/">anycast</a> – i load balancer gestiti delle CDN fanno failover tra origini con health check inclusi</li></ul><p>In piccolo, su <a href="../alta-disponibilita-proxmox/">Proxmox</a>: un LXC con HAProxy davanti a due repliche dell&#x27;app è l&#x27;HA dei poveri che funziona davvero.</p></div>
+  <div class="verified"><svg class="vchk" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Verificata a mano · zero allucinazioni</span></div>
   <a class="ask" href="../../?q=load-balancer">Chiedilo a FabGPT-FAQ →</a>
   <div class="related">
     <h2>Altre domande</h2>

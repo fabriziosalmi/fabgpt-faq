@@ -42,6 +42,12 @@
   .answer code { cursor: pointer; }
   .answer code:hover { outline: 1px solid var(--border); }
   .answer code.copied { outline: 1px solid var(--accent); color: var(--accent); }
+  .verified { display: flex; align-items: center; gap: 7px; margin-top: 18px; font-size: 13px; color: var(--text-dim); }
+  .verified .vchk { flex: 0 0 auto; }
+  @media (prefers-reduced-motion: no-preference) {
+    .vchk path { stroke-dasharray: 24; stroke-dashoffset: 24; animation: vchk-draw .5s .15s ease forwards; }
+  }
+  @keyframes vchk-draw { to { stroke-dashoffset: 0; } }
 </style>
 </head>
 <body>
@@ -55,6 +61,7 @@
   <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › AI e LLM</nav>
   <h1>Cos&#x27;è la shadow AI in azienda?</h1>
   <div class="answer"><p><strong>Shadow AI</strong>: l&#x27;uso di strumenti AI da parte dei dipendenti fuori da ogni policy e visibilità aziendale – il contratto incollato in ChatGPT per riassumerlo, il codice proprietario dato in pasto a un assistente gratuito. È il seguito naturale della shadow IT, con un aggravante: i dati escono verso servizi che potrebbero usarli, e nessuno lo sa.</p><p>La risposta che funziona non è il divieto (aggirato in un pomeriggio) ma il <strong>canale ufficiale più comodo dell&#x27;alternativa</strong>: strumenti approvati, un endpoint aziendale con <a href="../cosa-sono-i-guardrail-llm/">guardrail</a> e DLP (<a href="https://github.com/fabriziosalmi/llmproxy" target="_blank" rel="noopener">llmproxy</a> + <a href="https://github.com/fabriziosalmi/aidlp" target="_blank" rel="noopener">aidlp</a> fanno esattamente questo davanti a qualsiasi modello), modelli <a href="../far-girare-un-llm-in-locale/">locali</a> per i dati davvero sensibili, e una policy scritta che dica cosa si può. L&#x27;<a href="../cosa-prevede-ai-act/">AI Act</a> rende il censimento non più rimandabile.</p></div>
+  <div class="verified"><svg class="vchk" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Verificata a mano · zero allucinazioni</span></div>
   <a class="ask" href="../../?q=shadow-ai">Chiedilo a FabGPT-FAQ →</a>
   <div class="related">
     <h2>Altre domande</h2>

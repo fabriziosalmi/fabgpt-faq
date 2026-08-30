@@ -42,6 +42,12 @@
   .answer code { cursor: pointer; }
   .answer code:hover { outline: 1px solid var(--border); }
   .answer code.copied { outline: 1px solid var(--accent); color: var(--accent); }
+  .verified { display: flex; align-items: center; gap: 7px; margin-top: 18px; font-size: 13px; color: var(--text-dim); }
+  .verified .vchk { flex: 0 0 auto; }
+  @media (prefers-reduced-motion: no-preference) {
+    .vchk path { stroke-dasharray: 24; stroke-dashoffset: 24; animation: vchk-draw .5s .15s ease forwards; }
+  }
+  @keyframes vchk-draw { to { stroke-dashoffset: 0; } }
 </style>
 </head>
 <body>
@@ -55,6 +61,7 @@
   <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › FabGPT-FAQ</nav>
   <h1>Come si contatta Fabrizio Salmi?</h1>
   <div class="answer"><p>I canali:</p><ul><li><strong>Email</strong>: [fabrizio.salmi@gmail.com](mailto:fabrizio.salmi@gmail.com) – per proposte di collaborazione, supporto commerciale e consulenza (automazione infrastrutturale, hardening, monitoring)</li><li><strong>GitHub</strong>: <a href="https://github.com/fabriziosalmi" target="_blank" rel="noopener">github.com/fabriziosalmi</a> – issue e discussion sui singoli progetti sono il canale più rapido per le questioni tecniche</li><li><strong>HackerOne</strong>: <a href="https://hackerone.com/fabriziosalmi" target="_blank" rel="noopener">fabriziosalmi</a> per il lato security research</li></ul></div>
+  <div class="verified"><svg class="vchk" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Verificata a mano · zero allucinazioni</span></div>
   <a class="ask" href="../../?q=contatti">Chiedilo a FabGPT-FAQ →</a>
   <div class="related">
     <h2>Altre domande</h2>

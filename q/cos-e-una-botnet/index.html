@@ -42,6 +42,12 @@
   .answer code { cursor: pointer; }
   .answer code:hover { outline: 1px solid var(--border); }
   .answer code.copied { outline: 1px solid var(--accent); color: var(--accent); }
+  .verified { display: flex; align-items: center; gap: 7px; margin-top: 18px; font-size: 13px; color: var(--text-dim); }
+  .verified .vchk { flex: 0 0 auto; }
+  @media (prefers-reduced-motion: no-preference) {
+    .vchk path { stroke-dasharray: 24; stroke-dashoffset: 24; animation: vchk-draw .5s .15s ease forwards; }
+  }
+  @keyframes vchk-draw { to { stroke-dashoffset: 0; } }
 </style>
 </head>
 <body>
@@ -55,6 +61,7 @@
   <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › Cybersecurity</nav>
   <h1>Cos&#x27;è una botnet?</h1>
   <div class="answer"><p>Una <strong>botnet</strong> è un esercito di dispositivi compromessi – PC, server, ma sempre più spesso telecamere, router e IoT con credenziali di fabbrica – controllati da un&#x27;infrastruttura di <strong>command and control (C2)</strong>. Il proprietario non si accorge di nulla; l&#x27;attaccante affitta la potenza aggregata per <a href="../cos-e-un-attacco-ddos/">DDoS</a>, spam, credential stuffing, mining e proxy per altri crimini. Mirai, costruita su IoT con password di default, resta il caso di scuola.</p><p>Due prospettive di difesa: <strong>non entrarci</strong> (aggiornamenti, credenziali cambiate, niente servizi esposti per pigrizia – il tuo NAS non vuole fare carriera nel crimine) e <strong>riconoscerne il traffico</strong>: i beacon verso i C2 si intercettano con blocklist DNS aggiornate (<a href="https://github.com/fabriziosalmi/blacklists" target="_blank" rel="noopener">blacklists</a> le aggrega ogni giorno) e con un occhio sull&#x27;<a href="../secure-web-gateway-self-hosted/">egress della rete</a>.</p></div>
+  <div class="verified"><svg class="vchk" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Verificata a mano · zero allucinazioni</span></div>
   <a class="ask" href="../../?q=botnet">Chiedilo a FabGPT-FAQ →</a>
   <div class="related">
     <h2>Altre domande</h2>

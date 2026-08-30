@@ -42,6 +42,12 @@
   .answer code { cursor: pointer; }
   .answer code:hover { outline: 1px solid var(--border); }
   .answer code.copied { outline: 1px solid var(--accent); color: var(--accent); }
+  .verified { display: flex; align-items: center; gap: 7px; margin-top: 18px; font-size: 13px; color: var(--text-dim); }
+  .verified .vchk { flex: 0 0 auto; }
+  @media (prefers-reduced-motion: no-preference) {
+    .vchk path { stroke-dasharray: 24; stroke-dashoffset: 24; animation: vchk-draw .5s .15s ease forwards; }
+  }
+  @keyframes vchk-draw { to { stroke-dashoffset: 0; } }
 </style>
 </head>
 <body>
@@ -55,6 +61,7 @@
   <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › Cybersecurity</nav>
   <h1>Come si configura una sessione BGP con BFD (router locale ↔ VPS)?</h1>
   <div class="answer"><p>Uno scenario avanzato di <a href="../self-hosting-pro-e-contro/">self-hosting</a>: usare <strong>BGP</strong> per annunciare i propri servizi da casa attraverso un <strong>VPS</strong> che fa da frontend pubblico – utile per avere IP stabili e failover quando la linea di casa è dietro <a href="../nat-statico-dinamico-e-pat/">CGNAT</a> o cambia IP. Il router locale e il VPS stabiliscono una <strong>sessione BGP</strong> (di solito dentro un <a href="../wireguard-o-openvpn/">tunnel WireGuard</a>) su cui si scambiano le rotte.</p><p>Il problema che <strong>BFD</strong> risolve: BGP di suo rileva la caduta di un peer con timer lenti (decine di secondi) – troppo per un failover pulito. <strong>BFD</strong> (Bidirectional Forwarding Detection) è un protocollo leggerissimo che manda pacchetti a intervalli di <strong>millisecondi</strong> e rileva la caduta del collegamento in una frazione di secondo, dicendo a BGP di ritirare le rotte <em>subito</em>. Il failover diventa quasi istantaneo invece che una lunga finestra di disservizio.</p><p>Si implementa con <strong>FRR</strong> (Free Range Routing) o <strong>BIRD</strong> sul router locale e sul VPS – entrambi girano su <a href="../differenza-container-lxc-e-vm/">un LXC</a> o direttamente sul gateway. È territorio da homelab avanzato / piccola infrastruttura, imparentato con come funziona <a href="../bgp-hijacking-e-rpki/">il routing di internet stesso</a>, e un&#x27;alternativa più sofisticata al <a href="../esporre-servizi-senza-aprire-porte/">tunnel semplice verso un VPS</a>: dà routing dinamico e failover veloce, al prezzo di una configurazione che richiede di masticare BGP. Per la maggioranza, <a href="../wireguard-e-mesh-vpn/">una mesh VPN</a> risolve lo stesso bisogno con un decimo della complessità.</p></div>
+  <div class="verified"><svg class="vchk" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Verificata a mano · zero allucinazioni</span></div>
   <a class="ask" href="../../?q=bgp-bfd-homelab">Chiedilo a FabGPT-FAQ →</a>
   <div class="related">
     <h2>Altre domande</h2>

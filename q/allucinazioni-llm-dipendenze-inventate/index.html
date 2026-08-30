@@ -42,6 +42,12 @@
   .answer code { cursor: pointer; }
   .answer code:hover { outline: 1px solid var(--border); }
   .answer code.copied { outline: 1px solid var(--accent); color: var(--accent); }
+  .verified { display: flex; align-items: center; gap: 7px; margin-top: 18px; font-size: 13px; color: var(--text-dim); }
+  .verified .vchk { flex: 0 0 auto; }
+  @media (prefers-reduced-motion: no-preference) {
+    .vchk path { stroke-dasharray: 24; stroke-dashoffset: 24; animation: vchk-draw .5s .15s ease forwards; }
+  }
+  @keyframes vchk-draw { to { stroke-dashoffset: 0; } }
 </style>
 </head>
 <body>
@@ -55,6 +61,7 @@
   <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › AI e LLM</nav>
   <h1>Cosa sono le allucinazioni degli LLM (e le dipendenze inventate)?</h1>
   <div class="answer"><p>Un LLM &quot;allucina&quot; quando produce con totale sicurezza qualcosa di falso: una fonte inesistente, un&#x27;API inventata, un fatto sbagliato. Non è un bug occasionale, è una proprietà statistica del come questi modelli generano testo.</p><p>La variante più pericolosa per chi sviluppa: le <strong>dipendenze allucinate</strong>. L&#x27;LLM scrive <code>import pacchetto-che-non-esiste</code>, lo sviluppatore lo committa, e un attaccante può <strong>registrare quel nome</strong> su PyPI o npm (slopsquatting): alla build successiva il codice malevolo entra in casa. Due risorse a tema:</p><ul><li><a href="https://github.com/fabriziosalmi/ai-dependency-guard" target="_blank" rel="noopener">ai-dependency-guard</a> – GitHub Action zero-dependency che valida ogni manifest contro i registry ufficiali e <strong>fa fallire la CI</strong> se trova un pacchetto inventato</li><li><a href="https://github.com/fabriziosalmi/ai-hallucination-research" target="_blank" rel="noopener">ai-hallucination-research</a> – l&#x27;analisi empirica del fenomeno che sta dietro al tool</li></ul></div>
+  <div class="verified"><svg class="vchk" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Verificata a mano · zero allucinazioni</span></div>
   <a class="ask" href="../../?q=allucinazioni-llm">Chiedilo a FabGPT-FAQ →</a>
   <div class="related">
     <h2>Altre domande</h2>

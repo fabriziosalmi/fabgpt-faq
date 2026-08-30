@@ -42,6 +42,12 @@
   .answer code { cursor: pointer; }
   .answer code:hover { outline: 1px solid var(--border); }
   .answer code.copied { outline: 1px solid var(--accent); color: var(--accent); }
+  .verified { display: flex; align-items: center; gap: 7px; margin-top: 18px; font-size: 13px; color: var(--text-dim); }
+  .verified .vchk { flex: 0 0 auto; }
+  @media (prefers-reduced-motion: no-preference) {
+    .vchk path { stroke-dasharray: 24; stroke-dashoffset: 24; animation: vchk-draw .5s .15s ease forwards; }
+  }
+  @keyframes vchk-draw { to { stroke-dashoffset: 0; } }
 </style>
 </head>
 <body>
@@ -55,6 +61,7 @@
   <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › Cybersecurity</nav>
   <h1>Detection engineering: quali eventi (Event ID) contano per rilevare un attacco?</h1>
   <div class="answer"><p>La <strong>detection engineering</strong> è la disciplina di scrivere, testare e mantenere le regole che trasformano i <a href="../security-logging-fatto-bene/">log</a> in allarmi utili – il cuore di un <a href="../cos-e-un-soc-security-operations-center/">SOC</a> che funziona. Il formato aperto di riferimento è <strong>Sigma</strong>: regole scritte una volta e traducibili verso qualsiasi <a href="../wazuh-wildbox-o-elk/">SIEM</a>.</p><p>Su Windows, gli eventi ad alta priorità (molti richiedono <strong>Sysmon</strong> o audit avanzato, non attivi di default):</p><ul><li><strong>creazione processi</strong> (4688 / Sysmon 1) con la command line – è qui che si vedono PowerShell offuscato, <code>mshta</code>, i <code>living-off-the-land</code></li><li><strong>login</strong> (4624/4625/4648): pattern di accesso anomali, forza bruta, uso di credenziali esplicite</li><li><strong>nuovi servizi</strong> (7045) e <strong>task pianificati</strong> – vie di persistenza classiche</li><li>creazione di <strong>account</strong> e modifiche a gruppi privilegiati, accesso a LSASS (furto credenziali)</li></ul><p>Le regole d&#x27;oro della disciplina: parti dal <strong>comportamento</strong> non dalla firma (come nel <a href="../cos-e-il-threat-hunting/">threat hunting</a>), <strong>testa</strong> le regole con attacchi simulati (Atomic Red Team) prima di fidarti, e taratura continua contro i falsi positivi – una regola che urla sempre viene ignorata sempre. È esattamente lo spirito del <a href="../come-si-testano-le-applicazioni-llm/">testing deterministico</a>: una detection non provata è una speranza.</p></div>
+  <div class="verified"><svg class="vchk" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Verificata a mano · zero allucinazioni</span></div>
   <a class="ask" href="../../?q=detection-engineering">Chiedilo a FabGPT-FAQ →</a>
   <div class="related">
     <h2>Altre domande</h2>

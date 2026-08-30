@@ -42,6 +42,12 @@
   .answer code { cursor: pointer; }
   .answer code:hover { outline: 1px solid var(--border); }
   .answer code.copied { outline: 1px solid var(--accent); color: var(--accent); }
+  .verified { display: flex; align-items: center; gap: 7px; margin-top: 18px; font-size: 13px; color: var(--text-dim); }
+  .verified .vchk { flex: 0 0 auto; }
+  @media (prefers-reduced-motion: no-preference) {
+    .vchk path { stroke-dasharray: 24; stroke-dashoffset: 24; animation: vchk-draw .5s .15s ease forwards; }
+  }
+  @keyframes vchk-draw { to { stroke-dashoffset: 0; } }
 </style>
 </head>
 <body>
@@ -55,6 +61,7 @@
   <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › Proxmox e self-hosting</nav>
   <h1>Cos&#x27;è Proxmox VE e perché è così usato?</h1>
   <div class="answer"><p><strong>Proxmox VE</strong> è una piattaforma di virtualizzazione open source basata su Debian che gestisce <strong>VM (KVM/QEMU) e container LXC</strong> dalla stessa interfaccia web, con cluster, alta disponibilità, storage ZFS/Ceph e backup integrati (con il gemello Proxmox Backup Server). Dopo la stretta sulle licenze VMware è diventata la via di fuga preferita di homelab e PMI: niente costi di licenza, tutto self-hosted.</p><p>Il portfolio di Fabrizio ci ha costruito sopra un piccolo ecosistema:</p><ul><li><strong>autoscaling</strong> – <a href="https://github.com/fabriziosalmi/proxmox-vm-autoscale" target="_blank" rel="noopener">proxmox-vm-autoscale</a> e <a href="https://github.com/fabriziosalmi/proxmox-lxc-autoscale" target="_blank" rel="noopener">proxmox-lxc-autoscale</a></li><li><strong>terminale</strong> – <a href="https://github.com/fabriziosalmi/proxxx" target="_blank" rel="noopener">proxxx</a>, cockpit TUI/CLI per PVE e PBS</li><li><strong>bilanciamento</strong> – <a href="https://github.com/fabriziosalmi/proxmox-cluster-balancer" target="_blank" rel="noopener">proxmox-cluster-balancer</a></li></ul></div>
+  <div class="verified"><svg class="vchk" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Verificata a mano · zero allucinazioni</span></div>
   <a class="ask" href="../../?q=cos-e-proxmox">Chiedilo a FabGPT-FAQ →</a>
   <div class="related">
     <h2>Altre domande</h2>

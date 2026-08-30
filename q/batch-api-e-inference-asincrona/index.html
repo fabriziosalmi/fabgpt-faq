@@ -42,6 +42,12 @@
   .answer code { cursor: pointer; }
   .answer code:hover { outline: 1px solid var(--border); }
   .answer code.copied { outline: 1px solid var(--accent); color: var(--accent); }
+  .verified { display: flex; align-items: center; gap: 7px; margin-top: 18px; font-size: 13px; color: var(--text-dim); }
+  .verified .vchk { flex: 0 0 auto; }
+  @media (prefers-reduced-motion: no-preference) {
+    .vchk path { stroke-dasharray: 24; stroke-dashoffset: 24; animation: vchk-draw .5s .15s ease forwards; }
+  }
+  @keyframes vchk-draw { to { stroke-dashoffset: 0; } }
 </style>
 </head>
 <body>
@@ -55,6 +61,7 @@
   <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › AI e LLM</nav>
   <h1>Batch API e inferenza asincrona: quando usarle?</h1>
   <div class="answer"><p>Le <strong>batch API</strong> rovesciano il patto: rinunci alla risposta immediata – carichi un lotto di richieste e i risultati arrivano entro ore (di solito con garanzia entro 24) – e in cambio paghi <strong>circa la metà</strong>. Per il provider è capacità riempita nei momenti morti; per te è uno sconto strutturale su tutto ciò che non è interattivo.</p><p>I casi giusti: classificare o arricchire un dataset, generare descrizioni per diecimila prodotti, <a href="../come-valutare-le-risposte-di-un-llm/">valutazioni</a> notturne, riscritture di massa (il caso <a href="https://github.com/fabriziosalmi/UglyFeed" target="_blank" rel="noopener">UglyFeed</a>: rielaborare feed RSS non ha bisogno del tempo reale), report periodici. Il pattern architetturale: separa nel tuo sistema ciò che l&#x27;utente aspetta <em>adesso</em> da ciò che può maturare in coda – spesso è più di quanto pensi, e ogni chiamata spostata sul binario lento costa metà. Combinato con <a href="../cos-e-il-prompt-caching/">prompt caching</a> e modelli dimensionati, il conto dell&#x27;API si ridimensiona davvero.</p></div>
+  <div class="verified"><svg class="vchk" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Verificata a mano · zero allucinazioni</span></div>
   <a class="ask" href="../../?q=batch-api">Chiedilo a FabGPT-FAQ →</a>
   <div class="related">
     <h2>Altre domande</h2>

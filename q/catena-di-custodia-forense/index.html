@@ -42,6 +42,12 @@
   .answer code { cursor: pointer; }
   .answer code:hover { outline: 1px solid var(--border); }
   .answer code.copied { outline: 1px solid var(--accent); color: var(--accent); }
+  .verified { display: flex; align-items: center; gap: 7px; margin-top: 18px; font-size: 13px; color: var(--text-dim); }
+  .verified .vchk { flex: 0 0 auto; }
+  @media (prefers-reduced-motion: no-preference) {
+    .vchk path { stroke-dasharray: 24; stroke-dashoffset: 24; animation: vchk-draw .5s .15s ease forwards; }
+  }
+  @keyframes vchk-draw { to { stroke-dashoffset: 0; } }
 </style>
 </head>
 <body>
@@ -55,6 +61,7 @@
   <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › Cybersecurity</nav>
   <h1>Come si preserva la catena di custodia (chain of custody) nelle prove digitali?</h1>
   <div class="answer"><p>La <strong>catena di custodia</strong> è la documentazione ininterrotta di <em>chi</em> ha maneggiato una prova, <em>quando</em>, <em>come</em> e <em>perché</em> – dal momento dell&#x27;acquisizione fino all&#x27;aula. Senza, una prova digitale è tecnicamente valida ma <strong>legalmente inutilizzabile</strong>: la difesa può sostenere che sia stata alterata, e cade.</p><p>I principi che la reggono:</p><ul><li><strong>integrità dimostrabile</strong>: al momento dell&#x27;acquisizione si calcola l&#x27;<strong>hash</strong> (SHA-256) della prova; ogni verifica successiva ricalcola lo stesso hash per provare che nulla è cambiato – è la stessa matematica dei <a href="../security-logging-fatto-bene/">log tamper-evident</a></li><li><strong>acquisizione non alterante</strong>: si lavora su <strong>copie forensi bit-a-bit</strong>, mai sull&#x27;originale; per i dischi si usano <strong>write blocker</strong> (impediscono qualsiasi scrittura sul supporto sotto esame)</li><li><strong>documentazione di ogni passaggio</strong>: registro firmato di ogni trasferimento e accesso, custodia sicura</li><li><strong>ordine di volatilità</strong>: si acquisisce prima ciò che sparisce prima – <a href="../analisi-forense-della-memoria-ram/">la memoria RAM</a> prima dei dischi</li></ul><p>È il pezzo che trasforma &quot;sappiamo cosa è successo&quot; in &quot;possiamo dimostrarlo&quot;, e conta ogni volta che un incidente può finire in causa, denuncia o contenzioso di lavoro. L&#x27;infrastruttura di supporto è la stessa dell&#x27;<a href="../security-logging-fatto-bene/">audit</a>: hash, firme, catene verificabili, orari sincronizzati – la <a href="../conservare-log-cloudflare-nis2-gdpr/">conservazione a norma di RainLogs</a> nasce dalla stessa esigenza.</p></div>
+  <div class="verified"><svg class="vchk" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Verificata a mano · zero allucinazioni</span></div>
   <a class="ask" href="../../?q=chain-of-custody">Chiedilo a FabGPT-FAQ →</a>
   <div class="related">
     <h2>Altre domande</h2>

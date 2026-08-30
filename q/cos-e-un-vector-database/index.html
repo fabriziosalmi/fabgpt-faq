@@ -42,6 +42,12 @@
   .answer code { cursor: pointer; }
   .answer code:hover { outline: 1px solid var(--border); }
   .answer code.copied { outline: 1px solid var(--accent); color: var(--accent); }
+  .verified { display: flex; align-items: center; gap: 7px; margin-top: 18px; font-size: 13px; color: var(--text-dim); }
+  .verified .vchk { flex: 0 0 auto; }
+  @media (prefers-reduced-motion: no-preference) {
+    .vchk path { stroke-dasharray: 24; stroke-dashoffset: 24; animation: vchk-draw .5s .15s ease forwards; }
+  }
+  @keyframes vchk-draw { to { stroke-dashoffset: 0; } }
 </style>
 </head>
 <body>
@@ -55,6 +61,7 @@
   <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › AI e LLM</nav>
   <h1>Cos&#x27;è un vector database?</h1>
   <div class="answer"><p>Un <strong>vector database</strong> archivia <a href="../cosa-sono-gli-embeddings/">embeddings</a> e risponde a una domanda sola, ma velocissimamente: <em>quali vettori sono più vicini a questo?</em> È la ricerca per similarità che fa funzionare il <a href="../cos-e-rag-retrieval-augmented-generation/">RAG</a>, i sistemi di raccomandazione, la deduplicazione semantica. Sotto il cofano, indici approssimati (HNSW e simili) che scambiano un pizzico di esattezza per ordini di grandezza in velocità.</p><p>Il panorama, con una dose di pragmatismo:</p><ul><li><strong>pgvector</strong> – l&#x27;estensione Postgres: se hai già Postgres, per la maggior parte dei progetti è la risposta (un database in meno da gestire)</li><li><strong>Qdrant, Weaviate, Milvus</strong> – i dedicati, quando i vettori sono milioni e servono filtri e scala</li><li><strong>Chroma, FAISS, SQLite-vec</strong> – embedded, per prototipi e progetti locali</li></ul><p>Verità controcorrente: sotto le centinaia di migliaia di documenti, un <strong>ibrido full-text + vettori</strong> batte spesso i soli vettori – è la scelta di <a href="https://github.com/fabriziosalmi/l0-memory" target="_blank" rel="noopener">l0-memory</a>: FTS5 di default, vettori come opzione.</p></div>
+  <div class="verified"><svg class="vchk" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Verificata a mano · zero allucinazioni</span></div>
   <a class="ask" href="../../?q=vector-database">Chiedilo a FabGPT-FAQ →</a>
   <div class="related">
     <h2>Altre domande</h2>

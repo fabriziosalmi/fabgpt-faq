@@ -42,6 +42,12 @@
   .answer code { cursor: pointer; }
   .answer code:hover { outline: 1px solid var(--border); }
   .answer code.copied { outline: 1px solid var(--accent); color: var(--accent); }
+  .verified { display: flex; align-items: center; gap: 7px; margin-top: 18px; font-size: 13px; color: var(--text-dim); }
+  .verified .vchk { flex: 0 0 auto; }
+  @media (prefers-reduced-motion: no-preference) {
+    .vchk path { stroke-dasharray: 24; stroke-dashoffset: 24; animation: vchk-draw .5s .15s ease forwards; }
+  }
+  @keyframes vchk-draw { to { stroke-dashoffset: 0; } }
 </style>
 </head>
 <body>
@@ -55,6 +61,7 @@
   <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › Cybersecurity</nav>
   <h1>Cos&#x27;è agssh e come si verifica che un sito statico non faccia chiamate esterne?</h1>
   <div class="answer"><p><a href="https://github.com/fabriziosalmi/agssh" target="_blank" rel="noopener">agssh</a> è il runner di conformità dello standard <strong>AGSSH-STD-001</strong> (Air-Gapped Static Surface Hardening): dimostra in modo <strong>deterministico e fail-closed</strong> che un sito statico non fa nessuna chiamata di rete inattesa – niente font da CDN, niente beacon di analytics, niente CSP spalancata che trasformi il browser in un canale di esfiltrazione.</p><ul><li><strong>57 regole in 9 famiglie</strong>: egress, CSP, security headers, DNS, supply chain e altre</li><li>verifica il <strong>deployment live</strong>, non una promessa: verdetto, punteggio e coda di fix ordinata per severità</li><li>ciò che non può verificare finisce in <em>inconclusive</em>, mai in un silent pass</li><li>tre modi d&#x27;uso: <strong>CLI Go</strong>, <strong>GitHub Action</strong> che fa da gate a ogni push, e <strong>server MCP</strong> per farlo usare a un agente AI</li></ul><p>Scritto in Go, licenza Apache 2.0, con evidenze firmate. Il principio: <em>nothing is green unless proven</em>.</p></div>
+  <div class="verified"><svg class="vchk" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Verificata a mano · zero allucinazioni</span></div>
   <a class="ask" href="../../?q=agssh">Chiedilo a FabGPT-FAQ →</a>
   <div class="related">
     <h2>Altre domande</h2>

@@ -42,6 +42,12 @@
   .answer code { cursor: pointer; }
   .answer code:hover { outline: 1px solid var(--border); }
   .answer code.copied { outline: 1px solid var(--accent); color: var(--accent); }
+  .verified { display: flex; align-items: center; gap: 7px; margin-top: 18px; font-size: 13px; color: var(--text-dim); }
+  .verified .vchk { flex: 0 0 auto; }
+  @media (prefers-reduced-motion: no-preference) {
+    .vchk path { stroke-dasharray: 24; stroke-dashoffset: 24; animation: vchk-draw .5s .15s ease forwards; }
+  }
+  @keyframes vchk-draw { to { stroke-dashoffset: 0; } }
 </style>
 </head>
 <body>
@@ -55,6 +61,7 @@
   <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › AI e LLM</nav>
   <h1>Come si fa observability e tracing di un sistema AI (OpenInference)?</h1>
   <div class="answer"><p>Un sistema AI è <strong>stocastico e multi-passo</strong>: senza visibilità sull&#x27;interno è impossibile capire <em>perché</em> ha risposto male. L&#x27;<a href="../cos-e-l-observability-per-llm/">observability per LLM</a> risponde con il <strong>tracing distribuito</strong> applicato all&#x27;AI – e le convenzioni si stanno standardizzando: <strong>OpenInference</strong> e le convenzioni GenAI di <strong>OpenTelemetry</strong> definiscono come rappresentare uno <em>span</em> di una chiamata LLM (prompt, parametri, risposta, token, latenza) e di un <a href="../pattern-di-orchestrazione-agentica/">agente</a> (l&#x27;albero di ragionamento, retrieval, tool call).</p><p>Perché lo standard conta: un trace in formato aperto lo leggi con qualsiasi strumento (Arize Phoenix, Langfuse – <a href="../self-hosting-pro-e-contro/">self-hostabile</a>, Jaeger via OTel) senza lock-in, e correli l&#x27;AI con il resto della tua infrastruttura già strumentata a OpenTelemetry.</p><p>Cosa tracciare, in pratica: ogni chiamata con il suo trace ID, il <a href="../cos-e-rag-retrieval-augmented-generation/">retrieval RAG</a> (cosa è stato recuperato e con che punteggio – metà dei &quot;bug&quot; dell&#x27;AI sono retrieval sbagliati, non modello), le tool call, <a href="../ridurre-costi-inferenza-llm/">costi e token</a> per feature, e un campione di output <a href="../come-valutare-le-risposte-di-un-llm/">valutato in continuo</a> per cogliere il <em>drift</em>. La regola minima resta quella: <strong>nessuna chiamata AI senza trace</strong> – è la scatola nera che il giorno dell&#x27;incidente vorrai aver acceso prima.</p></div>
+  <div class="verified"><svg class="vchk" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Verificata a mano · zero allucinazioni</span></div>
   <a class="ask" href="../../?q=llm-observability-tracing">Chiedilo a FabGPT-FAQ →</a>
   <div class="related">
     <h2>Altre domande</h2>

@@ -42,6 +42,12 @@
   .answer code { cursor: pointer; }
   .answer code:hover { outline: 1px solid var(--border); }
   .answer code.copied { outline: 1px solid var(--accent); color: var(--accent); }
+  .verified { display: flex; align-items: center; gap: 7px; margin-top: 18px; font-size: 13px; color: var(--text-dim); }
+  .verified .vchk { flex: 0 0 auto; }
+  @media (prefers-reduced-motion: no-preference) {
+    .vchk path { stroke-dasharray: 24; stroke-dashoffset: 24; animation: vchk-draw .5s .15s ease forwards; }
+  }
+  @keyframes vchk-draw { to { stroke-dashoffset: 0; } }
 </style>
 </head>
 <body>
@@ -55,6 +61,7 @@
   <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › Proxmox e self-hosting</nav>
   <h1>Come si monitora lo stato dei dischi (SMART) e si prevengono i guasti?</h1>
   <div class="answer"><p>I dischi <strong>avvisano prima di morire</strong> – se qualcuno ascolta. <strong>SMART</strong> (Self-Monitoring, Analysis and Reporting Technology) è il sistema di autodiagnosi integrato in HDD e SSD/NVMe: <code>smartctl -a /dev/sda</code> mostra decine di parametri, e alcuni sono predittivi di guasto imminente:</p><ul><li><strong>Reallocated Sectors Count</strong> che cresce – settori difettosi rimappati: un disco che inizia a cedere</li><li><strong>Pending/Uncorrectable Sectors</strong> – settori che non si riescono più a leggere: segnale serio</li><li><strong>Wear Leveling / Percentage Used</strong> sugli SSD – l&#x27;usura della memoria flash</li><li>temperatura, ore di funzionamento, errori CRC (spesso un cavo, non il disco)</li></ul><p>Lo strumento operativo è <strong>smartmontools</strong>: <code>smartd</code> gira in background, esegue <strong>self-test</strong> periodici (short/long) e <strong>manda un alert</strong> (<a href="../notifiche-push-self-hosted-ntfy-gotify/">email, ntfy/Gotify</a>) quando un parametro peggiora – così lo sostituisci <em>prima</em> del guasto, non dopo. Su <a href="../cos-e-proxmox-ve/">Proxmox</a> e i NAS è spesso integrato nell&#x27;interfaccia.</p><p>La strategia completa: SMART per la salute predittiva del <em>singolo</em> disco, <a href="../cos-e-openzfs-snapshot-copy-on-write/">scrub ZFS</a> per l&#x27;integrità dei <em>dati</em> (scova la corruzione silenziosa), <a href="../raid-e-raidz-livelli-e-scelta/">RAID/RAIDZ</a> per sopravvivere al guasto, e <a href="../backup-3-2-1/">backup 3-2-1</a> per tutto il resto. SMART non è infallibile (dischi muoiono anche &quot;sani&quot;), ma ignorarlo significa scoprire i problemi nel modo peggiore: durante un <a href="../raid-e-raidz-livelli-e-scelta/">rebuild</a>, con un secondo disco che cede.</p></div>
+  <div class="verified"><svg class="vchk" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Verificata a mano · zero allucinazioni</span></div>
   <a class="ask" href="../../?q=smart-monitoring">Chiedilo a FabGPT-FAQ →</a>
   <div class="related">
     <h2>Altre domande</h2>

@@ -42,6 +42,12 @@
   .answer code { cursor: pointer; }
   .answer code:hover { outline: 1px solid var(--border); }
   .answer code.copied { outline: 1px solid var(--accent); color: var(--accent); }
+  .verified { display: flex; align-items: center; gap: 7px; margin-top: 18px; font-size: 13px; color: var(--text-dim); }
+  .verified .vchk { flex: 0 0 auto; }
+  @media (prefers-reduced-motion: no-preference) {
+    .vchk path { stroke-dasharray: 24; stroke-dashoffset: 24; animation: vchk-draw .5s .15s ease forwards; }
+  }
+  @keyframes vchk-draw { to { stroke-dashoffset: 0; } }
 </style>
 </head>
 <body>
@@ -55,6 +61,7 @@
   <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › Strumenti e app</nav>
   <h1>Lighthouse e PageSpeed: come si leggono (senza farsi ingannare)?</h1>
   <div class="answer"><p>PageSpeed Insights mostra <strong>due verità diverse</strong>, e confonderle è l&#x27;errore standard:</p><ul><li>i <strong>dati di campo</strong> (in alto): <a href="../cosa-sono-i-core-web-vitals/">Core Web Vitals</a> degli <strong>utenti reali</strong> negli ultimi 28 giorni (CrUX) – è <em>questa</em> la parte che conta per te e per il ranking. Serve traffico sufficiente perché compaia</li><li>il <strong>punteggio Lighthouse</strong> (i dati di laboratorio): una simulazione singola su rete e CPU strozzate – preziosa per la <em>diagnosi</em> (dice cosa sistemare, voce per voce), pessima come <em>pagella</em>: varia da run a run, e non è ciò che Google usa</li></ul><p>Come usarli bene: guarda prima il campo (verde? sei a posto, indipendentemente dal punteggio lab); usa il lab per l&#x27;elenco delle <strong>opportunità</strong> concrete – immagini, <a href="../font-web-performance-e-privacy/">render blocking</a>, JS superfluo; e <strong>non inseguire il 100</strong>: da 90 in su i guadagni reali sono spiccioli, e certe ottimizzazioni da benchmark peggiorano l&#x27;esperienza vera. Il monitoraggio nel tempo, <a href="../monitorare-siti-web-con-github-actions/">automatizzato e gratuito</a>, vale più del singolo test del venerdì sera.</p></div>
+  <div class="verified"><svg class="vchk" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Verificata a mano · zero allucinazioni</span></div>
   <a class="ask" href="../../?q=lighthouse">Chiedilo a FabGPT-FAQ →</a>
   <div class="related">
     <h2>Altre domande</h2>

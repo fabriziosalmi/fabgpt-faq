@@ -42,6 +42,12 @@
   .answer code { cursor: pointer; }
   .answer code:hover { outline: 1px solid var(--border); }
   .answer code.copied { outline: 1px solid var(--accent); color: var(--accent); }
+  .verified { display: flex; align-items: center; gap: 7px; margin-top: 18px; font-size: 13px; color: var(--text-dim); }
+  .verified .vchk { flex: 0 0 auto; }
+  @media (prefers-reduced-motion: no-preference) {
+    .vchk path { stroke-dasharray: 24; stroke-dashoffset: 24; animation: vchk-draw .5s .15s ease forwards; }
+  }
+  @keyframes vchk-draw { to { stroke-dashoffset: 0; } }
 </style>
 </head>
 <body>
@@ -55,6 +61,7 @@
   <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › Proxmox e self-hosting</nav>
   <h1>Storage pieno su Proxmox: come liberare spazio senza disastri</h1>
   <div class="answer"><p>Prima la caccia, poi la pulizia – <code>df -h</code>, <code>zfs list -o space</code> o <code>lvs</code> dicono <em>dove</em> è finito lo spazio. I colpevoli abituali, in ordine:</p><ul><li><strong>snapshot dimenticati</strong>: <a href="../differenza-snapshot-e-backup/">snapshot</a> di mesi fa che trattengono gigabyte di blocchi – <code>qm listsnapshot</code>/<code>pct listsnapshot</code> e potatura</li><li><strong>backup locali</strong>: dump accumulati su local senza retention → sposta i backup <a href="../backup-automatici-verso-pbs/">su PBS o storage dedicato</a> con prune vero</li><li><strong>log e journal</strong>: <code>journalctl --vacuum-size=200M</code>, log applicativi nei container</li><li>dischi di VM <strong>cancellate a metà</strong> o ISO/template mai più usati: <code>pvesm list &lt;storage&gt;</code> e confronto con le VM esistenti – si elimina <em>dal pannello</em>, mai con <code>rm</code> alla cieca in <code>/var/lib/vz</code></li></ul><p>L&#x27;avvertenza seria: un <strong>thin pool LVM o uno ZFS oltre il ~90%</strong> non è un fastidio estetico – le scritture delle VM cominciano a fallire e <a href="../io-delay-alto-proxmox/">ZFS rallenta vistosamente</a>. Se sei già al muro: prima la potatura degli snapshot (libera subito), poi <code>fstrim</code> dentro le VM con discard attivo, e <a href="../cos-e-proxmox-backup-server/">monitoraggio con soglie</a> perché la prossima volta l&#x27;allarme arrivi all&#x27;80%, non al 100%.</p></div>
+  <div class="verified"><svg class="vchk" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Verificata a mano · zero allucinazioni</span></div>
   <a class="ask" href="../../?q=storage-pieno">Chiedilo a FabGPT-FAQ →</a>
   <div class="related">
     <h2>Altre domande</h2>

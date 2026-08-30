@@ -42,6 +42,12 @@
   .answer code { cursor: pointer; }
   .answer code:hover { outline: 1px solid var(--border); }
   .answer code.copied { outline: 1px solid var(--accent); color: var(--accent); }
+  .verified { display: flex; align-items: center; gap: 7px; margin-top: 18px; font-size: 13px; color: var(--text-dim); }
+  .verified .vchk { flex: 0 0 auto; }
+  @media (prefers-reduced-motion: no-preference) {
+    .vchk path { stroke-dasharray: 24; stroke-dashoffset: 24; animation: vchk-draw .5s .15s ease forwards; }
+  }
+  @keyframes vchk-draw { to { stroke-dashoffset: 0; } }
 </style>
 </head>
 <body>
@@ -55,6 +61,7 @@
   <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › AI e LLM</nav>
   <h1>Come si previene il Runaway Agent Loop (loop infinito di un agente)?</h1>
   <div class="answer"><p>Un <strong>Runaway Agent Loop</strong> è un <a href="../cos-e-un-agente-ai/">agente</a> che entra in un ciclo senza fine – chiama uno strumento, non ottiene il risultato sperato, riprova, richiama, all&#x27;infinito – bruciando <a href="../cos-e-l-inferenza-e-perche-costa/">token e denaro</a> (una bolletta API da migliaia di euro in una notte) o martellando un servizio esterno. È il denial-of-wallet degli agenti, spesso non malevolo ma dovuto a un obiettivo mal definito, un errore che non si risolve, o una <a href="../direct-e-indirect-prompt-injection/">prompt injection</a> che lo manda fuori strada.</p><p>Le difese sono ingegneria di harness, non prompt:</p><ul><li><strong>budget rigidi</strong>: tetto massimo di iterazioni, di token, di tempo, di costo per task – superato il quale l&#x27;agente si ferma, punto</li><li><strong>circuit breaker</strong>: rilevare le ripetizioni (la stessa azione con lo stesso risultato N volte) e interrompere – un agente che ripete non sta progredendo</li><li><strong>timeout e rate limit</strong> sui tool, così un loop non travolge i servizi a valle</li><li><strong><a href="../identita-degli-agenti-e-kill-switch/">kill-switch</a></strong> e monitoraggio dei costi in tempo reale (<a href="../osservabilita-e-tracing-di-sistemi-ai/">observability</a>) con alert sui picchi</li><li><strong>stato/<a href="../time-travel-debugging-agenti/">checkpoint</a></strong> che rende visibile e interrompibile il progresso</li></ul><p>È lo stesso principio del <a href="../pattern-di-orchestrazione-agentica/">determinismo nell&#x27;impalcatura</a>: i limiti di controllo (loop, budget, retry) vanno <strong>codificati nell&#x27;harness</strong>, non affidati al giudizio del modello – un agente non deve <em>decidere</em> di fermarsi, deve <em>essere fermato</em> quando supera i limiti. Un buon workflow ha sempre un tetto; un cattivo agente lo scopre a bolletta arrivata.</p></div>
+  <div class="verified"><svg class="vchk" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Verificata a mano · zero allucinazioni</span></div>
   <a class="ask" href="../../?q=runaway-agent">Chiedilo a FabGPT-FAQ →</a>
   <div class="related">
     <h2>Altre domande</h2>

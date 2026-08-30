@@ -42,6 +42,12 @@
   .answer code { cursor: pointer; }
   .answer code:hover { outline: 1px solid var(--border); }
   .answer code.copied { outline: 1px solid var(--accent); color: var(--accent); }
+  .verified { display: flex; align-items: center; gap: 7px; margin-top: 18px; font-size: 13px; color: var(--text-dim); }
+  .verified .vchk { flex: 0 0 auto; }
+  @media (prefers-reduced-motion: no-preference) {
+    .vchk path { stroke-dasharray: 24; stroke-dashoffset: 24; animation: vchk-draw .5s .15s ease forwards; }
+  }
+  @keyframes vchk-draw { to { stroke-dashoffset: 0; } }
 </style>
 </head>
 <body>
@@ -55,6 +61,7 @@
   <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › Musica e creatività</nav>
   <h1>Cos&#x27;è la sintesi sottrattiva (e quella FM)?</h1>
   <div class="answer"><p>I due modi classici di <em>costruire</em> un suono dal nulla:</p><ul><li>la <strong>sintesi sottrattiva</strong> parte ricca e toglie: un <strong>oscillatore</strong> genera un&#x27;onda piena di armoniche (dente di sega, quadra), il <strong>filtro</strong> ne scolpisce via una parte (il <em>cutoff</em> che si apre e chiude è IL suono della musica elettronica), e gli <strong>inviluppi ADSR</strong> (attack, decay, sustain, release) danno forma nel tempo a volume e filtro. È l&#x27;architettura di quasi ogni synth &quot;analogico&quot;: intuitiva, calda, immediata</li><li>la <strong>sintesi FM</strong> usa oscillatori per <em>modulare la frequenza</em> di altri oscillatori: da pochi &quot;operatori&quot; nascono spettri complessi e mutevoli – campane, bassi metallici, i piani elettrici anni &#x27;80 del leggendario <strong>DX7</strong>. Potentissima, notoriamente poco intuitiva</li></ul><p>Terza via moderna: la <strong>wavetable</strong> (onde multiple attraversate in scansione), il cuore dei synth software attuali. Il modo migliore di capirle tutte è girare manopole: i synth gratuiti eccellenti abbondano – e <a href="https://github.com/fabriziosalmi/txt2vst" target="_blank" rel="noopener">txt2vst</a> prova la strada opposta: <strong>descrivi il suono a parole</strong>, e l&#x27;AI genera il <a href="../cosa-sono-i-plugin-vst/">plugin VST</a> che lo fa.</p></div>
+  <div class="verified"><svg class="vchk" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Verificata a mano · zero allucinazioni</span></div>
   <a class="ask" href="../../?q=sintesi-sonora">Chiedilo a FabGPT-FAQ →</a>
   <div class="related">
     <h2>Altre domande</h2>

@@ -42,6 +42,12 @@
   .answer code { cursor: pointer; }
   .answer code:hover { outline: 1px solid var(--border); }
   .answer code.copied { outline: 1px solid var(--accent); color: var(--accent); }
+  .verified { display: flex; align-items: center; gap: 7px; margin-top: 18px; font-size: 13px; color: var(--text-dim); }
+  .verified .vchk { flex: 0 0 auto; }
+  @media (prefers-reduced-motion: no-preference) {
+    .vchk path { stroke-dasharray: 24; stroke-dashoffset: 24; animation: vchk-draw .5s .15s ease forwards; }
+  }
+  @keyframes vchk-draw { to { stroke-dashoffset: 0; } }
 </style>
 </head>
 <body>
@@ -55,6 +61,7 @@
   <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › AI e LLM</nav>
   <h1>Si può valutare automaticamente l&#x27;etica di un LLM?</h1>
   <div class="answer"><p>Si può – con la dovuta umiltà metodologica. <a href="https://github.com/fabriziosalmi/ethical-ai" target="_blank" rel="noopener">ethical-ai</a> automatizza l&#x27;assessment: sottopone ai modelli (OpenAI, Anthropic, Gemini, LM Studio e qualsiasi endpoint compatibile) un set fisso di domande etiche, raccoglie <strong>auto-valutazioni 0–100</strong> con multi-sampling a temperature casuali e aggregazione per mediana, e genera report comparativi in Markdown, HTML e PDF.</p><p>La storia dietro è raccontata in <a href="https://github.com/fabriziosalmi/You-Know-What-AI-Mean" target="_blank" rel="noopener">You-Know-What-AI-Mean</a>: tutto è partito nell&#x27;ottobre 2023 da contenuti espliciti ricevuti <strong>senza chiederli</strong> da ChatGPT con un plugin – da lì una guida pratica all&#x27;etica AI e, negli anni, una serie di strumenti che applicano nel codice ciò che la guida argomenta in prosa: <a href="https://github.com/fabriziosalmi/aidlp" target="_blank" rel="noopener">aidlp</a>, <a href="https://github.com/fabriziosalmi/ai-dependency-guard" target="_blank" rel="noopener">ai-dependency-guard</a>, <a href="https://github.com/fabriziosalmi/vibe-check" target="_blank" rel="noopener">vibe-check</a>.</p></div>
+  <div class="verified"><svg class="vchk" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Verificata a mano · zero allucinazioni</span></div>
   <a class="ask" href="../../?q=etica-ai">Chiedilo a FabGPT-FAQ →</a>
   <div class="related">
     <h2>Altre domande</h2>

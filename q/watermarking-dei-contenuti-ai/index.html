@@ -42,6 +42,12 @@
   .answer code { cursor: pointer; }
   .answer code:hover { outline: 1px solid var(--border); }
   .answer code.copied { outline: 1px solid var(--accent); color: var(--accent); }
+  .verified { display: flex; align-items: center; gap: 7px; margin-top: 18px; font-size: 13px; color: var(--text-dim); }
+  .verified .vchk { flex: 0 0 auto; }
+  @media (prefers-reduced-motion: no-preference) {
+    .vchk path { stroke-dasharray: 24; stroke-dashoffset: 24; animation: vchk-draw .5s .15s ease forwards; }
+  }
+  @keyframes vchk-draw { to { stroke-dashoffset: 0; } }
 </style>
 </head>
 <body>
@@ -55,6 +61,7 @@
   <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › AI e LLM</nav>
   <h1>Cos&#x27;è il watermarking dei contenuti AI?</h1>
   <div class="answer"><p>Il <strong>watermarking dei contenuti AI</strong> serve a rendere riconoscibile ciò che è sintetico. Due filosofie complementari:</p><ul><li><strong>watermark statistici</strong> nel contenuto stesso: pattern invisibili nei pixel o nella scelta dei token (SynthID e simili) – rilevabili da chi ha lo strumento, ma degradabili con modifiche e ricodifiche</li><li><strong>provenienza firmata</strong> dei metadati: lo standard <strong>C2PA / Content Credentials</strong> allega al file una catena firmata di <em>chi ha creato cosa, con quale strumento, con quali modifiche</em> – più robusto concettualmente, ma i metadati si possono spogliare</li></ul><p>Il contesto normativo li sta trasformando da opzione a obbligo: l&#x27;<a href="../cosa-prevede-ai-act/">AI Act</a> richiede la marcatura leggibile dalle macchine dei contenuti sintetici e l&#x27;etichettatura dei deepfake. Verità tecnica da tenere a mente: <strong>nessun watermark è indistruttibile</strong> – alzano il costo dell&#x27;inganno, non lo azzerano (<a href="../deepfake-come-riconoscerli/">come per i deepfake</a>). Il cugino difensivo classico: <a href="https://github.com/fabriziosalmi/open-video-watermark" target="_blank" rel="noopener">il watermarking anti-leak dei video</a>, stessa matematica, scopo opposto.</p></div>
+  <div class="verified"><svg class="vchk" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Verificata a mano · zero allucinazioni</span></div>
   <a class="ask" href="../../?q=watermarking-ai">Chiedilo a FabGPT-FAQ →</a>
   <div class="related">
     <h2>Altre domande</h2>

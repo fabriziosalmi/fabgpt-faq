@@ -42,6 +42,12 @@
   .answer code { cursor: pointer; }
   .answer code:hover { outline: 1px solid var(--border); }
   .answer code.copied { outline: 1px solid var(--accent); color: var(--accent); }
+  .verified { display: flex; align-items: center; gap: 7px; margin-top: 18px; font-size: 13px; color: var(--text-dim); }
+  .verified .vchk { flex: 0 0 auto; }
+  @media (prefers-reduced-motion: no-preference) {
+    .vchk path { stroke-dasharray: 24; stroke-dashoffset: 24; animation: vchk-draw .5s .15s ease forwards; }
+  }
+  @keyframes vchk-draw { to { stroke-dashoffset: 0; } }
 </style>
 </head>
 <body>
@@ -55,6 +61,7 @@
   <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › Proxmox e self-hosting</nav>
   <h1>Come si fa la migrazione live tra nodi Proxmox?</h1>
   <div class="answer"><p>La <strong>migrazione live</strong> sposta una VM accesa da un nodo all&#x27;altro senza interromperla: la RAM viene copiata mentre la VM lavora, le pagine cambiate ricopiate a giri successivi, e nell&#x27;istante finale – impercettibile – la VM riprende sull&#x27;altro nodo. Da GUI: tasto destro → Migrate; da CLI: <code>qm migrate 101 nodo2 --online</code>.</p><p>Cosa la rende possibile o la rompe:</p><ul><li><strong>storage</strong>: con <a href="../storage-proxmox-lvm-zfs-nfs-ceph/">storage condiviso</a> si copia solo la RAM (secondi); con dischi locali serve <code>--with-local-disks</code>, che copia anche quelli a caldo – funziona, ma i tempi crescono coi gigabyte</li><li><strong>CPU</strong>: il tipo CPU della VM deve esistere su entrambi i nodi – è il motivo per cui nei cluster misti si usa un tipo comune (x86-64-v2/v3) invece di <code>host</code></li><li><strong>risorse locali</strong>: ISO montate da storage locale, <a href="../passare-un-disco-usb-a-una-vm/">USB e GPU passate</a> ancorano la VM al ferro – <a href="../migrazione-fallisce-cause/">la migrazione fallisce</a> finché non le stacchi</li></ul><p>È il mattone della manutenzione senza downtime: svuoti il nodo, aggiorni con calma, rimigri. I <a href="../differenza-container-lxc-e-vm/">container</a> invece si migrano solo da spenti (restart migration): riavvio di secondi.</p></div>
+  <div class="verified"><svg class="vchk" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Verificata a mano · zero allucinazioni</span></div>
   <a class="ask" href="../../?q=migrazione-live">Chiedilo a FabGPT-FAQ →</a>
   <div class="related">
     <h2>Altre domande</h2>

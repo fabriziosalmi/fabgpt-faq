@@ -42,6 +42,12 @@
   .answer code { cursor: pointer; }
   .answer code:hover { outline: 1px solid var(--border); }
   .answer code.copied { outline: 1px solid var(--accent); color: var(--accent); }
+  .verified { display: flex; align-items: center; gap: 7px; margin-top: 18px; font-size: 13px; color: var(--text-dim); }
+  .verified .vchk { flex: 0 0 auto; }
+  @media (prefers-reduced-motion: no-preference) {
+    .vchk path { stroke-dasharray: 24; stroke-dashoffset: 24; animation: vchk-draw .5s .15s ease forwards; }
+  }
+  @keyframes vchk-draw { to { stroke-dashoffset: 0; } }
 </style>
 </head>
 <body>
@@ -55,6 +61,7 @@
   <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › Cybersecurity</nav>
   <h1>Cos&#x27;è la threat intelligence?</h1>
   <div class="answer"><p>La <strong>threat intelligence</strong> è conoscenza azionabile sulle minacce: chi attacca, come, con quali infrastrutture. Si consuma a tre livelli – <strong>IoC</strong> (indicatori concreti: IP, domini, hash malevoli, da bloccare in automatico), <strong>TTP</strong> (le tecniche degli avversari, catalogate in MITRE ATT&amp;CK, per orientare i rilevamenti) e intelligence strategica per decidere le priorità.</p><p>Il valore sta nella freschezza e nell&#x27;integrazione: un feed di IoC che nessun sistema consuma è solo lettura. Esempi operativi nel portfolio: <a href="https://github.com/fabriziosalmi/blacklists" target="_blank" rel="noopener">blacklists</a> aggrega ogni giorno 46 fonti in una blocklist DNS pronta all&#x27;uso, <a href="https://github.com/fabriziosalmi/fqdn-model" target="_blank" rel="noopener">fqdn-model</a> prova a <em>predire</em> i domini malevoli che nessun feed conosce ancora, e <a href="https://github.com/fabriziosalmi/naso" target="_blank" rel="noopener">NASO</a> copre il lato esposizione: cosa si dice di te nei posti sbagliati.</p></div>
+  <div class="verified"><svg class="vchk" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Verificata a mano · zero allucinazioni</span></div>
   <a class="ask" href="../../?q=threat-intelligence">Chiedilo a FabGPT-FAQ →</a>
   <div class="related">
     <h2>Altre domande</h2>

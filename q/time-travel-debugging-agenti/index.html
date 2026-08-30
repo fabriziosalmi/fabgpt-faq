@@ -42,6 +42,12 @@
   .answer code { cursor: pointer; }
   .answer code:hover { outline: 1px solid var(--border); }
   .answer code.copied { outline: 1px solid var(--accent); color: var(--accent); }
+  .verified { display: flex; align-items: center; gap: 7px; margin-top: 18px; font-size: 13px; color: var(--text-dim); }
+  .verified .vchk { flex: 0 0 auto; }
+  @media (prefers-reduced-motion: no-preference) {
+    .vchk path { stroke-dasharray: 24; stroke-dashoffset: 24; animation: vchk-draw .5s .15s ease forwards; }
+  }
+  @keyframes vchk-draw { to { stroke-dashoffset: 0; } }
 </style>
 </head>
 <body>
@@ -55,6 +61,7 @@
   <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › AI e LLM</nav>
   <h1>Cos&#x27;è il time-travel debugging (e i checkpoint) negli agenti?</h1>
   <div class="answer"><p>Un <a href="../cos-e-un-agente-ai/">agente</a> è <strong>stocastico e a più passi</strong>: quando sbaglia al passo 7 di 12, riprodurre il bug rilanciando tutto da capo è frustrante (magari non si ripresenta) e costoso. Il <strong>time-travel debugging</strong> risolve salvando un <strong>checkpoint</strong> dello stato a ogni passo del <a href="../pattern-di-orchestrazione-agentica/">grafo di esecuzione</a>: puoi tornare a un punto qualsiasi, ispezionare cosa il modello &quot;vedeva&quot;, modificare un input, e <strong>riprendere da lì</strong> invece che dall&#x27;inizio.</p><p>Cosa richiede: uno <strong>stato serializzabile</strong> (contesto, memoria, risultati dei tool, non riferimenti volatili) e un runtime che lo persista a ogni transizione – è uno dei motivi per cui i framework moderni modellano l&#x27;esecuzione come macchina a stati anziché come chiamate annidate.</p><p>I vantaggi vanno oltre il debug: <strong>ripresa</strong> dopo un crash o una pausa senza rifare il lavoro fatto (e ripagato), <a href="../come-si-limita-un-agente-ai/">human-in-the-loop</a> pulito (l&#x27;agente si ferma a un checkpoint aspettando l&#x27;approvazione, e riparte esatto), e la riproducibilità che rende gli agenti <em>testabili</em>. È lo stesso principio del <a href="../come-si-testano-le-applicazioni-llm/">resume di un workflow</a>: il prefisso già calcolato non si ricalcola – si riparte dal primo passo cambiato.</p></div>
+  <div class="verified"><svg class="vchk" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Verificata a mano · zero allucinazioni</span></div>
   <a class="ask" href="../../?q=time-travel-debugging">Chiedilo a FabGPT-FAQ →</a>
   <div class="related">
     <h2>Altre domande</h2>

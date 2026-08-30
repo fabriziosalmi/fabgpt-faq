@@ -42,6 +42,12 @@
   .answer code { cursor: pointer; }
   .answer code:hover { outline: 1px solid var(--border); }
   .answer code.copied { outline: 1px solid var(--accent); color: var(--accent); }
+  .verified { display: flex; align-items: center; gap: 7px; margin-top: 18px; font-size: 13px; color: var(--text-dim); }
+  .verified .vchk { flex: 0 0 auto; }
+  @media (prefers-reduced-motion: no-preference) {
+    .vchk path { stroke-dasharray: 24; stroke-dashoffset: 24; animation: vchk-draw .5s .15s ease forwards; }
+  }
+  @keyframes vchk-draw { to { stroke-dashoffset: 0; } }
 </style>
 </head>
 <body>
@@ -55,6 +61,7 @@
   <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › AI e LLM</nav>
   <h1>Multimodalità: testo, immagini e audio nello stesso modello</h1>
   <div class="answer"><p>Un modello <strong>multimodale</strong> tratta più tipi di dato nello stesso spazio: legge immagini e testo insieme (e sempre più spesso audio e video), ragionandoci in modo unificato – descrivere una foto, estrarre dati da una fattura scansionata, spiegare un grafico, trascrivere e riassumere una riunione.</p><p>Come funziona, in breve: un encoder trasforma l&#x27;immagine in token che il transformer tratta accanto a quelli del testo – per il modello, &quot;vedere&quot; è leggere un altro alfabeto. I limiti da conoscere: la risoluzione effettiva è limitata (i dettagli minuti si perdono), il conteggio di oggetti e la lettura di layout complessi restano fragili, e le <a href="../allucinazioni-llm-dipendenze-inventate/">allucinazioni</a> valgono anche sulle immagini – descrizioni sicure di cose che non ci sono.</p><p>Sul pratico: per l&#x27;OCR puro di documenti, <a href="../convertire-pdf-scansionato-in-testo/">gli strumenti dedicati</a> restano più prevedibili; il multimodale vince quando serve <em>capire</em>, non solo leggere. E i VLM aperti girano ormai <a href="../far-girare-un-llm-in-locale/">anche in locale</a>.</p></div>
+  <div class="verified"><svg class="vchk" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Verificata a mano · zero allucinazioni</span></div>
   <a class="ask" href="../../?q=multimodalita">Chiedilo a FabGPT-FAQ →</a>
   <div class="related">
     <h2>Altre domande</h2>

@@ -42,6 +42,12 @@
   .answer code { cursor: pointer; }
   .answer code:hover { outline: 1px solid var(--border); }
   .answer code.copied { outline: 1px solid var(--accent); color: var(--accent); }
+  .verified { display: flex; align-items: center; gap: 7px; margin-top: 18px; font-size: 13px; color: var(--text-dim); }
+  .verified .vchk { flex: 0 0 auto; }
+  @media (prefers-reduced-motion: no-preference) {
+    .vchk path { stroke-dasharray: 24; stroke-dashoffset: 24; animation: vchk-draw .5s .15s ease forwards; }
+  }
+  @keyframes vchk-draw { to { stroke-dashoffset: 0; } }
 </style>
 </head>
 <body>
@@ -55,6 +61,7 @@
   <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › AI e LLM</nav>
   <h1>Come si riducono le allucinazioni in pratica?</h1>
   <div class="answer"><p>Le <a href="../allucinazioni-llm-dipendenze-inventate/">allucinazioni</a> non si eliminano – sono nel design – ma si riducono di molto, per strati:</p><ul><li><strong><a href="../cos-e-il-grounding/">grounding</a></strong>: dai al modello i documenti giusti (<a href="../cos-e-rag-retrieval-augmented-generation/">RAG</a>) e istruiscilo a rispondere <em>solo da quelli</em>, citando – e a dire &quot;non lo so&quot; quando il contesto non basta: il permesso di ignorare è l&#x27;anti-allucinogeno più economico che esista</li><li><strong><a href="../temperatura-di-un-llm/">temperatura</a> bassa</strong> sui compiti fattuali</li><li><strong>verifica deterministica dove possibile</strong>: i fatti critici si controllano col codice, non con la fiducia – date, numeri, <a href="https://github.com/fabriziosalmi/ai-dependency-guard" target="_blank" rel="noopener">nomi di pacchetti</a>, link</li><li><strong>structured output</strong>: costringere a uno schema riduce lo spazio per divagare</li><li>per i casi che contano: una seconda passata di <strong>verifica</strong> (stesso modello con cappello da revisore, o <a href="../come-valutare-le-risposte-di-un-llm/">un giudice</a>)</li></ul><p>E la regola d&#x27;oro di prodotto: mostra le fonti. Un utente che può verificare perdona; uno che non può, no.</p></div>
+  <div class="verified"><svg class="vchk" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Verificata a mano · zero allucinazioni</span></div>
   <a class="ask" href="../../?q=ridurre-allucinazioni">Chiedilo a FabGPT-FAQ →</a>
   <div class="related">
     <h2>Altre domande</h2>

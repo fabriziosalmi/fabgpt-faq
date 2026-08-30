@@ -42,6 +42,12 @@
   .answer code { cursor: pointer; }
   .answer code:hover { outline: 1px solid var(--border); }
   .answer code.copied { outline: 1px solid var(--accent); color: var(--accent); }
+  .verified { display: flex; align-items: center; gap: 7px; margin-top: 18px; font-size: 13px; color: var(--text-dim); }
+  .verified .vchk { flex: 0 0 auto; }
+  @media (prefers-reduced-motion: no-preference) {
+    .vchk path { stroke-dasharray: 24; stroke-dashoffset: 24; animation: vchk-draw .5s .15s ease forwards; }
+  }
+  @keyframes vchk-draw { to { stroke-dashoffset: 0; } }
 </style>
 </head>
 <body>
@@ -55,6 +61,7 @@
   <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › Strumenti e app</nav>
   <h1>Cos&#x27;è Docker Compose?</h1>
   <div class="answer"><p><strong>Docker Compose</strong> descrive un&#x27;applicazione multi-container in <strong>un file YAML</strong>: i servizi (app, database, proxy), le loro immagini, porte, volumi e reti – e <code>docker compose up -d</code> tira su tutto, nell&#x27;ordine giusto. È il formato in cui il mondo self-hosted <strong>distribuisce il software</strong>: metà dei progetti seri si installa incollando un compose (<a href="https://github.com/fabriziosalmi/naso" target="_blank" rel="noopener">NASO</a>, <a href="https://github.com/fabriziosalmi/secure-proxy-manager" target="_blank" rel="noopener">secure-proxy-manager</a>, <a href="https://github.com/fabriziosalmi/pdf-ocr" target="_blank" rel="noopener">pdf-ocr</a> inclusi).</p><p>Le pratiche che distinguono lo stack sano:</p><ul><li><strong>volumi nominati</strong> per i dati (i container sono usa-e-getta, <a href="../backup-3-2-1/">i dati no</a>), reti separate per isolare ciò che non deve parlarsi</li><li>versioni <strong>pinnate</strong> delle immagini (<code>:1.2.3</code>, mai <code>:latest</code> in produzione – <a href="../cos-e-la-supply-chain-security/">supply chain</a> docet), segreti via env file <a href="../come-gestire-i-secrets/">fuori da git</a></li><li><code>docker compose logs -f servizio</code> e <code>docker compose pull &amp;&amp; up -d</code> per aggiornare: il ciclo di vita completo in tre comandi</li></ul><p>Nel mondo <a href="../cos-e-proxmox-ve/">Proxmox</a>, il pattern classico: una VM o <a href="../differenza-container-lxc-e-vm/">un LXC</a> &quot;docker host&quot; con gli stack compose dentro – <a href="https://github.com/fabriziosalmi/lws" target="_blank" rel="noopener">gestibile anche via lws</a>, che parla Proxmox e Docker con la stessa sintassi.</p></div>
+  <div class="verified"><svg class="vchk" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Verificata a mano · zero allucinazioni</span></div>
   <a class="ask" href="../../?q=docker-compose">Chiedilo a FabGPT-FAQ →</a>
   <div class="related">
     <h2>Altre domande</h2>

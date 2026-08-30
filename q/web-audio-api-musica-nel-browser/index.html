@@ -42,6 +42,12 @@
   .answer code { cursor: pointer; }
   .answer code:hover { outline: 1px solid var(--border); }
   .answer code.copied { outline: 1px solid var(--accent); color: var(--accent); }
+  .verified { display: flex; align-items: center; gap: 7px; margin-top: 18px; font-size: 13px; color: var(--text-dim); }
+  .verified .vchk { flex: 0 0 auto; }
+  @media (prefers-reduced-motion: no-preference) {
+    .vchk path { stroke-dasharray: 24; stroke-dashoffset: 24; animation: vchk-draw .5s .15s ease forwards; }
+  }
+  @keyframes vchk-draw { to { stroke-dashoffset: 0; } }
 </style>
 </head>
 <body>
@@ -55,6 +61,7 @@
   <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › Musica e creatività</nav>
   <h1>Web Audio API: fare musica nel browser</h1>
   <div class="answer"><p>La <strong>Web Audio API</strong> è un motore audio dentro ogni browser: un grafo di nodi – oscillatori, filtri, gain, delay, analizzatori – da collegare in JavaScript come un modulare. Un synth <a href="../sintesi-sottrattiva-e-fm/">sottrattivo</a> minimale sono dieci righe: <code>OscillatorNode</code> → <code>BiquadFilterNode</code> → <code>GainNode</code> → uscita.</p><p>Le cose da sapere per farci musica sul serio:</p><ul><li>il <strong>timing preciso</strong> non si fa con <code>setTimeout</code> ma con lo scheduling sul clock audio (<code>currentTime</code> + lookahead): è la differenza tra un sequencer e un ubriaco</li><li>l&#x27;audio parte <strong>solo dopo un gesto dell&#x27;utente</strong> (policy anti-autoplay): il classico bottone &quot;start&quot;</li><li>per il DSP pesante ci sono gli <strong>AudioWorklet</strong> – codice audio nel thread giusto – e da lì il salto a <strong>WebAssembly</strong>: DSP scritto in Rust/C++ che gira nel browser a velocità nativa. È esattamente l&#x27;architettura di <a href="../daw-console-dj-nel-browser/">MIXI</a>: Web Audio come impianto, <strong>Rust/Wasm</strong> come muscoli, <a href="https://github.com/fabriziosalmi/mixi" target="_blank" rel="noopener">MIDI</a> via Web MIDI API</li></ul><p>Con <a href="../strumenti-open-source-produzione-musicale/">un po&#x27; di generazione</a> sopra, il browser è ormai uno studio legittimo: zero installazione, <a href="../servire-un-sito-statico-gratis/">condivisibile con un link</a>.</p></div>
+  <div class="verified"><svg class="vchk" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Verificata a mano · zero allucinazioni</span></div>
   <a class="ask" href="../../?q=web-audio-api">Chiedilo a FabGPT-FAQ →</a>
   <div class="related">
     <h2>Altre domande</h2>

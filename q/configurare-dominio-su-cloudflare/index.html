@@ -42,6 +42,12 @@
   .answer code { cursor: pointer; }
   .answer code:hover { outline: 1px solid var(--border); }
   .answer code.copied { outline: 1px solid var(--accent); color: var(--accent); }
+  .verified { display: flex; align-items: center; gap: 7px; margin-top: 18px; font-size: 13px; color: var(--text-dim); }
+  .verified .vchk { flex: 0 0 auto; }
+  @media (prefers-reduced-motion: no-preference) {
+    .vchk path { stroke-dasharray: 24; stroke-dashoffset: 24; animation: vchk-draw .5s .15s ease forwards; }
+  }
+  @keyframes vchk-draw { to { stroke-dashoffset: 0; } }
 </style>
 </head>
 <body>
@@ -55,6 +61,7 @@
   <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › Cloudflare</nav>
   <h1>Come si configura un dominio su Cloudflare da zero?</h1>
   <div class="answer"><p>La sequenza senza sorprese:</p><ul><li>aggiungi il sito su Cloudflare: la scansione <strong>importa i record DNS</strong> esistenti – <em>verificala</em>, i record esotici sfuggono (confronta con un export della zona dal vecchio pannello)</li><li>prima del salto: <a href="../cos-e-il-ttl-dns/">abbassa i TTL</a> e decidi nuvoletta per nuvoletta – <a href="../nuvoletta-arancione-cloudflare/">arancione o grigia</a>: la posta (MX e relativi) <strong>grigia sempre</strong></li><li>cambia i <strong>nameserver</strong> dal <a href="../cos-e-un-registrar-e-il-transfer/">registrar</a> con la coppia assegnata; da lì comanda Cloudflare (attesa: da minuti a ore)</li><li>subito dopo l&#x27;attivazione, i tre punti che evitano i classici guai: <strong>SSL/TLS in Full (strict)</strong> – mai Flexible, <a href="../err-too-many-redirects/">è la fabbrica dei redirect loop</a> – con un <a href="../come-funziona-lets-encrypt-acme/">certificato vero sull&#x27;origine</a>; HTTPS forzato; e <a href="../proteggere-origine-dietro-cloudflare/">l&#x27;origine chiusa</a> ai soli IP di Cloudflare, o la nuvoletta è decorativa</li><li>attiva <a href="../cos-e-dnssec/">DNSSEC</a> (due click + record DS al registrar)</li></ul><p>Da lì in poi, <a href="../cos-e-gitops/">la configurazione merita di vivere in git</a>: <a href="../automatizzare-configurazione-cloudflare/">zonecontrol e wafcontrol</a> per zone e WAF, <a href="https://github.com/fabriziosalmi/cloudflare-backup-actions" target="_blank" rel="noopener">backup automatici</a> della zona.</p></div>
+  <div class="verified"><svg class="vchk" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Verificata a mano · zero allucinazioni</span></div>
   <a class="ask" href="../../?q=dominio-su-cloudflare">Chiedilo a FabGPT-FAQ →</a>
   <div class="related">
     <h2>Altre domande</h2>

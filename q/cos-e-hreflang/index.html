@@ -42,6 +42,12 @@
   .answer code { cursor: pointer; }
   .answer code:hover { outline: 1px solid var(--border); }
   .answer code.copied { outline: 1px solid var(--accent); color: var(--accent); }
+  .verified { display: flex; align-items: center; gap: 7px; margin-top: 18px; font-size: 13px; color: var(--text-dim); }
+  .verified .vchk { flex: 0 0 auto; }
+  @media (prefers-reduced-motion: no-preference) {
+    .vchk path { stroke-dasharray: 24; stroke-dashoffset: 24; animation: vchk-draw .5s .15s ease forwards; }
+  }
+  @keyframes vchk-draw { to { stroke-dashoffset: 0; } }
 </style>
 </head>
 <body>
@@ -55,6 +61,7 @@
   <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › Strumenti e app</nav>
   <h1>Cos&#x27;è l&#x27;hreflang (siti multilingua fatti bene)?</h1>
   <div class="answer"><p>L&#x27;<strong>hreflang</strong> dice ai motori quali versioni linguistiche della stessa pagina esistono e per chi: <code>it</code> per l&#x27;italiano, <code>en-GB</code> vs <code>en-US</code> quando la distinzione conta, e <strong><code>x-default</code></strong> per il resto del mondo (tipicamente la pagina di scelta lingua o l&#x27;inglese). Senza, Google può servire la versione sbagliata o trattare le lingue come duplicati.</p><p>Le regole che evitano il caos:</p><ul><li><strong>reciprocità obbligatoria</strong>: se la pagina IT dichiara la EN, la EN deve dichiarare la IT (e ognuna anche se stessa) – i set non ricambiati vengono ignorati in silenzio, ed è l&#x27;errore n°1</li><li>si implementa nei <code>&lt;link&gt;</code> in pagina <strong>oppure</strong> nella <a href="../a-cosa-serve-la-sitemap/">sitemap</a> (più pulito per siti grandi): una via sola, non entrambe a metà</li><li>hreflang gestisce le <em>varianti della stessa pagina</em> – i contenuti diversi per mercato sono un altro discorso</li><li>ogni versione resta <a href="../canonical-url-quando-e-perche/">canonica di se stessa</a>: hreflang e canonical collaborano, non si sostituiscono</li></ul><p>E la domanda da farsi prima del markup: la traduzione c&#x27;è davvero? Un sito mezzo tradotto con hreflang perfetto resta un sito mezzo tradotto.</p></div>
+  <div class="verified"><svg class="vchk" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Verificata a mano · zero allucinazioni</span></div>
   <a class="ask" href="../../?q=hreflang">Chiedilo a FabGPT-FAQ →</a>
   <div class="related">
     <h2>Altre domande</h2>

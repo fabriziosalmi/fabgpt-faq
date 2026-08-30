@@ -42,6 +42,12 @@
   .answer code { cursor: pointer; }
   .answer code:hover { outline: 1px solid var(--border); }
   .answer code.copied { outline: 1px solid var(--accent); color: var(--accent); }
+  .verified { display: flex; align-items: center; gap: 7px; margin-top: 18px; font-size: 13px; color: var(--text-dim); }
+  .verified .vchk { flex: 0 0 auto; }
+  @media (prefers-reduced-motion: no-preference) {
+    .vchk path { stroke-dasharray: 24; stroke-dashoffset: 24; animation: vchk-draw .5s .15s ease forwards; }
+  }
+  @keyframes vchk-draw { to { stroke-dashoffset: 0; } }
 </style>
 </head>
 <body>
@@ -55,6 +61,7 @@
   <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › Cybersecurity</nav>
   <h1>Cos&#x27;è Matrix (e la messaggistica federata sovrana)?</h1>
   <div class="answer"><p><strong>Matrix</strong> è un protocollo <strong>aperto e federato</strong> per la messaggistica: come le email, chiunque può ospitare il proprio server (<strong>Synapse</strong> è l&#x27;implementazione di riferimento) e gli utenti di server diversi comunicano tra loro – nessun padrone unico, <a href="../cos-e-la-sovranita-digitale/">nessun lock-in</a>. Il client più diffuso è <strong>Element</strong>. Supporta chat, <a href="../cos-e-la-crittografia-end-to-end/">crittografia end-to-end</a>, chiamate, e bridge verso altre reti.</p><p>Il confronto che conta:</p><ul><li><strong>vs Slack/Teams</strong>: Matrix ti ridà controllo, dati e federazione – al prezzo della <a href="../self-hosting-pro-e-contro/">manutenzione</a> di un server (Synapse è notoriamente esigente di risorse; alternative più leggere come Conduit/Dendrite maturano). È la scelta di enti pubblici europei (il governo tedesco, la sanità francese) proprio per la sovranità</li><li><strong>vs Signal</strong>: filosofie opposte – Signal è centralizzato ma massimizza privacy e semplicità (E2E di default, metadati minimi); Matrix massimizza apertura e federazione, con la complessità che ne consegue. Signal per la privacy personale, Matrix per la collaborazione sovrana di un&#x27;organizzazione</li></ul><p>Su <a href="../cos-e-proxmox-ve/">Proxmox</a> un Synapse per un piccolo gruppo sta in <a href="../differenza-container-lxc-e-vm/">una VM/LXC</a>, tipicamente <a href="../cos-e-un-reverse-proxy/">dietro reverse proxy</a> con TLS. È la messaggistica nella stessa logica del resto del self-hosting: più responsabilità, più controllo.</p></div>
+  <div class="verified"><svg class="vchk" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Verificata a mano · zero allucinazioni</span></div>
   <a class="ask" href="../../?q=matrix-messaggistica">Chiedilo a FabGPT-FAQ →</a>
   <div class="related">
     <h2>Altre domande</h2>

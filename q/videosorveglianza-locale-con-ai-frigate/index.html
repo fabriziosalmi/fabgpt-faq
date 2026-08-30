@@ -42,6 +42,12 @@
   .answer code { cursor: pointer; }
   .answer code:hover { outline: 1px solid var(--border); }
   .answer code.copied { outline: 1px solid var(--accent); color: var(--accent); }
+  .verified { display: flex; align-items: center; gap: 7px; margin-top: 18px; font-size: 13px; color: var(--text-dim); }
+  .verified .vchk { flex: 0 0 auto; }
+  @media (prefers-reduced-motion: no-preference) {
+    .vchk path { stroke-dasharray: 24; stroke-dashoffset: 24; animation: vchk-draw .5s .15s ease forwards; }
+  }
+  @keyframes vchk-draw { to { stroke-dashoffset: 0; } }
 </style>
 </head>
 <body>
@@ -55,6 +61,7 @@
   <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › Proxmox e self-hosting</nav>
   <h1>Come si fa videosorveglianza locale con AI (Frigate)?</h1>
   <div class="answer"><p><strong>Frigate</strong> è un NVR (Network Video Recorder) open source che porta il <strong>rilevamento oggetti AI in locale</strong>: invece di registrare 24/7 (e riempire dischi di nulla) o mandare i flussi al cloud di una marca di telecamere, analizza lo stream in tempo reale e registra/allarma <strong>solo quando riconosce</strong> una persona, un&#x27;auto, un animale. Si integra nativamente con <a href="../home-assistant-su-proxmox/">Home Assistant</a>.</p><p>La chiave è l&#x27;<strong>accelerazione AI</strong>: l&#x27;inferenza continua su più telecamere è pesante per la CPU – un <strong>Google Coral TPU</strong> (USB o M.2, pochi watt) o una <a href="../passare-un-disco-usb-a-una-vm/">GPU/iGPU</a> la rendono fluida. Le telecamere devono dare uno stream <strong>RTSP</strong> locale (ONVIF), non essere cloud-only.</p><p>La regola di rete che qui è <strong>obbligatoria</strong>: <a href="../segmentare-la-rete-con-vlan/">le telecamere IP su una VLAN isolata</a> <strong>senza uscita internet</strong> – le telecamere cinesi economiche sono note per chiamare casa, e una telecamera è un occhio dentro la tua vita: deve poter parlare <em>solo</em> con Frigate. Il risultato: sorveglianza intelligente, registrazioni <a href="../storage-proxmox-lvm-zfs-nfs-ceph/">sul tuo storage</a>, zero abbonamenti e zero flussi video su server altrui – privacy che, per delle telecamere, non è un dettaglio ma il punto.</p></div>
+  <div class="verified"><svg class="vchk" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Verificata a mano · zero allucinazioni</span></div>
   <a class="ask" href="../../?q=frigate">Chiedilo a FabGPT-FAQ →</a>
   <div class="related">
     <h2>Altre domande</h2>

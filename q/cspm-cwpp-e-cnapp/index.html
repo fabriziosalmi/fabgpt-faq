@@ -42,6 +42,12 @@
   .answer code { cursor: pointer; }
   .answer code:hover { outline: 1px solid var(--border); }
   .answer code.copied { outline: 1px solid var(--accent); color: var(--accent); }
+  .verified { display: flex; align-items: center; gap: 7px; margin-top: 18px; font-size: 13px; color: var(--text-dim); }
+  .verified .vchk { flex: 0 0 auto; }
+  @media (prefers-reduced-motion: no-preference) {
+    .vchk path { stroke-dasharray: 24; stroke-dashoffset: 24; animation: vchk-draw .5s .15s ease forwards; }
+  }
+  @keyframes vchk-draw { to { stroke-dashoffset: 0; } }
 </style>
 </head>
 <body>
@@ -55,6 +61,7 @@
   <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › Cybersecurity</nav>
   <h1>CSPM, CWPP, CNAPP: che differenza c&#x27;è (sicurezza cloud)?</h1>
   <div class="answer"><p>La sicurezza del cloud si è frammentata in acronimi che coprono problemi diversi:</p><ul><li><strong>CSPM</strong> (Cloud Security Posture Management) – caccia le <strong>misconfigurazioni</strong>: il bucket S3 pubblico per errore, il security group spalancato, l&#x27;IAM troppo largo, la cifratura mancante. La causa numero uno dei breach cloud non è l&#x27;exploit sofisticato, è la casella lasciata aperta – e il CSPM la trova su scala</li><li><strong>CWPP</strong> (Cloud Workload Protection Platform) – protegge i <strong>carichi in esecuzione</strong>: VM, <a href="../sicurezza-delle-immagini-container/">container</a>, funzioni serverless – vulnerabilità, malware, comportamento a runtime</li><li><strong>CNAPP</strong> (Cloud-Native Application Protection Platform) – la <strong>piattaforma unificata</strong> che fonde CSPM + CWPP + scansione del codice/<a href="../cos-e-gitops/">IaC</a> + gestione delle identità in un quadro solo, correlando &quot;questa misconfig + questa CVE + questo permesso&quot; nel rischio reale</li></ul><p>La direzione del mercato è verso CNAPP (meno strumenti scollegati). Per chi non compra una suite enterprise, i mattoni open source esistono: scanner di misconfigurazione <a href="../cos-e-gitops/">IaC</a> (Checkov, tfsec) in CI, scanner immagini (Trivy), e la disciplina di base – <a href="../principio-del-minimo-privilegio/">minimo privilegio IAM</a>, niente storage pubblico per default, <a href="../security-logging-fatto-bene/">log centralizzati</a>. E per chi il cloud lo vuole <a href="../self-hosting-pro-e-contro/">ridurre alla radice</a>, il problema più semplice da mettere in sicurezza è quello che non hai.</p></div>
+  <div class="verified"><svg class="vchk" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Verificata a mano · zero allucinazioni</span></div>
   <a class="ask" href="../../?q=cnapp">Chiedilo a FabGPT-FAQ →</a>
   <div class="related">
     <h2>Altre domande</h2>

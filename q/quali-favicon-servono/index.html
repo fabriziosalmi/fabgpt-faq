@@ -42,6 +42,12 @@
   .answer code { cursor: pointer; }
   .answer code:hover { outline: 1px solid var(--border); }
   .answer code.copied { outline: 1px solid var(--accent); color: var(--accent); }
+  .verified { display: flex; align-items: center; gap: 7px; margin-top: 18px; font-size: 13px; color: var(--text-dim); }
+  .verified .vchk { flex: 0 0 auto; }
+  @media (prefers-reduced-motion: no-preference) {
+    .vchk path { stroke-dasharray: 24; stroke-dashoffset: 24; animation: vchk-draw .5s .15s ease forwards; }
+  }
+  @keyframes vchk-draw { to { stroke-dashoffset: 0; } }
 </style>
 </head>
 <body>
@@ -55,6 +61,7 @@
   <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › Strumenti e app</nav>
   <h1>Quali formati di favicon servono davvero?</h1>
   <div class="answer"><p>La confusione storica (decine di PNG per ogni device) si è ridotta a un set minimo civile:</p><ul><li><strong>favicon.ico</strong> (32×32) nella root – il fallback che tutto capisce, browser vecchi inclusi</li><li><strong>SVG</strong> (<code>rel=&quot;icon&quot; type=&quot;image/svg+xml&quot;</code>) – scala ovunque, supporta il dark mode via media query interna</li><li><strong>apple-touch-icon.png</strong> (180×180) – per iOS quando salvi in home</li><li><strong>192×192 e 512×512</strong> dichiarate nel web manifest – per Android/PWA</li></ul><p>Quattro file, fine. Da evitare: icone diverse per ogni pagina (i browser le cachano aggressivamente) e i generatori che sputano trenta varianti del 2012. Per produrre tutti i formati da un&#x27;immagine sola – favicon, social, banner – <a href="https://github.com/fabriziosalmi/brandkit" target="_blank" rel="noopener">BrandKit</a> fa il lavoro in un colpo, in casa tua.</p></div>
+  <div class="verified"><svg class="vchk" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Verificata a mano · zero allucinazioni</span></div>
   <a class="ask" href="../../?q=favicon-formati">Chiedilo a FabGPT-FAQ →</a>
   <div class="related">
     <h2>Altre domande</h2>

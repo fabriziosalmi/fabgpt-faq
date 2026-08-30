@@ -42,6 +42,12 @@
   .answer code { cursor: pointer; }
   .answer code:hover { outline: 1px solid var(--border); }
   .answer code.copied { outline: 1px solid var(--accent); color: var(--accent); }
+  .verified { display: flex; align-items: center; gap: 7px; margin-top: 18px; font-size: 13px; color: var(--text-dim); }
+  .verified .vchk { flex: 0 0 auto; }
+  @media (prefers-reduced-motion: no-preference) {
+    .vchk path { stroke-dasharray: 24; stroke-dashoffset: 24; animation: vchk-draw .5s .15s ease forwards; }
+  }
+  @keyframes vchk-draw { to { stroke-dashoffset: 0; } }
 </style>
 </head>
 <body>
@@ -55,6 +61,7 @@
   <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › Strumenti e app</nav>
   <h1>Regex: le basi che servono a tutti</h1>
   <div class="answer"><p>Le <strong>espressioni regolari</strong> descrivono pattern di testo, e con dieci simboli si fa quasi tutto:</p><ul><li><code>.</code> un carattere qualsiasi · <code>\d</code> cifra · <code>\w</code> lettera/cifra/underscore · <code>\s</code> spazio</li><li>quantificatori: <code>*</code> (0+), <code>+</code> (1+), <code>?</code> (0 o 1), <code>{2,4}</code> (da 2 a 4)</li><li><code>[abc]</code> uno tra questi, <code>[^abc]</code> tutto tranne · <code>^</code> inizio e <code>$</code> fine riga · <code>(...)</code> gruppo, <code>|</code> oppure</li></ul><p>Esempio letto ad alta voce: <code>^\d{2}-\d{2}$</code> = &quot;riga fatta esattamente da due cifre, trattino, due cifre&quot;. Le due lezioni che evitano i dolori: i quantificatori sono <strong>golosi</strong> (<code>.<em></code> mangia il più possibile: <code>.</em>?</code> per la versione parca), e l&#x27;<strong>escape</strong> dei caratteri speciali (<code>\.</code> per un punto vero) è dove nascono i bug silenziosi. Regola igienica: testa sempre su regex101 con casi veri, e commenta la regex per il te stesso del futuro.</p><p>Sono ovunque nella cassetta degli attrezzi: i filtri di <a href="../fail2ban-e-alternative/">fail2ban</a>, le regole storiche dei <a href="../modsecurity-e-alternative-moderne/">WAF</a> (<a href="https://github.com/fabriziosalmi/patterns" target="_blank" rel="noopener">patterns</a> ne genera a tonnellate), grep e sed. E la nota di sicurezza: su input ostile una regex ingenua può esplodere (ReDoS) – è uno dei motivi per cui <a href="https://github.com/fabriziosalmi/zion" target="_blank" rel="noopener">zion</a> sfoggia un WAF <em>zero-regex</em>.</p></div>
+  <div class="verified"><svg class="vchk" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Verificata a mano · zero allucinazioni</span></div>
   <a class="ask" href="../../?q=regex-basi">Chiedilo a FabGPT-FAQ →</a>
   <div class="related">
     <h2>Altre domande</h2>

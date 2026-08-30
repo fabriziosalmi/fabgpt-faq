@@ -42,6 +42,12 @@
   .answer code { cursor: pointer; }
   .answer code:hover { outline: 1px solid var(--border); }
   .answer code.copied { outline: 1px solid var(--accent); color: var(--accent); }
+  .verified { display: flex; align-items: center; gap: 7px; margin-top: 18px; font-size: 13px; color: var(--text-dim); }
+  .verified .vchk { flex: 0 0 auto; }
+  @media (prefers-reduced-motion: no-preference) {
+    .vchk path { stroke-dasharray: 24; stroke-dashoffset: 24; animation: vchk-draw .5s .15s ease forwards; }
+  }
+  @keyframes vchk-draw { to { stroke-dashoffset: 0; } }
 </style>
 </head>
 <body>
@@ -55,6 +61,7 @@
   <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › Cybersecurity</nav>
   <h1>Cos&#x27;è il Conditional Access (policy basate sul rischio)?</h1>
   <div class="answer"><p>Il <strong>Conditional Access</strong> rende l&#x27;autenticazione <strong>adattiva</strong>: invece di &quot;credenziali giuste = accesso&quot;, la decisione dipende dal <strong>contesto e dal rischio</strong> valutati in tempo reale. Le stesse credenziali possono dare accesso pieno, accesso limitato, richiesta di <a href="../cos-e-autenticazione-due-fattori-mfa/">MFA aggiuntiva</a> (step-up), o rifiuto – a seconda dei segnali.</p><p>I segnali tipici: da dove arriva la richiesta (geografia, IP, rete aziendale vs pubblica), lo <strong>stato del dispositivo</strong> (è gestito? aggiornato? conforme alle policy?), l&#x27;orario, il comportamento anomalo (login da due continenti in un&#x27;ora – il &quot;viaggio impossibile&quot;), la sensibilità di ciò a cui si accede. Esempio: dal PC aziendale in ufficio → accesso diretto; dallo stesso account da un dispositivo sconosciuto in un altro paese → MFA obbligatoria o blocco.</p><p>È un pilastro operativo di <a href="../cos-e-il-modello-zero-trust/">Zero Trust</a> e <a href="../cos-e-ztna-zero-trust-network-access/">ZTNA</a>: la fiducia non è binaria né permanente, si calcola a ogni richiesta. Nell&#x27;enterprise è funzione delle piattaforme identità (Entra ID, Okta); nel piccolo, i mattoni della stessa idea sono l&#x27;<a href="../cos-e-ueba-user-entity-behavior-analytics/">UEBA</a> che nota le anomalie, i <a href="../oauth2-proxy-autenticazione-davanti-ai-servizi/">reverse proxy con forward auth</a> che valutano il contesto, e le regole di <a href="../cos-e-il-modello-zero-trust/">conditional access</a> dei self-hosted auth (Authelia/Authentik). Il principio: l&#x27;accesso <em>giusto</em> dipende da <em>chi, cosa, dove, quando</em> – non solo dalla password.</p></div>
+  <div class="verified"><svg class="vchk" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Verificata a mano · zero allucinazioni</span></div>
   <a class="ask" href="../../?q=conditional-access">Chiedilo a FabGPT-FAQ →</a>
   <div class="related">
     <h2>Altre domande</h2>

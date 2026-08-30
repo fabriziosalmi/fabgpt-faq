@@ -42,6 +42,12 @@
   .answer code { cursor: pointer; }
   .answer code:hover { outline: 1px solid var(--border); }
   .answer code.copied { outline: 1px solid var(--accent); color: var(--accent); }
+  .verified { display: flex; align-items: center; gap: 7px; margin-top: 18px; font-size: 13px; color: var(--text-dim); }
+  .verified .vchk { flex: 0 0 auto; }
+  @media (prefers-reduced-motion: no-preference) {
+    .vchk path { stroke-dasharray: 24; stroke-dashoffset: 24; animation: vchk-draw .5s .15s ease forwards; }
+  }
+  @keyframes vchk-draw { to { stroke-dashoffset: 0; } }
 </style>
 </head>
 <body>
@@ -55,6 +61,7 @@
   <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › Proxmox e self-hosting</nav>
   <h1>Cosa sono i sistemi operativi immutabili (e perché usarli)?</h1>
   <div class="answer"><p>In un <strong>OS immutabile</strong> il sistema di base è <strong>read-only</strong>: non modifichi i file di sistema uno a uno: aggiorni tutta l&#x27;immagine in blocco, in modo transazionale, con <strong>rollback</strong> istantaneo se qualcosa va storto. Le tue app girano in <a href="../differenza-container-lxc-e-vm/">container</a> o in ambienti isolati (Flatpak), i tuoi dati stanno in partizioni separate.</p><p>I vantaggi di sicurezza e affidabilità: la <strong>superficie di manomissione crolla</strong> (il malware non riscrive <code>/usr</code> se <code>/usr</code> è di sola lettura), gli aggiornamenti o vanno del tutto o si annullano (niente stato a metà), e ogni macchina è <strong>identica e riproducibile</strong> – la deriva di configurazione sparisce.</p><p>I nomi: <strong>Fedora Silverblue/CoreOS</strong>, <strong>openSUSE MicroOS</strong>, <strong>Talos</strong> (Linux immutabile fatto solo per Kubernetes, gestito via API, senza nemmeno una shell). Per un <a href="../cos-e-docker-compose/">host di container</a> o un nodo di cluster è una scelta eccellente: meno da rompere, meno da patchare a mano. Il compromesso: la personalizzazione libera del sistema è più rigida per costruzione – è il punto, non un bug. Filosoficamente è parente stretto degli <a href="../cos-e-un-generatore-di-siti-statici/">SSG</a> e delle <a href="../cos-e-un-air-gap/">superfici air-gapped</a>: meno parti mutevoli, meno cose che possono andare male.</p></div>
+  <div class="verified"><svg class="vchk" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Verificata a mano · zero allucinazioni</span></div>
   <a class="ask" href="../../?q=immutable-os">Chiedilo a FabGPT-FAQ →</a>
   <div class="related">
     <h2>Altre domande</h2>

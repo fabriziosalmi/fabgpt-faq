@@ -42,6 +42,12 @@
   .answer code { cursor: pointer; }
   .answer code:hover { outline: 1px solid var(--border); }
   .answer code.copied { outline: 1px solid var(--accent); color: var(--accent); }
+  .verified { display: flex; align-items: center; gap: 7px; margin-top: 18px; font-size: 13px; color: var(--text-dim); }
+  .verified .vchk { flex: 0 0 auto; }
+  @media (prefers-reduced-motion: no-preference) {
+    .vchk path { stroke-dasharray: 24; stroke-dashoffset: 24; animation: vchk-draw .5s .15s ease forwards; }
+  }
+  @keyframes vchk-draw { to { stroke-dashoffset: 0; } }
 </style>
 </head>
 <body>
@@ -55,6 +61,7 @@
   <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › AI e LLM</nav>
   <h1>Come si fa girare un LLM in locale (e che hardware serve)?</h1>
   <div class="answer"><p>Oggi è alla portata di chiunque: si scarica un modello <strong>open-weights</strong> quantizzato e lo si esegue con <a href="../cos-e-ollama/">Ollama</a>, LM Studio o llama.cpp. La variabile che comanda è la <strong>memoria</strong> (VRAM su GPU NVIDIA, RAM unificata su Apple Silicon):</p><ul><li><strong>7–9B quantizzato</strong> – ~6-8 GB: gira su un portatile decente, qualità da assistente quotidiano</li><li><strong>13–14B</strong> – ~10-12 GB: il punto dolce qualità/costo per molti usi</li><li><strong>70B</strong> – 40+ GB: Mac Studio con tanta RAM unificata o multi-GPU</li></ul><p>Perché farlo: privacy totale (niente esce), zero costi per token, latenza prevedibile, e i dati aziendali restano in casa. Su Mac, per l&#x27;intero ciclo – esecuzione, chat, <strong>fine-tuning LoRA</strong> – c&#x27;è <a href="https://github.com/fabriziosalmi/silicondev" target="_blank" rel="noopener">SiliconDev</a>, tutto su MLX, tutto on-device.</p></div>
+  <div class="verified"><svg class="vchk" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Verificata a mano · zero allucinazioni</span></div>
   <a class="ask" href="../../?q=llm-in-locale">Chiedilo a FabGPT-FAQ →</a>
   <div class="related">
     <h2>Altre domande</h2>

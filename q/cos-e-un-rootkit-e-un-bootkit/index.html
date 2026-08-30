@@ -42,6 +42,12 @@
   .answer code { cursor: pointer; }
   .answer code:hover { outline: 1px solid var(--border); }
   .answer code.copied { outline: 1px solid var(--accent); color: var(--accent); }
+  .verified { display: flex; align-items: center; gap: 7px; margin-top: 18px; font-size: 13px; color: var(--text-dim); }
+  .verified .vchk { flex: 0 0 auto; }
+  @media (prefers-reduced-motion: no-preference) {
+    .vchk path { stroke-dasharray: 24; stroke-dashoffset: 24; animation: vchk-draw .5s .15s ease forwards; }
+  }
+  @keyframes vchk-draw { to { stroke-dashoffset: 0; } }
 </style>
 </head>
 <body>
@@ -55,6 +61,7 @@
   <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › Cybersecurity</nav>
   <h1>Cos&#x27;è un rootkit (e un bootkit)?</h1>
   <div class="answer"><p>Un <strong>rootkit</strong> è malware progettato per <strong>nascondersi e mantenere l&#x27;accesso</strong> operando ai livelli più profondi del sistema. Più in basso opera, più è invisibile e potente:</p><ul><li><strong>user-mode</strong> – aggancia le API per nascondere processi e file dall&#x27;occhio dei tool normali</li><li><strong>kernel-mode</strong> (ring 0) – vive <em>dentro</em> il kernel: da lì può mentire a <em>qualsiasi</em> software di sicurezza che gira sopra (&quot;quel processo? non esiste&quot;). Difendere il sistema <em>dal</em> kernel, quando il kernel è compromesso, è quasi impossibile</li><li><strong>bootkit</strong> – infetta il <strong>bootloader</strong> o l&#x27;<strong>UEFI/firmware</strong>: si carica <em>prima</em> del sistema operativo, quindi prima di ogni difesa, e sopravvive alla reinstallazione dell&#x27;OS e perfino alla sostituzione del disco (se è nel firmware)</li></ul><p>Sono l&#x27;apice della persistenza furtiva. Le difese sono <em>sotto</em> il sistema operativo: <strong><a href="../secure-boot-personalizzato-chiavi-proprie/">Secure Boot</a></strong> (verifica la firma della catena di avvio – la barriera principale contro i bootkit), il <strong>TPM</strong> con measured boot, e per il rilevamento, l&#x27;<a href="../analisi-forense-della-memoria-ram/">analisi della memoria</a> da un ambiente esterno fidato (un rootkit può mentire dall&#x27;interno, ma un dump analizzato da fuori lo smaschera confrontando ciò che il sistema <em>dice</em> con ciò che <em>è</em>). Per i casi estremi, la fiducia si ricostruisce solo da hardware pulito. È il motivo per cui la <a href="../secure-boot-personalizzato-chiavi-proprie/">root of trust</a> hardware conta: se l&#x27;avvio è manomesso, tutto ciò che segue mente.</p></div>
+  <div class="verified"><svg class="vchk" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Verificata a mano · zero allucinazioni</span></div>
   <a class="ask" href="../../?q=rootkit-bootkit">Chiedilo a FabGPT-FAQ →</a>
   <div class="related">
     <h2>Altre domande</h2>

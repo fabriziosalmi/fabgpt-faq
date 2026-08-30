@@ -42,6 +42,12 @@
   .answer code { cursor: pointer; }
   .answer code:hover { outline: 1px solid var(--border); }
   .answer code.copied { outline: 1px solid var(--accent); color: var(--accent); }
+  .verified { display: flex; align-items: center; gap: 7px; margin-top: 18px; font-size: 13px; color: var(--text-dim); }
+  .verified .vchk { flex: 0 0 auto; }
+  @media (prefers-reduced-motion: no-preference) {
+    .vchk path { stroke-dasharray: 24; stroke-dashoffset: 24; animation: vchk-draw .5s .15s ease forwards; }
+  }
+  @keyframes vchk-draw { to { stroke-dashoffset: 0; } }
 </style>
 </head>
 <body>
@@ -55,6 +61,7 @@
   <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › AI e LLM</nav>
   <h1>Come si scrive un buon prompt (prompt engineering essenziale)?</h1>
   <div class="answer"><p>Il 90% del prompt engineering è scrivere <strong>istruzioni chiare come le scriveresti a un collega nuovo, competente ma ignaro del contesto</strong>:</p><ul><li><strong>contesto e ruolo</strong>: cosa sta facendo, per chi, con quali vincoli</li><li><strong>il formato d&#x27;uscita, esplicito</strong>: struttura, lunghezza, lingua, cosa NON includere – e per i formati rigidi, <a href="../structured-output-e-json-mode/">structured output</a></li><li><strong>esempi</strong> (few-shot): due o tre coppie input→output valgono più di dieci righe di aggettivi – i modelli imitano meglio di quanto obbediscano</li><li>i <strong>casi limite</strong>: cosa fare quando l&#x27;input è vuoto, ambiguo, fuori tema – è lì che i prompt ingenui crollano</li><li>per i compiti complessi: <strong>spezza i passaggi</strong> (&quot;prima analizza, poi rispondi&quot;) o affidati a <a href="../cos-e-il-test-time-compute-reasoning/">modelli di reasoning</a></li></ul><p>E il segreto vero, poco glamour: <strong>itera sui fallimenti</strong> – raccogli i casi in cui sbaglia, aggiusta, <a href="../come-valutare-le-risposte-di-un-llm/">rimisura</a>. Il prompt è codice: si versiona, si testa, si migliora – non si scolpisce.</p></div>
+  <div class="verified"><svg class="vchk" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Verificata a mano · zero allucinazioni</span></div>
   <a class="ask" href="../../?q=prompt-engineering">Chiedilo a FabGPT-FAQ →</a>
   <div class="related">
     <h2>Altre domande</h2>

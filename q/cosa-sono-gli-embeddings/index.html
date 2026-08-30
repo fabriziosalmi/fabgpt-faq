@@ -42,6 +42,12 @@
   .answer code { cursor: pointer; }
   .answer code:hover { outline: 1px solid var(--border); }
   .answer code.copied { outline: 1px solid var(--accent); color: var(--accent); }
+  .verified { display: flex; align-items: center; gap: 7px; margin-top: 18px; font-size: 13px; color: var(--text-dim); }
+  .verified .vchk { flex: 0 0 auto; }
+  @media (prefers-reduced-motion: no-preference) {
+    .vchk path { stroke-dasharray: 24; stroke-dashoffset: 24; animation: vchk-draw .5s .15s ease forwards; }
+  }
+  @keyframes vchk-draw { to { stroke-dashoffset: 0; } }
 </style>
 </head>
 <body>
@@ -55,6 +61,7 @@
   <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › AI e LLM</nav>
   <h1>Cosa sono gli embeddings?</h1>
   <div class="answer"><p>Un <strong>embedding</strong> è la traduzione di un testo (o immagine, o audio) in un vettore di numeri, costruito così che la <strong>vicinanza geometrica corrisponda alla vicinanza di significato</strong>: &quot;gatto&quot; e &quot;felino&quot; finiscono vicini, &quot;gatto&quot; e &quot;carburatore&quot; lontani. È il modo in cui si dà alla macchina una nozione operativa di &quot;parla della stessa cosa&quot;.</p><p>Usi concreti: la ricerca semantica (trova i documenti rilevanti anche senza parole in comune – il cuore del <a href="../cos-e-rag-retrieval-augmented-generation/">RAG</a>), deduplicazione, clustering, raccomandazioni. In pratica: un modello di embedding (locale via Ollama o API), un indice vettoriale dove cercare, e la scelta di design vera – <strong>ibridare</strong> vettori e ricerca full-text classica, perché ciascuna trova cose che l&#x27;altra manca. È esattamente il retrieval ibrido opzionale di <a href="https://github.com/fabriziosalmi/l0-memory" target="_blank" rel="noopener">l0-memory</a>.</p></div>
+  <div class="verified"><svg class="vchk" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Verificata a mano · zero allucinazioni</span></div>
   <a class="ask" href="../../?q=embeddings">Chiedilo a FabGPT-FAQ →</a>
   <div class="related">
     <h2>Altre domande</h2>

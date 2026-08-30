@@ -42,6 +42,12 @@
   .answer code { cursor: pointer; }
   .answer code:hover { outline: 1px solid var(--border); }
   .answer code.copied { outline: 1px solid var(--accent); color: var(--accent); }
+  .verified { display: flex; align-items: center; gap: 7px; margin-top: 18px; font-size: 13px; color: var(--text-dim); }
+  .verified .vchk { flex: 0 0 auto; }
+  @media (prefers-reduced-motion: no-preference) {
+    .vchk path { stroke-dasharray: 24; stroke-dashoffset: 24; animation: vchk-draw .5s .15s ease forwards; }
+  }
+  @keyframes vchk-draw { to { stroke-dashoffset: 0; } }
 </style>
 </head>
 <body>
@@ -55,6 +61,7 @@
   <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › Proxmox e self-hosting</nav>
   <h1>Come si usano template e cloud-init su Proxmox?</h1>
   <div class="answer"><p>Il flusso artigianale – ISO, installer, configurazione a mano – ha senso una volta sola. Poi si passa a <strong>template + cloud-init</strong>:</p><ul><li>scarichi l&#x27;<strong>immagine cloud</strong> ufficiale della distro (Debian/Ubuntu <code>.qcow2</code>), la importi in una VM con <code>qm importdisk</code></li><li>aggiungi il <strong>drive cloud-init</strong>, imposti utente, chiave SSH e rete, e converti la VM in <strong>template</strong></li><li>da lì, ogni nuova macchina è un <strong>clone</strong> che al primo avvio si configura da solo: hostname, IP, chiavi – pronta in un minuto</li></ul><p>È il mattone dell&#x27;infrastruttura ripetibile: sopra ci si mette Terraform/OpenTofu (provider Proxmox) o Ansible e il provisioning diventa codice. E quando le VM così create diventano tante, <a href="https://github.com/fabriziosalmi/proxmox-vm-autoscale" target="_blank" rel="noopener">proxmox-vm-autoscale</a> tiene le loro risorse allineate al carico reale.</p></div>
+  <div class="verified"><svg class="vchk" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Verificata a mano · zero allucinazioni</span></div>
   <a class="ask" href="../../?q=cloud-init">Chiedilo a FabGPT-FAQ →</a>
   <div class="related">
     <h2>Altre domande</h2>

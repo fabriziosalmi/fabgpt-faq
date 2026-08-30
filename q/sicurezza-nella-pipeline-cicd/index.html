@@ -42,6 +42,12 @@
   .answer code { cursor: pointer; }
   .answer code:hover { outline: 1px solid var(--border); }
   .answer code.copied { outline: 1px solid var(--accent); color: var(--accent); }
+  .verified { display: flex; align-items: center; gap: 7px; margin-top: 18px; font-size: 13px; color: var(--text-dim); }
+  .verified .vchk { flex: 0 0 auto; }
+  @media (prefers-reduced-motion: no-preference) {
+    .vchk path { stroke-dasharray: 24; stroke-dashoffset: 24; animation: vchk-draw .5s .15s ease forwards; }
+  }
+  @keyframes vchk-draw { to { stroke-dashoffset: 0; } }
 </style>
 </head>
 <body>
@@ -55,6 +61,7 @@
   <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › Cybersecurity</nav>
   <h1>Come si mette la sicurezza nella pipeline CI/CD (DevSecOps)?</h1>
   <div class="answer"><p><strong>DevSecOps</strong> significa spostare i controlli di sicurezza <em>dentro</em> la pipeline, il più a sinistra possibile (&quot;shift left&quot;) – trovare i problemi al commit costa cento volte meno che in produzione. I gate che una pipeline matura mette in fila:</p><ul><li><strong>secret scanning</strong> (gitleaks): blocca <a href="../come-gestire-i-secrets/">le credenziali</a> prima che entrino in git</li><li><strong>SAST</strong> (analisi statica del codice: Semgrep, CodeQL): vulnerabilità nel <em>tuo</em> codice</li><li><strong>SCA</strong> (Software Composition Analysis): CVE nelle <strong>dipendenze</strong> – più <a href="../cos-e-la-supply-chain-security/">SBOM</a> e blocco delle <a href="https://github.com/fabriziosalmi/ai-dependency-guard" target="_blank" rel="noopener">dipendenze allucinate</a></li><li><strong>scansione immagini</strong> e <a href="../cos-e-gitops/">IaC</a> (Trivy, Checkov): <a href="../sicurezza-delle-immagini-container/">container</a> e infrastruttura</li><li><strong>DAST</strong> (test dinamico sull&#x27;app in esecuzione): l&#x27;attacco simulato prima del rilascio</li><li><strong>firma degli artefatti</strong> (<a href="../come-si-firma-il-codice/">sigstore</a>, provenance SLSA) all&#x27;uscita</li></ul><p>Le due regole che rendono DevSecOps praticabile invece che odiato: i gate devono <strong>fallire la build</strong> quando serve (un warning ignorato non è un controllo), ma con <strong>soglie tarate</strong> – se blocca su ogni CVE informativa, gli sviluppatori lo aggirano, e hai perso. È lo stesso principio del <a href="../come-si-testano-le-applicazioni-llm/">gate draconiano di questo progetto</a>: rigido su ciò che conta, silenzioso sul rumore. Nel portfolio, <a href="https://github.com/fabriziosalmi/vibe-check" target="_blank" rel="noopener">vibe-check</a> è un gate anti-slop in questo spirito.</p></div>
+  <div class="verified"><svg class="vchk" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Verificata a mano · zero allucinazioni</span></div>
   <a class="ask" href="../../?q=devsecopspipeline">Chiedilo a FabGPT-FAQ →</a>
   <div class="related">
     <h2>Altre domande</h2>

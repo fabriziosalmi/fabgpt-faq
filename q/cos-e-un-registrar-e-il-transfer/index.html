@@ -42,6 +42,12 @@
   .answer code { cursor: pointer; }
   .answer code:hover { outline: 1px solid var(--border); }
   .answer code.copied { outline: 1px solid var(--accent); color: var(--accent); }
+  .verified { display: flex; align-items: center; gap: 7px; margin-top: 18px; font-size: 13px; color: var(--text-dim); }
+  .verified .vchk { flex: 0 0 auto; }
+  @media (prefers-reduced-motion: no-preference) {
+    .vchk path { stroke-dasharray: 24; stroke-dashoffset: 24; animation: vchk-draw .5s .15s ease forwards; }
+  }
+  @keyframes vchk-draw { to { stroke-dashoffset: 0; } }
 </style>
 </head>
 <body>
@@ -55,6 +61,7 @@
   <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › Cloudflare</nav>
   <h1>Cos&#x27;è un registrar (e come si trasferisce un dominio)?</h1>
   <div class="answer"><p>Il <strong>registrar</strong> è chi ti vende e amministra il dominio (la titolarità, il rinnovo, i <a href="../configurare-dominio-su-cloudflare/">nameserver</a>); non va confuso con chi ospita il DNS o il sito – tre ruoli che possono stare da tre fornitori diversi.</p><p>Il <strong>transfer</strong> verso un registrar migliore è un diritto: sblocchi il dominio dal pannello attuale, chiedi il <strong>codice EPP/auth code</strong>, lo inserisci dal nuovo registrar e confermi. Regole ICANN da sapere: nei <strong>60 giorni</strong> dopo registrazione o transfer non si ritrasferisce, e il transfer aggiunge un anno di rinnovo (non lo perdi). Prima di partire: <a href="../cos-e-il-ttl-dns/">abbassa i TTL</a>, esporta la zona DNS e ricrea i record dal nuovo fornitore – il transfer sposta la titolarità, <strong>non</strong> copia il DNS.</p><p>Criteri di scelta onesti: prezzo di <em>rinnovo</em> (non di primo anno), niente upselling aggressivo, API decente e lock/2FA seri – <a href="../cos-e-dnssec/">il dominio è l&#x27;anello da cui pende tutto il resto</a>. Cloudflare Registrar vende a prezzo di costo; i classici (Porkbun, Gandi, OVH) restano scelte sane.</p></div>
+  <div class="verified"><svg class="vchk" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Verificata a mano · zero allucinazioni</span></div>
   <a class="ask" href="../../?q=registrar">Chiedilo a FabGPT-FAQ →</a>
   <div class="related">
     <h2>Altre domande</h2>

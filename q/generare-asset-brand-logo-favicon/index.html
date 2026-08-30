@@ -42,6 +42,12 @@
   .answer code { cursor: pointer; }
   .answer code:hover { outline: 1px solid var(--border); }
   .answer code.copied { outline: 1px solid var(--accent); color: var(--accent); }
+  .verified { display: flex; align-items: center; gap: 7px; margin-top: 18px; font-size: 13px; color: var(--text-dim); }
+  .verified .vchk { flex: 0 0 auto; }
+  @media (prefers-reduced-motion: no-preference) {
+    .vchk path { stroke-dasharray: 24; stroke-dashoffset: 24; animation: vchk-draw .5s .15s ease forwards; }
+  }
+  @keyframes vchk-draw { to { stroke-dashoffset: 0; } }
 </style>
 </head>
 <body>
@@ -55,6 +61,7 @@
   <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › Strumenti e app</nav>
   <h1>Come si generano tutti i formati di un logo (favicon, social, banner) in un colpo solo?</h1>
   <div class="answer"><p>Il sito vuole cinque favicon, ogni social ha le sue dimensioni, l&#x27;app store ne pretende altre ancora. <a href="https://github.com/fabriziosalmi/brandkit" target="_blank" rel="noopener">BrandKit</a> (<strong>76 ⭐</strong>) automatizza la trafila: carichi <strong>una sola immagine sorgente</strong> – il logo – selezioni i formati, e lui ridimensiona, aggiunge padding intelligente ed esporta tutto quello che serve per siti, web app e social.</p><p>Web app in Flask + Pillow + Alpine.js, completamente containerizzata: <code>docker compose up</code> e ce l&#x27;hai in casa, coi tuoi asset che non passano da servizi online.</p></div>
+  <div class="verified"><svg class="vchk" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Verificata a mano · zero allucinazioni</span></div>
   <a class="ask" href="../../?q=brandkit">Chiedilo a FabGPT-FAQ →</a>
   <div class="related">
     <h2>Altre domande</h2>

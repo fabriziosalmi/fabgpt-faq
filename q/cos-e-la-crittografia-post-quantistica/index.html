@@ -42,6 +42,12 @@
   .answer code { cursor: pointer; }
   .answer code:hover { outline: 1px solid var(--border); }
   .answer code.copied { outline: 1px solid var(--accent); color: var(--accent); }
+  .verified { display: flex; align-items: center; gap: 7px; margin-top: 18px; font-size: 13px; color: var(--text-dim); }
+  .verified .vchk { flex: 0 0 auto; }
+  @media (prefers-reduced-motion: no-preference) {
+    .vchk path { stroke-dasharray: 24; stroke-dashoffset: 24; animation: vchk-draw .5s .15s ease forwards; }
+  }
+  @keyframes vchk-draw { to { stroke-dashoffset: 0; } }
 </style>
 </head>
 <body>
@@ -55,6 +61,7 @@
   <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › Cybersecurity</nav>
   <h1>Cos&#x27;è la crittografia post-quantistica (PQC)?</h1>
   <div class="answer"><p>Un computer quantistico abbastanza grande romperebbe la crittografia <strong>asimmetrica</strong> di oggi (RSA, curve ellittiche): l&#x27;algoritmo di Shor fattorizza e calcola logaritmi discreti in tempi che oggi sono impossibili. Non esiste ancora una tale macchina – ma la minaccia è <strong>già operativa</strong> per via di <a href="../harvest-now-decrypt-later/">&quot;Harvest Now, Decrypt Later&quot;</a>: chi intercetta e archivia oggi il traffico cifrato potrà decifrarlo <em>domani</em>, quando la macchina arriverà.</p><p>La <strong>PQC</strong> sono algoritmi progettati per resistere anche al quantistico, basati su problemi matematici diversi (reticoli, in gran parte). Il NIST ha standardizzato nel 2024 i primi: <strong>ML-KEM</strong> (ex Kyber) per lo scambio di chiavi, <strong>ML-DSA</strong> (ex Dilithium) per le firme. La transizione è già cominciata – browser e librerie TLS adottano scambi <strong>ibridi</strong> (classico + PQC insieme, così se uno cede l&#x27;altro regge).</p><p>Cosa fare, oggi, concretamente: per la stragrande maggioranza è <strong>aspettare e aggiornare</strong> – arriva nelle librerie e nei server che già usi. Le eccezioni che devono muoversi ora sono i dati con <strong>segretezza a lunghissimo termine</strong> (sanitari, di stato, industriali): lì l&#x27;inventario crittografico (&quot;dove uso cosa&quot;) e la <em>crypto-agility</em> – poter cambiare algoritmo senza riscrivere tutto – vanno pianificati adesso. Nota: la crittografia <strong>simmetrica</strong> (AES-256) e l&#x27;<a href="../cos-e-l-hashing/">hashing</a> restano sostanzialmente al sicuro.</p></div>
+  <div class="verified"><svg class="vchk" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Verificata a mano · zero allucinazioni</span></div>
   <a class="ask" href="../../?q=pqc">Chiedilo a FabGPT-FAQ →</a>
   <div class="related">
     <h2>Altre domande</h2>

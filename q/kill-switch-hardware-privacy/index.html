@@ -42,6 +42,12 @@
   .answer code { cursor: pointer; }
   .answer code:hover { outline: 1px solid var(--border); }
   .answer code.copied { outline: 1px solid var(--accent); color: var(--accent); }
+  .verified { display: flex; align-items: center; gap: 7px; margin-top: 18px; font-size: 13px; color: var(--text-dim); }
+  .verified .vchk { flex: 0 0 auto; }
+  @media (prefers-reduced-motion: no-preference) {
+    .vchk path { stroke-dasharray: 24; stroke-dashoffset: 24; animation: vchk-draw .5s .15s ease forwards; }
+  }
+  @keyframes vchk-draw { to { stroke-dashoffset: 0; } }
 </style>
 </head>
 <body>
@@ -55,6 +61,7 @@
   <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › Cybersecurity</nav>
   <h1>Cosa sono i kill-switch hardware (su laptop e telefoni privacy)?</h1>
   <div class="answer"><p>Un <strong>kill-switch hardware</strong> è un interruttore <em>fisico</em> che stacca elettricamente un sensore – webcam, microfono, radio (Wi-Fi/BT/cellulare), GPS. La differenza con lo spegnimento software è tutta qui: un componente scollegato dal circuito <strong>non può essere riattivato da malware o da un sistema compromesso</strong>, perché non c&#x27;è corrente da comandare. È la certezza fisica al posto della fiducia nel software.</p><p>Dove si trovano: laptop e telefoni orientati alla privacy (<strong>PinePhone</strong>, i Librem di Purism, in parte i <strong>Framework</strong> per alcuni componenti). Il caso d&#x27;uso classico: giornalisti, attivisti, chiunque debba avere la <strong>garanzia</strong> – non la speranza – che il microfono sia muto durante una conversazione sensibile.</p><p>Per tutti gli altri, l&#x27;equivalente povero e onesto: il <strong>copri-webcam</strong> adesivo (un kill-switch ottico che funziona benissimo) e, per l&#x27;audio, sapere che l&#x27;unica vera certezza è il dispositivo spento o lasciato in un&#x27;altra stanza. È il complemento fisico degli altri controlli hardware – <a href="../chiavi-di-sicurezza-hardware-yubikey/">chiavi di sicurezza</a>, <a href="../secure-element-vs-firmware-aperto/">secure element</a>: la sicurezza che non dipende dal software è l&#x27;unica che il software non può tradire.</p></div>
+  <div class="verified"><svg class="vchk" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Verificata a mano · zero allucinazioni</span></div>
   <a class="ask" href="../../?q=kill-switch-hardware">Chiedilo a FabGPT-FAQ →</a>
   <div class="related">
     <h2>Altre domande</h2>

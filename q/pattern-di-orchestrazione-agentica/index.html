@@ -42,6 +42,12 @@
   .answer code { cursor: pointer; }
   .answer code:hover { outline: 1px solid var(--border); }
   .answer code.copied { outline: 1px solid var(--accent); color: var(--accent); }
+  .verified { display: flex; align-items: center; gap: 7px; margin-top: 18px; font-size: 13px; color: var(--text-dim); }
+  .verified .vchk { flex: 0 0 auto; }
+  @media (prefers-reduced-motion: no-preference) {
+    .vchk path { stroke-dasharray: 24; stroke-dashoffset: 24; animation: vchk-draw .5s .15s ease forwards; }
+  }
+  @keyframes vchk-draw { to { stroke-dashoffset: 0; } }
 </style>
 </head>
 <body>
@@ -55,6 +61,7 @@
   <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › AI e LLM</nav>
   <h1>Quali sono i pattern di orchestrazione degli agenti (e i loop decisionali)?</h1>
   <div class="answer"><p>Oltre il singolo <a href="../cos-e-un-agente-ai/">agente</a>, il modo in cui si struttura il <strong>loop decisionale</strong> determina affidabilità e costo. I pattern ricorrenti:</p><ul><li><strong>ReAct</strong> (Reason + Act): il modello alterna ragionamento e uso di strumenti in un ciclo – semplice, flessibile, ma può divagare e <a href="../cos-e-l-inferenza-e-perche-costa/">bruciare token</a> senza convergere</li><li><strong>Plan-and-Execute</strong>: prima un piano esplicito, poi l&#x27;esecuzione passo-passo – più prevedibile e verificabile, meno adattivo</li><li><strong>grafo di stato</strong> (stile LangGraph): l&#x27;esecuzione è una macchina a stati con nodi, transizioni e <strong>checkpoint</strong> – è ciò che rende possibili ripresa, <a href="../time-travel-debugging-agenti/">time-travel debugging</a> e controllo di flusso deterministico attorno a passi stocastici</li><li><strong><a href="../cos-e-l-orchestrazione-multi-agente/">gerarchico/multi-agente</a></strong>: orchestratore + specialisti</li></ul><p>Il principio ingegneristico sotto: <strong>il determinismo va nell&#x27;impalcatura, la stocasticità nei nodi</strong>. Non chiedere al modello di decidere il <em>flusso</em> (loop, condizioni, retry) se puoi codificarlo – è più robusto, testabile e economico. Il modello decide <em>dentro</em> i passi; il grafo decide <em>tra</em> i passi. È esattamente la filosofia di un <a href="../come-si-testano-le-applicazioni-llm/">workflow deterministico</a> e la ragione per cui un buon harness batte un prompt &quot;fai tutto tu&quot;. E ogni nodo che agisce resta soggetto a <a href="../come-si-limita-un-agente-ai/">permessi e sandbox</a>.</p></div>
+  <div class="verified"><svg class="vchk" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Verificata a mano · zero allucinazioni</span></div>
   <a class="ask" href="../../?q=agent-orchestration-patterns">Chiedilo a FabGPT-FAQ →</a>
   <div class="related">
     <h2>Altre domande</h2>

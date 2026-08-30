@@ -42,6 +42,12 @@
   .answer code { cursor: pointer; }
   .answer code:hover { outline: 1px solid var(--border); }
   .answer code.copied { outline: 1px solid var(--accent); color: var(--accent); }
+  .verified { display: flex; align-items: center; gap: 7px; margin-top: 18px; font-size: 13px; color: var(--text-dim); }
+  .verified .vchk { flex: 0 0 auto; }
+  @media (prefers-reduced-motion: no-preference) {
+    .vchk path { stroke-dasharray: 24; stroke-dashoffset: 24; animation: vchk-draw .5s .15s ease forwards; }
+  }
+  @keyframes vchk-draw { to { stroke-dashoffset: 0; } }
 </style>
 </head>
 <body>
@@ -55,6 +61,7 @@
   <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › Cybersecurity</nav>
   <h1>Cosa sono gli attacchi Adversary-in-the-Middle (AiTM) che bypassano l&#x27;MFA?</h1>
   <div class="answer"><p>L&#x27;<strong>AiTM</strong> (Adversary-in-the-Middle) è l&#x27;evoluzione del <a href="../cos-e-il-phishing/">phishing</a> che <strong>aggira l&#x27;MFA</strong> debole – ed è il motivo per cui non ogni <a href="../cos-e-autenticazione-due-fattori-mfa/">secondo fattore</a> è uguale. Il meccanismo: l&#x27;attaccante non ti manda a una pagina di login <em>finta</em>, ma a un <strong>reverse proxy</strong> (Evilginx e simili) che sta <em>in mezzo</em> tra te e il sito vero. Tu inserisci username, password <em>e il codice MFA</em> – il proxy li inoltra al sito reale in tempo reale, il login riesce, e l&#x27;attaccante <strong>cattura il cookie di sessione</strong> già autenticato. Da quel momento entra come te, MFA superata, perché la sessione <em>è</em> valida.</p><p>È il motivo per cui i codici <strong>TOTP e gli SMS non bastano più</strong>: un proxy che sta in mezzo se li fa consegnare. Le difese che <em>reggono</em>:</p><ul><li><strong><a href="../chiavi-di-sicurezza-hardware-yubikey/">passkey/FIDO2/chiavi hardware</a></strong> – la firma è legata crittograficamente al <strong>dominio vero</strong>: su un proxy-esca con un dominio diverso, la firma semplicemente <strong>non parte</strong>. È phishing-resistant per costruzione, e la cura definitiva contro l&#x27;AiTM</li><li><strong><a href="../continuous-access-evaluation-cae/">Continuous Access Evaluation</a></strong> e binding del token al dispositivo, per invalidare le sessioni rubate</li><li><a href="../conditional-access-policy-basate-sul-rischio/">conditional access</a> che nota il login da un contesto anomalo</li></ul><p>È la ragione tecnica per cui &quot;abbiamo l&#x27;MFA&quot; non è più una risposta sufficiente: conta <em>quale</em> MFA. Le passkey spostano la difesa da &quot;non farti ingannare&quot; (che fallisce) a &quot;l&#x27;inganno non funziona&quot; (che regge).</p></div>
+  <div class="verified"><svg class="vchk" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Verificata a mano · zero allucinazioni</span></div>
   <a class="ask" href="../../?q=aitm">Chiedilo a FabGPT-FAQ →</a>
   <div class="related">
     <h2>Altre domande</h2>

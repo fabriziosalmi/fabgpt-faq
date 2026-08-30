@@ -42,6 +42,12 @@
   .answer code { cursor: pointer; }
   .answer code:hover { outline: 1px solid var(--border); }
   .answer code.copied { outline: 1px solid var(--accent); color: var(--accent); }
+  .verified { display: flex; align-items: center; gap: 7px; margin-top: 18px; font-size: 13px; color: var(--text-dim); }
+  .verified .vchk { flex: 0 0 auto; }
+  @media (prefers-reduced-motion: no-preference) {
+    .vchk path { stroke-dasharray: 24; stroke-dashoffset: 24; animation: vchk-draw .5s .15s ease forwards; }
+  }
+  @keyframes vchk-draw { to { stroke-dashoffset: 0; } }
 </style>
 </head>
 <body>
@@ -55,6 +61,7 @@
   <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › Cybersecurity</nav>
   <h1>Cos&#x27;è la Fully Homomorphic Encryption (FHE)?</h1>
   <div class="answer"><p>La <strong>Fully Homomorphic Encryption</strong> è una delle idee più affascinanti della crittografia moderna: permette di <strong>eseguire calcoli su dati cifrati senza mai decifrarli</strong>. Il risultato del calcolo, ancora cifrato, una volta decifrato è identico a quello che avresti ottenuto sui dati in chiaro. Chi elabora <strong>non vede mai</strong> i dati – né in ingresso, né durante, né in uscita.</p><p>Le implicazioni sono enormi per la privacy: potresti mandare dati sanitari cifrati a un servizio cloud che li analizza e ti restituisce il risultato <strong>senza aver mai potuto leggerli</strong>; un motore di ricerca che risponde senza sapere cosa hai cercato; machine learning su dati che restano privati per chi li elabora. Risolve alla radice il dilemma &quot;per usare un servizio devo fidarmi di chi lo gestisce&quot;.</p><p>La realtà del 2026, senza illusioni: la FHE è <strong>matematicamente reale e in uso in nicchie specifiche</strong>, ma resta <strong>computazionalmente costosissima</strong> – ordini di grandezza più lenta del calcolo in chiaro. Sta migliorando in fretta (hardware dedicato, schemi più efficienti) e per operazioni mirate su dati ad altissima sensibilità è già praticabile; per il calcolo generale è ancora troppo cara. Fa parte della famiglia del <strong>confidential computing</strong> insieme agli enclave hardware (SGX, TrustZone) – approcci diversi allo stesso obiettivo: elaborare dati che restano protetti anche da chi li elabora. È il tipo di tecnologia che, quando maturerà del tutto, cambierà cosa significa &quot;mandare dati a un servizio&quot; – la <a href="../cos-e-la-sovranita-digitale/">sovranità</a> portata dentro il calcolo stesso.</p></div>
+  <div class="verified"><svg class="vchk" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Verificata a mano · zero allucinazioni</span></div>
   <a class="ask" href="../../?q=fhe">Chiedilo a FabGPT-FAQ →</a>
   <div class="related">
     <h2>Altre domande</h2>

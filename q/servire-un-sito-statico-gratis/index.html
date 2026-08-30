@@ -42,6 +42,12 @@
   .answer code { cursor: pointer; }
   .answer code:hover { outline: 1px solid var(--border); }
   .answer code.copied { outline: 1px solid var(--accent); color: var(--accent); }
+  .verified { display: flex; align-items: center; gap: 7px; margin-top: 18px; font-size: 13px; color: var(--text-dim); }
+  .verified .vchk { flex: 0 0 auto; }
+  @media (prefers-reduced-motion: no-preference) {
+    .vchk path { stroke-dasharray: 24; stroke-dashoffset: 24; animation: vchk-draw .5s .15s ease forwards; }
+  }
+  @keyframes vchk-draw { to { stroke-dashoffset: 0; } }
 </style>
 </head>
 <body>
@@ -55,6 +61,7 @@
   <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › Cloudflare</nav>
   <h1>Come si serve un sito statico gratis (GitHub Pages e alternative)?</h1>
   <div class="answer"><p>Un sito statico si ospita gratis, bene, in almeno tre modi:</p><ul><li><strong>GitHub Pages</strong> – il repository <em>è</em> l&#x27;hosting: push sul branch, sito servito, dominio custom con HTTPS automatico. Zero build? Serve i file così come sono; con <a href="../cos-e-un-generatore-di-siti-statici/">un SSG</a> ci pensa una Action</li><li><strong>Cloudflare Pages</strong> – build da git, CDN più spinta, anteprime per branch e <a href="../pages-workers-o-functions/">Functions se serve dinamica</a>; repo privati senza pensieri</li><li><strong>Netlify e simili</strong> – ergonomia storica, free tier con limiti di banda da leggere</li></ul><p>La verità liberatoria: un sito statico è <strong>portabile per definizione</strong> – gli stessi file si spostano da un hosting all&#x27;altro in dieci minuti, quindi la scelta non è mai definitiva. Checklist post-pubblicazione: <a href="../redirect-www-apex/">redirect www/apex</a>, <a href="../quali-security-header-servono/">security header</a> (su Pages si impostano con <code>_headers</code> o dal proxy), e <a href="../cos-e-un-air-gap/">la prova che il sito non chiami terze parti</a> – su un sito statico, <a href="https://github.com/fabriziosalmi/agssh" target="_blank" rel="noopener">agssh</a> la dà nero su bianco. Questo sito che stai leggendo gira esattamente così: <a href="../cos-e-fabgpt-come-funziona/">file statici generati</a>, zero backend.</p></div>
+  <div class="verified"><svg class="vchk" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Verificata a mano · zero allucinazioni</span></div>
   <a class="ask" href="../../?q=sito-statico-gratis">Chiedilo a FabGPT-FAQ →</a>
   <div class="related">
     <h2>Altre domande</h2>

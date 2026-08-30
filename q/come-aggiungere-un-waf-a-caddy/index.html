@@ -42,6 +42,12 @@
   .answer code { cursor: pointer; }
   .answer code:hover { outline: 1px solid var(--border); }
   .answer code.copied { outline: 1px solid var(--accent); color: var(--accent); }
+  .verified { display: flex; align-items: center; gap: 7px; margin-top: 18px; font-size: 13px; color: var(--text-dim); }
+  .verified .vchk { flex: 0 0 auto; }
+  @media (prefers-reduced-motion: no-preference) {
+    .vchk path { stroke-dasharray: 24; stroke-dashoffset: 24; animation: vchk-draw .5s .15s ease forwards; }
+  }
+  @keyframes vchk-draw { to { stroke-dashoffset: 0; } }
 </style>
 </head>
 <body>
@@ -55,6 +61,7 @@
   <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › Cybersecurity</nav>
   <h1>Come si aggiunge un WAF al web server Caddy?</h1>
   <div class="answer"><p>Con <a href="https://github.com/fabriziosalmi/caddy-waf" target="_blank" rel="noopener">caddy-waf</a> (<strong>800+ ⭐</strong>), un Web Application Firewall nativo per Caddy scritto in Go. Include:</p><ul><li>regole regex e filtraggio IP/DNS</li><li>rate limiting</li><li>GeoIP e blocco delle exit node Tor</li><li>anomaly detection</li></ul><p>Nello stesso ecosistema ci sono anche <a href="https://github.com/fabriziosalmi/caddy-mib" target="_blank" rel="noopener">caddy-mib</a>, che traccia e banna gli IP che generano errori ripetitivi (brute force, scanning), e <a href="https://github.com/fabriziosalmi/caddy-adf" target="_blank" rel="noopener">caddy-adf</a>, un&#x27;esplorazione di difesa anomaly-based.</p></div>
+  <div class="verified"><svg class="vchk" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Verificata a mano · zero allucinazioni</span></div>
   <a class="ask" href="../../?q=caddy-waf">Chiedilo a FabGPT-FAQ →</a>
   <div class="related">
     <h2>Altre domande</h2>

@@ -42,6 +42,12 @@
   .answer code { cursor: pointer; }
   .answer code:hover { outline: 1px solid var(--border); }
   .answer code.copied { outline: 1px solid var(--accent); color: var(--accent); }
+  .verified { display: flex; align-items: center; gap: 7px; margin-top: 18px; font-size: 13px; color: var(--text-dim); }
+  .verified .vchk { flex: 0 0 auto; }
+  @media (prefers-reduced-motion: no-preference) {
+    .vchk path { stroke-dasharray: 24; stroke-dashoffset: 24; animation: vchk-draw .5s .15s ease forwards; }
+  }
+  @keyframes vchk-draw { to { stroke-dashoffset: 0; } }
 </style>
 </head>
 <body>
@@ -55,6 +61,7 @@
   <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › Cybersecurity</nav>
   <h1>Come ci si difende dalla clonazione di credenziali NFC/RFID?</h1>
   <div class="answer"><p>Le credenziali <strong>contactless</strong> (badge di accesso, carte) sono comode e, nelle versioni vecchie, spaventosamente insicure. I rischi:</p><ul><li><strong>clonazione</strong>: le tecnologie legacy come <strong>MIFARE Classic</strong> sono crittograficamente rotte da anni – un badge si copia in secondi con hardware economico (un Proxmark, o perfino un telefono). Molti sistemi di accesso aziendali girano ancora su queste</li><li><strong>relay attack</strong>: due dispositivi che fanno da ponte estendono il raggio di una carta – la carta è in tasca, ma un attaccante ne &quot;allunga&quot; il segnale per usarla a distanza (rilevante anche per le chiavi auto keyless)</li><li><strong>skimming</strong>: lettura non autorizzata a distanza ravvicinata</li></ul><p>Le difese: <strong>migrare a tecnologie moderne</strong> – MIFARE <strong>DESFire EV2/EV3</strong> o <strong>SEOS</strong>, con crittografia forte e mutua autenticazione (la clonazione banale non funziona più); per le carte di pagamento e i passaporti, le <strong>guaine schermanti</strong> (Faraday) contro lo skimming; contro il relay sulle auto, custodie schermate per le chiavi. E il principio di sempre: il contactless è <strong>un fattore</strong>, e per gli accessi che contano va combinato con altro (<a href="../cos-e-autenticazione-due-fattori-mfa/">MFA</a>, PIN) in <a href="../cos-e-la-defense-in-depth/">difesa in profondità</a> – un badge, come una password, non dovrebbe mai essere l&#x27;unica cosa tra un estraneo e il tuo sistema. Sul fronte digitale, l&#x27;equivalente robusto sono le <a href="../chiavi-di-sicurezza-hardware-yubikey/">chiavi di sicurezza FIDO2</a>, che il relay e la clonazione non toccano.</p></div>
+  <div class="verified"><svg class="vchk" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Verificata a mano · zero allucinazioni</span></div>
   <a class="ask" href="../../?q=nfc-rfid-security">Chiedilo a FabGPT-FAQ →</a>
   <div class="related">
     <h2>Altre domande</h2>

@@ -409,8 +409,16 @@ non ha pagina propria) sono lavoro, non copertura.
 - **Micro-interazioni** (2026-08-30): chip lift/scale, underline animato sui link delle
   risposte, entrata dei messaggi, pop-in di avatar/brand-dot, send-button scale — tutte
   motion-guardate.
-- Idee estetiche ancora da fare (dal menu): badge "verificata", hero labirinto,
-  altri diagrammi oltre i pilastri.
+- **Badge "verificata"** (2026-08-30): riga "Verificata a mano · zero allucinazioni"
+  con check SVG che si disegna, sotto OGNI risposta KB (chat: solo entry con slug,
+  non smalltalk/fallback; pagine statiche: sempre). Rinforza l'USP anti-allucinazione.
+- **Hero labirinto** (2026-08-30): spirale-labirinto SVG che si traccia al caricamento
+  (stroke-dashoffset, 1.8s) sulla landing della chat, con tagline "un labirinto di
+  risposte, travestito da AI" e dot centrale; collassa alla prima interazione (app.js
+  aggiunge .gone). Path calcolato come spirale quadrata (132x132, len 936).
+- **Menu estetico COMPLETO**: diagrammi-concetto, comandi copiabili, timeline how-to,
+  glyph verticali, contatore stat, micro-interazioni, badge verificata, hero labirinto.
+  Tutto theme-aware + prefers-reduced-motion. (Possibile futuro: diagrammi oltre i pilastri.)
 
 ## Giro 2 – rifinitura & answer-engine optimization (DONE 2026-08-30)
 

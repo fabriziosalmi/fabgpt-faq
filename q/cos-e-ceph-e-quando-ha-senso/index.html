@@ -42,6 +42,12 @@
   .answer code { cursor: pointer; }
   .answer code:hover { outline: 1px solid var(--border); }
   .answer code.copied { outline: 1px solid var(--accent); color: var(--accent); }
+  .verified { display: flex; align-items: center; gap: 7px; margin-top: 18px; font-size: 13px; color: var(--text-dim); }
+  .verified .vchk { flex: 0 0 auto; }
+  @media (prefers-reduced-motion: no-preference) {
+    .vchk path { stroke-dasharray: 24; stroke-dashoffset: 24; animation: vchk-draw .5s .15s ease forwards; }
+  }
+  @keyframes vchk-draw { to { stroke-dashoffset: 0; } }
 </style>
 </head>
 <body>
@@ -55,6 +61,7 @@
   <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › Proxmox e self-hosting</nav>
   <h1>Cos&#x27;è Ceph (e quando ha senso su Proxmox)?</h1>
   <div class="answer"><p><strong>Ceph</strong> è uno storage distribuito che trasforma i dischi dei nodi del <a href="../cluster-proxmox-e-quorum/">cluster</a> in un unico pool ridondato: ogni dato vive in più copie su nodi diversi (replica 3 di default), un disco o un nodo che muore viene <strong>riparato da solo</strong>, e le VM vedono block device (RBD) condivisi – il che sblocca <a href="../migrazione-live-tra-nodi/">migrazione live</a> istantanea e <a href="../alta-disponibilita-proxmox/">HA</a> vera. Proxmox lo integra nativamente nella GUI: è la via all&#x27;iperconvergenza senza SAN.</p><p>Quando ha senso, onestamente: da <strong>3 nodi in su</strong> (meglio 4-5, con 3 la resilienza è al limite), con <strong>rete dedicata da 10G</strong> e dischi decenti per gli OSD – sotto queste soglie le prestazioni deludono e la complessità resta. Per l&#x27;homelab a 2-3 nodi la via povera e solida è un&#x27;altra: <a href="../perche-usare-zfs-su-proxmox/">ZFS</a> con replica programmata (<code>pvesr</code>) – niente storage condiviso vero, ma failover a minuti con un decimo della complessità.</p></div>
+  <div class="verified"><svg class="vchk" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Verificata a mano · zero allucinazioni</span></div>
   <a class="ask" href="../../?q=ceph">Chiedilo a FabGPT-FAQ →</a>
   <div class="related">
     <h2>Altre domande</h2>

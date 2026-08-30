@@ -42,6 +42,12 @@
   .answer code { cursor: pointer; }
   .answer code:hover { outline: 1px solid var(--border); }
   .answer code.copied { outline: 1px solid var(--accent); color: var(--accent); }
+  .verified { display: flex; align-items: center; gap: 7px; margin-top: 18px; font-size: 13px; color: var(--text-dim); }
+  .verified .vchk { flex: 0 0 auto; }
+  @media (prefers-reduced-motion: no-preference) {
+    .vchk path { stroke-dasharray: 24; stroke-dashoffset: 24; animation: vchk-draw .5s .15s ease forwards; }
+  }
+  @keyframes vchk-draw { to { stroke-dashoffset: 0; } }
 </style>
 </head>
 <body>
@@ -55,6 +61,7 @@
   <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › Cybersecurity</nav>
   <h1>Come si gestisce il failover e il bilanciamento Multi-WAN?</h1>
   <div class="answer"><p><strong>Multi-WAN</strong> significa collegare il gateway a <strong>più connessioni internet</strong> (fibra + 4G/5G, due provider diversi) per continuità e/o banda aggregata. È la resilienza di rete per chi non può permettersi di stare offline. Due modalità:</p><ul><li><strong>failover</strong> – una linea primaria, una di riserva: se la primaria cade, il traffico passa in automatico sulla secondaria (e torna quando si riprende). La più comune per l&#x27;alta affidabilità</li><li><strong>load balancing</strong> – il traffico si distribuisce sulle linee attive, aggregando banda (con i limiti: una singola connessione TCP non si &quot;spalma&quot; su due WAN – si bilanciano <em>sessioni</em> diverse)</li></ul><p>Il dettaglio che fa funzionare il failover davvero: il <strong>monitoraggio della salute</strong> della linea – non basta &quot;il cavo è collegato&quot;, serve verificare che internet risponda <em>davvero</em> (ping a target esterni), o il failover non scatta quando il provider ha un guasto a monte. Le connessioni con <strong>stato</strong> (VPN, SSH, videochiamate) si interrompono al passaggio, salvo accorgimenti.</p><p>Si implementa su firewall/gateway open source (<strong>OPNsense/pfSense</strong>, VyOS) su hardware modesto o <a href="../cos-e-proxmox-ve/">una VM Proxmox</a>. È parente della <a href="../cos-e-un-load-balancer/">ridondanza a livello applicativo</a> (là bilanci server, qui linee) e un pezzo della <a href="../piano-di-disaster-recovery-minimo/">continuità operativa</a>: per un&#x27;azienda, la seconda linea di un provider diverso è spesso l&#x27;investimento di resilienza col miglior rapporto costo/beneficio.</p></div>
+  <div class="verified"><svg class="vchk" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Verificata a mano · zero allucinazioni</span></div>
   <a class="ask" href="../../?q=multi-wan">Chiedilo a FabGPT-FAQ →</a>
   <div class="related">
     <h2>Altre domande</h2>

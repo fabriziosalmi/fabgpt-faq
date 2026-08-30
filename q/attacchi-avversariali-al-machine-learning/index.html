@@ -42,6 +42,12 @@
   .answer code { cursor: pointer; }
   .answer code:hover { outline: 1px solid var(--border); }
   .answer code.copied { outline: 1px solid var(--accent); color: var(--accent); }
+  .verified { display: flex; align-items: center; gap: 7px; margin-top: 18px; font-size: 13px; color: var(--text-dim); }
+  .verified .vchk { flex: 0 0 auto; }
+  @media (prefers-reduced-motion: no-preference) {
+    .vchk path { stroke-dasharray: 24; stroke-dashoffset: 24; animation: vchk-draw .5s .15s ease forwards; }
+  }
+  @keyframes vchk-draw { to { stroke-dashoffset: 0; } }
 </style>
 </head>
 <body>
@@ -55,6 +61,7 @@
   <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › AI e LLM</nav>
   <h1>Cosa sono gli attacchi avversariali al machine learning?</h1>
   <div class="answer"><p>Gli <strong>attacchi avversariali</strong> sfruttano il fatto che i modelli ML apprendono correlazioni statistiche, non comprensione: una <strong>perturbazione minuscola e mirata</strong> – impercettibile a un umano – può ribaltare la classificazione. L&#x27;adesivo sul cartello di stop che l&#x27;auto legge come limite di velocità, il pixel-noise che fa vedere &quot;gibbone&quot; dove c&#x27;è un panda, il malware ritoccato per sembrare benigno all&#x27;antivirus ML.</p><p>Le famiglie principali:</p><ul><li><strong>evasion</strong> (a inferenza): input costruito per ingannare il modello <em>in produzione</em> – aggira i classificatori di sicurezza, i filtri di <a href="../moderazione-automatica-dei-contenuti/">moderazione</a>, i rilevatori di spam</li><li><strong>poisoning</strong> (in addestramento): contaminare i dati di training perché il modello impari la cosa sbagliata o una backdoor</li><li><strong>model inversion / extraction</strong>: ricostruire dati di training o rubare il modello dalle sue risposte</li></ul><p>Cosa cambia rispetto alla sicurezza classica: qui <strong>non c&#x27;è patch definitiva</strong> – è una proprietà dei modelli, non un bug. Le difese sono probabilistiche (adversarial training, input sanitization, ensemble, rilevamento di anomalie) e a strati. È il cugino ML della <a href="../cos-e-la-prompt-injection/">prompt injection</a> sugli LLM: dove il sistema &quot;decide&quot; statisticamente, l&#x27;input ostile è una superficie d&#x27;attacco permanente da presidiare, non da chiudere una volta per tutte.</p></div>
+  <div class="verified"><svg class="vchk" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Verificata a mano · zero allucinazioni</span></div>
   <a class="ask" href="../../?q=adversarial-ml">Chiedilo a FabGPT-FAQ →</a>
   <div class="related">
     <h2>Altre domande</h2>

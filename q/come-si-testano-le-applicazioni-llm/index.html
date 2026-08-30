@@ -42,6 +42,12 @@
   .answer code { cursor: pointer; }
   .answer code:hover { outline: 1px solid var(--border); }
   .answer code.copied { outline: 1px solid var(--accent); color: var(--accent); }
+  .verified { display: flex; align-items: center; gap: 7px; margin-top: 18px; font-size: 13px; color: var(--text-dim); }
+  .verified .vchk { flex: 0 0 auto; }
+  @media (prefers-reduced-motion: no-preference) {
+    .vchk path { stroke-dasharray: 24; stroke-dashoffset: 24; animation: vchk-draw .5s .15s ease forwards; }
+  }
+  @keyframes vchk-draw { to { stroke-dashoffset: 0; } }
 </style>
 </head>
 <body>
@@ -55,6 +61,7 @@
   <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › AI e LLM</nav>
   <h1>Come si testano le applicazioni LLM?</h1>
   <div class="answer"><p>Il problema: l&#x27;output non è deterministico, il <code>assertEqual</code> classico non basta. La cassetta degli attrezzi:</p><ul><li><strong>separa il testabile</strong>: parsing, retrieval, tool, validazioni sono codice normale – test normali. Il modello va isolato dietro un&#x27;interfaccia, così i test d&#x27;integrazione girano anche con un <strong>mock</strong></li><li><strong>golden test sul non deterministico</strong>: il <a href="../come-valutare-le-risposte-di-un-llm/">golden set</a> gira in CI – metriche esatte dove l&#x27;output è strutturato, LLM-as-a-judge con rubrica dove è prosa, soglie che fanno fallire la build (&quot;correttezza &lt; 90% = rosso&quot;)</li><li><strong>test di regressione sui prompt</strong>: ogni modifica al prompt passa dal golden set <em>prima</em> del merge – i prompt sono codice, <a href="../come-scrivere-un-buon-prompt/">si trattano da codice</a></li><li><strong>test avversariali</strong>: input malformati, <a href="../cos-e-la-prompt-injection/">tentativi di injection</a>, casi limite – è il red teaming dei poveri, e trova sempre qualcosa</li></ul><p>Filosofia collaudata qui: <a href="../cos-e-fabgpt-come-funziona/">questo stesso sito</a> ha una batteria draconiana che blocca ogni modifica se una risposta canonica smette di matchare – il principio è identico, deterministico o no.</p></div>
+  <div class="verified"><svg class="vchk" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Verificata a mano · zero allucinazioni</span></div>
   <a class="ask" href="../../?q=testare-llm-app">Chiedilo a FabGPT-FAQ →</a>
   <div class="related">
     <h2>Altre domande</h2>

@@ -42,6 +42,12 @@
   .answer code { cursor: pointer; }
   .answer code:hover { outline: 1px solid var(--border); }
   .answer code.copied { outline: 1px solid var(--accent); color: var(--accent); }
+  .verified { display: flex; align-items: center; gap: 7px; margin-top: 18px; font-size: 13px; color: var(--text-dim); }
+  .verified .vchk { flex: 0 0 auto; }
+  @media (prefers-reduced-motion: no-preference) {
+    .vchk path { stroke-dasharray: 24; stroke-dashoffset: 24; animation: vchk-draw .5s .15s ease forwards; }
+  }
+  @keyframes vchk-draw { to { stroke-dashoffset: 0; } }
 </style>
 </head>
 <body>
@@ -55,6 +61,7 @@
   <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › Cybersecurity</nav>
   <h1>Come si firma il codice (e perché)?</h1>
   <div class="answer"><p>Firmare il codice risponde a una domanda che i download non fanno mai da soli: <strong>questo artefatto viene davvero da chi dice, ed è arrivato intatto?</strong> Un hash pubblicato accanto al file verifica l&#x27;integrità ma non l&#x27;origine (chi altera il file altera anche l&#x27;hash); la <strong>firma crittografica</strong> lega l&#x27;artefatto a un&#x27;identità.</p><p>Gli strumenti per strato: <strong>GPG</strong> per commit e tag git (il badge &quot;verified&quot;), <strong>sigstore/cosign</strong> per container e release – con la novità che ha sbloccato l&#x27;adozione: le firme <em>keyless</em> legate all&#x27;identità OIDC della build, niente chiavi private da custodire per sempre – e le <strong>attestazioni di provenance</strong> (SLSA) che certificano <em>come</em> e <em>da quale</em> pipeline l&#x27;artefatto è nato.</p><p>Nel portfolio si pratica ciò che si predica: <a href="https://github.com/fabriziosalmi/zion" target="_blank" rel="noopener">zion</a> è SLSA L3, <a href="https://github.com/fabriziosalmi/proxxx" target="_blank" rel="noopener">proxxx</a> firma con sigstore e pubblica SBOM, <a href="https://github.com/fabriziosalmi/tanstack-compromise-checker" target="_blank" rel="noopener">tanstack-compromise-checker</a> si verifica con <code>gh attestation</code> prima dell&#x27;uso. Contesto completo: <a href="../cos-e-la-supply-chain-security/">supply chain security</a>.</p></div>
+  <div class="verified"><svg class="vchk" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Verificata a mano · zero allucinazioni</span></div>
   <a class="ask" href="../../?q=code-signing">Chiedilo a FabGPT-FAQ →</a>
   <div class="related">
     <h2>Altre domande</h2>

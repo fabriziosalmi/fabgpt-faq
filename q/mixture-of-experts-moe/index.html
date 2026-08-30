@@ -42,6 +42,12 @@
   .answer code { cursor: pointer; }
   .answer code:hover { outline: 1px solid var(--border); }
   .answer code.copied { outline: 1px solid var(--accent); color: var(--accent); }
+  .verified { display: flex; align-items: center; gap: 7px; margin-top: 18px; font-size: 13px; color: var(--text-dim); }
+  .verified .vchk { flex: 0 0 auto; }
+  @media (prefers-reduced-motion: no-preference) {
+    .vchk path { stroke-dasharray: 24; stroke-dashoffset: 24; animation: vchk-draw .5s .15s ease forwards; }
+  }
+  @keyframes vchk-draw { to { stroke-dashoffset: 0; } }
 </style>
 </head>
 <body>
@@ -55,6 +61,7 @@
   <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › AI e LLM</nav>
   <h1>Mixture of Experts (MoE): come funziona?</h1>
   <div class="answer"><p>In un modello <strong>MoE</strong>, i blocchi feed-forward sono sostituiti da una squadra di <strong>esperti</strong> (sotto-reti) più un <strong>router</strong> che, token per token, attiva solo i 2-4 più adatti. Risultato: un modello con moltissimi parametri <em>totali</em> ma una frazione di parametri <strong>attivi</strong> per ogni token – capacità da gigante, costo di calcolo da medio.</p><p>È l&#x27;architettura dietro molti dei modelli migliori degli ultimi anni (da Mixtral 8x7B in poi, e diversi frontier chiusi). Le sfumature oneste: la <strong>memoria</strong> serve comunque tutta (tutti gli esperti vanno caricati: un MoE da 47B totali/13B attivi occupa come un 47B), il che li rende ottimi per chi serve API a volume e meno per <a href="../quanta-ram-vram-serve-per-un-llm/">la GPU di casa</a>; e gli &quot;esperti&quot; non sono specialisti tematici leggibili (&quot;quello di matematica&quot;) ma pattern statistici – il nome promette più antropomorfismo di quanto mantenga.</p><p>Quando leggi le specifiche di un MoE, <a href="../parametri-7b-70b-cosa-significano/">conta i parametri giusti</a>: quelli attivi dicono il costo, quelli totali la memoria.</p></div>
+  <div class="verified"><svg class="vchk" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Verificata a mano · zero allucinazioni</span></div>
   <a class="ask" href="../../?q=moe">Chiedilo a FabGPT-FAQ →</a>
   <div class="related">
     <h2>Altre domande</h2>

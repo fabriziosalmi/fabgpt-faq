@@ -42,6 +42,12 @@
   .answer code { cursor: pointer; }
   .answer code:hover { outline: 1px solid var(--border); }
   .answer code.copied { outline: 1px solid var(--accent); color: var(--accent); }
+  .verified { display: flex; align-items: center; gap: 7px; margin-top: 18px; font-size: 13px; color: var(--text-dim); }
+  .verified .vchk { flex: 0 0 auto; }
+  @media (prefers-reduced-motion: no-preference) {
+    .vchk path { stroke-dasharray: 24; stroke-dashoffset: 24; animation: vchk-draw .5s .15s ease forwards; }
+  }
+  @keyframes vchk-draw { to { stroke-dashoffset: 0; } }
 </style>
 </head>
 <body>
@@ -55,6 +61,7 @@
   <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › Strumenti e app</nav>
   <h1>A cosa serve la sitemap.xml?</h1>
   <div class="answer"><p>La <strong>sitemap.xml</strong> è l&#x27;elenco machine-readable degli URL che vuoi far scoprire ai motori, con metadati opzionali (<code>lastmod</code> è l&#x27;unico che Google dichiara di usare). Non è un comando – è un <strong>aiuto alla scoperta</strong>: fondamentale per siti grandi, con pagine poco linkate tra loro o contenuti che cambiano spesso; quasi superfluo per un sito di dieci pagine ben collegate.</p><p>Cose da sapere: va referenziata nel <a href="../come-funziona-robots-txt/">robots.txt</a> (<code>Sitemap: https://…</code>) e inviata in Search Console, dove vedi anche quanto di ciò che dichiari viene davvero indicizzato – il dato interessante è lo scarto. Limiti: 50.000 URL / 50 MB per file, poi si spezza con un indice di sitemap. Essere in sitemap <strong>non garantisce l&#x27;indicizzazione</strong>: garantisce solo che Google sappia che esisti. Qui dentro la genera <code>build.py</code> a ogni rebuild, una riga per domanda.</p></div>
+  <div class="verified"><svg class="vchk" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Verificata a mano · zero allucinazioni</span></div>
   <a class="ask" href="../../?q=sitemap-xml">Chiedilo a FabGPT-FAQ →</a>
   <div class="related">
     <h2>Altre domande</h2>

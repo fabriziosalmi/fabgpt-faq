@@ -42,6 +42,12 @@
   .answer code { cursor: pointer; }
   .answer code:hover { outline: 1px solid var(--border); }
   .answer code.copied { outline: 1px solid var(--accent); color: var(--accent); }
+  .verified { display: flex; align-items: center; gap: 7px; margin-top: 18px; font-size: 13px; color: var(--text-dim); }
+  .verified .vchk { flex: 0 0 auto; }
+  @media (prefers-reduced-motion: no-preference) {
+    .vchk path { stroke-dasharray: 24; stroke-dashoffset: 24; animation: vchk-draw .5s .15s ease forwards; }
+  }
+  @keyframes vchk-draw { to { stroke-dashoffset: 0; } }
 </style>
 </head>
 <body>
@@ -55,6 +61,7 @@
   <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › Cloudflare</nav>
   <h1>Cos&#x27;è il TTL dei record DNS?</h1>
   <div class="answer"><p>Il <strong>TTL</strong> (time to live) di un record DNS dice ai resolver per quanti secondi possono tenerlo in cache prima di richiederlo. È il motivo per cui i cambi DNS &quot;si propagano lentamente&quot;: non c&#x27;è nessuna propagazione attiva – c&#x27;è il mondo che aspetta la scadenza delle proprie cache.</p><p>Uso pratico: TTL <strong>alto</strong> (1-24 ore) per record stabili – meno query, più resilienza; TTL <strong>basso</strong> (60-300 s) quando prevedi cambi. La manovra da manuale per una migrazione: <strong>abbassa il TTL almeno un giorno prima</strong> (deve scadere il TTL vecchio!), cambia il record, verifica, poi rialza. Ricorda che alcuni resolver ignorano TTL troppo bassi, e che dietro un proxy come Cloudflare il TTL verso il mondo lo gestisce lui. Per la verifica: <code>dig +trace</code> interroga la catena autoritativa senza cache di mezzo.</p></div>
+  <div class="verified"><svg class="vchk" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Verificata a mano · zero allucinazioni</span></div>
   <a class="ask" href="../../?q=ttl-dns">Chiedilo a FabGPT-FAQ →</a>
   <div class="related">
     <h2>Altre domande</h2>

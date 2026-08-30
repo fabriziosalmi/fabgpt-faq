@@ -42,6 +42,12 @@
   .answer code { cursor: pointer; }
   .answer code:hover { outline: 1px solid var(--border); }
   .answer code.copied { outline: 1px solid var(--accent); color: var(--accent); }
+  .verified { display: flex; align-items: center; gap: 7px; margin-top: 18px; font-size: 13px; color: var(--text-dim); }
+  .verified .vchk { flex: 0 0 auto; }
+  @media (prefers-reduced-motion: no-preference) {
+    .vchk path { stroke-dasharray: 24; stroke-dashoffset: 24; animation: vchk-draw .5s .15s ease forwards; }
+  }
+  @keyframes vchk-draw { to { stroke-dashoffset: 0; } }
 </style>
 </head>
 <body>
@@ -55,6 +61,7 @@
   <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › Proxmox e self-hosting</nav>
   <h1>Come si centralizza l&#x27;accesso ai servizi self-hosted (dashboard)?</h1>
   <div class="answer"><p>Quando i servizi self-hosted diventano dieci, ricordarne porte e URL è un incubo. Una <strong>dashboard</strong> fa da portale unico: i link a tutti i servizi in una pagina, spesso con lo <strong>stato in tempo reale</strong> (su/giù) e widget che mostrano metriche (spazio disco, container attivi, download in corso).</p><p>Le opzioni:</p><ul><li><strong>Homepage</strong> – la più amata oggi: configurazione a file YAML (versionabile in <a href="../git-i-comandi-che-usi-davvero/">git</a>), si integra con decine di servizi via API per mostrarne lo stato, e legge le etichette dei <a href="../cos-e-docker-compose/">container Docker</a> per auto-scoprirli</li><li><strong>Dashy</strong> / <strong>Homarr</strong> – più orientate all&#x27;interfaccia grafica, configurabili dal browser</li><li><strong>Heimdall</strong> – il classico semplice, solo link</li></ul><p>È zucchero, non sicurezza – ma zucchero che cambia l&#x27;esperienza quotidiana del homelab. Il pattern completo: la dashboard come homepage, dietro lo stesso <a href="../cos-e-un-reverse-proxy/">reverse proxy</a> dei servizi, raggiungibile via <a href="../wireguard-e-mesh-vpn/">mesh VPN</a>. Piccola nota di igiene: se mostra stato e link di <em>tutto</em>, trattala come <a href="../proteggere-area-admin/">area riservata</a> – non è la pagina che vuoi indicizzata o pubblica.</p></div>
+  <div class="verified"><svg class="vchk" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Verificata a mano · zero allucinazioni</span></div>
   <a class="ask" href="../../?q=dashboard-selfhost">Chiedilo a FabGPT-FAQ →</a>
   <div class="related">
     <h2>Altre domande</h2>
