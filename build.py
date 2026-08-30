@@ -32,21 +32,39 @@ def inline_md(s: str) -> str:
 
 
 def render_md(text: str) -> str:
+    code_blocks = []
+    def _cb(m):
+        idx = len(code_blocks)
+        lang = m.group(1).strip()
+        code = m.group(2).strip()
+        clang = f' class="language-{html.escape(lang)}"' if lang else ""
+        code_blocks.append(f"<pre><code{clang}>{html.escape(code)}</code></pre>")
+        return f"\n\n@@@CODEBLOCK_{idx}@@@\n\n"
+
+    processed = re.sub(r"```([a-zA-Z0-9_-]*)\n([\s\S]*?)```", _cb, text)
     out = []
-    for block in re.split(r"\n\n+", text):
-        lines = block.split("\n")
-        if all(re.match(r"^\s*-\s+", l) for l in lines):
-            stripped = [re.sub(r"^\s*-\s+", "", l) for l in lines]
+    for block in re.split(r"\n\n+", processed):
+        b = block.strip()
+        if not b:
+            continue
+        if re.match(r"^@@@CODEBLOCK_\d+@@@$", b):
+            idx = int(re.sub(r"\D", "", b))
+            out.append(code_blocks[idx])
+        elif all(re.match(r"^\s*-\s+", l) for l in b.split("\n")):
+            stripped = [re.sub(r"^\s*-\s+", "", l) for l in b.split("\n")]
             items = "".join("<li>" + inline_md(html.escape(l)) + "</li>" for l in stripped)
             out.append(f"<ul>{items}</ul>")
         else:
-            out.append("<p>" + inline_md(html.escape(block)).replace("\n", "<br>") + "</p>")
+            p_content = inline_md(html.escape(b)).replace("\n", "<br>")
+            p_content = re.sub(r"@@@CODEBLOCK_(\d+)@@@", lambda m: code_blocks[int(m.group(1))], p_content)
+            out.append(f"<p>{p_content}</p>")
     return "".join(out)
 
 
 def md_to_plain(text: str) -> str:
     """Markdown -> plain text, for meta descriptions and JSON-LD answers."""
-    s = re.sub(r"\[([^\]]+)\]\((https?://[^)\s]+)\)", r"\1", text)
+    s = re.sub(r"```[a-zA-Z0-9_-]*\n([\s\S]*?)```", r"\1", text)
+    s = re.sub(r"\[([^\]]+)\]\((https?://[^)\s]+)\)", r"\1", s)
     s = re.sub(r"[*`]", "", s)
     s = re.sub(r"^\s*-\s+", "", s, flags=re.M)
     return re.sub(r"\s+", " ", s).strip()
@@ -363,7 +381,7 @@ def build() -> None:
             },
         ]
         d = OUT / e["slug"]
-        d.mkdir()
+        d.mkdir(parents=True, exist_ok=True)
         # concept diagram (inline SVG) after the answer, in a <figure>
         dg = diagrams.get(e["id"], "")
         figure = (

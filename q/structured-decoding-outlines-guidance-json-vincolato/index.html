@@ -20,7 +20,7 @@
 <meta name="twitter:image" content="https://fabriziosalmi.github.io/fabgpt-faq/og.svg">
 <link rel="stylesheet" href="../../style.css">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
-<script type="application/ld+json">[{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Come funziona lo Structured Decoding (Outlines, Guidance) per garantire output JSON conformi?", "acceptedAnswer": {"@type": "Answer", "text": "Lo structured decoding guida la generazione del modello a livello di campionamento dei token tramite automi a stati finiti (FSM) o grammatiche Context-Free, garantendo al 100% che l'output rispetti uno schema JSON senza errori di sintassi. Esempio pratico con libreria Outlines e Pydantic: python from enum import Enum from pydantic import BaseModel import outlines class Severity(str, Enum): low = \"low\" medium = \"medium\" high = \"high\" class VulnerabilityReport(BaseModel): cve_id: str severity: Severity remediation_steps: list[str] # Caricamento del modello locale model = outlines.models.transformers(\"meta-llama/Llama-3.2-3B-Instruct\") # Generatore vincolato allo schema Pydantic generator = outlines.generate.json(model, VulnerabilityReport) result = generator(\"Analizza la vulnerabilità OpenSSL Heartbleed\") print(result.cve_id) # Accesso tipizzato sicuro Questo approccio elimina i retry di parsing JSON e previene allucinazioni strutturali negli agenti."}}]}, {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "FabGPT-FAQ", "item": "https://fabriziosalmi.github.io/fabgpt-faq/"}, {"@type": "ListItem", "position": 2, "name": "Tutte le domande", "item": "https://fabriziosalmi.github.io/fabgpt-faq/q/"}, {"@type": "ListItem", "position": 3, "name": "AI e LLM", "item": "https://fabriziosalmi.github.io/fabgpt-faq/q/structured-decoding-outlines-guidance-json-vincolato/"}]}]</script>
+<script type="application/ld+json">[{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Come funziona lo Structured Decoding (Outlines, Guidance) per garantire output JSON conformi?", "acceptedAnswer": {"@type": "Answer", "text": "Lo structured decoding guida la generazione del modello a livello di campionamento dei token tramite automi a stati finiti (FSM) o grammatiche Context-Free, garantendo al 100% che l'output rispetti uno schema JSON senza errori di sintassi. Esempio pratico con libreria Outlines e Pydantic: from enum import Enum from pydantic import BaseModel import outlines class Severity(str, Enum): low = \"low\" medium = \"medium\" high = \"high\" class VulnerabilityReport(BaseModel): cve_id: str severity: Severity remediation_steps: list[str] # Caricamento del modello locale model = outlines.models.transformers(\"meta-llama/Llama-3.2-3B-Instruct\") # Generatore vincolato allo schema Pydantic generator = outlines.generate.json(model, VulnerabilityReport) result = generator(\"Analizza la vulnerabilità OpenSSL Heartbleed\") print(result.cve_id) # Accesso tipizzato sicuro Questo approccio elimina i retry di parsing JSON e previene allucinazioni strutturali negli agenti."}}]}, {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "FabGPT-FAQ", "item": "https://fabriziosalmi.github.io/fabgpt-faq/"}, {"@type": "ListItem", "position": 2, "name": "Tutte le domande", "item": "https://fabriziosalmi.github.io/fabgpt-faq/q/"}, {"@type": "ListItem", "position": 3, "name": "AI e LLM", "item": "https://fabriziosalmi.github.io/fabgpt-faq/q/structured-decoding-outlines-guidance-json-vincolato/"}]}]</script>
 <style>
   .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
   .page h1 { font-size: 26px; line-height: 1.3; margin: 6px 0 20px; }
@@ -59,7 +59,27 @@
 <main class="page">
   <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › AI e LLM</nav>
   <h1 id="page-question">Come funziona lo Structured Decoding (Outlines, Guidance) per garantire output JSON conformi?</h1>
-  <div class="answer" id="page-answer"><p>Lo structured decoding guida la generazione del modello a livello di campionamento dei token tramite automi a stati finiti (FSM) o grammatiche Context-Free, garantendo al 100% che l&#x27;output rispetti uno schema JSON senza errori di sintassi.</p><p>Esempio pratico con libreria Outlines e Pydantic:<br>```python<br>from enum import Enum<br>from pydantic import BaseModel<br>import outlines</p><p>class Severity(str, Enum):<br>    low = &quot;low&quot;<br>    medium = &quot;medium&quot;<br>    high = &quot;high&quot;</p><p>class VulnerabilityReport(BaseModel):<br>    cve_id: str<br>    severity: Severity<br>    remediation_steps: list[str]</p><p># Caricamento del modello locale<br>model = outlines.models.transformers(&quot;meta-llama/Llama-3.2-3B-Instruct&quot;)</p><p># Generatore vincolato allo schema Pydantic<br>generator = outlines.generate.json(model, VulnerabilityReport)<br>result = generator(&quot;Analizza la vulnerabilità OpenSSL Heartbleed&quot;)<br>print(result.cve_id)  # Accesso tipizzato sicuro<br>```</p><p>Questo approccio elimina i retry di parsing JSON e previene allucinazioni strutturali negli agenti.</p></div>
+  <div class="answer" id="page-answer"><p>Lo structured decoding guida la generazione del modello a livello di campionamento dei token tramite automi a stati finiti (FSM) o grammatiche Context-Free, garantendo al 100% che l&#x27;output rispetti uno schema JSON senza errori di sintassi.</p><p>Esempio pratico con libreria Outlines e Pydantic:</p><pre><code class="language-python">from enum import Enum
+from pydantic import BaseModel
+import outlines
+
+class Severity(str, Enum):
+    low = &quot;low&quot;
+    medium = &quot;medium&quot;
+    high = &quot;high&quot;
+
+class VulnerabilityReport(BaseModel):
+    cve_id: str
+    severity: Severity
+    remediation_steps: list[str]
+
+# Caricamento del modello locale
+model = outlines.models.transformers(&quot;meta-llama/Llama-3.2-3B-Instruct&quot;)
+
+# Generatore vincolato allo schema Pydantic
+generator = outlines.generate.json(model, VulnerabilityReport)
+result = generator(&quot;Analizza la vulnerabilità OpenSSL Heartbleed&quot;)
+print(result.cve_id)  # Accesso tipizzato sicuro</code></pre><p>Questo approccio elimina i retry di parsing JSON e previene allucinazioni strutturali negli agenti.</p></div>
   <div class="qa-actions">
     <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>

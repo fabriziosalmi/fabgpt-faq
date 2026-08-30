@@ -53,7 +53,7 @@
   },
   {
     "q": "nis2 compliance",
-    "expect": "nis2"
+    "expect": "nis2-public"
   },
   {
     "q": "come ti contatto via email",
@@ -105,7 +105,7 @@
   },
   {
     "q": "nis2 art 21 governance",
-    "expect": "nis2"
+    "expect": "nis2-public"
   },
   {
     "q": "blacklist per pihole",
@@ -162,10 +162,6 @@
   {
     "q": "proxy con waf per mac",
     "expect": "proxymate"
-  },
-  {
-    "q": "secure web gateway self hosted",
-    "expect": "secure-web-gateway"
   },
   {
     "q": "ridurre i costi di inferenza",
@@ -2470,5 +2466,13 @@
   {
     "q": "come si usa nanocode per programmare",
     "expect": "nanocode"
+  },
+  {
+    "q": "Cos'è Secure Proxy Manager (SPM) e come funziona come Secure Web Gateway?",
+    "expect": "secure-proxy-manager"
+  },
+  {
+    "q": "come installare secure proxy manager con squid e waf",
+    "expect": "secure-proxy-manager"
   }
 ]

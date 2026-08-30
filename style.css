@@ -275,10 +275,35 @@ body {
 }
 @keyframes dg-dash { to { stroke-dashoffset: 0; } }
 
-/* click-to-copy inline code */
-.msg-bot .content code { cursor: pointer; }
-.msg-bot .content code:hover { outline: 1px solid var(--border); }
-.msg-bot .content code.copied { outline: 1px solid var(--accent); color: var(--accent); }
+/* click-to-copy inline code & code blocks */
+.msg-bot .content code, .page .answer code { cursor: pointer; }
+.msg-bot .content code:hover, .page .answer code:hover { outline: 1px solid var(--border); }
+.msg-bot .content code.copied, .page .answer code.copied { outline: 1px solid var(--accent); color: var(--accent); }
+
+.msg-bot .content pre, .page .answer pre {
+  background: var(--bg-soft);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 12px 14px;
+  margin: 12px 0;
+  overflow-x: auto;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 13px;
+  line-height: 1.45;
+}
+.msg-bot .content pre code, .page .answer pre code {
+  background: transparent;
+  padding: 0;
+  border: 0;
+  outline: none;
+  font-family: inherit;
+  font-size: inherit;
+  color: var(--text);
+  display: block;
+  white-space: pre;
+  cursor: pointer;
+}
+.msg-bot .content pre code:hover, .page .answer pre code:hover { outline: none; }
 
 /* header stat bar (chat) */
 .statbar {

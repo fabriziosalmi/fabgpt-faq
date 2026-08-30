@@ -406,7 +406,7 @@
   <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/reverse-proxy-con-waf-integrato/</loc></url>
   <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/come-bloccare-domini-malevoli/</loc></url>
   <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-agssh-hardening-siti-statici/</loc></url>
-  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/nis2-monitoraggio-conformita/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/come-si-monitora-la-conformita-nis2/</loc></url>
   <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/monitorare-siti-web-con-github-actions/</loc></url>
   <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/autoscaling-vm-lxc-proxmox/</loc></url>
   <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/autoscaling-vm-proxmox/</loc></url>
@@ -537,4 +537,5 @@
   <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/sicurezza-agenti-ai-scrittura-repository-pipeline-ci-cd/</loc></url>
   <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/pegaprox-interfaccia-ottimizzazione-proxmox-italiano/</loc></url>
   <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/nanocode-coding-assistant-minimale-terminale/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/secure-web-gateway-self-hosted/</loc></url>
 </urlset>

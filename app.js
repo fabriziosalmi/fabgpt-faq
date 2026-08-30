@@ -149,14 +149,37 @@
   }
 
   function renderMd(text) {
-    const blocks = text.split(/\n\n+/);
+    const codeBlocks = [];
+    // Match closed code blocks
+    let processed = text.replace(/```([a-zA-Z0-9_-]*)\n([\s\S]*?)```/g, (_, lang, code) => {
+      const idx = codeBlocks.length;
+      const cleanLang = lang ? ` class="language-${escapeHtml(lang)}"` : '';
+      codeBlocks.push(`<pre><code${cleanLang}>${escapeHtml(code)}</code></pre>`);
+      return `\n\n@@@CODEBLOCK_${idx}@@@\n\n`;
+    });
+
+    // Handle unclosed code block during active streaming
+    processed = processed.replace(/```([a-zA-Z0-9_-]*)\n([\s\S]*)$/g, (_, lang, code) => {
+      const idx = codeBlocks.length;
+      const cleanLang = lang ? ` class="language-${escapeHtml(lang)}"` : '';
+      codeBlocks.push(`<pre><code${cleanLang}>${escapeHtml(code)}</code></pre>`);
+      return `\n\n@@@CODEBLOCK_${idx}@@@\n\n`;
+    });
+
+    const blocks = processed.split(/\n\n+/);
     let html = '';
     for (const block of blocks) {
-      const lines = block.split('\n');
-      if (lines.every(l => /^\s*-\s+/.test(l))) {
-        html += '<ul>' + lines.map(l => '<li>' + inlineMd(escapeHtml(l.replace(/^\s*-\s+/, ''))) + '</li>').join('') + '</ul>';
+      const trimmed = block.trim();
+      if (!trimmed) continue;
+      if (/^@@@CODEBLOCK_\d+@@@$/.test(trimmed)) {
+        const idx = parseInt(trimmed.replace(/\D/g, ''), 10);
+        html += codeBlocks[idx] || '';
+      } else if (trimmed.split('\n').every(l => /^\s*-\s+/.test(l))) {
+        html += '<ul>' + trimmed.split('\n').map(l => '<li>' + inlineMd(escapeHtml(l.replace(/^\s*-\s+/, ''))) + '</li>').join('') + '</ul>';
       } else {
-        html += '<p>' + inlineMd(escapeHtml(block)).replace(/\n/g, '<br>') + '</p>';
+        let pContent = inlineMd(escapeHtml(trimmed)).replace(/\n/g, '<br>');
+        pContent = pContent.replace(/@@@CODEBLOCK_(\d+)@@@/g, (_, i) => codeBlocks[parseInt(i, 10)] || '');
+        html += '<p>' + pContent + '</p>';
       }
     }
     return html;

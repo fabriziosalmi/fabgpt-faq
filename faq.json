@@ -9846,7 +9846,7 @@
         "inventario certificati"
       ],
       "answers": [
-        "[CertMate](https://github.com/fabriziosalmi/certmate) (**500+ ⭐**) è la piattaforma **self-hosted per la gestione automatica del ciclo di vita dei certificati TLS**. Risolve il problema dei certificati dimenticati o scaduti tramite ACME DNS-01 e HTTP-01 challenge automatici con oltre 30 DNS provider (Cloudflare, AWS Route53, Hetzner, OVH).\n\nInstallazione e avvio immediato:\n- 🐳 **Docker / Docker Compose**:\n  ```bash\n  docker run -d --name certmate \\\n    -p 8080:8080 \\\n    -v certmate_data:/app/data \\\n    -e CERTMATE_AUTO_RENEW=true \\\n    ghcr.io/fabriziosalmi/certmate:latest\n  ```\n- 💻 **Binario standalone (Linux/macOS)**:\n  ```bash\n  curl -fsSL https://raw.githubusercontent.com/fabriziosalmi/certmate/main/install.sh | bash\n  certmate daemon --config /etc/certmate.yaml\n  ```\n\nCaratteristiche: dashboard web moderna, emissione certificati Wildcard senza esporre porte HTTP, webhooks per reload di Nginx/Caddy/HAProxy e notifiche Telegram/Slack prima della scadenza."
+        "**CertMate** ([github.com/fabriziosalmi/certmate](https://github.com/fabriziosalmi/certmate), 1.400+ ⭐) è la piattaforma self-hosted per la gestione completa del ciclo di vita dei certificati TLS/SSL: emissione automatica, rinnovo, discovery di certificati non censiti, Private CA interna e deploy automatico verso reverse proxy e server.\n\nCaratteristiche & Installazione:\n- Supporta **29 provider DNS** (Cloudflare, Hetzner, Route53, OVH, DigitalOcean, ecc.) per challenge DNS-01 e certificati Wildcard.\n- Server MCP nativo per il controllo tramite assistenti AI (`mcp/index.js` con 16 tool).\n- **CLI da terminale**:\n```bash\npip install certmate-cli\ncertmate cert create app.example.com --dns cloudflare --wait\n```\n- **Docker Quick Start**:\n```bash\ndocker run -d -p 8080:8080 -v certmate-data:/app/data ghcr.io/fabriziosalmi/certmate:latest\n```\nAudit trail crittografico immutabile conforme agli standard di sicurezza enterprise."
       ],
       "suggest": [
         "come-aggiungere-un-waf-a-caddy",
@@ -10053,33 +10053,31 @@
       ],
       "suggest": [
         "come-bloccare-domini-malevoli",
-        "nis2-monitoraggio-conformita",
+        "come-si-monitora-la-conformita-nis2",
         "reverse-proxy-con-waf-integrato",
         "cos-e-un-waf-web-application-firewall"
       ]
     },
     {
-      "id": "nis2",
-      "slug": "nis2-monitoraggio-conformita",
-      "question": "Come si monitora la conformità alla direttiva NIS2?",
+      "id": "nis2-public",
+      "slug": "come-si-monitora-la-conformita-nis2",
+      "question": "Come si monitora la conformità alla direttiva NIS2 con nis2-public?",
       "vertical": "security",
       "keywords": [
         "nis2",
         "nis 2",
-        "direttiva",
+        "direttiva nis2",
         "conformita",
-        "compliance",
-        "posture",
-        "normativa",
-        "acn",
-        "grc",
-        "138/2024",
-        "incidenti",
-        "fornitori",
-        "supply chain risk"
+        "nis2-public",
+        "posture management",
+        "dlgs 138 2024",
+        "grc platform",
+        "misure di sicurezza nis2",
+        "audit continuo"
       ],
       "answers": [
-        "[nis2-public](https://github.com/fabriziosalmi/nis2-public) è una piattaforma open source di **Continuous Posture Management per la direttiva NIS2** (EU 2022/2555, recepita in Italia dal D.lgs. 138/2024). Non è uno scanner che si spaccia per piattaforma di compliance: è un **layer GRC con motore di validazione tecnica integrato**.\n\n- **Governance**: checklist di 30 voci incrociate con i sotto-paragrafi dell'Art. 21, tracciamento documenti, assegnazione owner\n- **Incidenti** (Art. 23), **fornitori e rischio di supply chain** (Art. 18), business impact e report PDF/A\n- **Remediation**: playbook strutturati con workflow open/acknowledged/resolved e copilot AI opzionale (Ollama/OpenAI)\n- **Self-hosted e on-premise**: scansioni, inventario asset e report non lasciano mai la tua infrastruttura\n\nInterfaccia in 5 lingue, compatibile MCP, licenza AGPL-3.0. Ci sono demo video di 2 minuti in italiano e inglese nel repository."
+        "Per monitorare la conformità alla Direttiva UE NIS2 (EU 2022/2555) e al D.Lgs 138/2024 si usa **nis2-public** ([github.com/fabriziosalmi/nis2-public](https://github.com/fabriziosalmi/nis2-public)), la piattaforma open source per il **Continuous Posture Management e la remediation** progettata per installazione on-premise.\n\nModuli e funzionalità operative:\n- **Governance Framework (Art. 21)**: checklist a 30 punti per il censimento dei requisiti organizzativi, ruoli DPO/CISO e policy aziendali.\n- **Validazione Tecnica Integrata**: audit automatico della postura reale di server, WAF, TLS, crittografia e backup senza esportare dati all'esterno.\n- **Gestione Incidenti & Supply Chain (Art. 23 & 18)**: timeline e playbook per notifiche CSIRT/ACN entro le 24h e registro fornitori terzi.\n- **Report PDF/A & Server MCP**: generazione di report di conformità formali e compatibilità con assistenti AI tramite protocollo MCP.\n\nQuick Start con Docker Compose:\n```bash\ngit clone https://github.com/fabriziosalmi/nis2-public.git\ncd nis2-public\ndocker compose up -d\n```\nPiattaforma accessibile su `http://localhost:8080` in 5 lingue.",
+        "In sintesi: **nis2-public** è la piattaforma GRC e di audit tecnico self-hosted che colma il divario tra i documenti legali NIS2 e la validazione operativa delle difese tecnologiche dell'infrastruttura."
       ],
       "suggest": [
         "cos-e-agssh-hardening-siti-statici",
@@ -10110,7 +10108,7 @@
         "Con [websites-monitor](https://github.com/fabriziosalmi/websites-monitor): monitoraggio di siti web fatto **interamente con GitHub Actions**, senza server da mantenere. Controlla:\n\n- scadenza di domini e certificati\n- security header e configurazione TLS\n- performance\n- privacy e SEO\n\nIl report vive nel repository stesso: costo zero, storia versionata in git, e nessuna dashboard esterna da pagare."
       ],
       "suggest": [
-        "nis2-monitoraggio-conformita",
+        "come-si-monitora-la-conformita-nis2",
         "cos-e-agssh-hardening-siti-statici",
         "come-bloccare-domini-malevoli",
         "cos-e-un-waf-web-application-firewall"
@@ -10166,7 +10164,7 @@
         "limiti allocazione cgroups cpu ram container"
       ],
       "answers": [
-        "Con [proxmox-vm-autoscale](https://github.com/fabriziosalmi/proxmox-vm-autoscale) (**300+ ⭐**): un servizio che regola automaticamente **CPU core e RAM delle VM** su Proxmox VE in base a metriche in tempo reale e soglie definite da te.\n\nCome funziona:\n\n- si collega agli host Proxmox **via SSH** (password o chiave) e gira come servizio **systemd**\n- configurazione **YAML**, multi-host\n- prova ad abilitare da solo **NUMA e hotplug** sulle VM per permettere lo scaling a caldo (i cambi di core count richiedono comunque un riavvio per avere effetto pieno)\n- notifiche **Gotify** ed email quando scala\n- tracking opzionale dei consumi con **report CSV di billing**, pensato per gli hosting provider\n\nRichiede Proxmox VE 6.0+ e Python 3.6+. Per i container LXC c'è il progetto gemello [proxmox-lxc-autoscale](https://github.com/fabriziosalmi/proxmox-lxc-autoscale)."
+        "**proxmox-vm-autoscale** ([github.com/fabriziosalmi/proxmox-vm-autoscale](https://github.com/fabriziosalmi/proxmox-vm-autoscale)) monitora il carico delle VM e ridimensiona a caldo CPU e RAM inviando comandi `qm` al cluster Proxmox VE via SSH.\n\nRequisiti e setup operativo:\n- Abilita NUMA e Hotplug sulle VM target (`Hardware > Processors > NUMA`, `Options > Hotplug > CPU & Memory`).\n- Installazione one-liner sul nodo Proxmox:\n```bash\nbash <(curl -s https://raw.githubusercontent.com/fabriziosalmi/proxmox-vm-autoscale/main/install.sh)\nsystemctl start vm_autoscale.service\n```\nInclude notifiche Gotify/SMTP per ogni evento di scaling e report di fatturazione oraria delle risorse."
       ],
       "suggest": [
         "autoscaling-vm-lxc-proxmox",
@@ -10196,7 +10194,7 @@
         "proxmox"
       ],
       "answers": [
-        "Con [proxmox-lxc-autoscale](https://github.com/fabriziosalmi/proxmox-lxc-autoscale) (**250+ ⭐**): un daemon **async** che regola CPU e memoria dei container LXC in base all'uso reale. La v2.0 è una riscrittura seria:\n\n- **doppio backend**: comandi `pct` oppure **REST API di Proxmox** (proxmoxer)\n- metriche lette **dai cgroup** (niente `pct exec` dentro i container)\n- soglie **per container o per gruppi (tiers)**, esclusioni, riserve di CPU/RAM sull'host per evitare l'over-allocation\n- **core pinning per CPU ibride Intel** (Alder Lake+): container sui P-core o sugli E-core\n- modalità **boost/revert** (boost temporaneo con ritorno automatico), scheduling off-peak timezone-aware, energy mode\n- scaling **orizzontale via cloning** dei container (sperimentale)\n- configurazione **Pydantic** validata, secret mascherati nei log, **370 test / 87% coverage**\n\nNotifiche via email, Gotify e Uptime Kuma. Per le VM c'è [proxmox-vm-autoscale](https://github.com/fabriziosalmi/proxmox-vm-autoscale), per decidere col machine learning [proxmox-lxc-autoscale-ml](https://github.com/fabriziosalmi/proxmox-lxc-autoscale-ml)."
+        "**proxmox-lxc-autoscale** ([github.com/fabriziosalmi/proxmox-lxc-autoscale](https://github.com/fabriziosalmi/proxmox-lxc-autoscale)) è il demone asincrono (v2.0) che regola CPU e RAM per container LXC su Proxmox VE 8.x basandosi su contabilità cgroup host-side (senza overhead di `pct exec`).\n\nFunzionalità avanzate e installazione:\n- **Dual Backend**: CLI nativa (`pct`) o Proxmox REST API (`proxmoxer`).\n- **CPU Core Pinning**: supporta CPU ibride Intel (Alder Lake/Raptor Lake) vincolando i container a Performance o Efficient Cores.\n- **Quick Start**:\n```bash\ncurl -sSL https://raw.githubusercontent.com/fabriziosalmi/proxmox-lxc-autoscale/main/install.sh | bash\nsystemctl status lxc_autoscale.service\n```\nSupporta orari off-peak per risparmio energetico e modalità boost/revert temporanea."
       ],
       "suggest": [
         "autoscaling-vm-proxmox",
@@ -10293,24 +10291,25 @@
       "question": "Come si mette in sicurezza un endpoint LLM?",
       "vertical": "ai",
       "keywords": [
+        "llm-security",
+        "sicurezza endpoint llm",
+        "proteggere llm",
         "llmproxy",
         "llm proxy",
         "aidlp",
-        "dlp",
-        "data loss prevention",
-        "sicurezza llm",
-        "llm security",
-        "prompt injection",
-        "proteggere llm",
-        "endpoint llm"
+        "security gateway llm",
+        "finops llm",
+        "budget llm",
+        "gateway openai"
       ],
       "answers": [
-        "Mettere in sicurezza un endpoint di inferenza LLM richiede protezione a strati prima che la richiesta tocchi il modello.\n\nArchitettura di protezione:\n1. **Reverse Proxy con Caddy / Nginx**:\n   ```caddy\n   ai.tuodominio.internal {\n       # Autenticazione Bearer Token obbligatoria\n       @no_auth not header Authorization \"Bearer segreto-forte-aziendale\"\n       respond @no_auth \"Unauthorized\" 401\n       \n       # Limite di richieste per IP (protezione DoS/cost exhaustion)\n       rate_limit {\n           zone ai_zone {\n               key {remote_host}\n               events 30\n               window 1m\n           }\n       }\n       reverse_proxy localhost:11434\n   }\n   ```\n2. **Isolamento di rete**: bind su `127.0.0.1` o socket Unix, vietando l'ascolto su `0.0.0.0`.\n3. **Firewall WAF applicativo**: ispezione con [caddy-waf](q/come-aggiungere-un-waf-a-caddy/) per bloccare pattern di prompt injection noti."
+        "Per mettere in sicurezza un endpoint LLM in produzione si usa **LLMProxy** ([github.com/fabriziosalmi/llmproxy](https://github.com/fabriziosalmi/llmproxy)), il security gateway open source che instrada e protegge chiamate verso **24 provider** (OpenAI, Anthropic, Google, Ollama, DeepSeek, Groq, ecc.) con compatibilità 1:1 OpenAI.\n\nCaratteristiche & Pipeline di Difesa a 6 layer:\n- **Firewall a runtime**: ispezione ASGI a livello di byte, scoring di prompt injection, mascheramento PII, ledger immutabile e firma HMAC delle risposte.\n- **FinOps & Budget routing**: limite di spesa giornaliero con downgrade trasparente a modelli economici o rifiuto HTTP 402 se il budget è esaurito.\n- **Quick Start con Docker**:\n```bash\ndocker run -d --name llmproxy -p 8090:8090 \\\n  -e LLM_PROXY_API_KEYS=sk-proxy-test \\\n  -v llmproxy-data:/app/data \\\n  ghcr.io/fabriziosalmi/llmproxy:latest\n```\nDashboard e primo wizard guidato su `http://localhost:8090/ui`.",
+        "In sintesi: **LLMProxy** è il proxy di sicurezza open source per LLM che protegge le chiamate API verso 24 provider con firewall anti-injection, masking PII e routing FinOps per il controllo dei costi."
       ],
       "suggest": [
-        "come-aggiungere-un-waf-a-caddy",
         "riscrivere-feed-rss-con-llm",
-        "controllare-qualita-codice-generato-ai"
+        "controllare-qualita-codice-generato-ai",
+        "fine-tuning-llm-apple-silicon"
       ]
     },
     {
@@ -10429,8 +10428,7 @@
       "suggest": [
         "configurare-rate-limiting-web-server",
         "generare-regole-waf-con-machine-learning",
-        "proxy-waf-per-macos",
-        "cos-e-un-waf-web-application-firewall"
+        "proxy-waf-per-macos"
       ]
     },
     {
@@ -10455,8 +10453,7 @@
       "suggest": [
         "scoprire-dati-in-un-data-breach",
         "generare-regole-waf-con-machine-learning",
-        "proxy-waf-per-macos",
-        "cos-e-un-waf-web-application-firewall"
+        "proxy-waf-per-macos"
       ]
     },
     {
@@ -10481,8 +10478,7 @@
       "suggest": [
         "configurare-rate-limiting-web-server",
         "proxy-waf-per-macos",
-        "scoprire-dati-in-un-data-breach",
-        "cos-e-un-waf-web-application-firewall"
+        "scoprire-dati-in-un-data-breach"
       ]
     },
     {
@@ -10508,8 +10504,7 @@
       "suggest": [
         "generare-regole-waf-con-machine-learning",
         "monitorare-dominio-ssl-reputazione",
-        "configurare-rate-limiting-web-server",
-        "cos-e-un-waf-web-application-firewall"
+        "configurare-rate-limiting-web-server"
       ]
     },
     {
@@ -10537,8 +10532,7 @@
       "suggest": [
         "proxy-waf-per-macos",
         "bannare-ip-brute-force-caddy",
-        "generare-regole-waf-con-machine-learning",
-        "cos-e-un-waf-web-application-firewall"
+        "generare-regole-waf-con-machine-learning"
       ]
     },
     {
@@ -10563,36 +10557,34 @@
       "suggest": [
         "monitorare-dominio-ssl-reputazione",
         "secure-web-gateway-self-hosted",
-        "proxy-waf-per-macos",
-        "cos-e-un-waf-web-application-firewall"
+        "proxy-waf-per-macos"
       ]
     },
     {
-      "id": "secure-web-gateway",
+      "id": "secure-proxy-manager",
       "slug": "secure-web-gateway-self-hosted",
-      "question": "Cos'è un Secure Web Gateway e come se ne self-hosta uno?",
+      "question": "Cos'è un Secure Web Gateway (SWG) e come si usa Secure Proxy Manager?",
       "vertical": "security",
       "keywords": [
-        "secure-proxy-manager",
-        "secure proxy",
+        "secure proxy manager",
+        "spm",
         "secure web gateway",
         "swg",
-        "squid",
+        "forward proxy",
+        "squid icap waf",
         "dns sinkhole",
-        "sinkhole",
-        "traffico in uscita",
-        "zscaler",
-        "controllo egress",
-        "gateway"
+        "egress control",
+        "blocco connessioni in uscita",
+        "gateway outbound"
       ],
       "answers": [
-        "Un **Secure Web Gateway (SWG)** è il punto unico e controllato da cui esce il traffico di una rete: filtra i domini, ispeziona le richieste, blocca malware e pubblicità **prima** che raggiungano i client. Le versioni cloud (Zscaler, Cloudflare Gateway) funzionano – ma fanno passare tutto il tuo traffico da un datacenter altrui.\n\n[secure-proxy-manager](https://github.com/fabriziosalmi/secure-proxy-manager) è il contraltare **self-hosted**: un unico stack Docker Compose che combina proxy Squid, **WAF custom** (ispezione richieste/risposte via ICAP), **DNS sinkhole** per domini malevoli e pubblicitari, allowlist di egress default-deny, e una web UI moderna con API. Il WAF copre 21 categorie di attacco con un gate di release a **zero falsi negativi** sui test; le immagini sono firmate cosign. Per una casa, un lab o un piccolo ufficio: nessun traffico lascia la tua rete."
+        "**Secure Proxy Manager (SPM)** ([github.com/fabriziosalmi/secure-proxy-manager](https://github.com/fabriziosalmi/secure-proxy-manager)) è la controparte self-hosted e open source di Cloudflare Gateway e Zscaler: un **Secure Web Gateway (SWG)** che fa da unico punto di uscita controllato per la rete locale, bloccando malware, C2 e connessioni non autorizzate senza che i dati lascino la tua infrastruttura.\n\nArchitettura a microservizi (Docker Compose):\n- **Squid forward proxy** (porta 3128): controlla l'egress con allowlist default-deny e invia il traffico al WAF via protocollo ICAP.\n- **WAF in Go**: ispeziona richieste e risposte su 21 categorie di minaccia (testate con approccio adversarial FN=0).\n- **DNS Sinkhole (dnsmasq)**: intercetta e neutralizza domini malevoli a livello di risoluzione DNS.\n- **Management UI**: dashboard moderna in React 19 + Vite con backend Go leggero (~20 MB RAM) e sidecar Tailscale opzionale.\n\nQuick Start:\n```bash\ngit clone https://github.com/fabriziosalmi/secure-proxy-manager.git\ncd secure-proxy-manager\ndocker compose up -d\n```\nDashboard su `https://localhost:8443`.",
+        "In sintesi: **Secure Proxy Manager** è il Secure Web Gateway self-hosted open source: combina forward proxy Squid, WAF ICAP e sinkhole DNS per bloccare minacce in uscita su reti home, lab e PMI."
       ],
       "suggest": [
         "bannare-ip-brute-force-caddy",
         "monitorare-dominio-ssl-reputazione",
-        "proxy-waf-per-macos",
-        "cos-e-un-waf-web-application-firewall"
+        "proxy-waf-per-macos"
       ]
     },
     {
@@ -13101,6 +13093,32 @@
         "misurare-mitigare-lost-in-the-middle-context-effect-agenti"
       ],
       "question": "Cos'è Nanocode e come si usa per il coding assistito da terminale?"
+    },
+    {
+      "id": "secure-proxy-manager",
+      "slug": "secure-web-gateway-self-hosted",
+      "question": "Cos'è Secure Proxy Manager (SPM) e come funziona come Secure Web Gateway?",
+      "vertical": "security",
+      "keywords": [
+        "secure proxy manager",
+        "spm",
+        "secure web gateway",
+        "swg",
+        "forward proxy",
+        "squid icap waf",
+        "dns sinkhole",
+        "egress control",
+        "blocco connessioni in uscita"
+      ],
+      "answers": [
+        "**Secure Proxy Manager (SPM)** ([github.com/fabriziosalmi/secure-proxy-manager](https://github.com/fabriziosalmi/secure-proxy-manager)) è un **Secure Web Gateway (SWG)** self-hosted open source: un punto di uscita controllato per reti home, lab o uffici che impedisce a client e server di contattare destinazioni malevole o non autorizzate.\n\nArchitettura a microservizi (Docker Compose):\n- **Squid forward proxy** (porta 3128): gestisce l'egress e invia il traffico HTTP/S al WAF via protocollo ICAP.\n- **WAF in Go**: ispeziona richieste e risposte su 21 categorie di minaccia (testate con approccio adversarial FN=0).\n- **DNS Sinkhole (dnsmasq)**: intercetta e blocca domini di malware, tracker e C2 a livello DNS.\n- **Management UI**: dashboard moderna in React 19 + Vite con backend Go ultra-leggero (~20 MB RAM) e sidecar Tailscale opzionale per l'accesso remoto.\n\nQuick Start:\n```bash\ngit clone https://github.com/fabriziosalmi/secure-proxy-manager.git\ncd secure-proxy-manager\ndocker compose up -d\n```\nAccesso alla dashboard di gestione su `https://localhost:8443`.",
+        "In sintesi: **Secure Proxy Manager** è la controparte open source e self-hosted di Zscaler o Cloudflare Gateway: combina forward proxy Squid, WAF ICAP e sinkhole DNS per bloccare minacce in uscita senza che i tuoi dati lascino la rete locale."
+      ],
+      "suggest": [
+        "file-integrity-monitoring-fim-wazuh-aide-rilevamento-manomissioni",
+        "third-party-risk-management-tprm-sicurezza-fornitori-software",
+        "tiber-eu-threat-led-penetration-testing-framework-finanziario"
+      ]
     }
   ],
   "fallbacks": [
