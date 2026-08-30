@@ -50,6 +50,32 @@ def cap(x, y, text, w=640):
             f"text-anchor='middle'>{text}</text>")
 
 
+def timeline(steps, caption=None, h=170):
+    """Horizontal numbered-step timeline with an animated progress line."""
+    n = len(steps)
+    m, y = 56, 62
+    span = 640 - 2 * m
+    xs = [m + (span * i / (n - 1) if n > 1 else 0) for i in range(n)]
+    parts = [f"<line x1='{m}' y1='{y}' x2='{640-m}' y2='{y}' stroke='var(--border)' stroke-width='2'/>",
+             f"<line x1='{m}' y1='{y}' x2='{640-m}' y2='{y}' stroke='var(--accent)' stroke-width='2' "
+             f"stroke-dasharray='6 5' class='dg-flow'/>"]
+    for i, (x, step) in enumerate(zip(xs, steps)):
+        label = step if isinstance(step, str) else step[0]
+        sub = "" if isinstance(step, str) else step[1]
+        parts.append(f"<circle cx='{x}' cy='{y}' r='15' fill='var(--accent)'/>"
+                     f"<text x='{x}' y='{y+5}' text-anchor='middle' font-size='14' "
+                     f"font-weight='700' fill='#fff'>{i+1}</text>")
+        for j, ln in enumerate(label.split("\n")):
+            parts.append(f"<text x='{x}' y='{y+34+j*16}' text-anchor='middle' font-size='13' "
+                         f"font-weight='600' fill='var(--text)'>{ln}</text>")
+        if sub:
+            parts.append(f"<text x='{x}' y='{y-26}' text-anchor='middle' font-size='11.5' "
+                         f"fill='var(--text-dim)'>{sub}</text>")
+    if caption:
+        parts.append(cap(320, h - 8, caption))
+    return svg(640, h, "".join(parts))
+
+
 D = {}
 
 # --- WAF: request -> filter -> app, bad requests blocked ---
@@ -170,6 +196,35 @@ D["ai-agent"] = svg(640, 220,
     arrow(255, 176, 130, 138, flow=True) +
     arrow(120, 88, 280, 66, flow=True) +
     cap(320, 214, "il ciclo che trasforma il testo in azione"))
+
+# ---------- timelines for how-to / process entries ----------
+
+D["dmarc-rollout"] = timeline(
+    [("p=none", "osserva"), ("p=quarantine\npct 25%", "a tappe"), ("p=reject", "quando pulito")],
+    "rollout graduale: prima osservi coi report, poi stringi")
+
+D["nist-ir-lifecycle"] = timeline(
+    ["Preparazione", "Detection\n& Analysis", "Contenimento", "Eradicazione", "Recovery", "Lessons\nlearned"],
+    "un ciclo, non una retta: si torna indietro quando serve", h=176)
+
+D["flareover"] = timeline(
+    ["assess", "prepare", "present", "execute", "guard"],
+    "migrazione deterministica: zero config che cambia comportamento in silenzio")
+
+D["come-funziona-acme"] = timeline(
+    [("Richiesta", "certbot/ACME"), ("Challenge", "http-01 / dns-01"), ("Verifica", "controlli il dominio"),
+     ("Certificato", "valido 90 giorni"), ("Rinnovo", "automatico")],
+    "il rinnovo va automatizzato: 90 giorni non sono un optional")
+
+D["vmware-migrazione"] = timeline(
+    [("Assess", "annota MAC, rete"), ("VirtIO", "driver nelle guest"), ("Import", "diretto da ESXi"),
+     ("A ondate", "prima le VM di test")],
+    "dal PVE 8.2 l'import da ESXi e diretto")
+
+D["incident-response"] = timeline(
+    [("Contieni", "isola, non spegnere"), ("Preserva", "RAM e log"), ("Capisci", "l'estensione prima"),
+     ("Comunica", "fuori banda")],
+    "le prime ore decidono se e un brutto giorno o un disastro")
 
 json.dump(D, open("/Users/fab/Documents/git/fabgpt-faq/diagrams.json", "w"),
           ensure_ascii=False, indent=1)

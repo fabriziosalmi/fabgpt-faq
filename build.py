@@ -71,6 +71,22 @@ def _wrap(text: str, width: int) -> list:
     return lines
 
 
+def glyph(vid: str) -> str:
+    """Small theme-aware SVG glyph per vertical, drawn with the accent stroke."""
+    inner = {
+        "security": "<path d='M12 3l7 3v5c0 4-3 7-7 8-4-1-7-4-7-8V6z'/>",   # shield
+        "ai": "<circle cx='12' cy='12' r='3'/><path d='M12 3v3M12 18v3M3 12h3M18 12h3M6 6l2 2M16 16l2 2M18 6l-2 2M8 16l-2 2'/>",  # spark/node
+        "proxmox": "<rect x='4' y='5' width='16' height='4' rx='1'/><rect x='4' y='11' width='16' height='4' rx='1'/><path d='M8 7h.01M8 13h.01'/>",  # server stack
+        "cloudflare": "<path d='M7 17h10a3 3 0 000-6 5 5 0 00-9.6-1.3A3.5 3.5 0 007 17z'/>",  # cloud
+        "tools": "<path d='M14 6a3 3 0 00-4 4l-6 6 2 2 6-6a3 3 0 004-4l-2 2-2-.5L11.5 8z'/>",  # wrench
+        "creative": "<path d='M9 18V6l10-2v12'/><circle cx='7' cy='18' r='2'/><circle cx='17' cy='16' r='2'/>",  # music note
+        "meta": "<path d='M4 5h16v10H9l-4 4v-4H4z'/>",   # chat bubble
+    }.get(vid, "<circle cx='12' cy='12' r='7'/>")
+    return (f"<svg class='glyph' viewBox='0 0 24 24' width='22' height='22' aria-hidden='true' "
+            f"fill='none' stroke='var(--accent)' stroke-width='1.7' stroke-linecap='round' "
+            f"stroke-linejoin='round'>{inner}</svg>")
+
+
 def og_card(question: str, diagram_svg: str) -> str:
     """A 1200x630 branded OG card: the question + the concept diagram, in the
     dark brand palette (fixed, since OG images are viewed outside the site)."""
@@ -204,6 +220,14 @@ INDEX = """<!DOCTYPE html>
   .page a:hover {{ text-decoration: underline; }}
   .page li {{ margin: 7px 0; }}
   .page .intro {{ color: var(--text-dim); }}
+  .page h2 {{ display: flex; align-items: center; gap: 8px; }}
+  .page h2 .glyph {{ flex: 0 0 auto; }}
+  .stats {{ display: flex; flex-wrap: wrap; gap: 10px 28px; margin: 20px 0 8px; padding: 16px 18px; border: 1px solid var(--border); border-radius: 12px; background: var(--bg-soft); }}
+  .stat {{ display: flex; flex-direction: column; }}
+  .stat b {{ font-size: 26px; color: var(--accent); font-variant-numeric: tabular-nums; }}
+  .stat span {{ font-size: 12px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.05em; }}
+  @media (prefers-reduced-motion: no-preference) {{ .glyph {{ animation: glyph-in .5s ease both; }} }}
+  @keyframes glyph-in {{ from {{ opacity: 0; transform: translateY(3px) scale(.9); }} to {{ opacity: 1; transform: none; }} }}
 </style>
 </head>
 <body>
@@ -218,6 +242,22 @@ INDEX = """<!DOCTYPE html>
   <p class="intro">La knowledge base completa di FabGPT-FAQ: cybersecurity, AI, Proxmox, Cloudflare e i progetti open source di Fabrizio Salmi. Oppure <a href="../">chiedi in chat</a>.</p>
   {sections}
 </main>
+<script>
+(function(){{
+  var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  document.querySelectorAll('.stat b[data-to]').forEach(function(el){{
+    var to = +el.getAttribute('data-to');
+    if (reduce) {{ el.textContent = to; return; }}
+    var t0 = null, dur = 900;
+    requestAnimationFrame(function step(t){{
+      if (!t0) t0 = t;
+      var p = Math.min(1, (t - t0) / dur);
+      el.textContent = Math.round(to * (1 - Math.pow(1 - p, 3)));
+      if (p < 1) requestAnimationFrame(step);
+    }});
+  }});
+}})();
+</script>
 </body>
 </html>
 """
@@ -307,13 +347,21 @@ def build() -> None:
         (d / "index.html").write_text(page, encoding="utf-8")
 
     # --- index page with full FAQPage JSON-LD ---
-    sections = ""
+    n_vert = sum(1 for v in verticals if any(e["vertical"] == v for e in entries))
+    stat = (
+        '<div class="stats" aria-label="Statistiche">'
+        f'<div class="stat"><b data-to="{len(entries)}">0</b><span>risposte</span></div>'
+        '<div class="stat"><b>0</b><span>allucinazioni</span></div>'
+        '<div class="stat"><b>&euro;0</b><span>al mese</span></div>'
+        f'<div class="stat"><b data-to="{n_vert}">0</b><span>temi</span></div>'
+        '</div>')
+    sections = stat
     for vid, label in verticals.items():
         ventries = [e for e in entries if e["vertical"] == vid]
         if not ventries:
             continue
         items = "".join(f'<li><a href="{e["slug"]}/">{html.escape(e["question"])}</a></li>' for e in ventries)
-        sections += f"<h2>{html.escape(label)}</h2>\n<ul>{items}</ul>\n"
+        sections += f'<h2>{glyph(vid)}<span>{html.escape(label)}</span></h2>\n<ul>{items}</ul>\n'
     index_jsonld = [
         {
             "@context": "https://schema.org",

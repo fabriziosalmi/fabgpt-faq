@@ -396,9 +396,21 @@ non ha pagina propria) sono lavoro, non copertura.
 - **Comandi copiabili**: ogni `code` inline è click-to-copy (chat via delegation,
   pagine statiche via un piccolo script inline), con feedback "copiato".
 - bench G1 valida i diagrammi (id esistente, SVG ben formato, no em-dash).
-- Idee estetiche non ancora fatte (dal menu proposto): badge "verificata", hero
-  labirinto, timeline how-to, glyph verticali, contatore stat, micro-interazioni,
-  altri diagrammi oltre i 10 pilastri.
+- **Timeline how-to** (2026-08-30): 6 timeline sequenziali in diagrams.json via
+  timeline() (DMARC rollout, ciclo IR NIST, fasi flareover, ACME, migrazione VMware,
+  prime ore incident) — stesso meccanismo dei diagrammi (chat + statico + OG). Ora
+  16 diagrammi totali.
+- **Glyph di verticale** (2026-08-30): 7 SVG stroke-accent (shield/spark/server/cloud/
+  wrench/nota/bubble) accanto alle sezioni dell'indice /q/, con draw-in guardato da
+  reduced-motion.
+- **Contatore stat** (2026-08-30): count-up "N risposte · 0 allucinazioni · €0 al mese"
+  sulla chat (app.js, numero reale) e sull'indice /q/ (script inline + temi), cubic
+  ease, valore finale immediato sotto reduced-motion.
+- **Micro-interazioni** (2026-08-30): chip lift/scale, underline animato sui link delle
+  risposte, entrata dei messaggi, pop-in di avatar/brand-dot, send-button scale — tutte
+  motion-guardate.
+- Idee estetiche ancora da fare (dal menu): badge "verificata", hero labirinto,
+  altri diagrammi oltre i pilastri.
 
 ## Giro 2 – rifinitura & answer-engine optimization (DONE 2026-08-30)
 

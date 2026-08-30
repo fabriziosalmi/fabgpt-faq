@@ -344,6 +344,21 @@
     }
   });
 
+  // Count-up the header stat bar (the real entry count), reduced-motion aware.
+  function animateStats(total) {
+    const el = document.querySelector('#statbar b[data-to]');
+    if (!el) return;
+    el.setAttribute('data-to', total);
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) { el.textContent = total; return; }
+    let t0 = null;
+    requestAnimationFrame(function step(t) {
+      if (!t0) t0 = t;
+      const p = Math.min(1, (t - t0) / 900);
+      el.textContent = Math.round(total * (1 - Math.pow(1 - p, 3)));
+      if (p < 1) requestAnimationFrame(step);
+    });
+  }
+
   /* ---------- boot ---------- */
 
   async function boot() {
@@ -363,6 +378,7 @@
     inputEl.focus();
     bySlug = Object.create(null);
     for (const e of DB.entries) bySlug[e.slug] = e;
+    animateStats(DB.entries.length);
 
     const q = new URLSearchParams(location.search).get('q');
     const deepEntry = q && DB.entries.find(e => e.id === q || e.slug === q);

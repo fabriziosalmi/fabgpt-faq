@@ -245,6 +245,47 @@ body {
 .msg-bot .content code:hover { outline: 1px solid var(--border); }
 .msg-bot .content code.copied { outline: 1px solid var(--accent); color: var(--accent); }
 
+/* header stat bar (chat) */
+.statbar {
+  flex: 0 0 auto;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 6px 20px;
+  padding: 8px 16px;
+  font-size: 12.5px;
+  color: var(--text-dim);
+  border-bottom: 1px solid var(--border);
+}
+.statbar b { color: var(--accent); font-variant-numeric: tabular-nums; font-weight: 700; }
+
+/* ---------- micro-interactions (motion-guarded) ---------- */
+
+.chip { transition: background .15s, border-color .15s, transform .12s; }
+.chip:active { transform: scale(0.97); }
+
+/* animated underline growth on answer links */
+.msg-bot .content a:not(.chip) {
+  text-decoration: none;
+  background-image: linear-gradient(var(--link), var(--link));
+  background-size: 0% 1px;
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  transition: background-size .2s ease;
+}
+.msg-bot .content a:not(.chip):hover { background-size: 100% 1px; text-decoration: none; }
+
+#send { transition: opacity .15s, transform .12s; }
+#send:not(:disabled):active { transform: scale(0.92); }
+
+@media (prefers-reduced-motion: no-preference) {
+  .chip:hover { transform: translateY(-1px); }
+  .msg { animation: msg-in .28s ease both; }
+  .msg-bot .avatar, .brand-dot { animation: pop-in .35s ease both; }
+}
+@keyframes msg-in { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+@keyframes pop-in { from { transform: scale(0.6); opacity: 0; } to { transform: none; opacity: 1; } }
+
 /* ---------- composer ---------- */
 
 .composer {
