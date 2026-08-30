@@ -5,13 +5,28 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Come si fa un media server self-hosted (Jellyfin)? – FabGPT-FAQ</title>
 <meta name="description" content="Jellyfin è il tuo Netflix personale: organizza film, serie, musica e li trasmette in streaming a ogni schermo di casa (e fuori) con app per TV, telefoni e…">
+<meta name="robots" content="index,follow,max-image-preview:large">
 <link rel="canonical" href="https://fabriziosalmi.github.io/fabgpt-faq/q/media-server-self-hosted-jellyfin/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Come si fa un media server self-hosted (Jellyfin)?">
+<meta property="og:description" content="Jellyfin è il tuo Netflix personale: organizza film, serie, musica e li trasmette in streaming a ogni schermo di casa (e fuori) con app per TV, telefoni e…">
+<meta property="og:url" content="https://fabriziosalmi.github.io/fabgpt-faq/q/media-server-self-hosted-jellyfin/">
+<meta property="og:image" content="https://fabriziosalmi.github.io/fabgpt-faq/og.svg">
+<meta property="og:site_name" content="FabGPT-FAQ">
+<meta property="og:locale" content="it_IT">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Come si fa un media server self-hosted (Jellyfin)?">
+<meta name="twitter:description" content="Jellyfin è il tuo Netflix personale: organizza film, serie, musica e li trasmette in streaming a ogni schermo di casa (e fuori) con app per TV, telefoni e…">
+<meta name="twitter:image" content="https://fabriziosalmi.github.io/fabgpt-faq/og.svg">
 <link rel="stylesheet" href="../../style.css">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Come si fa un media server self-hosted (Jellyfin)?", "acceptedAnswer": {"@type": "Answer", "text": "Jellyfin è il tuo Netflix personale: organizza film, serie, musica e li trasmette in streaming a ogni schermo di casa (e fuori) con app per TV, telefoni e browser. A differenza di Plex è completamente libero e senza account cloud – nessun login a un servizio terzo per vedere i tuoi file. I due dettagli che fanno la differenza: transcoding: se un client non supporta un formato, Jellyfin lo riconverte al volo – operazione pesante che vive di accelerazione hardware (QuickSync Intel, NVENC): su [Proxmox](q/cos-e-proxmox-ve/) significa passare la GPU/iGPU, spesso a [un LXC](q/differenza-container-lxc-e-vm/) via [device passthrough](q/passare-un-disco-usb-a-una-vm/) – un [mini PC con iGPU Intel](q/homelab-a-basso-consumo/) transcodifica più flussi consumando pochi watt storage: la libreria vive su [NAS/ZFS](q/storage-proxmox-lvm-zfs-nfs-ceph/), montata nel container L'accesso da fuori: [mesh VPN](q/wireguard-e-mesh-vpn/) per la famiglia, o [reverse proxy](q/cos-e-un-reverse-proxy/) con attenzione (Jellyfin esposto va tenuto aggiornato). Nell'orbita: gli \"-arr\" per l'automazione della libreria, e per gli audiolibri Audiobookshelf – o, se cerchi solo ascolto, [audiolibri.org](q/audiolibri-gratis-in-italiano/)."}}]}</script>
+<script type="application/ld+json">[{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Come si fa un media server self-hosted (Jellyfin)?", "acceptedAnswer": {"@type": "Answer", "text": "Jellyfin è il tuo Netflix personale: organizza film, serie, musica e li trasmette in streaming a ogni schermo di casa (e fuori) con app per TV, telefoni e browser. A differenza di Plex è completamente libero e senza account cloud – nessun login a un servizio terzo per vedere i tuoi file. I due dettagli che fanno la differenza: transcoding: se un client non supporta un formato, Jellyfin lo riconverte al volo – operazione pesante che vive di accelerazione hardware (QuickSync Intel, NVENC): su [Proxmox](q/cos-e-proxmox-ve/) significa passare la GPU/iGPU, spesso a [un LXC](q/differenza-container-lxc-e-vm/) via [device passthrough](q/passare-un-disco-usb-a-una-vm/) – un [mini PC con iGPU Intel](q/homelab-a-basso-consumo/) transcodifica più flussi consumando pochi watt storage: la libreria vive su [NAS/ZFS](q/storage-proxmox-lvm-zfs-nfs-ceph/), montata nel container L'accesso da fuori: [mesh VPN](q/wireguard-e-mesh-vpn/) per la famiglia, o [reverse proxy](q/cos-e-un-reverse-proxy/) con attenzione (Jellyfin esposto va tenuto aggiornato). Nell'orbita: gli \"-arr\" per l'automazione della libreria, e per gli audiolibri Audiobookshelf – o, se cerchi solo ascolto, [audiolibri.org](q/audiolibri-gratis-in-italiano/)."}}]}, {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "FabGPT-FAQ", "item": "https://fabriziosalmi.github.io/fabgpt-faq/"}, {"@type": "ListItem", "position": 2, "name": "Tutte le domande", "item": "https://fabriziosalmi.github.io/fabgpt-faq/q/"}, {"@type": "ListItem", "position": 3, "name": "Proxmox e self-hosting", "item": "https://fabriziosalmi.github.io/fabgpt-faq/q/media-server-self-hosted-jellyfin/"}]}]</script>
 <style>
   .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
-  .page h1 { font-size: 26px; line-height: 1.3; margin: 8px 0 20px; }
+  .page h1 { font-size: 26px; line-height: 1.3; margin: 6px 0 20px; }
+  .crumbs { font-size: 13px; color: var(--text-dim); margin-bottom: 4px; }
+  .crumbs a { color: var(--text-dim); text-decoration: none; }
+  .crumbs a:hover { color: var(--text); }
   .page .answer a { color: var(--link); }
   .page .vertical { font-size: 13px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }
   .page .answer ul { padding-left: 22px; }
@@ -32,7 +47,7 @@
   </a>
 </header>
 <main class="page">
-  <div class="vertical">Proxmox e self-hosting</div>
+  <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › Proxmox e self-hosting</nav>
   <h1>Come si fa un media server self-hosted (Jellyfin)?</h1>
   <div class="answer"><p><strong>Jellyfin</strong> è il tuo Netflix personale: organizza film, serie, musica e li trasmette in streaming a ogni schermo di casa (e fuori) con app per TV, telefoni e browser. A differenza di Plex è <strong>completamente libero e senza account cloud</strong> – nessun login a un servizio terzo per vedere i <em>tuoi</em> file.</p><p>I due dettagli che fanno la differenza:</p><ul><li><strong>transcoding</strong>: se un client non supporta un formato, Jellyfin lo riconverte al volo – operazione pesante che vive di <strong>accelerazione hardware</strong> (QuickSync Intel, NVENC): su <a href="../cos-e-proxmox-ve/">Proxmox</a> significa passare la GPU/iGPU, spesso a <a href="../differenza-container-lxc-e-vm/">un LXC</a> via <a href="../passare-un-disco-usb-a-una-vm/">device passthrough</a> – un <a href="../homelab-a-basso-consumo/">mini PC con iGPU Intel</a> transcodifica più flussi consumando pochi watt</li><li><strong>storage</strong>: la libreria vive su <a href="../storage-proxmox-lvm-zfs-nfs-ceph/">NAS/ZFS</a>, montata nel container</li></ul><p>L&#x27;accesso da fuori: <a href="../wireguard-e-mesh-vpn/">mesh VPN</a> per la famiglia, o <a href="../cos-e-un-reverse-proxy/">reverse proxy</a> con attenzione (Jellyfin esposto va tenuto aggiornato). Nell&#x27;orbita: gli &quot;-arr&quot; per l&#x27;automazione della libreria, e per gli audiolibri Audiobookshelf – o, se cerchi solo ascolto, <a href="../audiolibri-gratis-in-italiano/">audiolibri.org</a>.</p></div>
   <a class="ask" href="../../?q=jellyfin">Chiedilo a FabGPT-FAQ →</a>

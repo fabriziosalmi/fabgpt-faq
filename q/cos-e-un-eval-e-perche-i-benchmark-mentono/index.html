@@ -5,13 +5,28 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Cos&#x27;è un eval (e perché i benchmark mentono)? – FabGPT-FAQ</title>
 <meta name="description" content="Un eval è un test ripetibile per misurare un modello: domande con risposte attese, una metrica, un punteggio. I benchmark pubblici (MMLU, HumanEval, le…">
+<meta name="robots" content="index,follow,max-image-preview:large">
 <link rel="canonical" href="https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-un-eval-e-perche-i-benchmark-mentono/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Cos&#x27;è un eval (e perché i benchmark mentono)?">
+<meta property="og:description" content="Un eval è un test ripetibile per misurare un modello: domande con risposte attese, una metrica, un punteggio. I benchmark pubblici (MMLU, HumanEval, le…">
+<meta property="og:url" content="https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-un-eval-e-perche-i-benchmark-mentono/">
+<meta property="og:image" content="https://fabriziosalmi.github.io/fabgpt-faq/og.svg">
+<meta property="og:site_name" content="FabGPT-FAQ">
+<meta property="og:locale" content="it_IT">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Cos&#x27;è un eval (e perché i benchmark mentono)?">
+<meta name="twitter:description" content="Un eval è un test ripetibile per misurare un modello: domande con risposte attese, una metrica, un punteggio. I benchmark pubblici (MMLU, HumanEval, le…">
+<meta name="twitter:image" content="https://fabriziosalmi.github.io/fabgpt-faq/og.svg">
 <link rel="stylesheet" href="../../style.css">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Cos'è un eval (e perché i benchmark mentono)?", "acceptedAnswer": {"@type": "Answer", "text": "Un eval è un test ripetibile per misurare un modello: domande con risposte attese, una metrica, un punteggio. I benchmark pubblici (MMLU, HumanEval, le arene di preferenze) sono eval standardizzati su cui si costruiscono le classifiche – utilissimi per orientarsi, pericolosi se creduti alla lettera. Perché \"mentono\": la [contaminazione](q/contaminazione-dei-benchmark/) (il test finito nei dati di addestramento), la saturazione (quando tutti fanno 90%, il benchmark non distingue più), l'ottimizzazione mirata (Goodhart: la misura diventa l'obiettivo e smette di misurare), e la distanza dal tuo caso: un modello forte in matematica olimpionica può essere mediocre sul tuo estrattore di fatture in italiano. La conseguenza pratica è una sola: le leaderboard per la rosa dei candidati, i tuoi eval per la scelta – venti casi reali del tuo dominio battono qualsiasi classifica ([come costruirli](q/come-valutare-le-risposte-di-un-llm/)). Nel piccolo è l'approccio di llm-benchmarks: compiti semplici, misurabili, senza gloria."}}]}</script>
+<script type="application/ld+json">[{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Cos'è un eval (e perché i benchmark mentono)?", "acceptedAnswer": {"@type": "Answer", "text": "Un eval è un test ripetibile per misurare un modello: domande con risposte attese, una metrica, un punteggio. I benchmark pubblici (MMLU, HumanEval, le arene di preferenze) sono eval standardizzati su cui si costruiscono le classifiche – utilissimi per orientarsi, pericolosi se creduti alla lettera. Perché \"mentono\": la [contaminazione](q/contaminazione-dei-benchmark/) (il test finito nei dati di addestramento), la saturazione (quando tutti fanno 90%, il benchmark non distingue più), l'ottimizzazione mirata (Goodhart: la misura diventa l'obiettivo e smette di misurare), e la distanza dal tuo caso: un modello forte in matematica olimpionica può essere mediocre sul tuo estrattore di fatture in italiano. La conseguenza pratica è una sola: le leaderboard per la rosa dei candidati, i tuoi eval per la scelta – venti casi reali del tuo dominio battono qualsiasi classifica ([come costruirli](q/come-valutare-le-risposte-di-un-llm/)). Nel piccolo è l'approccio di llm-benchmarks: compiti semplici, misurabili, senza gloria."}}]}, {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "FabGPT-FAQ", "item": "https://fabriziosalmi.github.io/fabgpt-faq/"}, {"@type": "ListItem", "position": 2, "name": "Tutte le domande", "item": "https://fabriziosalmi.github.io/fabgpt-faq/q/"}, {"@type": "ListItem", "position": 3, "name": "AI e LLM", "item": "https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-un-eval-e-perche-i-benchmark-mentono/"}]}]</script>
 <style>
   .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
-  .page h1 { font-size: 26px; line-height: 1.3; margin: 8px 0 20px; }
+  .page h1 { font-size: 26px; line-height: 1.3; margin: 6px 0 20px; }
+  .crumbs { font-size: 13px; color: var(--text-dim); margin-bottom: 4px; }
+  .crumbs a { color: var(--text-dim); text-decoration: none; }
+  .crumbs a:hover { color: var(--text); }
   .page .answer a { color: var(--link); }
   .page .vertical { font-size: 13px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }
   .page .answer ul { padding-left: 22px; }
@@ -32,7 +47,7 @@
   </a>
 </header>
 <main class="page">
-  <div class="vertical">AI e LLM</div>
+  <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › AI e LLM</nav>
   <h1>Cos&#x27;è un eval (e perché i benchmark mentono)?</h1>
   <div class="answer"><p>Un <strong>eval</strong> è un test ripetibile per misurare un modello: domande con risposte attese, una metrica, un punteggio. I <strong>benchmark pubblici</strong> (MMLU, HumanEval, le arene di preferenze) sono eval standardizzati su cui si costruiscono le classifiche – utilissimi per orientarsi, pericolosi se creduti alla lettera.</p><p>Perché &quot;mentono&quot;: la <a href="../contaminazione-dei-benchmark/">contaminazione</a> (il test finito nei dati di addestramento), la <strong>saturazione</strong> (quando tutti fanno 90%, il benchmark non distingue più), l&#x27;ottimizzazione mirata (Goodhart: la misura diventa l&#x27;obiettivo e smette di misurare), e la distanza dal tuo caso: un modello forte in matematica olimpionica può essere mediocre sul tuo estrattore di fatture in italiano.</p><p>La conseguenza pratica è una sola: le leaderboard per la <em>rosa dei candidati</em>, i <strong>tuoi eval</strong> per la scelta – venti casi reali del tuo dominio battono qualsiasi classifica (<a href="../come-valutare-le-risposte-di-un-llm/">come costruirli</a>). Nel piccolo è l&#x27;approccio di <a href="https://github.com/fabriziosalmi/llm-benchmarks" target="_blank" rel="noopener">llm-benchmarks</a>: compiti semplici, misurabili, senza gloria.</p></div>
   <a class="ask" href="../../?q=eval-llm">Chiedilo a FabGPT-FAQ →</a>

@@ -5,13 +5,28 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Cos&#x27;è il pretraining (e il post-training)? – FabGPT-FAQ</title>
 <meta name="description" content="Un LLM nasce in due fasi molto diverse: il pretraining è la forgiatura: mesi di GPU su trilioni di [token](q/token-e-context-window/) di testo, con un unico…">
+<meta name="robots" content="index,follow,max-image-preview:large">
 <link rel="canonical" href="https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-il-pretraining-e-post-training/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Cos&#x27;è il pretraining (e il post-training)?">
+<meta property="og:description" content="Un LLM nasce in due fasi molto diverse: il pretraining è la forgiatura: mesi di GPU su trilioni di [token](q/token-e-context-window/) di testo, con un unico…">
+<meta property="og:url" content="https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-il-pretraining-e-post-training/">
+<meta property="og:image" content="https://fabriziosalmi.github.io/fabgpt-faq/og.svg">
+<meta property="og:site_name" content="FabGPT-FAQ">
+<meta property="og:locale" content="it_IT">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Cos&#x27;è il pretraining (e il post-training)?">
+<meta name="twitter:description" content="Un LLM nasce in due fasi molto diverse: il pretraining è la forgiatura: mesi di GPU su trilioni di [token](q/token-e-context-window/) di testo, con un unico…">
+<meta name="twitter:image" content="https://fabriziosalmi.github.io/fabgpt-faq/og.svg">
 <link rel="stylesheet" href="../../style.css">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Cos'è il pretraining (e il post-training)?", "acceptedAnswer": {"@type": "Answer", "text": "Un LLM nasce in due fasi molto diverse: il pretraining è la forgiatura: mesi di GPU su trilioni di [token](q/token-e-context-window/) di testo, con un unico obiettivo – predire il token successivo. Da qui escono conoscenza e capacità linguistiche, ma un modello \"base\" che completa il testo, non un assistente: se gli chiedi qualcosa, potrebbe risponderti con altre tre domande simili. il post-training è l'educazione: il fine-tuning supervisionato (SFT) su esempi di dialogo gli insegna il formato domanda-risposta, e l'allineamento alle preferenze ([RLHF/DPO](q/cos-e-rlhf/)) lo rende utile, prudente, gradevole. È qui che nasce il \"carattere\". La parte interessante per chi costruisce: il pretraining è roba da laboratori con budget a nove cifre, ma il post-training è accessibile – un [fine-tuning LoRA](q/meglio-fine-tuning-o-rag/) su un modello aperto si fa [anche su un Mac](q/fine-tuning-llm-apple-silicon/)."}}]}</script>
+<script type="application/ld+json">[{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Cos'è il pretraining (e il post-training)?", "acceptedAnswer": {"@type": "Answer", "text": "Un LLM nasce in due fasi molto diverse: il pretraining è la forgiatura: mesi di GPU su trilioni di [token](q/token-e-context-window/) di testo, con un unico obiettivo – predire il token successivo. Da qui escono conoscenza e capacità linguistiche, ma un modello \"base\" che completa il testo, non un assistente: se gli chiedi qualcosa, potrebbe risponderti con altre tre domande simili. il post-training è l'educazione: il fine-tuning supervisionato (SFT) su esempi di dialogo gli insegna il formato domanda-risposta, e l'allineamento alle preferenze ([RLHF/DPO](q/cos-e-rlhf/)) lo rende utile, prudente, gradevole. È qui che nasce il \"carattere\". La parte interessante per chi costruisce: il pretraining è roba da laboratori con budget a nove cifre, ma il post-training è accessibile – un [fine-tuning LoRA](q/meglio-fine-tuning-o-rag/) su un modello aperto si fa [anche su un Mac](q/fine-tuning-llm-apple-silicon/)."}}]}, {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "FabGPT-FAQ", "item": "https://fabriziosalmi.github.io/fabgpt-faq/"}, {"@type": "ListItem", "position": 2, "name": "Tutte le domande", "item": "https://fabriziosalmi.github.io/fabgpt-faq/q/"}, {"@type": "ListItem", "position": 3, "name": "AI e LLM", "item": "https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-il-pretraining-e-post-training/"}]}]</script>
 <style>
   .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
-  .page h1 { font-size: 26px; line-height: 1.3; margin: 8px 0 20px; }
+  .page h1 { font-size: 26px; line-height: 1.3; margin: 6px 0 20px; }
+  .crumbs { font-size: 13px; color: var(--text-dim); margin-bottom: 4px; }
+  .crumbs a { color: var(--text-dim); text-decoration: none; }
+  .crumbs a:hover { color: var(--text); }
   .page .answer a { color: var(--link); }
   .page .vertical { font-size: 13px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }
   .page .answer ul { padding-left: 22px; }
@@ -32,7 +47,7 @@
   </a>
 </header>
 <main class="page">
-  <div class="vertical">AI e LLM</div>
+  <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › AI e LLM</nav>
   <h1>Cos&#x27;è il pretraining (e il post-training)?</h1>
   <div class="answer"><p>Un LLM nasce in due fasi molto diverse:</p><ul><li>il <strong>pretraining</strong> è la forgiatura: mesi di GPU su trilioni di <a href="../token-e-context-window/">token</a> di testo, con un unico obiettivo – predire il token successivo. Da qui escono conoscenza e capacità linguistiche, ma un modello &quot;base&quot; che completa il testo, non un assistente: se gli chiedi qualcosa, potrebbe risponderti con altre tre domande simili.</li><li>il <strong>post-training</strong> è l&#x27;educazione: il <strong>fine-tuning supervisionato (SFT)</strong> su esempi di dialogo gli insegna il formato domanda-risposta, e l&#x27;allineamento alle preferenze (<a href="../cos-e-rlhf/">RLHF/DPO</a>) lo rende utile, prudente, gradevole. È qui che nasce il &quot;carattere&quot;.</li></ul><p>La parte interessante per chi costruisce: il pretraining è roba da laboratori con budget a nove cifre, ma il post-training è accessibile – un <a href="../meglio-fine-tuning-o-rag/">fine-tuning LoRA</a> su un modello aperto si fa <a href="../fine-tuning-llm-apple-silicon/">anche su un Mac</a>.</p></div>
   <a class="ask" href="../../?q=pretraining">Chiedilo a FabGPT-FAQ →</a>

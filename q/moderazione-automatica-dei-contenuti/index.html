@@ -5,13 +5,28 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Come funziona la moderazione automatica dei contenuti? – FabGPT-FAQ</title>
 <meta name="description" content="La moderazione automatica classifica testi (o immagini) rispetto a categorie di rischio – violenza, odio, sessuale, autolesionismo – e decide: passa,…">
+<meta name="robots" content="index,follow,max-image-preview:large">
 <link rel="canonical" href="https://fabriziosalmi.github.io/fabgpt-faq/q/moderazione-automatica-dei-contenuti/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Come funziona la moderazione automatica dei contenuti?">
+<meta property="og:description" content="La moderazione automatica classifica testi (o immagini) rispetto a categorie di rischio – violenza, odio, sessuale, autolesionismo – e decide: passa,…">
+<meta property="og:url" content="https://fabriziosalmi.github.io/fabgpt-faq/q/moderazione-automatica-dei-contenuti/">
+<meta property="og:image" content="https://fabriziosalmi.github.io/fabgpt-faq/og.svg">
+<meta property="og:site_name" content="FabGPT-FAQ">
+<meta property="og:locale" content="it_IT">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Come funziona la moderazione automatica dei contenuti?">
+<meta name="twitter:description" content="La moderazione automatica classifica testi (o immagini) rispetto a categorie di rischio – violenza, odio, sessuale, autolesionismo – e decide: passa,…">
+<meta name="twitter:image" content="https://fabriziosalmi.github.io/fabgpt-faq/og.svg">
 <link rel="stylesheet" href="../../style.css">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Come funziona la moderazione automatica dei contenuti?", "acceptedAnswer": {"@type": "Answer", "text": "La moderazione automatica classifica testi (o immagini) rispetto a categorie di rischio – violenza, odio, sessuale, autolesionismo – e decide: passa, blocca, o segnala a un umano. Nelle applicazioni LLM serve in due direzioni: sull'input degli utenti (per non far processare al sistema ciò che non deve) e sull'output del modello (per non pubblicare ciò che non dovrebbe uscire). Gli strumenti: API di moderazione dedicate (spesso gratuite a corredo delle API principali), modelli aperti specializzati (famiglia Llama Guard), o classificatori addestrati sulle tue categorie – perché ogni piattaforma ha confini suoi. Le lezioni apprese sul campo: le soglie vanno tarate sui dati reali (il falso positivo che censura una discussione medica è un danno anche lui), l'italiano e i contesti ironici sono terreno fragile, e la moderazione è un [guardrail](q/cosa-sono-i-guardrail-llm/), non il sistema di sicurezza intero."}}]}</script>
+<script type="application/ld+json">[{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Come funziona la moderazione automatica dei contenuti?", "acceptedAnswer": {"@type": "Answer", "text": "La moderazione automatica classifica testi (o immagini) rispetto a categorie di rischio – violenza, odio, sessuale, autolesionismo – e decide: passa, blocca, o segnala a un umano. Nelle applicazioni LLM serve in due direzioni: sull'input degli utenti (per non far processare al sistema ciò che non deve) e sull'output del modello (per non pubblicare ciò che non dovrebbe uscire). Gli strumenti: API di moderazione dedicate (spesso gratuite a corredo delle API principali), modelli aperti specializzati (famiglia Llama Guard), o classificatori addestrati sulle tue categorie – perché ogni piattaforma ha confini suoi. Le lezioni apprese sul campo: le soglie vanno tarate sui dati reali (il falso positivo che censura una discussione medica è un danno anche lui), l'italiano e i contesti ironici sono terreno fragile, e la moderazione è un [guardrail](q/cosa-sono-i-guardrail-llm/), non il sistema di sicurezza intero."}}]}, {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "FabGPT-FAQ", "item": "https://fabriziosalmi.github.io/fabgpt-faq/"}, {"@type": "ListItem", "position": 2, "name": "Tutte le domande", "item": "https://fabriziosalmi.github.io/fabgpt-faq/q/"}, {"@type": "ListItem", "position": 3, "name": "AI e LLM", "item": "https://fabriziosalmi.github.io/fabgpt-faq/q/moderazione-automatica-dei-contenuti/"}]}]</script>
 <style>
   .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
-  .page h1 { font-size: 26px; line-height: 1.3; margin: 8px 0 20px; }
+  .page h1 { font-size: 26px; line-height: 1.3; margin: 6px 0 20px; }
+  .crumbs { font-size: 13px; color: var(--text-dim); margin-bottom: 4px; }
+  .crumbs a { color: var(--text-dim); text-decoration: none; }
+  .crumbs a:hover { color: var(--text); }
   .page .answer a { color: var(--link); }
   .page .vertical { font-size: 13px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }
   .page .answer ul { padding-left: 22px; }
@@ -32,7 +47,7 @@
   </a>
 </header>
 <main class="page">
-  <div class="vertical">AI e LLM</div>
+  <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › AI e LLM</nav>
   <h1>Come funziona la moderazione automatica dei contenuti?</h1>
   <div class="answer"><p>La <strong>moderazione automatica</strong> classifica testi (o immagini) rispetto a categorie di rischio – violenza, odio, sessuale, autolesionismo – e decide: passa, blocca, o segnala a un umano. Nelle applicazioni LLM serve in <strong>due direzioni</strong>: sull&#x27;input degli utenti (per non far processare al sistema ciò che non deve) e sull&#x27;output del modello (per non pubblicare ciò che non dovrebbe uscire).</p><p>Gli strumenti: API di moderazione dedicate (spesso gratuite a corredo delle API principali), modelli aperti specializzati (famiglia Llama Guard), o classificatori addestrati sulle <em>tue</em> categorie – perché ogni piattaforma ha confini suoi. Le lezioni apprese sul campo: le soglie vanno tarate sui dati reali (il falso positivo che censura una discussione medica è un danno anche lui), l&#x27;italiano e i contesti ironici sono terreno fragile, e la moderazione è <strong>un</strong> <a href="../cosa-sono-i-guardrail-llm/">guardrail</a>, non il sistema di sicurezza intero.</p></div>
   <a class="ask" href="../../?q=moderazione-contenuti">Chiedilo a FabGPT-FAQ →</a>

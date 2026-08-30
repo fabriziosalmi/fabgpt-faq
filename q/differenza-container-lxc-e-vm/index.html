@@ -5,13 +5,28 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Che differenza c&#x27;è tra container LXC e VM? – FabGPT-FAQ</title>
 <meta name="description" content="Una VM virtualizza l&#x27;hardware: dentro ci gira un kernel completo, isolato da tutto. Un container LXC condivide il kernel dell&#x27;host e isola solo lo spazio…">
+<meta name="robots" content="index,follow,max-image-preview:large">
 <link rel="canonical" href="https://fabriziosalmi.github.io/fabgpt-faq/q/differenza-container-lxc-e-vm/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Che differenza c&#x27;è tra container LXC e VM?">
+<meta property="og:description" content="Una VM virtualizza l&#x27;hardware: dentro ci gira un kernel completo, isolato da tutto. Un container LXC condivide il kernel dell&#x27;host e isola solo lo spazio…">
+<meta property="og:url" content="https://fabriziosalmi.github.io/fabgpt-faq/q/differenza-container-lxc-e-vm/">
+<meta property="og:image" content="https://fabriziosalmi.github.io/fabgpt-faq/og.svg">
+<meta property="og:site_name" content="FabGPT-FAQ">
+<meta property="og:locale" content="it_IT">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Che differenza c&#x27;è tra container LXC e VM?">
+<meta name="twitter:description" content="Una VM virtualizza l&#x27;hardware: dentro ci gira un kernel completo, isolato da tutto. Un container LXC condivide il kernel dell&#x27;host e isola solo lo spazio…">
+<meta name="twitter:image" content="https://fabriziosalmi.github.io/fabgpt-faq/og.svg">
 <link rel="stylesheet" href="../../style.css">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Che differenza c'è tra container LXC e VM?", "acceptedAnswer": {"@type": "Answer", "text": "Una VM virtualizza l'hardware: dentro ci gira un kernel completo, isolato da tutto. Un container LXC condivide il kernel dell'host e isola solo lo spazio utente: si avvia in secondi, consuma una frazione della RAM, ma offre un isolamento più debole e può eseguire solo Linux. Regola pratica su Proxmox: LXC per i servizi Linux fidati e leggeri (reverse proxy, database interni, tool self-hosted), VM quando serve un kernel diverso, isolamento forte o compatibilità totale (Windows, appliance, workload sensibili). In entrambi i casi le risorse assegnate a mano invecchiano male: proxmox-lxc-autoscale e proxmox-vm-autoscale le adattano al carico reale."}}]}</script>
+<script type="application/ld+json">[{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Che differenza c'è tra container LXC e VM?", "acceptedAnswer": {"@type": "Answer", "text": "Una VM virtualizza l'hardware: dentro ci gira un kernel completo, isolato da tutto. Un container LXC condivide il kernel dell'host e isola solo lo spazio utente: si avvia in secondi, consuma una frazione della RAM, ma offre un isolamento più debole e può eseguire solo Linux. Regola pratica su Proxmox: LXC per i servizi Linux fidati e leggeri (reverse proxy, database interni, tool self-hosted), VM quando serve un kernel diverso, isolamento forte o compatibilità totale (Windows, appliance, workload sensibili). In entrambi i casi le risorse assegnate a mano invecchiano male: proxmox-lxc-autoscale e proxmox-vm-autoscale le adattano al carico reale."}}]}, {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "FabGPT-FAQ", "item": "https://fabriziosalmi.github.io/fabgpt-faq/"}, {"@type": "ListItem", "position": 2, "name": "Tutte le domande", "item": "https://fabriziosalmi.github.io/fabgpt-faq/q/"}, {"@type": "ListItem", "position": 3, "name": "Proxmox e self-hosting", "item": "https://fabriziosalmi.github.io/fabgpt-faq/q/differenza-container-lxc-e-vm/"}]}]</script>
 <style>
   .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
-  .page h1 { font-size: 26px; line-height: 1.3; margin: 8px 0 20px; }
+  .page h1 { font-size: 26px; line-height: 1.3; margin: 6px 0 20px; }
+  .crumbs { font-size: 13px; color: var(--text-dim); margin-bottom: 4px; }
+  .crumbs a { color: var(--text-dim); text-decoration: none; }
+  .crumbs a:hover { color: var(--text); }
   .page .answer a { color: var(--link); }
   .page .vertical { font-size: 13px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }
   .page .answer ul { padding-left: 22px; }
@@ -32,7 +47,7 @@
   </a>
 </header>
 <main class="page">
-  <div class="vertical">Proxmox e self-hosting</div>
+  <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › Proxmox e self-hosting</nav>
   <h1>Che differenza c&#x27;è tra container LXC e VM?</h1>
   <div class="answer"><p>Una <strong>VM</strong> virtualizza l&#x27;hardware: dentro ci gira un kernel completo, isolato da tutto. Un <strong>container LXC</strong> condivide il kernel dell&#x27;host e isola solo lo spazio utente: si avvia in secondi, consuma una frazione della RAM, ma offre un isolamento più debole e può eseguire solo Linux.</p><p>Regola pratica su Proxmox: <strong>LXC</strong> per i servizi Linux fidati e leggeri (reverse proxy, database interni, tool self-hosted), <strong>VM</strong> quando serve un kernel diverso, isolamento forte o compatibilità totale (Windows, appliance, workload sensibili).</p><p>In entrambi i casi le risorse assegnate a mano invecchiano male: <a href="https://github.com/fabriziosalmi/proxmox-lxc-autoscale" target="_blank" rel="noopener">proxmox-lxc-autoscale</a> e <a href="https://github.com/fabriziosalmi/proxmox-vm-autoscale" target="_blank" rel="noopener">proxmox-vm-autoscale</a> le adattano al carico reale.</p></div>
   <a class="ask" href="../../?q=lxc-vs-vm">Chiedilo a FabGPT-FAQ →</a>

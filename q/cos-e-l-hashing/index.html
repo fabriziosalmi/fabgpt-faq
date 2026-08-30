@@ -5,13 +5,28 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Cos&#x27;è l&#x27;hashing (e perché bcrypt/argon2 per le password)? – FabGPT-FAQ</title>
 <meta name="description" content="Un hash è l&#x27;impronta digitale di un dato: una funzione trasforma qualsiasi input in una stringa di lunghezza fissa, in modo non reversibile e sensibilissimo…">
+<meta name="robots" content="index,follow,max-image-preview:large">
 <link rel="canonical" href="https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-l-hashing/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Cos&#x27;è l&#x27;hashing (e perché bcrypt/argon2 per le password)?">
+<meta property="og:description" content="Un hash è l&#x27;impronta digitale di un dato: una funzione trasforma qualsiasi input in una stringa di lunghezza fissa, in modo non reversibile e sensibilissimo…">
+<meta property="og:url" content="https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-l-hashing/">
+<meta property="og:image" content="https://fabriziosalmi.github.io/fabgpt-faq/og.svg">
+<meta property="og:site_name" content="FabGPT-FAQ">
+<meta property="og:locale" content="it_IT">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Cos&#x27;è l&#x27;hashing (e perché bcrypt/argon2 per le password)?">
+<meta name="twitter:description" content="Un hash è l&#x27;impronta digitale di un dato: una funzione trasforma qualsiasi input in una stringa di lunghezza fissa, in modo non reversibile e sensibilissimo…">
+<meta name="twitter:image" content="https://fabriziosalmi.github.io/fabgpt-faq/og.svg">
 <link rel="stylesheet" href="../../style.css">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Cos'è l'hashing (e perché bcrypt/argon2 per le password)?", "acceptedAnswer": {"@type": "Answer", "text": "Un hash è l'impronta digitale di un dato: una funzione trasforma qualsiasi input in una stringa di lunghezza fissa, in modo non reversibile e sensibilissimo (un bit cambiato = impronta completamente diversa). Usi: verificare l'integrità dei file, [le firme](q/come-si-firma-il-codice/), le strutture dati – e le password. Sulle password, il punto delicato: il database non deve contenere password ma hash, così un breach non le rivela. Ma gli hash veloci (MD5, SHA-256) qui sono un errore: una GPU ne prova miliardi al secondo. Servono funzioni volutamente lente e costose in memoria – argon2 (lo standard attuale) o bcrypt – con un salt unico per utente che neutralizza le tabelle precalcolate. Nota storica: MD5 e SHA-1 sono rotti anche per l'integrità; per tutto il resto, SHA-256 in su – è la catena di hash che rende tamper-evident i log di RainLogs."}}]}</script>
+<script type="application/ld+json">[{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Cos'è l'hashing (e perché bcrypt/argon2 per le password)?", "acceptedAnswer": {"@type": "Answer", "text": "Un hash è l'impronta digitale di un dato: una funzione trasforma qualsiasi input in una stringa di lunghezza fissa, in modo non reversibile e sensibilissimo (un bit cambiato = impronta completamente diversa). Usi: verificare l'integrità dei file, [le firme](q/come-si-firma-il-codice/), le strutture dati – e le password. Sulle password, il punto delicato: il database non deve contenere password ma hash, così un breach non le rivela. Ma gli hash veloci (MD5, SHA-256) qui sono un errore: una GPU ne prova miliardi al secondo. Servono funzioni volutamente lente e costose in memoria – argon2 (lo standard attuale) o bcrypt – con un salt unico per utente che neutralizza le tabelle precalcolate. Nota storica: MD5 e SHA-1 sono rotti anche per l'integrità; per tutto il resto, SHA-256 in su – è la catena di hash che rende tamper-evident i log di RainLogs."}}]}, {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "FabGPT-FAQ", "item": "https://fabriziosalmi.github.io/fabgpt-faq/"}, {"@type": "ListItem", "position": 2, "name": "Tutte le domande", "item": "https://fabriziosalmi.github.io/fabgpt-faq/q/"}, {"@type": "ListItem", "position": 3, "name": "Cybersecurity", "item": "https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-l-hashing/"}]}]</script>
 <style>
   .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
-  .page h1 { font-size: 26px; line-height: 1.3; margin: 8px 0 20px; }
+  .page h1 { font-size: 26px; line-height: 1.3; margin: 6px 0 20px; }
+  .crumbs { font-size: 13px; color: var(--text-dim); margin-bottom: 4px; }
+  .crumbs a { color: var(--text-dim); text-decoration: none; }
+  .crumbs a:hover { color: var(--text); }
   .page .answer a { color: var(--link); }
   .page .vertical { font-size: 13px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }
   .page .answer ul { padding-left: 22px; }
@@ -32,7 +47,7 @@
   </a>
 </header>
 <main class="page">
-  <div class="vertical">Cybersecurity</div>
+  <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › Cybersecurity</nav>
   <h1>Cos&#x27;è l&#x27;hashing (e perché bcrypt/argon2 per le password)?</h1>
   <div class="answer"><p>Un <strong>hash</strong> è l&#x27;impronta digitale di un dato: una funzione trasforma qualsiasi input in una stringa di lunghezza fissa, in modo <strong>non reversibile</strong> e sensibilissimo (un bit cambiato = impronta completamente diversa). Usi: verificare l&#x27;integrità dei file, <a href="../come-si-firma-il-codice/">le firme</a>, le strutture dati – e le password.</p><p>Sulle password, il punto delicato: il database non deve contenere password ma hash, così un breach non le rivela. Ma gli hash <em>veloci</em> (MD5, SHA-256) qui sono un errore: una GPU ne prova miliardi al secondo. Servono funzioni <strong>volutamente lente e costose in memoria</strong> – <strong>argon2</strong> (lo standard attuale) o <strong>bcrypt</strong> – con un <strong>salt</strong> unico per utente che neutralizza le tabelle precalcolate. Nota storica: MD5 e SHA-1 sono rotti anche per l&#x27;integrità; per tutto il resto, SHA-256 in su – è la catena di hash che rende <a href="https://github.com/fabriziosalmi/rainlogs" target="_blank" rel="noopener">tamper-evident i log di RainLogs</a>.</p></div>
   <a class="ask" href="../../?q=hashing">Chiedilo a FabGPT-FAQ →</a>

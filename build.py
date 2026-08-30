@@ -68,13 +68,28 @@ PAGE = """<!DOCTYPE html>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>{title}</title>
 <meta name="description" content="{description}">
+<meta name="robots" content="index,follow,max-image-preview:large">
 <link rel="canonical" href="{canonical}">
+<meta property="og:type" content="article">
+<meta property="og:title" content="{ogtitle}">
+<meta property="og:description" content="{description}">
+<meta property="og:url" content="{canonical}">
+<meta property="og:image" content="{site}/og.svg">
+<meta property="og:site_name" content="FabGPT-FAQ">
+<meta property="og:locale" content="it_IT">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{ogtitle}">
+<meta name="twitter:description" content="{description}">
+<meta name="twitter:image" content="{site}/og.svg">
 <link rel="stylesheet" href="{base}style.css">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
 <script type="application/ld+json">{jsonld}</script>
 <style>
   .page {{ max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }}
-  .page h1 {{ font-size: 26px; line-height: 1.3; margin: 8px 0 20px; }}
+  .page h1 {{ font-size: 26px; line-height: 1.3; margin: 6px 0 20px; }}
+  .crumbs {{ font-size: 13px; color: var(--text-dim); margin-bottom: 4px; }}
+  .crumbs a {{ color: var(--text-dim); text-decoration: none; }}
+  .crumbs a:hover {{ color: var(--text); }}
   .page .answer a {{ color: var(--link); }}
   .page .vertical {{ font-size: 13px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }}
   .page .answer ul {{ padding-left: 22px; }}
@@ -95,7 +110,7 @@ PAGE = """<!DOCTYPE html>
   </a>
 </header>
 <main class="page">
-  <div class="vertical">{vertical}</div>
+  <nav class="crumbs"><a href="{base}">FabGPT-FAQ</a> › <a href="{base}q/">Tutte le domande</a> › {vertical}</nav>
   <h1>{question}</h1>
   <div class="answer">{answer}</div>
   <a class="ask" href="{base}?q={id}">Chiedilo a FabGPT-FAQ →</a>
@@ -115,7 +130,17 @@ INDEX = """<!DOCTYPE html>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Tutte le domande – FabGPT-FAQ</title>
 <meta name="description" content="{description}">
+<meta name="robots" content="index,follow,max-image-preview:large">
 <link rel="canonical" href="{canonical}">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Tutte le domande – FabGPT-FAQ">
+<meta property="og:description" content="{description}">
+<meta property="og:url" content="{canonical}">
+<meta property="og:image" content="{site}/og.svg">
+<meta property="og:site_name" content="FabGPT-FAQ">
+<meta property="og:locale" content="it_IT">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="{site}/og.svg">
 <link rel="stylesheet" href="../style.css">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
 <script type="application/ld+json">{jsonld}</script>
@@ -177,22 +202,36 @@ def build() -> None:
         related = "".join(
             f'<li><a href="../{o["slug"]}/">{html.escape(o["question"])}</a></li>' for o in others[:6]
         )
-        jsonld = {
-            "@context": "https://schema.org",
-            "@type": "FAQPage",
-            "mainEntity": [{
-                "@type": "Question",
-                "name": e["question"],
-                "acceptedAnswer": {"@type": "Answer", "text": md_to_plain(answer_md)},
-            }],
-        }
+        vlabel = verticals.get(e["vertical"], "")
+        jsonld = [
+            {
+                "@context": "https://schema.org",
+                "@type": "FAQPage",
+                "mainEntity": [{
+                    "@type": "Question",
+                    "name": e["question"],
+                    "acceptedAnswer": {"@type": "Answer", "text": md_to_plain(answer_md)},
+                }],
+            },
+            {
+                "@context": "https://schema.org",
+                "@type": "BreadcrumbList",
+                "itemListElement": [
+                    {"@type": "ListItem", "position": 1, "name": "FabGPT-FAQ", "item": f"{site}/"},
+                    {"@type": "ListItem", "position": 2, "name": "Tutte le domande", "item": f"{site}/q/"},
+                    {"@type": "ListItem", "position": 3, "name": vlabel, "item": f"{site}/q/{e['slug']}/"},
+                ],
+            },
+        ]
         page = PAGE.format(
             title=html.escape(e["question"]) + " – FabGPT-FAQ",
+            ogtitle=html.escape(e["question"]),
             description=html.escape(meta_description(answer_md)),
             canonical=f"{site}/q/{e['slug']}/",
             base="../../",
+            site=site,
             jsonld=json.dumps(jsonld, ensure_ascii=False),
-            vertical=html.escape(verticals.get(e["vertical"], "")),
+            vertical=html.escape(vlabel),
             question=html.escape(e["question"]),
             answer=render_md(answer_md).replace('href="q/', 'href="../'),
             id=e["id"],
@@ -210,22 +249,39 @@ def build() -> None:
             continue
         items = "".join(f'<li><a href="{e["slug"]}/">{html.escape(e["question"])}</a></li>' for e in ventries)
         sections += f"<h2>{html.escape(label)}</h2>\n<ul>{items}</ul>\n"
-    index_jsonld = {
-        "@context": "https://schema.org",
-        "@type": "FAQPage",
-        "mainEntity": [
-            {
-                "@type": "Question",
-                "name": e["question"],
-                "acceptedAnswer": {"@type": "Answer", "text": md_to_plain(e["answers"][0])},
-            }
-            for e in entries
-        ],
-    }
+    index_jsonld = [
+        {
+            "@context": "https://schema.org",
+            "@type": "WebSite",
+            "name": "FabGPT-FAQ",
+            "url": f"{site}/",
+            "inLanguage": "it",
+            "description": "FAQ interattiva su cybersecurity, AI, Proxmox, Cloudflare e i progetti open source di Fabrizio Salmi.",
+        },
+        {
+            "@context": "https://schema.org",
+            "@type": "Organization",
+            "name": "Fabrizio Salmi",
+            "url": "https://github.com/fabriziosalmi",
+        },
+        {
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "mainEntity": [
+                {
+                    "@type": "Question",
+                    "name": e["question"],
+                    "acceptedAnswer": {"@type": "Answer", "text": md_to_plain(e["answers"][0])},
+                }
+                for e in entries
+            ],
+        },
+    ]
     (OUT / "index.html").write_text(
         INDEX.format(
             description="Tutte le domande e risposte di FabGPT-FAQ: cybersecurity, AI, Proxmox, Cloudflare e i progetti open source di Fabrizio Salmi.",
             canonical=f"{site}/q/",
+            site=site,
             jsonld=json.dumps(index_jsonld, ensure_ascii=False),
             sections=sections,
         ),
@@ -238,9 +294,71 @@ def build() -> None:
     sitemap += "".join(f"  <url><loc>{u}</loc></url>\n" for u in urls)
     sitemap += "</urlset>\n"
     (ROOT / "sitemap.xml").write_text(sitemap, encoding="utf-8")
-    (ROOT / "robots.txt").write_text(f"User-agent: *\nAllow: /\n\nSitemap: {site}/sitemap.xml\n", encoding="utf-8")
+    (ROOT / "robots.txt").write_text(
+        f"User-agent: *\nAllow: /\n\nSitemap: {site}/sitemap.xml\n", encoding="utf-8")
 
-    print(f"Built {len(entries)} question pages + index + sitemap ({len(urls)} URLs).")
+    # --- llms.txt: concise map for answer engines (title + url, per vertical) ---
+    lt = ["# FabGPT-FAQ\n",
+          "> FAQ interattiva su cybersecurity, AI, Proxmox, Cloudflare e i progetti "
+          "open source di Fabrizio Salmi. Risposte pre-scritte e verificate, ogni "
+          "domanda anche come pagina statica citabile.\n",
+          f"Chat: {site}/  ·  Indice: {site}/q/\n"]
+    for vid, label in verticals.items():
+        ventries = [e for e in entries if e["vertical"] == vid]
+        if not ventries:
+            continue
+        lt.append(f"\n## {label}\n")
+        for e in ventries:
+            lt.append(f"- [{e['question']}]({site}/q/{e['slug']}/): {meta_description(e['answers'][0], 120)}")
+    (ROOT / "llms.txt").write_text("\n".join(lt) + "\n", encoding="utf-8")
+
+    # --- llms-full.txt: every Q&A as plain text (full corpus for citation) ---
+    lf = ["# FabGPT-FAQ — knowledge base completa\n",
+          "Domande e risposte verificate. Fonte: https://github.com/fabriziosalmi\n"]
+    for vid, label in verticals.items():
+        ventries = [e for e in entries if e["vertical"] == vid]
+        if not ventries:
+            continue
+        lf.append(f"\n\n# {label}")
+        for e in ventries:
+            lf.append(f"\n\n## {e['question']}\n{site}/q/{e['slug']}/\n\n{md_to_plain(e['answers'][0])}")
+    (ROOT / "llms-full.txt").write_text("".join(lf) + "\n", encoding="utf-8")
+
+    # --- 404 page ---
+    notfound = """<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pagina non trovata – FabGPT-FAQ</title>
+<meta name="robots" content="noindex">
+<link rel="stylesheet" href="/style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
+<style>
+  .nf {{ max-width: 620px; margin: 12vh auto; padding: 0 16px; text-align: center; }}
+  .nf h1 {{ font-size: 64px; margin: 0; color: var(--accent); }}
+  .nf p {{ color: var(--text-dim); }}
+  .nf a {{ color: var(--link); text-decoration: none; }}
+  .nf .actions {{ margin-top: 24px; display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }}
+  .nf .btn {{ background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 9px 18px; font-weight: 600; }}
+  .nf .btn.ghost {{ background: transparent; color: var(--link); border: 1px solid var(--border); }}
+</style>
+</head>
+<body>
+<main class="nf">
+  <h1>404</h1>
+  <p>Questa pagina si è persa nel labirinto. Ma la risposta che cerchi è probabilmente qui.</p>
+  <div class="actions">
+    <a class="btn" href="/">Chiedi in chat</a>
+    <a class="btn ghost" href="/q/">Tutte le domande</a>
+  </div>
+</main>
+</body>
+</html>
+"""
+    (ROOT / "404.html").write_text(notfound, encoding="utf-8")
+
+    print(f"Built {len(entries)} pages + index + sitemap ({len(urls)} URLs) + llms.txt + llms-full.txt + 404.")
 
 
 if __name__ == "__main__":

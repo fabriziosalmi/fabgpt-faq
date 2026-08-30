@@ -5,13 +5,28 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Come si riducono i costi di inferenza di un LLM? – FabGPT-FAQ</title>
 <meta name="description" content="La leva più grossa è non chiamare il modello grande quando non serve. È l&#x27;idea di Silence, un router di inferenza multi-livello: ogni query attraversa…">
+<meta name="robots" content="index,follow,max-image-preview:large">
 <link rel="canonical" href="https://fabriziosalmi.github.io/fabgpt-faq/q/ridurre-costi-inferenza-llm/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Come si riducono i costi di inferenza di un LLM?">
+<meta property="og:description" content="La leva più grossa è non chiamare il modello grande quando non serve. È l&#x27;idea di Silence, un router di inferenza multi-livello: ogni query attraversa…">
+<meta property="og:url" content="https://fabriziosalmi.github.io/fabgpt-faq/q/ridurre-costi-inferenza-llm/">
+<meta property="og:image" content="https://fabriziosalmi.github.io/fabgpt-faq/og.svg">
+<meta property="og:site_name" content="FabGPT-FAQ">
+<meta property="og:locale" content="it_IT">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Come si riducono i costi di inferenza di un LLM?">
+<meta name="twitter:description" content="La leva più grossa è non chiamare il modello grande quando non serve. È l&#x27;idea di Silence, un router di inferenza multi-livello: ogni query attraversa…">
+<meta name="twitter:image" content="https://fabriziosalmi.github.io/fabgpt-faq/og.svg">
 <link rel="stylesheet" href="../../style.css">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Come si riducono i costi di inferenza di un LLM?", "acceptedAnswer": {"@type": "Answer", "text": "La leva più grossa è non chiamare il modello grande quando non serve. È l'idea di Silence, un router di inferenza multi-livello: ogni query attraversa strati progressivamente più costosi – pattern matcher deterministico, template leggeri, e solo alla fine un vero LLM – e si ferma al primo strato abbastanza confidente da rispondere. In più esplora il silenzio semantico: trattare \"non rispondere ancora\" come un esito valido invece di generare testo a tutti i costi. Trasparenza dovuta: è un prototipo di ricerca in alpha, API instabili e nessun benchmark pubblicato – da studiare, non da mettere in produzione. Nel frattempo, per tagliare i costi degli agenti di coding c'è la strada complementare e già matura: comprimere l'output dei comandi con l0-compressor."}}]}</script>
+<script type="application/ld+json">[{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Come si riducono i costi di inferenza di un LLM?", "acceptedAnswer": {"@type": "Answer", "text": "La leva più grossa è non chiamare il modello grande quando non serve. È l'idea di Silence, un router di inferenza multi-livello: ogni query attraversa strati progressivamente più costosi – pattern matcher deterministico, template leggeri, e solo alla fine un vero LLM – e si ferma al primo strato abbastanza confidente da rispondere. In più esplora il silenzio semantico: trattare \"non rispondere ancora\" come un esito valido invece di generare testo a tutti i costi. Trasparenza dovuta: è un prototipo di ricerca in alpha, API instabili e nessun benchmark pubblicato – da studiare, non da mettere in produzione. Nel frattempo, per tagliare i costi degli agenti di coding c'è la strada complementare e già matura: comprimere l'output dei comandi con l0-compressor."}}]}, {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "FabGPT-FAQ", "item": "https://fabriziosalmi.github.io/fabgpt-faq/"}, {"@type": "ListItem", "position": 2, "name": "Tutte le domande", "item": "https://fabriziosalmi.github.io/fabgpt-faq/q/"}, {"@type": "ListItem", "position": 3, "name": "AI e LLM", "item": "https://fabriziosalmi.github.io/fabgpt-faq/q/ridurre-costi-inferenza-llm/"}]}]</script>
 <style>
   .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
-  .page h1 { font-size: 26px; line-height: 1.3; margin: 8px 0 20px; }
+  .page h1 { font-size: 26px; line-height: 1.3; margin: 6px 0 20px; }
+  .crumbs { font-size: 13px; color: var(--text-dim); margin-bottom: 4px; }
+  .crumbs a { color: var(--text-dim); text-decoration: none; }
+  .crumbs a:hover { color: var(--text); }
   .page .answer a { color: var(--link); }
   .page .vertical { font-size: 13px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }
   .page .answer ul { padding-left: 22px; }
@@ -32,7 +47,7 @@
   </a>
 </header>
 <main class="page">
-  <div class="vertical">AI e LLM</div>
+  <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › AI e LLM</nav>
   <h1>Come si riducono i costi di inferenza di un LLM?</h1>
   <div class="answer"><p>La leva più grossa è <strong>non chiamare il modello grande quando non serve</strong>. È l&#x27;idea di <a href="https://github.com/fabriziosalmi/silence" target="_blank" rel="noopener">Silence</a>, un router di inferenza multi-livello: ogni query attraversa strati progressivamente più costosi – pattern matcher deterministico, template leggeri, e solo alla fine un vero LLM – e si ferma al primo strato <strong>abbastanza confidente</strong> da rispondere. In più esplora il <em>silenzio semantico</em>: trattare &quot;non rispondere ancora&quot; come un esito valido invece di generare testo a tutti i costi.</p><p>Trasparenza dovuta: è un <strong>prototipo di ricerca in alpha</strong>, API instabili e nessun benchmark pubblicato – da studiare, non da mettere in produzione. Nel frattempo, per tagliare i costi degli agenti di coding c&#x27;è la strada complementare e già matura: comprimere l&#x27;output dei comandi con <a href="https://github.com/fabriziosalmi/l0-compressor" target="_blank" rel="noopener">l0-compressor</a>.</p></div>
   <a class="ask" href="../../?q=silence">Chiedilo a FabGPT-FAQ →</a>

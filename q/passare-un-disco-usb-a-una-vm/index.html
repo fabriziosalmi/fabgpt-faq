@@ -5,13 +5,28 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Come si passa un dispositivo USB (o un disco) a una VM? – FabGPT-FAQ</title>
 <meta name="description" content="Due problemi diversi che si somigliano: dispositivo USB (chiavetta Zigbee per [Home Assistant](q/home-assistant-su-proxmox/), dongle, stampante): Hardware →…">
+<meta name="robots" content="index,follow,max-image-preview:large">
 <link rel="canonical" href="https://fabriziosalmi.github.io/fabgpt-faq/q/passare-un-disco-usb-a-una-vm/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Come si passa un dispositivo USB (o un disco) a una VM?">
+<meta property="og:description" content="Due problemi diversi che si somigliano: dispositivo USB (chiavetta Zigbee per [Home Assistant](q/home-assistant-su-proxmox/), dongle, stampante): Hardware →…">
+<meta property="og:url" content="https://fabriziosalmi.github.io/fabgpt-faq/q/passare-un-disco-usb-a-una-vm/">
+<meta property="og:image" content="https://fabriziosalmi.github.io/fabgpt-faq/og.svg">
+<meta property="og:site_name" content="FabGPT-FAQ">
+<meta property="og:locale" content="it_IT">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Come si passa un dispositivo USB (o un disco) a una VM?">
+<meta name="twitter:description" content="Due problemi diversi che si somigliano: dispositivo USB (chiavetta Zigbee per [Home Assistant](q/home-assistant-su-proxmox/), dongle, stampante): Hardware →…">
+<meta name="twitter:image" content="https://fabriziosalmi.github.io/fabgpt-faq/og.svg">
 <link rel="stylesheet" href="../../style.css">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Come si passa un dispositivo USB (o un disco) a una VM?", "acceptedAnswer": {"@type": "Answer", "text": "Due problemi diversi che si somigliano: dispositivo USB (chiavetta Zigbee per [Home Assistant](q/home-assistant-su-proxmox/), dongle, stampante): Hardware → Add → USB Device, scegliendo per vendor/device ID (sopravvive ai cambi di porta) o per porta fisica (sopravvive ai cambi di dispositivo). Per l'USB 3 serve il controller xhci nella VM disco fisico intero: la via robusta non è l'USB ma il passthrough del disco per ID: qm set 101 -scsi1 /dev/disk/by-id/ata-... – il disco appare alla VM come suo, con prestazioni native. Sempre by-id, mai /dev/sdb: le lettere cambiano al riavvio Le avvertenze: un disco passato così è della VM – l'host non deve toccarlo (niente mount doppi); l'USB per lo storage di lavoro resta una scelta fragile (disconnessioni = [guai](q/vm-non-parte-proxmox/)); e il passthrough lega la VM all'hardware: la [migrazione live](q/migrazione-live-tra-nodi/) si ferma lì. Per interi controller (SATA/HBA verso una VM storage) si sale di livello: [passthrough PCI](q/truenas-dentro-proxmox/), parente stretto di [quello GPU](q/passthrough-gpu-proxmox/)."}}]}</script>
+<script type="application/ld+json">[{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Come si passa un dispositivo USB (o un disco) a una VM?", "acceptedAnswer": {"@type": "Answer", "text": "Due problemi diversi che si somigliano: dispositivo USB (chiavetta Zigbee per [Home Assistant](q/home-assistant-su-proxmox/), dongle, stampante): Hardware → Add → USB Device, scegliendo per vendor/device ID (sopravvive ai cambi di porta) o per porta fisica (sopravvive ai cambi di dispositivo). Per l'USB 3 serve il controller xhci nella VM disco fisico intero: la via robusta non è l'USB ma il passthrough del disco per ID: qm set 101 -scsi1 /dev/disk/by-id/ata-... – il disco appare alla VM come suo, con prestazioni native. Sempre by-id, mai /dev/sdb: le lettere cambiano al riavvio Le avvertenze: un disco passato così è della VM – l'host non deve toccarlo (niente mount doppi); l'USB per lo storage di lavoro resta una scelta fragile (disconnessioni = [guai](q/vm-non-parte-proxmox/)); e il passthrough lega la VM all'hardware: la [migrazione live](q/migrazione-live-tra-nodi/) si ferma lì. Per interi controller (SATA/HBA verso una VM storage) si sale di livello: [passthrough PCI](q/truenas-dentro-proxmox/), parente stretto di [quello GPU](q/passthrough-gpu-proxmox/)."}}]}, {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "FabGPT-FAQ", "item": "https://fabriziosalmi.github.io/fabgpt-faq/"}, {"@type": "ListItem", "position": 2, "name": "Tutte le domande", "item": "https://fabriziosalmi.github.io/fabgpt-faq/q/"}, {"@type": "ListItem", "position": 3, "name": "Proxmox e self-hosting", "item": "https://fabriziosalmi.github.io/fabgpt-faq/q/passare-un-disco-usb-a-una-vm/"}]}]</script>
 <style>
   .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
-  .page h1 { font-size: 26px; line-height: 1.3; margin: 8px 0 20px; }
+  .page h1 { font-size: 26px; line-height: 1.3; margin: 6px 0 20px; }
+  .crumbs { font-size: 13px; color: var(--text-dim); margin-bottom: 4px; }
+  .crumbs a { color: var(--text-dim); text-decoration: none; }
+  .crumbs a:hover { color: var(--text); }
   .page .answer a { color: var(--link); }
   .page .vertical { font-size: 13px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }
   .page .answer ul { padding-left: 22px; }
@@ -32,7 +47,7 @@
   </a>
 </header>
 <main class="page">
-  <div class="vertical">Proxmox e self-hosting</div>
+  <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › Proxmox e self-hosting</nav>
   <h1>Come si passa un dispositivo USB (o un disco) a una VM?</h1>
   <div class="answer"><p>Due problemi diversi che si somigliano:</p><ul><li><strong>dispositivo USB</strong> (chiavetta Zigbee per <a href="../home-assistant-su-proxmox/">Home Assistant</a>, dongle, stampante): Hardware → Add → USB Device, scegliendo per <strong>vendor/device ID</strong> (sopravvive ai cambi di porta) o per porta fisica (sopravvive ai cambi di dispositivo). Per l&#x27;USB 3 serve il controller xhci nella VM</li><li><strong>disco fisico intero</strong>: la via robusta non è l&#x27;USB ma il passthrough del disco per ID: <code>qm set 101 -scsi1 /dev/disk/by-id/ata-...</code> – il disco appare alla VM come suo, con prestazioni native. Sempre <strong>by-id</strong>, mai <code>/dev/sdb</code>: le lettere cambiano al riavvio</li></ul><p>Le avvertenze: un disco passato così è <em>della VM</em> – l&#x27;host non deve toccarlo (niente mount doppi); l&#x27;USB per lo storage di lavoro resta una scelta fragile (disconnessioni = <a href="../vm-non-parte-proxmox/">guai</a>); e il passthrough lega la VM all&#x27;hardware: la <a href="../migrazione-live-tra-nodi/">migrazione live</a> si ferma lì. Per interi controller (SATA/HBA verso una VM storage) si sale di livello: <a href="../truenas-dentro-proxmox/">passthrough PCI</a>, parente stretto di <a href="../passthrough-gpu-proxmox/">quello GPU</a>.</p></div>
   <a class="ask" href="../../?q=usb-passthrough">Chiedilo a FabGPT-FAQ →</a>

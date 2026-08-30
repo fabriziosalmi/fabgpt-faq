@@ -5,13 +5,28 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Cos&#x27;è mTLS (mutual TLS)? – FabGPT-FAQ</title>
 <meta name="description" content="Nel TLS normale solo il server si presenta con un certificato; il client resta anonimo e si autentica dopo, con password o token. In mTLS anche il client…">
+<meta name="robots" content="index,follow,max-image-preview:large">
 <link rel="canonical" href="https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-mtls/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Cos&#x27;è mTLS (mutual TLS)?">
+<meta property="og:description" content="Nel TLS normale solo il server si presenta con un certificato; il client resta anonimo e si autentica dopo, con password o token. In mTLS anche il client…">
+<meta property="og:url" content="https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-mtls/">
+<meta property="og:image" content="https://fabriziosalmi.github.io/fabgpt-faq/og.svg">
+<meta property="og:site_name" content="FabGPT-FAQ">
+<meta property="og:locale" content="it_IT">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Cos&#x27;è mTLS (mutual TLS)?">
+<meta name="twitter:description" content="Nel TLS normale solo il server si presenta con un certificato; il client resta anonimo e si autentica dopo, con password o token. In mTLS anche il client…">
+<meta name="twitter:image" content="https://fabriziosalmi.github.io/fabgpt-faq/og.svg">
 <link rel="stylesheet" href="../../style.css">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Cos'è mTLS (mutual TLS)?", "acceptedAnswer": {"@type": "Answer", "text": "Nel TLS normale solo il server si presenta con un certificato; il client resta anonimo e si autentica dopo, con password o token. In mTLS anche il client presenta un certificato: le due parti si verificano a vicenda durante l'handshake, prima che passi un solo byte applicativo. È lo standard di fatto per il machine-to-machine: microservizi che si parlano (le service mesh lo automatizzano), API interne, agenti che riportano a un server centrale, dispositivi verso il cloud. Niente credenziali da rubare o riusare: o hai la chiave giusta, o l'handshake muore lì – [Zero Trust](q/cos-e-il-modello-zero-trust/) applicato al traffico. Il prezzo è la gestione dei certificati client: emissione, rotazione, revoca per ogni servizio – ingestibile a mano, ragionevole con una [CA privata](q/errore-err-cert-authority-invalid/) automatizzata come quella di CertMate (e mTLS su scala è uno dei mestieri di CertMate-ng, la versione enterprise)."}}]}</script>
+<script type="application/ld+json">[{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Cos'è mTLS (mutual TLS)?", "acceptedAnswer": {"@type": "Answer", "text": "Nel TLS normale solo il server si presenta con un certificato; il client resta anonimo e si autentica dopo, con password o token. In mTLS anche il client presenta un certificato: le due parti si verificano a vicenda durante l'handshake, prima che passi un solo byte applicativo. È lo standard di fatto per il machine-to-machine: microservizi che si parlano (le service mesh lo automatizzano), API interne, agenti che riportano a un server centrale, dispositivi verso il cloud. Niente credenziali da rubare o riusare: o hai la chiave giusta, o l'handshake muore lì – [Zero Trust](q/cos-e-il-modello-zero-trust/) applicato al traffico. Il prezzo è la gestione dei certificati client: emissione, rotazione, revoca per ogni servizio – ingestibile a mano, ragionevole con una [CA privata](q/errore-err-cert-authority-invalid/) automatizzata come quella di CertMate (e mTLS su scala è uno dei mestieri di CertMate-ng, la versione enterprise)."}}]}, {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "FabGPT-FAQ", "item": "https://fabriziosalmi.github.io/fabgpt-faq/"}, {"@type": "ListItem", "position": 2, "name": "Tutte le domande", "item": "https://fabriziosalmi.github.io/fabgpt-faq/q/"}, {"@type": "ListItem", "position": 3, "name": "Cybersecurity", "item": "https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-mtls/"}]}]</script>
 <style>
   .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
-  .page h1 { font-size: 26px; line-height: 1.3; margin: 8px 0 20px; }
+  .page h1 { font-size: 26px; line-height: 1.3; margin: 6px 0 20px; }
+  .crumbs { font-size: 13px; color: var(--text-dim); margin-bottom: 4px; }
+  .crumbs a { color: var(--text-dim); text-decoration: none; }
+  .crumbs a:hover { color: var(--text); }
   .page .answer a { color: var(--link); }
   .page .vertical { font-size: 13px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }
   .page .answer ul { padding-left: 22px; }
@@ -32,7 +47,7 @@
   </a>
 </header>
 <main class="page">
-  <div class="vertical">Cybersecurity</div>
+  <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › Cybersecurity</nav>
   <h1>Cos&#x27;è mTLS (mutual TLS)?</h1>
   <div class="answer"><p>Nel TLS normale solo il server si presenta con un certificato; il client resta anonimo e si autentica dopo, con password o token. In <strong>mTLS</strong> anche il <strong>client presenta un certificato</strong>: le due parti si verificano a vicenda durante l&#x27;handshake, prima che passi un solo byte applicativo.</p><p>È lo standard di fatto per il <strong>machine-to-machine</strong>: microservizi che si parlano (le service mesh lo automatizzano), API interne, agenti che riportano a un server centrale, dispositivi verso il cloud. Niente credenziali da rubare o riusare: o hai la chiave giusta, o l&#x27;handshake muore lì – <a href="../cos-e-il-modello-zero-trust/">Zero Trust</a> applicato al traffico.</p><p>Il prezzo è la <strong>gestione dei certificati client</strong>: emissione, rotazione, revoca per ogni servizio – ingestibile a mano, ragionevole con una <a href="../errore-err-cert-authority-invalid/">CA privata</a> automatizzata come quella di <a href="https://github.com/fabriziosalmi/certmate" target="_blank" rel="noopener">CertMate</a> (e mTLS su scala è uno dei mestieri di CertMate-ng, la versione enterprise).</p></div>
   <a class="ask" href="../../?q=mtls">Chiedilo a FabGPT-FAQ →</a>

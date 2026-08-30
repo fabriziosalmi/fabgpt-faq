@@ -5,13 +5,28 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Come si difende un sito dallo scraping? – FabGPT-FAQ</title>
 <meta name="description" content="Premessa onesta: contro uno scraper determinato non esiste il muro perfetto – ciò che un browser può leggere, un bot può leggerlo. L&#x27;obiettivo realistico è…">
+<meta name="robots" content="index,follow,max-image-preview:large">
 <link rel="canonical" href="https://fabriziosalmi.github.io/fabgpt-faq/q/difendere-un-sito-dallo-scraping/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Come si difende un sito dallo scraping?">
+<meta property="og:description" content="Premessa onesta: contro uno scraper determinato non esiste il muro perfetto – ciò che un browser può leggere, un bot può leggerlo. L&#x27;obiettivo realistico è…">
+<meta property="og:url" content="https://fabriziosalmi.github.io/fabgpt-faq/q/difendere-un-sito-dallo-scraping/">
+<meta property="og:image" content="https://fabriziosalmi.github.io/fabgpt-faq/og.svg">
+<meta property="og:site_name" content="FabGPT-FAQ">
+<meta property="og:locale" content="it_IT">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Come si difende un sito dallo scraping?">
+<meta name="twitter:description" content="Premessa onesta: contro uno scraper determinato non esiste il muro perfetto – ciò che un browser può leggere, un bot può leggerlo. L&#x27;obiettivo realistico è…">
+<meta name="twitter:image" content="https://fabriziosalmi.github.io/fabgpt-faq/og.svg">
 <link rel="stylesheet" href="../../style.css">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Come si difende un sito dallo scraping?", "acceptedAnswer": {"@type": "Answer", "text": "Premessa onesta: contro uno scraper determinato non esiste il muro perfetto – ciò che un browser può leggere, un bot può leggerlo. L'obiettivo realistico è alzare il costo finché non vale più la pena: [rate limiting](q/configurare-rate-limiting-web-server/) per IP e per percorso: gli scraper hanno fretta, i lettori no liste di bad bot aggiornate (patterns le rigenera ogni giorno per Nginx, Apache, Traefik e HAProxy) ban comportamentali: chi genera [404 a raffica](q/bannare-ip-brute-force-caddy/) o naviga a velocità disumana (caddy-mib) challenge sui percorsi sensibili ([Turnstile](q/cos-e-cloudflare-turnstile/)) e trappole: link invisibili agli umani che marchiano i bot Capitolo a parte: i [crawler AI](q/bloccare-crawler-ai-gptbot/), dove il blocco è una scelta strategica, non solo tecnica. E ricorda che scraper legittimi (Google) e molesti si separano per comportamento, non per dichiarazione."}}]}</script>
+<script type="application/ld+json">[{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Come si difende un sito dallo scraping?", "acceptedAnswer": {"@type": "Answer", "text": "Premessa onesta: contro uno scraper determinato non esiste il muro perfetto – ciò che un browser può leggere, un bot può leggerlo. L'obiettivo realistico è alzare il costo finché non vale più la pena: [rate limiting](q/configurare-rate-limiting-web-server/) per IP e per percorso: gli scraper hanno fretta, i lettori no liste di bad bot aggiornate (patterns le rigenera ogni giorno per Nginx, Apache, Traefik e HAProxy) ban comportamentali: chi genera [404 a raffica](q/bannare-ip-brute-force-caddy/) o naviga a velocità disumana (caddy-mib) challenge sui percorsi sensibili ([Turnstile](q/cos-e-cloudflare-turnstile/)) e trappole: link invisibili agli umani che marchiano i bot Capitolo a parte: i [crawler AI](q/bloccare-crawler-ai-gptbot/), dove il blocco è una scelta strategica, non solo tecnica. E ricorda che scraper legittimi (Google) e molesti si separano per comportamento, non per dichiarazione."}}]}, {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "FabGPT-FAQ", "item": "https://fabriziosalmi.github.io/fabgpt-faq/"}, {"@type": "ListItem", "position": 2, "name": "Tutte le domande", "item": "https://fabriziosalmi.github.io/fabgpt-faq/q/"}, {"@type": "ListItem", "position": 3, "name": "Cybersecurity", "item": "https://fabriziosalmi.github.io/fabgpt-faq/q/difendere-un-sito-dallo-scraping/"}]}]</script>
 <style>
   .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
-  .page h1 { font-size: 26px; line-height: 1.3; margin: 8px 0 20px; }
+  .page h1 { font-size: 26px; line-height: 1.3; margin: 6px 0 20px; }
+  .crumbs { font-size: 13px; color: var(--text-dim); margin-bottom: 4px; }
+  .crumbs a { color: var(--text-dim); text-decoration: none; }
+  .crumbs a:hover { color: var(--text); }
   .page .answer a { color: var(--link); }
   .page .vertical { font-size: 13px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }
   .page .answer ul { padding-left: 22px; }
@@ -32,7 +47,7 @@
   </a>
 </header>
 <main class="page">
-  <div class="vertical">Cybersecurity</div>
+  <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › Cybersecurity</nav>
   <h1>Come si difende un sito dallo scraping?</h1>
   <div class="answer"><p>Premessa onesta: contro uno scraper determinato non esiste il muro perfetto – ciò che un browser può leggere, un bot può leggerlo. L&#x27;obiettivo realistico è <strong>alzare il costo</strong> finché non vale più la pena:</p><ul><li><strong><a href="../configurare-rate-limiting-web-server/">rate limiting</a></strong> per IP e per percorso: gli scraper hanno fretta, i lettori no</li><li><strong>liste di bad bot</strong> aggiornate (<a href="https://github.com/fabriziosalmi/patterns" target="_blank" rel="noopener">patterns</a> le rigenera ogni giorno per Nginx, Apache, Traefik e HAProxy)</li><li>ban comportamentali: chi genera <a href="../bannare-ip-brute-force-caddy/">404 a raffica</a> o naviga a velocità disumana (<a href="https://github.com/fabriziosalmi/caddy-mib" target="_blank" rel="noopener">caddy-mib</a>)</li><li>challenge sui percorsi sensibili (<a href="../cos-e-cloudflare-turnstile/">Turnstile</a>) e trappole: link invisibili agli umani che marchiano i bot</li></ul><p>Capitolo a parte: i <a href="../bloccare-crawler-ai-gptbot/">crawler AI</a>, dove il blocco è una scelta strategica, non solo tecnica. E ricorda che scraper legittimi (Google) e molesti si separano per <strong>comportamento</strong>, non per dichiarazione.</p></div>
   <a class="ask" href="../../?q=anti-scraping">Chiedilo a FabGPT-FAQ →</a>

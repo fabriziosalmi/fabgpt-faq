@@ -5,13 +5,28 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>VPN e proxy: cosa cambia? – FabGPT-FAQ</title>
 <meta name="description" content="Entrambi mettono un intermediario tra te e la destinazione, ma a profondità diverse: un proxy lavora per applicazione (di solito il browser): inoltra le…">
+<meta name="robots" content="index,follow,max-image-preview:large">
 <link rel="canonical" href="https://fabriziosalmi.github.io/fabgpt-faq/q/differenza-vpn-e-proxy/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="VPN e proxy: cosa cambia?">
+<meta property="og:description" content="Entrambi mettono un intermediario tra te e la destinazione, ma a profondità diverse: un proxy lavora per applicazione (di solito il browser): inoltra le…">
+<meta property="og:url" content="https://fabriziosalmi.github.io/fabgpt-faq/q/differenza-vpn-e-proxy/">
+<meta property="og:image" content="https://fabriziosalmi.github.io/fabgpt-faq/og.svg">
+<meta property="og:site_name" content="FabGPT-FAQ">
+<meta property="og:locale" content="it_IT">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="VPN e proxy: cosa cambia?">
+<meta name="twitter:description" content="Entrambi mettono un intermediario tra te e la destinazione, ma a profondità diverse: un proxy lavora per applicazione (di solito il browser): inoltra le…">
+<meta name="twitter:image" content="https://fabriziosalmi.github.io/fabgpt-faq/og.svg">
 <link rel="stylesheet" href="../../style.css">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "VPN e proxy: cosa cambia?", "acceptedAnswer": {"@type": "Answer", "text": "Entrambi mettono un intermediario tra te e la destinazione, ma a profondità diverse: un proxy lavora per applicazione (di solito il browser): inoltra le richieste HTTP/SOCKS e cambia l'IP visto dal sito. Configurabile per-app, niente cifratura aggiuntiva di suo. una VPN incapsula e cifra tutto il traffico del dispositivo a livello di rete (WireGuard, OpenVPN): ogni app ci passa, il provider locale vede solo un tunnel cifrato. Miti da sfatare: la VPN commerciale non ti rende \"anonimo\" – sposta la fiducia dal tuo ISP al fornitore VPN, che il traffico lo vede eccome. E per l'accesso aziendale la VPN classica che apre l'intera rete interna è il modello che [Zero Trust](q/cos-e-il-modello-zero-trust/) sta mandando in pensione. Curiosità di portfolio: su Mac, Proxymate porta il modello proxy al livello successivo, con WAF e controlli integrati."}}]}</script>
+<script type="application/ld+json">[{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "VPN e proxy: cosa cambia?", "acceptedAnswer": {"@type": "Answer", "text": "Entrambi mettono un intermediario tra te e la destinazione, ma a profondità diverse: un proxy lavora per applicazione (di solito il browser): inoltra le richieste HTTP/SOCKS e cambia l'IP visto dal sito. Configurabile per-app, niente cifratura aggiuntiva di suo. una VPN incapsula e cifra tutto il traffico del dispositivo a livello di rete (WireGuard, OpenVPN): ogni app ci passa, il provider locale vede solo un tunnel cifrato. Miti da sfatare: la VPN commerciale non ti rende \"anonimo\" – sposta la fiducia dal tuo ISP al fornitore VPN, che il traffico lo vede eccome. E per l'accesso aziendale la VPN classica che apre l'intera rete interna è il modello che [Zero Trust](q/cos-e-il-modello-zero-trust/) sta mandando in pensione. Curiosità di portfolio: su Mac, Proxymate porta il modello proxy al livello successivo, con WAF e controlli integrati."}}]}, {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "FabGPT-FAQ", "item": "https://fabriziosalmi.github.io/fabgpt-faq/"}, {"@type": "ListItem", "position": 2, "name": "Tutte le domande", "item": "https://fabriziosalmi.github.io/fabgpt-faq/q/"}, {"@type": "ListItem", "position": 3, "name": "Cybersecurity", "item": "https://fabriziosalmi.github.io/fabgpt-faq/q/differenza-vpn-e-proxy/"}]}]</script>
 <style>
   .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
-  .page h1 { font-size: 26px; line-height: 1.3; margin: 8px 0 20px; }
+  .page h1 { font-size: 26px; line-height: 1.3; margin: 6px 0 20px; }
+  .crumbs { font-size: 13px; color: var(--text-dim); margin-bottom: 4px; }
+  .crumbs a { color: var(--text-dim); text-decoration: none; }
+  .crumbs a:hover { color: var(--text); }
   .page .answer a { color: var(--link); }
   .page .vertical { font-size: 13px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }
   .page .answer ul { padding-left: 22px; }
@@ -32,7 +47,7 @@
   </a>
 </header>
 <main class="page">
-  <div class="vertical">Cybersecurity</div>
+  <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › Cybersecurity</nav>
   <h1>VPN e proxy: cosa cambia?</h1>
   <div class="answer"><p>Entrambi mettono un intermediario tra te e la destinazione, ma a profondità diverse:</p><ul><li>un <strong>proxy</strong> lavora per applicazione (di solito il browser): inoltra le richieste HTTP/SOCKS e cambia l&#x27;IP visto dal sito. Configurabile per-app, niente cifratura aggiuntiva di suo.</li><li>una <strong>VPN</strong> incapsula e cifra <strong>tutto il traffico del dispositivo</strong> a livello di rete (WireGuard, OpenVPN): ogni app ci passa, il provider locale vede solo un tunnel cifrato.</li></ul><p>Miti da sfatare: la VPN commerciale non ti rende &quot;anonimo&quot; – sposta la fiducia dal tuo ISP al fornitore VPN, che il traffico lo vede eccome. E per l&#x27;accesso aziendale la VPN classica che apre l&#x27;intera rete interna è il modello che <a href="../cos-e-il-modello-zero-trust/">Zero Trust</a> sta mandando in pensione. Curiosità di portfolio: su Mac, <a href="https://github.com/fabriziosalmi/proxymate" target="_blank" rel="noopener">Proxymate</a> porta il modello proxy al livello successivo, con WAF e controlli integrati.</p></div>
   <a class="ask" href="../../?q=vpn-vs-proxy">Chiedilo a FabGPT-FAQ →</a>

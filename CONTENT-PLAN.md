@@ -377,6 +377,23 @@ non ha pagina propria) sono lavoro, non copertura.
 - Prossimi giri di massa: convertire i ~142 partial in voci dedicate a blocchi
   tematici (ogni giro riesegue `triage.py` per misurare l'avanzamento).
 
+## Giro 2 – rifinitura & answer-engine optimization (DONE 2026-08-30)
+
+Non nuovi argomenti (quelli erano i lotti di massa) ma polish sulla base esistente,
+mirato all'obiettivo AI Overview + ai gap "predica bene e razzola male":
+
+- **Open Graph + Twitter Card** su ogni pagina statica e sulla chat (il sito
+  insegnava OG e non li aveva); immagine social condivisa `og.svg`.
+- **llms.txt** (mappa concisa) + **llms-full.txt** (corpus completo, ~512KB) — il
+  sito predicava llms.txt e ora ce l'ha.
+- **JSON-LD arricchito**: FAQPage + **BreadcrumbList** per pagina, **WebSite +
+  Organization** + FAQPage sull'indice; breadcrumb visivo in cima alle pagine.
+- **404.html** branded; `robots` meta con max-image-preview.
+- **Contenuti**: fallback da 3 a 7 (più vari e utili), varianti di risposta
+  "in una riga" su 11 pilastri (WAF, reverse proxy, LLM, RAG, agente, Proxmox,
+  Zero Trust, LLM locale, backup 3-2-1, AI Overview, Zion) per il repeat-ask.
+- bench G1 esteso: valida gli slug di `suggest` (entries + config).
+
 ## Fase 2 – "livello super" (dopo il primo giro di contenuti)
 
 Richieste di Fab, in ordine:

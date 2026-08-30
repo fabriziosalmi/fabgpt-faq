@@ -5,13 +5,28 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Come si configurano i backup automatici verso PBS? – FabGPT-FAQ</title>
 <meta name="description" content="La sequenza completa, da zero a notti tranquille: su [PBS](q/cos-e-proxmox-backup-server/): crea il datastore e un utente API dedicato; su PVE: Datacenter →…">
+<meta name="robots" content="index,follow,max-image-preview:large">
 <link rel="canonical" href="https://fabriziosalmi.github.io/fabgpt-faq/q/backup-automatici-verso-pbs/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Come si configurano i backup automatici verso PBS?">
+<meta property="og:description" content="La sequenza completa, da zero a notti tranquille: su [PBS](q/cos-e-proxmox-backup-server/): crea il datastore e un utente API dedicato; su PVE: Datacenter →…">
+<meta property="og:url" content="https://fabriziosalmi.github.io/fabgpt-faq/q/backup-automatici-verso-pbs/">
+<meta property="og:image" content="https://fabriziosalmi.github.io/fabgpt-faq/og.svg">
+<meta property="og:site_name" content="FabGPT-FAQ">
+<meta property="og:locale" content="it_IT">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Come si configurano i backup automatici verso PBS?">
+<meta name="twitter:description" content="La sequenza completa, da zero a notti tranquille: su [PBS](q/cos-e-proxmox-backup-server/): crea il datastore e un utente API dedicato; su PVE: Datacenter →…">
+<meta name="twitter:image" content="https://fabriziosalmi.github.io/fabgpt-faq/og.svg">
 <link rel="stylesheet" href="../../style.css">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Come si configurano i backup automatici verso PBS?", "acceptedAnswer": {"@type": "Answer", "text": "La sequenza completa, da zero a notti tranquille: su [PBS](q/cos-e-proxmox-backup-server/): crea il datastore e un utente API dedicato; su PVE: Datacenter → Storage → aggiungi il PBS con il suo fingerprint Datacenter → Backup: crea il job – selezione VM (meglio \"tutte\" con esclusioni esplicite: le VM nuove entrano da sole), orario notturno, modalità snapshot (la sola che non ferma nulla) la retention falla decidere a PBS (keep-daily/weekly/monthly) con il prune automatico: 7 giornalieri + 4 settimanali + 6 mensili è un default sano attiva i verify programmati – un backup corrotto scoperto al restore non è un backup, è una beffa – e le notifiche sui fallimenti (un job che fallisce in silenzio per mesi è un classico del terrore) completa la [regola 3-2-1](q/backup-3-2-1/): sync remota verso un secondo PBS altrove Ultimo passo che quasi nessuno fa: prova un restore adesso, che sei calmo. Il giorno che servirà non lo sarai."}}]}</script>
+<script type="application/ld+json">[{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Come si configurano i backup automatici verso PBS?", "acceptedAnswer": {"@type": "Answer", "text": "La sequenza completa, da zero a notti tranquille: su [PBS](q/cos-e-proxmox-backup-server/): crea il datastore e un utente API dedicato; su PVE: Datacenter → Storage → aggiungi il PBS con il suo fingerprint Datacenter → Backup: crea il job – selezione VM (meglio \"tutte\" con esclusioni esplicite: le VM nuove entrano da sole), orario notturno, modalità snapshot (la sola che non ferma nulla) la retention falla decidere a PBS (keep-daily/weekly/monthly) con il prune automatico: 7 giornalieri + 4 settimanali + 6 mensili è un default sano attiva i verify programmati – un backup corrotto scoperto al restore non è un backup, è una beffa – e le notifiche sui fallimenti (un job che fallisce in silenzio per mesi è un classico del terrore) completa la [regola 3-2-1](q/backup-3-2-1/): sync remota verso un secondo PBS altrove Ultimo passo che quasi nessuno fa: prova un restore adesso, che sei calmo. Il giorno che servirà non lo sarai."}}]}, {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "FabGPT-FAQ", "item": "https://fabriziosalmi.github.io/fabgpt-faq/"}, {"@type": "ListItem", "position": 2, "name": "Tutte le domande", "item": "https://fabriziosalmi.github.io/fabgpt-faq/q/"}, {"@type": "ListItem", "position": 3, "name": "Proxmox e self-hosting", "item": "https://fabriziosalmi.github.io/fabgpt-faq/q/backup-automatici-verso-pbs/"}]}]</script>
 <style>
   .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
-  .page h1 { font-size: 26px; line-height: 1.3; margin: 8px 0 20px; }
+  .page h1 { font-size: 26px; line-height: 1.3; margin: 6px 0 20px; }
+  .crumbs { font-size: 13px; color: var(--text-dim); margin-bottom: 4px; }
+  .crumbs a { color: var(--text-dim); text-decoration: none; }
+  .crumbs a:hover { color: var(--text); }
   .page .answer a { color: var(--link); }
   .page .vertical { font-size: 13px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }
   .page .answer ul { padding-left: 22px; }
@@ -32,7 +47,7 @@
   </a>
 </header>
 <main class="page">
-  <div class="vertical">Proxmox e self-hosting</div>
+  <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › Proxmox e self-hosting</nav>
   <h1>Come si configurano i backup automatici verso PBS?</h1>
   <div class="answer"><p>La sequenza completa, da zero a notti tranquille:</p><ul><li>su <a href="../cos-e-proxmox-backup-server/">PBS</a>: crea il <strong>datastore</strong> e un utente API dedicato; su PVE: Datacenter → Storage → aggiungi il PBS con il suo <strong>fingerprint</strong></li><li>Datacenter → <strong>Backup</strong>: crea il job – selezione VM (meglio &quot;tutte&quot; con esclusioni esplicite: le VM nuove entrano da sole), orario notturno, modalità <strong>snapshot</strong> (la sola che non ferma nulla)</li><li>la <strong>retention</strong> falla decidere a PBS (keep-daily/weekly/monthly) con il <strong>prune</strong> automatico: 7 giornalieri + 4 settimanali + 6 mensili è un default sano</li><li>attiva i <strong>verify</strong> programmati – un backup corrotto scoperto al restore non è un backup, è una beffa – e le <strong>notifiche sui fallimenti</strong> (un job che fallisce in silenzio per mesi è un classico del terrore)</li><li>completa la <a href="../backup-3-2-1/">regola 3-2-1</a>: <strong>sync remota</strong> verso un secondo PBS altrove</li></ul><p>Ultimo passo che quasi nessuno fa: <strong>prova un restore</strong> adesso, che sei calmo. Il giorno che servirà non lo sarai.</p></div>
   <a class="ask" href="../../?q=backup-pbs-howto">Chiedilo a FabGPT-FAQ →</a>

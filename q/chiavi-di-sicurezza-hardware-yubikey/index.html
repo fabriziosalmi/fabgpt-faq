@@ -5,13 +5,28 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Cosa sono le chiavi di sicurezza hardware (YubiKey e simili)? – FabGPT-FAQ</title>
 <meta name="description" content="Una chiave di sicurezza hardware è un piccolo dispositivo (USB/NFC) che custodisce chiavi crittografiche in un chip inestraibile e firma le richieste di…">
+<meta name="robots" content="index,follow,max-image-preview:large">
 <link rel="canonical" href="https://fabriziosalmi.github.io/fabgpt-faq/q/chiavi-di-sicurezza-hardware-yubikey/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Cosa sono le chiavi di sicurezza hardware (YubiKey e simili)?">
+<meta property="og:description" content="Una chiave di sicurezza hardware è un piccolo dispositivo (USB/NFC) che custodisce chiavi crittografiche in un chip inestraibile e firma le richieste di…">
+<meta property="og:url" content="https://fabriziosalmi.github.io/fabgpt-faq/q/chiavi-di-sicurezza-hardware-yubikey/">
+<meta property="og:image" content="https://fabriziosalmi.github.io/fabgpt-faq/og.svg">
+<meta property="og:site_name" content="FabGPT-FAQ">
+<meta property="og:locale" content="it_IT">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Cosa sono le chiavi di sicurezza hardware (YubiKey e simili)?">
+<meta name="twitter:description" content="Una chiave di sicurezza hardware è un piccolo dispositivo (USB/NFC) che custodisce chiavi crittografiche in un chip inestraibile e firma le richieste di…">
+<meta name="twitter:image" content="https://fabriziosalmi.github.io/fabgpt-faq/og.svg">
 <link rel="stylesheet" href="../../style.css">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Cosa sono le chiavi di sicurezza hardware (YubiKey e simili)?", "acceptedAnswer": {"@type": "Answer", "text": "Una chiave di sicurezza hardware è un piccolo dispositivo (USB/NFC) che custodisce chiavi crittografiche in un chip inestraibile e firma le richieste di autenticazione premendo un tasto. È la forma più forte di [secondo fattore](q/cos-e-autenticazione-due-fattori-mfa/) e il modo più robusto di usare le [passkey](q/cosa-sono-le-passkey/). Perché batte tutto il resto: resiste al phishing (la firma FIDO2/WebAuthn è legata al dominio vero – su un sito clone non parte), non c'è un segreto condiviso da rubare dal server, e nulla lascia il dispositivo. A differenza dei codici TOTP (che un sito-esca può farsi digitare) o degli SMS (intercettabili), la chiave hardware chiude gli attacchi [AiTM](q/cos-e-un-attacco-man-in-the-middle/) che oggi bucano l'MFA debole. I nomi: YubiKey (lo standard), Nitrokey/SoloKeys (aperte, per chi vuole [ispezionare il firmware](q/secure-element-vs-firmware-aperto/)). Oltre a FIDO2 fanno spesso anche OATH-TOTP, PGP e smartcard. La regola d'oro pratica: due chiavi, una in uso e una di backup in cassaforte – perché una chiave hardware persa senza recupero è un lockout, e il phishing-resistant non serve se poi il recovery è via SMS."}}]}</script>
+<script type="application/ld+json">[{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Cosa sono le chiavi di sicurezza hardware (YubiKey e simili)?", "acceptedAnswer": {"@type": "Answer", "text": "Una chiave di sicurezza hardware è un piccolo dispositivo (USB/NFC) che custodisce chiavi crittografiche in un chip inestraibile e firma le richieste di autenticazione premendo un tasto. È la forma più forte di [secondo fattore](q/cos-e-autenticazione-due-fattori-mfa/) e il modo più robusto di usare le [passkey](q/cosa-sono-le-passkey/). Perché batte tutto il resto: resiste al phishing (la firma FIDO2/WebAuthn è legata al dominio vero – su un sito clone non parte), non c'è un segreto condiviso da rubare dal server, e nulla lascia il dispositivo. A differenza dei codici TOTP (che un sito-esca può farsi digitare) o degli SMS (intercettabili), la chiave hardware chiude gli attacchi [AiTM](q/cos-e-un-attacco-man-in-the-middle/) che oggi bucano l'MFA debole. I nomi: YubiKey (lo standard), Nitrokey/SoloKeys (aperte, per chi vuole [ispezionare il firmware](q/secure-element-vs-firmware-aperto/)). Oltre a FIDO2 fanno spesso anche OATH-TOTP, PGP e smartcard. La regola d'oro pratica: due chiavi, una in uso e una di backup in cassaforte – perché una chiave hardware persa senza recupero è un lockout, e il phishing-resistant non serve se poi il recovery è via SMS."}}]}, {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "FabGPT-FAQ", "item": "https://fabriziosalmi.github.io/fabgpt-faq/"}, {"@type": "ListItem", "position": 2, "name": "Tutte le domande", "item": "https://fabriziosalmi.github.io/fabgpt-faq/q/"}, {"@type": "ListItem", "position": 3, "name": "Cybersecurity", "item": "https://fabriziosalmi.github.io/fabgpt-faq/q/chiavi-di-sicurezza-hardware-yubikey/"}]}]</script>
 <style>
   .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
-  .page h1 { font-size: 26px; line-height: 1.3; margin: 8px 0 20px; }
+  .page h1 { font-size: 26px; line-height: 1.3; margin: 6px 0 20px; }
+  .crumbs { font-size: 13px; color: var(--text-dim); margin-bottom: 4px; }
+  .crumbs a { color: var(--text-dim); text-decoration: none; }
+  .crumbs a:hover { color: var(--text); }
   .page .answer a { color: var(--link); }
   .page .vertical { font-size: 13px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }
   .page .answer ul { padding-left: 22px; }
@@ -32,7 +47,7 @@
   </a>
 </header>
 <main class="page">
-  <div class="vertical">Cybersecurity</div>
+  <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › Cybersecurity</nav>
   <h1>Cosa sono le chiavi di sicurezza hardware (YubiKey e simili)?</h1>
   <div class="answer"><p>Una <strong>chiave di sicurezza hardware</strong> è un piccolo dispositivo (USB/NFC) che custodisce chiavi crittografiche in un chip <strong>inestraibile</strong> e firma le richieste di autenticazione premendo un tasto. È la forma più forte di <a href="../cos-e-autenticazione-due-fattori-mfa/">secondo fattore</a> e il modo più robusto di usare le <a href="../cosa-sono-le-passkey/">passkey</a>.</p><p>Perché batte tutto il resto: <strong>resiste al phishing</strong> (la firma FIDO2/WebAuthn è legata al dominio vero – su un sito clone non parte), non c&#x27;è un segreto condiviso da rubare dal server, e nulla lascia il dispositivo. A differenza dei codici TOTP (che un sito-esca può farsi digitare) o degli SMS (intercettabili), la chiave hardware chiude gli attacchi <a href="../cos-e-un-attacco-man-in-the-middle/">AiTM</a> che oggi bucano l&#x27;MFA debole.</p><p>I nomi: <strong>YubiKey</strong> (lo standard), <strong>Nitrokey/SoloKeys</strong> (aperte, per chi vuole <a href="../secure-element-vs-firmware-aperto/">ispezionare il firmware</a>). Oltre a FIDO2 fanno spesso anche OATH-TOTP, PGP e smartcard. La regola d&#x27;oro pratica: <strong>due chiavi</strong>, una in uso e una di backup in cassaforte – perché una chiave hardware persa senza recupero è un lockout, e il phishing-resistant non serve se poi il recovery è via SMS.</p></div>
   <a class="ask" href="../../?q=hardware-key">Chiedilo a FabGPT-FAQ →</a>

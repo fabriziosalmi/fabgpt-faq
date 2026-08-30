@@ -70,8 +70,11 @@ After editing, regenerate the static layer:
 python3 build.py
 ```
 
-This rewrites `q/` (one page per entry + an all-questions index), `sitemap.xml` and
-`robots.txt`. Commit the generated files – the site is served as-is.
+This rewrites `q/` (one page per entry + an all-questions index), `sitemap.xml`,
+`robots.txt`, `llms.txt` + `llms-full.txt` (answer-engine maps), and `404.html`.
+Every question page carries FAQPage + BreadcrumbList JSON-LD and Open Graph tags
+(shared `og.svg`); the index carries WebSite + Organization + FAQPage. Commit the
+generated files – the site is served as-is.
 
 ## Deploy
 

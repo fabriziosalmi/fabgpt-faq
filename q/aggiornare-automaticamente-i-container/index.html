@@ -5,13 +5,28 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Come si aggiornano automaticamente i container (Watchtower e alternative)? – FabGPT-FAQ</title>
 <meta name="description" content="Le immagini [Docker](q/cos-e-docker-compose/) invecchiano e accumulano [CVE](q/cos-e-una-cve-e-il-cvss/): vanno aggiornate. Gli strumenti, con una tensione…">
+<meta name="robots" content="index,follow,max-image-preview:large">
 <link rel="canonical" href="https://fabriziosalmi.github.io/fabgpt-faq/q/aggiornare-automaticamente-i-container/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Come si aggiornano automaticamente i container (Watchtower e alternative)?">
+<meta property="og:description" content="Le immagini [Docker](q/cos-e-docker-compose/) invecchiano e accumulano [CVE](q/cos-e-una-cve-e-il-cvss/): vanno aggiornate. Gli strumenti, con una tensione…">
+<meta property="og:url" content="https://fabriziosalmi.github.io/fabgpt-faq/q/aggiornare-automaticamente-i-container/">
+<meta property="og:image" content="https://fabriziosalmi.github.io/fabgpt-faq/og.svg">
+<meta property="og:site_name" content="FabGPT-FAQ">
+<meta property="og:locale" content="it_IT">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Come si aggiornano automaticamente i container (Watchtower e alternative)?">
+<meta name="twitter:description" content="Le immagini [Docker](q/cos-e-docker-compose/) invecchiano e accumulano [CVE](q/cos-e-una-cve-e-il-cvss/): vanno aggiornate. Gli strumenti, con una tensione…">
+<meta name="twitter:image" content="https://fabriziosalmi.github.io/fabgpt-faq/og.svg">
 <link rel="stylesheet" href="../../style.css">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Come si aggiornano automaticamente i container (Watchtower e alternative)?", "acceptedAnswer": {"@type": "Answer", "text": "Le immagini [Docker](q/cos-e-docker-compose/) invecchiano e accumulano [CVE](q/cos-e-una-cve-e-il-cvss/): vanno aggiornate. Gli strumenti, con una tensione importante da capire: Watchtower – controlla e aggiorna in automatico i container quando esce una nuova immagine. Comodo... e rischioso: un aggiornamento automatico può rompere un servizio senza preavviso, di notte, mentre dormi. Per i tuoi servizi in produzione non è quasi mai la scelta giusta Diun – la variante saggia: ti avvisa (via [ntfy/Gotify](q/notifiche-push-self-hosted-ntfy-gotify/)) che c'è un aggiornamento, ma aggiorni tu, quando decidi e con backup pronto Renovate – per chi tiene i compose [in git](q/cos-e-gitops/): apre pull request con i bump di versione, che rivedi e mergi – il modo più controllato La regola d'oro, che vale [l'intera supply chain](q/cos-e-la-supply-chain-security/): notifica sempre, aggiorna automaticamente solo ciò che puoi permetterti di veder rompere. E qualunque strada, [pinna le versioni](q/sicurezza-delle-immagini-container/) (mai :latest cieco) e tieni un [backup](q/backup-3-2-1/) da cui tornare indietro – l'aggiornamento che rompe capita, la domanda è solo se hai la rete sotto."}}]}</script>
+<script type="application/ld+json">[{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Come si aggiornano automaticamente i container (Watchtower e alternative)?", "acceptedAnswer": {"@type": "Answer", "text": "Le immagini [Docker](q/cos-e-docker-compose/) invecchiano e accumulano [CVE](q/cos-e-una-cve-e-il-cvss/): vanno aggiornate. Gli strumenti, con una tensione importante da capire: Watchtower – controlla e aggiorna in automatico i container quando esce una nuova immagine. Comodo... e rischioso: un aggiornamento automatico può rompere un servizio senza preavviso, di notte, mentre dormi. Per i tuoi servizi in produzione non è quasi mai la scelta giusta Diun – la variante saggia: ti avvisa (via [ntfy/Gotify](q/notifiche-push-self-hosted-ntfy-gotify/)) che c'è un aggiornamento, ma aggiorni tu, quando decidi e con backup pronto Renovate – per chi tiene i compose [in git](q/cos-e-gitops/): apre pull request con i bump di versione, che rivedi e mergi – il modo più controllato La regola d'oro, che vale [l'intera supply chain](q/cos-e-la-supply-chain-security/): notifica sempre, aggiorna automaticamente solo ciò che puoi permetterti di veder rompere. E qualunque strada, [pinna le versioni](q/sicurezza-delle-immagini-container/) (mai :latest cieco) e tieni un [backup](q/backup-3-2-1/) da cui tornare indietro – l'aggiornamento che rompe capita, la domanda è solo se hai la rete sotto."}}]}, {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "FabGPT-FAQ", "item": "https://fabriziosalmi.github.io/fabgpt-faq/"}, {"@type": "ListItem", "position": 2, "name": "Tutte le domande", "item": "https://fabriziosalmi.github.io/fabgpt-faq/q/"}, {"@type": "ListItem", "position": 3, "name": "Proxmox e self-hosting", "item": "https://fabriziosalmi.github.io/fabgpt-faq/q/aggiornare-automaticamente-i-container/"}]}]</script>
 <style>
   .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
-  .page h1 { font-size: 26px; line-height: 1.3; margin: 8px 0 20px; }
+  .page h1 { font-size: 26px; line-height: 1.3; margin: 6px 0 20px; }
+  .crumbs { font-size: 13px; color: var(--text-dim); margin-bottom: 4px; }
+  .crumbs a { color: var(--text-dim); text-decoration: none; }
+  .crumbs a:hover { color: var(--text); }
   .page .answer a { color: var(--link); }
   .page .vertical { font-size: 13px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }
   .page .answer ul { padding-left: 22px; }
@@ -32,7 +47,7 @@
   </a>
 </header>
 <main class="page">
-  <div class="vertical">Proxmox e self-hosting</div>
+  <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › Proxmox e self-hosting</nav>
   <h1>Come si aggiornano automaticamente i container (Watchtower e alternative)?</h1>
   <div class="answer"><p>Le immagini <a href="../cos-e-docker-compose/">Docker</a> invecchiano e accumulano <a href="../cos-e-una-cve-e-il-cvss/">CVE</a>: vanno aggiornate. Gli strumenti, con una tensione importante da capire:</p><ul><li><strong>Watchtower</strong> – controlla e <strong>aggiorna in automatico</strong> i container quando esce una nuova immagine. Comodo... e rischioso: un aggiornamento automatico può rompere un servizio senza preavviso, di notte, mentre dormi. Per i <em>tuoi</em> servizi in produzione non è quasi mai la scelta giusta</li><li><strong>Diun</strong> – la variante saggia: <strong>ti avvisa</strong> (via <a href="../notifiche-push-self-hosted-ntfy-gotify/">ntfy/Gotify</a>) che c&#x27;è un aggiornamento, ma aggiorni tu, quando decidi e con backup pronto</li><li><strong>Renovate</strong> – per chi tiene i compose <a href="../cos-e-gitops/">in git</a>: apre pull request con i bump di versione, che rivedi e mergi – il modo più controllato</li></ul><p>La regola d&#x27;oro, che vale <a href="../cos-e-la-supply-chain-security/">l&#x27;intera supply chain</a>: <strong>notifica sempre, aggiorna automaticamente solo ciò che puoi permetterti di veder rompere</strong>. E qualunque strada, <a href="../sicurezza-delle-immagini-container/">pinna le versioni</a> (mai <code>:latest</code> cieco) e tieni un <a href="../backup-3-2-1/">backup</a> da cui tornare indietro – l&#x27;aggiornamento che rompe capita, la domanda è solo se hai la rete sotto.</p></div>
   <a class="ask" href="../../?q=watchtower">Chiedilo a FabGPT-FAQ →</a>

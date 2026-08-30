@@ -5,13 +5,28 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Cos&#x27;è la paravirtualizzazione (VirtIO)? – FabGPT-FAQ</title>
 <meta name="description" content="Un hypervisor può presentare alla VM hardware emulato (una finta scheda di rete Intel del 2003: compatibile con tutto, lentissima – ogni pacchetto passa per…">
+<meta name="robots" content="index,follow,max-image-preview:large">
 <link rel="canonical" href="https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-la-paravirtualizzazione-virtio/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Cos&#x27;è la paravirtualizzazione (VirtIO)?">
+<meta property="og:description" content="Un hypervisor può presentare alla VM hardware emulato (una finta scheda di rete Intel del 2003: compatibile con tutto, lentissima – ogni pacchetto passa per…">
+<meta property="og:url" content="https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-la-paravirtualizzazione-virtio/">
+<meta property="og:image" content="https://fabriziosalmi.github.io/fabgpt-faq/og.svg">
+<meta property="og:site_name" content="FabGPT-FAQ">
+<meta property="og:locale" content="it_IT">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Cos&#x27;è la paravirtualizzazione (VirtIO)?">
+<meta name="twitter:description" content="Un hypervisor può presentare alla VM hardware emulato (una finta scheda di rete Intel del 2003: compatibile con tutto, lentissima – ogni pacchetto passa per…">
+<meta name="twitter:image" content="https://fabriziosalmi.github.io/fabgpt-faq/og.svg">
 <link rel="stylesheet" href="../../style.css">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Cos'è la paravirtualizzazione (VirtIO)?", "acceptedAnswer": {"@type": "Answer", "text": "Un hypervisor può presentare alla VM hardware emulato (una finta scheda di rete Intel del 2003: compatibile con tutto, lentissima – ogni pacchetto passa per una pantomima di hardware inesistente) oppure dispositivi paravirtualizzati: la VM sa di essere virtuale e parla con l'host attraverso un'interfaccia progettata per quello. Lo standard è VirtIO: virtio-net per la rete, virtio-scsi/virtio-blk per i dischi, ballooning per la memoria. La differenza non è accademica: rete e dischi VirtIO vanno molte volte più veloci dell'emulazione, con meno CPU. Linux ha i driver nel kernel da sempre: su Proxmox una VM Linux va creata direttamente con VirtIO ovunque. Windows non li ha di serie: serve la ISO dei driver VirtIO durante l'installazione – è il passaggio che frega tutti [alla prima migrazione da VMware](q/migrare-da-vmware-a-proxmox/) (il trucco della scheda SATA temporanea è lì per quello). Se una VM ha rete o dischi inspiegabilmente [lenti](q/io-delay-alto-proxmox/): controlla che non stia emulando – è la causa numero uno."}}]}</script>
+<script type="application/ld+json">[{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Cos'è la paravirtualizzazione (VirtIO)?", "acceptedAnswer": {"@type": "Answer", "text": "Un hypervisor può presentare alla VM hardware emulato (una finta scheda di rete Intel del 2003: compatibile con tutto, lentissima – ogni pacchetto passa per una pantomima di hardware inesistente) oppure dispositivi paravirtualizzati: la VM sa di essere virtuale e parla con l'host attraverso un'interfaccia progettata per quello. Lo standard è VirtIO: virtio-net per la rete, virtio-scsi/virtio-blk per i dischi, ballooning per la memoria. La differenza non è accademica: rete e dischi VirtIO vanno molte volte più veloci dell'emulazione, con meno CPU. Linux ha i driver nel kernel da sempre: su Proxmox una VM Linux va creata direttamente con VirtIO ovunque. Windows non li ha di serie: serve la ISO dei driver VirtIO durante l'installazione – è il passaggio che frega tutti [alla prima migrazione da VMware](q/migrare-da-vmware-a-proxmox/) (il trucco della scheda SATA temporanea è lì per quello). Se una VM ha rete o dischi inspiegabilmente [lenti](q/io-delay-alto-proxmox/): controlla che non stia emulando – è la causa numero uno."}}]}, {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "FabGPT-FAQ", "item": "https://fabriziosalmi.github.io/fabgpt-faq/"}, {"@type": "ListItem", "position": 2, "name": "Tutte le domande", "item": "https://fabriziosalmi.github.io/fabgpt-faq/q/"}, {"@type": "ListItem", "position": 3, "name": "Proxmox e self-hosting", "item": "https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-la-paravirtualizzazione-virtio/"}]}]</script>
 <style>
   .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
-  .page h1 { font-size: 26px; line-height: 1.3; margin: 8px 0 20px; }
+  .page h1 { font-size: 26px; line-height: 1.3; margin: 6px 0 20px; }
+  .crumbs { font-size: 13px; color: var(--text-dim); margin-bottom: 4px; }
+  .crumbs a { color: var(--text-dim); text-decoration: none; }
+  .crumbs a:hover { color: var(--text); }
   .page .answer a { color: var(--link); }
   .page .vertical { font-size: 13px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }
   .page .answer ul { padding-left: 22px; }
@@ -32,7 +47,7 @@
   </a>
 </header>
 <main class="page">
-  <div class="vertical">Proxmox e self-hosting</div>
+  <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › Proxmox e self-hosting</nav>
   <h1>Cos&#x27;è la paravirtualizzazione (VirtIO)?</h1>
   <div class="answer"><p>Un hypervisor può presentare alla VM hardware <strong>emulato</strong> (una finta scheda di rete Intel del 2003: compatibile con tutto, lentissima – ogni pacchetto passa per una pantomima di hardware inesistente) oppure dispositivi <strong>paravirtualizzati</strong>: la VM <em>sa</em> di essere virtuale e parla con l&#x27;host attraverso un&#x27;interfaccia progettata per quello. Lo standard è <strong>VirtIO</strong>: <code>virtio-net</code> per la rete, <code>virtio-scsi</code>/<code>virtio-blk</code> per i dischi, ballooning per la memoria.</p><p>La differenza non è accademica: rete e dischi VirtIO vanno <strong>molte volte più veloci</strong> dell&#x27;emulazione, con meno CPU. Linux ha i driver nel kernel da sempre: su Proxmox una VM Linux va creata direttamente con VirtIO ovunque. <strong>Windows</strong> non li ha di serie: serve la ISO dei driver VirtIO durante l&#x27;installazione – è il passaggio che frega tutti <a href="../migrare-da-vmware-a-proxmox/">alla prima migrazione da VMware</a> (il trucco della scheda SATA temporanea è lì per quello).</p><p>Se una VM ha rete o dischi inspiegabilmente <a href="../io-delay-alto-proxmox/">lenti</a>: controlla che non stia emulando – è la causa numero uno.</p></div>
   <a class="ask" href="../../?q=virtio">Chiedilo a FabGPT-FAQ →</a>

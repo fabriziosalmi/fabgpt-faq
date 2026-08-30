@@ -5,13 +5,28 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ModSecurity è morto? Le alternative moderne – FabGPT-FAQ</title>
 <meta name="description" content="ModSecurity è stato il WAF open source per vent&#x27;anni, ma la storia recente parla chiaro: Trustwave ne ha annunciato il fine supporto (2024) e il progetto…">
+<meta name="robots" content="index,follow,max-image-preview:large">
 <link rel="canonical" href="https://fabriziosalmi.github.io/fabgpt-faq/q/modsecurity-e-alternative-moderne/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ModSecurity è morto? Le alternative moderne">
+<meta property="og:description" content="ModSecurity è stato il WAF open source per vent&#x27;anni, ma la storia recente parla chiaro: Trustwave ne ha annunciato il fine supporto (2024) e il progetto…">
+<meta property="og:url" content="https://fabriziosalmi.github.io/fabgpt-faq/q/modsecurity-e-alternative-moderne/">
+<meta property="og:image" content="https://fabriziosalmi.github.io/fabgpt-faq/og.svg">
+<meta property="og:site_name" content="FabGPT-FAQ">
+<meta property="og:locale" content="it_IT">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="ModSecurity è morto? Le alternative moderne">
+<meta name="twitter:description" content="ModSecurity è stato il WAF open source per vent&#x27;anni, ma la storia recente parla chiaro: Trustwave ne ha annunciato il fine supporto (2024) e il progetto…">
+<meta name="twitter:image" content="https://fabriziosalmi.github.io/fabgpt-faq/og.svg">
 <link rel="stylesheet" href="../../style.css">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "ModSecurity è morto? Le alternative moderne", "acceptedAnswer": {"@type": "Answer", "text": "ModSecurity è stato il WAF open source per vent'anni, ma la storia recente parla chiaro: Trustwave ne ha annunciato il fine supporto (2024) e il progetto vive di manutenzione residua. Le regole OWASP CRS – il vero patrimonio – sono vive e vegete; è il motore a essere in pensione. Le strade moderne: Coraza: il successore spirituale in Go, compatibile con le regole CRS, si integra con Caddy e proxy moderni – la scelta di continuità il WAF nel proxy: caddy-waf per Caddy, o zion che integra un WAF zero-regex direttamente nel reverse proxy Rust le CRS senza motore: patterns converte ogni giorno le regole OWASP nella sintassi nativa di Nginx, Apache, Traefik e HAProxy – niente modulo da compilare, niente motore da mantenere Chi ha ancora ModSecurity in produzione non deve correre nel panico, ma la migrazione va messa a piano: un WAF senza aggiornamenti invecchia male."}}]}</script>
+<script type="application/ld+json">[{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "ModSecurity è morto? Le alternative moderne", "acceptedAnswer": {"@type": "Answer", "text": "ModSecurity è stato il WAF open source per vent'anni, ma la storia recente parla chiaro: Trustwave ne ha annunciato il fine supporto (2024) e il progetto vive di manutenzione residua. Le regole OWASP CRS – il vero patrimonio – sono vive e vegete; è il motore a essere in pensione. Le strade moderne: Coraza: il successore spirituale in Go, compatibile con le regole CRS, si integra con Caddy e proxy moderni – la scelta di continuità il WAF nel proxy: caddy-waf per Caddy, o zion che integra un WAF zero-regex direttamente nel reverse proxy Rust le CRS senza motore: patterns converte ogni giorno le regole OWASP nella sintassi nativa di Nginx, Apache, Traefik e HAProxy – niente modulo da compilare, niente motore da mantenere Chi ha ancora ModSecurity in produzione non deve correre nel panico, ma la migrazione va messa a piano: un WAF senza aggiornamenti invecchia male."}}]}, {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "FabGPT-FAQ", "item": "https://fabriziosalmi.github.io/fabgpt-faq/"}, {"@type": "ListItem", "position": 2, "name": "Tutte le domande", "item": "https://fabriziosalmi.github.io/fabgpt-faq/q/"}, {"@type": "ListItem", "position": 3, "name": "Cybersecurity", "item": "https://fabriziosalmi.github.io/fabgpt-faq/q/modsecurity-e-alternative-moderne/"}]}]</script>
 <style>
   .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
-  .page h1 { font-size: 26px; line-height: 1.3; margin: 8px 0 20px; }
+  .page h1 { font-size: 26px; line-height: 1.3; margin: 6px 0 20px; }
+  .crumbs { font-size: 13px; color: var(--text-dim); margin-bottom: 4px; }
+  .crumbs a { color: var(--text-dim); text-decoration: none; }
+  .crumbs a:hover { color: var(--text); }
   .page .answer a { color: var(--link); }
   .page .vertical { font-size: 13px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }
   .page .answer ul { padding-left: 22px; }
@@ -32,7 +47,7 @@
   </a>
 </header>
 <main class="page">
-  <div class="vertical">Cybersecurity</div>
+  <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › Cybersecurity</nav>
   <h1>ModSecurity è morto? Le alternative moderne</h1>
   <div class="answer"><p><strong>ModSecurity</strong> è stato <em>il</em> WAF open source per vent&#x27;anni, ma la storia recente parla chiaro: Trustwave ne ha annunciato il fine supporto (2024) e il progetto vive di manutenzione residua. Le regole <strong>OWASP CRS</strong> – il vero patrimonio – sono vive e vegete; è il motore a essere in pensione.</p><p>Le strade moderne:</p><ul><li><strong>Coraza</strong>: il successore spirituale in Go, compatibile con le regole CRS, si integra con Caddy e proxy moderni – la scelta di continuità</li><li><strong>il WAF nel proxy</strong>: <a href="https://github.com/fabriziosalmi/caddy-waf" target="_blank" rel="noopener">caddy-waf</a> per Caddy, o <a href="https://github.com/fabriziosalmi/zion" target="_blank" rel="noopener">zion</a> che integra un WAF zero-regex direttamente nel reverse proxy Rust</li><li><strong>le CRS senza motore</strong>: <a href="https://github.com/fabriziosalmi/patterns" target="_blank" rel="noopener">patterns</a> converte ogni giorno le regole OWASP nella sintassi <em>nativa</em> di Nginx, Apache, Traefik e HAProxy – niente modulo da compilare, niente motore da mantenere</li></ul><p>Chi ha ancora ModSecurity in produzione non deve correre nel panico, ma la migrazione va messa a piano: un WAF senza aggiornamenti invecchia male.</p></div>
   <a class="ask" href="../../?q=modsecurity-alternative">Chiedilo a FabGPT-FAQ →</a>

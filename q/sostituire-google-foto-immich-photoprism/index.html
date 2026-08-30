@@ -5,13 +5,28 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Come si sostituisce Google Foto (Immich, PhotoPrism)? – FabGPT-FAQ</title>
 <meta name="description" content="Google Foto è comodissimo e sa tutto delle tue foto – il che è esattamente il problema. Le due alternative self-hosted mature: Immich – l&#x27;erede spirituale:…">
+<meta name="robots" content="index,follow,max-image-preview:large">
 <link rel="canonical" href="https://fabriziosalmi.github.io/fabgpt-faq/q/sostituire-google-foto-immich-photoprism/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Come si sostituisce Google Foto (Immich, PhotoPrism)?">
+<meta property="og:description" content="Google Foto è comodissimo e sa tutto delle tue foto – il che è esattamente il problema. Le due alternative self-hosted mature: Immich – l&#x27;erede spirituale:…">
+<meta property="og:url" content="https://fabriziosalmi.github.io/fabgpt-faq/q/sostituire-google-foto-immich-photoprism/">
+<meta property="og:image" content="https://fabriziosalmi.github.io/fabgpt-faq/og.svg">
+<meta property="og:site_name" content="FabGPT-FAQ">
+<meta property="og:locale" content="it_IT">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Come si sostituisce Google Foto (Immich, PhotoPrism)?">
+<meta name="twitter:description" content="Google Foto è comodissimo e sa tutto delle tue foto – il che è esattamente il problema. Le due alternative self-hosted mature: Immich – l&#x27;erede spirituale:…">
+<meta name="twitter:image" content="https://fabriziosalmi.github.io/fabgpt-faq/og.svg">
 <link rel="stylesheet" href="../../style.css">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Come si sostituisce Google Foto (Immich, PhotoPrism)?", "acceptedAnswer": {"@type": "Answer", "text": "Google Foto è comodissimo e sa tutto delle tue foto – il che è esattamente il problema. Le due alternative self-hosted mature: Immich – l'erede spirituale: app mobile con backup automatico (l'unica cosa che la gente vuole davvero), timeline, ricerca semantica e riconoscimento facciale in locale (modelli AI sul tuo server, niente cloud), condivisione. In sviluppo rapidissimo, ormai pronto per l'uso quotidiano PhotoPrism – più maturo e stabile, ottima organizzazione e tagging AI, app mobile meno centrale La scelta pratica: Immich se il backup da telefono è la priorità (lo è quasi sempre), PhotoPrism se preferisci stabilità e catalogazione. Entrambi in [Docker Compose](q/cos-e-docker-compose/) su [Proxmox](q/cos-e-proxmox-ve/); l'inferenza AI locale gradisce [un po' di CPU/RAM](q/quanta-ram-vram-serve-per-un-llm/) (GPU opzionale). E il monito che vale doppio qui: le foto di famiglia sono insostituibili – la [regola 3-2-1](q/backup-3-2-1/) con una copia offsite non è un optional, è il motivo per cui te ne stai occupando."}}]}</script>
+<script type="application/ld+json">[{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Come si sostituisce Google Foto (Immich, PhotoPrism)?", "acceptedAnswer": {"@type": "Answer", "text": "Google Foto è comodissimo e sa tutto delle tue foto – il che è esattamente il problema. Le due alternative self-hosted mature: Immich – l'erede spirituale: app mobile con backup automatico (l'unica cosa che la gente vuole davvero), timeline, ricerca semantica e riconoscimento facciale in locale (modelli AI sul tuo server, niente cloud), condivisione. In sviluppo rapidissimo, ormai pronto per l'uso quotidiano PhotoPrism – più maturo e stabile, ottima organizzazione e tagging AI, app mobile meno centrale La scelta pratica: Immich se il backup da telefono è la priorità (lo è quasi sempre), PhotoPrism se preferisci stabilità e catalogazione. Entrambi in [Docker Compose](q/cos-e-docker-compose/) su [Proxmox](q/cos-e-proxmox-ve/); l'inferenza AI locale gradisce [un po' di CPU/RAM](q/quanta-ram-vram-serve-per-un-llm/) (GPU opzionale). E il monito che vale doppio qui: le foto di famiglia sono insostituibili – la [regola 3-2-1](q/backup-3-2-1/) con una copia offsite non è un optional, è il motivo per cui te ne stai occupando."}}]}, {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "FabGPT-FAQ", "item": "https://fabriziosalmi.github.io/fabgpt-faq/"}, {"@type": "ListItem", "position": 2, "name": "Tutte le domande", "item": "https://fabriziosalmi.github.io/fabgpt-faq/q/"}, {"@type": "ListItem", "position": 3, "name": "Proxmox e self-hosting", "item": "https://fabriziosalmi.github.io/fabgpt-faq/q/sostituire-google-foto-immich-photoprism/"}]}]</script>
 <style>
   .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
-  .page h1 { font-size: 26px; line-height: 1.3; margin: 8px 0 20px; }
+  .page h1 { font-size: 26px; line-height: 1.3; margin: 6px 0 20px; }
+  .crumbs { font-size: 13px; color: var(--text-dim); margin-bottom: 4px; }
+  .crumbs a { color: var(--text-dim); text-decoration: none; }
+  .crumbs a:hover { color: var(--text); }
   .page .answer a { color: var(--link); }
   .page .vertical { font-size: 13px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }
   .page .answer ul { padding-left: 22px; }
@@ -32,7 +47,7 @@
   </a>
 </header>
 <main class="page">
-  <div class="vertical">Proxmox e self-hosting</div>
+  <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › Proxmox e self-hosting</nav>
   <h1>Come si sostituisce Google Foto (Immich, PhotoPrism)?</h1>
   <div class="answer"><p>Google Foto è comodissimo e sa tutto delle tue foto – il che è esattamente il problema. Le due alternative self-hosted mature:</p><ul><li><strong>Immich</strong> – l&#x27;erede spirituale: app mobile con <strong>backup automatico</strong> (l&#x27;unica cosa che la gente vuole davvero), timeline, ricerca semantica e riconoscimento facciale <strong>in locale</strong> (modelli AI sul tuo server, niente cloud), condivisione. In sviluppo rapidissimo, ormai pronto per l&#x27;uso quotidiano</li><li><strong>PhotoPrism</strong> – più maturo e stabile, ottima organizzazione e tagging AI, app mobile meno centrale</li></ul><p>La scelta pratica: <strong>Immich</strong> se il backup da telefono è la priorità (lo è quasi sempre), PhotoPrism se preferisci stabilità e catalogazione. Entrambi in <a href="../cos-e-docker-compose/">Docker Compose</a> su <a href="../cos-e-proxmox-ve/">Proxmox</a>; l&#x27;inferenza AI locale gradisce <a href="../quanta-ram-vram-serve-per-un-llm/">un po&#x27; di CPU/RAM</a> (GPU opzionale). E il monito che vale doppio qui: le foto di famiglia sono insostituibili – la <a href="../backup-3-2-1/">regola 3-2-1</a> con una copia offsite non è un optional, è il motivo per cui te ne stai occupando.</p></div>
   <a class="ask" href="../../?q=immich">Chiedilo a FabGPT-FAQ →</a>

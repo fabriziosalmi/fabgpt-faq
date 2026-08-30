@@ -5,13 +5,28 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Errore SSL handshake failure: cosa significa? – FabGPT-FAQ</title>
 <meta name="description" content="L&#x27;handshake failure avviene prima che passi qualsiasi dato: client e server non trovano un accordo su come cifrare. Cause tipiche: nessun protocollo in…">
+<meta name="robots" content="index,follow,max-image-preview:large">
 <link rel="canonical" href="https://fabriziosalmi.github.io/fabgpt-faq/q/errore-ssl-handshake-failure/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Errore SSL handshake failure: cosa significa?">
+<meta property="og:description" content="L&#x27;handshake failure avviene prima che passi qualsiasi dato: client e server non trovano un accordo su come cifrare. Cause tipiche: nessun protocollo in…">
+<meta property="og:url" content="https://fabriziosalmi.github.io/fabgpt-faq/q/errore-ssl-handshake-failure/">
+<meta property="og:image" content="https://fabriziosalmi.github.io/fabgpt-faq/og.svg">
+<meta property="og:site_name" content="FabGPT-FAQ">
+<meta property="og:locale" content="it_IT">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Errore SSL handshake failure: cosa significa?">
+<meta name="twitter:description" content="L&#x27;handshake failure avviene prima che passi qualsiasi dato: client e server non trovano un accordo su come cifrare. Cause tipiche: nessun protocollo in…">
+<meta name="twitter:image" content="https://fabriziosalmi.github.io/fabgpt-faq/og.svg">
 <link rel="stylesheet" href="../../style.css">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Errore SSL handshake failure: cosa significa?", "acceptedAnswer": {"@type": "Answer", "text": "L'handshake failure avviene prima che passi qualsiasi dato: client e server non trovano un accordo su come cifrare. Cause tipiche: nessun protocollo in comune: il server accetta solo TLS 1.2+ e il client è antico (Java vecchio, sistemi embedded, XP…) – o viceversa, il server è il fossile nessun cifrario in comune (SSL_ERROR_NO_CYPHER_OVERLAP): suite troppo ristrette da un lato o obsolete dall'altro SNI mancante: client datati non dichiarano il nome host e ricevono il certificato sbagliato su server multi-dominio intercettazioni di mezzo: proxy aziendali o antivirus che fanno [MITM dichiarato](q/cos-e-un-attacco-man-in-the-middle/) e lo fanno male Diagnosi in un comando: openssl s_client -connect host:443 -servername host dice esattamente dove muore la trattativa; il test SSL Labs dà il quadro completo. La regola per chi gestisce server: TLS 1.2+1.3 con le suite raccomandate – né trofei vintage, né restrizioni da collezionista che tagliano fuori client legittimi."}}]}</script>
+<script type="application/ld+json">[{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Errore SSL handshake failure: cosa significa?", "acceptedAnswer": {"@type": "Answer", "text": "L'handshake failure avviene prima che passi qualsiasi dato: client e server non trovano un accordo su come cifrare. Cause tipiche: nessun protocollo in comune: il server accetta solo TLS 1.2+ e il client è antico (Java vecchio, sistemi embedded, XP…) – o viceversa, il server è il fossile nessun cifrario in comune (SSL_ERROR_NO_CYPHER_OVERLAP): suite troppo ristrette da un lato o obsolete dall'altro SNI mancante: client datati non dichiarano il nome host e ricevono il certificato sbagliato su server multi-dominio intercettazioni di mezzo: proxy aziendali o antivirus che fanno [MITM dichiarato](q/cos-e-un-attacco-man-in-the-middle/) e lo fanno male Diagnosi in un comando: openssl s_client -connect host:443 -servername host dice esattamente dove muore la trattativa; il test SSL Labs dà il quadro completo. La regola per chi gestisce server: TLS 1.2+1.3 con le suite raccomandate – né trofei vintage, né restrizioni da collezionista che tagliano fuori client legittimi."}}]}, {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "FabGPT-FAQ", "item": "https://fabriziosalmi.github.io/fabgpt-faq/"}, {"@type": "ListItem", "position": 2, "name": "Tutte le domande", "item": "https://fabriziosalmi.github.io/fabgpt-faq/q/"}, {"@type": "ListItem", "position": 3, "name": "Cybersecurity", "item": "https://fabriziosalmi.github.io/fabgpt-faq/q/errore-ssl-handshake-failure/"}]}]</script>
 <style>
   .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
-  .page h1 { font-size: 26px; line-height: 1.3; margin: 8px 0 20px; }
+  .page h1 { font-size: 26px; line-height: 1.3; margin: 6px 0 20px; }
+  .crumbs { font-size: 13px; color: var(--text-dim); margin-bottom: 4px; }
+  .crumbs a { color: var(--text-dim); text-decoration: none; }
+  .crumbs a:hover { color: var(--text); }
   .page .answer a { color: var(--link); }
   .page .vertical { font-size: 13px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }
   .page .answer ul { padding-left: 22px; }
@@ -32,7 +47,7 @@
   </a>
 </header>
 <main class="page">
-  <div class="vertical">Cybersecurity</div>
+  <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › Cybersecurity</nav>
   <h1>Errore SSL handshake failure: cosa significa?</h1>
   <div class="answer"><p>L&#x27;<strong>handshake failure</strong> avviene prima che passi qualsiasi dato: client e server non trovano un accordo su come cifrare. Cause tipiche:</p><ul><li><strong>nessun protocollo in comune</strong>: il server accetta solo TLS 1.2+ e il client è antico (Java vecchio, sistemi embedded, XP…) – o viceversa, il server è il fossile</li><li><strong>nessun cifrario in comune</strong> (<code>SSL_ERROR_NO_CYPHER_OVERLAP</code>): suite troppo ristrette da un lato o obsolete dall&#x27;altro</li><li><strong>SNI mancante</strong>: client datati non dichiarano il nome host e ricevono il certificato sbagliato su server multi-dominio</li><li>intercettazioni di mezzo: proxy aziendali o antivirus che fanno <a href="../cos-e-un-attacco-man-in-the-middle/">MITM dichiarato</a> e lo fanno male</li></ul><p>Diagnosi in un comando: <code>openssl s_client -connect host:443 -servername host</code> dice esattamente dove muore la trattativa; il test SSL Labs dà il quadro completo. La regola per chi gestisce server: TLS 1.2+1.3 con le suite raccomandate – né trofei vintage, né restrizioni da collezionista che tagliano fuori client legittimi.</p></div>
   <a class="ask" href="../../?q=errore-handshake">Chiedilo a FabGPT-FAQ →</a>

@@ -5,13 +5,28 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Cos&#x27;è il reranking? – FabGPT-FAQ</title>
 <meta name="description" content="Il reranking è la seconda passata del retrieval: la ricerca veloce ([vettoriale](q/cos-e-un-vector-database/) o full-text) recupera i primi 20-100…">
+<meta name="robots" content="index,follow,max-image-preview:large">
 <link rel="canonical" href="https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-il-reranking/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Cos&#x27;è il reranking?">
+<meta property="og:description" content="Il reranking è la seconda passata del retrieval: la ricerca veloce ([vettoriale](q/cos-e-un-vector-database/) o full-text) recupera i primi 20-100…">
+<meta property="og:url" content="https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-il-reranking/">
+<meta property="og:image" content="https://fabriziosalmi.github.io/fabgpt-faq/og.svg">
+<meta property="og:site_name" content="FabGPT-FAQ">
+<meta property="og:locale" content="it_IT">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Cos&#x27;è il reranking?">
+<meta name="twitter:description" content="Il reranking è la seconda passata del retrieval: la ricerca veloce ([vettoriale](q/cos-e-un-vector-database/) o full-text) recupera i primi 20-100…">
+<meta name="twitter:image" content="https://fabriziosalmi.github.io/fabgpt-faq/og.svg">
 <link rel="stylesheet" href="../../style.css">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Cos'è il reranking?", "acceptedAnswer": {"@type": "Answer", "text": "Il reranking è la seconda passata del retrieval: la ricerca veloce ([vettoriale](q/cos-e-un-vector-database/) o full-text) recupera i primi 20-100 candidati, poi un reranker – un modello che legge davvero la coppia domanda+documento, non due vettori precalcolati – li riordina per pertinenza vera, e al [RAG](q/cos-e-rag-retrieval-augmented-generation/) arrivano solo i migliori 3-5. Perché funziona: gli embeddings comprimono ogni testo in un vettore prima di sapere quale sarà la domanda – per forza perdono sfumature. Il reranker (tipicamente un cross-encoder) valuta la coppia specifica: più lento per documento, ma su pochi candidati il conto torna. È spesso il singolo upgrade con il miglior rapporto resa/sforzo di una pipeline RAG: pochi punti percentuali di latenza, molta meno spazzatura nel contesto – e [meno contesto sprecato](q/token-e-context-window/) significa anche risposte migliori e più economiche."}}]}</script>
+<script type="application/ld+json">[{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Cos'è il reranking?", "acceptedAnswer": {"@type": "Answer", "text": "Il reranking è la seconda passata del retrieval: la ricerca veloce ([vettoriale](q/cos-e-un-vector-database/) o full-text) recupera i primi 20-100 candidati, poi un reranker – un modello che legge davvero la coppia domanda+documento, non due vettori precalcolati – li riordina per pertinenza vera, e al [RAG](q/cos-e-rag-retrieval-augmented-generation/) arrivano solo i migliori 3-5. Perché funziona: gli embeddings comprimono ogni testo in un vettore prima di sapere quale sarà la domanda – per forza perdono sfumature. Il reranker (tipicamente un cross-encoder) valuta la coppia specifica: più lento per documento, ma su pochi candidati il conto torna. È spesso il singolo upgrade con il miglior rapporto resa/sforzo di una pipeline RAG: pochi punti percentuali di latenza, molta meno spazzatura nel contesto – e [meno contesto sprecato](q/token-e-context-window/) significa anche risposte migliori e più economiche."}}]}, {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "FabGPT-FAQ", "item": "https://fabriziosalmi.github.io/fabgpt-faq/"}, {"@type": "ListItem", "position": 2, "name": "Tutte le domande", "item": "https://fabriziosalmi.github.io/fabgpt-faq/q/"}, {"@type": "ListItem", "position": 3, "name": "AI e LLM", "item": "https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-il-reranking/"}]}]</script>
 <style>
   .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
-  .page h1 { font-size: 26px; line-height: 1.3; margin: 8px 0 20px; }
+  .page h1 { font-size: 26px; line-height: 1.3; margin: 6px 0 20px; }
+  .crumbs { font-size: 13px; color: var(--text-dim); margin-bottom: 4px; }
+  .crumbs a { color: var(--text-dim); text-decoration: none; }
+  .crumbs a:hover { color: var(--text); }
   .page .answer a { color: var(--link); }
   .page .vertical { font-size: 13px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }
   .page .answer ul { padding-left: 22px; }
@@ -32,7 +47,7 @@
   </a>
 </header>
 <main class="page">
-  <div class="vertical">AI e LLM</div>
+  <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › AI e LLM</nav>
   <h1>Cos&#x27;è il reranking?</h1>
   <div class="answer"><p>Il <strong>reranking</strong> è la seconda passata del retrieval: la ricerca veloce (<a href="../cos-e-un-vector-database/">vettoriale</a> o full-text) recupera i primi 20-100 candidati, poi un <strong>reranker</strong> – un modello che legge davvero la coppia domanda+documento, non due vettori precalcolati – li riordina per pertinenza vera, e al <a href="../cos-e-rag-retrieval-augmented-generation/">RAG</a> arrivano solo i migliori 3-5.</p><p>Perché funziona: gli embeddings comprimono ogni testo in un vettore <em>prima</em> di sapere quale sarà la domanda – per forza perdono sfumature. Il reranker (tipicamente un cross-encoder) valuta la coppia specifica: più lento per documento, ma su pochi candidati il conto torna. È spesso <strong>il singolo upgrade con il miglior rapporto resa/sforzo</strong> di una pipeline RAG: pochi punti percentuali di latenza, molta meno spazzatura nel contesto – e <a href="../token-e-context-window/">meno contesto sprecato</a> significa anche risposte migliori e più economiche.</p></div>
   <a class="ask" href="../../?q=reranking">Chiedilo a FabGPT-FAQ →</a>

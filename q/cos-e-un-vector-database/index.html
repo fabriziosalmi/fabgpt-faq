@@ -5,13 +5,28 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Cos&#x27;è un vector database? – FabGPT-FAQ</title>
 <meta name="description" content="Un vector database archivia [embeddings](q/cosa-sono-gli-embeddings/) e risponde a una domanda sola, ma velocissimamente: quali vettori sono più vicini a…">
+<meta name="robots" content="index,follow,max-image-preview:large">
 <link rel="canonical" href="https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-un-vector-database/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Cos&#x27;è un vector database?">
+<meta property="og:description" content="Un vector database archivia [embeddings](q/cosa-sono-gli-embeddings/) e risponde a una domanda sola, ma velocissimamente: quali vettori sono più vicini a…">
+<meta property="og:url" content="https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-un-vector-database/">
+<meta property="og:image" content="https://fabriziosalmi.github.io/fabgpt-faq/og.svg">
+<meta property="og:site_name" content="FabGPT-FAQ">
+<meta property="og:locale" content="it_IT">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Cos&#x27;è un vector database?">
+<meta name="twitter:description" content="Un vector database archivia [embeddings](q/cosa-sono-gli-embeddings/) e risponde a una domanda sola, ma velocissimamente: quali vettori sono più vicini a…">
+<meta name="twitter:image" content="https://fabriziosalmi.github.io/fabgpt-faq/og.svg">
 <link rel="stylesheet" href="../../style.css">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Cos'è un vector database?", "acceptedAnswer": {"@type": "Answer", "text": "Un vector database archivia [embeddings](q/cosa-sono-gli-embeddings/) e risponde a una domanda sola, ma velocissimamente: quali vettori sono più vicini a questo? È la ricerca per similarità che fa funzionare il [RAG](q/cos-e-rag-retrieval-augmented-generation/), i sistemi di raccomandazione, la deduplicazione semantica. Sotto il cofano, indici approssimati (HNSW e simili) che scambiano un pizzico di esattezza per ordini di grandezza in velocità. Il panorama, con una dose di pragmatismo: pgvector – l'estensione Postgres: se hai già Postgres, per la maggior parte dei progetti è la risposta (un database in meno da gestire) Qdrant, Weaviate, Milvus – i dedicati, quando i vettori sono milioni e servono filtri e scala Chroma, FAISS, SQLite-vec – embedded, per prototipi e progetti locali Verità controcorrente: sotto le centinaia di migliaia di documenti, un ibrido full-text + vettori batte spesso i soli vettori – è la scelta di l0-memory: FTS5 di default, vettori come opzione."}}]}</script>
+<script type="application/ld+json">[{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Cos'è un vector database?", "acceptedAnswer": {"@type": "Answer", "text": "Un vector database archivia [embeddings](q/cosa-sono-gli-embeddings/) e risponde a una domanda sola, ma velocissimamente: quali vettori sono più vicini a questo? È la ricerca per similarità che fa funzionare il [RAG](q/cos-e-rag-retrieval-augmented-generation/), i sistemi di raccomandazione, la deduplicazione semantica. Sotto il cofano, indici approssimati (HNSW e simili) che scambiano un pizzico di esattezza per ordini di grandezza in velocità. Il panorama, con una dose di pragmatismo: pgvector – l'estensione Postgres: se hai già Postgres, per la maggior parte dei progetti è la risposta (un database in meno da gestire) Qdrant, Weaviate, Milvus – i dedicati, quando i vettori sono milioni e servono filtri e scala Chroma, FAISS, SQLite-vec – embedded, per prototipi e progetti locali Verità controcorrente: sotto le centinaia di migliaia di documenti, un ibrido full-text + vettori batte spesso i soli vettori – è la scelta di l0-memory: FTS5 di default, vettori come opzione."}}]}, {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "FabGPT-FAQ", "item": "https://fabriziosalmi.github.io/fabgpt-faq/"}, {"@type": "ListItem", "position": 2, "name": "Tutte le domande", "item": "https://fabriziosalmi.github.io/fabgpt-faq/q/"}, {"@type": "ListItem", "position": 3, "name": "AI e LLM", "item": "https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-un-vector-database/"}]}]</script>
 <style>
   .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
-  .page h1 { font-size: 26px; line-height: 1.3; margin: 8px 0 20px; }
+  .page h1 { font-size: 26px; line-height: 1.3; margin: 6px 0 20px; }
+  .crumbs { font-size: 13px; color: var(--text-dim); margin-bottom: 4px; }
+  .crumbs a { color: var(--text-dim); text-decoration: none; }
+  .crumbs a:hover { color: var(--text); }
   .page .answer a { color: var(--link); }
   .page .vertical { font-size: 13px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }
   .page .answer ul { padding-left: 22px; }
@@ -32,7 +47,7 @@
   </a>
 </header>
 <main class="page">
-  <div class="vertical">AI e LLM</div>
+  <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › AI e LLM</nav>
   <h1>Cos&#x27;è un vector database?</h1>
   <div class="answer"><p>Un <strong>vector database</strong> archivia <a href="../cosa-sono-gli-embeddings/">embeddings</a> e risponde a una domanda sola, ma velocissimamente: <em>quali vettori sono più vicini a questo?</em> È la ricerca per similarità che fa funzionare il <a href="../cos-e-rag-retrieval-augmented-generation/">RAG</a>, i sistemi di raccomandazione, la deduplicazione semantica. Sotto il cofano, indici approssimati (HNSW e simili) che scambiano un pizzico di esattezza per ordini di grandezza in velocità.</p><p>Il panorama, con una dose di pragmatismo:</p><ul><li><strong>pgvector</strong> – l&#x27;estensione Postgres: se hai già Postgres, per la maggior parte dei progetti è la risposta (un database in meno da gestire)</li><li><strong>Qdrant, Weaviate, Milvus</strong> – i dedicati, quando i vettori sono milioni e servono filtri e scala</li><li><strong>Chroma, FAISS, SQLite-vec</strong> – embedded, per prototipi e progetti locali</li></ul><p>Verità controcorrente: sotto le centinaia di migliaia di documenti, un <strong>ibrido full-text + vettori</strong> batte spesso i soli vettori – è la scelta di <a href="https://github.com/fabriziosalmi/l0-memory" target="_blank" rel="noopener">l0-memory</a>: FTS5 di default, vettori come opzione.</p></div>
   <a class="ask" href="../../?q=vector-database">Chiedilo a FabGPT-FAQ →</a>

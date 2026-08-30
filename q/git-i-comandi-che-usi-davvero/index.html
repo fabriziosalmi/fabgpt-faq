@@ -5,13 +5,28 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Git: i comandi che usi davvero – FabGPT-FAQ</title>
 <meta name="description" content="Git ha centocinquanta comandi; la vita quotidiana ne usa dieci: il ciclo: git status (sempre, prima di tutto) → git add -p (a pezzi, rileggendo) → git…">
+<meta name="robots" content="index,follow,max-image-preview:large">
 <link rel="canonical" href="https://fabriziosalmi.github.io/fabgpt-faq/q/git-i-comandi-che-usi-davvero/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Git: i comandi che usi davvero">
+<meta property="og:description" content="Git ha centocinquanta comandi; la vita quotidiana ne usa dieci: il ciclo: git status (sempre, prima di tutto) → git add -p (a pezzi, rileggendo) → git…">
+<meta property="og:url" content="https://fabriziosalmi.github.io/fabgpt-faq/q/git-i-comandi-che-usi-davvero/">
+<meta property="og:image" content="https://fabriziosalmi.github.io/fabgpt-faq/og.svg">
+<meta property="og:site_name" content="FabGPT-FAQ">
+<meta property="og:locale" content="it_IT">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Git: i comandi che usi davvero">
+<meta name="twitter:description" content="Git ha centocinquanta comandi; la vita quotidiana ne usa dieci: il ciclo: git status (sempre, prima di tutto) → git add -p (a pezzi, rileggendo) → git…">
+<meta name="twitter:image" content="https://fabriziosalmi.github.io/fabgpt-faq/og.svg">
 <link rel="stylesheet" href="../../style.css">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Git: i comandi che usi davvero", "acceptedAnswer": {"@type": "Answer", "text": "Git ha centocinquanta comandi; la vita quotidiana ne usa dieci: il ciclo: git status (sempre, prima di tutto) → git add -p (a pezzi, rileggendo) → git commit -m \"...\" → git push / git pull i rami: git switch -c feature-x per aprirne uno, git merge per riportarlo, git log --oneline --graph per capire dove sei i salvataggi: git stash quando serve cambiare contesto a mani sporche, git restore file per buttare modifiche locali il pentimento: git revert annulla con un nuovo commit (sicuro, sempre), git reset riscrive (solo su ciò che non hai ancora condiviso); rebase vs merge in una riga: rebase riordina la storia locale prima di pubblicarla, merge preserva ciò che è già pubblico Le abitudini che ripagano più dei comandi: commit piccoli e tematici con messaggi che spiegano il perché, [mai segreti nel repository](q/come-gestire-i-secrets/), e [le firme sui commit](q/come-si-firma-il-codice/) dove conta. Git è anche un ottimo backup distribuito gratuito: [i tuoi appunti](q/app-note-markdown-local-first/), la configurazione, [l'infrastruttura](q/cos-e-gitops/) – tutto ciò che è testo merita un repository."}}]}</script>
+<script type="application/ld+json">[{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Git: i comandi che usi davvero", "acceptedAnswer": {"@type": "Answer", "text": "Git ha centocinquanta comandi; la vita quotidiana ne usa dieci: il ciclo: git status (sempre, prima di tutto) → git add -p (a pezzi, rileggendo) → git commit -m \"...\" → git push / git pull i rami: git switch -c feature-x per aprirne uno, git merge per riportarlo, git log --oneline --graph per capire dove sei i salvataggi: git stash quando serve cambiare contesto a mani sporche, git restore file per buttare modifiche locali il pentimento: git revert annulla con un nuovo commit (sicuro, sempre), git reset riscrive (solo su ciò che non hai ancora condiviso); rebase vs merge in una riga: rebase riordina la storia locale prima di pubblicarla, merge preserva ciò che è già pubblico Le abitudini che ripagano più dei comandi: commit piccoli e tematici con messaggi che spiegano il perché, [mai segreti nel repository](q/come-gestire-i-secrets/), e [le firme sui commit](q/come-si-firma-il-codice/) dove conta. Git è anche un ottimo backup distribuito gratuito: [i tuoi appunti](q/app-note-markdown-local-first/), la configurazione, [l'infrastruttura](q/cos-e-gitops/) – tutto ciò che è testo merita un repository."}}]}, {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "FabGPT-FAQ", "item": "https://fabriziosalmi.github.io/fabgpt-faq/"}, {"@type": "ListItem", "position": 2, "name": "Tutte le domande", "item": "https://fabriziosalmi.github.io/fabgpt-faq/q/"}, {"@type": "ListItem", "position": 3, "name": "Strumenti e app", "item": "https://fabriziosalmi.github.io/fabgpt-faq/q/git-i-comandi-che-usi-davvero/"}]}]</script>
 <style>
   .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
-  .page h1 { font-size: 26px; line-height: 1.3; margin: 8px 0 20px; }
+  .page h1 { font-size: 26px; line-height: 1.3; margin: 6px 0 20px; }
+  .crumbs { font-size: 13px; color: var(--text-dim); margin-bottom: 4px; }
+  .crumbs a { color: var(--text-dim); text-decoration: none; }
+  .crumbs a:hover { color: var(--text); }
   .page .answer a { color: var(--link); }
   .page .vertical { font-size: 13px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }
   .page .answer ul { padding-left: 22px; }
@@ -32,7 +47,7 @@
   </a>
 </header>
 <main class="page">
-  <div class="vertical">Strumenti e app</div>
+  <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › Strumenti e app</nav>
   <h1>Git: i comandi che usi davvero</h1>
   <div class="answer"><p>Git ha centocinquanta comandi; la vita quotidiana ne usa dieci:</p><ul><li>il ciclo: <code>git status</code> (sempre, prima di tutto) → <code>git add -p</code> (a pezzi, rileggendo) → <code>git commit -m &quot;...&quot;</code> → <code>git push</code> / <code>git pull</code></li><li>i rami: <code>git switch -c feature-x</code> per aprirne uno, <code>git merge</code> per riportarlo, <code>git log --oneline --graph</code> per capire dove sei</li><li>i salvataggi: <code>git stash</code> quando serve cambiare contesto a mani sporche, <code>git restore file</code> per buttare modifiche locali</li><li>il pentimento: <code>git revert</code> annulla <em>con un nuovo commit</em> (sicuro, sempre), <code>git reset</code> riscrive (solo su ciò che non hai ancora condiviso); <strong>rebase vs merge</strong> in una riga: rebase riordina la storia locale prima di pubblicarla, merge preserva ciò che è già pubblico</li></ul><p>Le abitudini che ripagano più dei comandi: commit <strong>piccoli e tematici</strong> con messaggi che spiegano il <em>perché</em>, <a href="../come-gestire-i-secrets/">mai segreti nel repository</a>, e <a href="../come-si-firma-il-codice/">le firme sui commit</a> dove conta. Git è anche un ottimo backup distribuito gratuito: <a href="../app-note-markdown-local-first/">i tuoi appunti</a>, la configurazione, <a href="../cos-e-gitops/">l&#x27;infrastruttura</a> – tutto ciò che è testo merita un repository.</p></div>
   <a class="ask" href="../../?q=git-comandi">Chiedilo a FabGPT-FAQ →</a>

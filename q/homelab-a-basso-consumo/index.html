@@ -5,13 +5,28 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Homelab a basso consumo: mini PC al posto del server? – FabGPT-FAQ</title>
 <meta name="description" content="Il server rack in cantina è romantico finché non arriva la bolletta: 100-150 W fissi sono 250-400 euro l&#x27;anno. Un mini PC moderno fa quasi tutto a 6-15 W…">
+<meta name="robots" content="index,follow,max-image-preview:large">
 <link rel="canonical" href="https://fabriziosalmi.github.io/fabgpt-faq/q/homelab-a-basso-consumo/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Homelab a basso consumo: mini PC al posto del server?">
+<meta property="og:description" content="Il server rack in cantina è romantico finché non arriva la bolletta: 100-150 W fissi sono 250-400 euro l&#x27;anno. Un mini PC moderno fa quasi tutto a 6-15 W…">
+<meta property="og:url" content="https://fabriziosalmi.github.io/fabgpt-faq/q/homelab-a-basso-consumo/">
+<meta property="og:image" content="https://fabriziosalmi.github.io/fabgpt-faq/og.svg">
+<meta property="og:site_name" content="FabGPT-FAQ">
+<meta property="og:locale" content="it_IT">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Homelab a basso consumo: mini PC al posto del server?">
+<meta name="twitter:description" content="Il server rack in cantina è romantico finché non arriva la bolletta: 100-150 W fissi sono 250-400 euro l&#x27;anno. Un mini PC moderno fa quasi tutto a 6-15 W…">
+<meta name="twitter:image" content="https://fabriziosalmi.github.io/fabgpt-faq/og.svg">
 <link rel="stylesheet" href="../../style.css">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Homelab a basso consumo: mini PC al posto del server?", "acceptedAnswer": {"@type": "Answer", "text": "Il server rack in cantina è romantico finché non arriva la bolletta: 100-150 W fissi sono 250-400 euro l'anno. Un mini PC moderno fa quasi tutto a 6-15 W idle: un N100/N305 (4-8 core efficienti, fino a 32-48 GB di RAM) regge [Proxmox](q/cos-e-proxmox-ve/) con una flotta di [container](q/differenza-container-lxc-e-vm/) e qualche VM leggera – [Home Assistant](q/home-assistant-su-proxmox/), Pi-hole, reverse proxy, [PBS](q/cos-e-proxmox-backup-server/), il monitoraggio: tutto insieme, nel silenzio il gradino sopra (Ryzen mobile, Core ultracompatti, 64+ GB) aggiunge VM da lavoro e [modelli AI piccoli](q/quanta-ram-vram-serve-per-un-llm/) restando sotto i 30 W tre mini PC = un [cluster con quorum vero](q/cluster-proxmox-e-quorum/) consumando come una lampadina di una volta I compromessi onesti: niente ECC (quasi sempre), pochi slot disco – il NAS separato (o un solo nodo \"storage\" più carrozzato) resta sensato – ed espansione limitata. Le mosse: NVMe in [mirror ZFS](q/perche-usare-zfs-su-proxmox/), un misuratore di consumo alla presa per decidere coi numeri, e [l'autoscaling](q/autoscaling-vm-lxc-proxmox/) che spreme il poco ferro al meglio."}}]}</script>
+<script type="application/ld+json">[{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Homelab a basso consumo: mini PC al posto del server?", "acceptedAnswer": {"@type": "Answer", "text": "Il server rack in cantina è romantico finché non arriva la bolletta: 100-150 W fissi sono 250-400 euro l'anno. Un mini PC moderno fa quasi tutto a 6-15 W idle: un N100/N305 (4-8 core efficienti, fino a 32-48 GB di RAM) regge [Proxmox](q/cos-e-proxmox-ve/) con una flotta di [container](q/differenza-container-lxc-e-vm/) e qualche VM leggera – [Home Assistant](q/home-assistant-su-proxmox/), Pi-hole, reverse proxy, [PBS](q/cos-e-proxmox-backup-server/), il monitoraggio: tutto insieme, nel silenzio il gradino sopra (Ryzen mobile, Core ultracompatti, 64+ GB) aggiunge VM da lavoro e [modelli AI piccoli](q/quanta-ram-vram-serve-per-un-llm/) restando sotto i 30 W tre mini PC = un [cluster con quorum vero](q/cluster-proxmox-e-quorum/) consumando come una lampadina di una volta I compromessi onesti: niente ECC (quasi sempre), pochi slot disco – il NAS separato (o un solo nodo \"storage\" più carrozzato) resta sensato – ed espansione limitata. Le mosse: NVMe in [mirror ZFS](q/perche-usare-zfs-su-proxmox/), un misuratore di consumo alla presa per decidere coi numeri, e [l'autoscaling](q/autoscaling-vm-lxc-proxmox/) che spreme il poco ferro al meglio."}}]}, {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "FabGPT-FAQ", "item": "https://fabriziosalmi.github.io/fabgpt-faq/"}, {"@type": "ListItem", "position": 2, "name": "Tutte le domande", "item": "https://fabriziosalmi.github.io/fabgpt-faq/q/"}, {"@type": "ListItem", "position": 3, "name": "Proxmox e self-hosting", "item": "https://fabriziosalmi.github.io/fabgpt-faq/q/homelab-a-basso-consumo/"}]}]</script>
 <style>
   .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
-  .page h1 { font-size: 26px; line-height: 1.3; margin: 8px 0 20px; }
+  .page h1 { font-size: 26px; line-height: 1.3; margin: 6px 0 20px; }
+  .crumbs { font-size: 13px; color: var(--text-dim); margin-bottom: 4px; }
+  .crumbs a { color: var(--text-dim); text-decoration: none; }
+  .crumbs a:hover { color: var(--text); }
   .page .answer a { color: var(--link); }
   .page .vertical { font-size: 13px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }
   .page .answer ul { padding-left: 22px; }
@@ -32,7 +47,7 @@
   </a>
 </header>
 <main class="page">
-  <div class="vertical">Proxmox e self-hosting</div>
+  <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › Proxmox e self-hosting</nav>
   <h1>Homelab a basso consumo: mini PC al posto del server?</h1>
   <div class="answer"><p>Il server rack in cantina è romantico finché non arriva la bolletta: 100-150 W fissi sono 250-400 euro l&#x27;anno. Un <strong>mini PC moderno fa quasi tutto a 6-15 W idle</strong>:</p><ul><li>un <strong>N100/N305</strong> (4-8 core efficienti, fino a 32-48 GB di RAM) regge <a href="../cos-e-proxmox-ve/">Proxmox</a> con una flotta di <a href="../differenza-container-lxc-e-vm/">container</a> e qualche VM leggera – <a href="../home-assistant-su-proxmox/">Home Assistant</a>, Pi-hole, reverse proxy, <a href="../cos-e-proxmox-backup-server/">PBS</a>, il monitoraggio: tutto insieme, nel silenzio</li><li>il gradino sopra (Ryzen mobile, Core ultracompatti, 64+ GB) aggiunge VM da lavoro e <a href="../quanta-ram-vram-serve-per-un-llm/">modelli AI piccoli</a> restando sotto i 30 W</li><li>tre mini PC = un <a href="../cluster-proxmox-e-quorum/">cluster con quorum vero</a> consumando come una lampadina di una volta</li></ul><p>I compromessi onesti: niente ECC (quasi sempre), pochi slot disco – il <strong>NAS separato</strong> (o un solo nodo &quot;storage&quot; più carrozzato) resta sensato – ed espansione limitata. Le mosse: NVMe in <a href="../perche-usare-zfs-su-proxmox/">mirror ZFS</a>, un misuratore di consumo alla presa per decidere coi numeri, e <a href="../autoscaling-vm-lxc-proxmox/">l&#x27;autoscaling</a> che spreme il poco ferro al meglio.</p></div>
   <a class="ask" href="../../?q=homelab-low-power">Chiedilo a FabGPT-FAQ →</a>

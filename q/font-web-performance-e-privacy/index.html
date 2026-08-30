@@ -5,13 +5,28 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Font web: performance e privacy (perché self-hostarli) – FabGPT-FAQ</title>
 <meta name="description" content="I font web hanno due problemi, e una soluzione sola per entrambi: privacy: caricare da Google Fonts manda l&#x27;IP di ogni visitatore a Google – un tribunale…">
+<meta name="robots" content="index,follow,max-image-preview:large">
 <link rel="canonical" href="https://fabriziosalmi.github.io/fabgpt-faq/q/font-web-performance-e-privacy/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Font web: performance e privacy (perché self-hostarli)">
+<meta property="og:description" content="I font web hanno due problemi, e una soluzione sola per entrambi: privacy: caricare da Google Fonts manda l&#x27;IP di ogni visitatore a Google – un tribunale…">
+<meta property="og:url" content="https://fabriziosalmi.github.io/fabgpt-faq/q/font-web-performance-e-privacy/">
+<meta property="og:image" content="https://fabriziosalmi.github.io/fabgpt-faq/og.svg">
+<meta property="og:site_name" content="FabGPT-FAQ">
+<meta property="og:locale" content="it_IT">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Font web: performance e privacy (perché self-hostarli)">
+<meta name="twitter:description" content="I font web hanno due problemi, e una soluzione sola per entrambi: privacy: caricare da Google Fonts manda l&#x27;IP di ogni visitatore a Google – un tribunale…">
+<meta name="twitter:image" content="https://fabriziosalmi.github.io/fabgpt-faq/og.svg">
 <link rel="stylesheet" href="../../style.css">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Font web: performance e privacy (perché self-hostarli)", "acceptedAnswer": {"@type": "Answer", "text": "I font web hanno due problemi, e una soluzione sola per entrambi: privacy: caricare da Google Fonts manda l'IP di ogni visitatore a Google – un tribunale tedesco l'ha già dichiarato [problema GDPR](q/gdpr-cosa-serve-a-un-sito-web/) (sentenza di Monaco, 2022). E ogni host esterno è [una chiamata di terze parti in più](q/cos-e-un-air-gap/) da giustificare performance: un host esterno costa una connessione in più proprio sul percorso critico del rendering Il self-hosting risolve tutto: scarichi i woff2 (google-webfonts-helper li impacchetta), li servi dal tuo dominio con Cache-Control lungo, preload sul font principale e font-display: swap per non bloccare il testo. Tieni solo i pesi che usi davvero (due, di solito) e valuta i subset (latin basta quasi sempre). La via ancora più radicale che torna di moda: la system font stack – zero download, resa nativa ovunta. [Questo sito](q/cos-e-fabgpt-come-funziona/) fa esattamente così, ed è uno dei motivi per cui agssh gli dà zero chiamate esterne: nessun font da spiegare a nessuno."}}]}</script>
+<script type="application/ld+json">[{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Font web: performance e privacy (perché self-hostarli)", "acceptedAnswer": {"@type": "Answer", "text": "I font web hanno due problemi, e una soluzione sola per entrambi: privacy: caricare da Google Fonts manda l'IP di ogni visitatore a Google – un tribunale tedesco l'ha già dichiarato [problema GDPR](q/gdpr-cosa-serve-a-un-sito-web/) (sentenza di Monaco, 2022). E ogni host esterno è [una chiamata di terze parti in più](q/cos-e-un-air-gap/) da giustificare performance: un host esterno costa una connessione in più proprio sul percorso critico del rendering Il self-hosting risolve tutto: scarichi i woff2 (google-webfonts-helper li impacchetta), li servi dal tuo dominio con Cache-Control lungo, preload sul font principale e font-display: swap per non bloccare il testo. Tieni solo i pesi che usi davvero (due, di solito) e valuta i subset (latin basta quasi sempre). La via ancora più radicale che torna di moda: la system font stack – zero download, resa nativa ovunta. [Questo sito](q/cos-e-fabgpt-come-funziona/) fa esattamente così, ed è uno dei motivi per cui agssh gli dà zero chiamate esterne: nessun font da spiegare a nessuno."}}]}, {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "FabGPT-FAQ", "item": "https://fabriziosalmi.github.io/fabgpt-faq/"}, {"@type": "ListItem", "position": 2, "name": "Tutte le domande", "item": "https://fabriziosalmi.github.io/fabgpt-faq/q/"}, {"@type": "ListItem", "position": 3, "name": "Strumenti e app", "item": "https://fabriziosalmi.github.io/fabgpt-faq/q/font-web-performance-e-privacy/"}]}]</script>
 <style>
   .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
-  .page h1 { font-size: 26px; line-height: 1.3; margin: 8px 0 20px; }
+  .page h1 { font-size: 26px; line-height: 1.3; margin: 6px 0 20px; }
+  .crumbs { font-size: 13px; color: var(--text-dim); margin-bottom: 4px; }
+  .crumbs a { color: var(--text-dim); text-decoration: none; }
+  .crumbs a:hover { color: var(--text); }
   .page .answer a { color: var(--link); }
   .page .vertical { font-size: 13px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }
   .page .answer ul { padding-left: 22px; }
@@ -32,7 +47,7 @@
   </a>
 </header>
 <main class="page">
-  <div class="vertical">Strumenti e app</div>
+  <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › Strumenti e app</nav>
   <h1>Font web: performance e privacy (perché self-hostarli)</h1>
   <div class="answer"><p>I font web hanno due problemi, e una soluzione sola per entrambi:</p><ul><li><strong>privacy</strong>: caricare da Google Fonts manda l&#x27;IP di ogni visitatore a Google – un tribunale tedesco l&#x27;ha già dichiarato <a href="../gdpr-cosa-serve-a-un-sito-web/">problema GDPR</a> (sentenza di Monaco, 2022). E ogni host esterno è <a href="../cos-e-un-air-gap/">una chiamata di terze parti in più</a> da giustificare</li><li><strong>performance</strong>: un host esterno costa una connessione in più proprio sul percorso critico del rendering</li></ul><p>Il <strong>self-hosting</strong> risolve tutto: scarichi i <strong>woff2</strong> (google-webfonts-helper li impacchetta), li servi dal tuo dominio con <code>Cache-Control</code> lungo, <code>preload</code> sul font principale e <strong><code>font-display: swap</code></strong> per non bloccare il testo. Tieni solo i pesi che usi davvero (due, di solito) e valuta i <strong>subset</strong> (latin basta quasi sempre).</p><p>La via ancora più radicale che torna di moda: la <strong>system font stack</strong> – zero download, resa nativa ovunta. <a href="../cos-e-fabgpt-come-funziona/">Questo sito</a> fa esattamente così, ed è uno dei motivi per cui <a href="https://github.com/fabriziosalmi/agssh" target="_blank" rel="noopener">agssh</a> gli dà zero chiamate esterne: nessun font da spiegare a nessuno.</p></div>
   <a class="ask" href="../../?q=font-web">Chiedilo a FabGPT-FAQ →</a>

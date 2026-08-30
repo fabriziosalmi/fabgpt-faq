@@ -5,13 +5,28 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Cosa sono IDS e IPS? – FabGPT-FAQ</title>
 <meta name="description" content="Sono sensori di rete per riconoscere gli attacchi in transito: l&#x27;IDS (Intrusion Detection System) osserva una copia del traffico e segnala: firma nota,…">
+<meta name="robots" content="index,follow,max-image-preview:large">
 <link rel="canonical" href="https://fabriziosalmi.github.io/fabgpt-faq/q/cosa-sono-ids-e-ips/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Cosa sono IDS e IPS?">
+<meta property="og:description" content="Sono sensori di rete per riconoscere gli attacchi in transito: l&#x27;IDS (Intrusion Detection System) osserva una copia del traffico e segnala: firma nota,…">
+<meta property="og:url" content="https://fabriziosalmi.github.io/fabgpt-faq/q/cosa-sono-ids-e-ips/">
+<meta property="og:image" content="https://fabriziosalmi.github.io/fabgpt-faq/og.svg">
+<meta property="og:site_name" content="FabGPT-FAQ">
+<meta property="og:locale" content="it_IT">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Cosa sono IDS e IPS?">
+<meta name="twitter:description" content="Sono sensori di rete per riconoscere gli attacchi in transito: l&#x27;IDS (Intrusion Detection System) osserva una copia del traffico e segnala: firma nota,…">
+<meta name="twitter:image" content="https://fabriziosalmi.github.io/fabgpt-faq/og.svg">
 <link rel="stylesheet" href="../../style.css">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Cosa sono IDS e IPS?", "acceptedAnswer": {"@type": "Answer", "text": "Sono sensori di rete per riconoscere gli attacchi in transito: l'IDS (Intrusion Detection System) osserva una copia del traffico e segnala: firma nota, protocollo anomalo, beacon verso un C2. Non tocca nulla – zero rischio di bloccare traffico buono, ma qualcuno deve leggere gli allarmi. l'IPS (Prevention) sta in linea e può bloccare in tempo reale ciò che riconosce. Più protezione, più rischio: un falso positivo qui è un disservizio. Gli open source di riferimento sono Suricata e Snort (e Zeek per l'analisi). Da soli producono rumore: il valore arriva quando gli eventi finiscono in un [SIEM](q/cos-e-un-siem-e-un-soar/) che li correla col resto – è il ruolo di Wildbox in uno stack self-hosted. Nota di confine: il [WAF](q/cos-e-un-waf-web-application-firewall/) è di fatto un IPS specializzato nel solo traffico HTTP."}}]}</script>
+<script type="application/ld+json">[{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Cosa sono IDS e IPS?", "acceptedAnswer": {"@type": "Answer", "text": "Sono sensori di rete per riconoscere gli attacchi in transito: l'IDS (Intrusion Detection System) osserva una copia del traffico e segnala: firma nota, protocollo anomalo, beacon verso un C2. Non tocca nulla – zero rischio di bloccare traffico buono, ma qualcuno deve leggere gli allarmi. l'IPS (Prevention) sta in linea e può bloccare in tempo reale ciò che riconosce. Più protezione, più rischio: un falso positivo qui è un disservizio. Gli open source di riferimento sono Suricata e Snort (e Zeek per l'analisi). Da soli producono rumore: il valore arriva quando gli eventi finiscono in un [SIEM](q/cos-e-un-siem-e-un-soar/) che li correla col resto – è il ruolo di Wildbox in uno stack self-hosted. Nota di confine: il [WAF](q/cos-e-un-waf-web-application-firewall/) è di fatto un IPS specializzato nel solo traffico HTTP."}}]}, {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "FabGPT-FAQ", "item": "https://fabriziosalmi.github.io/fabgpt-faq/"}, {"@type": "ListItem", "position": 2, "name": "Tutte le domande", "item": "https://fabriziosalmi.github.io/fabgpt-faq/q/"}, {"@type": "ListItem", "position": 3, "name": "Cybersecurity", "item": "https://fabriziosalmi.github.io/fabgpt-faq/q/cosa-sono-ids-e-ips/"}]}]</script>
 <style>
   .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
-  .page h1 { font-size: 26px; line-height: 1.3; margin: 8px 0 20px; }
+  .page h1 { font-size: 26px; line-height: 1.3; margin: 6px 0 20px; }
+  .crumbs { font-size: 13px; color: var(--text-dim); margin-bottom: 4px; }
+  .crumbs a { color: var(--text-dim); text-decoration: none; }
+  .crumbs a:hover { color: var(--text); }
   .page .answer a { color: var(--link); }
   .page .vertical { font-size: 13px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }
   .page .answer ul { padding-left: 22px; }
@@ -32,7 +47,7 @@
   </a>
 </header>
 <main class="page">
-  <div class="vertical">Cybersecurity</div>
+  <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › Cybersecurity</nav>
   <h1>Cosa sono IDS e IPS?</h1>
   <div class="answer"><p>Sono sensori di rete per riconoscere gli attacchi in transito:</p><ul><li>l&#x27;<strong>IDS</strong> (Intrusion Detection System) osserva una copia del traffico e <strong>segnala</strong>: firma nota, protocollo anomalo, beacon verso un C2. Non tocca nulla – zero rischio di bloccare traffico buono, ma qualcuno deve leggere gli allarmi.</li><li>l&#x27;<strong>IPS</strong> (Prevention) sta <strong>in linea</strong> e può bloccare in tempo reale ciò che riconosce. Più protezione, più rischio: un falso positivo qui è un disservizio.</li></ul><p>Gli open source di riferimento sono <strong>Suricata</strong> e Snort (e Zeek per l&#x27;analisi). Da soli producono rumore: il valore arriva quando gli eventi finiscono in un <a href="../cos-e-un-siem-e-un-soar/">SIEM</a> che li correla col resto – è il ruolo di <a href="https://github.com/fabriziosalmi/wildbox" target="_blank" rel="noopener">Wildbox</a> in uno stack self-hosted. Nota di confine: il <a href="../cos-e-un-waf-web-application-firewall/">WAF</a> è di fatto un IPS specializzato nel solo traffico HTTP.</p></div>
   <a class="ask" href="../../?q=ids-ips">Chiedilo a FabGPT-FAQ →</a>

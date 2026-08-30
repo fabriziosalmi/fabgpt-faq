@@ -5,13 +5,28 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Memoria a breve e lungo termine negli agenti AI – FabGPT-FAQ</title>
 <meta name="description" content="Un agente ha due memorie con nature opposte: la breve termine è la [context window](q/token-e-context-window/): tutto ciò che è nella conversazione…">
+<meta name="robots" content="index,follow,max-image-preview:large">
 <link rel="canonical" href="https://fabriziosalmi.github.io/fabgpt-faq/q/memoria-a-breve-e-lungo-termine-negli-agenti/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Memoria a breve e lungo termine negli agenti AI">
+<meta property="og:description" content="Un agente ha due memorie con nature opposte: la breve termine è la [context window](q/token-e-context-window/): tutto ciò che è nella conversazione…">
+<meta property="og:url" content="https://fabriziosalmi.github.io/fabgpt-faq/q/memoria-a-breve-e-lungo-termine-negli-agenti/">
+<meta property="og:image" content="https://fabriziosalmi.github.io/fabgpt-faq/og.svg">
+<meta property="og:site_name" content="FabGPT-FAQ">
+<meta property="og:locale" content="it_IT">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Memoria a breve e lungo termine negli agenti AI">
+<meta name="twitter:description" content="Un agente ha due memorie con nature opposte: la breve termine è la [context window](q/token-e-context-window/): tutto ciò che è nella conversazione…">
+<meta name="twitter:image" content="https://fabriziosalmi.github.io/fabgpt-faq/og.svg">
 <link rel="stylesheet" href="../../style.css">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Memoria a breve e lungo termine negli agenti AI", "acceptedAnswer": {"@type": "Answer", "text": "Un agente ha due memorie con nature opposte: la breve termine è la [context window](q/token-e-context-window/): tutto ciò che è nella conversazione corrente. Volatile per costruzione – a sessione nuova, tabula rasa – e limitata: le sessioni lunghe vanno compattate (riassunti progressivi, compressione dell'output degli strumenti) o l'agente affoga nel proprio passato la lunga termine va costruita fuori dal modello: uno store persistente dove l'agente scrive fatti, decisioni e preferenze, e da cui recupera ciò che serve alla sessione dopo – per pertinenza, non tutto insieme Le regole apprese sul campo: la memoria va curata (fatti atomici, deduplicati, con freshness – ricordare tutto è il modo migliore per non trovare niente), va partizionata (per progetto, per utente), e a fine sessione un passaggio di consolidamento paga. È esattamente il design di l0-memory: store locale MCP con scope, pin, grafo tipizzato e tracking di freschezza – la memoria come file tuo, non come servizio altrui."}}]}</script>
+<script type="application/ld+json">[{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Memoria a breve e lungo termine negli agenti AI", "acceptedAnswer": {"@type": "Answer", "text": "Un agente ha due memorie con nature opposte: la breve termine è la [context window](q/token-e-context-window/): tutto ciò che è nella conversazione corrente. Volatile per costruzione – a sessione nuova, tabula rasa – e limitata: le sessioni lunghe vanno compattate (riassunti progressivi, compressione dell'output degli strumenti) o l'agente affoga nel proprio passato la lunga termine va costruita fuori dal modello: uno store persistente dove l'agente scrive fatti, decisioni e preferenze, e da cui recupera ciò che serve alla sessione dopo – per pertinenza, non tutto insieme Le regole apprese sul campo: la memoria va curata (fatti atomici, deduplicati, con freshness – ricordare tutto è il modo migliore per non trovare niente), va partizionata (per progetto, per utente), e a fine sessione un passaggio di consolidamento paga. È esattamente il design di l0-memory: store locale MCP con scope, pin, grafo tipizzato e tracking di freschezza – la memoria come file tuo, non come servizio altrui."}}]}, {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "FabGPT-FAQ", "item": "https://fabriziosalmi.github.io/fabgpt-faq/"}, {"@type": "ListItem", "position": 2, "name": "Tutte le domande", "item": "https://fabriziosalmi.github.io/fabgpt-faq/q/"}, {"@type": "ListItem", "position": 3, "name": "AI e LLM", "item": "https://fabriziosalmi.github.io/fabgpt-faq/q/memoria-a-breve-e-lungo-termine-negli-agenti/"}]}]</script>
 <style>
   .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
-  .page h1 { font-size: 26px; line-height: 1.3; margin: 8px 0 20px; }
+  .page h1 { font-size: 26px; line-height: 1.3; margin: 6px 0 20px; }
+  .crumbs { font-size: 13px; color: var(--text-dim); margin-bottom: 4px; }
+  .crumbs a { color: var(--text-dim); text-decoration: none; }
+  .crumbs a:hover { color: var(--text); }
   .page .answer a { color: var(--link); }
   .page .vertical { font-size: 13px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }
   .page .answer ul { padding-left: 22px; }
@@ -32,7 +47,7 @@
   </a>
 </header>
 <main class="page">
-  <div class="vertical">AI e LLM</div>
+  <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › AI e LLM</nav>
   <h1>Memoria a breve e lungo termine negli agenti AI</h1>
   <div class="answer"><p>Un agente ha due memorie con nature opposte:</p><ul><li>la <strong>breve termine</strong> è la <a href="../token-e-context-window/">context window</a>: tutto ciò che è nella conversazione corrente. Volatile per costruzione – a sessione nuova, tabula rasa – e limitata: le sessioni lunghe vanno <strong>compattate</strong> (riassunti progressivi, <a href="https://github.com/fabriziosalmi/l0-compressor" target="_blank" rel="noopener">compressione dell&#x27;output degli strumenti</a>) o l&#x27;agente affoga nel proprio passato</li><li>la <strong>lunga termine</strong> va costruita <em>fuori</em> dal modello: uno store persistente dove l&#x27;agente scrive fatti, decisioni e preferenze, e da cui <strong>recupera</strong> ciò che serve alla sessione dopo – per pertinenza, non tutto insieme</li></ul><p>Le regole apprese sul campo: la memoria va <strong>curata</strong> (fatti atomici, deduplicati, con freshness – ricordare tutto è il modo migliore per non trovare niente), va <strong>partizionata</strong> (per progetto, per utente), e a fine sessione un passaggio di consolidamento paga. È esattamente il design di <a href="https://github.com/fabriziosalmi/l0-memory" target="_blank" rel="noopener">l0-memory</a>: store locale MCP con scope, pin, grafo tipizzato e tracking di freschezza – la memoria come file tuo, non come servizio altrui.</p></div>
   <a class="ask" href="../../?q=memoria-agenti">Chiedilo a FabGPT-FAQ →</a>

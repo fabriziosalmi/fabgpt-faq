@@ -5,13 +5,28 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Come si usano template e cloud-init su Proxmox? – FabGPT-FAQ</title>
 <meta name="description" content="Il flusso artigianale – ISO, installer, configurazione a mano – ha senso una volta sola. Poi si passa a template + cloud-init: scarichi l&#x27;immagine cloud…">
+<meta name="robots" content="index,follow,max-image-preview:large">
 <link rel="canonical" href="https://fabriziosalmi.github.io/fabgpt-faq/q/template-e-cloud-init-proxmox/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Come si usano template e cloud-init su Proxmox?">
+<meta property="og:description" content="Il flusso artigianale – ISO, installer, configurazione a mano – ha senso una volta sola. Poi si passa a template + cloud-init: scarichi l&#x27;immagine cloud…">
+<meta property="og:url" content="https://fabriziosalmi.github.io/fabgpt-faq/q/template-e-cloud-init-proxmox/">
+<meta property="og:image" content="https://fabriziosalmi.github.io/fabgpt-faq/og.svg">
+<meta property="og:site_name" content="FabGPT-FAQ">
+<meta property="og:locale" content="it_IT">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Come si usano template e cloud-init su Proxmox?">
+<meta name="twitter:description" content="Il flusso artigianale – ISO, installer, configurazione a mano – ha senso una volta sola. Poi si passa a template + cloud-init: scarichi l&#x27;immagine cloud…">
+<meta name="twitter:image" content="https://fabriziosalmi.github.io/fabgpt-faq/og.svg">
 <link rel="stylesheet" href="../../style.css">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Come si usano template e cloud-init su Proxmox?", "acceptedAnswer": {"@type": "Answer", "text": "Il flusso artigianale – ISO, installer, configurazione a mano – ha senso una volta sola. Poi si passa a template + cloud-init: scarichi l'immagine cloud ufficiale della distro (Debian/Ubuntu .qcow2), la importi in una VM con qm importdisk aggiungi il drive cloud-init, imposti utente, chiave SSH e rete, e converti la VM in template da lì, ogni nuova macchina è un clone che al primo avvio si configura da solo: hostname, IP, chiavi – pronta in un minuto È il mattone dell'infrastruttura ripetibile: sopra ci si mette Terraform/OpenTofu (provider Proxmox) o Ansible e il provisioning diventa codice. E quando le VM così create diventano tante, proxmox-vm-autoscale tiene le loro risorse allineate al carico reale."}}]}</script>
+<script type="application/ld+json">[{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Come si usano template e cloud-init su Proxmox?", "acceptedAnswer": {"@type": "Answer", "text": "Il flusso artigianale – ISO, installer, configurazione a mano – ha senso una volta sola. Poi si passa a template + cloud-init: scarichi l'immagine cloud ufficiale della distro (Debian/Ubuntu .qcow2), la importi in una VM con qm importdisk aggiungi il drive cloud-init, imposti utente, chiave SSH e rete, e converti la VM in template da lì, ogni nuova macchina è un clone che al primo avvio si configura da solo: hostname, IP, chiavi – pronta in un minuto È il mattone dell'infrastruttura ripetibile: sopra ci si mette Terraform/OpenTofu (provider Proxmox) o Ansible e il provisioning diventa codice. E quando le VM così create diventano tante, proxmox-vm-autoscale tiene le loro risorse allineate al carico reale."}}]}, {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "FabGPT-FAQ", "item": "https://fabriziosalmi.github.io/fabgpt-faq/"}, {"@type": "ListItem", "position": 2, "name": "Tutte le domande", "item": "https://fabriziosalmi.github.io/fabgpt-faq/q/"}, {"@type": "ListItem", "position": 3, "name": "Proxmox e self-hosting", "item": "https://fabriziosalmi.github.io/fabgpt-faq/q/template-e-cloud-init-proxmox/"}]}]</script>
 <style>
   .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
-  .page h1 { font-size: 26px; line-height: 1.3; margin: 8px 0 20px; }
+  .page h1 { font-size: 26px; line-height: 1.3; margin: 6px 0 20px; }
+  .crumbs { font-size: 13px; color: var(--text-dim); margin-bottom: 4px; }
+  .crumbs a { color: var(--text-dim); text-decoration: none; }
+  .crumbs a:hover { color: var(--text); }
   .page .answer a { color: var(--link); }
   .page .vertical { font-size: 13px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }
   .page .answer ul { padding-left: 22px; }
@@ -32,7 +47,7 @@
   </a>
 </header>
 <main class="page">
-  <div class="vertical">Proxmox e self-hosting</div>
+  <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › Proxmox e self-hosting</nav>
   <h1>Come si usano template e cloud-init su Proxmox?</h1>
   <div class="answer"><p>Il flusso artigianale – ISO, installer, configurazione a mano – ha senso una volta sola. Poi si passa a <strong>template + cloud-init</strong>:</p><ul><li>scarichi l&#x27;<strong>immagine cloud</strong> ufficiale della distro (Debian/Ubuntu <code>.qcow2</code>), la importi in una VM con <code>qm importdisk</code></li><li>aggiungi il <strong>drive cloud-init</strong>, imposti utente, chiave SSH e rete, e converti la VM in <strong>template</strong></li><li>da lì, ogni nuova macchina è un <strong>clone</strong> che al primo avvio si configura da solo: hostname, IP, chiavi – pronta in un minuto</li></ul><p>È il mattone dell&#x27;infrastruttura ripetibile: sopra ci si mette Terraform/OpenTofu (provider Proxmox) o Ansible e il provisioning diventa codice. E quando le VM così create diventano tante, <a href="https://github.com/fabriziosalmi/proxmox-vm-autoscale" target="_blank" rel="noopener">proxmox-vm-autoscale</a> tiene le loro risorse allineate al carico reale.</p></div>
   <a class="ask" href="../../?q=cloud-init">Chiedilo a FabGPT-FAQ →</a>

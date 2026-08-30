@@ -5,13 +5,28 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Data leakage via LLM: i casi reali – FabGPT-FAQ</title>
 <meta name="description" content="I dati escono dalle aziende via LLM per tre porte diverse: l&#x27;upload volontario: il caso Samsung (2023) è il classico – dipendenti che incollano codice…">
+<meta name="robots" content="index,follow,max-image-preview:large">
 <link rel="canonical" href="https://fabriziosalmi.github.io/fabgpt-faq/q/data-leakage-via-llm/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Data leakage via LLM: i casi reali">
+<meta property="og:description" content="I dati escono dalle aziende via LLM per tre porte diverse: l&#x27;upload volontario: il caso Samsung (2023) è il classico – dipendenti che incollano codice…">
+<meta property="og:url" content="https://fabriziosalmi.github.io/fabgpt-faq/q/data-leakage-via-llm/">
+<meta property="og:image" content="https://fabriziosalmi.github.io/fabgpt-faq/og.svg">
+<meta property="og:site_name" content="FabGPT-FAQ">
+<meta property="og:locale" content="it_IT">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Data leakage via LLM: i casi reali">
+<meta name="twitter:description" content="I dati escono dalle aziende via LLM per tre porte diverse: l&#x27;upload volontario: il caso Samsung (2023) è il classico – dipendenti che incollano codice…">
+<meta name="twitter:image" content="https://fabriziosalmi.github.io/fabgpt-faq/og.svg">
 <link rel="stylesheet" href="../../style.css">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Data leakage via LLM: i casi reali", "acceptedAnswer": {"@type": "Answer", "text": "I dati escono dalle aziende via LLM per tre porte diverse: l'upload volontario: il caso Samsung (2023) è il classico – dipendenti che incollano codice sorgente e verbali in ChatGPT per farsi aiutare. Nessun attacco: solo [shadow AI](q/cos-e-la-shadow-ai/) e servizi consumer che all'epoca usavano gli input per l'addestramento l'esfiltrazione indotta: con la [prompt injection](q/cos-e-la-prompt-injection/), un contenuto malevolo convince un assistente con accesso ai tuoi dati a spedirli fuori – nei sistemi agentici è il rischio numero uno la memoria del modello: informazioni finite nel training che riemergono generate – raro ma documentato Le difese, per porta: canali AI ufficiali con garanzie contrattuali e [policy chiara](q/come-scrivere-una-ai-policy-aziendale/); DLP sul flusso – aidlp intercetta credenziali e PII prima che entrino nel prompt, llmproxy fa da punto di controllo unico; egress vigilato per gli agenti ([sandbox](q/cos-e-il-sandboxing-per-agenti/)); e [modelli locali](q/far-girare-un-llm-in-locale/) per ciò che non deve uscire mai."}}]}</script>
+<script type="application/ld+json">[{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Data leakage via LLM: i casi reali", "acceptedAnswer": {"@type": "Answer", "text": "I dati escono dalle aziende via LLM per tre porte diverse: l'upload volontario: il caso Samsung (2023) è il classico – dipendenti che incollano codice sorgente e verbali in ChatGPT per farsi aiutare. Nessun attacco: solo [shadow AI](q/cos-e-la-shadow-ai/) e servizi consumer che all'epoca usavano gli input per l'addestramento l'esfiltrazione indotta: con la [prompt injection](q/cos-e-la-prompt-injection/), un contenuto malevolo convince un assistente con accesso ai tuoi dati a spedirli fuori – nei sistemi agentici è il rischio numero uno la memoria del modello: informazioni finite nel training che riemergono generate – raro ma documentato Le difese, per porta: canali AI ufficiali con garanzie contrattuali e [policy chiara](q/come-scrivere-una-ai-policy-aziendale/); DLP sul flusso – aidlp intercetta credenziali e PII prima che entrino nel prompt, llmproxy fa da punto di controllo unico; egress vigilato per gli agenti ([sandbox](q/cos-e-il-sandboxing-per-agenti/)); e [modelli locali](q/far-girare-un-llm-in-locale/) per ciò che non deve uscire mai."}}]}, {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "FabGPT-FAQ", "item": "https://fabriziosalmi.github.io/fabgpt-faq/"}, {"@type": "ListItem", "position": 2, "name": "Tutte le domande", "item": "https://fabriziosalmi.github.io/fabgpt-faq/q/"}, {"@type": "ListItem", "position": 3, "name": "AI e LLM", "item": "https://fabriziosalmi.github.io/fabgpt-faq/q/data-leakage-via-llm/"}]}]</script>
 <style>
   .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
-  .page h1 { font-size: 26px; line-height: 1.3; margin: 8px 0 20px; }
+  .page h1 { font-size: 26px; line-height: 1.3; margin: 6px 0 20px; }
+  .crumbs { font-size: 13px; color: var(--text-dim); margin-bottom: 4px; }
+  .crumbs a { color: var(--text-dim); text-decoration: none; }
+  .crumbs a:hover { color: var(--text); }
   .page .answer a { color: var(--link); }
   .page .vertical { font-size: 13px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }
   .page .answer ul { padding-left: 22px; }
@@ -32,7 +47,7 @@
   </a>
 </header>
 <main class="page">
-  <div class="vertical">AI e LLM</div>
+  <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › AI e LLM</nav>
   <h1>Data leakage via LLM: i casi reali</h1>
   <div class="answer"><p>I dati escono dalle aziende via LLM per tre porte diverse:</p><ul><li><strong>l&#x27;upload volontario</strong>: il caso Samsung (2023) è il classico – dipendenti che incollano codice sorgente e verbali in ChatGPT per farsi aiutare. Nessun attacco: solo <a href="../cos-e-la-shadow-ai/">shadow AI</a> e servizi consumer che all&#x27;epoca usavano gli input per l&#x27;addestramento</li><li><strong>l&#x27;esfiltrazione indotta</strong>: con la <a href="../cos-e-la-prompt-injection/">prompt injection</a>, un contenuto malevolo convince un assistente <em>con accesso ai tuoi dati</em> a spedirli fuori – nei sistemi agentici è il rischio numero uno</li><li><strong>la memoria del modello</strong>: informazioni finite nel training che riemergono generate – raro ma documentato</li></ul><p>Le difese, per porta: canali AI ufficiali con garanzie contrattuali e <a href="../come-scrivere-una-ai-policy-aziendale/">policy chiara</a>; <strong>DLP sul flusso</strong> – <a href="https://github.com/fabriziosalmi/aidlp" target="_blank" rel="noopener">aidlp</a> intercetta credenziali e PII prima che entrino nel prompt, <a href="https://github.com/fabriziosalmi/llmproxy" target="_blank" rel="noopener">llmproxy</a> fa da punto di controllo unico; egress vigilato per gli agenti (<a href="../cos-e-il-sandboxing-per-agenti/">sandbox</a>); e <a href="../far-girare-un-llm-in-locale/">modelli locali</a> per ciò che non deve uscire <em>mai</em>.</p></div>
   <a class="ask" href="../../?q=data-leakage-llm">Chiedilo a FabGPT-FAQ →</a>

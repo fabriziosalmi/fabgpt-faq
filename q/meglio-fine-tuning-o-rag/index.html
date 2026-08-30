@@ -5,13 +5,28 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Meglio fine-tuning o RAG? – FabGPT-FAQ</title>
 <meta name="description" content="Domanda da farsi sempre, risposta quasi sempre: prima RAG. Sono strumenti per problemi diversi: [RAG](q/cos-e-rag-retrieval-augmented-generation/) dà al…">
+<meta name="robots" content="index,follow,max-image-preview:large">
 <link rel="canonical" href="https://fabriziosalmi.github.io/fabgpt-faq/q/meglio-fine-tuning-o-rag/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Meglio fine-tuning o RAG?">
+<meta property="og:description" content="Domanda da farsi sempre, risposta quasi sempre: prima RAG. Sono strumenti per problemi diversi: [RAG](q/cos-e-rag-retrieval-augmented-generation/) dà al…">
+<meta property="og:url" content="https://fabriziosalmi.github.io/fabgpt-faq/q/meglio-fine-tuning-o-rag/">
+<meta property="og:image" content="https://fabriziosalmi.github.io/fabgpt-faq/og.svg">
+<meta property="og:site_name" content="FabGPT-FAQ">
+<meta property="og:locale" content="it_IT">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Meglio fine-tuning o RAG?">
+<meta name="twitter:description" content="Domanda da farsi sempre, risposta quasi sempre: prima RAG. Sono strumenti per problemi diversi: [RAG](q/cos-e-rag-retrieval-augmented-generation/) dà al…">
+<meta name="twitter:image" content="https://fabriziosalmi.github.io/fabgpt-faq/og.svg">
 <link rel="stylesheet" href="../../style.css">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Meglio fine-tuning o RAG?", "acceptedAnswer": {"@type": "Answer", "text": "Domanda da farsi sempre, risposta quasi sempre: prima RAG. Sono strumenti per problemi diversi: [RAG](q/cos-e-rag-retrieval-augmented-generation/) dà al modello conoscenza: recupera i documenti giusti al momento della domanda. Aggiornabile in tempo reale, verificabile (puoi citare le fonti), nessun addestramento. fine-tuning dà al modello comportamento: uno stile, un formato, un gergo, un compito ripetitivo. Non è un buon deposito di fatti – i fatti nel fine-tuning si allucinano volentieri. Quindi: knowledge base, documentazione, dati che cambiano → RAG. Tono di voce, output strutturati particolari, un dominio linguistico stretto → fine-tuning (oggi economico con LoRA/QLoRA, anche [in locale su Mac](q/fine-tuning-llm-apple-silicon/)). E le due cose si combinano: un modello rifinito sul come, con il RAG che porta il cosa."}}]}</script>
+<script type="application/ld+json">[{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Meglio fine-tuning o RAG?", "acceptedAnswer": {"@type": "Answer", "text": "Domanda da farsi sempre, risposta quasi sempre: prima RAG. Sono strumenti per problemi diversi: [RAG](q/cos-e-rag-retrieval-augmented-generation/) dà al modello conoscenza: recupera i documenti giusti al momento della domanda. Aggiornabile in tempo reale, verificabile (puoi citare le fonti), nessun addestramento. fine-tuning dà al modello comportamento: uno stile, un formato, un gergo, un compito ripetitivo. Non è un buon deposito di fatti – i fatti nel fine-tuning si allucinano volentieri. Quindi: knowledge base, documentazione, dati che cambiano → RAG. Tono di voce, output strutturati particolari, un dominio linguistico stretto → fine-tuning (oggi economico con LoRA/QLoRA, anche [in locale su Mac](q/fine-tuning-llm-apple-silicon/)). E le due cose si combinano: un modello rifinito sul come, con il RAG che porta il cosa."}}]}, {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "FabGPT-FAQ", "item": "https://fabriziosalmi.github.io/fabgpt-faq/"}, {"@type": "ListItem", "position": 2, "name": "Tutte le domande", "item": "https://fabriziosalmi.github.io/fabgpt-faq/q/"}, {"@type": "ListItem", "position": 3, "name": "AI e LLM", "item": "https://fabriziosalmi.github.io/fabgpt-faq/q/meglio-fine-tuning-o-rag/"}]}]</script>
 <style>
   .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
-  .page h1 { font-size: 26px; line-height: 1.3; margin: 8px 0 20px; }
+  .page h1 { font-size: 26px; line-height: 1.3; margin: 6px 0 20px; }
+  .crumbs { font-size: 13px; color: var(--text-dim); margin-bottom: 4px; }
+  .crumbs a { color: var(--text-dim); text-decoration: none; }
+  .crumbs a:hover { color: var(--text); }
   .page .answer a { color: var(--link); }
   .page .vertical { font-size: 13px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }
   .page .answer ul { padding-left: 22px; }
@@ -32,7 +47,7 @@
   </a>
 </header>
 <main class="page">
-  <div class="vertical">AI e LLM</div>
+  <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › AI e LLM</nav>
   <h1>Meglio fine-tuning o RAG?</h1>
   <div class="answer"><p>Domanda da farsi sempre, risposta quasi sempre: <strong>prima RAG</strong>. Sono strumenti per problemi diversi:</p><ul><li><strong><a href="../cos-e-rag-retrieval-augmented-generation/">RAG</a></strong> dà al modello <em>conoscenza</em>: recupera i documenti giusti al momento della domanda. Aggiornabile in tempo reale, verificabile (puoi citare le fonti), nessun addestramento.</li><li><strong>fine-tuning</strong> dà al modello <em>comportamento</em>: uno stile, un formato, un gergo, un compito ripetitivo. Non è un buon deposito di fatti – i fatti nel fine-tuning si allucinano volentieri.</li></ul><p>Quindi: knowledge base, documentazione, dati che cambiano → RAG. Tono di voce, output strutturati particolari, un dominio linguistico stretto → fine-tuning (oggi economico con LoRA/QLoRA, anche <a href="../fine-tuning-llm-apple-silicon/">in locale su Mac</a>). E le due cose si combinano: un modello rifinito sul <em>come</em>, con il RAG che porta il <em>cosa</em>.</p></div>
   <a class="ask" href="../../?q=fine-tuning-vs-rag">Chiedilo a FabGPT-FAQ →</a>
