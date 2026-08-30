@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>In che modo l&#x27;algoritmo quantistico di Shor compromette la sicurezza degli algoritmi asimmetrici attuali? – FabGPT-FAQ</title>
+<meta name="description" content="L&#x27;algoritmo di Shor (formulato da Peter Shor nel 1994) è un algoritmo quantistico capace di risolvere in tempo polinomiale due problemi matematici complessi…">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="canonical" href="https://fabriziosalmi.github.io/fabgpt-faq/q/algoritmo-shor-computer-quantistici-crittografia-asimmetrica/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="In che modo l&#x27;algoritmo quantistico di Shor compromette la sicurezza degli algoritmi asimmetrici attuali?">
+<meta property="og:description" content="L&#x27;algoritmo di Shor (formulato da Peter Shor nel 1994) è un algoritmo quantistico capace di risolvere in tempo polinomiale due problemi matematici complessi…">
+<meta property="og:url" content="https://fabriziosalmi.github.io/fabgpt-faq/q/algoritmo-shor-computer-quantistici-crittografia-asimmetrica/">
+<meta property="og:image" content="https://fabriziosalmi.github.io/fabgpt-faq/og.svg">
+<meta property="og:site_name" content="FabGPT-FAQ">
+<meta property="og:locale" content="it_IT">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="In che modo l&#x27;algoritmo quantistico di Shor compromette la sicurezza degli algoritmi asimmetrici attuali?">
+<meta name="twitter:description" content="L&#x27;algoritmo di Shor (formulato da Peter Shor nel 1994) è un algoritmo quantistico capace di risolvere in tempo polinomiale due problemi matematici complessi…">
+<meta name="twitter:image" content="https://fabriziosalmi.github.io/fabgpt-faq/og.svg">
+<link rel="stylesheet" href="../../style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
+<script type="application/ld+json">[{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "In che modo l'algoritmo quantistico di Shor compromette la sicurezza degli algoritmi asimmetrici attuali?", "acceptedAnswer": {"@type": "Answer", "text": "L'algoritmo di Shor (formulato da Peter Shor nel 1994) è un algoritmo quantistico capace di risolvere in tempo polinomiale due problemi matematici complessi su cui poggia l'intera crittografia asimmetrica moderna: 1. Fattorizzazione dei numeri interi: la base della sicurezza di [RSA](q/crittografia-simmetrica-e-asimmetrica/). 2. Calcolo del logaritmo discreto: la base di Diffie-Hellman e delle curve ellittiche (ECC/ECDSA). Un computer quantistico con un numero sufficiente di qubit logici stabili (CRQC) potrà decifrare qualsiasi chiave RSA o ECC in poche ore. La crittografia simmetrica (AES-256) subisce invece solo l'algoritmo di Grover, che ne dimezza la sicurezza effettiva lasciando comunque 128 bit di entropia impenetrabile. Per questo NIST ha standardizzato nuovi algoritmi di [Crittografia Post-Quantistica (PQC)](q/cos-e-la-crittografia-post-quantistica/) basati su reticoli (ML-KEM, ML-DSA)."}}]}, {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "FabGPT-FAQ", "item": "https://fabriziosalmi.github.io/fabgpt-faq/"}, {"@type": "ListItem", "position": 2, "name": "Tutte le domande", "item": "https://fabriziosalmi.github.io/fabgpt-faq/q/"}, {"@type": "ListItem", "position": 3, "name": "Cybersecurity", "item": "https://fabriziosalmi.github.io/fabgpt-faq/q/algoritmo-shor-computer-quantistici-crittografia-asimmetrica/"}]}]</script>
+<style>
+  .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
+  .page h1 { font-size: 26px; line-height: 1.3; margin: 6px 0 20px; }
+  .crumbs { font-size: 13px; color: var(--text-dim); margin-bottom: 4px; }
+  .crumbs a { color: var(--text-dim); text-decoration: none; }
+  .crumbs a:hover { color: var(--text); }
+  .page .answer a { color: var(--link); }
+  .page .vertical { font-size: 13px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }
+  .page .answer ul { padding-left: 22px; }
+  .page .answer code { background: var(--code-bg); border-radius: 5px; padding: 1px 5px; font-size: 0.9em; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+  .page .ask { display: inline-block; margin-top: 24px; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 9px 18px; text-decoration: none; font-weight: 600; }
+  .page .related { margin-top: 36px; border-top: 1px solid var(--border); padding-top: 18px; }
+  .page .related h2 { font-size: 16px; }
+  .page .related a { color: var(--link); text-decoration: none; }
+  .page .related a:hover { text-decoration: underline; }
+  .page .related li { margin: 6px 0; }
+  .diagram { margin: 24px 0 8px; padding: 14px; border: 1px solid var(--border); border-radius: 12px; background: var(--bg-soft); }
+  .diagram svg { display: block; max-width: 100%; height: auto; }
+  .answer code { cursor: pointer; }
+  .answer code:hover { outline: 1px solid var(--border); }
+  .answer code.copied { outline: 1px solid var(--accent); color: var(--accent); }
+  .verified { display: flex; align-items: center; gap: 7px; margin-top: 18px; font-size: 13px; color: var(--text-dim); }
+  .verified .vchk { flex: 0 0 auto; }
+  @media (prefers-reduced-motion: no-preference) {
+    .vchk path { stroke-dasharray: 24; stroke-dashoffset: 24; animation: vchk-draw .5s .15s ease forwards; }
+  }
+  @keyframes vchk-draw { to { stroke-dashoffset: 0; } }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="../../" style="text-decoration:none;color:inherit">
+    <span class="brand-dot">F</span>
+    <span class="brand-name">FabGPT-FAQ</span>
+  </a>
+</header>
+<main class="page">
+  <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › Cybersecurity</nav>
+  <h1>In che modo l&#x27;algoritmo quantistico di Shor compromette la sicurezza degli algoritmi asimmetrici attuali?</h1>
+  <div class="answer"><p>L&#x27;<strong>algoritmo di Shor</strong> (formulato da Peter Shor nel 1994) è un algoritmo quantistico capace di risolvere in tempo polinomiale due problemi matematici complessi su cui poggia l&#x27;intera crittografia asimmetrica moderna:</p><p>1. <strong>Fattorizzazione dei numeri interi</strong>: la base della sicurezza di <a href="../crittografia-simmetrica-e-asimmetrica/">RSA</a>.<br>2. <strong>Calcolo del logaritmo discreto</strong>: la base di Diffie-Hellman e delle curve ellittiche (<strong>ECC/ECDSA</strong>).</p><p>Un computer quantistico con un numero sufficiente di qubit logici stabili (CRQC) potrà decifrare qualsiasi chiave RSA o ECC in poche ore. La crittografia simmetrica (AES-256) subisce invece solo l&#x27;algoritmo di Grover, che ne dimezza la sicurezza effettiva lasciando comunque 128 bit di entropia impenetrabile.</p><p>Per questo NIST ha standardizzato nuovi algoritmi di <a href="../cos-e-la-crittografia-post-quantistica/">Crittografia Post-Quantistica (PQC)</a> basati su reticoli (ML-KEM, ML-DSA).</p></div>
+  <div class="verified"><svg class="vchk" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Verificata a mano · zero allucinazioni</span></div>
+  <a class="ask" href="../../?q=algoritmo-shor-crittografia">Chiedilo a FabGPT-FAQ →</a>
+  <div class="related">
+    <h2>Altre domande</h2>
+    <ul><li><a href="../crittografia-simmetrica-e-asimmetrica/">Crittografia simmetrica e asimmetrica: che differenza c&#x27;è?</a></li><li><a href="../cos-e-la-crittografia-post-quantistica/">Cos&#x27;è la crittografia post-quantistica (PQC)?</a></li><li><a href="../condividere-password-monouso-yopass-microbin/">Come archiviare e condividere link con informazioni confidenziali e password monouso a scadenza (Yopass, Microbin)?</a></li><li><a href="../cos-e-un-waf-web-application-firewall/">Cos&#x27;è un WAF (Web Application Firewall) e a cosa serve?</a></li><li><a href="../cos-e-un-reverse-proxy/">Cos&#x27;è un reverse proxy e a cosa serve?</a></li><li><a href="../come-funziona-lets-encrypt-acme/">Come funziona Let&#x27;s Encrypt e il protocollo ACME?</a></li></ul>
+  </div>
+</main>
+<script>
+document.addEventListener('click',function(e){
+  var c=e.target.closest('code'); if(!c)return;
+  navigator.clipboard&&navigator.clipboard.writeText(c.textContent).then(function(){
+    c.classList.add('copied'); setTimeout(function(){c.classList.remove('copied')},900);
+  });
+});
+</script>
+</body>
+</html>

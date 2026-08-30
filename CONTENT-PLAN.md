@@ -381,8 +381,25 @@ non ha pagina propria) sono lavoro, non copertura.
   Crypto avanzata (TLS 1.3, FHE, crypto-agility). Appsec authz (IDOR/BOLA, mass
   assignment, cookie flags, insecure deserialization, OAuth redirect, OAuth2-Proxy/
   Authelia, DB bind localhost). Post-B10: 257 covered, 142 partial, 1 gap.
-- Prossimi giri di massa: convertire i ~142 partial in voci dedicate a blocchi
-  tematici (ogni giro riesegue `triage.py` per misurare l'avanzamento).
+- **B11 (mass #5, 30 voci)**: **AI supply chain libraries (chiusura GAP netto) +
+  incident response & resilience + hardware/kernel hardening + PQC Shor & firme +
+  backup immutabili/bare-metal + smart home privacy & eval RAG/LLM**.
+  AI supply chain libraries (tokenizer/transformer RCE, dependency confusion AI,
+  trust_remote_code). RPO vs RTO, me_cleaner, verifica ISO SHA-256 + GPG, USB-C PD
+  firmware security, sysctl hardening, MFA familiare & passkey, emergency kit
+  password manager, secret sharing monouso Yopass/Microbin, algoritmo di Shor,
+  proprietà firma digitale, Sanoid/Syncoid ZFS, Borgmatic client encryption,
+  ReaR disaster recovery, VSS shadow copies, DRBD vs filesystem replica, M-DISC
+  B-DXL, RAGAS eval framework, LLM-as-a-Judge bias mitigation, Outlines/Guidance
+  structured decoding, NER + PII masking guardrail, OPA/Rego agent policy, Matter
+  standard locale, Wyoming/Piper/Whisper voice assistant, CCTV VLAN IP cam,
+  fallback manuale interruttori domotica, MISP feed firewall, Greenbone OpenVAS,
+  Gitleaks pre-commit hook, SimpleX Chat privacy architecture.
+  Post-B11: **284 covered, 116 partial, 0 gap** (475 voci KB, 477 URL statiche,
+  batteria QA 551, gate bench G1-G5 e traj T1-T4 100% verdi).
+- **Lotto B11 (2026-08-30)**: 30 nuove voci dedicate (475 KB entries, 477 URLs, QA 551/551, Bench G1–G5 PASS, Traj T1–T4 PASS, Triage: 284 covered, 116 partial, 0 gap).
+- **Lotto B12 (2026-08-30)**: 33 nuove voci dedicate (508 KB entries, 510 URLs, QA 586/586, Bench G1–G5 PASS, Traj T1–T4 PASS, Triage: 327 covered, 73 partial, 0 gap).
+- Prossimi giri di massa: convertire i rimanenti 73 partial (B13, B14).
 
 ## Estetica (2026-08-30): diagrammi-concetto + comandi copiabili
 
@@ -412,12 +429,8 @@ non ha pagina propria) sono lavoro, non copertura.
 - **Badge "verificata"** (2026-08-30): riga "Verificata a mano · zero allucinazioni"
   con check SVG che si disegna, sotto OGNI risposta KB (chat: solo entry con slug,
   non smalltalk/fallback; pagine statiche: sempre). Rinforza l'USP anti-allucinazione.
-- **Hero labirinto** (2026-08-30): spirale-labirinto SVG che si traccia al caricamento
-  (stroke-dashoffset, 1.8s) sulla landing della chat, con tagline "un labirinto di
-  risposte, travestito da AI" e dot centrale; collassa alla prima interazione (app.js
-  aggiunge .gone). Path calcolato come spirale quadrata (132x132, len 936).
 - **Menu estetico COMPLETO**: diagrammi-concetto, comandi copiabili, timeline how-to,
-  glyph verticali, contatore stat, micro-interazioni, badge verificata, hero labirinto.
+  glyph verticali, contatore stat, micro-interazioni, badge verificata.
   Tutto theme-aware + prefers-reduced-motion. (Possibile futuro: diagrammi oltre i pilastri.)
 
 ## Giro 2 – rifinitura & answer-engine optimization (DONE 2026-08-30)
@@ -464,3 +477,17 @@ suggerisci, noia, sei-umano, scusa, approfondisci, perche-italiano, buon-lavoro.
 - [B6] Come aggiungo la mia FAQ a questo motore? (guida al fork)
 - [B6] Quanto costa far girare FabGPT-FAQ? (zero: la dimostrazione)
 - [B6] Perché le risposte pre-scritte battono l'AI su domini ristretti
+
+## Batch B13 (2026-08-30) – 100% Triage Complete Coverage
+
+- **Nuove voci integrate**: 25 voci dedicate per chiudere tutti i gap residui emersi dai test di triage intensivo.
+- **KB totale**: 533 voci (535 URL statici).
+- **Test suite**: 612 test in `tests.json` (100% pass).
+- **Metriche di qualità**:
+  - G1 integrity: 100%
+  - G2 canonical: 533/533 (100%)
+  - G3 typo resilience: 406/421 (96.4%)
+  - G4 battery: 612/612 (100%)
+  - G5 negatives: 10/10 (100%)
+  - Traiettorie (T1–T4): 100% pass (51/51 sessioni multi-turn)
+  - Triage 400 domande: **400/400 coperte (100.0% coverage, 0 partial, 0 gap)**.

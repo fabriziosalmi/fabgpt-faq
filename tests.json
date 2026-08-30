@@ -897,6 +897,10 @@
   },
   {
     "q": "cosa sono rto e rpo",
+    "expect": "rpo-vs-rto"
+  },
+  {
+    "q": "come si scrive un piano di disaster recovery minimo",
     "expect": "disaster-recovery"
   },
   {
@@ -2078,5 +2082,369 @@
   {
     "q": "vincolare postgresql ad ascoltare solo su localhost",
     "expect": "db-bind-localhost"
+  },
+  {
+    "q": "quali sono le vulnerabilita delle librerie esterne tokenizers e transformers",
+    "expect": "ai-supply-chain-libraries"
+  },
+  {
+    "q": "qual e la differenza tra rpo e rto disaster recovery",
+    "expect": "rpo-vs-rto"
+  },
+  {
+    "q": "in cosa consiste la neutralizzazione dell intel management engine con me cleaner",
+    "expect": "me-cleaner-intel"
+  },
+  {
+    "q": "come si verifica l integrita di un file con sha 256 e firma gpg",
+    "expect": "verifica-iso-gpg-sha256"
+  },
+  {
+    "q": "quali rischi di sicurezza derivano dai controller usb c power delivery",
+    "expect": "usbc-pd-firmware-security"
+  },
+  {
+    "q": "quali parametri sysctl impostare per hardening del kernel linux",
+    "expect": "sysctl-kernel-hardening"
+  },
+  {
+    "q": "come implementare mfa e passkey per tutta la famiglia",
+    "expect": "mfa-famigliare"
+  },
+  {
+    "q": "cos e l emergency kit del password manager e la master recovery key",
+    "expect": "emergency-kit-password"
+  },
+  {
+    "q": "come condividere password monouso temporanee con yopass o microbin",
+    "expect": "secret-sharing-monouso"
+  },
+  {
+    "q": "in che modo l algoritmo di shor minaccia rsa ed ecc",
+    "expect": "algoritmo-shor-crittografia"
+  },
+  {
+    "q": "quali elementi crittografici garantiscono integrita autenticita e non ripudio nella firma",
+    "expect": "firma-digitale-proprieta"
+  },
+  {
+    "q": "come funziona la replica incrementale di snapshot zfs con sanoid e syncoid",
+    "expect": "sanoid-syncoid-zfs"
+  },
+  {
+    "q": "come si implementa la crittografia lato client con borgmatic nei backup",
+    "expect": "borgmatic-client-encryption"
+  },
+  {
+    "q": "cos e relax and recover rear per il disaster recovery bare metal",
+    "expect": "rear-disaster-recovery-linux"
+  },
+  {
+    "q": "come funzionano le copie shadow del volume vss su windows",
+    "expect": "vss-shadow-copies-windows"
+  },
+  {
+    "q": "qual e la differenza tra replica a livello di blocco drbd e sincronizzazione filesystem",
+    "expect": "drbd-vs-filesystem-replica"
+  },
+  {
+    "q": "cosa sono i supporti ottici m disc b dxl per l archiviazione",
+    "expect": "mdisc-conservazione-ottica"
+  },
+  {
+    "q": "quali metriche compongono il framework ragas per valutare il rag",
+    "expect": "ragas-framework-eval"
+  },
+  {
+    "q": "come mitigare il position bias e verbosity bias nel paradigma llm as a judge",
+    "expect": "llm-as-a-judge-bias"
+  },
+  {
+    "q": "come funziona lo structured decoding con outlines o guidance per json vincolato",
+    "expect": "outlines-guidance-decoding"
+  },
+  {
+    "q": "come combinare named entity recognition ner e masking contro fughe pii",
+    "expect": "ner-pii-masking-guardrail"
+  },
+  {
+    "q": "come si applica il policy as code con open policy agent rego per gli agenti ai",
+    "expect": "opa-rego-agent-policy"
+  },
+  {
+    "q": "in che modo lo standard matter abilita la smart home locale senza cloud",
+    "expect": "matter-domotica-locale"
+  },
+  {
+    "q": "come si configura un assistente vocale offline su home assistant con whisper e piper",
+    "expect": "wyoming-piper-whisper"
+  },
+  {
+    "q": "come si isolano le telecamere ip di videosorveglianza su una vlan separata",
+    "expect": "videosorveglianza-vlan-ip-cam"
+  },
+  {
+    "q": "come garantire il funzionamento manuale degli interruttori se il server domotico va in crash",
+    "expect": "fallback-manuale-domotica"
+  },
+  {
+    "q": "come integrare un istanza misp per alimentare le regole del firewall",
+    "expect": "misp-firewall-integration"
+  },
+  {
+    "q": "come si pianifica la scansione delle vulnerabilita di rete con greenbone openvas",
+    "expect": "greenbone-openvas-scan"
+  },
+  {
+    "q": "come configurare hook di pre commit con gitleaks o trufflehog contro segreti in git",
+    "expect": "gitleaks-trufflehog-precommit"
+  },
+  {
+    "q": "in che modo l architettura di simplex chat garantisce la privacy senza identificatori",
+    "expect": "simplex-chat-privacy"
+  },
+  {
+    "q": "Quali sono i rischi di arbitrary code execution con i file pickle e perche usare safetensors?",
+    "expect": "safetensors-vs-pickle-rce"
+  },
+  {
+    "q": "Come si struttura una aibom per tracciare dataset lineage e pesi dei modelli?",
+    "expect": "aibom-ai-bill-of-materials"
+  },
+  {
+    "q": "Come si verifica l integrita crittografica dei pesi dei modelli con sigstore cosign e tuf?",
+    "expect": "model-signing-sigstore-tuf"
+  },
+  {
+    "q": "In che modo adattatori lora malevoli possono iniettare backdoor dormienti nel modello?",
+    "expect": "lora-backdoor-poisoning"
+  },
+  {
+    "q": "Come si rileva il drift semantico tra i prompt in produzione e i dataset di test?",
+    "expect": "semantic-drift-monitoring"
+  },
+  {
+    "q": "Come si collegano i trace id distribuiti dei microservizi con gli span degli agenti ai opentelemetry?",
+    "expect": "distributed-tracing-ai-agents"
+  },
+  {
+    "q": "In che modo webassembly wasi serve da runtime sandbox sicuro a basso overhead per tool di agenti?",
+    "expect": "wasm-wasi-agent-sandbox"
+  },
+  {
+    "q": "Cosa si intende per vulnerabilita bacs broken access control at search nella ricerca vettoriale rag?",
+    "expect": "bacs-broken-access-vector"
+  },
+  {
+    "q": "Come funziona un attacco di vector poisoning per manipolare la similarity del retrieval rag?",
+    "expect": "vector-poisoning-rag"
+  },
+  {
+    "q": "Quali pattern di validazione dei parametri e rollback transazionale servono per i tool mcp?",
+    "expect": "mcp-validation-rollback"
+  },
+  {
+    "q": "Quali sono le differenze tra un orchestratore a dag deterministico e un loop probabilistico di agenti?",
+    "expect": "dag-vs-probabilistic-orchestration"
+  },
+  {
+    "q": "Quali modelli europei della famiglia mistral garantiscono ottime prestazioni in italiano e sovranita?",
+    "expect": "mistral-modelli-europei"
+  },
+  {
+    "q": "Come si automatizza il red teaming avversariale continuo con harness come garak e pyrit?",
+    "expect": "red-teaming-avversariale-llm"
+  },
+  {
+    "q": "Come si mitiga l effetto lost in the middle e la degradazione dell attenzione sui prompt lunghi?",
+    "expect": "lost-in-the-middle-context"
+  },
+  {
+    "q": "Come opera l architettura gateway workstation di whonix per impedire leak ip e mac address?",
+    "expect": "whonix-gateway-workstation"
+  },
+  {
+    "q": "Come si velocizza nextcloud con caching redis memcache e database postgresql?",
+    "expect": "nextcloud-redis-postgres"
+  },
+  {
+    "q": "Come si configura jellyfin per lo streaming multimediale self hosted senza dipendere dal cloud?",
+    "expect": "jellyfin-media-streaming"
+  },
+  {
+    "q": "Quali piattaforme self hosted come wallabag e linkwarden permettono di salvare articoli e segnalibri offline?",
+    "expect": "wallabag-linkwarden-bookmarks"
+  },
+  {
+    "q": "Come condividere credenziali e note sicure nel team con privatebin e vaultwarden sends?",
+    "expect": "privatebin-vaultwarden-sends"
+  },
+  {
+    "q": "Come si usa mat2 per ripulire metadati exif e coordinate gps da foto e pdf?",
+    "expect": "rimuovere-metadati"
+  },
+  {
+    "q": "Quali sono gli standard nist sp 800 88 e i comandi nvme secure erase per la cancellazione sicura?",
+    "expect": "nist-800-88-sanitization"
+  },
+  {
+    "q": "Come si implementa l auto pruning e il partizionamento tabelle per la data retention gdpr nel database?",
+    "expect": "data-retention-pruning-db"
+  },
+  {
+    "q": "Quali sono le distribuzioni linux desktop consigliate come linux mint fedora e debian per la privacy?",
+    "expect": "distro-linux-consumer-desktop"
+  },
+  {
+    "q": "Qual e la differenza tra docker named volumes persistenti e bind mounts dell host?",
+    "expect": "docker-volumes-vs-bindmounts"
+  },
+  {
+    "q": "Come si configura la rotazione automatica dei log docker max size max file in daemon json?",
+    "expect": "docker-log-rotation-limits"
+  },
+  {
+    "q": "Come si instradano i container docker attraverso un container vpn gluetun dedicato?",
+    "expect": "docker-gluetun-vpn"
+  },
+  {
+    "q": "Come funzionano il vlan hopping e l arp poisoning e come mitigarli con dynamic arp inspection?",
+    "expect": "vlan-hopping-arp-spoofing"
+  },
+  {
+    "q": "Come si proteggono i centralini voip sip da attacchi brute force frodi e flood di chiamate?",
+    "expect": "voip-selfhosted"
+  },
+  {
+    "q": "Quali sono le differenze tra il protocollo federato matrix e lo standard xmpp con omemo?",
+    "expect": "matrix-vs-xmpp-protocollo"
+  },
+  {
+    "q": "Come si configura uno smart host relay smtp cifrato su postfix con autenticazione sasl?",
+    "expect": "smart-host-relay-smtp"
+  },
+  {
+    "q": "Come funziona la cifratura a riposo delle maildir con il plugin mail crypt in dovecot?",
+    "expect": "dovecot-maildir-encryption"
+  },
+  {
+    "q": "Come si usa imapsync per migrare caselle di posta da google o microsoft verso server imap sovrani?",
+    "expect": "imapsync-migrazione-email"
+  },
+  {
+    "q": "In cosa consiste il framework europeo tiber eu per il threat led penetration testing?",
+    "expect": "tiber-eu-tlpt"
+  },
+  {
+    "q": "Come si imposta il third party risk management tprm per valutare la sicurezza dei fornitori software?",
+    "expect": "tprm-third-party-risk"
+  },
+  {
+    "q": "Come si monitora l integrita dei file di sistema critici con wazuh syscheck o aide fim?",
+    "expect": "wazuh-aide-fim"
+  },
+  {
+    "expect": "lora-backdoor-triggers",
+    "q": "Come funzionano i backdoor triggers negli adattatori lora?"
+  },
+  {
+    "expect": "model-weights-antivirus-scan",
+    "q": "Come si isolano e scansionano i repository di modelli locali da payload malevoli?"
+  },
+  {
+    "expect": "model-typosquatting-countermeasures",
+    "q": "Come ci si difende da campagne di typosquatting di modelli su hub aperti?"
+  },
+  {
+    "expect": "agent-network-egress-rules",
+    "q": "Come si configura il network egress control per isolare un agente ai compromesso?"
+  },
+  {
+    "expect": "agent-env-secrets-injection",
+    "q": "Come si gestisce l iniezione dinamica di variabili d ambiente e segreti nelle sandbox senza esporli all llm?"
+  },
+  {
+    "expect": "agent-task-privilege-delegation",
+    "q": "Come si gestisce l allocazione di sotto task e la delega controllata di privilegi tra agenti?"
+  },
+  {
+    "expect": "tco-homelab-vs-saas-5years",
+    "q": "Come si calcola il tco a 5 anni tra server sovrano e abbonamenti saas commerciali?"
+  },
+  {
+    "expect": "fallback-manuale-domotica",
+    "q": "Quali accorgimenti garantiscono il funzionamento manuale degli interruttori di casa se il server domotico crasha?"
+  },
+  {
+    "expect": "llm-explainability-forensics",
+    "q": "Come si garantisce l explainability e l ispezionabilita delle catene di inferenza per audit e forensic?"
+  },
+  {
+    "expect": "ai-deployer-vs-provider-liability",
+    "q": "Quali differenze operative sussistono tra ai deployer e ai provider sotto l ai act europeo?"
+  },
+  {
+    "expect": "ai-bias-antidiscrimination-testing",
+    "q": "Come si implementano i test di conformita per verificare che i modelli non abbiano bias discriminatori?"
+  },
+  {
+    "expect": "ai-agent-corporate-registry",
+    "q": "Come si struttura un registro aziendale per censire tutti gli agenti ai attivi e i relativi permessi?"
+  },
+  {
+    "expect": "agent-human-fallback-protocol",
+    "q": "Quali protocolli definiscono il passaggio di controllo dall agente all operatore umano in crisi?"
+  },
+  {
+    "expect": "board-accountability-nis2",
+    "q": "In che modo l accountability responsabilizza gli organi di amministrazione societari sotto nis2?"
+  },
+  {
+    "expect": "guardrail-graceful-degradation",
+    "q": "Come si progetta una strategia di graceful degradation quando il guardrail intercetta una violazione?"
+  },
+  {
+    "expect": "guardrail-false-refusal-tuning",
+    "q": "Come si calibrano i tassi di falsi positivi false refusal rate nei guardrail semantici?"
+  },
+  {
+    "expect": "post-incident-system-reentry",
+    "q": "Quali criteri di convalida e test servono per reintrodurre sistemi bonificati nella rete produttiva?"
+  },
+  {
+    "expect": "fs-snapshots-staging-testing",
+    "q": "Come si usano gli snapshot del filesystem per creare ambienti di staging isolati e testare in sicurezza?"
+  },
+  {
+    "expect": "per-task-cost-attribution-agents",
+    "q": "In che modo la tracciatura dei costi per singolo sub task permette di individuare loop di fallback costosi?"
+  },
+  {
+    "expect": "predictive-hallucination-alerting",
+    "q": "Come si costruisce un framework di alerting predittivo per picchi anomali di allucinazioni in produzione?"
+  },
+  {
+    "expect": "cryptographic-session-key-rotation",
+    "q": "Come si gestisce la rotazione automatica delle chiavi di sessione e token senza disservizi?"
+  },
+  {
+    "expect": "webserver-upload-execution-prevention",
+    "q": "Quali configurazioni web server impediscono l esecuzione di script php python nelle cartelle upload?"
+  },
+  {
+    "expect": "host-default-deny-nftables",
+    "q": "Come si imposta il firewall dell host con nftables o ufw secondo il principio di default deny?"
+  },
+  {
+    "expect": "lm-evaluation-harness-metrics",
+    "q": "In che modo lm evaluation harness standardizza accuratezza calibrazione e perplexity sui modelli?"
+  },
+  {
+    "expect": "agent-lost-in-middle-mitigation",
+    "q": "Come si misura e mitiga il degrado prestazionale causato dall effetto lost in the middle nei loop agentici?"
+  },
+  {
+    "expect": "agent-ci-cd-branch-protection",
+    "q": "Quali minacce emergono quando un agente ai ha accesso in scrittura a repository e pipeline ci cd?"
   }
 ]

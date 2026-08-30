@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quali parametri sysctl impostare per l&#x27;hardening del kernel Linux? – FabGPT-FAQ</title>
+<meta name="description" content="Il file /etc/sysctl.d/99-security.conf consente di disabilitare interfacce obsolete e rafforzare le difese del kernel Linux contro privilege escalation ed…">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="canonical" href="https://fabriziosalmi.github.io/fabgpt-faq/q/parametri-sysctl-hardening-kernel-linux/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Quali parametri sysctl impostare per l&#x27;hardening del kernel Linux?">
+<meta property="og:description" content="Il file /etc/sysctl.d/99-security.conf consente di disabilitare interfacce obsolete e rafforzare le difese del kernel Linux contro privilege escalation ed…">
+<meta property="og:url" content="https://fabriziosalmi.github.io/fabgpt-faq/q/parametri-sysctl-hardening-kernel-linux/">
+<meta property="og:image" content="https://fabriziosalmi.github.io/fabgpt-faq/og.svg">
+<meta property="og:site_name" content="FabGPT-FAQ">
+<meta property="og:locale" content="it_IT">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Quali parametri sysctl impostare per l&#x27;hardening del kernel Linux?">
+<meta name="twitter:description" content="Il file /etc/sysctl.d/99-security.conf consente di disabilitare interfacce obsolete e rafforzare le difese del kernel Linux contro privilege escalation ed…">
+<meta name="twitter:image" content="https://fabriziosalmi.github.io/fabgpt-faq/og.svg">
+<link rel="stylesheet" href="../../style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
+<script type="application/ld+json">[{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Quali parametri sysctl impostare per l'hardening del kernel Linux?", "acceptedAnswer": {"@type": "Answer", "text": "Il file /etc/sysctl.d/99-security.conf consente di disabilitare interfacce obsolete e rafforzare le difese del kernel Linux contro privilege escalation ed exploit di memoria: kernel.kptr_restrict = 2 e kernel.dmesg_restrict = 1: nascondono i puntatori del kernel e i log dmesg agli utenti non root (ostacolando bypass di KASLR). kernel.yama.ptrace_scope = 2: impedisce ai processi non root di attaccare altri processi tramite ptrace (blocca injection in memoria). net.ipv4.conf.all.rp_filter = 1: attiva il Reverse Path Filtering contro lo spoofing di IP sorgente. net.ipv4.tcp_syncookies = 1: difende il networking da attacchi [SYN Flood](q/errore-ssl-handshake-failure/). fs.protected_regular = 2 e fs.protected_fifos = 2: previene attacchi race-condition su file in /tmp. Per applicare subito: sysctl --system."}}]}, {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "FabGPT-FAQ", "item": "https://fabriziosalmi.github.io/fabgpt-faq/"}, {"@type": "ListItem", "position": 2, "name": "Tutte le domande", "item": "https://fabriziosalmi.github.io/fabgpt-faq/q/"}, {"@type": "ListItem", "position": 3, "name": "Cybersecurity", "item": "https://fabriziosalmi.github.io/fabgpt-faq/q/parametri-sysctl-hardening-kernel-linux/"}]}]</script>
+<style>
+  .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
+  .page h1 { font-size: 26px; line-height: 1.3; margin: 6px 0 20px; }
+  .crumbs { font-size: 13px; color: var(--text-dim); margin-bottom: 4px; }
+  .crumbs a { color: var(--text-dim); text-decoration: none; }
+  .crumbs a:hover { color: var(--text); }
+  .page .answer a { color: var(--link); }
+  .page .vertical { font-size: 13px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }
+  .page .answer ul { padding-left: 22px; }
+  .page .answer code { background: var(--code-bg); border-radius: 5px; padding: 1px 5px; font-size: 0.9em; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+  .page .ask { display: inline-block; margin-top: 24px; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 9px 18px; text-decoration: none; font-weight: 600; }
+  .page .related { margin-top: 36px; border-top: 1px solid var(--border); padding-top: 18px; }
+  .page .related h2 { font-size: 16px; }
+  .page .related a { color: var(--link); text-decoration: none; }
+  .page .related a:hover { text-decoration: underline; }
+  .page .related li { margin: 6px 0; }
+  .diagram { margin: 24px 0 8px; padding: 14px; border: 1px solid var(--border); border-radius: 12px; background: var(--bg-soft); }
+  .diagram svg { display: block; max-width: 100%; height: auto; }
+  .answer code { cursor: pointer; }
+  .answer code:hover { outline: 1px solid var(--border); }
+  .answer code.copied { outline: 1px solid var(--accent); color: var(--accent); }
+  .verified { display: flex; align-items: center; gap: 7px; margin-top: 18px; font-size: 13px; color: var(--text-dim); }
+  .verified .vchk { flex: 0 0 auto; }
+  @media (prefers-reduced-motion: no-preference) {
+    .vchk path { stroke-dasharray: 24; stroke-dashoffset: 24; animation: vchk-draw .5s .15s ease forwards; }
+  }
+  @keyframes vchk-draw { to { stroke-dashoffset: 0; } }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="../../" style="text-decoration:none;color:inherit">
+    <span class="brand-dot">F</span>
+    <span class="brand-name">FabGPT-FAQ</span>
+  </a>
+</header>
+<main class="page">
+  <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › Cybersecurity</nav>
+  <h1>Quali parametri sysctl impostare per l&#x27;hardening del kernel Linux?</h1>
+  <div class="answer"><p>Il file <code>/etc/sysctl.d/99-security.conf</code> consente di disabilitare interfacce obsolete e rafforzare le difese del kernel Linux contro privilege escalation ed exploit di memoria:</p><ul><li><code>kernel.kptr_restrict = 2</code> e <code>kernel.dmesg_restrict = 1</code>: nascondono i puntatori del kernel e i log dmesg agli utenti non root (ostacolando bypass di KASLR).</li><li><code>kernel.yama.ptrace_scope = 2</code>: impedisce ai processi non root di attaccare altri processi tramite <code>ptrace</code> (blocca injection in memoria).</li><li><code>net.ipv4.conf.all.rp_filter = 1</code>: attiva il Reverse Path Filtering contro lo spoofing di IP sorgente.</li><li><code>net.ipv4.tcp_syncookies = 1</code>: difende il networking da attacchi <a href="../errore-ssl-handshake-failure/">SYN Flood</a>.</li><li><code>fs.protected_regular = 2</code> e <code>fs.protected_fifos = 2</code>: previene attacchi race-condition su file in <code>/tmp</code>.</li></ul><p>Per applicare subito: <code>sysctl --system</code>.</p></div>
+  <div class="verified"><svg class="vchk" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Verificata a mano · zero allucinazioni</span></div>
+  <a class="ask" href="../../?q=sysctl-kernel-hardening">Chiedilo a FabGPT-FAQ →</a>
+  <div class="related">
+    <h2>Altre domande</h2>
+    <ul><li><a href="../errore-ssl-handshake-failure/">Errore SSL handshake failure: cosa significa?</a></li><li><a href="../vulnerabilita-firmware-controller-usb-c-power-delivery/">Quali rischi di sicurezza hanno i controller USB-C Power Delivery?</a></li><li><a href="../mfa-passkey-per-la-famiglia-gestione/">Come implementare policy di autenticazione MFA e passkey per tutta la famiglia?</a></li><li><a href="../cos-e-un-waf-web-application-firewall/">Cos&#x27;è un WAF (Web Application Firewall) e a cosa serve?</a></li><li><a href="../cos-e-un-reverse-proxy/">Cos&#x27;è un reverse proxy e a cosa serve?</a></li><li><a href="../come-funziona-lets-encrypt-acme/">Come funziona Let&#x27;s Encrypt e il protocollo ACME?</a></li></ul>
+  </div>
+</main>
+<script>
+document.addEventListener('click',function(e){
+  var c=e.target.closest('code'); if(!c)return;
+  navigator.clipboard&&navigator.clipboard.writeText(c.textContent).then(function(){
+    c.classList.add('copied'); setTimeout(function(){c.classList.remove('copied')},900);
+  });
+});
+</script>
+</body>
+</html>

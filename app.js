@@ -304,13 +304,7 @@
     return DB.fallbacks[fallbackIdx];
   }
 
-  let heroGone = false;
   function ask(text) {
-    if (!heroGone) {                     // collapse the landing hero on first interaction
-      const hero = document.getElementById('hero');
-      if (hero) hero.classList.add('gone');
-      heroGone = true;
-    }
     addUserMessage(text);
     const entry = match(text);
     const answer = entry ? pickAnswer(entry) : pickFallback();
