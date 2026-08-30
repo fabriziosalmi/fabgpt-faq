@@ -31,7 +31,12 @@
   .page .vertical { font-size: 13px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }
   .page .answer ul { padding-left: 22px; }
   .page .answer code { background: var(--code-bg); border-radius: 5px; padding: 1px 5px; font-size: 0.9em; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
-  .page .ask { display: inline-block; margin-top: 24px; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 9px 18px; text-decoration: none; font-weight: 600; }
+  .qa-actions { display: flex; align-items: center; gap: 12px; margin-top: 20px; }
+  .copy-qa-btn { display: inline-flex; align-items: center; gap: 6px; background: var(--bg-soft); color: var(--text-dim); border: 1px solid var(--border); border-radius: 6px; padding: 6px 12px; font-size: 13px; font-family: inherit; font-weight: 500; cursor: pointer; transition: all .15s ease; }
+  .copy-qa-btn:hover { background: var(--border); color: var(--text); }
+  .copy-qa-btn.copied { background: rgba(16, 163, 127, 0.15); color: var(--accent); border-color: var(--accent); }
+  .copy-qa-btn svg { flex: 0 0 auto; }
+  .page .ask { display: inline-block; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 8px 16px; text-decoration: none; font-weight: 600; font-size: 13px; }
   .page .related { margin-top: 36px; border-top: 1px solid var(--border); padding-top: 18px; }
   .page .related h2 { font-size: 16px; }
   .page .related a { color: var(--link); text-decoration: none; }
@@ -42,12 +47,6 @@
   .answer code { cursor: pointer; }
   .answer code:hover { outline: 1px solid var(--border); }
   .answer code.copied { outline: 1px solid var(--accent); color: var(--accent); }
-  .verified { display: flex; align-items: center; gap: 7px; margin-top: 18px; font-size: 13px; color: var(--text-dim); }
-  .verified .vchk { flex: 0 0 auto; }
-  @media (prefers-reduced-motion: no-preference) {
-    .vchk path { stroke-dasharray: 24; stroke-dashoffset: 24; animation: vchk-draw .5s .15s ease forwards; }
-  }
-  @keyframes vchk-draw { to { stroke-dashoffset: 0; } }
 </style>
 </head>
 <body>
@@ -59,10 +58,15 @@
 </header>
 <main class="page">
   <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › Proxmox e self-hosting</nav>
-  <h1>Perché si consiglia la RAM ECC in un NAS?</h1>
-  <div class="answer"><p>La <strong>RAM ECC</strong> (Error-Correcting Code) rileva e corregge automaticamente gli errori di bit nella memoria – quei rari ma reali &quot;bit flip&quot; causati da difetti, sbalzi elettrici o perfino raggi cosmici. In un PC desktop un bit flip causa al massimo un crash o un artefatto; in un <strong>NAS che custodisce i tuoi dati</strong>, è più insidioso: un errore in RAM può propagarsi <strong>su disco come dato corrotto</strong> – e, ironia, con <a href="../cos-e-openzfs-snapshot-copy-on-write/">ZFS</a> il dato corrotto verrebbe checksummato e replicato <em>come se fosse valido</em>, perché l&#x27;errore è avvenuto <em>prima</em> del checksum.</p><p>Da qui il consiglio forte per i sistemi che archiviano dati a lungo termine: ECC chiude l&#x27;unico punto della catena che <a href="../cos-e-openzfs-snapshot-copy-on-write/">il checksumming di ZFS</a> non copre – la memoria. Il dibattito &quot;ZFS <em>richiede</em> ECC&quot; è esagerato (ZFS gira benissimo senza), ma &quot;un NAS <em>dovrebbe avere</em> ECC&quot; è saggezza consolidata.</p><p>La nota pratica per il <a href="../homelab-a-basso-consumo/">homelab</a>: l&#x27;ECC richiede CPU e schede madri che la supportino (Xeon, EPYC, Ryzen con chipset adatti, molte piattaforme server usate) – ed è uno dei compromessi dei <a href="../homelab-a-basso-consumo/">mini PC economici</a>, che quasi mai la offrono. Per i dati che contano davvero, è un fattore da mettere nella decisione dell&#x27;hardware; per un lab di sperimentazione, si può vivere senza sapendo il rischio.</p></div>
-  <div class="verified"><svg class="vchk" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Verificata a mano · zero allucinazioni</span></div>
-  <a class="ask" href="../../?q=ecc-ram">Chiedilo a FabGPT-FAQ →</a>
+  <h1 id="page-question">Perché si consiglia la RAM ECC in un NAS?</h1>
+  <div class="answer" id="page-answer"><p>La <strong>RAM ECC</strong> (Error-Correcting Code) rileva e corregge automaticamente gli errori di bit nella memoria – quei rari ma reali &quot;bit flip&quot; causati da difetti, sbalzi elettrici o perfino raggi cosmici. In un PC desktop un bit flip causa al massimo un crash o un artefatto; in un <strong>NAS che custodisce i tuoi dati</strong>, è più insidioso: un errore in RAM può propagarsi <strong>su disco come dato corrotto</strong> – e, ironia, con <a href="../cos-e-openzfs-snapshot-copy-on-write/">ZFS</a> il dato corrotto verrebbe checksummato e replicato <em>come se fosse valido</em>, perché l&#x27;errore è avvenuto <em>prima</em> del checksum.</p><p>Da qui il consiglio forte per i sistemi che archiviano dati a lungo termine: ECC chiude l&#x27;unico punto della catena che <a href="../cos-e-openzfs-snapshot-copy-on-write/">il checksumming di ZFS</a> non copre – la memoria. Il dibattito &quot;ZFS <em>richiede</em> ECC&quot; è esagerato (ZFS gira benissimo senza), ma &quot;un NAS <em>dovrebbe avere</em> ECC&quot; è saggezza consolidata.</p><p>La nota pratica per il <a href="../homelab-a-basso-consumo/">homelab</a>: l&#x27;ECC richiede CPU e schede madri che la supportino (Xeon, EPYC, Ryzen con chipset adatti, molte piattaforme server usate) – ed è uno dei compromessi dei <a href="../homelab-a-basso-consumo/">mini PC economici</a>, che quasi mai la offrono. Per i dati che contano davvero, è un fattore da mettere nella decisione dell&#x27;hardware; per un lab di sperimentazione, si può vivere senza sapendo il rischio.</p></div>
+  <div class="qa-actions">
+    <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+      <span>Copia</span>
+    </button>
+    <a class="ask" href="../../?q=ecc-ram">Chiedilo a FabGPT-FAQ →</a>
+  </div>
   <div class="related">
     <h2>Altre domande</h2>
     <ul><li><a href="../cos-e-openzfs-snapshot-copy-on-write/">Cos&#x27;è OpenZFS (snapshot atomici, copy-on-write, checksumming)?</a></li><li><a href="../homelab-a-basso-consumo/">Homelab a basso consumo: mini PC al posto del server?</a></li><li><a href="../raid-e-raidz-livelli-e-scelta/">RAID e RAIDZ: quali livelli scegliere (e cosa NON sono)?</a></li><li><a href="../cos-e-proxmox-ve/">Cos&#x27;è Proxmox VE e perché è così usato?</a></li><li><a href="../differenza-container-lxc-e-vm/">Che differenza c&#x27;è tra container LXC e VM?</a></li><li><a href="../self-hosting-pro-e-contro/">Self-hosting: cosa significa e quando conviene?</a></li></ul>
@@ -74,6 +78,22 @@ document.addEventListener('click',function(e){
   navigator.clipboard&&navigator.clipboard.writeText(c.textContent).then(function(){
     c.classList.add('copied'); setTimeout(function(){c.classList.remove('copied')},900);
   });
+});
+document.getElementById('copy-page-btn')?.addEventListener('click', function(){
+  var btn = this;
+  var q = document.getElementById('page-question')?.innerText.trim() || '';
+  var a = document.getElementById('page-answer')?.innerText.trim() || '';
+  var formatted = "Q: " + q + "\n\nA:\n" + a;
+  if(navigator.clipboard){
+    navigator.clipboard.writeText(formatted).then(function(){
+      btn.classList.add('copied');
+      btn.querySelector('span').textContent = 'Copiato!';
+      setTimeout(function(){
+        btn.classList.remove('copied');
+        btn.querySelector('span').textContent = 'Copia';
+      }, 1500);
+    });
+  }
 });
 </script>
 </body>

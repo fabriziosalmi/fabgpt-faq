@@ -31,7 +31,12 @@
   .page .vertical { font-size: 13px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }
   .page .answer ul { padding-left: 22px; }
   .page .answer code { background: var(--code-bg); border-radius: 5px; padding: 1px 5px; font-size: 0.9em; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
-  .page .ask { display: inline-block; margin-top: 24px; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 9px 18px; text-decoration: none; font-weight: 600; }
+  .qa-actions { display: flex; align-items: center; gap: 12px; margin-top: 20px; }
+  .copy-qa-btn { display: inline-flex; align-items: center; gap: 6px; background: var(--bg-soft); color: var(--text-dim); border: 1px solid var(--border); border-radius: 6px; padding: 6px 12px; font-size: 13px; font-family: inherit; font-weight: 500; cursor: pointer; transition: all .15s ease; }
+  .copy-qa-btn:hover { background: var(--border); color: var(--text); }
+  .copy-qa-btn.copied { background: rgba(16, 163, 127, 0.15); color: var(--accent); border-color: var(--accent); }
+  .copy-qa-btn svg { flex: 0 0 auto; }
+  .page .ask { display: inline-block; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 8px 16px; text-decoration: none; font-weight: 600; font-size: 13px; }
   .page .related { margin-top: 36px; border-top: 1px solid var(--border); padding-top: 18px; }
   .page .related h2 { font-size: 16px; }
   .page .related a { color: var(--link); text-decoration: none; }
@@ -42,12 +47,6 @@
   .answer code { cursor: pointer; }
   .answer code:hover { outline: 1px solid var(--border); }
   .answer code.copied { outline: 1px solid var(--accent); color: var(--accent); }
-  .verified { display: flex; align-items: center; gap: 7px; margin-top: 18px; font-size: 13px; color: var(--text-dim); }
-  .verified .vchk { flex: 0 0 auto; }
-  @media (prefers-reduced-motion: no-preference) {
-    .vchk path { stroke-dasharray: 24; stroke-dashoffset: 24; animation: vchk-draw .5s .15s ease forwards; }
-  }
-  @keyframes vchk-draw { to { stroke-dashoffset: 0; } }
 </style>
 </head>
 <body>
@@ -59,10 +58,15 @@
 </header>
 <main class="page">
   <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › AI e LLM</nav>
-  <h1>Cos&#x27;è la quantizzazione di un modello (GGUF, 4-bit)?</h1>
-  <div class="answer"><p>La quantizzazione riduce la precisione dei pesi (da FP16 a INT8/INT4/INT2), abbattendo l&#x27;uso di RAM/VRAM con perdita di qualità quasi impercettibile nei formati K-quant.</p><p>Comandi pratici con <code>llama.cpp</code>:<br>```bash<br># 1. Conversione checkpoint HuggingFace in GGUF FP16<br>python3 convert_hf_to_gguf.py ./models/Llama-3-8B/ --outfile model-f16.gguf</p><p># 2. Quantizzazione bilanciata consigliata (Q4_K_M = ~4.5 bit per peso)<br>./llama-quantize model-f16.gguf model-Q4_K_M.gguf Q4_K_M</p><p># 3. Esecuzione e benchmark velocità token/s da terminale<br>./llama-cli -m model-Q4_K_M.gguf -p &quot;Spiega il modello OSI in 3 punti&quot; -ngl 33 -c 4096<br>```</p><p>Tabella di scelta rapida:<br>- <strong>Q4_K_M</strong>: miglior rapporto memoria/accuratezza per homelab (8B gira in ~6 GB VRAM).<br>- <strong>Q8_0</strong>: quasi identico a FP16, ideale se hai RAM abbondante.<br>- <strong>Q2_K / Q3_K_S</strong>: solo per far entrare modelli enormi (70B) in hardware consumer con perdita semantica sensibile.</p></div>
-  <div class="verified"><svg class="vchk" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Verificata a mano · zero allucinazioni</span></div>
-  <a class="ask" href="../../?q=quantizzazione">Chiedilo a FabGPT-FAQ →</a>
+  <h1 id="page-question">Cos&#x27;è la quantizzazione di un modello (GGUF, 4-bit)?</h1>
+  <div class="answer" id="page-answer"><p>La quantizzazione riduce la precisione dei pesi (da FP16 a INT8/INT4/INT2), abbattendo l&#x27;uso di RAM/VRAM con perdita di qualità quasi impercettibile nei formati K-quant.</p><p>Comandi pratici con <code>llama.cpp</code>:<br>```bash<br># 1. Conversione checkpoint HuggingFace in GGUF FP16<br>python3 convert_hf_to_gguf.py ./models/Llama-3-8B/ --outfile model-f16.gguf</p><p># 2. Quantizzazione bilanciata consigliata (Q4_K_M = ~4.5 bit per peso)<br>./llama-quantize model-f16.gguf model-Q4_K_M.gguf Q4_K_M</p><p># 3. Esecuzione e benchmark velocità token/s da terminale<br>./llama-cli -m model-Q4_K_M.gguf -p &quot;Spiega il modello OSI in 3 punti&quot; -ngl 33 -c 4096<br>```</p><p>Tabella di scelta rapida:<br>- <strong>Q4_K_M</strong>: miglior rapporto memoria/accuratezza per homelab (8B gira in ~6 GB VRAM).<br>- <strong>Q8_0</strong>: quasi identico a FP16, ideale se hai RAM abbondante.<br>- <strong>Q2_K / Q3_K_S</strong>: solo per far entrare modelli enormi (70B) in hardware consumer con perdita semantica sensibile.</p></div>
+  <div class="qa-actions">
+    <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+      <span>Copia</span>
+    </button>
+    <a class="ask" href="../../?q=quantizzazione">Chiedilo a FabGPT-FAQ →</a>
+  </div>
   <div class="related">
     <h2>Altre domande</h2>
     <ul><li><a href="../cos-e-ollama/">Cos&#x27;è Ollama e come si usa?</a></li><li><a href="../meglio-fine-tuning-o-rag/">Meglio fine-tuning o RAG?</a></li><li><a href="../far-girare-un-llm-in-locale/">Come si fa girare un LLM in locale (e che hardware serve)?</a></li><li><a href="../cos-e-la-prompt-injection/">Cos&#x27;è la prompt injection e come ci si difende?</a></li><li><a href="../cos-e-mcp-model-context-protocol/">Cos&#x27;è MCP (Model Context Protocol)?</a></li><li><a href="../cos-e-il-vibe-coding/">Cos&#x27;è il vibe coding e quali sono i rischi?</a></li></ul>
@@ -74,6 +78,22 @@ document.addEventListener('click',function(e){
   navigator.clipboard&&navigator.clipboard.writeText(c.textContent).then(function(){
     c.classList.add('copied'); setTimeout(function(){c.classList.remove('copied')},900);
   });
+});
+document.getElementById('copy-page-btn')?.addEventListener('click', function(){
+  var btn = this;
+  var q = document.getElementById('page-question')?.innerText.trim() || '';
+  var a = document.getElementById('page-answer')?.innerText.trim() || '';
+  var formatted = "Q: " + q + "\n\nA:\n" + a;
+  if(navigator.clipboard){
+    navigator.clipboard.writeText(formatted).then(function(){
+      btn.classList.add('copied');
+      btn.querySelector('span').textContent = 'Copiato!';
+      setTimeout(function(){
+        btn.classList.remove('copied');
+        btn.querySelector('span').textContent = 'Copia';
+      }, 1500);
+    });
+  }
 });
 </script>
 </body>

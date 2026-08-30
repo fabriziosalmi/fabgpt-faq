@@ -31,7 +31,12 @@
   .page .vertical { font-size: 13px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }
   .page .answer ul { padding-left: 22px; }
   .page .answer code { background: var(--code-bg); border-radius: 5px; padding: 1px 5px; font-size: 0.9em; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
-  .page .ask { display: inline-block; margin-top: 24px; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 9px 18px; text-decoration: none; font-weight: 600; }
+  .qa-actions { display: flex; align-items: center; gap: 12px; margin-top: 20px; }
+  .copy-qa-btn { display: inline-flex; align-items: center; gap: 6px; background: var(--bg-soft); color: var(--text-dim); border: 1px solid var(--border); border-radius: 6px; padding: 6px 12px; font-size: 13px; font-family: inherit; font-weight: 500; cursor: pointer; transition: all .15s ease; }
+  .copy-qa-btn:hover { background: var(--border); color: var(--text); }
+  .copy-qa-btn.copied { background: rgba(16, 163, 127, 0.15); color: var(--accent); border-color: var(--accent); }
+  .copy-qa-btn svg { flex: 0 0 auto; }
+  .page .ask { display: inline-block; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 8px 16px; text-decoration: none; font-weight: 600; font-size: 13px; }
   .page .related { margin-top: 36px; border-top: 1px solid var(--border); padding-top: 18px; }
   .page .related h2 { font-size: 16px; }
   .page .related a { color: var(--link); text-decoration: none; }
@@ -42,12 +47,6 @@
   .answer code { cursor: pointer; }
   .answer code:hover { outline: 1px solid var(--border); }
   .answer code.copied { outline: 1px solid var(--accent); color: var(--accent); }
-  .verified { display: flex; align-items: center; gap: 7px; margin-top: 18px; font-size: 13px; color: var(--text-dim); }
-  .verified .vchk { flex: 0 0 auto; }
-  @media (prefers-reduced-motion: no-preference) {
-    .vchk path { stroke-dasharray: 24; stroke-dashoffset: 24; animation: vchk-draw .5s .15s ease forwards; }
-  }
-  @keyframes vchk-draw { to { stroke-dashoffset: 0; } }
 </style>
 </head>
 <body>
@@ -59,10 +58,15 @@
 </header>
 <main class="page">
   <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › Cybersecurity</nav>
-  <h1>Cos&#x27;è la crypto-agility (e come ci si prepara alla transizione PQC)?</h1>
-  <div class="answer"><p>La <strong>crypto-agility</strong> è la capacità di <strong>cambiare gli algoritmi crittografici senza riscrivere il sistema</strong>. Suona banale finché non serve davvero: molti sistemi hanno algoritmi, dimensioni di chiave e protocolli <em>cablati</em> in profondità nel codice e nelle configurazioni – e quando un algoritmo diventa debole (è già successo con MD5, SHA-1, RC4, DES), sostituirlo è un progetto doloroso invece di un cambio di configurazione.</p><p>È diventata urgente per la <a href="../cos-e-la-crittografia-post-quantistica/">transizione post-quantistica</a>: non sappiamo con precisione <em>quando</em> servirà passare agli algoritmi resistenti, quindi i sistemi vanno progettati per poterci passare <em>facilmente</em> quando sarà il momento. I principi di un&#x27;architettura crypto-agile:</p><ul><li><strong>astrazione</strong>: la crittografia dietro interfacce, non chiamate hardcoded sparse ovunque – cambi l&#x27;implementazione in un posto</li><li><strong>inventario crittografico</strong> (<strong>CBOM</strong>, Cryptography Bill of Materials): sapere <em>dove</em> usi <em>cosa</em> – non puoi migrare ciò che non sai di avere. È l&#x27;equivalente dell&#x27;<a href="../cos-e-la-supply-chain-security/">SBOM</a> per la crittografia</li><li><strong>negoziazione</strong> dei parametri (come fa <a href="../cosa-migliora-tls-1-3/">TLS</a>) invece di valori fissi, e supporto agli <strong>schemi ibridi</strong> (classico + PQC insieme)</li></ul><p>Per chi ha dati con <a href="../harvest-now-decrypt-later/">segretezza a lunghissimo termine</a>, la crypto-agility è la preparazione da fare <em>ora</em>, prima ancora di adottare gli algoritmi PQC: prima rendi il sistema capace di cambiare, poi cambierai quando serve. È lungimiranza architetturale – costa poco progettarla all&#x27;inizio, tantissimo aggiungerla dopo.</p></div>
-  <div class="verified"><svg class="vchk" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Verificata a mano · zero allucinazioni</span></div>
-  <a class="ask" href="../../?q=crypto-agility">Chiedilo a FabGPT-FAQ →</a>
+  <h1 id="page-question">Cos&#x27;è la crypto-agility (e come ci si prepara alla transizione PQC)?</h1>
+  <div class="answer" id="page-answer"><p>La <strong>crypto-agility</strong> è la capacità di <strong>cambiare gli algoritmi crittografici senza riscrivere il sistema</strong>. Suona banale finché non serve davvero: molti sistemi hanno algoritmi, dimensioni di chiave e protocolli <em>cablati</em> in profondità nel codice e nelle configurazioni – e quando un algoritmo diventa debole (è già successo con MD5, SHA-1, RC4, DES), sostituirlo è un progetto doloroso invece di un cambio di configurazione.</p><p>È diventata urgente per la <a href="../cos-e-la-crittografia-post-quantistica/">transizione post-quantistica</a>: non sappiamo con precisione <em>quando</em> servirà passare agli algoritmi resistenti, quindi i sistemi vanno progettati per poterci passare <em>facilmente</em> quando sarà il momento. I principi di un&#x27;architettura crypto-agile:</p><ul><li><strong>astrazione</strong>: la crittografia dietro interfacce, non chiamate hardcoded sparse ovunque – cambi l&#x27;implementazione in un posto</li><li><strong>inventario crittografico</strong> (<strong>CBOM</strong>, Cryptography Bill of Materials): sapere <em>dove</em> usi <em>cosa</em> – non puoi migrare ciò che non sai di avere. È l&#x27;equivalente dell&#x27;<a href="../cos-e-la-supply-chain-security/">SBOM</a> per la crittografia</li><li><strong>negoziazione</strong> dei parametri (come fa <a href="../cosa-migliora-tls-1-3/">TLS</a>) invece di valori fissi, e supporto agli <strong>schemi ibridi</strong> (classico + PQC insieme)</li></ul><p>Per chi ha dati con <a href="../harvest-now-decrypt-later/">segretezza a lunghissimo termine</a>, la crypto-agility è la preparazione da fare <em>ora</em>, prima ancora di adottare gli algoritmi PQC: prima rendi il sistema capace di cambiare, poi cambierai quando serve. È lungimiranza architetturale – costa poco progettarla all&#x27;inizio, tantissimo aggiungerla dopo.</p></div>
+  <div class="qa-actions">
+    <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+      <span>Copia</span>
+    </button>
+    <a class="ask" href="../../?q=crypto-agility">Chiedilo a FabGPT-FAQ →</a>
+  </div>
   <div class="related">
     <h2>Altre domande</h2>
     <ul><li><a href="../cos-e-la-crittografia-post-quantistica/">Cos&#x27;è la crittografia post-quantistica (PQC)?</a></li><li><a href="../cos-e-la-supply-chain-security/">Cos&#x27;è la supply chain security del software (SBOM, SLSA)?</a></li><li><a href="../cosa-migliora-tls-1-3/">Cosa migliora TLS 1.3 rispetto alle versioni precedenti?</a></li><li><a href="../harvest-now-decrypt-later/">Cos&#x27;è &quot;Harvest Now, Decrypt Later&quot; (HNDL)?</a></li><li><a href="../cos-e-un-waf-web-application-firewall/">Cos&#x27;è un WAF (Web Application Firewall) e a cosa serve?</a></li><li><a href="../cos-e-un-reverse-proxy/">Cos&#x27;è un reverse proxy e a cosa serve?</a></li></ul>
@@ -74,6 +78,22 @@ document.addEventListener('click',function(e){
   navigator.clipboard&&navigator.clipboard.writeText(c.textContent).then(function(){
     c.classList.add('copied'); setTimeout(function(){c.classList.remove('copied')},900);
   });
+});
+document.getElementById('copy-page-btn')?.addEventListener('click', function(){
+  var btn = this;
+  var q = document.getElementById('page-question')?.innerText.trim() || '';
+  var a = document.getElementById('page-answer')?.innerText.trim() || '';
+  var formatted = "Q: " + q + "\n\nA:\n" + a;
+  if(navigator.clipboard){
+    navigator.clipboard.writeText(formatted).then(function(){
+      btn.classList.add('copied');
+      btn.querySelector('span').textContent = 'Copiato!';
+      setTimeout(function(){
+        btn.classList.remove('copied');
+        btn.querySelector('span').textContent = 'Copia';
+      }, 1500);
+    });
+  }
 });
 </script>
 </body>

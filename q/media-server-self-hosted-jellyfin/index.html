@@ -31,7 +31,12 @@
   .page .vertical { font-size: 13px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }
   .page .answer ul { padding-left: 22px; }
   .page .answer code { background: var(--code-bg); border-radius: 5px; padding: 1px 5px; font-size: 0.9em; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
-  .page .ask { display: inline-block; margin-top: 24px; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 9px 18px; text-decoration: none; font-weight: 600; }
+  .qa-actions { display: flex; align-items: center; gap: 12px; margin-top: 20px; }
+  .copy-qa-btn { display: inline-flex; align-items: center; gap: 6px; background: var(--bg-soft); color: var(--text-dim); border: 1px solid var(--border); border-radius: 6px; padding: 6px 12px; font-size: 13px; font-family: inherit; font-weight: 500; cursor: pointer; transition: all .15s ease; }
+  .copy-qa-btn:hover { background: var(--border); color: var(--text); }
+  .copy-qa-btn.copied { background: rgba(16, 163, 127, 0.15); color: var(--accent); border-color: var(--accent); }
+  .copy-qa-btn svg { flex: 0 0 auto; }
+  .page .ask { display: inline-block; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 8px 16px; text-decoration: none; font-weight: 600; font-size: 13px; }
   .page .related { margin-top: 36px; border-top: 1px solid var(--border); padding-top: 18px; }
   .page .related h2 { font-size: 16px; }
   .page .related a { color: var(--link); text-decoration: none; }
@@ -42,12 +47,6 @@
   .answer code { cursor: pointer; }
   .answer code:hover { outline: 1px solid var(--border); }
   .answer code.copied { outline: 1px solid var(--accent); color: var(--accent); }
-  .verified { display: flex; align-items: center; gap: 7px; margin-top: 18px; font-size: 13px; color: var(--text-dim); }
-  .verified .vchk { flex: 0 0 auto; }
-  @media (prefers-reduced-motion: no-preference) {
-    .vchk path { stroke-dasharray: 24; stroke-dashoffset: 24; animation: vchk-draw .5s .15s ease forwards; }
-  }
-  @keyframes vchk-draw { to { stroke-dashoffset: 0; } }
 </style>
 </head>
 <body>
@@ -59,10 +58,15 @@
 </header>
 <main class="page">
   <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › Proxmox e self-hosting</nav>
-  <h1>Come si fa un media server self-hosted (Jellyfin)?</h1>
-  <div class="answer"><p><strong>Jellyfin</strong> è il tuo Netflix personale: organizza film, serie, musica e li trasmette in streaming a ogni schermo di casa (e fuori) con app per TV, telefoni e browser. A differenza di Plex è <strong>completamente libero e senza account cloud</strong> – nessun login a un servizio terzo per vedere i <em>tuoi</em> file.</p><p>I due dettagli che fanno la differenza:</p><ul><li><strong>transcoding</strong>: se un client non supporta un formato, Jellyfin lo riconverte al volo – operazione pesante che vive di <strong>accelerazione hardware</strong> (QuickSync Intel, NVENC): su <a href="../cos-e-proxmox-ve/">Proxmox</a> significa passare la GPU/iGPU, spesso a <a href="../differenza-container-lxc-e-vm/">un LXC</a> via <a href="../passare-un-disco-usb-a-una-vm/">device passthrough</a> – un <a href="../homelab-a-basso-consumo/">mini PC con iGPU Intel</a> transcodifica più flussi consumando pochi watt</li><li><strong>storage</strong>: la libreria vive su <a href="../storage-proxmox-lvm-zfs-nfs-ceph/">NAS/ZFS</a>, montata nel container</li></ul><p>L&#x27;accesso da fuori: <a href="../wireguard-e-mesh-vpn/">mesh VPN</a> per la famiglia, o <a href="../cos-e-un-reverse-proxy/">reverse proxy</a> con attenzione (Jellyfin esposto va tenuto aggiornato). Nell&#x27;orbita: gli &quot;-arr&quot; per l&#x27;automazione della libreria, e per gli audiolibri Audiobookshelf – o, se cerchi solo ascolto, <a href="../audiolibri-gratis-in-italiano/">audiolibri.org</a>.</p></div>
-  <div class="verified"><svg class="vchk" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Verificata a mano · zero allucinazioni</span></div>
-  <a class="ask" href="../../?q=jellyfin">Chiedilo a FabGPT-FAQ →</a>
+  <h1 id="page-question">Come si fa un media server self-hosted (Jellyfin)?</h1>
+  <div class="answer" id="page-answer"><p><strong>Jellyfin</strong> è il tuo Netflix personale: organizza film, serie, musica e li trasmette in streaming a ogni schermo di casa (e fuori) con app per TV, telefoni e browser. A differenza di Plex è <strong>completamente libero e senza account cloud</strong> – nessun login a un servizio terzo per vedere i <em>tuoi</em> file.</p><p>I due dettagli che fanno la differenza:</p><ul><li><strong>transcoding</strong>: se un client non supporta un formato, Jellyfin lo riconverte al volo – operazione pesante che vive di <strong>accelerazione hardware</strong> (QuickSync Intel, NVENC): su <a href="../cos-e-proxmox-ve/">Proxmox</a> significa passare la GPU/iGPU, spesso a <a href="../differenza-container-lxc-e-vm/">un LXC</a> via <a href="../passare-un-disco-usb-a-una-vm/">device passthrough</a> – un <a href="../homelab-a-basso-consumo/">mini PC con iGPU Intel</a> transcodifica più flussi consumando pochi watt</li><li><strong>storage</strong>: la libreria vive su <a href="../storage-proxmox-lvm-zfs-nfs-ceph/">NAS/ZFS</a>, montata nel container</li></ul><p>L&#x27;accesso da fuori: <a href="../wireguard-e-mesh-vpn/">mesh VPN</a> per la famiglia, o <a href="../cos-e-un-reverse-proxy/">reverse proxy</a> con attenzione (Jellyfin esposto va tenuto aggiornato). Nell&#x27;orbita: gli &quot;-arr&quot; per l&#x27;automazione della libreria, e per gli audiolibri Audiobookshelf – o, se cerchi solo ascolto, <a href="../audiolibri-gratis-in-italiano/">audiolibri.org</a>.</p></div>
+  <div class="qa-actions">
+    <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+      <span>Copia</span>
+    </button>
+    <a class="ask" href="../../?q=jellyfin">Chiedilo a FabGPT-FAQ →</a>
+  </div>
   <div class="related">
     <h2>Altre domande</h2>
     <ul><li><a href="../cos-e-proxmox-ve/">Cos&#x27;è Proxmox VE e perché è così usato?</a></li><li><a href="../differenza-container-lxc-e-vm/">Che differenza c&#x27;è tra container LXC e VM?</a></li><li><a href="../passare-un-disco-usb-a-una-vm/">Come si passa un dispositivo USB (o un disco) a una VM?</a></li><li><a href="../homelab-a-basso-consumo/">Homelab a basso consumo: mini PC al posto del server?</a></li><li><a href="../self-hosting-pro-e-contro/">Self-hosting: cosa significa e quando conviene?</a></li><li><a href="../cluster-proxmox-e-quorum/">Come funziona un cluster Proxmox (e cos&#x27;è il quorum)?</a></li></ul>
@@ -74,6 +78,22 @@ document.addEventListener('click',function(e){
   navigator.clipboard&&navigator.clipboard.writeText(c.textContent).then(function(){
     c.classList.add('copied'); setTimeout(function(){c.classList.remove('copied')},900);
   });
+});
+document.getElementById('copy-page-btn')?.addEventListener('click', function(){
+  var btn = this;
+  var q = document.getElementById('page-question')?.innerText.trim() || '';
+  var a = document.getElementById('page-answer')?.innerText.trim() || '';
+  var formatted = "Q: " + q + "\n\nA:\n" + a;
+  if(navigator.clipboard){
+    navigator.clipboard.writeText(formatted).then(function(){
+      btn.classList.add('copied');
+      btn.querySelector('span').textContent = 'Copiato!';
+      setTimeout(function(){
+        btn.classList.remove('copied');
+        btn.querySelector('span').textContent = 'Copia';
+      }, 1500);
+    });
+  }
 });
 </script>
 </body>

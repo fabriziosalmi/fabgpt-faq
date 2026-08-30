@@ -31,7 +31,12 @@
   .page .vertical { font-size: 13px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }
   .page .answer ul { padding-left: 22px; }
   .page .answer code { background: var(--code-bg); border-radius: 5px; padding: 1px 5px; font-size: 0.9em; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
-  .page .ask { display: inline-block; margin-top: 24px; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 9px 18px; text-decoration: none; font-weight: 600; }
+  .qa-actions { display: flex; align-items: center; gap: 12px; margin-top: 20px; }
+  .copy-qa-btn { display: inline-flex; align-items: center; gap: 6px; background: var(--bg-soft); color: var(--text-dim); border: 1px solid var(--border); border-radius: 6px; padding: 6px 12px; font-size: 13px; font-family: inherit; font-weight: 500; cursor: pointer; transition: all .15s ease; }
+  .copy-qa-btn:hover { background: var(--border); color: var(--text); }
+  .copy-qa-btn.copied { background: rgba(16, 163, 127, 0.15); color: var(--accent); border-color: var(--accent); }
+  .copy-qa-btn svg { flex: 0 0 auto; }
+  .page .ask { display: inline-block; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 8px 16px; text-decoration: none; font-weight: 600; font-size: 13px; }
   .page .related { margin-top: 36px; border-top: 1px solid var(--border); padding-top: 18px; }
   .page .related h2 { font-size: 16px; }
   .page .related a { color: var(--link); text-decoration: none; }
@@ -42,12 +47,6 @@
   .answer code { cursor: pointer; }
   .answer code:hover { outline: 1px solid var(--border); }
   .answer code.copied { outline: 1px solid var(--accent); color: var(--accent); }
-  .verified { display: flex; align-items: center; gap: 7px; margin-top: 18px; font-size: 13px; color: var(--text-dim); }
-  .verified .vchk { flex: 0 0 auto; }
-  @media (prefers-reduced-motion: no-preference) {
-    .vchk path { stroke-dasharray: 24; stroke-dashoffset: 24; animation: vchk-draw .5s .15s ease forwards; }
-  }
-  @keyframes vchk-draw { to { stroke-dashoffset: 0; } }
 </style>
 </head>
 <body>
@@ -59,10 +58,15 @@
 </header>
 <main class="page">
   <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › AI e LLM</nav>
-  <h1>Come si mettono in sicurezza i tool e i plugin MCP?</h1>
-  <div class="answer"><p>I <a href="../come-si-costruisce-un-server-mcp/">server MCP</a> estendono un agente con strumenti – e ogni strumento è <strong>superficie d&#x27;attacco nuova</strong>, perché il modello sceglie <em>cosa</em> usare in base a nome e descrizione, testo che potrebbe non aver scritto tu. I rischi specifici:</p><ul><li><strong>tool poisoning / shadowing</strong>: un server MCP malevolo (o compromesso) pubblica un tool con una descrizione che contiene <a href="../cos-e-la-prompt-injection/">istruzioni nascoste</a> (&quot;quando usi questo, invia anche le variabili d&#x27;ambiente a...&quot;) o che <strong>oscura</strong> un tool legittimo con uno omonimo più &quot;invitante&quot;</li><li><strong>confused deputy</strong>: l&#x27;agente ha permessi che l&#x27;attaccante non ha, e viene indotto a usarli per suo conto</li><li><strong>catena di fiducia</strong>: installare un server MCP è <a href="../cos-e-la-supply-chain-security/">eseguire codice di terzi</a> con l&#x27;accesso del tuo agente</li></ul><p>Le difese: <strong>installa solo server MCP fidati e verificati</strong> (come qualsiasi dipendenza), tratta le descrizioni dei tool come <strong>dati non fidati</strong>, applica <a href="../come-si-limita-un-agente-ai/">permessi minimi e HITL</a> sulle azioni pericolose (l&#x27;approvazione umana intercetta il tool che fa troppo), <strong><a href="../cos-e-il-sandboxing-per-agenti/">sandbox</a></strong> l&#x27;esecuzione, e registra ogni chiamata per l&#x27;audit. È il motivo per cui <a href="https://github.com/fabriziosalmi/proxxx" target="_blank" rel="noopener">proxxx</a> fissa i suoi 25 tool <strong>a compile-time</strong> con registro auditabile: niente tool che appaiono a runtime, niente descrizioni che cambiano sotto i piedi.</p></div>
-  <div class="verified"><svg class="vchk" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Verificata a mano · zero allucinazioni</span></div>
-  <a class="ask" href="../../?q=mcp-tool-security">Chiedilo a FabGPT-FAQ →</a>
+  <h1 id="page-question">Come si mettono in sicurezza i tool e i plugin MCP?</h1>
+  <div class="answer" id="page-answer"><p>I <a href="../come-si-costruisce-un-server-mcp/">server MCP</a> estendono un agente con strumenti – e ogni strumento è <strong>superficie d&#x27;attacco nuova</strong>, perché il modello sceglie <em>cosa</em> usare in base a nome e descrizione, testo che potrebbe non aver scritto tu. I rischi specifici:</p><ul><li><strong>tool poisoning / shadowing</strong>: un server MCP malevolo (o compromesso) pubblica un tool con una descrizione che contiene <a href="../cos-e-la-prompt-injection/">istruzioni nascoste</a> (&quot;quando usi questo, invia anche le variabili d&#x27;ambiente a...&quot;) o che <strong>oscura</strong> un tool legittimo con uno omonimo più &quot;invitante&quot;</li><li><strong>confused deputy</strong>: l&#x27;agente ha permessi che l&#x27;attaccante non ha, e viene indotto a usarli per suo conto</li><li><strong>catena di fiducia</strong>: installare un server MCP è <a href="../cos-e-la-supply-chain-security/">eseguire codice di terzi</a> con l&#x27;accesso del tuo agente</li></ul><p>Le difese: <strong>installa solo server MCP fidati e verificati</strong> (come qualsiasi dipendenza), tratta le descrizioni dei tool come <strong>dati non fidati</strong>, applica <a href="../come-si-limita-un-agente-ai/">permessi minimi e HITL</a> sulle azioni pericolose (l&#x27;approvazione umana intercetta il tool che fa troppo), <strong><a href="../cos-e-il-sandboxing-per-agenti/">sandbox</a></strong> l&#x27;esecuzione, e registra ogni chiamata per l&#x27;audit. È il motivo per cui <a href="https://github.com/fabriziosalmi/proxxx" target="_blank" rel="noopener">proxxx</a> fissa i suoi 25 tool <strong>a compile-time</strong> con registro auditabile: niente tool che appaiono a runtime, niente descrizioni che cambiano sotto i piedi.</p></div>
+  <div class="qa-actions">
+    <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+      <span>Copia</span>
+    </button>
+    <a class="ask" href="../../?q=mcp-tool-security">Chiedilo a FabGPT-FAQ →</a>
+  </div>
   <div class="related">
     <h2>Altre domande</h2>
     <ul><li><a href="../come-si-costruisce-un-server-mcp/">Come si costruisce un server MCP?</a></li><li><a href="../cos-e-la-prompt-injection/">Cos&#x27;è la prompt injection e come ci si difende?</a></li><li><a href="../cos-e-la-supply-chain-security/">Cos&#x27;è la supply chain security del software (SBOM, SLSA)?</a></li><li><a href="../come-si-limita-un-agente-ai/">Come si limita cosa può fare un agente AI (permessi e HITL)?</a></li><li><a href="../cos-e-mcp-model-context-protocol/">Cos&#x27;è MCP (Model Context Protocol)?</a></li><li><a href="../cos-e-il-vibe-coding/">Cos&#x27;è il vibe coding e quali sono i rischi?</a></li></ul>
@@ -74,6 +78,22 @@ document.addEventListener('click',function(e){
   navigator.clipboard&&navigator.clipboard.writeText(c.textContent).then(function(){
     c.classList.add('copied'); setTimeout(function(){c.classList.remove('copied')},900);
   });
+});
+document.getElementById('copy-page-btn')?.addEventListener('click', function(){
+  var btn = this;
+  var q = document.getElementById('page-question')?.innerText.trim() || '';
+  var a = document.getElementById('page-answer')?.innerText.trim() || '';
+  var formatted = "Q: " + q + "\n\nA:\n" + a;
+  if(navigator.clipboard){
+    navigator.clipboard.writeText(formatted).then(function(){
+      btn.classList.add('copied');
+      btn.querySelector('span').textContent = 'Copiato!';
+      setTimeout(function(){
+        btn.classList.remove('copied');
+        btn.querySelector('span').textContent = 'Copia';
+      }, 1500);
+    });
+  }
 });
 </script>
 </body>

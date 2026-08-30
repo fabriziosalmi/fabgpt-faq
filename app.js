@@ -226,18 +226,37 @@
   // Type `text` into a fresh bot row, re-rendering partial markdown each tick.
   let finishStream = null; // set while streaming: fast-forwards to the full answer
 
-  // "Verified by a human" trust badge (KB answers only, not smalltalk/fallback).
-  function verifiedBadge() {
-    const b = document.createElement('div');
-    b.className = 'verified';
-    b.innerHTML = "<svg class='vchk' viewBox='0 0 24 24' width='15' height='15' fill='none' "
-      + "stroke='var(--accent)' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round' "
-      + "aria-hidden='true'><path d='M20 6L9 17l-5-5'/></svg>"
-      + "<span>Verificata a mano · zero allucinazioni</span>";
-    return b;
+  // Copy Q&A action button (copies user/canonical question and full answer for fine-tuning & docs).
+  function copyQaAction(questionText, answerText) {
+    const bar = document.createElement('div');
+    bar.className = 'qa-actions';
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'copy-qa-btn';
+    btn.setAttribute('aria-label', 'Copia domanda e risposta');
+    btn.innerHTML = "<svg width='13' height='13' viewBox='0 0 24 24' fill='none' "
+      + "stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>"
+      + "<rect x='9' y='9' width='13' height='13' rx='2' ry='2'></rect>"
+      + "<path d='M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1'></path></svg>"
+      + "<span>Copia</span>";
+    btn.addEventListener('click', () => {
+      const formatted = `Q: ${questionText}\n\nA:\n${answerText}`;
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(formatted).then(() => {
+          btn.classList.add('copied');
+          btn.querySelector('span').textContent = 'Copiato!';
+          setTimeout(() => {
+            btn.classList.remove('copied');
+            btn.querySelector('span').textContent = 'Copia';
+          }, 1500);
+        });
+      }
+    });
+    bar.appendChild(btn);
+    return bar;
   }
 
-  function streamAnswer(text, onDone, suggest, diagramId, verified) {
+  function streamAnswer(text, onDone, suggest, diagramId, questionText) {
     streaming = true;
     updateSendState();
     const target = addBotRow();
@@ -259,7 +278,7 @@
         fig.innerHTML = svg;
         target.appendChild(fig);
       }
-      if (verified) target.appendChild(verifiedBadge());
+      if (questionText) target.appendChild(copyQaAction(questionText, text));
       renderChips(suggest, target);
       scrollToBottom(false);
       if (onDone) onDone();
@@ -308,8 +327,9 @@
     addUserMessage(text);
     const entry = match(text);
     const answer = entry ? pickAnswer(entry) : pickFallback();
+    const qLabel = entry ? entry.question : text;
     if (entry && entry.slug) askedSlugs.add(entry.slug); // thread history
-    streamAnswer(answer, null, entry && entry.suggest, entry && entry.id, !!(entry && entry.slug));
+    streamAnswer(answer, null, entry && entry.suggest, entry && entry.id, qLabel);
   }
 
   /* ---------- composer ---------- */

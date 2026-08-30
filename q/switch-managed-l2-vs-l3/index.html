@@ -31,7 +31,12 @@
   .page .vertical { font-size: 13px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }
   .page .answer ul { padding-left: 22px; }
   .page .answer code { background: var(--code-bg); border-radius: 5px; padding: 1px 5px; font-size: 0.9em; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
-  .page .ask { display: inline-block; margin-top: 24px; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 9px 18px; text-decoration: none; font-weight: 600; }
+  .qa-actions { display: flex; align-items: center; gap: 12px; margin-top: 20px; }
+  .copy-qa-btn { display: inline-flex; align-items: center; gap: 6px; background: var(--bg-soft); color: var(--text-dim); border: 1px solid var(--border); border-radius: 6px; padding: 6px 12px; font-size: 13px; font-family: inherit; font-weight: 500; cursor: pointer; transition: all .15s ease; }
+  .copy-qa-btn:hover { background: var(--border); color: var(--text); }
+  .copy-qa-btn.copied { background: rgba(16, 163, 127, 0.15); color: var(--accent); border-color: var(--accent); }
+  .copy-qa-btn svg { flex: 0 0 auto; }
+  .page .ask { display: inline-block; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 8px 16px; text-decoration: none; font-weight: 600; font-size: 13px; }
   .page .related { margin-top: 36px; border-top: 1px solid var(--border); padding-top: 18px; }
   .page .related h2 { font-size: 16px; }
   .page .related a { color: var(--link); text-decoration: none; }
@@ -42,12 +47,6 @@
   .answer code { cursor: pointer; }
   .answer code:hover { outline: 1px solid var(--border); }
   .answer code.copied { outline: 1px solid var(--accent); color: var(--accent); }
-  .verified { display: flex; align-items: center; gap: 7px; margin-top: 18px; font-size: 13px; color: var(--text-dim); }
-  .verified .vchk { flex: 0 0 auto; }
-  @media (prefers-reduced-motion: no-preference) {
-    .vchk path { stroke-dasharray: 24; stroke-dashoffset: 24; animation: vchk-draw .5s .15s ease forwards; }
-  }
-  @keyframes vchk-draw { to { stroke-dashoffset: 0; } }
 </style>
 </head>
 <body>
@@ -59,10 +58,15 @@
 </header>
 <main class="page">
   <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › Cybersecurity</nav>
-  <h1>Switch Managed L2 con ACL o Switch L3 con routing: quale differenza?</h1>
-  <div class="answer"><p>La differenza tra uno switch <strong>Layer 2</strong> e uno <strong>Layer 3</strong> decide <em>dove</em> avviene il routing tra le tue <a href="../segmentare-la-rete-con-vlan/">VLAN</a>:</p><ul><li><strong>switch L2 managed</strong> – opera su indirizzi MAC: crea VLAN, applica <strong>ACL</strong> statiche (permetti/nega per porta, MAC, a volte IP), ma <strong>non instrada</strong> tra VLAN – per andare da una VLAN all&#x27;altra il traffico deve salire al <strong>router/firewall</strong> (il classico &quot;router-on-a-stick&quot;). Vantaggio: il firewall vede e controlla <em>tutto</em> il traffico inter-VLAN, applicando policy ricche e loggando. Svantaggio: quel traffico è limitato dalla banda del collegamento verso il firewall</li><li><strong>switch L3</strong> – instrada tra VLAN <strong>a velocità di switch</strong> (SVI, interfacce virtuali), senza far salire il traffico al firewall. Vantaggio: prestazioni enormi per il traffico inter-VLAN interno. Svantaggio: il firewall <strong>non vede</strong> quel traffico – il controllo si fa con le ACL dello switch, meno espressive e più difficili da gestire di un vero firewall</li></ul><p>La scelta per un <a href="../homelab-a-basso-consumo/">homelab</a>/piccola rete: <strong>L2 + firewall</strong> è quasi sempre giusto – il volume inter-VLAN è modesto e vuoi che il firewall veda e controlli tutto (è il cuore della <a href="../segmentare-la-rete-con-vlan/">segmentazione sicura</a>). L&#x27;<strong>L3</strong> ha senso quando il traffico inter-VLAN è massiccio (data center, molti server che si parlano) e il collo di bottiglia verso il firewall diventa reale. Regola: fai instradare al firewall finché la banda regge, sali a L3 solo quando serve davvero – la visibilità che perdi con l&#x27;L3 è preziosa, e va riconquistata con <a href="../cos-e-ndr-network-detection-response/">NDR/monitoraggio</a>.</p></div>
-  <div class="verified"><svg class="vchk" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Verificata a mano · zero allucinazioni</span></div>
-  <a class="ask" href="../../?q=l2-l3-switch">Chiedilo a FabGPT-FAQ →</a>
+  <h1 id="page-question">Switch Managed L2 con ACL o Switch L3 con routing: quale differenza?</h1>
+  <div class="answer" id="page-answer"><p>La differenza tra uno switch <strong>Layer 2</strong> e uno <strong>Layer 3</strong> decide <em>dove</em> avviene il routing tra le tue <a href="../segmentare-la-rete-con-vlan/">VLAN</a>:</p><ul><li><strong>switch L2 managed</strong> – opera su indirizzi MAC: crea VLAN, applica <strong>ACL</strong> statiche (permetti/nega per porta, MAC, a volte IP), ma <strong>non instrada</strong> tra VLAN – per andare da una VLAN all&#x27;altra il traffico deve salire al <strong>router/firewall</strong> (il classico &quot;router-on-a-stick&quot;). Vantaggio: il firewall vede e controlla <em>tutto</em> il traffico inter-VLAN, applicando policy ricche e loggando. Svantaggio: quel traffico è limitato dalla banda del collegamento verso il firewall</li><li><strong>switch L3</strong> – instrada tra VLAN <strong>a velocità di switch</strong> (SVI, interfacce virtuali), senza far salire il traffico al firewall. Vantaggio: prestazioni enormi per il traffico inter-VLAN interno. Svantaggio: il firewall <strong>non vede</strong> quel traffico – il controllo si fa con le ACL dello switch, meno espressive e più difficili da gestire di un vero firewall</li></ul><p>La scelta per un <a href="../homelab-a-basso-consumo/">homelab</a>/piccola rete: <strong>L2 + firewall</strong> è quasi sempre giusto – il volume inter-VLAN è modesto e vuoi che il firewall veda e controlli tutto (è il cuore della <a href="../segmentare-la-rete-con-vlan/">segmentazione sicura</a>). L&#x27;<strong>L3</strong> ha senso quando il traffico inter-VLAN è massiccio (data center, molti server che si parlano) e il collo di bottiglia verso il firewall diventa reale. Regola: fai instradare al firewall finché la banda regge, sali a L3 solo quando serve davvero – la visibilità che perdi con l&#x27;L3 è preziosa, e va riconquistata con <a href="../cos-e-ndr-network-detection-response/">NDR/monitoraggio</a>.</p></div>
+  <div class="qa-actions">
+    <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+      <span>Copia</span>
+    </button>
+    <a class="ask" href="../../?q=l2-l3-switch">Chiedilo a FabGPT-FAQ →</a>
+  </div>
   <div class="related">
     <h2>Altre domande</h2>
     <ul><li><a href="../segmentare-la-rete-con-vlan/">Come si segmenta una rete con le VLAN?</a></li><li><a href="../homelab-a-basso-consumo/">Homelab a basso consumo: mini PC al posto del server?</a></li><li><a href="../cos-e-ndr-network-detection-response/">Cos&#x27;è l&#x27;NDR (Network Detection and Response)?</a></li><li><a href="../cos-e-un-waf-web-application-firewall/">Cos&#x27;è un WAF (Web Application Firewall) e a cosa serve?</a></li><li><a href="../cos-e-un-reverse-proxy/">Cos&#x27;è un reverse proxy e a cosa serve?</a></li><li><a href="../come-funziona-lets-encrypt-acme/">Come funziona Let&#x27;s Encrypt e il protocollo ACME?</a></li></ul>
@@ -74,6 +78,22 @@ document.addEventListener('click',function(e){
   navigator.clipboard&&navigator.clipboard.writeText(c.textContent).then(function(){
     c.classList.add('copied'); setTimeout(function(){c.classList.remove('copied')},900);
   });
+});
+document.getElementById('copy-page-btn')?.addEventListener('click', function(){
+  var btn = this;
+  var q = document.getElementById('page-question')?.innerText.trim() || '';
+  var a = document.getElementById('page-answer')?.innerText.trim() || '';
+  var formatted = "Q: " + q + "\n\nA:\n" + a;
+  if(navigator.clipboard){
+    navigator.clipboard.writeText(formatted).then(function(){
+      btn.classList.add('copied');
+      btn.querySelector('span').textContent = 'Copiato!';
+      setTimeout(function(){
+        btn.classList.remove('copied');
+        btn.querySelector('span').textContent = 'Copia';
+      }, 1500);
+    });
+  }
 });
 </script>
 </body>

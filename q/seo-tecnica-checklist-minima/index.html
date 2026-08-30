@@ -31,7 +31,12 @@
   .page .vertical { font-size: 13px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }
   .page .answer ul { padding-left: 22px; }
   .page .answer code { background: var(--code-bg); border-radius: 5px; padding: 1px 5px; font-size: 0.9em; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
-  .page .ask { display: inline-block; margin-top: 24px; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 9px 18px; text-decoration: none; font-weight: 600; }
+  .qa-actions { display: flex; align-items: center; gap: 12px; margin-top: 20px; }
+  .copy-qa-btn { display: inline-flex; align-items: center; gap: 6px; background: var(--bg-soft); color: var(--text-dim); border: 1px solid var(--border); border-radius: 6px; padding: 6px 12px; font-size: 13px; font-family: inherit; font-weight: 500; cursor: pointer; transition: all .15s ease; }
+  .copy-qa-btn:hover { background: var(--border); color: var(--text); }
+  .copy-qa-btn.copied { background: rgba(16, 163, 127, 0.15); color: var(--accent); border-color: var(--accent); }
+  .copy-qa-btn svg { flex: 0 0 auto; }
+  .page .ask { display: inline-block; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 8px 16px; text-decoration: none; font-weight: 600; font-size: 13px; }
   .page .related { margin-top: 36px; border-top: 1px solid var(--border); padding-top: 18px; }
   .page .related h2 { font-size: 16px; }
   .page .related a { color: var(--link); text-decoration: none; }
@@ -42,12 +47,6 @@
   .answer code { cursor: pointer; }
   .answer code:hover { outline: 1px solid var(--border); }
   .answer code.copied { outline: 1px solid var(--accent); color: var(--accent); }
-  .verified { display: flex; align-items: center; gap: 7px; margin-top: 18px; font-size: 13px; color: var(--text-dim); }
-  .verified .vchk { flex: 0 0 auto; }
-  @media (prefers-reduced-motion: no-preference) {
-    .vchk path { stroke-dasharray: 24; stroke-dashoffset: 24; animation: vchk-draw .5s .15s ease forwards; }
-  }
-  @keyframes vchk-draw { to { stroke-dashoffset: 0; } }
 </style>
 </head>
 <body>
@@ -59,10 +58,15 @@
 </header>
 <main class="page">
   <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › Strumenti e app</nav>
-  <h1>SEO tecnica: la checklist minima di un sito</h1>
-  <div class="answer"><p>Prima dei trucchi, i fondamentali – l&#x27;80% dei problemi SEO è qui:</p><ul><li><strong>crawlabilità</strong>: <a href="../come-funziona-robots-txt/">robots.txt</a> che non blocchi per sbaglio, <a href="../a-cosa-serve-la-sitemap/">sitemap</a> inviata in Search Console, e Search Console <em>letta</em> (dice esattamente cosa Google non digerisce)</li><li><strong>una pagina, un intento</strong>: title unici e descrittivi (~60 caratteri), meta description che invogli, un solo H1, URL leggibili</li><li><strong><a href="../canonical-url-quando-e-perche/">canonical</a></strong> dove i duplicati esistono, <a href="../redirect-www-apex/">una sola forma www/apex</a>, <a href="../differenza-http-https-tls/">HTTPS ovunque</a></li><li><strong>prestazioni percepite</strong>: <a href="../cosa-sono-i-core-web-vitals/">Core Web Vitals</a> verdi sui dati reali, <a href="../webp-o-avif-formati-immagine/">immagini moderne</a>, <a href="../font-web-performance-e-privacy/">font che non bloccano</a></li><li><strong>link interni</strong>: le pagine orfane non si posizionano – ogni contenuto raggiungibile in pochi click, con anchor sensate</li><li><strong><a href="../json-ld-schema-org-seo/">dati strutturati</a></strong> dove pertinenti, e da quest&#x27;anno il pensiero alle <a href="../cos-e-ai-overview-e-come-finirci/">risposte AI</a></li></ul><p>Monitoraggio continuo senza dashboard a pagamento: <a href="https://github.com/fabriziosalmi/websites-monitor" target="_blank" rel="noopener">websites-monitor</a> tiene d&#x27;occhio SEO, performance e scadenze da GitHub Actions.</p></div>
-  <div class="verified"><svg class="vchk" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Verificata a mano · zero allucinazioni</span></div>
-  <a class="ask" href="../../?q=seo-checklist">Chiedilo a FabGPT-FAQ →</a>
+  <h1 id="page-question">SEO tecnica: la checklist minima di un sito</h1>
+  <div class="answer" id="page-answer"><p>Prima dei trucchi, i fondamentali – l&#x27;80% dei problemi SEO è qui:</p><ul><li><strong>crawlabilità</strong>: <a href="../come-funziona-robots-txt/">robots.txt</a> che non blocchi per sbaglio, <a href="../a-cosa-serve-la-sitemap/">sitemap</a> inviata in Search Console, e Search Console <em>letta</em> (dice esattamente cosa Google non digerisce)</li><li><strong>una pagina, un intento</strong>: title unici e descrittivi (~60 caratteri), meta description che invogli, un solo H1, URL leggibili</li><li><strong><a href="../canonical-url-quando-e-perche/">canonical</a></strong> dove i duplicati esistono, <a href="../redirect-www-apex/">una sola forma www/apex</a>, <a href="../differenza-http-https-tls/">HTTPS ovunque</a></li><li><strong>prestazioni percepite</strong>: <a href="../cosa-sono-i-core-web-vitals/">Core Web Vitals</a> verdi sui dati reali, <a href="../webp-o-avif-formati-immagine/">immagini moderne</a>, <a href="../font-web-performance-e-privacy/">font che non bloccano</a></li><li><strong>link interni</strong>: le pagine orfane non si posizionano – ogni contenuto raggiungibile in pochi click, con anchor sensate</li><li><strong><a href="../json-ld-schema-org-seo/">dati strutturati</a></strong> dove pertinenti, e da quest&#x27;anno il pensiero alle <a href="../cos-e-ai-overview-e-come-finirci/">risposte AI</a></li></ul><p>Monitoraggio continuo senza dashboard a pagamento: <a href="https://github.com/fabriziosalmi/websites-monitor" target="_blank" rel="noopener">websites-monitor</a> tiene d&#x27;occhio SEO, performance e scadenze da GitHub Actions.</p></div>
+  <div class="qa-actions">
+    <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+      <span>Copia</span>
+    </button>
+    <a class="ask" href="../../?q=seo-checklist">Chiedilo a FabGPT-FAQ →</a>
+  </div>
   <div class="related">
     <h2>Altre domande</h2>
     <ul><li><a href="../come-funziona-robots-txt/">Come funziona il file robots.txt?</a></li><li><a href="../a-cosa-serve-la-sitemap/">A cosa serve la sitemap.xml?</a></li><li><a href="../canonical-url-quando-e-perche/">Canonical URL: quando serve e perché?</a></li><li><a href="../redirect-www-apex/">Come si fa il redirect www → apex (o viceversa)?</a></li><li><a href="../cosa-sono-i-core-web-vitals/">Cosa sono i Core Web Vitals (LCP, INP, CLS)?</a></li><li><a href="../cos-e-il-file-llms-txt/">Cos&#x27;è il file llms.txt?</a></li></ul>
@@ -74,6 +78,22 @@ document.addEventListener('click',function(e){
   navigator.clipboard&&navigator.clipboard.writeText(c.textContent).then(function(){
     c.classList.add('copied'); setTimeout(function(){c.classList.remove('copied')},900);
   });
+});
+document.getElementById('copy-page-btn')?.addEventListener('click', function(){
+  var btn = this;
+  var q = document.getElementById('page-question')?.innerText.trim() || '';
+  var a = document.getElementById('page-answer')?.innerText.trim() || '';
+  var formatted = "Q: " + q + "\n\nA:\n" + a;
+  if(navigator.clipboard){
+    navigator.clipboard.writeText(formatted).then(function(){
+      btn.classList.add('copied');
+      btn.querySelector('span').textContent = 'Copiato!';
+      setTimeout(function(){
+        btn.classList.remove('copied');
+        btn.querySelector('span').textContent = 'Copia';
+      }, 1500);
+    });
+  }
 });
 </script>
 </body>

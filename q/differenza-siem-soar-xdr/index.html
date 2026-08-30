@@ -31,7 +31,12 @@
   .page .vertical { font-size: 13px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }
   .page .answer ul { padding-left: 22px; }
   .page .answer code { background: var(--code-bg); border-radius: 5px; padding: 1px 5px; font-size: 0.9em; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
-  .page .ask { display: inline-block; margin-top: 24px; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 9px 18px; text-decoration: none; font-weight: 600; }
+  .qa-actions { display: flex; align-items: center; gap: 12px; margin-top: 20px; }
+  .copy-qa-btn { display: inline-flex; align-items: center; gap: 6px; background: var(--bg-soft); color: var(--text-dim); border: 1px solid var(--border); border-radius: 6px; padding: 6px 12px; font-size: 13px; font-family: inherit; font-weight: 500; cursor: pointer; transition: all .15s ease; }
+  .copy-qa-btn:hover { background: var(--border); color: var(--text); }
+  .copy-qa-btn.copied { background: rgba(16, 163, 127, 0.15); color: var(--accent); border-color: var(--accent); }
+  .copy-qa-btn svg { flex: 0 0 auto; }
+  .page .ask { display: inline-block; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 8px 16px; text-decoration: none; font-weight: 600; font-size: 13px; }
   .page .related { margin-top: 36px; border-top: 1px solid var(--border); padding-top: 18px; }
   .page .related h2 { font-size: 16px; }
   .page .related a { color: var(--link); text-decoration: none; }
@@ -42,12 +47,6 @@
   .answer code { cursor: pointer; }
   .answer code:hover { outline: 1px solid var(--border); }
   .answer code.copied { outline: 1px solid var(--accent); color: var(--accent); }
-  .verified { display: flex; align-items: center; gap: 7px; margin-top: 18px; font-size: 13px; color: var(--text-dim); }
-  .verified .vchk { flex: 0 0 auto; }
-  @media (prefers-reduced-motion: no-preference) {
-    .vchk path { stroke-dasharray: 24; stroke-dashoffset: 24; animation: vchk-draw .5s .15s ease forwards; }
-  }
-  @keyframes vchk-draw { to { stroke-dashoffset: 0; } }
 </style>
 </head>
 <body>
@@ -59,10 +58,15 @@
 </header>
 <main class="page">
   <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › Cybersecurity</nav>
-  <h1>SIEM, SOAR e XDR: quali sono le differenze funzionali?</h1>
-  <div class="answer"><p>Tre pezzi del moderno <a href="../cos-e-un-soc-security-operations-center/">SOC</a> che rispondono a domande diverse:</p><ul><li><strong>SIEM</strong> (Security Information and Event Management) – il <strong>cervello che vede tutto</strong>: raccoglie <a href="../security-logging-fatto-bene/">log</a> ed eventi da ogni fonte e li <strong>correla</strong> per far emergere gli incidenti dal rumore. È il centro di gravità, ma di suo produce <em>allarmi</em>, non azioni</li><li><strong>SOAR</strong> (Security Orchestration, Automation and Response) – le <strong>braccia</strong>: prende gli allarmi e li <strong>automatizza in risposte</strong> con i <a href="../playbook-soar-isolamento-endpoint/">playbook</a> (arricchisci, blocca l&#x27;IP, isola l&#x27;endpoint, apri il ticket) – la cura contro l&#x27;<a href="../alert-fatigue-nel-soc/">alert fatigue</a></li><li><strong>XDR</strong> (eXtended Detection and Response) – l&#x27;approccio <strong>integrato e pronto all&#x27;uso</strong>: unifica telemetria e risposta su endpoint, rete, identità e cloud in un&#x27;unica piattaforma, con detection già incluse. Meno da assemblare di un SIEM+SOAR, meno flessibile</li></ul><p>La distinzione pratica: SIEM+SOAR è l&#x27;approccio <strong>modulare</strong> (potente, richiede integrazione e competenza), XDR è quello <strong>a piattaforma</strong> (rapido, più chiuso). Nel self-hosting, <a href="https://github.com/fabriziosalmi/wildbox" target="_blank" rel="noopener">Wildbox</a> prova a unificare SIEM+SOAR (+WAF) per abbassare la soglia d&#x27;ingresso; l&#x27;alternativa modulare open source è <a href="../wazuh-wildbox-o-elk/">Wazuh o uno stack ELK</a>. Qualunque scelta, il fondamento resta uno: <a href="../security-logging-fatto-bene/">log fatti bene</a>, o nessuna piattaforma serve.</p></div>
-  <div class="verified"><svg class="vchk" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Verificata a mano · zero allucinazioni</span></div>
-  <a class="ask" href="../../?q=siem-soar-xdr">Chiedilo a FabGPT-FAQ →</a>
+  <h1 id="page-question">SIEM, SOAR e XDR: quali sono le differenze funzionali?</h1>
+  <div class="answer" id="page-answer"><p>Tre pezzi del moderno <a href="../cos-e-un-soc-security-operations-center/">SOC</a> che rispondono a domande diverse:</p><ul><li><strong>SIEM</strong> (Security Information and Event Management) – il <strong>cervello che vede tutto</strong>: raccoglie <a href="../security-logging-fatto-bene/">log</a> ed eventi da ogni fonte e li <strong>correla</strong> per far emergere gli incidenti dal rumore. È il centro di gravità, ma di suo produce <em>allarmi</em>, non azioni</li><li><strong>SOAR</strong> (Security Orchestration, Automation and Response) – le <strong>braccia</strong>: prende gli allarmi e li <strong>automatizza in risposte</strong> con i <a href="../playbook-soar-isolamento-endpoint/">playbook</a> (arricchisci, blocca l&#x27;IP, isola l&#x27;endpoint, apri il ticket) – la cura contro l&#x27;<a href="../alert-fatigue-nel-soc/">alert fatigue</a></li><li><strong>XDR</strong> (eXtended Detection and Response) – l&#x27;approccio <strong>integrato e pronto all&#x27;uso</strong>: unifica telemetria e risposta su endpoint, rete, identità e cloud in un&#x27;unica piattaforma, con detection già incluse. Meno da assemblare di un SIEM+SOAR, meno flessibile</li></ul><p>La distinzione pratica: SIEM+SOAR è l&#x27;approccio <strong>modulare</strong> (potente, richiede integrazione e competenza), XDR è quello <strong>a piattaforma</strong> (rapido, più chiuso). Nel self-hosting, <a href="https://github.com/fabriziosalmi/wildbox" target="_blank" rel="noopener">Wildbox</a> prova a unificare SIEM+SOAR (+WAF) per abbassare la soglia d&#x27;ingresso; l&#x27;alternativa modulare open source è <a href="../wazuh-wildbox-o-elk/">Wazuh o uno stack ELK</a>. Qualunque scelta, il fondamento resta uno: <a href="../security-logging-fatto-bene/">log fatti bene</a>, o nessuna piattaforma serve.</p></div>
+  <div class="qa-actions">
+    <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+      <span>Copia</span>
+    </button>
+    <a class="ask" href="../../?q=siem-soar-xdr">Chiedilo a FabGPT-FAQ →</a>
+  </div>
   <div class="related">
     <h2>Altre domande</h2>
     <ul><li><a href="../cos-e-un-soc-security-operations-center/">Cos&#x27;è un SOC (Security Operations Center)?</a></li><li><a href="../security-logging-fatto-bene/">Come si fa security logging fatto bene?</a></li><li><a href="../playbook-soar-isolamento-endpoint/">Come si progetta un playbook SOAR (es. isolare un endpoint infetto)?</a></li><li><a href="../alert-fatigue-nel-soc/">Cos&#x27;è l&#x27;alert fatigue (e come si riduce nel SOC)?</a></li><li><a href="../cos-e-un-waf-web-application-firewall/">Cos&#x27;è un WAF (Web Application Firewall) e a cosa serve?</a></li><li><a href="../cos-e-un-reverse-proxy/">Cos&#x27;è un reverse proxy e a cosa serve?</a></li></ul>
@@ -74,6 +78,22 @@ document.addEventListener('click',function(e){
   navigator.clipboard&&navigator.clipboard.writeText(c.textContent).then(function(){
     c.classList.add('copied'); setTimeout(function(){c.classList.remove('copied')},900);
   });
+});
+document.getElementById('copy-page-btn')?.addEventListener('click', function(){
+  var btn = this;
+  var q = document.getElementById('page-question')?.innerText.trim() || '';
+  var a = document.getElementById('page-answer')?.innerText.trim() || '';
+  var formatted = "Q: " + q + "\n\nA:\n" + a;
+  if(navigator.clipboard){
+    navigator.clipboard.writeText(formatted).then(function(){
+      btn.classList.add('copied');
+      btn.querySelector('span').textContent = 'Copiato!';
+      setTimeout(function(){
+        btn.classList.remove('copied');
+        btn.querySelector('span').textContent = 'Copia';
+      }, 1500);
+    });
+  }
 });
 </script>
 </body>

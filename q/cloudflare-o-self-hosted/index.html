@@ -31,7 +31,12 @@
   .page .vertical { font-size: 13px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }
   .page .answer ul { padding-left: 22px; }
   .page .answer code { background: var(--code-bg); border-radius: 5px; padding: 1px 5px; font-size: 0.9em; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
-  .page .ask { display: inline-block; margin-top: 24px; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 9px 18px; text-decoration: none; font-weight: 600; }
+  .qa-actions { display: flex; align-items: center; gap: 12px; margin-top: 20px; }
+  .copy-qa-btn { display: inline-flex; align-items: center; gap: 6px; background: var(--bg-soft); color: var(--text-dim); border: 1px solid var(--border); border-radius: 6px; padding: 6px 12px; font-size: 13px; font-family: inherit; font-weight: 500; cursor: pointer; transition: all .15s ease; }
+  .copy-qa-btn:hover { background: var(--border); color: var(--text); }
+  .copy-qa-btn.copied { background: rgba(16, 163, 127, 0.15); color: var(--accent); border-color: var(--accent); }
+  .copy-qa-btn svg { flex: 0 0 auto; }
+  .page .ask { display: inline-block; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 8px 16px; text-decoration: none; font-weight: 600; font-size: 13px; }
   .page .related { margin-top: 36px; border-top: 1px solid var(--border); padding-top: 18px; }
   .page .related h2 { font-size: 16px; }
   .page .related a { color: var(--link); text-decoration: none; }
@@ -42,12 +47,6 @@
   .answer code { cursor: pointer; }
   .answer code:hover { outline: 1px solid var(--border); }
   .answer code.copied { outline: 1px solid var(--accent); color: var(--accent); }
-  .verified { display: flex; align-items: center; gap: 7px; margin-top: 18px; font-size: 13px; color: var(--text-dim); }
-  .verified .vchk { flex: 0 0 auto; }
-  @media (prefers-reduced-motion: no-preference) {
-    .vchk path { stroke-dasharray: 24; stroke-dashoffset: 24; animation: vchk-draw .5s .15s ease forwards; }
-  }
-  @keyframes vchk-draw { to { stroke-dashoffset: 0; } }
 </style>
 </head>
 <body>
@@ -59,10 +58,15 @@
 </header>
 <main class="page">
   <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › Cloudflare</nav>
-  <h1>Cloudflare o self-hosted: il confronto onesto</h1>
-  <div class="answer"><p>Il confronto senza tifoserie:</p><ul><li><strong>Cloudflare dà</strong> tanto, spesso gratis: <a href="../cos-e-un-attacco-ddos/">DDoS</a> assorbiti da una rete che non potrai mai replicare, CDN, WAF gestito, certificati, DNS veloce. Per un sito che può finire sotto attacco volumetrico, è difficile dire di no.</li><li><strong>il prezzo non è in euro</strong>: tutto il tuo traffico passa (e viene decifrato) da un&#x27;infrastruttura terza americana – <a href="../cos-e-la-sovranita-digitale/">sovranità</a> e <a href="../trasferimento-dati-extra-ue-schrems/">Schrems</a> permettendo –, il lock-in cresce silenzioso (<a href="../cosa-sono-i-cloudflare-workers/">Workers</a>, regole, DNS), e quando l&#x27;edge globale ha un problema, ce l&#x27;ha anche il tuo sito.</li><li><strong>il self-hosted restituisce</strong> controllo e riservatezza: <a href="../cos-e-un-reverse-proxy/">reverse proxy con WAF</a> tuoi (<a href="https://github.com/fabriziosalmi/zion" target="_blank" rel="noopener">zion</a>, Caddy + <a href="https://github.com/fabriziosalmi/caddy-waf" target="_blank" rel="noopener">caddy-waf</a>), <a href="https://github.com/fabriziosalmi/patterns" target="_blank" rel="noopener">regole aggiornate</a> – al costo della manutenzione e senza lo scudo anti-DDoS planetario.</li></ul><p>Via di mezzo legittima: Cloudflare solo dove serve davvero, resto in casa. E se decidi di uscire, <a href="https://github.com/fabriziosalmi/flareover" target="_blank" rel="noopener">flareover</a> rende la migrazione deterministica invece che eroica.</p></div>
-  <div class="verified"><svg class="vchk" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Verificata a mano · zero allucinazioni</span></div>
-  <a class="ask" href="../../?q=cloudflare-vs-selfhosted">Chiedilo a FabGPT-FAQ →</a>
+  <h1 id="page-question">Cloudflare o self-hosted: il confronto onesto</h1>
+  <div class="answer" id="page-answer"><p>Il confronto senza tifoserie:</p><ul><li><strong>Cloudflare dà</strong> tanto, spesso gratis: <a href="../cos-e-un-attacco-ddos/">DDoS</a> assorbiti da una rete che non potrai mai replicare, CDN, WAF gestito, certificati, DNS veloce. Per un sito che può finire sotto attacco volumetrico, è difficile dire di no.</li><li><strong>il prezzo non è in euro</strong>: tutto il tuo traffico passa (e viene decifrato) da un&#x27;infrastruttura terza americana – <a href="../cos-e-la-sovranita-digitale/">sovranità</a> e <a href="../trasferimento-dati-extra-ue-schrems/">Schrems</a> permettendo –, il lock-in cresce silenzioso (<a href="../cosa-sono-i-cloudflare-workers/">Workers</a>, regole, DNS), e quando l&#x27;edge globale ha un problema, ce l&#x27;ha anche il tuo sito.</li><li><strong>il self-hosted restituisce</strong> controllo e riservatezza: <a href="../cos-e-un-reverse-proxy/">reverse proxy con WAF</a> tuoi (<a href="https://github.com/fabriziosalmi/zion" target="_blank" rel="noopener">zion</a>, Caddy + <a href="https://github.com/fabriziosalmi/caddy-waf" target="_blank" rel="noopener">caddy-waf</a>), <a href="https://github.com/fabriziosalmi/patterns" target="_blank" rel="noopener">regole aggiornate</a> – al costo della manutenzione e senza lo scudo anti-DDoS planetario.</li></ul><p>Via di mezzo legittima: Cloudflare solo dove serve davvero, resto in casa. E se decidi di uscire, <a href="https://github.com/fabriziosalmi/flareover" target="_blank" rel="noopener">flareover</a> rende la migrazione deterministica invece che eroica.</p></div>
+  <div class="qa-actions">
+    <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+      <span>Copia</span>
+    </button>
+    <a class="ask" href="../../?q=cloudflare-vs-selfhosted">Chiedilo a FabGPT-FAQ →</a>
+  </div>
   <div class="related">
     <h2>Altre domande</h2>
     <ul><li><a href="../cos-e-un-attacco-ddos/">Cos&#x27;è un attacco DDoS e come ci si difende?</a></li><li><a href="../cos-e-la-sovranita-digitale/">Cos&#x27;è la sovranità digitale e perché le aziende europee ci tengono?</a></li><li><a href="../trasferimento-dati-extra-ue-schrems/">Trasferimento dati extra-UE: cosa dice Schrems II?</a></li><li><a href="../cosa-sono-i-cloudflare-workers/">Cosa sono i Cloudflare Workers?</a></li><li><a href="../cos-e-gitops/">Cos&#x27;è GitOps e perché conviene?</a></li><li><a href="../cos-e-una-cdn/">Cos&#x27;è una CDN e quando serve davvero?</a></li></ul>
@@ -74,6 +78,22 @@ document.addEventListener('click',function(e){
   navigator.clipboard&&navigator.clipboard.writeText(c.textContent).then(function(){
     c.classList.add('copied'); setTimeout(function(){c.classList.remove('copied')},900);
   });
+});
+document.getElementById('copy-page-btn')?.addEventListener('click', function(){
+  var btn = this;
+  var q = document.getElementById('page-question')?.innerText.trim() || '';
+  var a = document.getElementById('page-answer')?.innerText.trim() || '';
+  var formatted = "Q: " + q + "\n\nA:\n" + a;
+  if(navigator.clipboard){
+    navigator.clipboard.writeText(formatted).then(function(){
+      btn.classList.add('copied');
+      btn.querySelector('span').textContent = 'Copiato!';
+      setTimeout(function(){
+        btn.classList.remove('copied');
+        btn.querySelector('span').textContent = 'Copia';
+      }, 1500);
+    });
+  }
 });
 </script>
 </body>

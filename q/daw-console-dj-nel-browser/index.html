@@ -31,7 +31,12 @@
   .page .vertical { font-size: 13px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }
   .page .answer ul { padding-left: 22px; }
   .page .answer code { background: var(--code-bg); border-radius: 5px; padding: 1px 5px; font-size: 0.9em; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
-  .page .ask { display: inline-block; margin-top: 24px; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 9px 18px; text-decoration: none; font-weight: 600; }
+  .qa-actions { display: flex; align-items: center; gap: 12px; margin-top: 20px; }
+  .copy-qa-btn { display: inline-flex; align-items: center; gap: 6px; background: var(--bg-soft); color: var(--text-dim); border: 1px solid var(--border); border-radius: 6px; padding: 6px 12px; font-size: 13px; font-family: inherit; font-weight: 500; cursor: pointer; transition: all .15s ease; }
+  .copy-qa-btn:hover { background: var(--border); color: var(--text); }
+  .copy-qa-btn.copied { background: rgba(16, 163, 127, 0.15); color: var(--accent); border-color: var(--accent); }
+  .copy-qa-btn svg { flex: 0 0 auto; }
+  .page .ask { display: inline-block; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 8px 16px; text-decoration: none; font-weight: 600; font-size: 13px; }
   .page .related { margin-top: 36px; border-top: 1px solid var(--border); padding-top: 18px; }
   .page .related h2 { font-size: 16px; }
   .page .related a { color: var(--link); text-decoration: none; }
@@ -42,12 +47,6 @@
   .answer code { cursor: pointer; }
   .answer code:hover { outline: 1px solid var(--border); }
   .answer code.copied { outline: 1px solid var(--accent); color: var(--accent); }
-  .verified { display: flex; align-items: center; gap: 7px; margin-top: 18px; font-size: 13px; color: var(--text-dim); }
-  .verified .vchk { flex: 0 0 auto; }
-  @media (prefers-reduced-motion: no-preference) {
-    .vchk path { stroke-dasharray: 24; stroke-dashoffset: 24; animation: vchk-draw .5s .15s ease forwards; }
-  }
-  @keyframes vchk-draw { to { stroke-dashoffset: 0; } }
 </style>
 </head>
 <body>
@@ -59,10 +58,15 @@
 </header>
 <main class="page">
   <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › Musica e creatività</nav>
-  <h1>Esiste una console da DJ / DAW che gira nel browser?</h1>
-  <div class="answer"><p><a href="https://github.com/fabriziosalmi/mixi" target="_blank" rel="noopener">MIXI</a> è una <strong>workstation audio deterministica e console DJ browser-native</strong> che funziona interamente nel browser tramite WebAudio API e WebAssembly, senza richiedere alcuna installazione di driver o software pesanti.</p><p>Accesso e modalità operative:<br>- 🌐 <strong>Web App immediata</strong>: apri semplicemente <a href="https://www.mixi.it" target="_blank" rel="noopener">mixi.it</a> in qualsiasi browser moderno (Chrome, Firefox, Safari).<br>- 🎛️ <strong>Funzionalità hardware</strong>:<br>  - Supporto vinili Timecode (DVS - Digital Vinyl System) con decoding a bassissima latenza (&lt; 5 ms).<br>  - Mappatura controller MIDI plug-and-play via WebMIDI API.<br>  - Sintesi modulare analogica virtuale, drum machine polifonica e mixer a 4 canali con filtri isolator.</p><figure class="diagram" aria-label="Schema: Esiste una console da DJ / DAW che gira nel browser?"><svg class='diagram-svg' viewBox='0 0 640 200' width='100%' role='img' xmlns='http://www.w3.org/2000/svg' font-family='-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif'><defs><marker id='ah' markerWidth='9' markerHeight='9' refX='7' refY='3' orient='auto'><path d='M0,0 L7,3 L0,6 Z' fill='var(--text-dim)'/></marker></defs><rect x='20' y='74' width='110' height='52' rx='10' fill='var(--bg-soft)' stroke='var(--border)' stroke-width='1.4'/><text x='75.0' y='96.0' text-anchor='middle' font-size='15' font-weight='500' fill='var(--text)'>Giradischi / DVS</text><text x='75.0' y='114.0' text-anchor='middle' font-size='15' font-weight='500' fill='var(--text)'>Vinile Timecode</text><rect x='180' y='60' width='150' height='80' rx='10' fill='var(--bg-soft)' stroke='var(--accent)' stroke-width='2'/><text x='255.0' y='96.0' text-anchor='middle' font-size='15' font-weight='600' fill='var(--text)'>MIXI Browser DAW</text><text x='255.0' y='114.0' text-anchor='middle' font-size='15' font-weight='500' fill='var(--text)'>WebAudio & WebAssembly</text><rect x='380' y='60' width='120' height='80' rx='10' fill='var(--bg-soft)' stroke='var(--border)' stroke-width='1.4'/><text x='440.0' y='96.0' text-anchor='middle' font-size='15' font-weight='500' fill='var(--text)'>Sintesi Modulare</text><text x='440.0' y='114.0' text-anchor='middle' font-size='15' font-weight='500' fill='var(--text)'>e Mixer 4ch</text><rect x='540' y='74' width='80' height='52' rx='10' fill='var(--bg-soft)' stroke='var(--border)' stroke-width='1.4'/><text x='580.0' y='96.0' text-anchor='middle' font-size='15' font-weight='500' fill='var(--text)'>Uscita Audio</text><text x='580.0' y='114.0' text-anchor='middle' font-size='15' font-weight='500' fill='var(--text)'>< 5 ms</text><line x1='130' y1='100' x2='178' y2='100' stroke='var(--text-dim)' stroke-width='1.6' stroke-dasharray='6 5' class='dg-flow' marker-end='url(#ah)'/><text x='154.0' y='92.0' text-anchor='middle' font-size='12' fill='var(--text-dim)'>1kHz signal</text><line x1='330' y1='100' x2='378' y2='100' stroke='var(--text-dim)' stroke-width='1.6' stroke-dasharray='6 5' class='dg-flow' marker-end='url(#ah)'/><line x1='500' y1='100' x2='538' y2='100' stroke='var(--text-dim)' stroke-width='1.6' stroke-dasharray='6 5' class='dg-flow' marker-end='url(#ah)'/><text x='320' y='180' font-size='12.5' fill='var(--text-dim)' text-anchor='middle'>workstation audio deterministica browser-native a bassissima latenza</text></svg></figure></div>
-  <div class="verified"><svg class="vchk" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Verificata a mano · zero allucinazioni</span></div>
-  <a class="ask" href="../../?q=mixi">Chiedilo a FabGPT-FAQ →</a>
+  <h1 id="page-question">Esiste una console da DJ / DAW che gira nel browser?</h1>
+  <div class="answer" id="page-answer"><p><a href="https://github.com/fabriziosalmi/mixi" target="_blank" rel="noopener">MIXI</a> è una <strong>workstation audio deterministica e console DJ browser-native</strong> che funziona interamente nel browser tramite WebAudio API e WebAssembly, senza richiedere alcuna installazione di driver o software pesanti.</p><p>Accesso e modalità operative:<br>- 🌐 <strong>Web App immediata</strong>: apri semplicemente <a href="https://www.mixi.it" target="_blank" rel="noopener">mixi.it</a> in qualsiasi browser moderno (Chrome, Firefox, Safari).<br>- 🎛️ <strong>Funzionalità hardware</strong>:<br>  - Supporto vinili Timecode (DVS - Digital Vinyl System) con decoding a bassissima latenza (&lt; 5 ms).<br>  - Mappatura controller MIDI plug-and-play via WebMIDI API.<br>  - Sintesi modulare analogica virtuale, drum machine polifonica e mixer a 4 canali con filtri isolator.</p><figure class="diagram" aria-label="Schema: Esiste una console da DJ / DAW che gira nel browser?"><svg class='diagram-svg' viewBox='0 0 640 200' width='100%' role='img' xmlns='http://www.w3.org/2000/svg' font-family='-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif'><defs><marker id='ah' markerWidth='9' markerHeight='9' refX='7' refY='3' orient='auto'><path d='M0,0 L7,3 L0,6 Z' fill='var(--text-dim)'/></marker></defs><rect x='20' y='74' width='110' height='52' rx='10' fill='var(--bg-soft)' stroke='var(--border)' stroke-width='1.4'/><text x='75.0' y='96.0' text-anchor='middle' font-size='15' font-weight='500' fill='var(--text)'>Giradischi / DVS</text><text x='75.0' y='114.0' text-anchor='middle' font-size='15' font-weight='500' fill='var(--text)'>Vinile Timecode</text><rect x='180' y='60' width='150' height='80' rx='10' fill='var(--bg-soft)' stroke='var(--accent)' stroke-width='2'/><text x='255.0' y='96.0' text-anchor='middle' font-size='15' font-weight='600' fill='var(--text)'>MIXI Browser DAW</text><text x='255.0' y='114.0' text-anchor='middle' font-size='15' font-weight='500' fill='var(--text)'>WebAudio & WebAssembly</text><rect x='380' y='60' width='120' height='80' rx='10' fill='var(--bg-soft)' stroke='var(--border)' stroke-width='1.4'/><text x='440.0' y='96.0' text-anchor='middle' font-size='15' font-weight='500' fill='var(--text)'>Sintesi Modulare</text><text x='440.0' y='114.0' text-anchor='middle' font-size='15' font-weight='500' fill='var(--text)'>e Mixer 4ch</text><rect x='540' y='74' width='80' height='52' rx='10' fill='var(--bg-soft)' stroke='var(--border)' stroke-width='1.4'/><text x='580.0' y='96.0' text-anchor='middle' font-size='15' font-weight='500' fill='var(--text)'>Uscita Audio</text><text x='580.0' y='114.0' text-anchor='middle' font-size='15' font-weight='500' fill='var(--text)'>< 5 ms</text><line x1='130' y1='100' x2='178' y2='100' stroke='var(--text-dim)' stroke-width='1.6' stroke-dasharray='6 5' class='dg-flow' marker-end='url(#ah)'/><text x='154.0' y='92.0' text-anchor='middle' font-size='12' fill='var(--text-dim)'>1kHz signal</text><line x1='330' y1='100' x2='378' y2='100' stroke='var(--text-dim)' stroke-width='1.6' stroke-dasharray='6 5' class='dg-flow' marker-end='url(#ah)'/><line x1='500' y1='100' x2='538' y2='100' stroke='var(--text-dim)' stroke-width='1.6' stroke-dasharray='6 5' class='dg-flow' marker-end='url(#ah)'/><text x='320' y='180' font-size='12.5' fill='var(--text-dim)' text-anchor='middle'>workstation audio deterministica browser-native a bassissima latenza</text></svg></figure></div>
+  <div class="qa-actions">
+    <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+      <span>Copia</span>
+    </button>
+    <a class="ask" href="../../?q=mixi">Chiedilo a FabGPT-FAQ →</a>
+  </div>
   <div class="related">
     <h2>Altre domande</h2>
     <ul><li><a href="../cos-e-il-webtek-streaming-teknival/">Cos&#x27;è il WebTeK, lo streaming teknival?</a></li><li><a href="../audiolibri-gratis-in-italiano/">Dove si ascoltano audiolibri gratis in italiano?</a></li><li><a href="../strumenti-open-source-produzione-musicale/">Quali strumenti open source esistono per la produzione musicale?</a></li><li><a href="../cos-e-un-waf-web-application-firewall/">Cos&#x27;è un WAF (Web Application Firewall) e a cosa serve?</a></li><li><a href="../cos-e-una-daw/">Cos&#x27;è una DAW (Digital Audio Workstation)?</a></li><li><a href="../cosa-sono-i-plugin-vst/">Cosa sono i plugin VST?</a></li></ul>
@@ -74,6 +78,22 @@ document.addEventListener('click',function(e){
   navigator.clipboard&&navigator.clipboard.writeText(c.textContent).then(function(){
     c.classList.add('copied'); setTimeout(function(){c.classList.remove('copied')},900);
   });
+});
+document.getElementById('copy-page-btn')?.addEventListener('click', function(){
+  var btn = this;
+  var q = document.getElementById('page-question')?.innerText.trim() || '';
+  var a = document.getElementById('page-answer')?.innerText.trim() || '';
+  var formatted = "Q: " + q + "\n\nA:\n" + a;
+  if(navigator.clipboard){
+    navigator.clipboard.writeText(formatted).then(function(){
+      btn.classList.add('copied');
+      btn.querySelector('span').textContent = 'Copiato!';
+      setTimeout(function(){
+        btn.classList.remove('copied');
+        btn.querySelector('span').textContent = 'Copia';
+      }, 1500);
+    });
+  }
 });
 </script>
 </body>

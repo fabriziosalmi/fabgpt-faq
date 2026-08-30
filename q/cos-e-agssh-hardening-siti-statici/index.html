@@ -31,7 +31,12 @@
   .page .vertical { font-size: 13px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }
   .page .answer ul { padding-left: 22px; }
   .page .answer code { background: var(--code-bg); border-radius: 5px; padding: 1px 5px; font-size: 0.9em; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
-  .page .ask { display: inline-block; margin-top: 24px; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 9px 18px; text-decoration: none; font-weight: 600; }
+  .qa-actions { display: flex; align-items: center; gap: 12px; margin-top: 20px; }
+  .copy-qa-btn { display: inline-flex; align-items: center; gap: 6px; background: var(--bg-soft); color: var(--text-dim); border: 1px solid var(--border); border-radius: 6px; padding: 6px 12px; font-size: 13px; font-family: inherit; font-weight: 500; cursor: pointer; transition: all .15s ease; }
+  .copy-qa-btn:hover { background: var(--border); color: var(--text); }
+  .copy-qa-btn.copied { background: rgba(16, 163, 127, 0.15); color: var(--accent); border-color: var(--accent); }
+  .copy-qa-btn svg { flex: 0 0 auto; }
+  .page .ask { display: inline-block; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 8px 16px; text-decoration: none; font-weight: 600; font-size: 13px; }
   .page .related { margin-top: 36px; border-top: 1px solid var(--border); padding-top: 18px; }
   .page .related h2 { font-size: 16px; }
   .page .related a { color: var(--link); text-decoration: none; }
@@ -42,12 +47,6 @@
   .answer code { cursor: pointer; }
   .answer code:hover { outline: 1px solid var(--border); }
   .answer code.copied { outline: 1px solid var(--accent); color: var(--accent); }
-  .verified { display: flex; align-items: center; gap: 7px; margin-top: 18px; font-size: 13px; color: var(--text-dim); }
-  .verified .vchk { flex: 0 0 auto; }
-  @media (prefers-reduced-motion: no-preference) {
-    .vchk path { stroke-dasharray: 24; stroke-dashoffset: 24; animation: vchk-draw .5s .15s ease forwards; }
-  }
-  @keyframes vchk-draw { to { stroke-dashoffset: 0; } }
 </style>
 </head>
 <body>
@@ -59,10 +58,15 @@
 </header>
 <main class="page">
   <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › Cybersecurity</nav>
-  <h1>Cos&#x27;è agssh e come si verifica che un sito statico non faccia chiamate esterne?</h1>
-  <div class="answer"><p>La gestione sicura degli accessi SSH elimina l&#x27;uso di password e chiavi RSA obsolete, adottando chiavi ED25519 o certificati protetti da token hardware FIDO2/YubiKey.</p><p>Guida operativa da terminale:</p><p>1. <strong>Generazione chiave ED25519 standard</strong>:<br>   <code>ssh-keygen -t ed25519 -C &quot;admin@homelab&quot; -f ~/.ssh/id_ed25519</code><br>2. <strong>Generazione chiave protetta da YubiKey hardware (FIDO2)</strong>:<br>   <code>ssh-keygen -t ed25519-sk -O resident -C &quot;yubikey-fido2&quot;</code><br>3. <strong>Configurazione client (<code>~/.ssh/config</code>)</strong>:<br>   ``<code>ssh<br>   Host server-prod<br>       HostName 192.168.1.100<br>       User root<br>       Port 2222<br>       IdentityFile ~/.ssh/id_ed25519_sk<br>       IdentitiesOnly yes<br>   </code>`<code><br>4. <strong>Hardening del server (</code>/etc/ssh/sshd_config<code>)</strong>:<br>   </code>`<code><br>   PasswordAuthentication no<br>   PermitRootLogin prohibit-password<br>   PubkeyAuthentication yes<br>   </code>``</p><p>Per l&#x27;automazione dell&#x27;infrastruttura, usa lo strumento <a href="../cos-e-agssh-hardening-siti-statici/">agssh</a>.</p><figure class="diagram" aria-label="Schema: Cos&#x27;è agssh e come si verifica che un sito statico non faccia chiamate esterne?"><svg class='diagram-svg' viewBox='0 0 640 200' width='100%' role='img' xmlns='http://www.w3.org/2000/svg' font-family='-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif'><defs><marker id='ah' markerWidth='9' markerHeight='9' refX='7' refY='3' orient='auto'><path d='M0,0 L7,3 L0,6 Z' fill='var(--text-dim)'/></marker></defs><rect x='20' y='74' width='120' height='52' rx='10' fill='var(--bg-soft)' stroke='var(--accent)' stroke-width='2'/><text x='80.0' y='96.0' text-anchor='middle' font-size='15' font-weight='600' fill='var(--text)'>YubiKey FIDO2</text><text x='80.0' y='114.0' text-anchor='middle' font-size='15' font-weight='500' fill='var(--text)'>(ED25519-SK)</text><rect x='200' y='74' width='120' height='52' rx='10' fill='var(--bg-soft)' stroke='var(--border)' stroke-width='1.4'/><text x='260.0' y='96.0' text-anchor='middle' font-size='15' font-weight='500' fill='var(--text)'>Client SSH</text><text x='260.0' y='114.0' text-anchor='middle' font-size='15' font-weight='500' fill='var(--text)'>~/.ssh/config</text><rect x='380' y='60' width='120' height='80' rx='10' fill='var(--bg-soft)' stroke='var(--border)' stroke-width='1.4'/><text x='440.0' y='96.0' text-anchor='middle' font-size='15' font-weight='500' fill='var(--text)'>Firewall Host</text><text x='440.0' y='114.0' text-anchor='middle' font-size='15' font-weight='500' fill='var(--text)'>nftables default drop</text><rect x='540' y='74' width='80' height='52' rx='10' fill='var(--bg-soft)' stroke='var(--border)' stroke-width='1.4'/><text x='580.0' y='96.0' text-anchor='middle' font-size='15' font-weight='500' fill='var(--text)'>Host PVE</text><text x='580.0' y='114.0' text-anchor='middle' font-size='15' font-weight='500' fill='var(--text)'>Hardened</text><line x1='140' y1='100' x2='198' y2='100' stroke='var(--text-dim)' stroke-width='1.6' stroke-dasharray='6 5' class='dg-flow' marker-end='url(#ah)'/><text x='169.0' y='92.0' text-anchor='middle' font-size='12' fill='var(--text-dim)'>pin/touch</text><line x1='320' y1='100' x2='378' y2='100' stroke='var(--text-dim)' stroke-width='1.6' stroke-dasharray='6 5' class='dg-flow' marker-end='url(#ah)'/><line x1='500' y1='100' x2='538' y2='100' stroke='var(--text-dim)' stroke-width='1.6' stroke-dasharray='6 5' class='dg-flow' marker-end='url(#ah)'/><text x='320' y='180' font-size='12.5' fill='var(--text-dim)' text-anchor='middle'>autenticazione a chiave hardware e porta SSH isolata senza password</text></svg></figure></div>
-  <div class="verified"><svg class="vchk" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg><span>Verificata a mano · zero allucinazioni</span></div>
-  <a class="ask" href="../../?q=agssh">Chiedilo a FabGPT-FAQ →</a>
+  <h1 id="page-question">Cos&#x27;è agssh e come si verifica che un sito statico non faccia chiamate esterne?</h1>
+  <div class="answer" id="page-answer"><p>La gestione sicura degli accessi SSH elimina l&#x27;uso di password e chiavi RSA obsolete, adottando chiavi ED25519 o certificati protetti da token hardware FIDO2/YubiKey.</p><p>Guida operativa da terminale:</p><p>1. <strong>Generazione chiave ED25519 standard</strong>:<br>   <code>ssh-keygen -t ed25519 -C &quot;admin@homelab&quot; -f ~/.ssh/id_ed25519</code><br>2. <strong>Generazione chiave protetta da YubiKey hardware (FIDO2)</strong>:<br>   <code>ssh-keygen -t ed25519-sk -O resident -C &quot;yubikey-fido2&quot;</code><br>3. <strong>Configurazione client (<code>~/.ssh/config</code>)</strong>:<br>   ``<code>ssh<br>   Host server-prod<br>       HostName 192.168.1.100<br>       User root<br>       Port 2222<br>       IdentityFile ~/.ssh/id_ed25519_sk<br>       IdentitiesOnly yes<br>   </code>`<code><br>4. <strong>Hardening del server (</code>/etc/ssh/sshd_config<code>)</strong>:<br>   </code>`<code><br>   PasswordAuthentication no<br>   PermitRootLogin prohibit-password<br>   PubkeyAuthentication yes<br>   </code>``</p><p>Per l&#x27;automazione dell&#x27;infrastruttura, usa lo strumento <a href="../cos-e-agssh-hardening-siti-statici/">agssh</a>.</p><figure class="diagram" aria-label="Schema: Cos&#x27;è agssh e come si verifica che un sito statico non faccia chiamate esterne?"><svg class='diagram-svg' viewBox='0 0 640 200' width='100%' role='img' xmlns='http://www.w3.org/2000/svg' font-family='-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif'><defs><marker id='ah' markerWidth='9' markerHeight='9' refX='7' refY='3' orient='auto'><path d='M0,0 L7,3 L0,6 Z' fill='var(--text-dim)'/></marker></defs><rect x='20' y='74' width='120' height='52' rx='10' fill='var(--bg-soft)' stroke='var(--accent)' stroke-width='2'/><text x='80.0' y='96.0' text-anchor='middle' font-size='15' font-weight='600' fill='var(--text)'>YubiKey FIDO2</text><text x='80.0' y='114.0' text-anchor='middle' font-size='15' font-weight='500' fill='var(--text)'>(ED25519-SK)</text><rect x='200' y='74' width='120' height='52' rx='10' fill='var(--bg-soft)' stroke='var(--border)' stroke-width='1.4'/><text x='260.0' y='96.0' text-anchor='middle' font-size='15' font-weight='500' fill='var(--text)'>Client SSH</text><text x='260.0' y='114.0' text-anchor='middle' font-size='15' font-weight='500' fill='var(--text)'>~/.ssh/config</text><rect x='380' y='60' width='120' height='80' rx='10' fill='var(--bg-soft)' stroke='var(--border)' stroke-width='1.4'/><text x='440.0' y='96.0' text-anchor='middle' font-size='15' font-weight='500' fill='var(--text)'>Firewall Host</text><text x='440.0' y='114.0' text-anchor='middle' font-size='15' font-weight='500' fill='var(--text)'>nftables default drop</text><rect x='540' y='74' width='80' height='52' rx='10' fill='var(--bg-soft)' stroke='var(--border)' stroke-width='1.4'/><text x='580.0' y='96.0' text-anchor='middle' font-size='15' font-weight='500' fill='var(--text)'>Host PVE</text><text x='580.0' y='114.0' text-anchor='middle' font-size='15' font-weight='500' fill='var(--text)'>Hardened</text><line x1='140' y1='100' x2='198' y2='100' stroke='var(--text-dim)' stroke-width='1.6' stroke-dasharray='6 5' class='dg-flow' marker-end='url(#ah)'/><text x='169.0' y='92.0' text-anchor='middle' font-size='12' fill='var(--text-dim)'>pin/touch</text><line x1='320' y1='100' x2='378' y2='100' stroke='var(--text-dim)' stroke-width='1.6' stroke-dasharray='6 5' class='dg-flow' marker-end='url(#ah)'/><line x1='500' y1='100' x2='538' y2='100' stroke='var(--text-dim)' stroke-width='1.6' stroke-dasharray='6 5' class='dg-flow' marker-end='url(#ah)'/><text x='320' y='180' font-size='12.5' fill='var(--text-dim)' text-anchor='middle'>autenticazione a chiave hardware e porta SSH isolata senza password</text></svg></figure></div>
+  <div class="qa-actions">
+    <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+      <span>Copia</span>
+    </button>
+    <a class="ask" href="../../?q=agssh">Chiedilo a FabGPT-FAQ →</a>
+  </div>
   <div class="related">
     <h2>Altre domande</h2>
     <ul><li><a href="../come-bloccare-domini-malevoli/">Come si riconoscono e bloccano i domini malevoli?</a></li><li><a href="../nis2-monitoraggio-conformita/">Come si monitora la conformità alla direttiva NIS2?</a></li><li><a href="../reverse-proxy-con-waf-integrato/">Esistono reverse proxy open source con WAF integrato?</a></li><li><a href="../cos-e-un-waf-web-application-firewall/">Cos&#x27;è un WAF (Web Application Firewall) e a cosa serve?</a></li><li><a href="../cos-e-un-reverse-proxy/">Cos&#x27;è un reverse proxy e a cosa serve?</a></li><li><a href="../come-funziona-lets-encrypt-acme/">Come funziona Let&#x27;s Encrypt e il protocollo ACME?</a></li></ul>
@@ -74,6 +78,22 @@ document.addEventListener('click',function(e){
   navigator.clipboard&&navigator.clipboard.writeText(c.textContent).then(function(){
     c.classList.add('copied'); setTimeout(function(){c.classList.remove('copied')},900);
   });
+});
+document.getElementById('copy-page-btn')?.addEventListener('click', function(){
+  var btn = this;
+  var q = document.getElementById('page-question')?.innerText.trim() || '';
+  var a = document.getElementById('page-answer')?.innerText.trim() || '';
+  var formatted = "Q: " + q + "\n\nA:\n" + a;
+  if(navigator.clipboard){
+    navigator.clipboard.writeText(formatted).then(function(){
+      btn.classList.add('copied');
+      btn.querySelector('span').textContent = 'Copiato!';
+      setTimeout(function(){
+        btn.classList.remove('copied');
+        btn.querySelector('span').textContent = 'Copia';
+      }, 1500);
+    });
+  }
 });
 </script>
 </body>

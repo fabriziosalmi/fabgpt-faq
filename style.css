@@ -259,23 +259,40 @@ body {
 }
 .statbar b { color: var(--accent); font-variant-numeric: tabular-nums; font-weight: 700; }
 
-/* verified-by-a-human trust badge */
-.msg-bot .content .verified {
+/* answer action bar & copy Q&A button */
+.msg-bot .content .qa-actions {
   display: flex;
   align-items: center;
-  gap: 7px;
-  margin-top: 12px;
-  font-size: 12.5px;
+  gap: 10px;
+  margin-top: 14px;
+}
+.copy-qa-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--bg-soft);
   color: var(--text-dim);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 4px 10px;
+  font-size: 12px;
+  font-family: inherit;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all .15s ease;
 }
-.msg-bot .content .verified .vchk { flex: 0 0 auto; }
-@media (prefers-reduced-motion: no-preference) {
-  .msg-bot .content .verified .vchk path {
-    stroke-dasharray: 24; stroke-dashoffset: 24;
-    animation: vchk-draw .5s .1s ease forwards;
-  }
+.copy-qa-btn:hover {
+  background: var(--border);
+  color: var(--text);
 }
-@keyframes vchk-draw { to { stroke-dashoffset: 0; } }
+.copy-qa-btn.copied {
+  background: rgba(16, 163, 127, 0.15);
+  color: var(--accent);
+  border-color: var(--accent);
+}
+.copy-qa-btn svg {
+  flex: 0 0 auto;
+}
 
 /* ---------- micro-interactions (motion-guarded) ---------- */
 
