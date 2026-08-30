@@ -384,6 +384,22 @@ non ha pagina propria) sono lavoro, non copertura.
 - Prossimi giri di massa: convertire i ~142 partial in voci dedicate a blocchi
   tematici (ogni giro riesegue `triage.py` per misurare l'avanzamento).
 
+## Estetica (2026-08-30): diagrammi-concetto + comandi copiabili
+
+- **Diagrammi-concetto SVG** (`diagrams.json`, autore `build_diagrams.py`): 10
+  schemi theme-aware (WAF, reverse proxy, handshake TCP, RAG, backup 3-2-1, Zero
+  Trust, SIEM/SOAR, defense-in-depth, CDN, loop agente) che usano le CSS var di
+  style.css → chiaro/scuro automatico. Connettori `.dg-flow` animati solo sotto
+  `prefers-reduced-motion: no-preference`. Renderizzati **in chat** (app.js,
+  iniettati dopo la risposta) **e su pagina statica** (build.py), e riusati come
+  **OG card per-voce** (il diagramma su tela brandizzata 1200x630 → q/<slug>/og.svg).
+- **Comandi copiabili**: ogni `code` inline è click-to-copy (chat via delegation,
+  pagine statiche via un piccolo script inline), con feedback "copiato".
+- bench G1 valida i diagrammi (id esistente, SVG ben formato, no em-dash).
+- Idee estetiche non ancora fatte (dal menu proposto): badge "verificata", hero
+  labirinto, timeline how-to, glyph verticali, contatore stat, micro-interazioni,
+  altri diagrammi oltre i 10 pilastri.
+
 ## Giro 2 – rifinitura & answer-engine optimization (DONE 2026-08-30)
 
 Non nuovi argomenti (quelli erano i lotti di massa) ma polish sulla base esistente,

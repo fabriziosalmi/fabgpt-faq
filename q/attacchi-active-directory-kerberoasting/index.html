@@ -37,6 +37,11 @@
   .page .related a { color: var(--link); text-decoration: none; }
   .page .related a:hover { text-decoration: underline; }
   .page .related li { margin: 6px 0; }
+  .diagram { margin: 24px 0 8px; padding: 14px; border: 1px solid var(--border); border-radius: 12px; background: var(--bg-soft); }
+  .diagram svg { display: block; max-width: 100%; height: auto; }
+  .answer code { cursor: pointer; }
+  .answer code:hover { outline: 1px solid var(--border); }
+  .answer code.copied { outline: 1px solid var(--accent); color: var(--accent); }
 </style>
 </head>
 <body>
@@ -56,5 +61,13 @@
     <ul><li><a href="../pam-e-accesso-just-in-time/">Cos&#x27;è il PAM (Privileged Access Management) e l&#x27;accesso Just-In-Time?</a></li><li><a href="../detection-engineering-e-event-id/">Detection engineering: quali eventi (Event ID) contano per rilevare un attacco?</a></li><li><a href="../cos-e-pass-the-hash/">Cos&#x27;è un attacco Pass-the-Hash (PtH)?</a></li><li><a href="../cos-e-un-waf-web-application-firewall/">Cos&#x27;è un WAF (Web Application Firewall) e a cosa serve?</a></li><li><a href="../cos-e-un-reverse-proxy/">Cos&#x27;è un reverse proxy e a cosa serve?</a></li><li><a href="../come-funziona-lets-encrypt-acme/">Come funziona Let&#x27;s Encrypt e il protocollo ACME?</a></li></ul>
   </div>
 </main>
+<script>
+document.addEventListener('click',function(e){
+  var c=e.target.closest('code'); if(!c)return;
+  navigator.clipboard&&navigator.clipboard.writeText(c.textContent).then(function(){
+    c.classList.add('copied'); setTimeout(function(){c.classList.remove('copied')},900);
+  });
+});
+</script>
 </body>
 </html>

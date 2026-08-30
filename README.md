@@ -18,6 +18,11 @@ Two layers, one source of truth:
 | Chat | humans | `index.html` + `app.js` + `style.css` |
 | Static Q&A pages | crawlers / answer engines | `q/<slug>/index.html` + `sitemap.xml` (generated) |
 
+Concept diagrams live in `diagrams.json` (entry id → inline theme-aware SVG,
+authored by `build_diagrams.py`); they render after the answer in both the chat
+and the static page, and become that page's tailored OG card. Inline `code` is
+click-to-copy everywhere.
+
 Everything is static. No backend, no build toolchain, no dependencies.
 
 ## Run locally

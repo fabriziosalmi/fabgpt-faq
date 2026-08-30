@@ -37,6 +37,11 @@
   .page .related a { color: var(--link); text-decoration: none; }
   .page .related a:hover { text-decoration: underline; }
   .page .related li { margin: 6px 0; }
+  .diagram { margin: 24px 0 8px; padding: 14px; border: 1px solid var(--border); border-radius: 12px; background: var(--bg-soft); }
+  .diagram svg { display: block; max-width: 100%; height: auto; }
+  .answer code { cursor: pointer; }
+  .answer code:hover { outline: 1px solid var(--border); }
+  .answer code.copied { outline: 1px solid var(--accent); color: var(--accent); }
 </style>
 </head>
 <body>
@@ -56,5 +61,13 @@
     <ul><li><a href="../fabgpt-e-una-vera-ai/">FabGPT-FAQ è una vera intelligenza artificiale?</a></li><li><a href="../cos-e-fabgpt-come-funziona/">Cos&#x27;è FabGPT-FAQ e come funziona?</a></li><li><a href="../risposte-pre-scritte-o-ai/">Perché le risposte pre-scritte battono l&#x27;AI su domini ristretti?</a></li><li><a href="../chi-e-fabrizio-salmi/">Chi è Fabrizio Salmi?</a></li><li><a href="../progetti-open-source-fabrizio-salmi/">Quali progetti open source sviluppa Fabrizio Salmi?</a></li><li><a href="../creare-la-tua-faq-con-questo-motore/">Come creo la mia FAQ con questo motore (guida al fork)?</a></li></ul>
   </div>
 </main>
+<script>
+document.addEventListener('click',function(e){
+  var c=e.target.closest('code'); if(!c)return;
+  navigator.clipboard&&navigator.clipboard.writeText(c.textContent).then(function(){
+    c.classList.add('copied'); setTimeout(function(){c.classList.remove('copied')},900);
+  });
+});
+</script>
 </body>
 </html>

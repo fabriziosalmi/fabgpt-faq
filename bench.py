@@ -124,6 +124,16 @@ def main():
     for s in db.get("config", {}).get("suggest", []):
         if s not in slugs:
             problems.append(f"config: dangling suggest slug '{s}'")
+    # diagrams (optional): every diagram id must resolve to an entry and be valid SVG
+    import os
+    dpath = os.path.join(ROOT, "diagrams.json")
+    if os.path.exists(dpath):
+        ids = {e["id"] for e in entries}
+        for did, svg in json.load(open(dpath)).items():
+            if did not in ids:
+                problems.append(f"diagram '{did}' has no matching entry")
+            if "<svg" not in svg or "—" in svg:
+                problems.append(f"diagram '{did}' malformed or has em-dash")
     for p in problems:
         print(f"  G1: {p}")
     ok = gate("G1 integrity", len(problems) == 0 and 1 or 0, 1, 100)

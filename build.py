@@ -59,6 +59,45 @@ def meta_description(text: str, limit: int = 158) -> str:
     return plain[: limit - 1].rsplit(" ", 1)[0] + "…"
 
 
+def _wrap(text: str, width: int) -> list:
+    words, lines, cur = text.split(), [], ""
+    for w in words:
+        if len(cur) + len(w) + 1 > width and cur:
+            lines.append(cur); cur = w
+        else:
+            cur = (cur + " " + w).strip()
+    if cur:
+        lines.append(cur)
+    return lines
+
+
+def og_card(question: str, diagram_svg: str) -> str:
+    """A 1200x630 branded OG card: the question + the concept diagram, in the
+    dark brand palette (fixed, since OG images are viewed outside the site)."""
+    q = html.escape(question)
+    title_lines = _wrap(q, 42)[:3]
+    title = "".join(
+        f"<text x='80' y='{150 + i*64}' font-size='52' font-weight='700' "
+        f"fill='#ececec' font-family='-apple-system,Segoe UI,Roboto,Arial,sans-serif'>{l}</text>"
+        for i, l in enumerate(title_lines))
+    # recolor the theme-var diagram to fixed dark-card colors
+    d = (diagram_svg
+         .replace("var(--accent)", "#10a37f").replace("var(--text-dim)", "#8b8f9a")
+         .replace("var(--text)", "#d7d9de").replace("var(--border)", "#3a3d46")
+         .replace("var(--bg-soft)", "#1a1d24"))
+    d = re.sub(r"width='100%'", "width='560'", d, count=1)
+    return (
+        f"<svg xmlns='http://www.w3.org/2000/svg' width='1200' height='630' viewBox='0 0 1200 630'>"
+        f"<rect width='1200' height='630' fill='#0f1117'/>"
+        f"<rect width='1200' height='10' fill='#10a37f'/>"
+        f"<circle cx='108' cy='72' r='30' fill='#10a37f'/>"
+        f"<text x='108' y='86' font-size='34' font-weight='700' text-anchor='middle' fill='#fff' font-family='-apple-system,Segoe UI,Roboto,Arial,sans-serif'>F</text>"
+        f"<text x='150' y='84' font-size='30' font-weight='700' fill='#ececec' font-family='-apple-system,Segoe UI,Roboto,Arial,sans-serif'>FabGPT-FAQ</text>"
+        f"{title}"
+        f"<g transform='translate(600 350)'>{d}</g>"
+        f"</svg>\n")
+
+
 # ---------- page templates ----------
 
 PAGE = """<!DOCTYPE html>
@@ -74,13 +113,13 @@ PAGE = """<!DOCTYPE html>
 <meta property="og:title" content="{ogtitle}">
 <meta property="og:description" content="{description}">
 <meta property="og:url" content="{canonical}">
-<meta property="og:image" content="{site}/og.svg">
+<meta property="og:image" content="{ogimg}">
 <meta property="og:site_name" content="FabGPT-FAQ">
 <meta property="og:locale" content="it_IT">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="{ogtitle}">
 <meta name="twitter:description" content="{description}">
-<meta name="twitter:image" content="{site}/og.svg">
+<meta name="twitter:image" content="{ogimg}">
 <link rel="stylesheet" href="{base}style.css">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
 <script type="application/ld+json">{jsonld}</script>
@@ -100,6 +139,11 @@ PAGE = """<!DOCTYPE html>
   .page .related a {{ color: var(--link); text-decoration: none; }}
   .page .related a:hover {{ text-decoration: underline; }}
   .page .related li {{ margin: 6px 0; }}
+  .diagram {{ margin: 24px 0 8px; padding: 14px; border: 1px solid var(--border); border-radius: 12px; background: var(--bg-soft); }}
+  .diagram svg {{ display: block; max-width: 100%; height: auto; }}
+  .answer code {{ cursor: pointer; }}
+  .answer code:hover {{ outline: 1px solid var(--border); }}
+  .answer code.copied {{ outline: 1px solid var(--accent); color: var(--accent); }}
 </style>
 </head>
 <body>
@@ -119,6 +163,14 @@ PAGE = """<!DOCTYPE html>
     <ul>{related}</ul>
   </div>
 </main>
+<script>
+document.addEventListener('click',function(e){{
+  var c=e.target.closest('code'); if(!c)return;
+  navigator.clipboard&&navigator.clipboard.writeText(c.textContent).then(function(){{
+    c.classList.add('copied'); setTimeout(function(){{c.classList.remove('copied')}},900);
+  }});
+}});
+</script>
 </body>
 </html>
 """
@@ -176,6 +228,8 @@ def build() -> None:
     site = db["config"]["siteUrl"].rstrip("/")
     entries = db["entries"]
     verticals = {v["id"]: v["label"] for v in db.get("verticals", [])}
+    dpath = ROOT / "diagrams.json"
+    diagrams = json.loads(dpath.read_text(encoding="utf-8")) if dpath.exists() else {}
 
     if OUT.exists():
         shutil.rmtree(OUT)
@@ -223,6 +277,18 @@ def build() -> None:
                 ],
             },
         ]
+        d = OUT / e["slug"]
+        d.mkdir()
+        # concept diagram (inline SVG) after the answer, in a <figure>
+        dg = diagrams.get(e["id"], "")
+        figure = (f'<figure class="diagram" aria-label="Schema: {html.escape(e["question"])}">'
+                  f'{dg}</figure>') if dg else ""
+        # entries with a diagram get a tailored OG card (the diagram on a branded canvas)
+        if dg:
+            (d / "og.svg").write_text(og_card(e["question"], dg), encoding="utf-8")
+            ogimg = f"{site}/q/{e['slug']}/og.svg"
+        else:
+            ogimg = f"{site}/og.svg"
         page = PAGE.format(
             title=html.escape(e["question"]) + " – FabGPT-FAQ",
             ogtitle=html.escape(e["question"]),
@@ -230,15 +296,14 @@ def build() -> None:
             canonical=f"{site}/q/{e['slug']}/",
             base="../../",
             site=site,
+            ogimg=ogimg,
             jsonld=json.dumps(jsonld, ensure_ascii=False),
             vertical=html.escape(vlabel),
             question=html.escape(e["question"]),
-            answer=render_md(answer_md).replace('href="q/', 'href="../'),
+            answer=render_md(answer_md).replace('href="q/', 'href="../') + figure,
             id=e["id"],
             related=related,
         )
-        d = OUT / e["slug"]
-        d.mkdir()
         (d / "index.html").write_text(page, encoding="utf-8")
 
     # --- index page with full FAQPage JSON-LD ---

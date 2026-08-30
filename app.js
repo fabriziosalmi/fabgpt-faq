@@ -11,6 +11,7 @@
   const noteEl = document.getElementById('composer-note');
 
   let DB = null;
+  let DIAGRAMS = {};                         // entry id -> inline SVG
   let streaming = false;
   const answerCursor = Object.create(null); // entry id -> next variant index
   let lastEntryId = null;
@@ -225,7 +226,7 @@
   // Type `text` into a fresh bot row, re-rendering partial markdown each tick.
   let finishStream = null; // set while streaming: fast-forwards to the full answer
 
-  function streamAnswer(text, onDone, suggest) {
+  function streamAnswer(text, onDone, suggest, diagramId) {
     streaming = true;
     updateSendState();
     const target = addBotRow();
@@ -240,6 +241,13 @@
       streaming = false;
       finishStream = null;
       updateSendState();
+      const svg = diagramId && DIAGRAMS[diagramId];
+      if (svg) {
+        const fig = document.createElement('figure');
+        fig.className = 'diagram';
+        fig.innerHTML = svg;
+        target.appendChild(fig);
+      }
       renderChips(suggest, target);
       scrollToBottom(false);
       if (onDone) onDone();
@@ -289,7 +297,7 @@
     const entry = match(text);
     const answer = entry ? pickAnswer(entry) : pickFallback();
     if (entry && entry.slug) askedSlugs.add(entry.slug); // thread history
-    streamAnswer(answer, null, entry && entry.suggest);
+    streamAnswer(answer, null, entry && entry.suggest, entry && entry.id);
   }
 
   /* ---------- composer ---------- */
@@ -318,6 +326,16 @@
     ask(text);
   });
 
+  // Click any inline `code` to copy it (commands, config snippets).
+  chatEl.addEventListener('click', e => {
+    const c = e.target.closest('code');
+    if (!c || !navigator.clipboard) return;
+    navigator.clipboard.writeText(c.textContent).then(() => {
+      c.classList.add('copied');
+      setTimeout(() => c.classList.remove('copied'), 900);
+    });
+  });
+
   inputEl.addEventListener('input', () => { autoGrow(); updateSendState(); });
   inputEl.addEventListener('keydown', e => {
     if (e.key === 'Enter' && !e.shiftKey) {
@@ -332,6 +350,8 @@
     try {
       const res = await fetch('faq.json', { cache: 'no-cache' });
       DB = await res.json();
+      try { DIAGRAMS = await (await fetch('diagrams.json', { cache: 'no-cache' })).json(); }
+      catch (_) { DIAGRAMS = {}; } // diagrams are optional
     } catch (err) {
       const target = addBotRow();
       target.innerHTML = '<p>Non riesco a caricare <code>faq.json</code>. Se hai aperto il file in locale, servilo con un web server: <code>python3 -m http.server</code></p>';

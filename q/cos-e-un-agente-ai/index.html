@@ -11,13 +11,13 @@
 <meta property="og:title" content="Cos&#x27;è un agente AI (e in cosa differisce da un chatbot)?">
 <meta property="og:description" content="Un chatbot risponde; un agente agisce. La differenza tecnica: l&#x27;agente è un LLM in un ciclo – osserva, decide, usa uno strumento ([function…">
 <meta property="og:url" content="https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-un-agente-ai/">
-<meta property="og:image" content="https://fabriziosalmi.github.io/fabgpt-faq/og.svg">
+<meta property="og:image" content="https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-un-agente-ai/og.svg">
 <meta property="og:site_name" content="FabGPT-FAQ">
 <meta property="og:locale" content="it_IT">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Cos&#x27;è un agente AI (e in cosa differisce da un chatbot)?">
 <meta name="twitter:description" content="Un chatbot risponde; un agente agisce. La differenza tecnica: l&#x27;agente è un LLM in un ciclo – osserva, decide, usa uno strumento ([function…">
-<meta name="twitter:image" content="https://fabriziosalmi.github.io/fabgpt-faq/og.svg">
+<meta name="twitter:image" content="https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-un-agente-ai/og.svg">
 <link rel="stylesheet" href="../../style.css">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
 <script type="application/ld+json">[{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Cos'è un agente AI (e in cosa differisce da un chatbot)?", "acceptedAnswer": {"@type": "Answer", "text": "Un chatbot risponde; un agente agisce. La differenza tecnica: l'agente è un LLM in un ciclo – osserva, decide, usa uno strumento ([function calling](q/cos-e-il-function-calling/)), legge il risultato, decide ancora – finché l'obiettivo non è raggiunto. Scrive file, esegue comandi, naviga, interroga API. Con l'autonomia arrivano i rischi: un agente che esegue comandi è un utente privilegiato che si può ingannare ([prompt injection](q/cos-e-la-prompt-injection/)). Le difese sono architetturali: permessi minimi, sandbox, approvazione umana per le azioni irreversibili (human-in-the-loop – così fa il gate Telegram di proxxx prima di toccare un cluster), e strumenti esposti in modo tipizzato e limitato via [MCP](q/cos-e-mcp-model-context-protocol/) invece di \"eccoti la shell\"."}}]}, {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "FabGPT-FAQ", "item": "https://fabriziosalmi.github.io/fabgpt-faq/"}, {"@type": "ListItem", "position": 2, "name": "Tutte le domande", "item": "https://fabriziosalmi.github.io/fabgpt-faq/q/"}, {"@type": "ListItem", "position": 3, "name": "AI e LLM", "item": "https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-un-agente-ai/"}]}]</script>
@@ -37,6 +37,11 @@
   .page .related a { color: var(--link); text-decoration: none; }
   .page .related a:hover { text-decoration: underline; }
   .page .related li { margin: 6px 0; }
+  .diagram { margin: 24px 0 8px; padding: 14px; border: 1px solid var(--border); border-radius: 12px; background: var(--bg-soft); }
+  .diagram svg { display: block; max-width: 100%; height: auto; }
+  .answer code { cursor: pointer; }
+  .answer code:hover { outline: 1px solid var(--border); }
+  .answer code.copied { outline: 1px solid var(--accent); color: var(--accent); }
 </style>
 </head>
 <body>
@@ -49,12 +54,20 @@
 <main class="page">
   <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › AI e LLM</nav>
   <h1>Cos&#x27;è un agente AI (e in cosa differisce da un chatbot)?</h1>
-  <div class="answer"><p>Un chatbot risponde; un <strong>agente</strong> agisce. La differenza tecnica: l&#x27;agente è un LLM in un <strong>ciclo</strong> – osserva, decide, usa uno strumento (<a href="../cos-e-il-function-calling/">function calling</a>), legge il risultato, decide ancora – finché l&#x27;obiettivo non è raggiunto. Scrive file, esegue comandi, naviga, interroga API.</p><p>Con l&#x27;autonomia arrivano i rischi: un agente che esegue comandi è un utente privilegiato che si può ingannare (<a href="../cos-e-la-prompt-injection/">prompt injection</a>). Le difese sono architetturali: <strong>permessi minimi</strong>, sandbox, approvazione umana per le azioni irreversibili (human-in-the-loop – così fa il gate Telegram di <a href="https://github.com/fabriziosalmi/proxxx" target="_blank" rel="noopener">proxxx</a> prima di toccare un cluster), e strumenti esposti in modo tipizzato e limitato via <a href="../cos-e-mcp-model-context-protocol/">MCP</a> invece di &quot;eccoti la shell&quot;.</p></div>
+  <div class="answer"><p>Un chatbot risponde; un <strong>agente</strong> agisce. La differenza tecnica: l&#x27;agente è un LLM in un <strong>ciclo</strong> – osserva, decide, usa uno strumento (<a href="../cos-e-il-function-calling/">function calling</a>), legge il risultato, decide ancora – finché l&#x27;obiettivo non è raggiunto. Scrive file, esegue comandi, naviga, interroga API.</p><p>Con l&#x27;autonomia arrivano i rischi: un agente che esegue comandi è un utente privilegiato che si può ingannare (<a href="../cos-e-la-prompt-injection/">prompt injection</a>). Le difese sono architetturali: <strong>permessi minimi</strong>, sandbox, approvazione umana per le azioni irreversibili (human-in-the-loop – così fa il gate Telegram di <a href="https://github.com/fabriziosalmi/proxxx" target="_blank" rel="noopener">proxxx</a> prima di toccare un cluster), e strumenti esposti in modo tipizzato e limitato via <a href="../cos-e-mcp-model-context-protocol/">MCP</a> invece di &quot;eccoti la shell&quot;.</p><figure class="diagram" aria-label="Schema: Cos&#x27;è un agente AI (e in cosa differisce da un chatbot)?"><svg class='diagram-svg' viewBox='0 0 640 220' width='100%' role='img' xmlns='http://www.w3.org/2000/svg' font-family='-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif'><defs><marker id='ah' markerWidth='9' markerHeight='9' refX='7' refY='3' orient='auto'><path d='M0,0 L7,3 L0,6 Z' fill='var(--text-dim)'/></marker></defs><rect x='255' y='20' width='130' height='46' rx='10' fill='var(--bg-soft)' stroke='var(--accent)' stroke-width='2'/><text x='320.0' y='48.0' text-anchor='middle' font-size='15' font-weight='600' fill='var(--text)'>Osserva</text><rect x='455' y='90' width='130' height='46' rx='10' fill='var(--bg-soft)' stroke='var(--accent)' stroke-width='2'/><text x='520.0' y='109.0' text-anchor='middle' font-size='15' font-weight='600' fill='var(--text)'>Agisci</text><text x='520.0' y='127.0' text-anchor='middle' font-size='15' font-weight='500' fill='var(--text)'>(usa strumenti)</text><rect x='255' y='158' width='130' height='46' rx='10' fill='var(--bg-soft)' stroke='var(--border)' stroke-width='1.4'/><text x='320.0' y='177.0' text-anchor='middle' font-size='15' font-weight='500' fill='var(--text)'>Legge il</text><text x='320.0' y='195.0' text-anchor='middle' font-size='15' font-weight='500' fill='var(--text)'>risultato</text><rect x='55' y='90' width='130' height='46' rx='10' fill='var(--bg-soft)' stroke='var(--border)' stroke-width='1.4'/><text x='120.0' y='118.0' text-anchor='middle' font-size='15' font-weight='500' fill='var(--text)'>Decide</text><line x1='385' y1='46' x2='470' y2='88' stroke='var(--text-dim)' stroke-width='1.6' stroke-dasharray='6 5' class='dg-flow' marker-end='url(#ah)'/><line x1='520' y1='136' x2='400' y2='172' stroke='var(--text-dim)' stroke-width='1.6' stroke-dasharray='6 5' class='dg-flow' marker-end='url(#ah)'/><line x1='255' y1='176' x2='130' y2='138' stroke='var(--text-dim)' stroke-width='1.6' stroke-dasharray='6 5' class='dg-flow' marker-end='url(#ah)'/><line x1='120' y1='88' x2='280' y2='66' stroke='var(--text-dim)' stroke-width='1.6' stroke-dasharray='6 5' class='dg-flow' marker-end='url(#ah)'/><text x='320' y='214' font-size='12.5' fill='var(--text-dim)' text-anchor='middle'>il ciclo che trasforma il testo in azione</text></svg></figure></div>
   <a class="ask" href="../../?q=ai-agent">Chiedilo a FabGPT-FAQ →</a>
   <div class="related">
     <h2>Altre domande</h2>
     <ul><li><a href="../cos-e-il-function-calling/">Cos&#x27;è il function calling (tool use) negli LLM?</a></li><li><a href="../cos-e-la-prompt-injection/">Cos&#x27;è la prompt injection e come ci si difende?</a></li><li><a href="../cos-e-mcp-model-context-protocol/">Cos&#x27;è MCP (Model Context Protocol)?</a></li><li><a href="../cos-e-un-waf-web-application-firewall/">Cos&#x27;è un WAF (Web Application Firewall) e a cosa serve?</a></li><li><a href="../cos-e-il-vibe-coding/">Cos&#x27;è il vibe coding e quali sono i rischi?</a></li><li><a href="../allucinazioni-llm-dipendenze-inventate/">Cosa sono le allucinazioni degli LLM (e le dipendenze inventate)?</a></li></ul>
   </div>
 </main>
+<script>
+document.addEventListener('click',function(e){
+  var c=e.target.closest('code'); if(!c)return;
+  navigator.clipboard&&navigator.clipboard.writeText(c.textContent).then(function(){
+    c.classList.add('copied'); setTimeout(function(){c.classList.remove('copied')},900);
+  });
+});
+</script>
 </body>
 </html>

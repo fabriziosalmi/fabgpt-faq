@@ -37,6 +37,11 @@
   .page .related a { color: var(--link); text-decoration: none; }
   .page .related a:hover { text-decoration: underline; }
   .page .related li { margin: 6px 0; }
+  .diagram { margin: 24px 0 8px; padding: 14px; border: 1px solid var(--border); border-radius: 12px; background: var(--bg-soft); }
+  .diagram svg { display: block; max-width: 100%; height: auto; }
+  .answer code { cursor: pointer; }
+  .answer code:hover { outline: 1px solid var(--border); }
+  .answer code.copied { outline: 1px solid var(--accent); color: var(--accent); }
 </style>
 </head>
 <body>
@@ -56,5 +61,13 @@
     <ul><li><a href="../cos-e-ollama/">Cos&#x27;è Ollama e come si usa?</a></li><li><a href="../quanta-ram-vram-serve-per-un-llm/">Quanta RAM o VRAM serve per un LLM (7B, 13B, 70B)?</a></li><li><a href="../avviare-un-chatgpt-privato-per-il-team/">Come si dà al team un ChatGPT privato senza far uscire i dati?</a></li><li><a href="../cos-e-rag-retrieval-augmented-generation/">Cos&#x27;è RAG (Retrieval-Augmented Generation)?</a></li><li><a href="../cos-e-la-prompt-injection/">Cos&#x27;è la prompt injection e come ci si difende?</a></li><li><a href="../cos-e-mcp-model-context-protocol/">Cos&#x27;è MCP (Model Context Protocol)?</a></li></ul>
   </div>
 </main>
+<script>
+document.addEventListener('click',function(e){
+  var c=e.target.closest('code'); if(!c)return;
+  navigator.clipboard&&navigator.clipboard.writeText(c.textContent).then(function(){
+    c.classList.add('copied'); setTimeout(function(){c.classList.remove('copied')},900);
+  });
+});
+</script>
 </body>
 </html>

@@ -11,13 +11,13 @@
 <meta property="og:title" content="Come funziona l&#x27;handshake TCP a tre vie (e il SYN flood)?">
 <meta property="og:description" content="Ogni connessione TCP nasce con un tre vie: il client manda SYN (&quot;voglio parlare&quot;), il server risponde SYN-ACK (&quot;ok, e anch&#x27;io&quot;), il client chiude con ACK.…">
 <meta property="og:url" content="https://fabriziosalmi.github.io/fabgpt-faq/q/handshake-tcp-e-syn-flood/">
-<meta property="og:image" content="https://fabriziosalmi.github.io/fabgpt-faq/og.svg">
+<meta property="og:image" content="https://fabriziosalmi.github.io/fabgpt-faq/q/handshake-tcp-e-syn-flood/og.svg">
 <meta property="og:site_name" content="FabGPT-FAQ">
 <meta property="og:locale" content="it_IT">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Come funziona l&#x27;handshake TCP a tre vie (e il SYN flood)?">
 <meta name="twitter:description" content="Ogni connessione TCP nasce con un tre vie: il client manda SYN (&quot;voglio parlare&quot;), il server risponde SYN-ACK (&quot;ok, e anch&#x27;io&quot;), il client chiude con ACK.…">
-<meta name="twitter:image" content="https://fabriziosalmi.github.io/fabgpt-faq/og.svg">
+<meta name="twitter:image" content="https://fabriziosalmi.github.io/fabgpt-faq/q/handshake-tcp-e-syn-flood/og.svg">
 <link rel="stylesheet" href="../../style.css">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
 <script type="application/ld+json">[{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Come funziona l'handshake TCP a tre vie (e il SYN flood)?", "acceptedAnswer": {"@type": "Answer", "text": "Ogni connessione TCP nasce con un tre vie: il client manda SYN (\"voglio parlare\"), il server risponde SYN-ACK (\"ok, e anch'io\"), il client chiude con ACK. Solo allora i dati scorrono. Il server, tra SYN-ACK e ACK, tiene una connessione mezza aperta in memoria. Il SYN flood abusa proprio quell'attesa: l'attaccante manda migliaia di SYN con IP sorgente falsificato e non risponde mai all'ACK – la tabella delle connessioni mezze aperte si riempie, e il server smette di accettare connessioni legittime. È un [DDoS](q/cos-e-un-attacco-ddos/) di protocollo (L4), economico da lanciare. Le difese classiche: i SYN cookies (il server non alloca stato finché l'ACK non torna – codifica tutto in un numero di sequenza calcolato), rate limiting sui SYN, e a monte le reti [anycast](q/cos-e-l-anycast/) che spalmano il volume. È il tipo di attacco volumetrico per cui [un edge davanti](q/cloudflare-o-self-hosted/) conta più di ogni tuning del kernel."}}]}, {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "FabGPT-FAQ", "item": "https://fabriziosalmi.github.io/fabgpt-faq/"}, {"@type": "ListItem", "position": 2, "name": "Tutte le domande", "item": "https://fabriziosalmi.github.io/fabgpt-faq/q/"}, {"@type": "ListItem", "position": 3, "name": "Cybersecurity", "item": "https://fabriziosalmi.github.io/fabgpt-faq/q/handshake-tcp-e-syn-flood/"}]}]</script>
@@ -37,6 +37,11 @@
   .page .related a { color: var(--link); text-decoration: none; }
   .page .related a:hover { text-decoration: underline; }
   .page .related li { margin: 6px 0; }
+  .diagram { margin: 24px 0 8px; padding: 14px; border: 1px solid var(--border); border-radius: 12px; background: var(--bg-soft); }
+  .diagram svg { display: block; max-width: 100%; height: auto; }
+  .answer code { cursor: pointer; }
+  .answer code:hover { outline: 1px solid var(--border); }
+  .answer code.copied { outline: 1px solid var(--accent); color: var(--accent); }
 </style>
 </head>
 <body>
@@ -49,12 +54,20 @@
 <main class="page">
   <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › Cybersecurity</nav>
   <h1>Come funziona l&#x27;handshake TCP a tre vie (e il SYN flood)?</h1>
-  <div class="answer"><p>Ogni connessione TCP nasce con un <strong>tre vie</strong>: il client manda <strong>SYN</strong> (&quot;voglio parlare&quot;), il server risponde <strong>SYN-ACK</strong> (&quot;ok, e anch&#x27;io&quot;), il client chiude con <strong>ACK</strong>. Solo allora i dati scorrono. Il server, tra SYN-ACK e ACK, tiene una <strong>connessione mezza aperta</strong> in memoria.</p><p>Il <strong>SYN flood</strong> abusa proprio quell&#x27;attesa: l&#x27;attaccante manda migliaia di SYN con IP sorgente falsificato e non risponde mai all&#x27;ACK – la tabella delle connessioni mezze aperte si riempie, e il server smette di accettare connessioni legittime. È un <a href="../cos-e-un-attacco-ddos/">DDoS</a> di protocollo (L4), economico da lanciare.</p><p>Le difese classiche: i <strong>SYN cookies</strong> (il server non alloca stato finché l&#x27;ACK non torna – codifica tutto in un numero di sequenza calcolato), rate limiting sui SYN, e a monte le reti <a href="../cos-e-l-anycast/">anycast</a> che spalmano il volume. È il tipo di attacco volumetrico per cui <a href="../cloudflare-o-self-hosted/">un edge davanti</a> conta più di ogni tuning del kernel.</p></div>
+  <div class="answer"><p>Ogni connessione TCP nasce con un <strong>tre vie</strong>: il client manda <strong>SYN</strong> (&quot;voglio parlare&quot;), il server risponde <strong>SYN-ACK</strong> (&quot;ok, e anch&#x27;io&quot;), il client chiude con <strong>ACK</strong>. Solo allora i dati scorrono. Il server, tra SYN-ACK e ACK, tiene una <strong>connessione mezza aperta</strong> in memoria.</p><p>Il <strong>SYN flood</strong> abusa proprio quell&#x27;attesa: l&#x27;attaccante manda migliaia di SYN con IP sorgente falsificato e non risponde mai all&#x27;ACK – la tabella delle connessioni mezze aperte si riempie, e il server smette di accettare connessioni legittime. È un <a href="../cos-e-un-attacco-ddos/">DDoS</a> di protocollo (L4), economico da lanciare.</p><p>Le difese classiche: i <strong>SYN cookies</strong> (il server non alloca stato finché l&#x27;ACK non torna – codifica tutto in un numero di sequenza calcolato), rate limiting sui SYN, e a monte le reti <a href="../cos-e-l-anycast/">anycast</a> che spalmano il volume. È il tipo di attacco volumetrico per cui <a href="../cloudflare-o-self-hosted/">un edge davanti</a> conta più di ogni tuning del kernel.</p><figure class="diagram" aria-label="Schema: Come funziona l&#x27;handshake TCP a tre vie (e il SYN flood)?"><svg class='diagram-svg' viewBox='0 0 640 210' width='100%' role='img' xmlns='http://www.w3.org/2000/svg' font-family='-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif'><defs><marker id='ah' markerWidth='9' markerHeight='9' refX='7' refY='3' orient='auto'><path d='M0,0 L7,3 L0,6 Z' fill='var(--text-dim)'/></marker></defs><rect x='40' y='20' width='140' height='44' rx='10' fill='var(--bg-soft)' stroke='var(--border)' stroke-width='1.4'/><text x='110.0' y='47.0' text-anchor='middle' font-size='15' font-weight='500' fill='var(--text)'>Client</text><rect x='460' y='20' width='140' height='44' rx='10' fill='var(--bg-soft)' stroke='var(--border)' stroke-width='1.4'/><text x='530.0' y='47.0' text-anchor='middle' font-size='15' font-weight='500' fill='var(--text)'>Server</text><line x1='110' y1='64' x2='110' y2='200' stroke='var(--border)' stroke-width='1.2'/><line x1='530' y1='64' x2='530' y2='200' stroke='var(--border)' stroke-width='1.2'/><line x1='112' y1='92' x2='528' y2='108' stroke='var(--text-dim)' stroke-width='1.6' marker-end='url(#ah)'/><text x='320.0' y='92.0' text-anchor='middle' font-size='12' fill='var(--text-dim)'>SYN</text><line x1='528' y1='132' x2='112' y2='148' stroke='var(--text-dim)' stroke-width='1.6' marker-end='url(#ah)'/><text x='320.0' y='132.0' text-anchor='middle' font-size='12' fill='var(--text-dim)'>SYN-ACK</text><line x1='112' y1='172' x2='528' y2='188' stroke='var(--text-dim)' stroke-width='1.6' marker-end='url(#ah)'/><text x='320.0' y='172.0' text-anchor='middle' font-size='12' fill='var(--text-dim)'>ACK</text><text x='320' y='210' font-size='12.5' fill='var(--text-dim)' text-anchor='middle'>tre vie: poi i dati scorrono</text></svg></figure></div>
   <a class="ask" href="../../?q=tcp-handshake">Chiedilo a FabGPT-FAQ →</a>
   <div class="related">
     <h2>Altre domande</h2>
     <ul><li><a href="../cos-e-un-attacco-ddos/">Cos&#x27;è un attacco DDoS e come ci si difende?</a></li><li><a href="../cos-e-l-anycast/">Cos&#x27;è l&#x27;anycast?</a></li><li><a href="../cloudflare-o-self-hosted/">Cloudflare o self-hosted: il confronto onesto</a></li><li><a href="../cos-e-un-waf-web-application-firewall/">Cos&#x27;è un WAF (Web Application Firewall) e a cosa serve?</a></li><li><a href="../cos-e-un-reverse-proxy/">Cos&#x27;è un reverse proxy e a cosa serve?</a></li><li><a href="../come-funziona-lets-encrypt-acme/">Come funziona Let&#x27;s Encrypt e il protocollo ACME?</a></li></ul>
   </div>
 </main>
+<script>
+document.addEventListener('click',function(e){
+  var c=e.target.closest('code'); if(!c)return;
+  navigator.clipboard&&navigator.clipboard.writeText(c.textContent).then(function(){
+    c.classList.add('copied'); setTimeout(function(){c.classList.remove('copied')},900);
+  });
+});
+</script>
 </body>
 </html>
