@@ -20,28 +20,26 @@
 <meta name="twitter:image" content="https://fabriziosalmi.github.io/fabgpt-faq/og.svg">
 <link rel="stylesheet" href="../../style.css">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
-<script type="application/ld+json">[{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Cos'è un LLM (Large Language Model)?", "acceptedAnswer": {"@type": "Answer", "text": "Un LLM è una rete neurale (architettura transformer) addestrata su enormi quantità di testo a fare una cosa sola: predire il prossimo token data la sequenza precedente. Da questa capacità apparentemente banale, a scala sufficiente, emergono traduzione, scrittura, programmazione, ragionamento apparente. Le conseguenze pratiche del \"predire il prossimo token\": un LLM non sa le cose, genera testo plausibile – da cui le [allucinazioni](q/allucinazioni-llm-dipendenze-inventate/); non ha memoria oltre la sua [context window](q/token-e-context-window/); e la qualità dipende da dati e addestramento, non dalla sicurezza con cui risponde. Capire questi limiti è metà dell'usarli bene – l'altra metà è dargli strumenti e contesto giusti (RAG, tool, verifiche)."}}]}, {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "FabGPT-FAQ", "item": "https://fabriziosalmi.github.io/fabgpt-faq/"}, {"@type": "ListItem", "position": 2, "name": "Tutte le domande", "item": "https://fabriziosalmi.github.io/fabgpt-faq/q/"}, {"@type": "ListItem", "position": 3, "name": "AI e LLM", "item": "https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-un-llm/"}]}]</script>
+<script type="application/ld+json">[{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Cos'è un LLM (Large Language Model)?", "description": "Un LLM è una rete neurale (architettura transformer) addestrata su enormi quantità di testo a fare una cosa sola: predire il prossimo token data la sequenza…", "author": {"@type": "Person", "name": "Fabrizio Salmi", "url": "https://github.com/fabriziosalmi"}, "publisher": {"@type": "Organization", "name": "FabGPT-FAQ", "url": "https://fabriziosalmi.github.io/fabgpt-faq/"}, "inLanguage": "it", "articleSection": "AI e LLM"}, {"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Cos'è un LLM (Large Language Model)?", "acceptedAnswer": {"@type": "Answer", "text": "Un LLM è una rete neurale (architettura transformer) addestrata su enormi quantità di testo a fare una cosa sola: predire il prossimo token data la sequenza precedente. Da questa capacità apparentemente banale, a scala sufficiente, emergono traduzione, scrittura, programmazione, ragionamento apparente. Le conseguenze pratiche del \"predire il prossimo token\": un LLM non sa le cose, genera testo plausibile – da cui le [allucinazioni](q/allucinazioni-llm-dipendenze-inventate/); non ha memoria oltre la sua [context window](q/token-e-context-window/); e la qualità dipende da dati e addestramento, non dalla sicurezza con cui risponde. Capire questi limiti è metà dell'usarli bene – l'altra metà è dargli strumenti e contesto giusti (RAG, tool, verifiche)."}}]}, {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "FabGPT-FAQ", "item": "https://fabriziosalmi.github.io/fabgpt-faq/"}, {"@type": "ListItem", "position": 2, "name": "Tutte le domande", "item": "https://fabriziosalmi.github.io/fabgpt-faq/q/"}, {"@type": "ListItem", "position": 3, "name": "AI e LLM", "item": "https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-un-llm/"}]}]</script>
 <style>
   .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
-  .page h1 { font-size: 26px; line-height: 1.3; margin: 6px 0 20px; }
-  .crumbs { font-size: 13px; color: var(--text-dim); margin-bottom: 4px; }
+  .page h1 { font-size: 26px; line-height: 1.3; margin: 6px 0 10px; }
+  .crumbs { font-size: 13px; color: var(--text-dim); margin-bottom: 6px; }
   .crumbs a { color: var(--text-dim); text-decoration: none; }
   .crumbs a:hover { color: var(--text); }
   .page .answer a { color: var(--link); }
-  .page .vertical { font-size: 13px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }
   .page .answer ul { padding-left: 22px; }
   .page .answer code { background: var(--code-bg); border-radius: 5px; padding: 1px 5px; font-size: 0.9em; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
-  .qa-actions { display: flex; align-items: center; gap: 12px; margin-top: 20px; }
+  .qa-actions { display: flex; align-items: center; gap: 12px; margin-top: 24px; flex-wrap: wrap; }
   .copy-qa-btn { display: inline-flex; align-items: center; gap: 6px; background: var(--bg-soft); color: var(--text-dim); border: 1px solid var(--border); border-radius: 6px; padding: 6px 12px; font-size: 13px; font-family: inherit; font-weight: 500; cursor: pointer; transition: all .15s ease; }
   .copy-qa-btn:hover { background: var(--border); color: var(--text); }
   .copy-qa-btn.copied { background: rgba(16, 163, 127, 0.15); color: var(--accent); border-color: var(--accent); }
-  .copy-qa-btn svg { flex: 0 0 auto; }
   .page .ask { display: inline-block; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 8px 16px; text-decoration: none; font-weight: 600; font-size: 13px; }
-  .page .related { margin-top: 36px; border-top: 1px solid var(--border); padding-top: 18px; }
-  .page .related h2 { font-size: 16px; }
+  .page .related { margin-top: 36px; border-top: 1px solid var(--border); padding-top: 20px; }
+  .page .related h2 { font-size: 16px; margin-bottom: 12px; }
   .page .related a { color: var(--link); text-decoration: none; }
   .page .related a:hover { text-decoration: underline; }
-  .page .related li { margin: 6px 0; }
+  .page .related li { margin: 8px 0; }
   .diagram { margin: 24px 0 8px; padding: 14px; border: 1px solid var(--border); border-radius: 12px; background: var(--bg-soft); }
   .diagram svg { display: block; max-width: 100%; height: auto; }
   .answer code { cursor: pointer; }
@@ -55,26 +53,64 @@
     <span class="brand-dot">F</span>
     <span class="brand-name">FabGPT-FAQ</span>
   </a>
+  <nav class="topnav"><a href="../../q/">Tutte le domande</a></nav>
 </header>
 <main class="page">
-  <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › AI e LLM</nav>
-  <h1 id="page-question">Cos&#x27;è un LLM (Large Language Model)?</h1>
-  <div class="answer" id="page-answer"><p>Un <strong>LLM</strong> è una rete neurale (architettura transformer) addestrata su enormi quantità di testo a fare una cosa sola: predire il prossimo token data la sequenza precedente. Da questa capacità apparentemente banale, a scala sufficiente, emergono traduzione, scrittura, programmazione, ragionamento apparente.</p><p>Le conseguenze pratiche del &quot;predire il prossimo token&quot;: un LLM non <em>sa</em> le cose, genera testo <strong>plausibile</strong> – da cui le <a href="../allucinazioni-llm-dipendenze-inventate/">allucinazioni</a>; non ha memoria oltre la sua <a href="../token-e-context-window/">context window</a>; e la qualità dipende da dati e addestramento, non dalla sicurezza con cui risponde. Capire questi limiti è metà dell&#x27;usarli bene – l&#x27;altra metà è dargli strumenti e contesto giusti (RAG, tool, verifiche).</p></div>
-  <div class="qa-actions">
-    <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
-      <span>Copia</span>
-    </button>
-    <a class="ask" href="../../?q=cos-e-un-llm">Chiedilo a FabGPT-FAQ →</a>
-  </div>
-  <div class="related">
-    <h2>Altre domande</h2>
-    <ul><li><a href="../allucinazioni-llm-dipendenze-inventate/">Cosa sono le allucinazioni degli LLM (e le dipendenze inventate)?</a></li><li><a href="../token-e-context-window/">Cosa sono i token e la context window di un LLM?</a></li><li><a href="../temperatura-di-un-llm/">Cos&#x27;è la temperatura di un LLM?</a></li><li><a href="../cos-e-la-prompt-injection/">Cos&#x27;è la prompt injection e come ci si difende?</a></li><li><a href="../cos-e-mcp-model-context-protocol/">Cos&#x27;è MCP (Model Context Protocol)?</a></li><li><a href="../cos-e-il-vibe-coding/">Cos&#x27;è il vibe coding e quali sono i rischi?</a></li></ul>
-  </div>
+  <article itemscope itemtype="https://schema.org/TechArticle">
+    <nav class="crumbs" aria-label="Percorso"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › <span itemprop="articleSection">AI e LLM</span></nav>
+    <h1 id="page-question" itemprop="headline">Cos&#x27;è un LLM (Large Language Model)?</h1>
+    <div class="page-meta">
+      <span class="page-meta-badge vert"><svg class='glyph' viewBox='0 0 24 24' width='22' height='22' aria-hidden='true' fill='none' stroke='var(--accent)' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'><circle cx='12' cy='12' r='3'/><path d='M12 3v3M12 18v3M3 12h3M18 12h3M6 6l2 2M16 16l2 2M18 6l-2 2M8 16l-2 2'/></svg> <span>AI e LLM</span></span>
+      <span class="page-meta-badge">⏱️ 1 min lettura</span>
+      <span class="page-meta-badge">✓ Runbook verificato</span>
+    </div>
+    <div class="answer" id="page-answer" itemprop="articleBody"><p>Un <strong>LLM</strong> è una rete neurale (architettura transformer) addestrata su enormi quantità di testo a fare una cosa sola: predire il prossimo token data la sequenza precedente. Da questa capacità apparentemente banale, a scala sufficiente, emergono traduzione, scrittura, programmazione, ragionamento apparente.</p><p>Le conseguenze pratiche del &quot;predire il prossimo token&quot;: un LLM non <em>sa</em> le cose, genera testo <strong>plausibile</strong> – da cui le <a href="../allucinazioni-llm-dipendenze-inventate/">allucinazioni</a>; non ha memoria oltre la sua <a href="../token-e-context-window/">context window</a>; e la qualità dipende da dati e addestramento, non dalla sicurezza con cui risponde. Capire questi limiti è metà dell&#x27;usarli bene – l&#x27;altra metà è dargli strumenti e contesto giusti (RAG, tool, verifiche).</p></div>
+    <div class="qa-actions">
+      <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+        <span>Copia Q&A</span>
+      </button>
+      <a class="ask" href="../../?q=cos-e-un-llm">Apri nella chat interattiva 💬</a>
+    </div>
+    <nav class="page-nav" aria-label="Navigazione tra domande"><a class="page-nav-card prev" href="../cos-e-rag-retrieval-augmented-generation/"><span class="nav-dir">← Precedente</span><span class="nav-title">Cos&#x27;è RAG (Retrieval-Augmented Generation)?</span></a><a class="page-nav-card next" href="../token-e-context-window/"><span class="nav-dir">Successiva →</span><span class="nav-title">Cosa sono i token e la context window di un LLM?</span></a></nav>
+    <section class="ask-box">
+      <div class="ask-box-header">
+        <span class="ask-box-icon">💬</span>
+        <div>
+          <h3>Hai una domanda specifica su questo tema?</h3>
+          <p>Interroga direttamente il motore FabGPT-FAQ con risposta in tempo reale a zero allucinazioni.</p>
+        </div>
+      </div>
+      <form class="ask-box-form" action="../../" method="get">
+        <input type="text" name="q" value="Cos&#x27;è un LLM (Large Language Model)?" placeholder="Chiedi qualcosa a FabGPT-FAQ…" aria-label="Chiedi qualcosa" autocomplete="off">
+        <button type="submit">Chiedi in chat →</button>
+      </form>
+    </section>
+    <div class="related">
+      <h2>Domande correlate</h2>
+      <ul><li><a href="../allucinazioni-llm-dipendenze-inventate/">Cosa sono le allucinazioni degli LLM (e le dipendenze inventate)?</a></li><li><a href="../token-e-context-window/">Cosa sono i token e la context window di un LLM?</a></li><li><a href="../temperatura-di-un-llm/">Cos&#x27;è la temperatura di un LLM?</a></li><li><a href="../cos-e-la-prompt-injection/">Cos&#x27;è la prompt injection e come ci si difende?</a></li><li><a href="../cos-e-mcp-model-context-protocol/">Cos&#x27;è MCP (Model Context Protocol)?</a></li><li><a href="../cos-e-il-vibe-coding/">Cos&#x27;è il vibe coding e quali sono i rischi?</a></li></ul>
+    </div>
+  </article>
 </main>
 <script>
 document.addEventListener('click',function(e){
-  var c=e.target.closest('code'); if(!c)return;
+  var copyCodeBtn = e.target.closest('.copy-code-btn');
+  if (copyCodeBtn) {
+    var block = copyCodeBtn.closest('.code-block');
+    var code = block ? block.querySelector('code')?.textContent : '';
+    if (code && navigator.clipboard) {
+      navigator.clipboard.writeText(code).then(function(){
+        copyCodeBtn.classList.add('copied');
+        copyCodeBtn.querySelector('span').textContent = 'Copiato!';
+        setTimeout(function(){
+          copyCodeBtn.classList.remove('copied');
+          copyCodeBtn.querySelector('span').textContent = 'Copia';
+        }, 1500);
+      });
+    }
+    return;
+  }
+  var c=e.target.closest('code:not(pre code)'); if(!c)return;
   navigator.clipboard&&navigator.clipboard.writeText(c.textContent).then(function(){
     c.classList.add('copied'); setTimeout(function(){c.classList.remove('copied')},900);
   });
@@ -90,7 +126,7 @@ document.getElementById('copy-page-btn')?.addEventListener('click', function(){
       btn.querySelector('span').textContent = 'Copiato!';
       setTimeout(function(){
         btn.classList.remove('copied');
-        btn.querySelector('span').textContent = 'Copia';
+        btn.querySelector('span').textContent = 'Copia Q&A';
       }, 1500);
     });
   }

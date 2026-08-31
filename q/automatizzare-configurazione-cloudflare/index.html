@@ -20,28 +20,26 @@
 <meta name="twitter:image" content="https://fabriziosalmi.github.io/fabgpt-faq/og.svg">
 <link rel="stylesheet" href="../../style.css">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
-<script type="application/ld+json">[{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Come si automatizza la configurazione di Cloudflare?", "acceptedAnswer": {"@type": "Answer", "text": "Approccio GitOps: la configurazione vive in un repository e GitHub Actions la applica. I tool: zonecontrol – automatizza le impostazioni delle zone Cloudflare wafcontrol – automatizza le impostazioni WAF Cloudflare cf-box – toolkit Python per lavorare con le API su più account Cloudflare dnscontrol-actions – aggiornamenti e rollback DNS multi-provider con DNSControl Vantaggi: ogni modifica è una pull request, con review, storia e rollback."}}]}, {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "FabGPT-FAQ", "item": "https://fabriziosalmi.github.io/fabgpt-faq/"}, {"@type": "ListItem", "position": 2, "name": "Tutte le domande", "item": "https://fabriziosalmi.github.io/fabgpt-faq/q/"}, {"@type": "ListItem", "position": 3, "name": "Cloudflare", "item": "https://fabriziosalmi.github.io/fabgpt-faq/q/automatizzare-configurazione-cloudflare/"}]}]</script>
+<script type="application/ld+json">[{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Come si automatizza la configurazione di Cloudflare?", "description": "Approccio GitOps: la configurazione vive in un repository e GitHub Actions la applica. I tool: zonecontrol – automatizza le impostazioni delle zone…", "author": {"@type": "Person", "name": "Fabrizio Salmi", "url": "https://github.com/fabriziosalmi"}, "publisher": {"@type": "Organization", "name": "FabGPT-FAQ", "url": "https://fabriziosalmi.github.io/fabgpt-faq/"}, "inLanguage": "it", "articleSection": "Cloudflare"}, {"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Come si automatizza la configurazione di Cloudflare?", "acceptedAnswer": {"@type": "Answer", "text": "Approccio GitOps: la configurazione vive in un repository e GitHub Actions la applica. I tool: zonecontrol – automatizza le impostazioni delle zone Cloudflare wafcontrol – automatizza le impostazioni WAF Cloudflare cf-box – toolkit Python per lavorare con le API su più account Cloudflare dnscontrol-actions – aggiornamenti e rollback DNS multi-provider con DNSControl Vantaggi: ogni modifica è una pull request, con review, storia e rollback."}}]}, {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "FabGPT-FAQ", "item": "https://fabriziosalmi.github.io/fabgpt-faq/"}, {"@type": "ListItem", "position": 2, "name": "Tutte le domande", "item": "https://fabriziosalmi.github.io/fabgpt-faq/q/"}, {"@type": "ListItem", "position": 3, "name": "Cloudflare", "item": "https://fabriziosalmi.github.io/fabgpt-faq/q/automatizzare-configurazione-cloudflare/"}]}]</script>
 <style>
   .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
-  .page h1 { font-size: 26px; line-height: 1.3; margin: 6px 0 20px; }
-  .crumbs { font-size: 13px; color: var(--text-dim); margin-bottom: 4px; }
+  .page h1 { font-size: 26px; line-height: 1.3; margin: 6px 0 10px; }
+  .crumbs { font-size: 13px; color: var(--text-dim); margin-bottom: 6px; }
   .crumbs a { color: var(--text-dim); text-decoration: none; }
   .crumbs a:hover { color: var(--text); }
   .page .answer a { color: var(--link); }
-  .page .vertical { font-size: 13px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }
   .page .answer ul { padding-left: 22px; }
   .page .answer code { background: var(--code-bg); border-radius: 5px; padding: 1px 5px; font-size: 0.9em; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
-  .qa-actions { display: flex; align-items: center; gap: 12px; margin-top: 20px; }
+  .qa-actions { display: flex; align-items: center; gap: 12px; margin-top: 24px; flex-wrap: wrap; }
   .copy-qa-btn { display: inline-flex; align-items: center; gap: 6px; background: var(--bg-soft); color: var(--text-dim); border: 1px solid var(--border); border-radius: 6px; padding: 6px 12px; font-size: 13px; font-family: inherit; font-weight: 500; cursor: pointer; transition: all .15s ease; }
   .copy-qa-btn:hover { background: var(--border); color: var(--text); }
   .copy-qa-btn.copied { background: rgba(16, 163, 127, 0.15); color: var(--accent); border-color: var(--accent); }
-  .copy-qa-btn svg { flex: 0 0 auto; }
   .page .ask { display: inline-block; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 8px 16px; text-decoration: none; font-weight: 600; font-size: 13px; }
-  .page .related { margin-top: 36px; border-top: 1px solid var(--border); padding-top: 18px; }
-  .page .related h2 { font-size: 16px; }
+  .page .related { margin-top: 36px; border-top: 1px solid var(--border); padding-top: 20px; }
+  .page .related h2 { font-size: 16px; margin-bottom: 12px; }
   .page .related a { color: var(--link); text-decoration: none; }
   .page .related a:hover { text-decoration: underline; }
-  .page .related li { margin: 6px 0; }
+  .page .related li { margin: 8px 0; }
   .diagram { margin: 24px 0 8px; padding: 14px; border: 1px solid var(--border); border-radius: 12px; background: var(--bg-soft); }
   .diagram svg { display: block; max-width: 100%; height: auto; }
   .answer code { cursor: pointer; }
@@ -55,26 +53,64 @@
     <span class="brand-dot">F</span>
     <span class="brand-name">FabGPT-FAQ</span>
   </a>
+  <nav class="topnav"><a href="../../q/">Tutte le domande</a></nav>
 </header>
 <main class="page">
-  <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › Cloudflare</nav>
-  <h1 id="page-question">Come si automatizza la configurazione di Cloudflare?</h1>
-  <div class="answer" id="page-answer"><p>Approccio GitOps: la configurazione vive in un repository e GitHub Actions la applica. I tool:</p><ul><li><a href="https://github.com/fabriziosalmi/zonecontrol" target="_blank" rel="noopener">zonecontrol</a> – automatizza le <strong>impostazioni delle zone</strong> Cloudflare</li><li><a href="https://github.com/fabriziosalmi/wafcontrol" target="_blank" rel="noopener">wafcontrol</a> – automatizza le <strong>impostazioni WAF</strong> Cloudflare</li><li><a href="https://github.com/fabriziosalmi/cf-box" target="_blank" rel="noopener">cf-box</a> – toolkit Python per lavorare con le API su <strong>più account Cloudflare</strong></li><li><a href="https://github.com/fabriziosalmi/dnscontrol-actions" target="_blank" rel="noopener">dnscontrol-actions</a> – aggiornamenti e <strong>rollback DNS multi-provider</strong> con DNSControl</li></ul><p>Vantaggi: ogni modifica è una pull request, con review, storia e rollback.</p></div>
-  <div class="qa-actions">
-    <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
-      <span>Copia</span>
-    </button>
-    <a class="ask" href="../../?q=cloudflare-automation">Chiedilo a FabGPT-FAQ →</a>
-  </div>
-  <div class="related">
-    <h2>Altre domande</h2>
-    <ul><li><a href="../migrare-da-cloudflare-self-hosted-eu/">Come si migra un sito da Cloudflare a un&#x27;infrastruttura self-hosted europea?</a></li><li><a href="../conservare-log-cloudflare-nis2-gdpr/">Come si conservano i log di Cloudflare a norma NIS2 e GDPR?</a></li><li><a href="../email-cifrata-europea-proton-tuta/">Come funziona l&#x27;email cifrata europea (Proton Mail, Tuta)?</a></li><li><a href="../cos-e-gitops/">Cos&#x27;è GitOps e perché conviene?</a></li><li><a href="../cos-e-la-sovranita-digitale/">Cos&#x27;è la sovranità digitale e perché le aziende europee ci tengono?</a></li><li><a href="../cos-e-una-cdn/">Cos&#x27;è una CDN e quando serve davvero?</a></li></ul>
-  </div>
+  <article itemscope itemtype="https://schema.org/TechArticle">
+    <nav class="crumbs" aria-label="Percorso"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › <span itemprop="articleSection">Cloudflare</span></nav>
+    <h1 id="page-question" itemprop="headline">Come si automatizza la configurazione di Cloudflare?</h1>
+    <div class="page-meta">
+      <span class="page-meta-badge vert"><svg class='glyph' viewBox='0 0 24 24' width='22' height='22' aria-hidden='true' fill='none' stroke='var(--accent)' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'><path d='M7 17h10a3 3 0 000-6 5 5 0 00-9.6-1.3A3.5 3.5 0 007 17z'/></svg> <span>Cloudflare</span></span>
+      <span class="page-meta-badge">⏱️ 1 min lettura</span>
+      <span class="page-meta-badge">✓ Runbook verificato</span>
+    </div>
+    <div class="answer" id="page-answer" itemprop="articleBody"><p>Approccio GitOps: la configurazione vive in un repository e GitHub Actions la applica. I tool:</p><ul><li><a href="https://github.com/fabriziosalmi/zonecontrol" target="_blank" rel="noopener">zonecontrol</a> – automatizza le <strong>impostazioni delle zone</strong> Cloudflare</li><li><a href="https://github.com/fabriziosalmi/wafcontrol" target="_blank" rel="noopener">wafcontrol</a> – automatizza le <strong>impostazioni WAF</strong> Cloudflare</li><li><a href="https://github.com/fabriziosalmi/cf-box" target="_blank" rel="noopener">cf-box</a> – toolkit Python per lavorare con le API su <strong>più account Cloudflare</strong></li><li><a href="https://github.com/fabriziosalmi/dnscontrol-actions" target="_blank" rel="noopener">dnscontrol-actions</a> – aggiornamenti e <strong>rollback DNS multi-provider</strong> con DNSControl</li></ul><p>Vantaggi: ogni modifica è una pull request, con review, storia e rollback.</p></div>
+    <div class="qa-actions">
+      <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+        <span>Copia Q&A</span>
+      </button>
+      <a class="ask" href="../../?q=cloudflare-automation">Apri nella chat interattiva 💬</a>
+    </div>
+    <nav class="page-nav" aria-label="Navigazione tra domande"><a class="page-nav-card prev" href="../email-cifrata-europea-proton-tuta/"><span class="nav-dir">← Precedente</span><span class="nav-title">Come funziona l&#x27;email cifrata europea (Proton Mail, Tuta)?</span></a><a class="page-nav-card next" href="../migrare-da-cloudflare-self-hosted-eu/"><span class="nav-dir">Successiva →</span><span class="nav-title">Come si migra un sito da Cloudflare a un&#x27;infrastruttura self-hosted europea?</span></a></nav>
+    <section class="ask-box">
+      <div class="ask-box-header">
+        <span class="ask-box-icon">💬</span>
+        <div>
+          <h3>Hai una domanda specifica su questo tema?</h3>
+          <p>Interroga direttamente il motore FabGPT-FAQ con risposta in tempo reale a zero allucinazioni.</p>
+        </div>
+      </div>
+      <form class="ask-box-form" action="../../" method="get">
+        <input type="text" name="q" value="Come si automatizza la configurazione di Cloudflare?" placeholder="Chiedi qualcosa a FabGPT-FAQ…" aria-label="Chiedi qualcosa" autocomplete="off">
+        <button type="submit">Chiedi in chat →</button>
+      </form>
+    </section>
+    <div class="related">
+      <h2>Domande correlate</h2>
+      <ul><li><a href="../migrare-da-cloudflare-self-hosted-eu/">Come si migra un sito da Cloudflare a un&#x27;infrastruttura self-hosted europea?</a></li><li><a href="../conservare-log-cloudflare-nis2-gdpr/">Come si conservano i log di Cloudflare a norma NIS2 e GDPR?</a></li><li><a href="../email-cifrata-europea-proton-tuta/">Come funziona l&#x27;email cifrata europea (Proton Mail, Tuta)?</a></li><li><a href="../cos-e-gitops/">Cos&#x27;è GitOps e perché conviene?</a></li><li><a href="../cos-e-la-sovranita-digitale/">Cos&#x27;è la sovranità digitale e perché le aziende europee ci tengono?</a></li><li><a href="../cos-e-una-cdn/">Cos&#x27;è una CDN e quando serve davvero?</a></li></ul>
+    </div>
+  </article>
 </main>
 <script>
 document.addEventListener('click',function(e){
-  var c=e.target.closest('code'); if(!c)return;
+  var copyCodeBtn = e.target.closest('.copy-code-btn');
+  if (copyCodeBtn) {
+    var block = copyCodeBtn.closest('.code-block');
+    var code = block ? block.querySelector('code')?.textContent : '';
+    if (code && navigator.clipboard) {
+      navigator.clipboard.writeText(code).then(function(){
+        copyCodeBtn.classList.add('copied');
+        copyCodeBtn.querySelector('span').textContent = 'Copiato!';
+        setTimeout(function(){
+          copyCodeBtn.classList.remove('copied');
+          copyCodeBtn.querySelector('span').textContent = 'Copia';
+        }, 1500);
+      });
+    }
+    return;
+  }
+  var c=e.target.closest('code:not(pre code)'); if(!c)return;
   navigator.clipboard&&navigator.clipboard.writeText(c.textContent).then(function(){
     c.classList.add('copied'); setTimeout(function(){c.classList.remove('copied')},900);
   });
@@ -90,7 +126,7 @@ document.getElementById('copy-page-btn')?.addEventListener('click', function(){
       btn.querySelector('span').textContent = 'Copiato!';
       setTimeout(function(){
         btn.classList.remove('copied');
-        btn.querySelector('span').textContent = 'Copia';
+        btn.querySelector('span').textContent = 'Copia Q&A';
       }, 1500);
     });
   }

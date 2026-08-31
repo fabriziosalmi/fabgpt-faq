@@ -1,16 +1,13 @@
 #!/usr/bin/env python3
-"""FabGPT static page generator.
+"""Build static HTML pages for every Q&A entry -> /q/<slug>/index.html,
+plus the /q/ index, sitemap.xml, robots.txt, llms.txt, llms-full.txt and 404.html.
 
-Reads faq.json and emits crawlable pages for search engines and AI answer
-engines (Google AI Overview & co.): one page per question with FAQPage
-JSON-LD, a full index page, sitemap.xml and robots.txt.
-
-Zero dependencies. Run after every faq.json edit:
-
-    python3 build.py
+Designed for SEO, AI engine citations (GEO), and zero-friction developer experience.
 """
-import json
 import html
+import json
+import math
+import os
 import re
 import shutil
 from pathlib import Path
@@ -18,8 +15,6 @@ from pathlib import Path
 ROOT = Path(__file__).parent
 OUT = ROOT / "q"
 
-
-# ---------- minimal markdown, mirroring app.js renderMd() ----------
 
 def inline_md(s: str) -> str:
     s = re.sub(r"\[([^\]]+)\]\((https?://[^)\s]+)\)", r'<a href="\2" target="_blank" rel="noopener">\1</a>', s)
@@ -33,12 +28,23 @@ def inline_md(s: str) -> str:
 
 def render_md(text: str) -> str:
     code_blocks = []
+
     def _cb(m):
         idx = len(code_blocks)
         lang = m.group(1).strip()
         code = m.group(2).strip()
         clang = f' class="language-{html.escape(lang)}"' if lang else ""
-        code_blocks.append(f"<pre><code{clang}>{html.escape(code)}</code></pre>")
+        header_lang = html.escape(lang.upper() if lang else "CODE")
+        block_html = (
+            f'<div class="code-block">'
+            f'<div class="code-header"><span class="code-lang">{header_lang}</span>'
+            f'<button type="button" class="copy-code-btn" aria-label="Copia codice">'
+            f'<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>'
+            f'<span>Copia</span></button></div>'
+            f'<pre><code{clang}>{html.escape(code)}</code></pre>'
+            f'</div>'
+        )
+        code_blocks.append(block_html)
         return f"\n\n@@@CODEBLOCK_{idx}@@@\n\n"
 
     processed = re.sub(r"```([a-zA-Z0-9_-]*)\n([\s\S]*?)```", _cb, text)
@@ -81,7 +87,8 @@ def _wrap(text: str, width: int) -> list:
     words, lines, cur = text.split(), [], ""
     for w in words:
         if len(cur) + len(w) + 1 > width and cur:
-            lines.append(cur); cur = w
+            lines.append(cur)
+            cur = w
         else:
             cur = (cur + " " + w).strip()
     if cur:
@@ -92,17 +99,19 @@ def _wrap(text: str, width: int) -> list:
 def glyph(vid: str) -> str:
     """Small theme-aware SVG glyph per vertical, drawn with the accent stroke."""
     inner = {
-        "security": "<path d='M12 3l7 3v5c0 4-3 7-7 8-4-1-7-4-7-8V6z'/>",   # shield
+        "security": "<path d='M12 3l7 3v5c0 4-3 7-7 8-4-1-7-4-7-8V6z'/>",  # shield
         "ai": "<circle cx='12' cy='12' r='3'/><path d='M12 3v3M12 18v3M3 12h3M18 12h3M6 6l2 2M16 16l2 2M18 6l-2 2M8 16l-2 2'/>",  # spark/node
         "proxmox": "<rect x='4' y='5' width='16' height='4' rx='1'/><rect x='4' y='11' width='16' height='4' rx='1'/><path d='M8 7h.01M8 13h.01'/>",  # server stack
         "cloudflare": "<path d='M7 17h10a3 3 0 000-6 5 5 0 00-9.6-1.3A3.5 3.5 0 007 17z'/>",  # cloud
         "tools": "<path d='M14 6a3 3 0 00-4 4l-6 6 2 2 6-6a3 3 0 004-4l-2 2-2-.5L11.5 8z'/>",  # wrench
         "creative": "<path d='M9 18V6l10-2v12'/><circle cx='7' cy='18' r='2'/><circle cx='17' cy='16' r='2'/>",  # music note
-        "meta": "<path d='M4 5h16v10H9l-4 4v-4H4z'/>",   # chat bubble
+        "meta": "<path d='M4 5h16v10H9l-4 4v-4H4z'/>",  # chat bubble
     }.get(vid, "<circle cx='12' cy='12' r='7'/>")
-    return (f"<svg class='glyph' viewBox='0 0 24 24' width='22' height='22' aria-hidden='true' "
-            f"fill='none' stroke='var(--accent)' stroke-width='1.7' stroke-linecap='round' "
-            f"stroke-linejoin='round'>{inner}</svg>")
+    return (
+        f"<svg class='glyph' viewBox='0 0 24 24' width='22' height='22' aria-hidden='true' "
+        f"fill='none' stroke='var(--accent)' stroke-width='1.7' stroke-linecap='round' "
+        f"stroke-linejoin='round'>{inner}</svg>"
+    )
 
 
 def og_card(question: str, diagram_svg: str) -> str:
@@ -113,12 +122,16 @@ def og_card(question: str, diagram_svg: str) -> str:
     title = "".join(
         f"<text x='80' y='{150 + i*64}' font-size='52' font-weight='700' "
         f"fill='#ececec' font-family='-apple-system,Segoe UI,Roboto,Arial,sans-serif'>{l}</text>"
-        for i, l in enumerate(title_lines))
+        for i, l in enumerate(title_lines)
+    )
     # recolor the theme-var diagram to fixed dark-card colors
-    d = (diagram_svg
-         .replace("var(--accent)", "#10a37f").replace("var(--text-dim)", "#8b8f9a")
-         .replace("var(--text)", "#d7d9de").replace("var(--border)", "#3a3d46")
-         .replace("var(--bg-soft)", "#1a1d24"))
+    d = (
+        diagram_svg.replace("var(--accent)", "#10a37f")
+        .replace("var(--text-dim)", "#8b8f9a")
+        .replace("var(--text)", "#d7d9de")
+        .replace("var(--border)", "#3a3d46")
+        .replace("var(--bg-soft)", "#1a1d24")
+    )
     d = re.sub(r"width='100%'", "width='560'", d, count=1)
     return (
         f"<svg xmlns='http://www.w3.org/2000/svg' width='1200' height='630' viewBox='0 0 1200 630'>"
@@ -129,7 +142,8 @@ def og_card(question: str, diagram_svg: str) -> str:
         f"<text x='150' y='84' font-size='30' font-weight='700' fill='#ececec' font-family='-apple-system,Segoe UI,Roboto,Arial,sans-serif'>FabGPT-FAQ</text>"
         f"{title}"
         f"<g transform='translate(600 350)'>{d}</g>"
-        f"</svg>\n")
+        f"</svg>\n"
+    )
 
 
 # ---------- page templates ----------
@@ -159,25 +173,23 @@ PAGE = """<!DOCTYPE html>
 <script type="application/ld+json">{jsonld}</script>
 <style>
   .page {{ max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }}
-  .page h1 {{ font-size: 26px; line-height: 1.3; margin: 6px 0 20px; }}
-  .crumbs {{ font-size: 13px; color: var(--text-dim); margin-bottom: 4px; }}
+  .page h1 {{ font-size: 26px; line-height: 1.3; margin: 6px 0 10px; }}
+  .crumbs {{ font-size: 13px; color: var(--text-dim); margin-bottom: 6px; }}
   .crumbs a {{ color: var(--text-dim); text-decoration: none; }}
   .crumbs a:hover {{ color: var(--text); }}
   .page .answer a {{ color: var(--link); }}
-  .page .vertical {{ font-size: 13px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }}
   .page .answer ul {{ padding-left: 22px; }}
   .page .answer code {{ background: var(--code-bg); border-radius: 5px; padding: 1px 5px; font-size: 0.9em; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }}
-  .qa-actions {{ display: flex; align-items: center; gap: 12px; margin-top: 20px; }}
+  .qa-actions {{ display: flex; align-items: center; gap: 12px; margin-top: 24px; flex-wrap: wrap; }}
   .copy-qa-btn {{ display: inline-flex; align-items: center; gap: 6px; background: var(--bg-soft); color: var(--text-dim); border: 1px solid var(--border); border-radius: 6px; padding: 6px 12px; font-size: 13px; font-family: inherit; font-weight: 500; cursor: pointer; transition: all .15s ease; }}
   .copy-qa-btn:hover {{ background: var(--border); color: var(--text); }}
   .copy-qa-btn.copied {{ background: rgba(16, 163, 127, 0.15); color: var(--accent); border-color: var(--accent); }}
-  .copy-qa-btn svg {{ flex: 0 0 auto; }}
   .page .ask {{ display: inline-block; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 8px 16px; text-decoration: none; font-weight: 600; font-size: 13px; }}
-  .page .related {{ margin-top: 36px; border-top: 1px solid var(--border); padding-top: 18px; }}
-  .page .related h2 {{ font-size: 16px; }}
+  .page .related {{ margin-top: 36px; border-top: 1px solid var(--border); padding-top: 20px; }}
+  .page .related h2 {{ font-size: 16px; margin-bottom: 12px; }}
   .page .related a {{ color: var(--link); text-decoration: none; }}
   .page .related a:hover {{ text-decoration: underline; }}
-  .page .related li {{ margin: 6px 0; }}
+  .page .related li {{ margin: 8px 0; }}
   .diagram {{ margin: 24px 0 8px; padding: 14px; border: 1px solid var(--border); border-radius: 12px; background: var(--bg-soft); }}
   .diagram svg {{ display: block; max-width: 100%; height: auto; }}
   .answer code {{ cursor: pointer; }}
@@ -191,26 +203,64 @@ PAGE = """<!DOCTYPE html>
     <span class="brand-dot">F</span>
     <span class="brand-name">FabGPT-FAQ</span>
   </a>
+  <nav class="topnav"><a href="{base}q/">Tutte le domande</a></nav>
 </header>
 <main class="page">
-  <nav class="crumbs"><a href="{base}">FabGPT-FAQ</a> › <a href="{base}q/">Tutte le domande</a> › {vertical}</nav>
-  <h1 id="page-question">{question}</h1>
-  <div class="answer" id="page-answer">{answer}</div>
-  <div class="qa-actions">
-    <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
-      <span>Copia</span>
-    </button>
-    <a class="ask" href="{base}?q={id}">Chiedilo a FabGPT-FAQ →</a>
-  </div>
-  <div class="related">
-    <h2>Altre domande</h2>
-    <ul>{related}</ul>
-  </div>
+  <article itemscope itemtype="https://schema.org/TechArticle">
+    <nav class="crumbs" aria-label="Percorso"><a href="{base}">FabGPT-FAQ</a> › <a href="{base}q/">Tutte le domande</a> › <span itemprop="articleSection">{vertical}</span></nav>
+    <h1 id="page-question" itemprop="headline">{question}</h1>
+    <div class="page-meta">
+      <span class="page-meta-badge vert">{glyph_svg} <span>{vertical}</span></span>
+      <span class="page-meta-badge">⏱️ {reading_time} min lettura</span>
+      <span class="page-meta-badge">✓ Runbook verificato</span>
+    </div>
+    <div class="answer" id="page-answer" itemprop="articleBody">{answer}</div>
+    <div class="qa-actions">
+      <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+        <span>Copia Q&A</span>
+      </button>
+      <a class="ask" href="{base}?q={id}">Apri nella chat interattiva 💬</a>
+    </div>
+    {page_nav}
+    <section class="ask-box">
+      <div class="ask-box-header">
+        <span class="ask-box-icon">💬</span>
+        <div>
+          <h3>Hai una domanda specifica su questo tema?</h3>
+          <p>Interroga direttamente il motore FabGPT-FAQ con risposta in tempo reale a zero allucinazioni.</p>
+        </div>
+      </div>
+      <form class="ask-box-form" action="{base}" method="get">
+        <input type="text" name="q" value="{question}" placeholder="Chiedi qualcosa a FabGPT-FAQ…" aria-label="Chiedi qualcosa" autocomplete="off">
+        <button type="submit">Chiedi in chat →</button>
+      </form>
+    </section>
+    <div class="related">
+      <h2>Domande correlate</h2>
+      <ul>{related}</ul>
+    </div>
+  </article>
 </main>
 <script>
 document.addEventListener('click',function(e){{
-  var c=e.target.closest('code'); if(!c)return;
+  var copyCodeBtn = e.target.closest('.copy-code-btn');
+  if (copyCodeBtn) {{
+    var block = copyCodeBtn.closest('.code-block');
+    var code = block ? block.querySelector('code')?.textContent : '';
+    if (code && navigator.clipboard) {{
+      navigator.clipboard.writeText(code).then(function(){{
+        copyCodeBtn.classList.add('copied');
+        copyCodeBtn.querySelector('span').textContent = 'Copiato!';
+        setTimeout(function(){{
+          copyCodeBtn.classList.remove('copied');
+          copyCodeBtn.querySelector('span').textContent = 'Copia';
+        }}, 1500);
+      }});
+    }}
+    return;
+  }}
+  var c=e.target.closest('code:not(pre code)'); if(!c)return;
   navigator.clipboard&&navigator.clipboard.writeText(c.textContent).then(function(){{
     c.classList.add('copied'); setTimeout(function(){{c.classList.remove('copied')}},900);
   }});
@@ -226,7 +276,7 @@ document.getElementById('copy-page-btn')?.addEventListener('click', function(){{
       btn.querySelector('span').textContent = 'Copiato!';
       setTimeout(function(){{
         btn.classList.remove('copied');
-        btn.querySelector('span').textContent = 'Copia';
+        btn.querySelector('span').textContent = 'Copia Q&A';
       }}, 1500);
     }});
   }}
@@ -282,10 +332,10 @@ INDEX = """<!DOCTYPE html>
   .page a {{ color: var(--link); text-decoration: none; }}
   .page a:hover {{ text-decoration: underline; }}
   .page li {{ margin: 7px 0; }}
-  .page .intro {{ color: var(--text-dim); }}
+  .page .intro {{ color: var(--text-dim); margin-bottom: 12px; }}
   .page h2 {{ display: flex; align-items: center; gap: 8px; }}
   .page h2 .glyph {{ flex: 0 0 auto; }}
-  .stats {{ display: flex; flex-wrap: wrap; gap: 10px 28px; margin: 20px 0 8px; padding: 16px 18px; border: 1px solid var(--border); border-radius: 12px; background: var(--bg-soft); }}
+  .stats {{ display: flex; flex-wrap: wrap; gap: 10px 28px; margin: 16px 0 20px; padding: 16px 18px; border: 1px solid var(--border); border-radius: 12px; background: var(--bg-soft); }}
   .stat {{ display: flex; flex-direction: column; }}
   .stat b {{ font-size: 26px; color: var(--accent); font-variant-numeric: tabular-nums; }}
   .stat span {{ font-size: 12px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.05em; }}
@@ -299,11 +349,26 @@ INDEX = """<!DOCTYPE html>
     <span class="brand-dot">F</span>
     <span class="brand-name">FabGPT-FAQ</span>
   </a>
+  <nav class="topnav"><a href="../">Chat interattiva 💬</a></nav>
 </header>
 <main class="page">
   <h1>Tutte le domande</h1>
-  <p class="intro">La knowledge base completa di FabGPT-FAQ: cybersecurity, AI, Proxmox, Cloudflare e i progetti open source di Fabrizio Salmi. Oppure <a href="../">chiedi in chat</a>.</p>
-  {sections}
+  <p class="intro">La knowledge base completa di FabGPT-FAQ: cybersecurity, AI, Proxmox, Cloudflare e i progetti open source di Fabrizio Salmi. Cerca in tempo reale o <a href="../">chiedi in chat</a>.</p>
+  {stats}
+  <div class="filter-wrap">
+    <div class="search-box">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+      <input id="q-filter" type="search" placeholder="Filtra tra {total} domande per parola chiave..." autocomplete="off" aria-label="Filtra domande">
+      <span id="filter-count" class="filter-count"></span>
+    </div>
+    <div class="filter-chips" id="v-chips" role="tablist">
+      <button type="button" class="filter-chip active" data-v="all">Tutti ({total})</button>
+      {chips}
+    </div>
+  </div>
+  <div id="q-list">
+    {sections}
+  </div>
 </main>
 <script>
 (function(){{
@@ -317,6 +382,56 @@ INDEX = """<!DOCTYPE html>
       var p = Math.min(1, (t - t0) / dur);
       el.textContent = Math.round(to * (1 - Math.pow(1 - p, 3)));
       if (p < 1) requestAnimationFrame(step);
+    }});
+  }});
+
+  // Live Instant Search & Vertical Filter
+  var input = document.getElementById('q-filter');
+  var countEl = document.getElementById('filter-count');
+  var chips = document.querySelectorAll('#v-chips .filter-chip');
+  var sections = document.querySelectorAll('#q-list .v-sec');
+  var currentV = 'all';
+
+  function filter() {{
+    var query = input.value.trim().toLowerCase();
+    var visibleTotal = 0;
+
+    sections.forEach(function(sec){{
+      var secV = sec.getAttribute('data-v');
+      var matchesV = currentV === 'all' || currentV === secV;
+      var items = sec.querySelectorAll('li');
+      var secVisible = 0;
+
+      if (!matchesV) {{
+        sec.style.display = 'none';
+        return;
+      }}
+
+      items.forEach(function(item){{
+        var text = item.textContent.toLowerCase();
+        var match = !query || text.indexOf(query) !== -1;
+        item.style.display = match ? '' : 'none';
+        if (match) {{ secVisible++; visibleTotal++; }}
+      }});
+
+      sec.style.display = secVisible > 0 ? '' : 'none';
+    }});
+
+    if (query || currentV !== 'all') {{
+      countEl.textContent = visibleTotal + ' risposte';
+    }} else {{
+      countEl.textContent = '';
+    }}
+  }}
+
+  input.addEventListener('input', filter);
+
+  chips.forEach(function(chip){{
+    chip.addEventListener('click', function(){{
+      chips.forEach(function(c){{ c.classList.remove('active'); }});
+      chip.classList.add('active');
+      currentV = chip.getAttribute('data-v');
+      filter();
     }});
   }});
 }})();
@@ -342,20 +457,55 @@ def build() -> None:
     by_slug = {e["slug"]: e for e in entries}
     for e in entries:
         answer_md = e["answers"][0]
-        # Related = the curated `suggest` cross-references first (same data that
-        # drives the chat chips), then same-vertical, then others, up to 6.
+        words = len(md_to_plain(answer_md).split())
+        reading_time = max(1, math.ceil(words / 140))
+
+        # Prev / Next in same vertical
+        same_vert = [x for x in entries if x["vertical"] == e["vertical"]]
+        try:
+            curr_idx = next(i for i, x in enumerate(same_vert) if x["id"] == e["id"])
+            prev_entry = same_vert[curr_idx - 1] if curr_idx > 0 else None
+            next_entry = same_vert[curr_idx + 1] if curr_idx < len(same_vert) - 1 else None
+        except StopIteration:
+            prev_entry = None
+            next_entry = None
+
+        page_nav_parts = ['<nav class="page-nav" aria-label="Navigazione tra domande">']
+        if prev_entry:
+            page_nav_parts.append(
+                f'<a class="page-nav-card prev" href="../{prev_entry["slug"]}/">'
+                f'<span class="nav-dir">← Precedente</span>'
+                f'<span class="nav-title">{html.escape(prev_entry["question"])}</span></a>'
+            )
+        else:
+            page_nav_parts.append('<div class="page-nav-card placeholder"></div>')
+        if next_entry:
+            page_nav_parts.append(
+                f'<a class="page-nav-card next" href="../{next_entry["slug"]}/">'
+                f'<span class="nav-dir">Successiva →</span>'
+                f'<span class="nav-title">{html.escape(next_entry["question"])}</span></a>'
+            )
+        else:
+            page_nav_parts.append('<div class="page-nav-card placeholder"></div>')
+        page_nav_parts.append("</nav>")
+        page_nav = "".join(page_nav_parts)
+
+        # Related = the curated `suggest` cross-references first, then same-vertical, then others, up to 6.
         seen = {e["slug"]}
         others = []
         for slug in e.get("suggest", []):
             o = by_slug.get(slug)
             if o and o["slug"] not in seen:
-                others.append(o); seen.add(o["slug"])
+                others.append(o)
+                seen.add(o["slug"])
         for o in entries:
             if o["slug"] not in seen and o["vertical"] == e["vertical"]:
-                others.append(o); seen.add(o["slug"])
+                others.append(o)
+                seen.add(o["slug"])
         for o in entries:
             if o["slug"] not in seen:
-                others.append(o); seen.add(o["slug"])
+                others.append(o)
+                seen.add(o["slug"])
         related = "".join(
             f'<li><a href="../{o["slug"]}/">{html.escape(o["question"])}</a></li>' for o in others[:6]
         )
@@ -363,12 +513,32 @@ def build() -> None:
         jsonld = [
             {
                 "@context": "https://schema.org",
+                "@type": "TechArticle",
+                "headline": e["question"],
+                "description": meta_description(answer_md),
+                "author": {
+                    "@type": "Person",
+                    "name": "Fabrizio Salmi",
+                    "url": "https://github.com/fabriziosalmi",
+                },
+                "publisher": {
+                    "@type": "Organization",
+                    "name": "FabGPT-FAQ",
+                    "url": f"{site}/",
+                },
+                "inLanguage": "it",
+                "articleSection": vlabel,
+            },
+            {
+                "@context": "https://schema.org",
                 "@type": "FAQPage",
-                "mainEntity": [{
-                    "@type": "Question",
-                    "name": e["question"],
-                    "acceptedAnswer": {"@type": "Answer", "text": md_to_plain(answer_md)},
-                }],
+                "mainEntity": [
+                    {
+                        "@type": "Question",
+                        "name": e["question"],
+                        "acceptedAnswer": {"@type": "Answer", "text": md_to_plain(answer_md)},
+                    }
+                ],
             },
             {
                 "@context": "https://schema.org",
@@ -385,12 +555,16 @@ def build() -> None:
         # concept diagram (inline SVG) after the answer, in a <figure>
         dg = diagrams.get(e["id"], "")
         figure = (
-            f'<figure class="diagram" aria-label="Schema: {html.escape(e["question"])}">'
-            f'<button type="button" class="copy-diagram-btn" aria-label="Copia codice SVG dello schema">'
-            f'<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>'
-            f'<span>SVG</span></button>'
-            f'{dg}</figure>'
-        ) if dg else ""
+            (
+                f'<figure class="diagram" aria-label="Schema: {html.escape(e["question"])}">'
+                f'<button type="button" class="copy-diagram-btn" aria-label="Copia codice SVG dello schema">'
+                f'<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>'
+                f"<span>SVG</span></button>"
+                f"{dg}</figure>"
+            )
+            if dg
+            else ""
+        )
         # entries with a diagram get a tailored OG card (the diagram on a branded canvas)
         if dg:
             (d / "og.svg").write_text(og_card(e["question"], dg), encoding="utf-8")
@@ -407,14 +581,17 @@ def build() -> None:
             ogimg=ogimg,
             jsonld=json.dumps(jsonld, ensure_ascii=False),
             vertical=html.escape(vlabel),
+            glyph_svg=glyph(e["vertical"]),
+            reading_time=reading_time,
             question=html.escape(e["question"]),
             answer=render_md(answer_md).replace('href="q/', 'href="../') + figure,
             id=e["id"],
+            page_nav=page_nav,
             related=related,
         )
         (d / "index.html").write_text(page, encoding="utf-8")
 
-    # --- index page with full FAQPage JSON-LD ---
+    # --- index page with full FAQPage JSON-LD, instant search & vertical chips ---
     n_vert = sum(1 for v in verticals if any(e["vertical"] == v for e in entries))
     stat = (
         '<div class="stats" aria-label="Statistiche">'
@@ -422,14 +599,31 @@ def build() -> None:
         '<div class="stat"><b>0</b><span>allucinazioni</span></div>'
         '<div class="stat"><b>&euro;0</b><span>al mese</span></div>'
         f'<div class="stat"><b data-to="{n_vert}">0</b><span>temi</span></div>'
-        '</div>')
-    sections = stat
+        "</div>"
+    )
+
+    chips_html = ""
+    for vid, label in verticals.items():
+        vcount = sum(1 for e in entries if e["vertical"] == vid)
+        if vcount:
+            chips_html += f'<button type="button" class="filter-chip" data-v="{vid}">{html.escape(label)} ({vcount})</button>'
+
+    sections = ""
     for vid, label in verticals.items():
         ventries = [e for e in entries if e["vertical"] == vid]
         if not ventries:
             continue
-        items = "".join(f'<li><a href="{e["slug"]}/">{html.escape(e["question"])}</a></li>' for e in ventries)
-        sections += f'<h2>{glyph(vid)}<span>{html.escape(label)}</span></h2>\n<ul>{items}</ul>\n'
+        items = "".join(
+            f'<li><a href="{e["slug"]}/">{html.escape(e["question"])}</a></li>'
+            for e in ventries
+        )
+        sections += (
+            f'<div class="v-sec" data-v="{vid}">\n'
+            f'<h2>{glyph(vid)}<span>{html.escape(label)}</span></h2>\n'
+            f"<ul>{items}</ul>\n"
+            f"</div>\n"
+        )
+
     index_jsonld = [
         {
             "@context": "https://schema.org",
@@ -463,6 +657,9 @@ def build() -> None:
             description="Tutte le domande e risposte di FabGPT-FAQ: cybersecurity, AI, Proxmox, Cloudflare e i progetti open source di Fabrizio Salmi.",
             canonical=f"{site}/q/",
             site=site,
+            total=len(entries),
+            stats=stat,
+            chips=chips_html,
             jsonld=json.dumps(index_jsonld, ensure_ascii=False),
             sections=sections,
         ),
@@ -471,31 +668,40 @@ def build() -> None:
 
     # --- sitemap.xml + robots.txt ---
     urls = [f"{site}/", f"{site}/q/"] + [f"{site}/q/{e['slug']}/" for e in entries]
-    sitemap = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+    sitemap = (
+        '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+    )
     sitemap += "".join(f"  <url><loc>{u}</loc></url>\n" for u in urls)
     sitemap += "</urlset>\n"
     (ROOT / "sitemap.xml").write_text(sitemap, encoding="utf-8")
     (ROOT / "robots.txt").write_text(
-        f"User-agent: *\nAllow: /\n\nSitemap: {site}/sitemap.xml\n", encoding="utf-8")
+        f"User-agent: *\nAllow: /\n\nSitemap: {site}/sitemap.xml\n", encoding="utf-8"
+    )
 
     # --- llms.txt: concise map for answer engines (title + url, per vertical) ---
-    lt = ["# FabGPT-FAQ\n",
-          "> FAQ interattiva su cybersecurity, AI, Proxmox, Cloudflare e i progetti "
-          "open source di Fabrizio Salmi. Risposte pre-scritte e verificate, ogni "
-          "domanda anche come pagina statica citabile.\n",
-          f"Chat: {site}/  ·  Indice: {site}/q/\n"]
+    lt = [
+        "# FabGPT-FAQ\n",
+        "> FAQ interattiva su cybersecurity, AI, Proxmox, Cloudflare e i progetti "
+        "open source di Fabrizio Salmi. Risposte pre-scritte e verificate, ogni "
+        "domanda anche come pagina statica citabile.\n",
+        f"Chat: {site}/  ·  Indice: {site}/q/\n",
+    ]
     for vid, label in verticals.items():
         ventries = [e for e in entries if e["vertical"] == vid]
         if not ventries:
             continue
         lt.append(f"\n## {label}\n")
         for e in ventries:
-            lt.append(f"- [{e['question']}]({site}/q/{e['slug']}/): {meta_description(e['answers'][0], 120)}")
+            lt.append(
+                f"- [{e['question']}]({site}/q/{e['slug']}/): {meta_description(e['answers'][0], 120)}"
+            )
     (ROOT / "llms.txt").write_text("\n".join(lt) + "\n", encoding="utf-8")
 
     # --- llms-full.txt: every Q&A as plain text (full corpus for citation) ---
-    lf = ["# FabGPT-FAQ — knowledge base completa\n",
-          "Domande e risposte verificate. Fonte: https://github.com/fabriziosalmi\n"]
+    lf = [
+        "# FabGPT-FAQ — knowledge base completa\n",
+        "Domande e risposte verificate. Fonte: https://github.com/fabriziosalmi\n",
+    ]
     for vid, label in verticals.items():
         ventries = [e for e in entries if e["vertical"] == vid]
         if not ventries:
@@ -516,13 +722,13 @@ def build() -> None:
 <link rel="stylesheet" href="/style.css">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
 <style>
-  .nf {{ max-width: 620px; margin: 12vh auto; padding: 0 16px; text-align: center; }}
-  .nf h1 {{ font-size: 64px; margin: 0; color: var(--accent); }}
-  .nf p {{ color: var(--text-dim); }}
-  .nf a {{ color: var(--link); text-decoration: none; }}
-  .nf .actions {{ margin-top: 24px; display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }}
-  .nf .btn {{ background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 9px 18px; font-weight: 600; }}
-  .nf .btn.ghost {{ background: transparent; color: var(--link); border: 1px solid var(--border); }}
+  .nf { max-width: 620px; margin: 12vh auto; padding: 0 16px; text-align: center; }
+  .nf h1 { font-size: 64px; margin: 0; color: var(--accent); }
+  .nf p { color: var(--text-dim); }
+  .nf a { color: var(--link); text-decoration: none; }
+  .nf .actions { margin-top: 24px; display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+  .nf .btn { background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 9px 18px; font-weight: 600; }
+  .nf .btn.ghost { background: transparent; color: var(--link); border: 1px solid var(--border); }
 </style>
 </head>
 <body>

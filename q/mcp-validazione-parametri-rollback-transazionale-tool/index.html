@@ -20,28 +20,26 @@
 <meta name="twitter:image" content="https://fabriziosalmi.github.io/fabgpt-faq/og.svg">
 <link rel="stylesheet" href="../../style.css">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
-<script type="application/ld+json">[{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Quali pattern di validazione runtime e rollback transazionale devono essere applicati sulle chiamate a tool MCP prima dell'esecuzione?", "acceptedAnswer": {"@type": "Answer", "text": "Nel [Model Context Protocol (MCP)](q/come-si-costruisce-un-server-mcp/), gli agenti orchestrano chiamate sequenziali a tool esterni (creazione record DB, addebito carta, invio email). Se il terzo step fallisce, i dati rimangono in uno stato inconsistente se non si gestisce la transazionalità. Pattern di resilienza e sicurezza: 1. Validazione Rigida dello Schema: valida i parametri generati dall'LLM a runtime con schemi JSON rigidi (Zod/Pydantic) prima di invocarli, rifiutando tipi non conformi o valori fuori range. 2. Saga Pattern & Compensating Transactions: per ogni azione eseguita con effetti collaterali (es. 'crea server'), registra nel context dell'agente l'azione di compensazione corrispondente ('elimina server'). 3. Dry-Run & Two-Phase Commit: richiedi una fase di validazione/anteprima prima della finalizzazione effettiva per operazioni distruttive o finanziarie."}}]}, {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "FabGPT-FAQ", "item": "https://fabriziosalmi.github.io/fabgpt-faq/"}, {"@type": "ListItem", "position": 2, "name": "Tutte le domande", "item": "https://fabriziosalmi.github.io/fabgpt-faq/q/"}, {"@type": "ListItem", "position": 3, "name": "AI e LLM", "item": "https://fabriziosalmi.github.io/fabgpt-faq/q/mcp-validazione-parametri-rollback-transazionale-tool/"}]}]</script>
+<script type="application/ld+json">[{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Quali pattern di validazione runtime e rollback transazionale devono essere applicati sulle chiamate a tool MCP prima dell'esecuzione?", "description": "Nel [Model Context Protocol (MCP)](q/come-si-costruisce-un-server-mcp/), gli agenti orchestrano chiamate sequenziali a tool esterni (creazione record DB,…", "author": {"@type": "Person", "name": "Fabrizio Salmi", "url": "https://github.com/fabriziosalmi"}, "publisher": {"@type": "Organization", "name": "FabGPT-FAQ", "url": "https://fabriziosalmi.github.io/fabgpt-faq/"}, "inLanguage": "it", "articleSection": "AI e LLM"}, {"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Quali pattern di validazione runtime e rollback transazionale devono essere applicati sulle chiamate a tool MCP prima dell'esecuzione?", "acceptedAnswer": {"@type": "Answer", "text": "Nel [Model Context Protocol (MCP)](q/come-si-costruisce-un-server-mcp/), gli agenti orchestrano chiamate sequenziali a tool esterni (creazione record DB, addebito carta, invio email). Se il terzo step fallisce, i dati rimangono in uno stato inconsistente se non si gestisce la transazionalità. Pattern di resilienza e sicurezza: 1. Validazione Rigida dello Schema: valida i parametri generati dall'LLM a runtime con schemi JSON rigidi (Zod/Pydantic) prima di invocarli, rifiutando tipi non conformi o valori fuori range. 2. Saga Pattern & Compensating Transactions: per ogni azione eseguita con effetti collaterali (es. 'crea server'), registra nel context dell'agente l'azione di compensazione corrispondente ('elimina server'). 3. Dry-Run & Two-Phase Commit: richiedi una fase di validazione/anteprima prima della finalizzazione effettiva per operazioni distruttive o finanziarie."}}]}, {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "FabGPT-FAQ", "item": "https://fabriziosalmi.github.io/fabgpt-faq/"}, {"@type": "ListItem", "position": 2, "name": "Tutte le domande", "item": "https://fabriziosalmi.github.io/fabgpt-faq/q/"}, {"@type": "ListItem", "position": 3, "name": "AI e LLM", "item": "https://fabriziosalmi.github.io/fabgpt-faq/q/mcp-validazione-parametri-rollback-transazionale-tool/"}]}]</script>
 <style>
   .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
-  .page h1 { font-size: 26px; line-height: 1.3; margin: 6px 0 20px; }
-  .crumbs { font-size: 13px; color: var(--text-dim); margin-bottom: 4px; }
+  .page h1 { font-size: 26px; line-height: 1.3; margin: 6px 0 10px; }
+  .crumbs { font-size: 13px; color: var(--text-dim); margin-bottom: 6px; }
   .crumbs a { color: var(--text-dim); text-decoration: none; }
   .crumbs a:hover { color: var(--text); }
   .page .answer a { color: var(--link); }
-  .page .vertical { font-size: 13px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }
   .page .answer ul { padding-left: 22px; }
   .page .answer code { background: var(--code-bg); border-radius: 5px; padding: 1px 5px; font-size: 0.9em; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
-  .qa-actions { display: flex; align-items: center; gap: 12px; margin-top: 20px; }
+  .qa-actions { display: flex; align-items: center; gap: 12px; margin-top: 24px; flex-wrap: wrap; }
   .copy-qa-btn { display: inline-flex; align-items: center; gap: 6px; background: var(--bg-soft); color: var(--text-dim); border: 1px solid var(--border); border-radius: 6px; padding: 6px 12px; font-size: 13px; font-family: inherit; font-weight: 500; cursor: pointer; transition: all .15s ease; }
   .copy-qa-btn:hover { background: var(--border); color: var(--text); }
   .copy-qa-btn.copied { background: rgba(16, 163, 127, 0.15); color: var(--accent); border-color: var(--accent); }
-  .copy-qa-btn svg { flex: 0 0 auto; }
   .page .ask { display: inline-block; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 8px 16px; text-decoration: none; font-weight: 600; font-size: 13px; }
-  .page .related { margin-top: 36px; border-top: 1px solid var(--border); padding-top: 18px; }
-  .page .related h2 { font-size: 16px; }
+  .page .related { margin-top: 36px; border-top: 1px solid var(--border); padding-top: 20px; }
+  .page .related h2 { font-size: 16px; margin-bottom: 12px; }
   .page .related a { color: var(--link); text-decoration: none; }
   .page .related a:hover { text-decoration: underline; }
-  .page .related li { margin: 6px 0; }
+  .page .related li { margin: 8px 0; }
   .diagram { margin: 24px 0 8px; padding: 14px; border: 1px solid var(--border); border-radius: 12px; background: var(--bg-soft); }
   .diagram svg { display: block; max-width: 100%; height: auto; }
   .answer code { cursor: pointer; }
@@ -55,26 +53,64 @@
     <span class="brand-dot">F</span>
     <span class="brand-name">FabGPT-FAQ</span>
   </a>
+  <nav class="topnav"><a href="../../q/">Tutte le domande</a></nav>
 </header>
 <main class="page">
-  <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › AI e LLM</nav>
-  <h1 id="page-question">Quali pattern di validazione runtime e rollback transazionale devono essere applicati sulle chiamate a tool MCP prima dell&#x27;esecuzione?</h1>
-  <div class="answer" id="page-answer"><p>Nel <a href="../come-si-costruisce-un-server-mcp/">Model Context Protocol (MCP)</a>, gli agenti orchestrano chiamate sequenziali a tool esterni (creazione record DB, addebito carta, invio email). Se il terzo step fallisce, i dati rimangono in uno stato inconsistente se non si gestisce la transazionalità.</p><p><strong>Pattern di resilienza e sicurezza</strong>:</p><p>1. <strong>Validazione Rigida dello Schema</strong>: valida i parametri generati dall&#x27;LLM a runtime con schemi JSON rigidi (Zod/Pydantic) prima di invocarli, rifiutando tipi non conformi o valori fuori range.<br>2. <strong>Saga Pattern &amp; Compensating Transactions</strong>: per ogni azione eseguita con effetti collaterali (es. <em>&#x27;crea server&#x27;</em>), registra nel context dell&#x27;agente l&#x27;azione di compensazione corrispondente (<em>&#x27;elimina server&#x27;</em>).<br>3. <strong>Dry-Run &amp; Two-Phase Commit</strong>: richiedi una fase di validazione/anteprima prima della finalizzazione effettiva per operazioni distruttive o finanziarie.</p></div>
-  <div class="qa-actions">
-    <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
-      <span>Copia</span>
-    </button>
-    <a class="ask" href="../../?q=mcp-validation-rollback">Chiedilo a FabGPT-FAQ →</a>
-  </div>
-  <div class="related">
-    <h2>Altre domande</h2>
-    <ul><li><a href="../come-si-costruisce-un-server-mcp/">Come si costruisce un server MCP?</a></li><li><a href="../vector-poisoning-inquinamento-spazio-semantico-rag/">In che modo un attacco di Vector Poisoning può alterare il posizionamento spaziale dei chunk di testo nello spazio vettoriale per dirottare il retrieval RAG?</a></li><li><a href="../orchestratore-dag-deterministico-vs-loop-probabilistico-agenti/">Quali differenze intercorrono tra l&#x27;esecuzione sincrona deterministica di DAG e l&#x27;orchestrazione dinamica guidata da router probabilistici?</a></li><li><a href="../cos-e-la-prompt-injection/">Cos&#x27;è la prompt injection e come ci si difende?</a></li><li><a href="../cos-e-mcp-model-context-protocol/">Cos&#x27;è MCP (Model Context Protocol)?</a></li><li><a href="../cos-e-il-vibe-coding/">Cos&#x27;è il vibe coding e quali sono i rischi?</a></li></ul>
-  </div>
+  <article itemscope itemtype="https://schema.org/TechArticle">
+    <nav class="crumbs" aria-label="Percorso"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › <span itemprop="articleSection">AI e LLM</span></nav>
+    <h1 id="page-question" itemprop="headline">Quali pattern di validazione runtime e rollback transazionale devono essere applicati sulle chiamate a tool MCP prima dell&#x27;esecuzione?</h1>
+    <div class="page-meta">
+      <span class="page-meta-badge vert"><svg class='glyph' viewBox='0 0 24 24' width='22' height='22' aria-hidden='true' fill='none' stroke='var(--accent)' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'><circle cx='12' cy='12' r='3'/><path d='M12 3v3M12 18v3M3 12h3M18 12h3M6 6l2 2M16 16l2 2M18 6l-2 2M8 16l-2 2'/></svg> <span>AI e LLM</span></span>
+      <span class="page-meta-badge">⏱️ 1 min lettura</span>
+      <span class="page-meta-badge">✓ Runbook verificato</span>
+    </div>
+    <div class="answer" id="page-answer" itemprop="articleBody"><p>Nel <a href="../come-si-costruisce-un-server-mcp/">Model Context Protocol (MCP)</a>, gli agenti orchestrano chiamate sequenziali a tool esterni (creazione record DB, addebito carta, invio email). Se il terzo step fallisce, i dati rimangono in uno stato inconsistente se non si gestisce la transazionalità.</p><p><strong>Pattern di resilienza e sicurezza</strong>:</p><p>1. <strong>Validazione Rigida dello Schema</strong>: valida i parametri generati dall&#x27;LLM a runtime con schemi JSON rigidi (Zod/Pydantic) prima di invocarli, rifiutando tipi non conformi o valori fuori range.<br>2. <strong>Saga Pattern &amp; Compensating Transactions</strong>: per ogni azione eseguita con effetti collaterali (es. <em>&#x27;crea server&#x27;</em>), registra nel context dell&#x27;agente l&#x27;azione di compensazione corrispondente (<em>&#x27;elimina server&#x27;</em>).<br>3. <strong>Dry-Run &amp; Two-Phase Commit</strong>: richiedi una fase di validazione/anteprima prima della finalizzazione effettiva per operazioni distruttive o finanziarie.</p></div>
+    <div class="qa-actions">
+      <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+        <span>Copia Q&A</span>
+      </button>
+      <a class="ask" href="../../?q=mcp-validation-rollback">Apri nella chat interattiva 💬</a>
+    </div>
+    <nav class="page-nav" aria-label="Navigazione tra domande"><a class="page-nav-card prev" href="../vector-poisoning-inquinamento-spazio-semantico-rag/"><span class="nav-dir">← Precedente</span><span class="nav-title">In che modo un attacco di Vector Poisoning può alterare il posizionamento spaziale dei chunk di testo nello spazio vettoriale per dirottare il retrieval RAG?</span></a><a class="page-nav-card next" href="../orchestratore-dag-deterministico-vs-loop-probabilistico-agenti/"><span class="nav-dir">Successiva →</span><span class="nav-title">Quali differenze intercorrono tra l&#x27;esecuzione sincrona deterministica di DAG e l&#x27;orchestrazione dinamica guidata da router probabilistici?</span></a></nav>
+    <section class="ask-box">
+      <div class="ask-box-header">
+        <span class="ask-box-icon">💬</span>
+        <div>
+          <h3>Hai una domanda specifica su questo tema?</h3>
+          <p>Interroga direttamente il motore FabGPT-FAQ con risposta in tempo reale a zero allucinazioni.</p>
+        </div>
+      </div>
+      <form class="ask-box-form" action="../../" method="get">
+        <input type="text" name="q" value="Quali pattern di validazione runtime e rollback transazionale devono essere applicati sulle chiamate a tool MCP prima dell&#x27;esecuzione?" placeholder="Chiedi qualcosa a FabGPT-FAQ…" aria-label="Chiedi qualcosa" autocomplete="off">
+        <button type="submit">Chiedi in chat →</button>
+      </form>
+    </section>
+    <div class="related">
+      <h2>Domande correlate</h2>
+      <ul><li><a href="../come-si-costruisce-un-server-mcp/">Come si costruisce un server MCP?</a></li><li><a href="../vector-poisoning-inquinamento-spazio-semantico-rag/">In che modo un attacco di Vector Poisoning può alterare il posizionamento spaziale dei chunk di testo nello spazio vettoriale per dirottare il retrieval RAG?</a></li><li><a href="../orchestratore-dag-deterministico-vs-loop-probabilistico-agenti/">Quali differenze intercorrono tra l&#x27;esecuzione sincrona deterministica di DAG e l&#x27;orchestrazione dinamica guidata da router probabilistici?</a></li><li><a href="../cos-e-la-prompt-injection/">Cos&#x27;è la prompt injection e come ci si difende?</a></li><li><a href="../cos-e-mcp-model-context-protocol/">Cos&#x27;è MCP (Model Context Protocol)?</a></li><li><a href="../cos-e-il-vibe-coding/">Cos&#x27;è il vibe coding e quali sono i rischi?</a></li></ul>
+    </div>
+  </article>
 </main>
 <script>
 document.addEventListener('click',function(e){
-  var c=e.target.closest('code'); if(!c)return;
+  var copyCodeBtn = e.target.closest('.copy-code-btn');
+  if (copyCodeBtn) {
+    var block = copyCodeBtn.closest('.code-block');
+    var code = block ? block.querySelector('code')?.textContent : '';
+    if (code && navigator.clipboard) {
+      navigator.clipboard.writeText(code).then(function(){
+        copyCodeBtn.classList.add('copied');
+        copyCodeBtn.querySelector('span').textContent = 'Copiato!';
+        setTimeout(function(){
+          copyCodeBtn.classList.remove('copied');
+          copyCodeBtn.querySelector('span').textContent = 'Copia';
+        }, 1500);
+      });
+    }
+    return;
+  }
+  var c=e.target.closest('code:not(pre code)'); if(!c)return;
   navigator.clipboard&&navigator.clipboard.writeText(c.textContent).then(function(){
     c.classList.add('copied'); setTimeout(function(){c.classList.remove('copied')},900);
   });
@@ -90,7 +126,7 @@ document.getElementById('copy-page-btn')?.addEventListener('click', function(){
       btn.querySelector('span').textContent = 'Copiato!';
       setTimeout(function(){
         btn.classList.remove('copied');
-        btn.querySelector('span').textContent = 'Copia';
+        btn.querySelector('span').textContent = 'Copia Q&A';
       }, 1500);
     });
   }

@@ -20,28 +20,26 @@
 <meta name="twitter:image" content="https://fabriziosalmi.github.io/fabgpt-faq/og.svg">
 <link rel="stylesheet" href="../../style.css">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
-<script type="application/ld+json">[{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Come si verifica l'integrità dei pesi di un modello (e i rischi del pickle)?", "acceptedAnswer": {"@type": "Answer", "text": "Scaricare un modello è [eseguire codice di terzi con i tuoi permessi](q/cos-e-la-supply-chain-security/) – e per anni il rischio è stato letteralmente questo: il formato pickle di PyTorch è codice Python serializzato, e caricarlo può eseguire comandi arbitrari. Un checkpoint \"innocuo\" su un hub pubblico poteva aprire una reverse shell all'import. I rischi in fila: deserializzazione malevola (pickle): la ragione per cui esiste safetensors – un formato che contiene solo dati, nessun codice eseguibile. Preferiscilo sempre; scansiona i pickle (picklescan) quando sei costretto a usarli checkpoint manomessi: pesi alterati con backdoor o comportamenti nascosti – da qui l'importanza di hash e firme verificabili, non del solo \"scaricato dal repo giusto\" librerie non validate: transformers, tokenizers e affini sono dipendenze come le altre – [CVE, versioni pinnate, SBOM](q/sicurezza-nella-pipeline-cicd/) La risposta emergente è l'AIBOM (AI Bill of Materials): l'inventario firmato di cosa c'è in un sistema AI – modello, dataset di provenienza, licenze, dipendenze – l'equivalente dell'[SBOM](q/cos-e-la-supply-chain-security/) per l'era dei modelli, e un tassello di conformità [AI Act](q/cosa-prevede-ai-act/). La regola pratica minima: safetensors, hash verificati, fonti fidate, e trattare ogni modello scaricato come [una dipendenza da governare](q/sicurezza-nella-pipeline-cicd/), non come un file di dati inerte."}}]}, {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "FabGPT-FAQ", "item": "https://fabriziosalmi.github.io/fabgpt-faq/"}, {"@type": "ListItem", "position": 2, "name": "Tutte le domande", "item": "https://fabriziosalmi.github.io/fabgpt-faq/q/"}, {"@type": "ListItem", "position": 3, "name": "AI e LLM", "item": "https://fabriziosalmi.github.io/fabgpt-faq/q/sicurezza-dei-pesi-e-checkpoint-dei-modelli/"}]}]</script>
+<script type="application/ld+json">[{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Come si verifica l'integrità dei pesi di un modello (e i rischi del pickle)?", "description": "Scaricare un modello è [eseguire codice di terzi con i tuoi permessi](q/cos-e-la-supply-chain-security/) – e per anni il rischio è stato letteralmente…", "author": {"@type": "Person", "name": "Fabrizio Salmi", "url": "https://github.com/fabriziosalmi"}, "publisher": {"@type": "Organization", "name": "FabGPT-FAQ", "url": "https://fabriziosalmi.github.io/fabgpt-faq/"}, "inLanguage": "it", "articleSection": "AI e LLM"}, {"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Come si verifica l'integrità dei pesi di un modello (e i rischi del pickle)?", "acceptedAnswer": {"@type": "Answer", "text": "Scaricare un modello è [eseguire codice di terzi con i tuoi permessi](q/cos-e-la-supply-chain-security/) – e per anni il rischio è stato letteralmente questo: il formato pickle di PyTorch è codice Python serializzato, e caricarlo può eseguire comandi arbitrari. Un checkpoint \"innocuo\" su un hub pubblico poteva aprire una reverse shell all'import. I rischi in fila: deserializzazione malevola (pickle): la ragione per cui esiste safetensors – un formato che contiene solo dati, nessun codice eseguibile. Preferiscilo sempre; scansiona i pickle (picklescan) quando sei costretto a usarli checkpoint manomessi: pesi alterati con backdoor o comportamenti nascosti – da qui l'importanza di hash e firme verificabili, non del solo \"scaricato dal repo giusto\" librerie non validate: transformers, tokenizers e affini sono dipendenze come le altre – [CVE, versioni pinnate, SBOM](q/sicurezza-nella-pipeline-cicd/) La risposta emergente è l'AIBOM (AI Bill of Materials): l'inventario firmato di cosa c'è in un sistema AI – modello, dataset di provenienza, licenze, dipendenze – l'equivalente dell'[SBOM](q/cos-e-la-supply-chain-security/) per l'era dei modelli, e un tassello di conformità [AI Act](q/cosa-prevede-ai-act/). La regola pratica minima: safetensors, hash verificati, fonti fidate, e trattare ogni modello scaricato come [una dipendenza da governare](q/sicurezza-nella-pipeline-cicd/), non come un file di dati inerte."}}]}, {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "FabGPT-FAQ", "item": "https://fabriziosalmi.github.io/fabgpt-faq/"}, {"@type": "ListItem", "position": 2, "name": "Tutte le domande", "item": "https://fabriziosalmi.github.io/fabgpt-faq/q/"}, {"@type": "ListItem", "position": 3, "name": "AI e LLM", "item": "https://fabriziosalmi.github.io/fabgpt-faq/q/sicurezza-dei-pesi-e-checkpoint-dei-modelli/"}]}]</script>
 <style>
   .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
-  .page h1 { font-size: 26px; line-height: 1.3; margin: 6px 0 20px; }
-  .crumbs { font-size: 13px; color: var(--text-dim); margin-bottom: 4px; }
+  .page h1 { font-size: 26px; line-height: 1.3; margin: 6px 0 10px; }
+  .crumbs { font-size: 13px; color: var(--text-dim); margin-bottom: 6px; }
   .crumbs a { color: var(--text-dim); text-decoration: none; }
   .crumbs a:hover { color: var(--text); }
   .page .answer a { color: var(--link); }
-  .page .vertical { font-size: 13px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }
   .page .answer ul { padding-left: 22px; }
   .page .answer code { background: var(--code-bg); border-radius: 5px; padding: 1px 5px; font-size: 0.9em; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
-  .qa-actions { display: flex; align-items: center; gap: 12px; margin-top: 20px; }
+  .qa-actions { display: flex; align-items: center; gap: 12px; margin-top: 24px; flex-wrap: wrap; }
   .copy-qa-btn { display: inline-flex; align-items: center; gap: 6px; background: var(--bg-soft); color: var(--text-dim); border: 1px solid var(--border); border-radius: 6px; padding: 6px 12px; font-size: 13px; font-family: inherit; font-weight: 500; cursor: pointer; transition: all .15s ease; }
   .copy-qa-btn:hover { background: var(--border); color: var(--text); }
   .copy-qa-btn.copied { background: rgba(16, 163, 127, 0.15); color: var(--accent); border-color: var(--accent); }
-  .copy-qa-btn svg { flex: 0 0 auto; }
   .page .ask { display: inline-block; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 8px 16px; text-decoration: none; font-weight: 600; font-size: 13px; }
-  .page .related { margin-top: 36px; border-top: 1px solid var(--border); padding-top: 18px; }
-  .page .related h2 { font-size: 16px; }
+  .page .related { margin-top: 36px; border-top: 1px solid var(--border); padding-top: 20px; }
+  .page .related h2 { font-size: 16px; margin-bottom: 12px; }
   .page .related a { color: var(--link); text-decoration: none; }
   .page .related a:hover { text-decoration: underline; }
-  .page .related li { margin: 6px 0; }
+  .page .related li { margin: 8px 0; }
   .diagram { margin: 24px 0 8px; padding: 14px; border: 1px solid var(--border); border-radius: 12px; background: var(--bg-soft); }
   .diagram svg { display: block; max-width: 100%; height: auto; }
   .answer code { cursor: pointer; }
@@ -55,26 +53,64 @@
     <span class="brand-dot">F</span>
     <span class="brand-name">FabGPT-FAQ</span>
   </a>
+  <nav class="topnav"><a href="../../q/">Tutte le domande</a></nav>
 </header>
 <main class="page">
-  <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › AI e LLM</nav>
-  <h1 id="page-question">Come si verifica l&#x27;integrità dei pesi di un modello (e i rischi del pickle)?</h1>
-  <div class="answer" id="page-answer"><p>Scaricare un modello è <a href="../cos-e-la-supply-chain-security/">eseguire codice di terzi con i tuoi permessi</a> – e per anni il rischio è stato letteralmente questo: il formato <strong>pickle</strong> di PyTorch è codice Python serializzato, e caricarlo può <strong>eseguire comandi arbitrari</strong>. Un checkpoint &quot;innocuo&quot; su un hub pubblico poteva aprire una reverse shell all&#x27;import. I rischi in fila:</p><ul><li><strong>deserializzazione malevola</strong> (pickle): la ragione per cui esiste <strong>safetensors</strong> – un formato che contiene <em>solo</em> dati, nessun codice eseguibile. Preferiscilo sempre; scansiona i pickle (picklescan) quando sei costretto a usarli</li><li><strong>checkpoint manomessi</strong>: pesi alterati con backdoor o comportamenti nascosti – da qui l&#x27;importanza di <strong>hash e firme</strong> verificabili, non del solo &quot;scaricato dal repo giusto&quot;</li><li><strong>librerie non validate</strong>: <code>transformers</code>, <code>tokenizers</code> e affini sono dipendenze come le altre – <a href="../sicurezza-nella-pipeline-cicd/">CVE, versioni pinnate, SBOM</a></li></ul><p>La risposta emergente è l&#x27;<strong>AIBOM</strong> (AI Bill of Materials): l&#x27;inventario firmato di <em>cosa</em> c&#x27;è in un sistema AI – modello, dataset di provenienza, licenze, dipendenze – l&#x27;equivalente dell&#x27;<a href="../cos-e-la-supply-chain-security/">SBOM</a> per l&#x27;era dei modelli, e un tassello di conformità <a href="../cosa-prevede-ai-act/">AI Act</a>. La regola pratica minima: <strong>safetensors</strong>, hash verificati, fonti fidate, e trattare ogni modello scaricato come <a href="../sicurezza-nella-pipeline-cicd/">una dipendenza da governare</a>, non come un file di dati inerte.</p></div>
-  <div class="qa-actions">
-    <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
-      <span>Copia</span>
-    </button>
-    <a class="ask" href="../../?q=ai-supply-chain-weights">Chiedilo a FabGPT-FAQ →</a>
-  </div>
-  <div class="related">
-    <h2>Altre domande</h2>
-    <ul><li><a href="../cos-e-la-supply-chain-security/">Cos&#x27;è la supply chain security del software (SBOM, SLSA)?</a></li><li><a href="../sicurezza-nella-pipeline-cicd/">Come si mette la sicurezza nella pipeline CI/CD (DevSecOps)?</a></li><li><a href="../osservabilita-e-tracing-di-sistemi-ai/">Come si fa observability e tracing di un sistema AI (OpenInference)?</a></li><li><a href="../cosa-prevede-ai-act/">Cosa prevede l&#x27;AI Act europeo (e da quando si applica)?</a></li><li><a href="../cos-e-la-prompt-injection/">Cos&#x27;è la prompt injection e come ci si difende?</a></li><li><a href="../cos-e-mcp-model-context-protocol/">Cos&#x27;è MCP (Model Context Protocol)?</a></li></ul>
-  </div>
+  <article itemscope itemtype="https://schema.org/TechArticle">
+    <nav class="crumbs" aria-label="Percorso"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › <span itemprop="articleSection">AI e LLM</span></nav>
+    <h1 id="page-question" itemprop="headline">Come si verifica l&#x27;integrità dei pesi di un modello (e i rischi del pickle)?</h1>
+    <div class="page-meta">
+      <span class="page-meta-badge vert"><svg class='glyph' viewBox='0 0 24 24' width='22' height='22' aria-hidden='true' fill='none' stroke='var(--accent)' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'><circle cx='12' cy='12' r='3'/><path d='M12 3v3M12 18v3M3 12h3M18 12h3M6 6l2 2M16 16l2 2M18 6l-2 2M8 16l-2 2'/></svg> <span>AI e LLM</span></span>
+      <span class="page-meta-badge">⏱️ 2 min lettura</span>
+      <span class="page-meta-badge">✓ Runbook verificato</span>
+    </div>
+    <div class="answer" id="page-answer" itemprop="articleBody"><p>Scaricare un modello è <a href="../cos-e-la-supply-chain-security/">eseguire codice di terzi con i tuoi permessi</a> – e per anni il rischio è stato letteralmente questo: il formato <strong>pickle</strong> di PyTorch è codice Python serializzato, e caricarlo può <strong>eseguire comandi arbitrari</strong>. Un checkpoint &quot;innocuo&quot; su un hub pubblico poteva aprire una reverse shell all&#x27;import. I rischi in fila:</p><ul><li><strong>deserializzazione malevola</strong> (pickle): la ragione per cui esiste <strong>safetensors</strong> – un formato che contiene <em>solo</em> dati, nessun codice eseguibile. Preferiscilo sempre; scansiona i pickle (picklescan) quando sei costretto a usarli</li><li><strong>checkpoint manomessi</strong>: pesi alterati con backdoor o comportamenti nascosti – da qui l&#x27;importanza di <strong>hash e firme</strong> verificabili, non del solo &quot;scaricato dal repo giusto&quot;</li><li><strong>librerie non validate</strong>: <code>transformers</code>, <code>tokenizers</code> e affini sono dipendenze come le altre – <a href="../sicurezza-nella-pipeline-cicd/">CVE, versioni pinnate, SBOM</a></li></ul><p>La risposta emergente è l&#x27;<strong>AIBOM</strong> (AI Bill of Materials): l&#x27;inventario firmato di <em>cosa</em> c&#x27;è in un sistema AI – modello, dataset di provenienza, licenze, dipendenze – l&#x27;equivalente dell&#x27;<a href="../cos-e-la-supply-chain-security/">SBOM</a> per l&#x27;era dei modelli, e un tassello di conformità <a href="../cosa-prevede-ai-act/">AI Act</a>. La regola pratica minima: <strong>safetensors</strong>, hash verificati, fonti fidate, e trattare ogni modello scaricato come <a href="../sicurezza-nella-pipeline-cicd/">una dipendenza da governare</a>, non come un file di dati inerte.</p></div>
+    <div class="qa-actions">
+      <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+        <span>Copia Q&A</span>
+      </button>
+      <a class="ask" href="../../?q=ai-supply-chain-weights">Apri nella chat interattiva 💬</a>
+    </div>
+    <nav class="page-nav" aria-label="Navigazione tra domande"><a class="page-nav-card prev" href="../sicurezza-del-rag-e-dei-vector-database/"><span class="nav-dir">← Precedente</span><span class="nav-title">Quali sono i rischi di sicurezza del RAG e dei vector database?</span></a><a class="page-nav-card next" href="../osservabilita-e-tracing-di-sistemi-ai/"><span class="nav-dir">Successiva →</span><span class="nav-title">Come si fa observability e tracing di un sistema AI (OpenInference)?</span></a></nav>
+    <section class="ask-box">
+      <div class="ask-box-header">
+        <span class="ask-box-icon">💬</span>
+        <div>
+          <h3>Hai una domanda specifica su questo tema?</h3>
+          <p>Interroga direttamente il motore FabGPT-FAQ con risposta in tempo reale a zero allucinazioni.</p>
+        </div>
+      </div>
+      <form class="ask-box-form" action="../../" method="get">
+        <input type="text" name="q" value="Come si verifica l&#x27;integrità dei pesi di un modello (e i rischi del pickle)?" placeholder="Chiedi qualcosa a FabGPT-FAQ…" aria-label="Chiedi qualcosa" autocomplete="off">
+        <button type="submit">Chiedi in chat →</button>
+      </form>
+    </section>
+    <div class="related">
+      <h2>Domande correlate</h2>
+      <ul><li><a href="../cos-e-la-supply-chain-security/">Cos&#x27;è la supply chain security del software (SBOM, SLSA)?</a></li><li><a href="../sicurezza-nella-pipeline-cicd/">Come si mette la sicurezza nella pipeline CI/CD (DevSecOps)?</a></li><li><a href="../osservabilita-e-tracing-di-sistemi-ai/">Come si fa observability e tracing di un sistema AI (OpenInference)?</a></li><li><a href="../cosa-prevede-ai-act/">Cosa prevede l&#x27;AI Act europeo (e da quando si applica)?</a></li><li><a href="../cos-e-la-prompt-injection/">Cos&#x27;è la prompt injection e come ci si difende?</a></li><li><a href="../cos-e-mcp-model-context-protocol/">Cos&#x27;è MCP (Model Context Protocol)?</a></li></ul>
+    </div>
+  </article>
 </main>
 <script>
 document.addEventListener('click',function(e){
-  var c=e.target.closest('code'); if(!c)return;
+  var copyCodeBtn = e.target.closest('.copy-code-btn');
+  if (copyCodeBtn) {
+    var block = copyCodeBtn.closest('.code-block');
+    var code = block ? block.querySelector('code')?.textContent : '';
+    if (code && navigator.clipboard) {
+      navigator.clipboard.writeText(code).then(function(){
+        copyCodeBtn.classList.add('copied');
+        copyCodeBtn.querySelector('span').textContent = 'Copiato!';
+        setTimeout(function(){
+          copyCodeBtn.classList.remove('copied');
+          copyCodeBtn.querySelector('span').textContent = 'Copia';
+        }, 1500);
+      });
+    }
+    return;
+  }
+  var c=e.target.closest('code:not(pre code)'); if(!c)return;
   navigator.clipboard&&navigator.clipboard.writeText(c.textContent).then(function(){
     c.classList.add('copied'); setTimeout(function(){c.classList.remove('copied')},900);
   });
@@ -90,7 +126,7 @@ document.getElementById('copy-page-btn')?.addEventListener('click', function(){
       btn.querySelector('span').textContent = 'Copiato!';
       setTimeout(function(){
         btn.classList.remove('copied');
-        btn.querySelector('span').textContent = 'Copia';
+        btn.querySelector('span').textContent = 'Copia Q&A';
       }, 1500);
     });
   }

@@ -20,28 +20,26 @@
 <meta name="twitter:image" content="https://fabriziosalmi.github.io/fabgpt-faq/og.svg">
 <link rel="stylesheet" href="../../style.css">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
-<script type="application/ld+json">[{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Come si configura una sessione BGP con BFD (router locale ↔ VPS)?", "acceptedAnswer": {"@type": "Answer", "text": "Uno scenario avanzato di [self-hosting](q/self-hosting-pro-e-contro/): usare BGP per annunciare i propri servizi da casa attraverso un VPS che fa da frontend pubblico – utile per avere IP stabili e failover quando la linea di casa è dietro [CGNAT](q/nat-statico-dinamico-e-pat/) o cambia IP. Il router locale e il VPS stabiliscono una sessione BGP (di solito dentro un [tunnel WireGuard](q/wireguard-o-openvpn/)) su cui si scambiano le rotte. Il problema che BFD risolve: BGP di suo rileva la caduta di un peer con timer lenti (decine di secondi) – troppo per un failover pulito. BFD (Bidirectional Forwarding Detection) è un protocollo leggerissimo che manda pacchetti a intervalli di millisecondi e rileva la caduta del collegamento in una frazione di secondo, dicendo a BGP di ritirare le rotte subito. Il failover diventa quasi istantaneo invece che una lunga finestra di disservizio. Si implementa con FRR (Free Range Routing) o BIRD sul router locale e sul VPS – entrambi girano su [un LXC](q/differenza-container-lxc-e-vm/) o direttamente sul gateway. È territorio da homelab avanzato / piccola infrastruttura, imparentato con come funziona [il routing di internet stesso](q/bgp-hijacking-e-rpki/), e un'alternativa più sofisticata al [tunnel semplice verso un VPS](q/esporre-servizi-senza-aprire-porte/): dà routing dinamico e failover veloce, al prezzo di una configurazione che richiede di masticare BGP. Per la maggioranza, [una mesh VPN](q/wireguard-e-mesh-vpn/) risolve lo stesso bisogno con un decimo della complessità."}}]}, {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "FabGPT-FAQ", "item": "https://fabriziosalmi.github.io/fabgpt-faq/"}, {"@type": "ListItem", "position": 2, "name": "Tutte le domande", "item": "https://fabriziosalmi.github.io/fabgpt-faq/q/"}, {"@type": "ListItem", "position": 3, "name": "Cybersecurity", "item": "https://fabriziosalmi.github.io/fabgpt-faq/q/bgp-con-bfd-verso-un-vps/"}]}]</script>
+<script type="application/ld+json">[{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Come si configura una sessione BGP con BFD (router locale ↔ VPS)?", "description": "Uno scenario avanzato di [self-hosting](q/self-hosting-pro-e-contro/): usare BGP per annunciare i propri servizi da casa attraverso un VPS che fa da…", "author": {"@type": "Person", "name": "Fabrizio Salmi", "url": "https://github.com/fabriziosalmi"}, "publisher": {"@type": "Organization", "name": "FabGPT-FAQ", "url": "https://fabriziosalmi.github.io/fabgpt-faq/"}, "inLanguage": "it", "articleSection": "Cybersecurity"}, {"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Come si configura una sessione BGP con BFD (router locale ↔ VPS)?", "acceptedAnswer": {"@type": "Answer", "text": "Uno scenario avanzato di [self-hosting](q/self-hosting-pro-e-contro/): usare BGP per annunciare i propri servizi da casa attraverso un VPS che fa da frontend pubblico – utile per avere IP stabili e failover quando la linea di casa è dietro [CGNAT](q/nat-statico-dinamico-e-pat/) o cambia IP. Il router locale e il VPS stabiliscono una sessione BGP (di solito dentro un [tunnel WireGuard](q/wireguard-o-openvpn/)) su cui si scambiano le rotte. Il problema che BFD risolve: BGP di suo rileva la caduta di un peer con timer lenti (decine di secondi) – troppo per un failover pulito. BFD (Bidirectional Forwarding Detection) è un protocollo leggerissimo che manda pacchetti a intervalli di millisecondi e rileva la caduta del collegamento in una frazione di secondo, dicendo a BGP di ritirare le rotte subito. Il failover diventa quasi istantaneo invece che una lunga finestra di disservizio. Si implementa con FRR (Free Range Routing) o BIRD sul router locale e sul VPS – entrambi girano su [un LXC](q/differenza-container-lxc-e-vm/) o direttamente sul gateway. È territorio da homelab avanzato / piccola infrastruttura, imparentato con come funziona [il routing di internet stesso](q/bgp-hijacking-e-rpki/), e un'alternativa più sofisticata al [tunnel semplice verso un VPS](q/esporre-servizi-senza-aprire-porte/): dà routing dinamico e failover veloce, al prezzo di una configurazione che richiede di masticare BGP. Per la maggioranza, [una mesh VPN](q/wireguard-e-mesh-vpn/) risolve lo stesso bisogno con un decimo della complessità."}}]}, {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "FabGPT-FAQ", "item": "https://fabriziosalmi.github.io/fabgpt-faq/"}, {"@type": "ListItem", "position": 2, "name": "Tutte le domande", "item": "https://fabriziosalmi.github.io/fabgpt-faq/q/"}, {"@type": "ListItem", "position": 3, "name": "Cybersecurity", "item": "https://fabriziosalmi.github.io/fabgpt-faq/q/bgp-con-bfd-verso-un-vps/"}]}]</script>
 <style>
   .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
-  .page h1 { font-size: 26px; line-height: 1.3; margin: 6px 0 20px; }
-  .crumbs { font-size: 13px; color: var(--text-dim); margin-bottom: 4px; }
+  .page h1 { font-size: 26px; line-height: 1.3; margin: 6px 0 10px; }
+  .crumbs { font-size: 13px; color: var(--text-dim); margin-bottom: 6px; }
   .crumbs a { color: var(--text-dim); text-decoration: none; }
   .crumbs a:hover { color: var(--text); }
   .page .answer a { color: var(--link); }
-  .page .vertical { font-size: 13px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }
   .page .answer ul { padding-left: 22px; }
   .page .answer code { background: var(--code-bg); border-radius: 5px; padding: 1px 5px; font-size: 0.9em; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
-  .qa-actions { display: flex; align-items: center; gap: 12px; margin-top: 20px; }
+  .qa-actions { display: flex; align-items: center; gap: 12px; margin-top: 24px; flex-wrap: wrap; }
   .copy-qa-btn { display: inline-flex; align-items: center; gap: 6px; background: var(--bg-soft); color: var(--text-dim); border: 1px solid var(--border); border-radius: 6px; padding: 6px 12px; font-size: 13px; font-family: inherit; font-weight: 500; cursor: pointer; transition: all .15s ease; }
   .copy-qa-btn:hover { background: var(--border); color: var(--text); }
   .copy-qa-btn.copied { background: rgba(16, 163, 127, 0.15); color: var(--accent); border-color: var(--accent); }
-  .copy-qa-btn svg { flex: 0 0 auto; }
   .page .ask { display: inline-block; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 8px 16px; text-decoration: none; font-weight: 600; font-size: 13px; }
-  .page .related { margin-top: 36px; border-top: 1px solid var(--border); padding-top: 18px; }
-  .page .related h2 { font-size: 16px; }
+  .page .related { margin-top: 36px; border-top: 1px solid var(--border); padding-top: 20px; }
+  .page .related h2 { font-size: 16px; margin-bottom: 12px; }
   .page .related a { color: var(--link); text-decoration: none; }
   .page .related a:hover { text-decoration: underline; }
-  .page .related li { margin: 6px 0; }
+  .page .related li { margin: 8px 0; }
   .diagram { margin: 24px 0 8px; padding: 14px; border: 1px solid var(--border); border-radius: 12px; background: var(--bg-soft); }
   .diagram svg { display: block; max-width: 100%; height: auto; }
   .answer code { cursor: pointer; }
@@ -55,26 +53,64 @@
     <span class="brand-dot">F</span>
     <span class="brand-name">FabGPT-FAQ</span>
   </a>
+  <nav class="topnav"><a href="../../q/">Tutte le domande</a></nav>
 </header>
 <main class="page">
-  <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › Cybersecurity</nav>
-  <h1 id="page-question">Come si configura una sessione BGP con BFD (router locale ↔ VPS)?</h1>
-  <div class="answer" id="page-answer"><p>Uno scenario avanzato di <a href="../self-hosting-pro-e-contro/">self-hosting</a>: usare <strong>BGP</strong> per annunciare i propri servizi da casa attraverso un <strong>VPS</strong> che fa da frontend pubblico – utile per avere IP stabili e failover quando la linea di casa è dietro <a href="../nat-statico-dinamico-e-pat/">CGNAT</a> o cambia IP. Il router locale e il VPS stabiliscono una <strong>sessione BGP</strong> (di solito dentro un <a href="../wireguard-o-openvpn/">tunnel WireGuard</a>) su cui si scambiano le rotte.</p><p>Il problema che <strong>BFD</strong> risolve: BGP di suo rileva la caduta di un peer con timer lenti (decine di secondi) – troppo per un failover pulito. <strong>BFD</strong> (Bidirectional Forwarding Detection) è un protocollo leggerissimo che manda pacchetti a intervalli di <strong>millisecondi</strong> e rileva la caduta del collegamento in una frazione di secondo, dicendo a BGP di ritirare le rotte <em>subito</em>. Il failover diventa quasi istantaneo invece che una lunga finestra di disservizio.</p><p>Si implementa con <strong>FRR</strong> (Free Range Routing) o <strong>BIRD</strong> sul router locale e sul VPS – entrambi girano su <a href="../differenza-container-lxc-e-vm/">un LXC</a> o direttamente sul gateway. È territorio da homelab avanzato / piccola infrastruttura, imparentato con come funziona <a href="../bgp-hijacking-e-rpki/">il routing di internet stesso</a>, e un&#x27;alternativa più sofisticata al <a href="../esporre-servizi-senza-aprire-porte/">tunnel semplice verso un VPS</a>: dà routing dinamico e failover veloce, al prezzo di una configurazione che richiede di masticare BGP. Per la maggioranza, <a href="../wireguard-e-mesh-vpn/">una mesh VPN</a> risolve lo stesso bisogno con un decimo della complessità.</p></div>
-  <div class="qa-actions">
-    <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
-      <span>Copia</span>
-    </button>
-    <a class="ask" href="../../?q=bgp-bfd-homelab">Chiedilo a FabGPT-FAQ →</a>
-  </div>
-  <div class="related">
-    <h2>Altre domande</h2>
-    <ul><li><a href="../self-hosting-pro-e-contro/">Self-hosting: cosa significa e quando conviene?</a></li><li><a href="../nat-statico-dinamico-e-pat/">NAT statico, dinamico e PAT: che differenze (e implicazioni di sicurezza)?</a></li><li><a href="../filtraggio-geoip-e-liste-di-reputazione/">Come si filtra il traffico con GeoIP e liste di reputazione?</a></li><li><a href="../wireguard-o-openvpn/">WireGuard o OpenVPN: quale scegliere per l&#x27;accesso remoto?</a></li><li><a href="../cos-e-un-waf-web-application-firewall/">Cos&#x27;è un WAF (Web Application Firewall) e a cosa serve?</a></li><li><a href="../cos-e-un-reverse-proxy/">Cos&#x27;è un reverse proxy e a cosa serve?</a></li></ul>
-  </div>
+  <article itemscope itemtype="https://schema.org/TechArticle">
+    <nav class="crumbs" aria-label="Percorso"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › <span itemprop="articleSection">Cybersecurity</span></nav>
+    <h1 id="page-question" itemprop="headline">Come si configura una sessione BGP con BFD (router locale ↔ VPS)?</h1>
+    <div class="page-meta">
+      <span class="page-meta-badge vert"><svg class='glyph' viewBox='0 0 24 24' width='22' height='22' aria-hidden='true' fill='none' stroke='var(--accent)' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'><path d='M12 3l7 3v5c0 4-3 7-7 8-4-1-7-4-7-8V6z'/></svg> <span>Cybersecurity</span></span>
+      <span class="page-meta-badge">⏱️ 2 min lettura</span>
+      <span class="page-meta-badge">✓ Runbook verificato</span>
+    </div>
+    <div class="answer" id="page-answer" itemprop="articleBody"><p>Uno scenario avanzato di <a href="../self-hosting-pro-e-contro/">self-hosting</a>: usare <strong>BGP</strong> per annunciare i propri servizi da casa attraverso un <strong>VPS</strong> che fa da frontend pubblico – utile per avere IP stabili e failover quando la linea di casa è dietro <a href="../nat-statico-dinamico-e-pat/">CGNAT</a> o cambia IP. Il router locale e il VPS stabiliscono una <strong>sessione BGP</strong> (di solito dentro un <a href="../wireguard-o-openvpn/">tunnel WireGuard</a>) su cui si scambiano le rotte.</p><p>Il problema che <strong>BFD</strong> risolve: BGP di suo rileva la caduta di un peer con timer lenti (decine di secondi) – troppo per un failover pulito. <strong>BFD</strong> (Bidirectional Forwarding Detection) è un protocollo leggerissimo che manda pacchetti a intervalli di <strong>millisecondi</strong> e rileva la caduta del collegamento in una frazione di secondo, dicendo a BGP di ritirare le rotte <em>subito</em>. Il failover diventa quasi istantaneo invece che una lunga finestra di disservizio.</p><p>Si implementa con <strong>FRR</strong> (Free Range Routing) o <strong>BIRD</strong> sul router locale e sul VPS – entrambi girano su <a href="../differenza-container-lxc-e-vm/">un LXC</a> o direttamente sul gateway. È territorio da homelab avanzato / piccola infrastruttura, imparentato con come funziona <a href="../bgp-hijacking-e-rpki/">il routing di internet stesso</a>, e un&#x27;alternativa più sofisticata al <a href="../esporre-servizi-senza-aprire-porte/">tunnel semplice verso un VPS</a>: dà routing dinamico e failover veloce, al prezzo di una configurazione che richiede di masticare BGP. Per la maggioranza, <a href="../wireguard-e-mesh-vpn/">una mesh VPN</a> risolve lo stesso bisogno con un decimo della complessità.</p></div>
+    <div class="qa-actions">
+      <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+        <span>Copia Q&A</span>
+      </button>
+      <a class="ask" href="../../?q=bgp-bfd-homelab">Apri nella chat interattiva 💬</a>
+    </div>
+    <nav class="page-nav" aria-label="Navigazione tra domande"><a class="page-nav-card prev" href="../mdns-repeater-tra-vlan/"><span class="nav-dir">← Precedente</span><span class="nav-title">Come si fa funzionare mDNS tra VLAN diverse (repeater/reflector)?</span></a><a class="page-nav-card next" href="../filtraggio-geoip-e-liste-di-reputazione/"><span class="nav-dir">Successiva →</span><span class="nav-title">Come si filtra il traffico con GeoIP e liste di reputazione?</span></a></nav>
+    <section class="ask-box">
+      <div class="ask-box-header">
+        <span class="ask-box-icon">💬</span>
+        <div>
+          <h3>Hai una domanda specifica su questo tema?</h3>
+          <p>Interroga direttamente il motore FabGPT-FAQ con risposta in tempo reale a zero allucinazioni.</p>
+        </div>
+      </div>
+      <form class="ask-box-form" action="../../" method="get">
+        <input type="text" name="q" value="Come si configura una sessione BGP con BFD (router locale ↔ VPS)?" placeholder="Chiedi qualcosa a FabGPT-FAQ…" aria-label="Chiedi qualcosa" autocomplete="off">
+        <button type="submit">Chiedi in chat →</button>
+      </form>
+    </section>
+    <div class="related">
+      <h2>Domande correlate</h2>
+      <ul><li><a href="../self-hosting-pro-e-contro/">Self-hosting: cosa significa e quando conviene?</a></li><li><a href="../nat-statico-dinamico-e-pat/">NAT statico, dinamico e PAT: che differenze (e implicazioni di sicurezza)?</a></li><li><a href="../filtraggio-geoip-e-liste-di-reputazione/">Come si filtra il traffico con GeoIP e liste di reputazione?</a></li><li><a href="../wireguard-o-openvpn/">WireGuard o OpenVPN: quale scegliere per l&#x27;accesso remoto?</a></li><li><a href="../cos-e-un-waf-web-application-firewall/">Cos&#x27;è un WAF (Web Application Firewall) e a cosa serve?</a></li><li><a href="../cos-e-un-reverse-proxy/">Cos&#x27;è un reverse proxy e a cosa serve?</a></li></ul>
+    </div>
+  </article>
 </main>
 <script>
 document.addEventListener('click',function(e){
-  var c=e.target.closest('code'); if(!c)return;
+  var copyCodeBtn = e.target.closest('.copy-code-btn');
+  if (copyCodeBtn) {
+    var block = copyCodeBtn.closest('.code-block');
+    var code = block ? block.querySelector('code')?.textContent : '';
+    if (code && navigator.clipboard) {
+      navigator.clipboard.writeText(code).then(function(){
+        copyCodeBtn.classList.add('copied');
+        copyCodeBtn.querySelector('span').textContent = 'Copiato!';
+        setTimeout(function(){
+          copyCodeBtn.classList.remove('copied');
+          copyCodeBtn.querySelector('span').textContent = 'Copia';
+        }, 1500);
+      });
+    }
+    return;
+  }
+  var c=e.target.closest('code:not(pre code)'); if(!c)return;
   navigator.clipboard&&navigator.clipboard.writeText(c.textContent).then(function(){
     c.classList.add('copied'); setTimeout(function(){c.classList.remove('copied')},900);
   });
@@ -90,7 +126,7 @@ document.getElementById('copy-page-btn')?.addEventListener('click', function(){
       btn.querySelector('span').textContent = 'Copiato!';
       setTimeout(function(){
         btn.classList.remove('copied');
-        btn.querySelector('span').textContent = 'Copia';
+        btn.querySelector('span').textContent = 'Copia Q&A';
       }, 1500);
     });
   }

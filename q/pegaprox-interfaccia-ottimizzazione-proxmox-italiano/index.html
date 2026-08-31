@@ -20,28 +20,26 @@
 <meta name="twitter:image" content="https://fabriziosalmi.github.io/fabgpt-faq/q/pegaprox-interfaccia-ottimizzazione-proxmox-italiano/og.svg">
 <link rel="stylesheet" href="../../style.css">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
-<script type="application/ld+json">[{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Cos'è Pegaprox e come si usa con la traduzione italiana curata da Fabrizio Salmi?", "acceptedAnswer": {"@type": "Answer", "text": "Pegaprox è uno strumento di ottimizzazione e interfaccia per Proxmox VE che semplifica la gestione quotidiana di macchine virtuali, template LXC e storage. Fabrizio Salmi ha curato la localizzazione e traduzione italiana completa, rendendo tutti i menu, gli avvisi di stato e le procedure guidate perfettamente accessibili in lingua italiana. Installazione e attivazione rapida sul nodo Proxmox: # 1. Download e installazione dello script Pegaprox curl -fsSL https://raw.githubusercontent.com/fabriziosalmi/pegaprox/main/install.sh | bash # 2. Selezione della lingua italiana e applicazione ottimizzazioni pegaprox --lang it --apply-tweaks Funzionalità chiave: Traduzione italiana nativa: zero stringhe mancanti o traduzioni automatiche approssimative. Scorciatoie di gestione: creazione rapida di container LXC unprivileged con storage ZFS ottimizzato. Integrazione cockpit: si affianca perfettamente a [proxxx](q/cos-e-proxxx-cockpit-terminale-proxmox/) e [proxmox-autoscale](q/autoscaling-vm-lxc-proxmox/) per un controllo totale da terminale e web."}}]}, {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "FabGPT-FAQ", "item": "https://fabriziosalmi.github.io/fabgpt-faq/"}, {"@type": "ListItem", "position": 2, "name": "Tutte le domande", "item": "https://fabriziosalmi.github.io/fabgpt-faq/q/"}, {"@type": "ListItem", "position": 3, "name": "", "item": "https://fabriziosalmi.github.io/fabgpt-faq/q/pegaprox-interfaccia-ottimizzazione-proxmox-italiano/"}]}]</script>
+<script type="application/ld+json">[{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Cos'è Pegaprox e come si usa con la traduzione italiana curata da Fabrizio Salmi?", "description": "Pegaprox è uno strumento di ottimizzazione e interfaccia per Proxmox VE che semplifica la gestione quotidiana di macchine virtuali, template LXC e storage.…", "author": {"@type": "Person", "name": "Fabrizio Salmi", "url": "https://github.com/fabriziosalmi"}, "publisher": {"@type": "Organization", "name": "FabGPT-FAQ", "url": "https://fabriziosalmi.github.io/fabgpt-faq/"}, "inLanguage": "it", "articleSection": ""}, {"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Cos'è Pegaprox e come si usa con la traduzione italiana curata da Fabrizio Salmi?", "acceptedAnswer": {"@type": "Answer", "text": "Pegaprox è uno strumento di ottimizzazione e interfaccia per Proxmox VE che semplifica la gestione quotidiana di macchine virtuali, template LXC e storage. Fabrizio Salmi ha curato la localizzazione e traduzione italiana completa, rendendo tutti i menu, gli avvisi di stato e le procedure guidate perfettamente accessibili in lingua italiana. Installazione e attivazione rapida sul nodo Proxmox: # 1. Download e installazione dello script Pegaprox curl -fsSL https://raw.githubusercontent.com/fabriziosalmi/pegaprox/main/install.sh | bash # 2. Selezione della lingua italiana e applicazione ottimizzazioni pegaprox --lang it --apply-tweaks Funzionalità chiave: Traduzione italiana nativa: zero stringhe mancanti o traduzioni automatiche approssimative. Scorciatoie di gestione: creazione rapida di container LXC unprivileged con storage ZFS ottimizzato. Integrazione cockpit: si affianca perfettamente a [proxxx](q/cos-e-proxxx-cockpit-terminale-proxmox/) e [proxmox-autoscale](q/autoscaling-vm-lxc-proxmox/) per un controllo totale da terminale e web."}}]}, {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "FabGPT-FAQ", "item": "https://fabriziosalmi.github.io/fabgpt-faq/"}, {"@type": "ListItem", "position": 2, "name": "Tutte le domande", "item": "https://fabriziosalmi.github.io/fabgpt-faq/q/"}, {"@type": "ListItem", "position": 3, "name": "", "item": "https://fabriziosalmi.github.io/fabgpt-faq/q/pegaprox-interfaccia-ottimizzazione-proxmox-italiano/"}]}]</script>
 <style>
   .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
-  .page h1 { font-size: 26px; line-height: 1.3; margin: 6px 0 20px; }
-  .crumbs { font-size: 13px; color: var(--text-dim); margin-bottom: 4px; }
+  .page h1 { font-size: 26px; line-height: 1.3; margin: 6px 0 10px; }
+  .crumbs { font-size: 13px; color: var(--text-dim); margin-bottom: 6px; }
   .crumbs a { color: var(--text-dim); text-decoration: none; }
   .crumbs a:hover { color: var(--text); }
   .page .answer a { color: var(--link); }
-  .page .vertical { font-size: 13px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }
   .page .answer ul { padding-left: 22px; }
   .page .answer code { background: var(--code-bg); border-radius: 5px; padding: 1px 5px; font-size: 0.9em; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
-  .qa-actions { display: flex; align-items: center; gap: 12px; margin-top: 20px; }
+  .qa-actions { display: flex; align-items: center; gap: 12px; margin-top: 24px; flex-wrap: wrap; }
   .copy-qa-btn { display: inline-flex; align-items: center; gap: 6px; background: var(--bg-soft); color: var(--text-dim); border: 1px solid var(--border); border-radius: 6px; padding: 6px 12px; font-size: 13px; font-family: inherit; font-weight: 500; cursor: pointer; transition: all .15s ease; }
   .copy-qa-btn:hover { background: var(--border); color: var(--text); }
   .copy-qa-btn.copied { background: rgba(16, 163, 127, 0.15); color: var(--accent); border-color: var(--accent); }
-  .copy-qa-btn svg { flex: 0 0 auto; }
   .page .ask { display: inline-block; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 8px 16px; text-decoration: none; font-weight: 600; font-size: 13px; }
-  .page .related { margin-top: 36px; border-top: 1px solid var(--border); padding-top: 18px; }
-  .page .related h2 { font-size: 16px; }
+  .page .related { margin-top: 36px; border-top: 1px solid var(--border); padding-top: 20px; }
+  .page .related h2 { font-size: 16px; margin-bottom: 12px; }
   .page .related a { color: var(--link); text-decoration: none; }
   .page .related a:hover { text-decoration: underline; }
-  .page .related li { margin: 6px 0; }
+  .page .related li { margin: 8px 0; }
   .diagram { margin: 24px 0 8px; padding: 14px; border: 1px solid var(--border); border-radius: 12px; background: var(--bg-soft); }
   .diagram svg { display: block; max-width: 100%; height: auto; }
   .answer code { cursor: pointer; }
@@ -55,30 +53,68 @@
     <span class="brand-dot">F</span>
     <span class="brand-name">FabGPT-FAQ</span>
   </a>
+  <nav class="topnav"><a href="../../q/">Tutte le domande</a></nav>
 </header>
 <main class="page">
-  <nav class="crumbs"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › </nav>
-  <h1 id="page-question">Cos&#x27;è Pegaprox e come si usa con la traduzione italiana curata da Fabrizio Salmi?</h1>
-  <div class="answer" id="page-answer"><p><a href="https://github.com/fabriziosalmi" target="_blank" rel="noopener">Pegaprox</a> è uno strumento di ottimizzazione e interfaccia per Proxmox VE che semplifica la gestione quotidiana di macchine virtuali, template LXC e storage. Fabrizio Salmi ha curato la <strong>localizzazione e traduzione italiana completa</strong>, rendendo tutti i menu, gli avvisi di stato e le procedure guidate perfettamente accessibili in lingua italiana.</p><p>Installazione e attivazione rapida sul nodo Proxmox:</p><pre><code class="language-bash"># 1. Download e installazione dello script Pegaprox
+  <article itemscope itemtype="https://schema.org/TechArticle">
+    <nav class="crumbs" aria-label="Percorso"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › <span itemprop="articleSection"></span></nav>
+    <h1 id="page-question" itemprop="headline">Cos&#x27;è Pegaprox e come si usa con la traduzione italiana curata da Fabrizio Salmi?</h1>
+    <div class="page-meta">
+      <span class="page-meta-badge vert"><svg class='glyph' viewBox='0 0 24 24' width='22' height='22' aria-hidden='true' fill='none' stroke='var(--accent)' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'><circle cx='12' cy='12' r='7'/></svg> <span></span></span>
+      <span class="page-meta-badge">⏱️ 1 min lettura</span>
+      <span class="page-meta-badge">✓ Runbook verificato</span>
+    </div>
+    <div class="answer" id="page-answer" itemprop="articleBody"><p><a href="https://github.com/fabriziosalmi" target="_blank" rel="noopener">Pegaprox</a> è uno strumento di ottimizzazione e interfaccia per Proxmox VE che semplifica la gestione quotidiana di macchine virtuali, template LXC e storage. Fabrizio Salmi ha curato la <strong>localizzazione e traduzione italiana completa</strong>, rendendo tutti i menu, gli avvisi di stato e le procedure guidate perfettamente accessibili in lingua italiana.</p><p>Installazione e attivazione rapida sul nodo Proxmox:</p><div class="code-block"><div class="code-header"><span class="code-lang">BASH</span><button type="button" class="copy-code-btn" aria-label="Copia codice"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg><span>Copia</span></button></div><pre><code class="language-bash"># 1. Download e installazione dello script Pegaprox
 curl -fsSL https://raw.githubusercontent.com/fabriziosalmi/pegaprox/main/install.sh | bash
 
 # 2. Selezione della lingua italiana e applicazione ottimizzazioni
-pegaprox --lang it --apply-tweaks</code></pre><p>Funzionalità chiave:<br>- <strong>Traduzione italiana nativa</strong>: zero stringhe mancanti o traduzioni automatiche approssimative.<br>- <strong>Scorciatoie di gestione</strong>: creazione rapida di container LXC unprivileged con storage ZFS ottimizzato.<br>- <strong>Integrazione cockpit</strong>: si affianca perfettamente a <a href="../cos-e-proxxx-cockpit-terminale-proxmox/">proxxx</a> e <a href="../autoscaling-vm-lxc-proxmox/">proxmox-autoscale</a> per un controllo totale da terminale e web.</p><figure class="diagram" aria-label="Schema: Cos&#x27;è Pegaprox e come si usa con la traduzione italiana curata da Fabrizio Salmi?"><button type="button" class="copy-diagram-btn" aria-label="Copia codice SVG dello schema"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg><span>SVG</span></button><svg class='diagram-svg' viewBox='0 0 640 200' width='100%' role='img' xmlns='http://www.w3.org/2000/svg' font-family='-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif'><defs><marker id='ah' markerWidth='8' markerHeight='8' refX='6' refY='3' orient='auto'><path d='M0,0 L6,3 L0,6 Z' fill='var(--text-dim)'/></marker></defs><rect x='15' y='68' width='115' height='56' rx='8' fill='var(--bg-soft)' stroke='var(--border)' stroke-width='1.3'/><text x='72.5' y='92.0' text-anchor='middle' font-size='13' font-weight='500' fill='var(--text)'>Admin / Utente</text><text x='72.5' y='108.0' text-anchor='middle' font-size='13' font-weight='500' fill='var(--text)'>Lingua IT</text><rect x='175' y='54' width='165' height='84' rx='8' fill='var(--bg-soft)' stroke='var(--accent)' stroke-width='2'/><text x='257.5' y='92.0' text-anchor='middle' font-size='13' font-weight='600' fill='var(--text)'>Pegaprox</text><text x='257.5' y='108.0' text-anchor='middle' font-size='13' font-weight='500' fill='var(--text)'>Interfaccia & Traduzione IT</text><rect x='380' y='54' width='130' height='84' rx='8' fill='var(--bg-soft)' stroke='var(--border)' stroke-width='1.3'/><text x='445.0' y='92.0' text-anchor='middle' font-size='13' font-weight='500' fill='var(--text)'>Template LXC</text><text x='445.0' y='108.0' text-anchor='middle' font-size='13' font-weight='500' fill='var(--text)'>e Script Tweak</text><rect x='545' y='68' width='80' height='56' rx='8' fill='var(--bg-soft)' stroke='var(--border)' stroke-width='1.3'/><text x='585.0' y='92.0' text-anchor='middle' font-size='13' font-weight='500' fill='var(--text)'>Proxmox VE</text><text x='585.0' y='108.0' text-anchor='middle' font-size='13' font-weight='500' fill='var(--text)'>Ottimizzato</text><line x1='130' y1='96' x2='173' y2='96' stroke='var(--text-dim)' stroke-width='1.5' stroke-dasharray='6 5' class='dg-flow' marker-end='url(#ah)'/><line x1='340' y1='96' x2='378' y2='96' stroke='var(--text-dim)' stroke-width='1.5' stroke-dasharray='6 5' class='dg-flow' marker-end='url(#ah)'/><line x1='510' y1='96' x2='543' y2='96' stroke='var(--text-dim)' stroke-width='1.5' stroke-dasharray='6 5' class='dg-flow' marker-end='url(#ah)'/><text x='320' y='180' font-size='12' fill='var(--text-dim)' text-anchor='middle'>localizzazione e workflow semplificato per Proxmox curato da Fabrizio Salmi</text></svg></figure></div>
-  <div class="qa-actions">
-    <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
-      <span>Copia</span>
-    </button>
-    <a class="ask" href="../../?q=pegaprox">Chiedilo a FabGPT-FAQ →</a>
-  </div>
-  <div class="related">
-    <h2>Altre domande</h2>
-    <ul><li><a href="../cos-e-proxxx-cockpit-terminale-proxmox/">Cos&#x27;è proxxx, il cockpit da terminale per Proxmox?</a></li><li><a href="../autoscaling-vm-lxc-proxmox/">Come si fa autoscaling di VM e container LXC su Proxmox?</a></li><li><a href="../ambienti-staging-isolati-snapshot-rapidi-filesystem-zfs/">Come si utilizzano gli snapshot rapidi del filesystem (ZFS o LVM) per creare ambienti di staging effimeri e testare servizi in sicurezza?</a></li><li><a href="../calcolo-tco-5-anni-server-sovrano-vs-abbonamento-saas/">Come si calcola il Total Cost of Ownership (TCO) a 5 anni tra un&#x27;infrastruttura server sovrana e i servizi SaaS equivalenti?</a></li><li><a href="../chi-e-fabrizio-salmi/">Chi è Fabrizio Salmi?</a></li><li><a href="../progetti-open-source-fabrizio-salmi/">Quali progetti open source sviluppa Fabrizio Salmi?</a></li></ul>
-  </div>
+pegaprox --lang it --apply-tweaks</code></pre></div><p>Funzionalità chiave:<br>- <strong>Traduzione italiana nativa</strong>: zero stringhe mancanti o traduzioni automatiche approssimative.<br>- <strong>Scorciatoie di gestione</strong>: creazione rapida di container LXC unprivileged con storage ZFS ottimizzato.<br>- <strong>Integrazione cockpit</strong>: si affianca perfettamente a <a href="../cos-e-proxxx-cockpit-terminale-proxmox/">proxxx</a> e <a href="../autoscaling-vm-lxc-proxmox/">proxmox-autoscale</a> per un controllo totale da terminale e web.</p><figure class="diagram" aria-label="Schema: Cos&#x27;è Pegaprox e come si usa con la traduzione italiana curata da Fabrizio Salmi?"><button type="button" class="copy-diagram-btn" aria-label="Copia codice SVG dello schema"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg><span>SVG</span></button><svg class='diagram-svg' viewBox='0 0 640 200' width='100%' role='img' xmlns='http://www.w3.org/2000/svg' font-family='-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif'><defs><marker id='ah' markerWidth='8' markerHeight='8' refX='6' refY='3' orient='auto'><path d='M0,0 L6,3 L0,6 Z' fill='var(--text-dim)'/></marker></defs><rect x='15' y='68' width='115' height='56' rx='8' fill='var(--bg-soft)' stroke='var(--border)' stroke-width='1.3'/><text x='72.5' y='92.0' text-anchor='middle' font-size='13' font-weight='500' fill='var(--text)'>Admin / Utente</text><text x='72.5' y='108.0' text-anchor='middle' font-size='13' font-weight='500' fill='var(--text)'>Lingua IT</text><rect x='175' y='54' width='165' height='84' rx='8' fill='var(--bg-soft)' stroke='var(--accent)' stroke-width='2'/><text x='257.5' y='92.0' text-anchor='middle' font-size='13' font-weight='600' fill='var(--text)'>Pegaprox</text><text x='257.5' y='108.0' text-anchor='middle' font-size='13' font-weight='500' fill='var(--text)'>Interfaccia & Traduzione IT</text><rect x='380' y='54' width='130' height='84' rx='8' fill='var(--bg-soft)' stroke='var(--border)' stroke-width='1.3'/><text x='445.0' y='92.0' text-anchor='middle' font-size='13' font-weight='500' fill='var(--text)'>Template LXC</text><text x='445.0' y='108.0' text-anchor='middle' font-size='13' font-weight='500' fill='var(--text)'>e Script Tweak</text><rect x='545' y='68' width='80' height='56' rx='8' fill='var(--bg-soft)' stroke='var(--border)' stroke-width='1.3'/><text x='585.0' y='92.0' text-anchor='middle' font-size='13' font-weight='500' fill='var(--text)'>Proxmox VE</text><text x='585.0' y='108.0' text-anchor='middle' font-size='13' font-weight='500' fill='var(--text)'>Ottimizzato</text><line x1='130' y1='96' x2='173' y2='96' stroke='var(--text-dim)' stroke-width='1.5' stroke-dasharray='6 5' class='dg-flow' marker-end='url(#ah)'/><line x1='340' y1='96' x2='378' y2='96' stroke='var(--text-dim)' stroke-width='1.5' stroke-dasharray='6 5' class='dg-flow' marker-end='url(#ah)'/><line x1='510' y1='96' x2='543' y2='96' stroke='var(--text-dim)' stroke-width='1.5' stroke-dasharray='6 5' class='dg-flow' marker-end='url(#ah)'/><text x='320' y='180' font-size='12' fill='var(--text-dim)' text-anchor='middle'>localizzazione e workflow semplificato per Proxmox curato da Fabrizio Salmi</text></svg></figure></div>
+    <div class="qa-actions">
+      <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+        <span>Copia Q&A</span>
+      </button>
+      <a class="ask" href="../../?q=pegaprox">Apri nella chat interattiva 💬</a>
+    </div>
+    <nav class="page-nav" aria-label="Navigazione tra domande"><a class="page-nav-card prev" href="../ambienti-staging-isolati-snapshot-rapidi-filesystem-zfs/"><span class="nav-dir">← Precedente</span><span class="nav-title">Come si utilizzano gli snapshot rapidi del filesystem (ZFS o LVM) per creare ambienti di staging effimeri e testare servizi in sicurezza?</span></a><div class="page-nav-card placeholder"></div></nav>
+    <section class="ask-box">
+      <div class="ask-box-header">
+        <span class="ask-box-icon">💬</span>
+        <div>
+          <h3>Hai una domanda specifica su questo tema?</h3>
+          <p>Interroga direttamente il motore FabGPT-FAQ con risposta in tempo reale a zero allucinazioni.</p>
+        </div>
+      </div>
+      <form class="ask-box-form" action="../../" method="get">
+        <input type="text" name="q" value="Cos&#x27;è Pegaprox e come si usa con la traduzione italiana curata da Fabrizio Salmi?" placeholder="Chiedi qualcosa a FabGPT-FAQ…" aria-label="Chiedi qualcosa" autocomplete="off">
+        <button type="submit">Chiedi in chat →</button>
+      </form>
+    </section>
+    <div class="related">
+      <h2>Domande correlate</h2>
+      <ul><li><a href="../cos-e-proxxx-cockpit-terminale-proxmox/">Cos&#x27;è proxxx, il cockpit da terminale per Proxmox?</a></li><li><a href="../autoscaling-vm-lxc-proxmox/">Come si fa autoscaling di VM e container LXC su Proxmox?</a></li><li><a href="../ambienti-staging-isolati-snapshot-rapidi-filesystem-zfs/">Come si utilizzano gli snapshot rapidi del filesystem (ZFS o LVM) per creare ambienti di staging effimeri e testare servizi in sicurezza?</a></li><li><a href="../calcolo-tco-5-anni-server-sovrano-vs-abbonamento-saas/">Come si calcola il Total Cost of Ownership (TCO) a 5 anni tra un&#x27;infrastruttura server sovrana e i servizi SaaS equivalenti?</a></li><li><a href="../chi-e-fabrizio-salmi/">Chi è Fabrizio Salmi?</a></li><li><a href="../progetti-open-source-fabrizio-salmi/">Quali progetti open source sviluppa Fabrizio Salmi?</a></li></ul>
+    </div>
+  </article>
 </main>
 <script>
 document.addEventListener('click',function(e){
-  var c=e.target.closest('code'); if(!c)return;
+  var copyCodeBtn = e.target.closest('.copy-code-btn');
+  if (copyCodeBtn) {
+    var block = copyCodeBtn.closest('.code-block');
+    var code = block ? block.querySelector('code')?.textContent : '';
+    if (code && navigator.clipboard) {
+      navigator.clipboard.writeText(code).then(function(){
+        copyCodeBtn.classList.add('copied');
+        copyCodeBtn.querySelector('span').textContent = 'Copiato!';
+        setTimeout(function(){
+          copyCodeBtn.classList.remove('copied');
+          copyCodeBtn.querySelector('span').textContent = 'Copia';
+        }, 1500);
+      });
+    }
+    return;
+  }
+  var c=e.target.closest('code:not(pre code)'); if(!c)return;
   navigator.clipboard&&navigator.clipboard.writeText(c.textContent).then(function(){
     c.classList.add('copied'); setTimeout(function(){c.classList.remove('copied')},900);
   });
@@ -94,7 +130,7 @@ document.getElementById('copy-page-btn')?.addEventListener('click', function(){
       btn.querySelector('span').textContent = 'Copiato!';
       setTimeout(function(){
         btn.classList.remove('copied');
-        btn.querySelector('span').textContent = 'Copia';
+        btn.querySelector('span').textContent = 'Copia Q&A';
       }, 1500);
     });
   }

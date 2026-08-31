@@ -150,21 +150,26 @@
 
   function renderMd(text) {
     const codeBlocks = [];
-    // Match closed code blocks
-    let processed = text.replace(/```([a-zA-Z0-9_-]*)\n([\s\S]*?)```/g, (_, lang, code) => {
+    const createBlock = (lang, code) => {
       const idx = codeBlocks.length;
       const cleanLang = lang ? ` class="language-${escapeHtml(lang)}"` : '';
-      codeBlocks.push(`<pre><code${cleanLang}>${escapeHtml(code)}</code></pre>`);
+      const headerLang = escapeHtml((lang || 'CODE').toUpperCase());
+      codeBlocks.push(
+        `<div class="code-block">` +
+        `<div class="code-header"><span class="code-lang">${headerLang}</span>` +
+        `<button type="button" class="copy-code-btn" aria-label="Copia codice">` +
+        `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>` +
+        `<span>Copia</span></button></div>` +
+        `<pre><code${cleanLang}>${escapeHtml(code)}</code></pre></div>`
+      );
       return `\n\n@@@CODEBLOCK_${idx}@@@\n\n`;
-    });
+    };
+
+    // Match closed code blocks
+    let processed = text.replace(/```([a-zA-Z0-9_-]*)\n([\s\S]*?)```/g, (_, lang, code) => createBlock(lang, code.trim()));
 
     // Handle unclosed code block during active streaming
-    processed = processed.replace(/```([a-zA-Z0-9_-]*)\n([\s\S]*)$/g, (_, lang, code) => {
-      const idx = codeBlocks.length;
-      const cleanLang = lang ? ` class="language-${escapeHtml(lang)}"` : '';
-      codeBlocks.push(`<pre><code${cleanLang}>${escapeHtml(code)}</code></pre>`);
-      return `\n\n@@@CODEBLOCK_${idx}@@@\n\n`;
-    });
+    processed = processed.replace(/```([a-zA-Z0-9_-]*)\n([\s\S]*)$/g, (_, lang, code) => createBlock(lang, code));
 
     const blocks = processed.split(/\n\n+/);
     let html = '';
@@ -442,9 +447,25 @@
     ask(text);
   });
 
-  // Click any inline `code` to copy it (commands, config snippets).
+  // Click any inline `code` or `.copy-code-btn` to copy it.
   chatEl.addEventListener('click', e => {
-    const c = e.target.closest('code');
+    const copyCodeBtn = e.target.closest('.copy-code-btn');
+    if (copyCodeBtn) {
+      const block = copyCodeBtn.closest('.code-block');
+      const code = block ? block.querySelector('code')?.textContent : '';
+      if (code && navigator.clipboard) {
+        navigator.clipboard.writeText(code).then(() => {
+          copyCodeBtn.classList.add('copied');
+          copyCodeBtn.querySelector('span').textContent = 'Copiato!';
+          setTimeout(() => {
+            copyCodeBtn.classList.remove('copied');
+            copyCodeBtn.querySelector('span').textContent = 'Copia';
+          }, 1500);
+        });
+      }
+      return;
+    }
+    const c = e.target.closest('code:not(pre code)');
     if (!c || !navigator.clipboard) return;
     navigator.clipboard.writeText(c.textContent).then(() => {
       c.classList.add('copied');
