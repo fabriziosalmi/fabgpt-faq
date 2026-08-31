@@ -136,7 +136,7 @@
     "expect": "cloudflare-automation"
   },
   {
-    "q": "monitorare whois spf dmarc",
+    "q": "domainmate monitorare record whois e dns",
     "expect": "domainmate"
   },
   {
@@ -2474,5 +2474,125 @@
   {
     "q": "come installare secure proxy manager con squid e waf",
     "expect": "secure-proxy-manager"
+  },
+  {
+    "q": "come si usa cf-box per gestire cloudflare",
+    "expect": "cf-box"
+  },
+  {
+    "q": "cf-box esportare zone",
+    "expect": "cf-box"
+  },
+  {
+    "q": "cf-box ip list manager",
+    "expect": "cf-box"
+  },
+  {
+    "q": "come funziona aidlp per il data loss prevention",
+    "expect": "aidlp"
+  },
+  {
+    "q": "anonimizzare dati sensibili e pii per openai aidlp",
+    "expect": "aidlp"
+  },
+  {
+    "q": "aidlp proxy presidio spacy flashtext",
+    "expect": "aidlp"
+  },
+  {
+    "q": "come funziona ai-dependency-guard",
+    "expect": "ai-dependency-guard"
+  },
+  {
+    "q": "ai-dependency-guard proteggersi da slopsquatting",
+    "expect": "ai-dependency-guard"
+  },
+  {
+    "q": "ai-dependency-guard blocco pacchetti pypi fittizi",
+    "expect": "ai-dependency-guard"
+  },
+  {
+    "q": "cosa contiene il repo blacklists",
+    "expect": "blacklists"
+  },
+  {
+    "q": "feed repository blacklists ip malevoli",
+    "expect": "blacklists"
+  },
+  {
+    "q": "liste blocco ip per fail2ban blacklists",
+    "expect": "blacklists"
+  },
+  {
+    "q": "come si aggiunge un waf al web server caddy",
+    "expect": "caddy-waf"
+  },
+  {
+    "q": "caddy-waf coraza waf",
+    "expect": "caddy-waf"
+  },
+  {
+    "q": "waf integrato per caddyfile",
+    "expect": "caddy-waf"
+  },
+  {
+    "q": "proxmox-cluster-balancer come bilanciare il carico",
+    "expect": "proxmox-cluster-balancer"
+  },
+  {
+    "q": "proxmox-cluster-balancer live migration",
+    "expect": "proxmox-cluster-balancer"
+  },
+  {
+    "q": "proxmox-cluster-balancer drs open source",
+    "expect": "proxmox-cluster-balancer"
+  },
+  {
+    "q": "domainmate monitorare scadenza domini e whois",
+    "expect": "domainmate"
+  },
+  {
+    "q": "domainmate monitorare scadenza domini whois",
+    "expect": "domainmate"
+  },
+  {
+    "q": "domainmate monitoraggio record dns",
+    "expect": "domainmate"
+  },
+  {
+    "q": "come si anonimizza un file csv senza caricarlo da nessuna parte",
+    "expect": "csv-anonymizer"
+  },
+  {
+    "q": "anonimizzare file csv con csv-anonymizer",
+    "expect": "csv-anonymizer"
+  },
+  {
+    "q": "mascheramento dati con salt deterministico csv",
+    "expect": "csv-anonymizer"
+  },
+  {
+    "q": "come funziona asn-api per lookup bgp",
+    "expect": "asn-api"
+  },
+  {
+    "q": "microservizio risoluzione ip to asn fast",
+    "expect": "asn-api"
+  },
+  {
+    "q": "lookup autonomous system e prefisso cidr da ip",
+    "expect": "asn-api"
+  },
+  {
+    "q": "come si filtrano e riscrivono feed rss con un llm",
+    "expect": "uglyfeed"
+  },
+  {
+    "q": "riassumere feed rss con llm e ollama",
+    "expect": "uglyfeed"
+  },
+  {
+    "q": "deduplicazione notizie e digest ai uglyfeed",
+    "expect": "uglyfeed"
   }
 ]

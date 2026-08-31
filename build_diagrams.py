@@ -399,6 +399,46 @@ D["silicondev"] = svg(640, 200,
     arrow(490, 100, 528, 100, flow=True) +
     cap(320, 180, "fine-tuning nativo ad altissima velocità su memoria unificata Apple Silicon"))
 
+D["aidlp"] = svg(640, 200,
+    box(15, 74, 115, 52, "Prompt Utente\n(PII & Secret)") +
+    box(170, 58, 160, 84, "AI DLP Proxy\nFlashText + Presidio", accent=True) +
+    box(370, 74, 120, 52, "Prompt Redatto\n(Zero Leak)") +
+    box(530, 74, 95, 52, "OpenAI / Claude\nEndpoint LLM") +
+    arrow(130, 100, 168, 100, flow=True) +
+    arrow(330, 100, 368, 100, flow=True, label="sanitizzato") +
+    arrow(490, 100, 528, 100, flow=True) +
+    cap(320, 180, "intercettazione in-flight e anonimizzazione parallela dei token prima dell'LLM"))
+
+D["cf-box"] = svg(640, 200,
+    box(15, 74, 115, 52, "Config YAML\nRegole & IP List") +
+    box(170, 58, 155, 84, "cf-box CLI\nAsyncio Engine", accent=True) +
+    box(365, 74, 125, 52, "Cloudflare API\nMulti-Account Sync") +
+    box(530, 74, 95, 52, "Edge WAF\nZone & DNS") +
+    arrow(130, 100, 168, 100, flow=True) +
+    arrow(325, 100, 363, 100, flow=True) +
+    arrow(490, 100, 528, 100, flow=True) +
+    cap(320, 180, "sincronizzazione centralizzata e bulk export per multi-tenant Cloudflare"))
+
+D["ai-dependency-guard"] = svg(640, 200,
+    box(15, 74, 115, 52, "Manifest PR\n(req.txt, pkg.json)") +
+    box(170, 58, 160, 84, "AI Dependency Guard\nTier 1 Blocklist + API", accent=True) +
+    box(370, 74, 120, 52, "Registry Check\n(PyPI / npm 404)") +
+    box(530, 74, 95, 52, "CI / CD Gate\nFail su Slop") +
+    arrow(130, 100, 168, 100, flow=True) +
+    arrow(330, 100, 368, 100, flow=True) +
+    arrow(490, 100, 528, 100, flow=True) +
+    cap(320, 180, "rilevamento deterministico di pacchetti allucinati da LLM prima della build CI"))
+
+D["proxmox-cluster-balancer"] = svg(640, 200,
+    box(15, 74, 115, 52, "Nodi Cluster PVE\n(Carico CPU/RAM)") +
+    box(170, 58, 160, 84, "Cluster Balancer\nDRS Heuristic Engine", accent=True) +
+    box(370, 74, 120, 52, "Piano Ottimale\nRebalance Plan") +
+    box(530, 74, 95, 52, "Live Migration\nQEMU / LXC") +
+    arrow(130, 100, 168, 100, flow=True) +
+    arrow(330, 100, 368, 100, flow=True) +
+    arrow(490, 100, 528, 100, flow=True) +
+    cap(320, 180, "distribuzione dinamica del carico hardware e migrazione trasparente tra nodi"))
+
 # ---------- Timelines ----------
 
 D["dmarc-rollout"] = timeline(

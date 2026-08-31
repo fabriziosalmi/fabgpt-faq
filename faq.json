@@ -9861,22 +9861,19 @@
       "question": "Come si aggiunge un WAF al web server Caddy?",
       "vertical": "security",
       "keywords": [
-        "caddy",
         "caddy-waf",
-        "waf",
-        "firewall",
-        "web application firewall",
-        "modulo caddy",
-        "caddy-adf",
-        "ban ip caddy",
-        "firewall host ufw nftables default deny"
+        "aggiunge un waf al web server caddy",
+        "waf al web server caddy",
+        "caddy-waf coraza waf",
+        "waf integrato per caddyfile",
+        "coraza caddy v2"
       ],
       "answers": [
-        "[caddy-waf](https://github.com/fabriziosalmi/caddy-waf) (**800+ ⭐**) è un Web Application Firewall nativo per il web server Caddy, scritto in Go. Ispeziona ogni richiesta HTTP a velocità di memoria, bloccando attacchi SQLi, XSS, Path Traversal e bot malevoli prima che raggiungano l'applicazione backend.\n\nInstallazione e configurazione in Caddy:\n```bash\n# 1. Compilazione binario Caddy con il modulo WAF tramite xcaddy\nxcaddy build --with github.com/fabriziosalmi/caddy-waf\n```\n\nConfigurazione nel `Caddyfile`:\n```caddy\ntuodominio.it {\n    waf {\n        ruleset owasp_top10\n        bad_bots block\n        rate_limit 60 1m\n        action block\n    }\n    reverse_proxy localhost:8080\n}\n```\n\nInclude l'integrazione diretta con le regole di [patterns](q/bloccare-bad-bot-nginx-apache-traefik-haproxy/) per il blocco istantaneo di scanner abusivi e scraper di AI non autorizzati."
+        "**caddy-waf** integra **Coraza WAF** (engine open source ModSecurity-compatible in puro Go) direttamente all'interno di **Caddy v2** come middleware nativo HTTP.\n\nCaratteristiche architetturali:\n- **OWASP Core Rule Set (CRS)**: supporto completo delle regole OWASP CRS v4 per mitigare SQL Injection, Cross-Site Scripting (XSS), Local/Remote File Inclusion (LFI/RFI) e scansioni automatizzate.\n- **Configurazione Caddyfile dichiarativa**: Coraza viene configurato in poche righe nel blocco server con direttive chiare e supporto al reload a caldo zero-downtime.\n- **Zero librerie C esterne**: compilato come modulo Go puro tramite `xcaddy`, senza dipendenze native da `libmodsecurity` o runtime C++.\n\nEsempio di compilazione e Caddyfile:\n```bash\n# Compilazione di Caddy con il modulo Coraza\nxcaddy build --with github.com/corazawaf/coraza-caddy/v2\n```\n\nNel `Caddyfile`:\n```caddy\nexample.com {\n    coraza_waf {\n        load_owasp_crs\n        directives `\n            Include /etc/caddy/coraza.conf\n            SecRuleEngine On\n        `\n    }\n    reverse_proxy localhost:8080\n}\n```\n\nConsente di proteggere qualsiasi backend web con un WAF robusto e moderno mantenendo la semplicità di Caddy."
       ],
       "suggest": [
-        "bloccare-bad-bot-nginx-apache-traefik-haproxy",
         "cos-e-certmate-gestione-certificati-tls",
+        "bloccare-bad-bot-nginx-apache-traefik-haproxy",
         "cos-e-wildbox-siem-soar-open-source",
         "cos-e-un-waf-web-application-firewall"
       ]
@@ -10099,7 +10096,6 @@
         "uptime",
         "seo",
         "performance",
-        "scadenza dominio",
         "sito",
         "github actions",
         "monitorare sito"
@@ -10127,9 +10123,6 @@
         "scalare",
         "risorse",
         "ridimensionare",
-        "cluster balancer",
-        "bilanciare il cluster",
-        "balancer",
         "vm e container"
       ],
       "answers": [
@@ -10266,18 +10259,14 @@
       "vertical": "ai",
       "keywords": [
         "uglyfeed",
-        "ugly feed",
-        "rss",
-        "feed",
-        "newsgator",
-        "aggregatore",
-        "notizie",
-        "news",
-        "riscrivere",
-        "rewrite"
+        "filtrano e riscrivono feed rss con un llm",
+        "feed rss con un llm",
+        "feed rss riscritti con llm",
+        "deduplicazione notizie e digest ai uglyfeed",
+        "riassumere feed rss con llm e ollama"
       ],
       "answers": [
-        "[UglyFeed](https://github.com/fabriziosalmi/UglyFeed) (**300+ ⭐**) è una pipeline completa per i feed RSS: **recupera, aggrega, filtra, valuta, riscrive e riserve** i feed usando Large Language Models. Il caso d'uso tipico: prendere dieci fonti rumorose e ottenere un unico feed pulito, deduplicato e riscritto nello stile che preferisci.\n\nNello stesso filone c'è [newsgator](https://github.com/fabriziosalmi/newsgator), un aggregatore RSS più leggero, sempre con capacità LLM."
+        "**UglyFeed** è un aggregatore e processore di feed RSS modulare che sfrutta modelli linguistici (LLM locali via Ollama o cloud come OpenAI/Anthropic) per ripulire, deduplicare, tradurre e riassumere notizie in tempo reale.\n\nCaratteristiche e flusso operativo:\n- **Filtering & Deduplication**: analizza semanticamente i titoli e il corpo degli articoli provenienti da decine di sorgenti RSS per eliminare duplicati e clickbait.\n- **AI Rewriting & Summarization**: riscrive i contenuti secondo prompt personalizzabili (stile digest esecutivo, bullet point tecnici, traduzione multilingua).\n- **Output RSS/JSON generato**: esporta feed RSS puliti e formattati, pronti per essere letti in aggregatori standard (NetNewsWire, Reeder, Feedly).\n\nAvvio rapido con Python:\n```bash\n# Clone del repository\ngit clone https://github.com/fabriziosalmi/UglyFeed.git\ncd UglyFeed\npip install -r requirements.txt\n\n# Configurazione sorgenti in feeds.json e modello in config.yaml\npython main.py\n```\n\nPermette di trasformare feed RSS caotici e rumorosi in digest intelligenti e privi di distrazioni."
       ],
       "suggest": [
         "mettere-in-sicurezza-endpoint-llm",
@@ -10518,20 +10507,15 @@
       "vertical": "security",
       "keywords": [
         "domainmate",
-        "whois",
-        "spf",
-        "dmarc",
-        "rbl",
-        "reputazione ip",
-        "blacklist ip",
-        "monitoraggio dominio",
-        "hsts",
-        "dominio",
-        "ssl",
-        "dns"
+        "monitorano scadenza dominio ssl dns e reputazione ip",
+        "scadenza dominio ssl dns",
+        "domainmate monitorare scadenza domini e whois",
+        "domainmate monitoraggio record dns",
+        "whois alert scadenza e dnssec",
+        "domainmate monitorare record whois e dns"
       ],
       "answers": [
-        "[DomainMate](https://github.com/fabriziosalmi/domainmate) esegue **cinque controlli** su ogni dominio configurato:\n\n- **validità del dominio** – scadenza WHOIS, con rilevamento del dominio padre per i sottodomini\n- **SSL/TLS** – scadenza del certificato e rilevamento di protocolli obsoleti (TLS 1.0/1.1)\n- **sicurezza DNS** – presenza dei record SPF e DMARC (quelli che decidono se le tue mail finiscono in spam)\n- **reputazione** – IP verificato contro le principali RBL\n- **security header** – HSTS, CSP, X-Frame-Options e disclosure del server\n\nPython, self-hosted, con [documentazione completa](https://fabriziosalmi.github.io/domainmate/). Rispetto a [websites-monitor](https://github.com/fabriziosalmi/websites-monitor) (che vive dentro GitHub Actions) è un servizio a sé, più adatto a monitorare parchi domini."
+        "**domainmate** è uno strumento in Python per il monitoraggio continuo e l'alerting sulla scadenza dei domini, certificati SSL/TLS, integrità dei record DNS e stato di sicurezza (DNSSEC, blacklist IP).\n\nFunzionalità principali:\n- **WHOIS & Expiry Alerting**: interroga i server WHOIS per rilevare scadenze imminenti e avvisare con largo anticipo tramite webhook (Telegram, Discord, Slack, Email).\n- **DNS & DNSSEC Verification**: verifica che i record A, MX, NS, TXT e le firme DNSSEC non subiscano modifiche inattese (rilevamento DNS hijacking).\n- **Controllo Reputazione IP**: verifica se l'indirizzo IP associato al dominio è stato inserito in blacklist RBL pubbliche (Spamhaus, Barracuda).\n\nInstallazione rapida:\n```bash\n# Clone e installazione\ngit clone https://github.com/fabriziosalmi/domainmate.git\ncd domainmate\npip install -r requirements.txt\n\n# Monitoraggio lista domini\npython domainmate.py --domains domini.txt --notify telegram\n```\n\nPreviene disservizi catastrofici dovuti a dimenticanze nel rinnovo dei domini o manomissioni DNS."
       ],
       "suggest": [
         "proxy-waf-per-macos",
@@ -10619,6 +10603,7 @@
       "suggest": [
         "migrare-da-cloudflare-self-hosted-eu",
         "automatizzare-configurazione-cloudflare",
+        "cos-e-cf-box-automazione-cloudflare",
         "email-cifrata-europea-proton-tuta"
       ]
     },
@@ -10873,17 +10858,15 @@
       "vertical": "tools",
       "keywords": [
         "csv-anonymizer",
-        "csv",
-        "anonimizzare",
-        "anonimizzazione",
-        "dati sensibili",
-        "gdpr dati",
-        "fuzzing",
-        "redazione dati",
-        "privacy csv"
+        "anonimizza un file csv senza caricarlo da nessuna parte",
+        "file csv senza caricarlo",
+        "anonimizzare un csv",
+        "anonimizzare file csv con csv-anonymizer",
+        "mascheramento dati con salt deterministico csv",
+        "pseudonimizzazione dati tabulari per gdpr"
       ],
       "answers": [
-        "[CSV Anonymizer](https://github.com/fabriziosalmi/csv-anonymizer) gira **interamente nel browser**: il file non viene trasmesso a nessun server, che è l'unico modo onesto di anonimizzare dati sensibili con un tool web. [Provalo online](https://fabriziosalmi.github.io/csv-anonymizer/).\n\n- **struttura preservata**: colonne e formato restano intatti, cambia solo il contenuto sensibile\n- **fuzzing consapevole dei tipi**: numeri, date, email, URL, coordinate, indirizzi e ID vengono trattati ciascuno con la tecnica giusta, non con un banale replace\n- preset **Mild / Moderate / Aggressive** più un pannello avanzato per regolare ogni parametro\n\nUtile per condividere dataset con fornitori, o per dare dati realistici a un LLM senza dargli i dati veri."
+        "**csv-anonymizer** è uno script Python leggero e trasparente per la pseudonimizzazione e l'anonimizzazione deterministica di file CSV contenenti dati personali o sensibili (PII), conforme ai requisiti del GDPR.\n\nCaratteristiche:\n- **Elaborazione Locale al 100%**: nessun dato lascia mai la macchina locale; zero chiamate di rete o dipendenze cloud.\n- **Hashing con Salt Segreto**: sostituisce identificatori personali (nomi, email, codici fiscali) con hash HMAC-SHA256 irreversibili ma consistenti nello stesso dataset, consentendo analisi statistiche e join relazionali tra tabelle diverse senza esporre dati in chiaro.\n- **Regole Flessibili per Colonna**: configurazione di regole differenziate per colonna (mascheramento parziale, randomizzazione, hashing o rimozione totale).\n\nEsempio di utilizzo CLI:\n```bash\n# Anonimizzazione di un file CSV\npython anonymizer.py \\\n  --input clienti.csv \\\n  --output clienti_anon.csv \\\n  --salt \"TuoSaltSegreto2026\" \\\n  --hash-cols email,codice_fiscale \\\n  --mask-cols telefono\n```\n\nIdeale per preparare dataset di test per sviluppatori o per condividere dati con terze parti nel pieno rispetto della privacy."
       ],
       "suggest": [
         "generare-asset-brand-logo-favicon",
@@ -10991,6 +10974,7 @@
       "suggest": [
         "app-note-markdown-local-first",
         "velocizzare-wordpress",
+        "cos-e-asn-api-lookup-bgp",
         "watermark-invisibile-nei-video",
         "cos-e-un-waf-web-application-firewall"
       ]
@@ -11767,6 +11751,7 @@
       "suggest": [
         "home-assistant-su-proxmox",
         "assistente-vocale-offline-whisper-piper-wyoming-home-assistant",
+        "cos-e-proxmox-cluster-balancer-drs",
         "matter-standard-domotica-locale-senza-cloud"
       ]
     },
@@ -12553,6 +12538,7 @@
       "suggest": [
         "cos-e-un-soc-security-operations-center",
         "third-party-risk-management-tprm-sicurezza-fornitori-software",
+        "cosa-sono-le-blacklists-threat-intelligence",
         "tiber-eu-threat-led-penetration-testing-framework-finanziario"
       ]
     },
@@ -13097,9 +13083,158 @@
       "suggest": [
         "far-girare-un-llm-in-locale",
         "ridurre-token-agenti-ai",
-        "misurare-mitigare-lost-in-the-middle-context-effect-agenti"
+        "cos-e-aidlp-data-loss-prevention-llm"
       ],
       "question": "Cos'è Nanocode e come si usa per il coding assistito da terminale?"
+    },
+    {
+      "id": "cf-box",
+      "slug": "cos-e-cf-box-automazione-cloudflare",
+      "vertical": "cloudflare",
+      "question": "Cos'è cf-box e come si automatizza la gestione di Cloudflare?",
+      "keywords": [
+        "cf-box",
+        "automatizza la gestione di cloudflare",
+        "cf-box automatizza cloudflare",
+        "cf-box cloudflare toolkit",
+        "gestione ip list cloudflare",
+        "cf-box esportare zone e record dns",
+        "cf-box ip list manager",
+        "come si usa cf-box per gestire cloudflare",
+        "analytics graphql cloudflare python",
+        "cf-box esportare zone"
+      ],
+      "answers": [
+        "**cf-box** è una suite di strumenti in Python per l'automazione avanzata e la gestione centralizzata di account e zone **Cloudflare** via API.\n\nCaratteristiche chiave:\n- **IP List Manager**: gestione centralizzata e sincronizzazione di liste di regole di accesso IP (WAF IP Lists) su più account Cloudflare a partire da file di configurazione YAML unificati.\n- **Data Export Multiformato**: esportazione completa di zone, record DNS, impostazioni di sicurezza e routing in formato JSON, CSV, Excel e PDF.\n- **Analytics GraphQL**: estrazione e aggregazione di metriche analitiche e log di traffico/sicurezza tramite endpoint GraphQL di Cloudflare.\n- **Architettura Async/Await**: basata su `aiohttp`, `structlog` per logging strutturato, `pydantic` per validazione di tipo e `SQLAlchemy` con query parametrizzate per persistenza locale.\n\nInstallazione e avvio rapido:\n```bash\n# Clone del repository e installazione dipendenze\ngit clone https://github.com/fabriziosalmi/cf-box.git\ncd cf-box\npip install -e \".[dev]\"\n\n# Configurazione credenziali Cloudflare in .env o config.yaml\n# Esecuzione del modulo di sincronizzazione IP o export\npython -m cf_box.cli --help\n```\n\nRisolve la complessità di gestire manualmente decine di zone e liste di blocco IP su più account aziendali Cloudflare."
+      ],
+      "suggest": [
+        "conservare-log-cloudflare-nis2-gdpr",
+        "migrare-da-cloudflare-self-hosted-eu",
+        "automatizzare-configurazione-cloudflare"
+      ]
+    },
+    {
+      "id": "aidlp",
+      "slug": "cos-e-aidlp-data-loss-prevention-llm",
+      "vertical": "ai",
+      "question": "Cos'è aidlp e come funziona il Data Loss Prevention per LLM?",
+      "keywords": [
+        "aidlp",
+        "data loss prevention per llm",
+        "aidlp data loss prevention",
+        "aidlp proxy presidio spacy flashtext",
+        "come funziona aidlp per il data loss prevention",
+        "anonimizzare dati sensibili e pii per openai aidlp",
+        "anonimizzare dati sensibili e pii per openai",
+        "flashtext presidio aidlp",
+        "proxy dlp openai anthropic"
+      ],
+      "answers": [
+        "**aidlp** (AI DLP Proxy) è un proxy HTTP/HTTPS ad alte prestazioni progettato per intercettare il traffico verso endpoint LLM esterni (OpenAI, Anthropic, ecc.) e anonimizzare dati sensibili (PII, chiavi API, token) in tempo reale.\n\nCaratteristiche architetturali:\n- **Parallel Redaction Engine**: esegue contemporaneamente l'analisi statica (tramite algoritmi FlashText ad altissima velocità) e l'analisi NLP avanzata (tramite Microsoft Presidio e SpaCy), unendo gli offset prima dell'applicazione dei mascheramenti per preservare intatto il contesto sintattico per il modello.\n- **Asynchronous Worker Queue**: delega le inferenze ML a una coda `asyncio.Queue` con worker persistenti dedicati, azzerando il rischio di OOM e thread thrashing ad alto throughput.\n- **Atomic Hot-Reload**: sincronizzazione automatica ogni 60 secondi con HashiCorp Vault (o file locali) con rotazione atomica delle chiavi e dei dizionari senza riavvio del processo.\n- **Validazione TLS Upstream (v2.0)**: verifica rigorosa dei certificati TLS dei provider upstream per prevenire attacchi Man-in-the-Middle sui prompt in transito.\n\nInstallazione e avvio con Docker:\n```bash\n# Avvio del container AI DLP Proxy\ndocker run -d --name aidlp \\\n  -p 8080:8080 \\\n  -e AIDLP_UPSTREAM_URL=\"https://api.openai.com\" \\\n  -e AIDLP_VAULT_ENABLED=\"false\" \\\n  ghcr.io/fabriziosalmi/aidlp:latest\n```\n\nProtegge la riservatezza aziendale garantendo conformità GDPR e AI Act nell'adozione di modelli di intelligenza artificiale."
+      ],
+      "suggest": [
+        "cos-e-ai-dependency-guard-slopsquatting",
+        "nanocode-coding-assistant-minimale-terminale",
+        "misurare-mitigare-lost-in-the-middle-context-effect-agenti"
+      ]
+    },
+    {
+      "id": "ai-dependency-guard",
+      "slug": "cos-e-ai-dependency-guard-slopsquatting",
+      "vertical": "ai",
+      "question": "Cos'è ai-dependency-guard e come protegge dallo slopsquatting?",
+      "keywords": [
+        "ai-dependency-guard",
+        "protegge dallo slopsquatting",
+        "ai-dependency-guard slopsquatting",
+        "ai-dependency-guard proteggersi da slopsquatting",
+        "ai-dependency-guard blocco pacchetti pypi fittizi",
+        "come funziona ai-dependency-guard",
+        "phantom dependency squatting",
+        "allucinazione dipendenze ai github action",
+        "slopsquatting pypi npm"
+      ],
+      "answers": [
+        "**ai-dependency-guard** è una GitHub Action automatizzata a zero dipendenze esterne progettata per proteggere le pipeline CI/CD dal fenomeno del **Phantom Dependency Squatting** (o *slopsquatting*).\n\nProblema affrontato:\nQuando gli sviluppatori utilizzano LLM per generare codice, i modelli allucinano frequentemente nomi di librerie non esistenti inserendole nei manifest di progetto (`requirements.txt`, `package.json`). Gli attaccanti monitorano o registrano preventivamente tali nomi fittizi su PyPI e npm, iniettando codice malevolo eseguito automaticamente alla prima build downstream.\n\nMeccanismo di protezione a doppio livello (Dual-Tier):\n1. **Tier 1 (Explicit Blocklist)**: intercetta i pacchetti fittizi già noti o registrati da ricercatori/attaccanti che restituirebbero uno stato `HTTP 200 OK`, impedendo il bypass dei controlli standard.\n2. **Tier 2 (Real-Time Registry API Validation)**: interroga in tempo reale le API ufficiali di PyPI e npm. Se il pacchetto restituisce `HTTP 404 Not Found`, la GitHub Action blocca la Pull Request e fallisce la build in modo deterministico.\n\nIntegrazione rapida nel workflow GitHub Actions:\n```yaml\nname: AI Dependency Guard\non: [pull_request, push]\n\njobs:\n  audit-dependencies:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n      - name: Validate Dependencies Against Hallucinations\n        uses: fabriziosalmi/ai-dependency-guard@main\n        with:\n          manifests: 'requirements.txt,package.json'\n```\n\nElimina uno dei vettori di attacco alla supply chain più insidiosi introdotti dall'uso dell'AI generativa."
+      ],
+      "suggest": [
+        "cos-e-aidlp-data-loss-prevention-llm",
+        "nanocode-coding-assistant-minimale-terminale",
+        "misurare-mitigare-lost-in-the-middle-context-effect-agenti"
+      ]
+    },
+    {
+      "id": "blacklists",
+      "slug": "cosa-sono-le-blacklists-threat-intelligence",
+      "vertical": "security",
+      "question": "Cosa contiene il repository blacklists e come si usano i feed di threat intelligence?",
+      "keywords": [
+        "blacklists",
+        "repository blacklists e come si usano i feed di threat intelligence",
+        "repository blacklists feed",
+        "blacklists feed di threat intelligence ip malevoli",
+        "cosa contiene il repo blacklists",
+        "liste blocco ip per fail2ban blacklists",
+        "liste blocco ip per fail2ban",
+        "feed repository blacklists ip malevoli",
+        "liste blocco nftables blacklists"
+      ],
+      "answers": [
+        "Il repository **blacklists** di Fabrizio Salmi fornisce liste aggregate e normalizzate quotidianamente di indirizzi IP, domini e sottoreti associati ad attività malevole (botnet, scanner di vulnerabilità, tentativi di brute force SSH/HTTP, server C2 e spammer).\n\nCaratteristiche dei feed:\n- **Aggiornamento continuo**: pipeline automatizzata tramite GitHub Actions che raccoglie, valida, deduplica e consolida oltre 30 sorgenti pubbliche e honeypot proprietari.\n- **Formati pronti all'uso**: distribuiti in formati nativi per `nftables` (set di IP/CIDR), `iptables` (ipset), `fail2ban`, `Pi-hole` (adlist/domain list) e formati grezzi `txt`/`csv`.\n- **Filtraggio falsi positivi**: rimozione automatica di IP di infrastrutture critiche, CDN pubbliche, DNS resolver affidabili (1.1.1.1, 8.8.8.8) e range bogon/RFC1918.\n\nEsempio di importazione rapida in un set nftables:\n```bash\n# Download dell'elenco IP aggregato e caricamento in nftables\ncurl -sSL https://raw.githubusercontent.com/fabriziosalmi/blacklists/main/blacklists/ip.txt | \\\n  grep -v '^#' | \\\n  xargs -I {} nft add element inet filter blacklist_set { {} }\n```\n\nIdeale per potenziare le difese perimetrali di server VPS, router edge, gateway Proxmox e firewall aziendali."
+      ],
+      "suggest": [
+        "file-integrity-monitoring-fim-wazuh-aide-rilevamento-manomissioni",
+        "third-party-risk-management-tprm-sicurezza-fornitori-software",
+        "tiber-eu-threat-led-penetration-testing-framework-finanziario"
+      ]
+    },
+    {
+      "id": "proxmox-cluster-balancer",
+      "slug": "cos-e-proxmox-cluster-balancer-drs",
+      "vertical": "proxmox",
+      "question": "Cos'è proxmox-cluster-balancer e come bilancia i nodi di un cluster Proxmox?",
+      "keywords": [
+        "proxmox-cluster-balancer",
+        "bilancia i nodi di un cluster proxmox",
+        "bilancia i nodi",
+        "cluster balancer",
+        "proxmox-cluster-balancer bilanciare carico nodi",
+        "proxmox-cluster-balancer live migration",
+        "proxmox-cluster-balancer drs open source",
+        "proxmox-cluster-balancer come bilanciare il carico",
+        "drs proxmox cluster balancer"
+      ],
+      "answers": [
+        "**proxmox-cluster-balancer** è uno strumento di bilanciamento automatico del carico (DRS - Dynamic Resource Scheduling) per cluster **Proxmox Virtual Environment (PVE)**.\n\nFunzionalità e algoritmo:\n- **Algoritmo Euristico di Distribuzione**: monitora costantemente l'utilizzo di CPU, memoria RAM e I/O disco di ciascun nodo del cluster tramite le API Proxmox VE.\n- **Pianificazione delle Migrazioni (Live Migration)**: calcola lo squilibrio del carico rispetto a una soglia definita e genera un piano di spostamento ottimale delle macchine virtuali (QEMU/KVM) e container LXC senza interrompere i servizi attivi.\n- **Modalità Dry-Run e Safe Mode**: consente di simulare l'impatto del ribilanciamento prima di applicarlo e di escludere VM critiche o nodi con hardware eterogeneo.\n\nInstallazione ed esecuzione:\n```bash\n# Clone del repository e installazione\ngit clone https://github.com/fabriziosalmi/proxmox-cluster-balancer.git\ncd proxmox-cluster-balancer\npip install -r requirements.txt\n\n# Esecuzione in modalità simulazione (dry-run)\npython balancer.py --cluster-conf /etc/pve/corosync.conf --dry-run\n```\n\nFornisce un'alternativa open source e trasparente ai sistemi di DRS proprietari per massimizzare la resa dei server fisici."
+      ],
+      "suggest": [
+        "fallback-manuale-interruttori-domotica-crash-server",
+        "assistente-vocale-offline-whisper-piper-wyoming-home-assistant",
+        "matter-standard-domotica-locale-senza-cloud"
+      ]
+    },
+    {
+      "id": "asn-api",
+      "slug": "cos-e-asn-api-lookup-bgp",
+      "vertical": "tools",
+      "question": "Cos'è asn-api e come si interrogano Autonomous System e rotte BGP?",
+      "keywords": [
+        "asn-api",
+        "interrogano autonomous system e rotte bgp",
+        "autonomous system e rotte bgp",
+        "microservizio asn-api",
+        "microservizio risoluzione ip to asn fast",
+        "lookup autonomous system e prefisso cidr da ip"
+      ],
+      "answers": [
+        "**asn-api** è un microservizio FastAPI ad altissime prestazioni per la risoluzione rapida e a basso overhead di indirizzi IP in **Autonomous System Number (ASN)**, prefissi BGP, Country Code e informazioni sull'organizzazione proprietaria.\n\nCaratteristiche tecniche:\n- **Lookup ultra-veloce in-memory**: carica i database IP-to-ASN (MaxMind, RouteViews, Team Cymru) in strutture dati ad albero binario / radix trie in memoria RAM con tempi di risposta < 1ms.\n- **Interfaccia REST & JSON**: endpoint semplici per query singole (`/asn/1.1.1.1`) o bulk query per SIEM, script di incident response e pipeline di sicurezza.\n- **Container compatto**: immagine Docker basata su Alpine Linux o Distroless, con consumi di risorse minimi (< 50MB RAM).\n\nAvvio immediato con Docker:\n```bash\n# Avvio del container asn-api\ndocker run -d --name asn-api -p 8000:8000 ghcr.io/fabriziosalmi/asn-api:latest\n\n# Test di query per un indirizzo IP\ncurl http://localhost:8000/asn/8.8.8.8\n```\n\nIndispensabile per arricchire log di sicurezza, WAF e firewall con metadati geografici e di routing BGP in tempo reale."
+      ],
+      "suggest": [
+        "archiviare-file-dentro-un-video",
+        "app-note-markdown-local-first",
+        "velocizzare-wordpress",
+        "cos-e-un-waf-web-application-firewall"
+      ]
     }
   ],
   "fallbacks": [
