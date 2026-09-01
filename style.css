@@ -311,18 +311,43 @@ body {
 }
 .msg-bot .content pre code:hover, .page .answer pre code:hover { outline: none; }
 
-/* header stat bar (chat) */
+/* header section bar (chat): quick nav + live context breadcrumb */
 .statbar {
   flex: 0 0 auto;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 8px 16px;
+  gap: 12px;
+  padding: 7px 16px;
   font-size: 12.5px;
   color: var(--text-dim);
   border-bottom: 1px solid var(--border);
+  overflow-x: auto;
+  scrollbar-width: none;
 }
-.statbar b { color: var(--accent); font-variant-numeric: tabular-nums; font-weight: 700; }
+.statbar::-webkit-scrollbar { display: none; }
+.statnav { display: flex; gap: 6px; flex: 0 0 auto; }
+.statnav a {
+  color: var(--text-dim);
+  text-decoration: none;
+  padding: 3px 10px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  white-space: nowrap;
+  transition: color .15s ease, border-color .15s ease;
+}
+.statnav a:hover { color: var(--text); border-color: var(--accent); }
+.ctxcrumb {
+  flex: 0 1 auto;
+  margin-left: auto;
+  color: var(--text-dim);
+  text-decoration: none;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 48%;
+}
+.ctxcrumb:hover { color: var(--link); text-decoration: underline; }
 
 /* answer action bar & copy Q&A / Session buttons */
 .msg-bot .content .qa-actions {

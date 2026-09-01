@@ -180,6 +180,8 @@
                     '\n\n[Scheda completa dei comandi →](comandi/' + bc.group + '/#' + bc.id + ')'],
           suggest: bc.related || [],
           kind: 'command',
+          group: bc.group,
+          cardId: bc.id,
         };
       }
     }
@@ -500,6 +502,9 @@
     addUserMessage(text);
     const fp = tryFastPath(text);
     if (fp) {
+      const pn = fp.kind === 'port' && fp.label.match(/\d+/);
+      updateCrumb((fp.kind === 'port' ? '🔌 ' : '🧰 ') + fp.label,
+        fp.kind === 'port' ? (pn ? 'porta/' + pn[0] + '/' : null) : TOOL_PAGES[fp.kind]);
       streamAnswer(fp.answer, null, fp.suggest, null, fp.label);
       return;
     }
@@ -513,12 +518,14 @@
       answerCursor[entry.id] = idx;
       lastEntryId = entry.id;
       askedSlugs.add(entry.slug);
+      crumbForEntry(entry);
       streamAnswer(entry.answers[idx], null, entry.suggest, entry.id, entry.question);
       return;
     }
     const answer = entry ? pickAnswer(entry) : pickFallback();
     const qLabel = entry ? entry.question : text;
     if (entry && entry.slug) { askedSlugs.add(entry.slug); ctxEntry = entry; } // thread history + context
+    crumbForEntry(entry);
     streamAnswer(answer, null, entry && entry.suggest, entry && entry.id, qLabel);
   }
 
@@ -582,19 +589,30 @@
     }
   });
 
-  // Count-up the header stat bar (the real entry count), reduced-motion aware.
-  function animateStats(total) {
-    const el = document.querySelector('#statbar b[data-to]');
-    if (!el) return;
-    el.setAttribute('data-to', total);
-    if (matchMedia('(prefers-reduced-motion: reduce)').matches) { el.textContent = total; return; }
-    let t0 = null;
-    requestAnimationFrame(function step(t) {
-      if (!t0) t0 = t;
-      const p = Math.min(1, (t - t0) / 900);
-      el.textContent = Math.round(total * (1 - Math.pow(1 - p, 3)));
-      if (p < 1) requestAnimationFrame(step);
-    });
+  // Live context breadcrumb in the header bar: every answered turn gets a
+  // link to its shareable static page (KB entry, command card or tool).
+  function updateCrumb(label, href) {
+    const el = document.getElementById('ctxcrumb');
+    if (!el || !label || !href) return;
+    el.textContent = label;
+    el.setAttribute('href', href);
+    el.hidden = false;
+  }
+
+  const TOOL_PAGES = {
+    subnet: 'tools/calcolatore-subnet/', cron: 'tools/spiega-cron/',
+    chmod: 'tools/calcolatore-chmod/', jwt: 'tools/decodifica-jwt/',
+    epoch: 'tools/timestamp-unix/',
+  };
+
+  function crumbForEntry(entry) {
+    if (!entry) return;
+    if (entry.kind === 'command' && entry.group && entry.cardId) {
+      updateCrumb('📟 ' + entry.question, 'comandi/' + entry.group + '/#' + entry.cardId);
+    } else if (entry.slug) {
+      const vlabel = ((DB.verticals || []).find(v => v.id === entry.vertical) || {}).label;
+      updateCrumb((vlabel ? vlabel + ' › ' : '') + entry.question, 'q/' + entry.slug + '/');
+    }
   }
 
   /* ---------- boot ---------- */
@@ -626,7 +644,6 @@
     inputEl.focus();
     bySlug = Object.create(null);
     for (const e of DB.entries) bySlug[e.slug] = e;
-    animateStats(DB.entries.length);
 
     const q = new URLSearchParams(location.search).get('q');
     const deepEntry = q && DB.entries.find(e => e.id === q || e.slug === q);
