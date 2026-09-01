@@ -620,11 +620,24 @@ a, button, input[type="checkbox"], select { touch-action: manipulation; }
   font-size: 12px;
   color: var(--text-dim);
 }
+.composer-note a {
+  color: var(--text-dim);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.composer-note a:hover { color: var(--text); }
 
 @media (max-width: 600px) {
   .chat { padding-top: 16px; }
   .msg-user .bubble { max-width: 85%; }
+  /* primary nav on touch: WCAG 2.5.8 / HIG target sizes */
+  .statnav { gap: 8px; }
+  .statnav a { width: 44px; height: 40px; }
 }
+
+/* prose links on generated pages: never the UA default blue/violet.
+   Scoped to p/li so block-card anchors (color: inherit) stay untouched. */
+.page p a, .page li a { color: var(--link); }
 
 /* ---------- Code Blocks with Header ---------- */
 .code-block {

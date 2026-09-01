@@ -568,7 +568,7 @@ PATH_HEAD = """<!DOCTYPE html>
   .prog-track {{ flex: 1; height: 6px; border-radius: 999px; background: var(--bg-soft); border: 1px solid var(--border); overflow: hidden; }}
   .prog-fill {{ display: block; height: 100%; width: 0; background: var(--accent); border-radius: 999px; transition: width .25s ease; }}
   .prog-txt {{ font-size: 13px; color: var(--text-dim); white-space: nowrap; }}
-  .prog-reset {{ font-size: 12px; color: var(--text-dim); background: none; border: none; cursor: pointer; text-decoration: underline; padding: 0; }}
+  .prog-reset {{ font-size: 12px; color: var(--text-dim); background: none; border: none; cursor: pointer; text-decoration: underline; padding: 8px 6px; margin: -8px -6px; }}
   .path-prog {{ margin: 6px 0 0 !important; font-size: 12.5px !important; color: var(--accent) !important; font-weight: 600; }}
   .path-card {{ display: block; border: 1px solid var(--border); border-radius: var(--r-md); background: var(--bg-raised); box-shadow: var(--elev); padding: 16px 18px; margin: 12px 0; text-decoration: none; color: inherit; transition: border-color var(--t); }}
   .path-card:hover {{ border-color: var(--accent); }}
@@ -1222,7 +1222,7 @@ def build_ports(db, entries, site) -> list:
         f'<p class="intro">Le {len(ordered)} porte che si incontrano davvero: servizio, rischi e comandi di verifica. '
         'La <a href="../q/porte-tcp-e-udp-quali-conoscere/">guida generale alle porte</a> spiega il quadro.</p>\n'
         f'<div class="pt-wrap"><table class="pt"><thead><tr>'
-        '<th>Porta</th><th>Proto</th><th>Servizio</th><th>A cosa serve</th>'
+        '<th>Porta</th><th>Proto</th><th>Servizio</th><th class="pt-d">A cosa serve</th>'
         f'</tr></thead><tbody>{rows}</tbody></table></div>\n'
         """<style>
   .pt-wrap { overflow-x: auto; border: 1px solid var(--border); border-radius: var(--r-md); background: var(--bg-raised); }
@@ -1237,6 +1237,9 @@ def build_ports(db, entries, site) -> list:
   .pt .pt-p { color: var(--text-dim); font-family: ui-monospace, Menlo, monospace; font-size: 12.5px; white-space: nowrap; }
   .pt .pt-s { white-space: nowrap; }
   .pt .pt-d { color: var(--text-dim); min-width: 200px; }
+  /* on narrow screens the description column would clip into broken-looking
+     slivers: drop it (each port page carries the full description anyway) */
+  @media (max-width: 640px) { .pt .pt-d { display: none; } }
 </style>
 """
     )
