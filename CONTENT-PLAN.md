@@ -26,6 +26,9 @@ Quality loop (autonomous iteration):
   phrases, em-dashes, broken internal links), G2 canonical questions 100%, G3
   typo-mutated questions >= 90%, G4 battery 100%, G5 negatives 100%. Non-blocking
   fragility report = the standing hardening backlog. Nothing ships on a red bench.
+- `node tools_test.mjs` – gate T6: the deterministic micro-tools (tools.js:
+  subnet/CIDR, cron, chmod, JWT, epoch, well-known ports + the chat fast-path
+  detector). 100% required whenever tools.js changes.
 
 Conversational layer: `faq.json` has a `smalltalk` array (22 intents – greetings,
 thanks, capabilities, out-of-domain tasks, emotional turns…) grounded in the
@@ -481,6 +484,18 @@ Richieste di Fab, in ordine:
   pagine-percorso statiche (diventare-sysadmin 17 tappe, server sicuro 12,
   self-hosting da zero 12) con ItemList JSON-LD, strip sull'indice /q/, voci
   in sitemap e llms.txt.
+- **[FATTA 2026-09-01] Fast-path deterministico + tools** (`tools.js`): la chat
+  riconosce e CALCOLA (zero inferenza) CIDR/subnet, espressioni cron, chmod,
+  JWT, timestamp Unix e "porta N" prima del matcher; gli stessi motori vivono
+  in 5 pagine interattive `/tools/` (WebApplication JSON-LD) con banner sulle
+  voci correlate. Gate T6 (`node tools_test.mjs`, 36 test).
+- **[FATTA 2026-09-01] SEO programmatica porte** (`ports.json` -> `/porta/`):
+  35 porte well-known curate a mano (servizio, rischio, comandi di verifica,
+  guide correlate, prev/next), indice dedicato, dataset condiviso col
+  fast-path della chat. 616 URL totali in sitemap.
+- Fix rendering markdown (app.js + build.py): i code-span vengono estratti
+  prima di bold/italic – gli asterischi di cron/glob dentro i backtick non
+  vengono piu mangiati.
 
 **Smalltalk v2 DONE (2026-08-29)**: 22 -> 33 intenti, piu varianti per intento,
 risposte che instradano con percorsi suggeriti, e campo `suggest` (slug delle

@@ -17,12 +17,21 @@ OUT = ROOT / "q"
 
 
 def inline_md(s: str) -> str:
+    # Code spans first, as placeholders: bold/italic must never eat the
+    # asterisks inside a backtick span (cron expressions, globs, chmod).
+    codes = []
+
+    def _stash(m):
+        codes.append(m.group(1))
+        return f"@@@CODESPAN_{len(codes) - 1}@@@"
+
+    s = re.sub(r"`([^`]+)`", _stash, s)
     s = re.sub(r"\[([^\]]+)\]\((https?://[^)\s]+)\)", r'<a href="\2" target="_blank" rel="noopener">\1</a>', s)
     # internal links: scheme-less relative paths (convention: "q/<slug>/")
     s = re.sub(r"\[([^\]]+)\]\(([^):\s]+)\)", r'<a href="\2">\1</a>', s)
     s = re.sub(r"\*\*([^*]+)\*\*", r"<strong>\1</strong>", s)
     s = re.sub(r"\*([^*\n]+)\*", r"<em>\1</em>", s)
-    s = re.sub(r"`([^`]+)`", r"<code>\1</code>", s)
+    s = re.sub(r"@@@CODESPAN_(\d+)@@@", lambda m: "<code>" + codes[int(m.group(1))] + "</code>", s)
     return s
 
 
@@ -214,6 +223,7 @@ PAGE = """<!DOCTYPE html>
       <span class="page-meta-badge">⏱️ {reading_time} min lettura</span>
       <span class="page-meta-badge">✓ Runbook verificato</span>
     </div>
+    {toolbanner}
     <div class="answer" id="page-answer" itemprop="articleBody">{answer}</div>
     <div class="qa-actions">
       <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">
@@ -614,6 +624,338 @@ def build_paths(db, entries, site) -> list:
     return urls
 
 
+TOOL_MD_RENDERER = """
+function miniMd(md) {
+  var esc = md.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  var blocks = esc.split(/```(\\w*)\\n([\\s\\S]*?)```/g);
+  var out = '';
+  for (var i = 0; i < blocks.length; i += 3) {
+    var t = blocks[i]
+      .replace(/\\*\\*([^*]+)\\*\\*/g, '<b>$1</b>')
+      .replace(/`([^`]+)`/g, '<code>$1</code>')
+      .replace(/^- (.*)$/gm, '<li>$1</li>')
+      .replace(/(<li>[\\s\\S]*<\\/li>)/, '<ul>$1</ul>')
+      .replace(/\\n\\n/g, '<br><br>');
+    out += t;
+    if (i + 2 < blocks.length) out += '<pre><code>' + blocks[i + 2] + '</code></pre>';
+  }
+  return out;
+}
+"""
+
+TOOLS = [
+    {
+        "slug": "calcolatore-subnet", "fn": "subnet", "icon": "🧮",
+        "title": "Calcolatore subnet / CIDR",
+        "tagline": "Rete, broadcast, maschera e host usabili da una notazione CIDR. Calcolo esatto nel browser, niente server.",
+        "placeholder": "192.168.1.0/26",
+        "examples": ["192.168.1.0/24", "10.0.0.130/26", "172.16.0.0/12", "10.0.0.0/31"],
+        "related": ["cos-e-il-subnetting-e-il-cidr", "segmentare-la-rete-con-vlan", "nat-statico-dinamico-e-pat", "differenza-ipv4-e-ipv6"],
+    },
+    {
+        "slug": "spiega-cron", "fn": "cron", "icon": "⏰",
+        "title": "Spiega-cron",
+        "tagline": "Incolla un'espressione cron e leggila in italiano, campo per campo, con le trappole segnalate.",
+        "placeholder": "*/5 2 * * 1-5",
+        "examples": ["*/5 * * * *", "0 3 * * *", "0 9 * * 1-5", "@reboot", "0 3 1 * 1"],
+        "related": ["cron-la-sintassi-spiegata", "gestire-servizi-linux-con-systemctl", "bash-scripting-le-basi-che-servono"],
+    },
+    {
+        "slug": "calcolatore-chmod", "fn": "chmod", "icon": "🔐",
+        "title": "Calcolatore chmod",
+        "tagline": "Da ottale a rwx e ritorno, bit speciali inclusi. Con gli avvisi che contano (777, 600).",
+        "placeholder": "754 oppure rwxr-xr--",
+        "examples": ["755", "644", "600", "777", "4755", "rwxr-xr--"],
+        "related": ["permessi-linux-chmod-chown-umask", "utenti-gruppi-e-sudo-su-linux", "come-funzionano-le-chiavi-ssh"],
+    },
+    {
+        "slug": "decodifica-jwt", "fn": "jwt", "icon": "🎫",
+        "title": "Decodifica JWT",
+        "tagline": "Header e payload di un JSON Web Token, decodificati in locale: il token non lascia mai il tuo browser.",
+        "placeholder": "eyJhbGciOi...",
+        "examples": ["eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"],
+        "related": ["oauth2-proxy-autenticazione-davanti-ai-servizi", "vulnerabilita-nei-redirect-oauth", "come-gestire-i-secrets"],
+    },
+    {
+        "slug": "timestamp-unix", "fn": "epoch", "icon": "🕐",
+        "title": "Convertitore timestamp Unix",
+        "tagline": "Da epoch (secondi o millisecondi) a data leggibile, con i comandi da terminale equivalenti.",
+        "placeholder": "1609459200",
+        "examples": ["1609459200", "1725167999", "1609459200000"],
+        "related": ["dove-sono-i-log-su-linux", "cron-la-sintassi-spiegata", "security-logging-fatto-bene"],
+    },
+]
+
+# entry id -> (relative url from q/<slug>/, banner label)
+TOOL_BANNERS = {
+    "subnetting-cidr": ("../../tools/calcolatore-subnet/", "🧮 Prova il calcolatore subnet interattivo"),
+    "cron-sintassi": ("../../tools/spiega-cron/", "⏰ Incolla la tua espressione nello spiega-cron"),
+    "permessi-linux": ("../../tools/calcolatore-chmod/", "🔐 Prova il calcolatore chmod interattivo"),
+    "porte-tcp-udp": ("../../porta/", "🔌 Le porte well-known, una per una: rischi e comandi"),
+    "dhcp": ("../../tools/calcolatore-subnet/", "🧮 Calcola le tue subnet col calcolatore CIDR"),
+    "log-linux": ("../../tools/timestamp-unix/", "🕐 Converti un timestamp Unix dei log"),
+}
+
+
+def build_tools(db, entries, site) -> list:
+    """Render /tools/ (index + one interactive page per micro-tool)."""
+    by_id = {e["id"]: e for e in entries}
+    urls = [f"{site}/tools/"]
+    for t in TOOLS:
+        for r in t["related"]:
+            assert any(e["slug"] == r for e in entries), f"tools: unknown slug {r}"
+    for t in TOOLS:
+        related = "".join(
+            f'<li><a href="../../q/{r}/">{html.escape(next(e["question"] for e in entries if e["slug"] == r))}</a></li>'
+            for r in t["related"]
+        )
+        examples = "".join(
+            f'<button type="button" class="ex" data-v="{html.escape(x)}">{html.escape(x if len(x) < 28 else x[:25] + "…")}</button>'
+            for x in t["examples"]
+        )
+        jsonld = [
+            {
+                "@context": "https://schema.org",
+                "@type": "WebApplication",
+                "name": t["title"],
+                "url": f"{site}/tools/{t['slug']}/",
+                "applicationCategory": "DeveloperApplication",
+                "operatingSystem": "Any (browser)",
+                "description": t["tagline"],
+                "offers": {"@type": "Offer", "price": "0", "priceCurrency": "EUR"},
+            },
+            {
+                "@context": "https://schema.org",
+                "@type": "BreadcrumbList",
+                "itemListElement": [
+                    {"@type": "ListItem", "position": 1, "name": "FabGPT-FAQ", "item": f"{site}/"},
+                    {"@type": "ListItem", "position": 2, "name": "Tools", "item": f"{site}/tools/"},
+                    {"@type": "ListItem", "position": 3, "name": t["title"], "item": f"{site}/tools/{t['slug']}/"},
+                ],
+            },
+        ]
+        page = PATH_HEAD.format(
+            title=html.escape(t["title"]),
+            description=html.escape(t["tagline"]),
+            canonical=f"{site}/tools/{t['slug']}/",
+            site=site,
+            base="../../",
+            jsonld=json.dumps(jsonld, ensure_ascii=False),
+        )
+        page += f"""<nav class="crumbs" aria-label="Percorso"><a href="../../">FabGPT-FAQ</a> › <a href="../">Tools</a> › <span>{html.escape(t["title"])}</span></nav>
+<h1>{t["icon"]} {html.escape(t["title"])}</h1>
+<p class="intro">{html.escape(t["tagline"])} Tutto gira in locale: <b>nessun dato lascia il browser</b>.</p>
+<div class="tool-box">
+  <input id="tool-in" type="text" placeholder="{html.escape(t["placeholder"])}" autocomplete="off" spellcheck="false" aria-label="Input dello strumento">
+  <div class="tool-ex">{examples}</div>
+  <div id="tool-out" class="tool-out" aria-live="polite"></div>
+</div>
+<div class="related"><h2>Guide correlate</h2><ul>{related}</ul></div>
+<a class="ask" href="../../">Chiedi in chat 💬</a>
+<style>
+  .tool-box {{ border: 1px solid var(--border); border-radius: 12px; background: var(--bg-soft); padding: 16px; }}
+  .tool-box input {{ width: 100%; box-sizing: border-box; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 15px; padding: 10px 12px; border: 1px solid var(--border); border-radius: 8px; background: var(--bg); color: var(--text); }}
+  .tool-ex {{ margin-top: 10px; display: flex; flex-wrap: wrap; gap: 6px; }}
+  .tool-ex .ex {{ font-family: ui-monospace, Menlo, monospace; font-size: 12px; padding: 4px 10px; border: 1px solid var(--border); border-radius: 999px; background: var(--bg); color: var(--text-dim); cursor: pointer; }}
+  .tool-ex .ex:hover {{ border-color: var(--accent); color: var(--text); }}
+  .tool-out {{ margin-top: 14px; font-size: 14.5px; line-height: 1.55; }}
+  .tool-out:empty {{ display: none; }}
+  .tool-out code {{ background: var(--code-bg); border-radius: 5px; padding: 1px 5px; font-family: ui-monospace, Menlo, monospace; font-size: .9em; }}
+  .tool-out pre {{ background: var(--code-bg); border-radius: 8px; padding: 10px 12px; overflow-x: auto; }}
+  .tool-out ul {{ padding-left: 20px; }}
+  .related {{ margin-top: 28px; border-top: 1px solid var(--border); padding-top: 16px; }}
+  .related h2 {{ font-size: 16px; margin-bottom: 10px; }}
+  .related a {{ color: var(--link); text-decoration: none; }}
+  .related a:hover {{ text-decoration: underline; }}
+</style>
+<script src="../../tools.js"></script>
+<script>
+{TOOL_MD_RENDERER}
+(function () {{
+  var input = document.getElementById('tool-in');
+  var out = document.getElementById('tool-out');
+  var FN = '{t["fn"]}';
+  function run() {{
+    var v = input.value.trim();
+    if (!v) {{ out.innerHTML = ''; return; }}
+    var md = null;
+    try {{
+      if (FN === 'subnet') {{
+        var m = v.match(/^(\\d{{1,3}}(?:\\.\\d{{1,3}}){{3}})\\/(\\d{{1,2}})$/);
+        if (m) {{ var i = FabTools.subnetInfo(m[1], +m[2]); md = i && FabTools.subnetMd(i); }}
+      }} else if (FN === 'cron') md = FabTools.explainCron(v);
+      else if (FN === 'chmod') md = FabTools.explainChmod(v);
+      else if (FN === 'jwt') md = FabTools.decodeJwt(v);
+      else if (FN === 'epoch') md = FabTools.explainEpoch(v);
+    }} catch (e) {{ md = null; }}
+    out.innerHTML = md ? miniMd(md) : '<p style="color:var(--text-dim)">Input non riconosciuto: prova uno degli esempi qui sopra.</p>';
+  }}
+  input.addEventListener('input', run);
+  document.querySelectorAll('.tool-ex .ex').forEach(function (b) {{
+    b.addEventListener('click', function () {{ input.value = b.getAttribute('data-v'); run(); input.focus(); }});
+  }});
+}})();
+</script>
+"""
+        page += PATH_FOOT
+        d = ROOT / "tools" / t["slug"]
+        d.mkdir(parents=True, exist_ok=True)
+        (d / "index.html").write_text(page, encoding="utf-8")
+        urls.append(f"{site}/tools/{t['slug']}/")
+
+    # tools index
+    cards = "".join(
+        f'<a class="path-card" href="{t["slug"]}/"><b>{t["icon"]} {html.escape(t["title"])}</b>'
+        f"<p>{html.escape(t['tagline'])}</p></a>\n"
+        for t in TOOLS
+    )
+    page = PATH_HEAD.format(
+        title="Tools deterministici",
+        description="Micro-strumenti che calcolano nel browser, senza server e senza AI: subnet, cron, chmod, JWT, timestamp.",
+        canonical=f"{site}/tools/",
+        site=site,
+        base="../",
+        jsonld=json.dumps({
+            "@context": "https://schema.org", "@type": "ItemList",
+            "name": "Tools FabGPT-FAQ",
+            "itemListElement": [
+                {"@type": "ListItem", "position": i + 1, "name": t["title"], "url": f"{site}/tools/{t['slug']}/"}
+                for i, t in enumerate(TOOLS)
+            ],
+        }, ensure_ascii=False),
+    )
+    page += (
+        '<nav class="crumbs" aria-label="Percorso"><a href="../">FabGPT-FAQ</a> › <span>Tools</span></nav>\n'
+        "<h1>Tools deterministici</h1>\n"
+        '<p class="intro">Strumenti che <b>calcolano</b>, non generano: il risultato è esatto per costruzione, gira nel tuo browser e non tocca nessun server. Gli stessi motori rispondono anche in <a href="../">chat</a>: incolla una CIDR, un cron o un JWT e vedi.</p>\n'
+        + cards
+    )
+    page += PATH_FOOT
+    (ROOT / "tools").mkdir(parents=True, exist_ok=True)
+    (ROOT / "tools" / "index.html").write_text(page, encoding="utf-8")
+    return urls
+
+
+def build_ports(db, entries, site) -> list:
+    """Render /porta/ (index + one page per well-known port from ports.json)."""
+    pfile = ROOT / "ports.json"
+    if not pfile.exists():
+        return []
+    ports = json.loads(pfile.read_text(encoding="utf-8"))["ports"]
+    by_slug = {e["slug"]: e for e in entries}
+    for p in ports.values():
+        for s in p["suggest"]:
+            assert s in by_slug, f"ports.json: unknown slug {s}"
+    ordered = sorted(ports.values(), key=lambda p: p["port"])
+    urls = [f"{site}/porta/"]
+    for p in ordered:
+        n = p["port"]
+        proto = "TCP e UDP" if p["proto"] == "both" else p["proto"].upper()
+        title = f"Porta {n} ({p['service']}): a cosa serve e come si protegge"
+        related = "".join(
+            f'<li><a href="../../q/{s}/">{html.escape(by_slug[s]["question"])}</a></li>'
+            for s in p["suggest"]
+        )
+        flag = "-u" if p["proto"] == "udp" else "-t"
+        jsonld = [
+            {
+                "@context": "https://schema.org",
+                "@type": "TechArticle",
+                "headline": title,
+                "inLanguage": "it",
+                "url": f"{site}/porta/{n}/",
+                "description": meta_description(p["desc"]),
+            },
+            {
+                "@context": "https://schema.org",
+                "@type": "BreadcrumbList",
+                "itemListElement": [
+                    {"@type": "ListItem", "position": 1, "name": "FabGPT-FAQ", "item": f"{site}/"},
+                    {"@type": "ListItem", "position": 2, "name": "Porte", "item": f"{site}/porta/"},
+                    {"@type": "ListItem", "position": 3, "name": f"Porta {n}", "item": f"{site}/porta/{n}/"},
+                ],
+            },
+        ]
+        idx = ordered.index(p)
+        nav = ""
+        if idx > 0:
+            q = ordered[idx - 1]
+            nav += f'<a href="../{q["port"]}/">← Porta {q["port"]} ({html.escape(q["service"])})</a>'
+        if idx < len(ordered) - 1:
+            q = ordered[idx + 1]
+            nav += f'<a href="../{q["port"]}/" style="float:right">Porta {q["port"]} ({html.escape(q["service"])}) →</a>'
+        page = PATH_HEAD.format(
+            title=html.escape(title),
+            description=html.escape(meta_description(p["desc"])),
+            canonical=f"{site}/porta/{n}/",
+            site=site,
+            base="../../",
+            jsonld=json.dumps(jsonld, ensure_ascii=False),
+        )
+        page += f"""<nav class="crumbs" aria-label="Percorso"><a href="../../">FabGPT-FAQ</a> › <a href="../">Porte</a> › <span>Porta {n}</span></nav>
+<h1>Porta {n}/{html.escape(p["proto"] if p["proto"] != "both" else "tcp+udp")} – {html.escape(p["service"])}</h1>
+<p class="intro">Protocollo: <b>{proto}</b></p>
+<div class="answer">{render_md(p["desc"])}
+<h2 style="font-size:17px;margin:20px 0 8px">Nota di sicurezza</h2>{render_md(p["risk"])}
+<h2 style="font-size:17px;margin:20px 0 8px">Verifica al volo</h2>
+<p>È in ascolto sul tuo server?</p>
+<pre><code>ss {flag}lnp | grep :{n}</code></pre>
+<p>È raggiungibile da fuori? (dal tuo client)</p>
+<pre><code>nc -z{"u" if p["proto"] == "udp" else ""}v tuo-host {n}</code></pre>
+</div>
+<div class="related"><h2>Guide correlate</h2><ul>{related}</ul></div>
+<div class="crumbs" style="margin-top:24px;overflow:hidden">{nav}</div>
+<a class="ask" href="../../?q=porta {n}">Chiedi in chat 💬</a>
+<style>
+  .answer {{ line-height: 1.6; }}
+  .answer code {{ background: var(--code-bg); border-radius: 5px; padding: 1px 5px; font-family: ui-monospace, Menlo, monospace; font-size: .9em; }}
+  .answer pre {{ background: var(--code-bg); border-radius: 8px; padding: 10px 12px; overflow-x: auto; }}
+  .related {{ margin-top: 28px; border-top: 1px solid var(--border); padding-top: 16px; }}
+  .related h2 {{ font-size: 16px; margin-bottom: 10px; }}
+  .related a {{ color: var(--link); text-decoration: none; }}
+  .related a:hover {{ text-decoration: underline; }}
+</style>
+"""
+        page += PATH_FOOT
+        d = ROOT / "porta" / str(n)
+        d.mkdir(parents=True, exist_ok=True)
+        (d / "index.html").write_text(page, encoding="utf-8")
+        urls.append(f"{site}/porta/{n}/")
+
+    # ports index
+    rows = "".join(
+        f'<li><a href="{p["port"]}/"><b>{p["port"]}</b>/{html.escape(p["proto"] if p["proto"] != "both" else "tcp+udp")} – {html.escape(p["service"])}</a>'
+        f' <span style="color:var(--text-dim)">{html.escape(meta_description(p["desc"], 90))}</span></li>'
+        for p in ordered
+    )
+    page = PATH_HEAD.format(
+        title="Porte well-known",
+        description=f"Le {len(ordered)} porte che un sysadmin incontra davvero: a cosa servono, i rischi e i comandi per verificarle.",
+        canonical=f"{site}/porta/",
+        site=site,
+        base="../",
+        jsonld=json.dumps({
+            "@context": "https://schema.org", "@type": "ItemList",
+            "name": "Porte well-known",
+            "itemListElement": [
+                {"@type": "ListItem", "position": i + 1, "name": f"Porta {p['port']} – {p['service']}", "url": f"{site}/porta/{p['port']}/"}
+                for i, p in enumerate(ordered)
+            ],
+        }, ensure_ascii=False),
+    )
+    page += (
+        '<nav class="crumbs" aria-label="Percorso"><a href="../">FabGPT-FAQ</a> › <span>Porte</span></nav>\n'
+        "<h1>Porte well-known, una per una</h1>\n"
+        f'<p class="intro">Le {len(ordered)} porte che si incontrano davvero: servizio, rischi e comandi di verifica. '
+        'La <a href="../q/porte-tcp-e-udp-quali-conoscere/">guida generale alle porte</a> spiega il quadro.</p>\n'
+        f'<ul style="list-style:none;padding:0;line-height:1.9">{rows}</ul>\n'
+    )
+    page += PATH_FOOT
+    (ROOT / "porta").mkdir(parents=True, exist_ok=True)
+    (ROOT / "porta" / "index.html").write_text(page, encoding="utf-8")
+    return urls
+
+
 def build() -> None:
     db = json.loads((ROOT / "faq.json").read_text(encoding="utf-8"))
     site = db["config"]["siteUrl"].rstrip("/")
@@ -756,6 +1098,10 @@ def build() -> None:
             vertical=html.escape(vlabel),
             glyph_svg=glyph(e["vertical"]),
             reading_time=reading_time,
+            toolbanner=(
+                f'<a class="ask" style="margin:10px 0 4px;display:inline-block" href="{TOOL_BANNERS[e["id"]][0]}">{TOOL_BANNERS[e["id"]][1]}</a>'
+                if e["id"] in TOOL_BANNERS else ""
+            ),
             question=html.escape(e["question"]),
             answer=render_md(answer_md).replace('href="q/', 'href="../') + figure,
             id=e["id"],
@@ -825,8 +1171,10 @@ def build() -> None:
             ],
         },
     ]
-    # --- percorsi (guided paths) ---
+    # --- percorsi (guided paths), tools, porte ---
     path_urls = build_paths(db, entries, site)
+    path_urls += build_tools(db, entries, site)
+    path_urls += build_ports(db, entries, site)
     paths_meta = (
         json.loads((ROOT / "paths.json").read_text(encoding="utf-8"))["paths"]
         if (ROOT / "paths.json").exists() else []
@@ -889,6 +1237,14 @@ def build() -> None:
         lt.append("\n## Percorsi guidati\n")
         for p in paths_meta:
             lt.append(f"- [{p['title']}]({site}/percorsi/{p['slug']}/): {p['tagline']}")
+    lt.append("\n## Tools deterministici\n")
+    for t in TOOLS:
+        lt.append(f"- [{t['title']}]({site}/tools/{t['slug']}/): {t['tagline']}")
+    if (ROOT / "ports.json").exists():
+        _ports = json.loads((ROOT / "ports.json").read_text(encoding="utf-8"))["ports"]
+        lt.append("\n## Porte well-known\n")
+        for p in sorted(_ports.values(), key=lambda x: x["port"]):
+            lt.append(f"- [Porta {p['port']} – {p['service']}]({site}/porta/{p['port']}/): {meta_description(p['desc'], 110)}")
     (ROOT / "llms.txt").write_text("\n".join(lt) + "\n", encoding="utf-8")
 
     # --- llms-full.txt: every Q&A as plain text (full corpus for citation) ---

@@ -12,6 +12,7 @@
 
   let DB = null;
   let DIAGRAMS = {};                         // entry id -> inline SVG
+  let PORTS = {};                            // well-known ports dataset (ports.json)
   let streaming = false;
   const answerCursor = Object.create(null); // entry id -> next variant index
   let lastEntryId = null;
@@ -171,13 +172,20 @@
   }
 
   function inlineMd(s) {
-    return s
+    // Code spans first, as placeholders: bold/italic must never eat the
+    // asterisks inside a backtick span (cron expressions, globs, chmod).
+    const codes = [];
+    s = s.replace(/`([^`]+)`/g, (_, c) => {
+      codes.push(c);
+      return '@@@CODESPAN_' + (codes.length - 1) + '@@@';
+    });
+    s = s
       .replace(/\[([^\]]+)\]\((https?:\/\/[^)\s]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>')
       // internal links: scheme-less relative paths (convention: "q/<slug>/")
       .replace(/\[([^\]]+)\]\(([^):\s]+)\)/g, '<a href="$2">$1</a>')
       .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
-      .replace(/\*([^*\n]+)\*/g, '<em>$1</em>')
-      .replace(/`([^`]+)`/g, '<code>$1</code>');
+      .replace(/\*([^*\n]+)\*/g, '<em>$1</em>');
+    return s.replace(/@@@CODESPAN_(\d+)@@@/g, (_, i) => '<code>' + codes[+i] + '</code>');
   }
 
   function renderMd(text) {
@@ -444,8 +452,35 @@
     return DB.fallbacks[fallbackIdx];
   }
 
+  // Fast-path: deterministic micro-tools (tools.js). Recognized patterns
+  // (CIDR, cron, chmod, JWT, epoch, well-known ports) are COMPUTED, not
+  // matched: zero inference, zero hallucination. Context is left untouched.
+  const TOOL_SUGGEST = {
+    subnet: ['cos-e-il-subnetting-e-il-cidr', 'segmentare-la-rete-con-vlan', 'nat-statico-dinamico-e-pat'],
+    cron: ['cron-la-sintassi-spiegata', 'gestire-servizi-linux-con-systemctl', 'bash-scripting-le-basi-che-servono'],
+    chmod: ['permessi-linux-chmod-chown-umask', 'utenti-gruppi-e-sudo-su-linux', 'come-funzionano-le-chiavi-ssh'],
+    jwt: ['oauth2-proxy-autenticazione-davanti-ai-servizi', 'vulnerabilita-nei-redirect-oauth', 'come-gestire-i-secrets'],
+    epoch: ['dove-sono-i-log-su-linux', 'cron-la-sintassi-spiegata', 'security-logging-fatto-bene'],
+  };
+
+  function tryFastPath(text) {
+    if (typeof FabTools === 'undefined') return null;
+    const hit = FabTools.detect(text, {
+      ports: PORTS,
+      subnetSuggest: TOOL_SUGGEST.subnet, cronSuggest: TOOL_SUGGEST.cron,
+      chmodSuggest: TOOL_SUGGEST.chmod, jwtSuggest: TOOL_SUGGEST.jwt,
+      epochSuggest: TOOL_SUGGEST.epoch,
+    });
+    return hit || null;
+  }
+
   function ask(text) {
     addUserMessage(text);
+    const fp = tryFastPath(text);
+    if (fp) {
+      streamAnswer(fp.answer, null, fp.suggest, null, fp.label);
+      return;
+    }
     let entry = match(text);
     // "approfondisci" on an active thread: serve the next answer variant of
     // the last KB entry instead of the generic smalltalk reply (qa.py mirrors).
@@ -548,6 +583,8 @@
       DB = await res.json();
       try { DIAGRAMS = await (await fetch('diagrams.json', { cache: 'no-cache' })).json(); }
       catch (_) { DIAGRAMS = {}; } // diagrams are optional
+      try { PORTS = (await (await fetch('ports.json', { cache: 'no-cache' })).json()).ports; }
+      catch (_) { PORTS = {}; } // port dataset is optional
     } catch (err) {
       const target = addBotRow();
       target.innerHTML = '<p>Non riesco a caricare <code>faq.json</code>. Se hai aperto il file in locale, servilo con un web server: <code>python3 -m http.server</code></p>';
