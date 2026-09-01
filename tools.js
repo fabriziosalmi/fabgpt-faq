@@ -218,6 +218,68 @@
       '- Conversione al volo da terminale: `date -d @' + (ms ? Math.floor(n / 1000) : n) + '` (Linux) · `date -r ' + (ms ? Math.floor(n / 1000) : n) + '` (macOS)';
   }
 
+  /* ---------- safe arithmetic (recursive descent, no eval) ---------- */
+
+  function evalArith(expr) {
+    var s = expr.replace(/,/g, '.').replace(/\s+/g, '');
+    if (!s || s.length > 80 || !/^[\d+\-*/().%^]+$/.test(s)) return null;
+    var i = 0;
+    function parseExpr() {
+      var v = parseTerm();
+      while (i < s.length && (s[i] === '+' || s[i] === '-')) {
+        var op = s[i++]; var r = parseTerm();
+        if (r === null) return null;
+        v = op === '+' ? v + r : v - r;
+      }
+      return v;
+    }
+    function parseTerm() {
+      var v = parseFactor();
+      while (i < s.length && (s[i] === '*' || s[i] === '/' || s[i] === '%')) {
+        var op = s[i++]; var r = parseFactor();
+        if (r === null || v === null) return null;
+        if (op === '*') v = v * r;
+        else if (op === '%') v = v % r;
+        else { if (r === 0) return Infinity; v = v / r; }
+      }
+      return v;
+    }
+    function parseFactor() {
+      var v = parseUnary();
+      if (i < s.length && s[i] === '^') {
+        i++; var r = parseFactor();
+        if (r === null || v === null) return null;
+        v = Math.pow(v, r);
+      }
+      return v;
+    }
+    function parseUnary() {
+      if (s[i] === '-') { i++; var u = parseUnary(); return u === null ? null : -u; }
+      if (s[i] === '+') { i++; return parseUnary(); }
+      return parseAtom();
+    }
+    function parseAtom() {
+      if (s[i] === '(') {
+        i++; var v = parseExpr();
+        if (s[i] !== ')') return null;
+        i++; return v;
+      }
+      var m = s.slice(i).match(/^\d+(?:\.\d+)?/);
+      if (!m) return null;
+      i += m[0].length;
+      return parseFloat(m[0]);
+    }
+    var out = parseExpr();
+    if (out === null || i !== s.length || !isFinite(out)) return null;
+    return out;
+  }
+
+  function arithMd(expr, result) {
+    var shown = Math.abs(result) >= 1e15 ? result.toExponential(6)
+      : (Math.round(result * 1e9) / 1e9).toLocaleString('it-IT', { maximumFractionDigits: 9 });
+    return '`' + expr.trim() + '` = **' + shown + '**\n\nCalcolo esatto, eseguito in locale – niente modello, niente allucinazioni.';
+  }
+
   /* ---------- well-known port lookup (dataset injected) ---------- */
 
   function portMd(p) {
@@ -281,12 +343,21 @@
       if (ee) return { kind: 'epoch', answer: ee, suggest: opts.epochSuggest || [], label: 'Timestamp ' + em[0] };
     }
 
+    // plain arithmetic ("1+1?", "quanto fa 12*34?"): last, so cron/CIDR win first
+    var at = t.replace(/^(quanto\s+fa|quant'?\s*e'?|calcola(?:mi)?)\s*/i, '').replace(/[?=\s]+$/, '');
+    if (/^[\d\s+\-*/().,%^]+$/.test(at) && /\d/.test(at) && /(?!^)[+*/%^]|(?!^)-/.test(at)) {
+      var av = evalArith(at);
+      if (av !== null) {
+        return { kind: 'arith', answer: arithMd(at, av), suggest: opts.arithSuggest || [], label: 'Calcolo ' + at.trim() };
+      }
+    }
+
     return null;
   }
 
   return {
     parseIp: parseIp, fmtIp: fmtIp, subnetInfo: subnetInfo, subnetMd: subnetMd,
     explainCron: explainCron, explainChmod: explainChmod, decodeJwt: decodeJwt,
-    explainEpoch: explainEpoch, portMd: portMd, detect: detect,
+    explainEpoch: explainEpoch, portMd: portMd, evalArith: evalArith, detect: detect,
   };
 });

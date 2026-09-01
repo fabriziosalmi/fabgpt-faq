@@ -342,6 +342,7 @@ body {
 }
 .statnav a svg { width: 16px; height: 16px; flex: 0 0 auto; }
 .statnav a:hover { color: var(--text); border-color: var(--accent); background: var(--bg-soft); }
+.statnav a.on { color: var(--accent); border-color: var(--accent); background: var(--bg-soft); }
 .ctxcrumb {
   flex: 0 1 auto;
   margin-left: auto;

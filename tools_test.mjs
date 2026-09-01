@@ -67,5 +67,21 @@ ok(T.detect('ho 1609459200 mele') === null, 'epoch inside prose NOT detected wit
 ok(T.detect("cos'è proxmox?") === null, 'plain question falls through');
 ok(T.detect('1 2 3 4 5') === null, 'five plain digits NOT cron without syntax');
 
+/* arithmetic */
+ok(T.evalArith('1+1') === 2, 'arith 1+1');
+ok(T.evalArith('2+3*4') === 14, 'arith precedence');
+ok(T.evalArith('(2+3)*4') === 20, 'arith parens');
+ok(T.evalArith('10/4') === 2.5, 'arith division');
+ok(T.evalArith('2^10') === 1024, 'arith power');
+ok(T.evalArith('-5+3') === -2, 'arith unary');
+ok(T.evalArith('*/5 * * * *') === null, 'arith rejects cron');
+ok(T.evalArith('1..2') === null, 'arith rejects malformed');
+ok(T.detect('1+1?').kind === 'arith', 'detect 1+1?');
+ok(T.detect('quanto fa 12*34?').kind === 'arith', 'detect quanto fa');
+ok(T.detect('*/5 2 * * 1-5').kind === 'cron', 'cron still wins over arith');
+ok(T.detect('192.168.1.0/24').kind === 'subnet', 'cidr still wins over arith');
+ok(T.detect('42') === null, 'bare number not arith');
+ok(T.detect('1609459200').kind === 'epoch', 'epoch still wins');
+
 console.log(`${fail === 0 ? 'PASS' : 'FAIL'}  T6 tools: ${pass}/${pass + fail}`);
 process.exit(fail === 0 ? 0 : 1);

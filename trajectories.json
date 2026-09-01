@@ -1020,5 +1020,32 @@
     "variant": true
    }
   ]
+ },
+ {
+  "name": "ctx-multi-errore-recupero",
+  "context": true,
+  "turns": [
+   {
+    "q": "Cos'è Docker Compose?",
+    "expect": "docker-compose"
+   },
+   {
+    "q": "asdkjh qwerty zxc",
+    "expect": "fallback"
+   },
+   {
+    "q": "blorb fnord grunf",
+    "expect": "fallback",
+    "new_fallback": true
+   },
+   {
+    "q": "cosa fa rm -rf / ?",
+    "expect": "cmd/rm_rf_danger"
+   },
+   {
+    "q": "Chi è Fabrizio Salmi?",
+    "expect": "chi-sei"
+   }
+  ]
  }
 ]

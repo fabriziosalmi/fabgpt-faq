@@ -3286,6 +3286,62 @@
     "aggiornare-automaticamente-i-container",
     "cos-e-docker-compose"
    ]
+  },
+  {
+   "id": "rm_rf_danger",
+   "group": "dischi-filesystem",
+   "q": "Cosa fa rm -rf / (e perché non va MAI lanciato)?",
+   "keywords": [
+    "rm -rf",
+    "cancellare tutto il filesystem",
+    "comando distruttivo",
+    "rm ricorsivo forzato"
+   ],
+   "cmd": "# NON eseguirlo. Per capirlo:\n#   -r  ricorsivo (scende in ogni directory)\n#   -f  forzato (niente conferme, ignora gli errori)\n#   /   la radice: TUTTO il sistema\n# GNU rm rifiuta '/' nudo (--preserve-root), ma 'rm -rf /*' o un path\n# sbagliato in uno script non hanno rete di protezione.",
+   "note": "Il disastro reale è la variabile vuota: `rm -rf \"$DIR/\"*` con `$DIR` non definita diventa `/*`. Antidoti: `set -u` negli script, path assoluti quotati, e [backup testati](q/backup-3-2-1/) – perché prima o poi succede.",
+   "related": [
+    "backup-3-2-1",
+    "bash-scripting-le-basi-che-servono",
+    "differenza-snapshot-e-backup"
+   ]
+  },
+  {
+   "id": "dd_danger",
+   "group": "dischi-filesystem",
+   "q": "Come si usa dd senza distruggere il disco sbagliato?",
+   "keywords": [
+    "dd if of",
+    "scrivere una iso su usb",
+    "dd disco",
+    "clonare disco con dd",
+    "disk destroyer",
+    "iso su usb con dd"
+   ],
+   "cmd": "lsblk -f                       # PRIMA: identifica il device giusto\ndd if=debian.iso of=/dev/sdX bs=4M status=progress conv=fsync",
+   "note": "`of=` sbagliato = disco sovrascritto senza domande (\"disk destroyer\"). Regole: mai un device montato, sempre `lsblk` un secondo prima, e per le USB c'è `cp` o Etcher che il device lo verificano.",
+   "related": [
+    "backup-3-2-1",
+    "monitorare-lo-stato-dei-dischi-smart",
+    "storage-pieno-liberare-spazio"
+   ]
+  },
+  {
+   "id": "forkbomb",
+   "group": "processi-performance",
+   "q": "Cos'è una fork bomb (e come ci si protegge)?",
+   "keywords": [
+    "fork bomb",
+    "forkbomb",
+    "processi infiniti",
+    "bomba di fork"
+   ],
+   "cmd": "# la famigerata :(){ :|:& };:  definisce una funzione che lancia\n# due copie di se stessa all'infinito: esaurisce i PID in secondi.\n# Protezione: limiti per utente in /etc/security/limits.conf\nmario  hard  nproc  4096",
+   "note": "Su un sistema senza limiti la shell si blocca e spesso serve il riavvio. systemd mitiga già i servizi (`TasksMax`); il limite `nproc` protegge dalle sessioni utente.",
+   "related": [
+    "utenti-gruppi-e-sudo-su-linux",
+    "hardening-server-linux",
+    "gestire-servizi-linux-con-systemctl"
+   ]
   }
  ]
 }

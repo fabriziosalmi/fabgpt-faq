@@ -183,18 +183,26 @@ def icon(name: str, size: int = 14) -> str:
             f'style="vertical-align:-2px">{_ICON_PATHS[name]}</svg>')
 
 
-def section_bar(base: str) -> str:
+def section_bar(base: str, active: str = "") -> str:
     items = [("percorsi/", "compass", "Percorsi"), ("comandi/", "terminal", "Comandi"),
              ("tools/", "wrench", "Tools"), ("porta/", "plug", "Porte"), ("q/", "book", "Tutte le domande")]
     links = "".join(
-        f'<a href="{base}{href}" title="{label}" aria-label="{label}">{icon(name, 16)}</a>'
+        f'<a href="{base}{href}" title="{label}" aria-label="{label}"'
+        + (' class="on" aria-current="page"' if href == active else "")
+        + f'>{icon(name, 16)}</a>'
         for href, name, label in items
     )
     return f'<div class="statbar"><nav class="statnav" aria-label="Sezioni">{links}</nav></div>'
 
 
 def path_head(**kw):
-    kw.setdefault("sbar", section_bar(kw["base"]))
+    if "sbar" not in kw:
+        # the first known section segment in the canonical marks the active pill
+        # (robust to the site living at a sub-path or at a bare domain)
+        parts = kw["canonical"].split("://", 1)[-1].split("/")
+        known = {"percorsi", "comandi", "tools", "porta", "q"}
+        active = next((p + "/" for p in parts if p in known), "")
+        kw["sbar"] = section_bar(kw["base"], active)
     return PATH_HEAD.format(**kw)
 
 
@@ -1466,7 +1474,7 @@ def build() -> None:
             vertical=html.escape(vlabel),
             glyph_svg=glyph(e["vertical"]),
             reading_time=reading_time,
-            sbar=section_bar("../../"),
+            sbar=section_bar("../../", "q/"),
             ic_clock=icon("clock"),
             ic_check=icon("check"),
             ic_chat=icon("chat"),
@@ -1560,7 +1568,7 @@ def build() -> None:
             canonical=f"{site}/q/",
             site=site,
             total=len(entries),
-            sbar=section_bar("../"),
+            sbar=section_bar("../", "q/"),
             percorsi=percorsi_strip,
             chips=chips_html,
             jsonld=json.dumps(index_jsonld, ensure_ascii=False),

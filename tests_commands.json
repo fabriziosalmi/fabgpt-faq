@@ -770,5 +770,17 @@
  {
   "q": "come faccio girare watchtower in dry run senza aggiornare?",
   "expect": "cmd/watchtower_dryrun"
+ },
+ {
+  "q": "cosa fa rm -rf / ?",
+  "expect": "cmd/rm_rf_danger"
+ },
+ {
+  "q": "come scrivo una iso su usb con dd senza sbagliare disco?",
+  "expect": "cmd/dd_danger"
+ },
+ {
+  "q": "cos'e' una fork bomb?",
+  "expect": "cmd/forkbomb"
  }
 ]

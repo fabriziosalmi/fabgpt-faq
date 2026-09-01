@@ -523,10 +523,12 @@
       return;
     }
     const answer = entry ? pickAnswer(entry) : pickFallback();
+    // a fallback must never be a dead end: offer the starter hubs to restart
+    const fallbackChips = entry ? null : (DB.config.suggest || []);
     const qLabel = entry ? entry.question : text;
     if (entry && entry.slug) { askedSlugs.add(entry.slug); ctxEntry = entry; } // thread history + context
     crumbForEntry(entry);
-    streamAnswer(answer, null, entry && entry.suggest, entry && entry.id, qLabel);
+    streamAnswer(answer, null, entry ? entry.suggest : fallbackChips, entry && entry.id, qLabel);
   }
 
   /* ---------- composer ---------- */
