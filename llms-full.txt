@@ -1174,6 +1174,36 @@ https://fabriziosalmi.github.io/fabgpt-faq/q/cosa-sono-le-blacklists-threat-inte
 
 Il repository blacklists di Fabrizio Salmi fornisce liste aggregate e normalizzate quotidianamente di indirizzi IP, domini e sottoreti associati ad attività malevole (botnet, scanner di vulnerabilità, tentativi di brute force SSH/HTTP, server C2 e spammer). Caratteristiche dei feed: Aggiornamento continuo: pipeline automatizzata tramite GitHub Actions che raccoglie, valida, deduplica e consolida oltre 30 sorgenti pubbliche e honeypot proprietari. Formati pronti all'uso: distribuiti in formati nativi per nftables (set di IP/CIDR), iptables (ipset), fail2ban, Pi-hole (adlist/domain list) e formati grezzi txt/csv. Filtraggio falsi positivi: rimozione automatica di IP di infrastrutture critiche, CDN pubbliche, DNS resolver affidabili (1.1.1.1, 8.8.8.8) e range bogon/RFC1918. Esempio di importazione rapida in un set nftables: # Download dell'elenco IP aggregato e caricamento in nftables curl -sSL https://raw.githubusercontent.com/fabriziosalmi/blacklists/main/blacklists/ip.txt | \ grep -v '^#' | \ xargs -I {} nft add element inet filter blacklist_set { {} } Ideale per potenziare le difese perimetrali di server VPS, router edge, gateway Proxmox e firewall aziendali.
 
+## Cos'è il subnetting (e come si legge un /24)?
+https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-il-subnetting-e-il-cidr/
+
+Il subnetting divide una rete IP in reti più piccole. La notazione CIDR dice quanti bit identificano la rete: in 192.168.1.0/24 sono i primi 24, gli ultimi 8 restano per gli host – 256 indirizzi, di cui 254 usabili (il primo è la rete, l'ultimo il broadcast). Equivale alla maschera 255.255.255.0. Le taglie da riconoscere al volo: /8 (16 milioni di host, es. 10.0.0.0/8), /16 (65.534), /24 (254, lo standard casalingo), /30 per i collegamenti punto-punto. Perché suddividere: contenere il broadcast e segmentare per sicurezza – ogni subnet è un confine su cui un firewall può decidere, ed è la base delle [VLAN](q/segmentare-la-rete-con-vlan/). Per i calcoli senza errori c'è ipcalc; quando gli indirizzi privati devono uscire, entra in gioco il [NAT](q/nat-statico-dinamico-e-pat/).
+
+## Come funziona il DHCP (e quando conviene l'IP statico)?
+https://fabriziosalmi.github.io/fabgpt-faq/q/come-funziona-il-dhcp/
+
+Il DHCP assegna automaticamente ai dispositivi indirizzo IP, gateway e [DNS](q/come-funziona-la-risoluzione-dns/). Il dialogo è in quattro passi (DORA): il client fa broadcast Discover, il server risponde Offer, il client sceglie con Request, il server conferma con Ack. L'indirizzo è un lease a tempo: a metà durata il client prova a rinnovarlo. La regola pratica: PC e telefoni in DHCP; server, stampanti e NAS vogliono un indirizzo stabile. Meglio la reservation (IP legato al MAC, deciso sul server DHCP) dell'IP statico configurato a mano sul dispositivo: resta documentato in un posto solo e non crea conflitti. Trappola classica: due server DHCP sulla stessa rete (il router dell'operatore più il tuo) – i client pescano a caso e metà rete finisce nella [subnet](q/cos-e-il-subnetting-e-il-cidr/) sbagliata.
+
+## IPv4 e IPv6: che differenza c'è (e perché IPv6 stenta)?
+https://fabriziosalmi.github.io/fabgpt-faq/q/differenza-ipv4-e-ipv6/
+
+IPv4 usa indirizzi a 32 bit: circa 4,3 miliardi, esauriti da anni – da lì il [NAT](q/nat-statico-dinamico-e-pat/) e il CGNAT degli operatori. IPv6 usa 128 bit: indirizzi in pratica infiniti, ogni dispositivo può averne uno pubblico, niente NAT. Differenze operative: notazione esadecimale (2001:db8::1), autoconfigurazione SLAAC al posto del solo DHCP, niente broadcast. La sicurezza non è automatica: senza NAT davanti, il firewall va configurato con più cura, non meno. Perché stenta: tutto funziona (male) anche senza, e il dual stack raddoppia il lavoro. Ma se fai self-hosting dietro CGNAT, IPv6 è spesso l'unico modo per essere raggiungibili senza [tunnel](q/esporre-servizi-senza-aprire-porte/). Il consiglio: non disattivarlo "per sicurezza" – impara a filtrarlo.
+
+## Cosa sono le porte TCP e UDP (e quali sapere a memoria)?
+https://fabriziosalmi.github.io/fabgpt-faq/q/porte-tcp-e-udp-quali-conoscere/
+
+Una porta identifica il servizio dentro un indirizzo IP: 65.536 per TCP e altrettante per UDP. TCP garantisce consegna e ordine (web, SSH, mail); UDP spedisce e basta (DNS, VoIP, WireGuard). Quelle da sapere a memoria: 22 SSH, 53 DNS, 80/443 HTTP/HTTPS, 25/587 SMTP, 445 SMB, 3389 RDP, 51820 WireGuard. Sotto la 1024 sono "privilegiate": per aprirle servono i diritti di root. Per vedere cosa ascolta davvero sul server: ss -tlnp (TCP) e ss -ulnp (UDP). Ogni porta esposta è superficie d'attacco: firewall [default deny](q/configurare-firewall-host-default-deny-nftables-ufw/), [SSH blindato](q/mettere-in-sicurezza-ssh/) e, per i servizi casalinghi, spesso conviene [non aprire porte affatto](q/esporre-servizi-senza-aprire-porte/).
+
+## Come funziona la risoluzione DNS (dal click alla risposta)?
+https://fabriziosalmi.github.io/fabgpt-faq/q/come-funziona-la-risoluzione-dns/
+
+Quando digiti un dominio, il sistema chiede al resolver ricorsivo (quello dell'operatore, o 1.1.1.1/9.9.9.9). Se non ha la risposta in cache, il resolver scala la gerarchia: i root server indicano i server del TLD (.it, .com), il TLD indica i nameserver autoritativi del dominio, e quelli rispondono con il [record](q/tipi-di-record-dns/) richiesto. Ogni risposta resta in cache per il suo [TTL](q/cos-e-il-ttl-dns/) – per questo le modifiche ["propagano" lentamente](q/diagnosticare-la-propagazione-dns/). Per vedere il percorso dal vivo: dig +trace example.com; per interrogare un resolver preciso: dig @1.1.1.1 example.com. Due code: le query classiche viaggiano in chiaro sulla porta 53 – [DoH e DoT](q/cos-e-doh-dns-over-https/) le cifrano – e un resolver bugiardo può [avvelenare la cache](q/cos-e-il-dns-spoofing/). Sceglierlo è una questione di fiducia.
+
+## Come funzionano le chiavi SSH (e perché abbandonare le password)?
+https://fabriziosalmi.github.io/fabgpt-faq/q/come-funzionano-le-chiavi-ssh/
+
+Una coppia di chiavi SSH è crittografia asimmetrica: la pubblica va sul server (in ~/.ssh/authorized_keys), la privata resta sul tuo computer e non viaggia mai. Al login il server lancia una sfida che solo chi possiede la privata sa firmare: niente password da indovinare o intercettare. Il setup in tre comandi: ssh-keygen -t ed25519 (l'algoritmo giusto oggi), ssh-copy-id utente@server, poi ssh utente@server. Metti una passphrase sulla chiave e lascia che ssh-agent la ricordi per la sessione. Dettagli che fregano: la privata vuole [permessi](q/permessi-linux-chmod-chown-umask/) 600 (SSH la rifiuta altrimenti) e una chiave per dispositivo è meglio di una chiave ovunque. Il passo finale è [disattivare del tutto il login con password](q/mettere-in-sicurezza-ssh/).
+
 # AI e LLM
 
 ## Cos'è la prompt injection e come ci si difende?
@@ -2168,6 +2198,11 @@ https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-proxmox-cluster-balancer-drs/
 
 proxmox-cluster-balancer è uno strumento di bilanciamento automatico del carico (DRS - Dynamic Resource Scheduling) per cluster Proxmox Virtual Environment (PVE). Funzionalità e algoritmo: Algoritmo Euristico di Distribuzione: monitora costantemente l'utilizzo di CPU, memoria RAM e I/O disco di ciascun nodo del cluster tramite le API Proxmox VE. Pianificazione delle Migrazioni (Live Migration): calcola lo squilibrio del carico rispetto a una soglia definita e genera un piano di spostamento ottimale delle macchine virtuali (QEMU/KVM) e container LXC senza interrompere i servizi attivi. Modalità Dry-Run e Safe Mode: consente di simulare l'impatto del ribilanciamento prima di applicarlo e di escludere VM critiche o nodi con hardware eterogeneo. Installazione ed esecuzione: # Clone del repository e installazione git clone https://github.com/fabriziosalmi/proxmox-cluster-balancer.git cd proxmox-cluster-balancer pip install -r requirements.txt # Esecuzione in modalità simulazione (dry-run) python balancer.py --cluster-conf /etc/pve/corosync.conf --dry-run Fornisce un'alternativa open source e trasparente ai sistemi di DRS proprietari per massimizzare la resa dei server fisici.
 
+## Un homelab conta sul curriculum? Come raccontarlo
+https://fabriziosalmi.github.io/fabgpt-faq/q/homelab-sul-curriculum/
+
+Sì, ma solo se lo racconti da sysadmin e non da collezionista di hardware. "Ho un NAS e tre Raspberry" non dice nulla; "gestisco un [cluster Proxmox](q/cluster-proxmox-e-quorum/) a 3 nodi con [backup 3-2-1](q/backup-3-2-1/) di cui testo il restore ogni mese e [monitoring con alert](q/stack-di-monitoraggio-prometheus-grafana/)" descrive esattamente il lavoro per cui ti stanno assumendo. Come presentarlo: una riga nel CV sotto "progetti", un repo GitHub con documentazione e configurazioni (senza [secrets](q/come-gestire-i-secrets/)!), e al colloquio racconta i guasti: cosa si è rotto, come l'hai capito, cosa hai cambiato dopo. È la domanda che i colloqui tecnici fanno comunque. Non serve spendere: un [mini PC a basso consumo](q/homelab-a-basso-consumo/) basta e avanza – e insegna pure a stare dentro un budget.
+
 # Cloudflare
 
 ## Cos'è GitOps e perché conviene?
@@ -2486,6 +2521,56 @@ b2v (Eternal-Stream) è uno strumento sperimentale di archiviazione che codifica
 https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-asn-api-lookup-bgp/
 
 asn-api è un microservizio FastAPI ad altissime prestazioni per la risoluzione rapida e a basso overhead di indirizzi IP in Autonomous System Number (ASN), prefissi BGP, Country Code e informazioni sull'organizzazione proprietaria. Caratteristiche tecniche: Lookup ultra-veloce in-memory: carica i database IP-to-ASN (MaxMind, RouteViews, Team Cymru) in strutture dati ad albero binario / radix trie in memoria RAM con tempi di risposta < 1ms. Interfaccia REST & JSON: endpoint semplici per query singole (/asn/1.1.1.1) o bulk query per SIEM, script di incident response e pipeline di sicurezza. Container compatto: immagine Docker basata su Alpine Linux o Distroless, con consumi di risorse minimi (< 50MB RAM). Avvio immediato con Docker: # Avvio del container asn-api docker run -d --name asn-api -p 8000:8000 ghcr.io/fabriziosalmi/asn-api:latest # Test di query per un indirizzo IP curl http://localhost:8000/asn/8.8.8.8 Indispensabile per arricchire log di sicurezza, WAF e firewall con metadati geografici e di routing BGP in tempo reale.
+
+## Come funzionano i permessi Linux (chmod, chown, umask)?
+https://fabriziosalmi.github.io/fabgpt-faq/q/permessi-linux-chmod-chown-umask/
+
+Ogni file Linux ha un proprietario, un gruppo e tre terne di permessi rwx (lettura, scrittura, esecuzione) per proprietario, gruppo e altri. ls -l le mostra; in numeri r=4, w=2, x=1, quindi 755 = rwxr-xr-x e 644 = rw-r--r--. I comandi: chmod 644 file cambia i permessi, chown utente:gruppo file il proprietario, umask decide i default alla creazione (022 → file 644, directory 755). Sulle directory la x significa "puoi entrarci". Le regole che contano: le [chiavi SSH](q/come-funzionano-le-chiavi-ssh/) private vogliono 600 (SSH le rifiuta altrimenti), gli script eseguibili 755, e chmod 777 non è mai la soluzione – è il sintomo che il problema vero è [l'utente o il gruppo sbagliato](q/utenti-gruppi-e-sudo-su-linux/).
+
+## Utenti, gruppi e sudo su Linux: le basi che servono
+https://fabriziosalmi.github.io/fabgpt-faq/q/utenti-gruppi-e-sudo-su-linux/
+
+Su Linux root può tutto; il lavoro quotidiano si fa con un utente normale che eleva i privilegi con sudo solo quando serve. Creazione: useradd -m -s /bin/bash nome (o adduser su Debian, più amichevole), poi passwd nome. I gruppi governano gli accessi condivisi: usermod -aG docker nome aggiunge al gruppo – la -a è vitale, senza sovrascrivi gli altri gruppi. Serve un nuovo login perché faccia effetto. Chi può usare sudo lo decide /etc/sudoers, da toccare solo con visudo (valida la sintassi: un errore lì ti chiude fuori dalla macchina). In pratica basta il gruppo sudo (Debian) o wheel (RHEL). I passi successivi: [vietare il login SSH di root](q/mettere-in-sicurezza-ssh/) e ragionare per [permessi minimi](q/permessi-linux-chmod-chown-umask/).
+
+## Come si gestiscono i servizi Linux con systemctl?
+https://fabriziosalmi.github.io/fabgpt-faq/q/gestire-servizi-linux-con-systemctl/
+
+systemd avvia e sorveglia i servizi Linux tramite unit. Il vocabolario quotidiano: systemctl status nginx (stato più ultime righe di log), start/stop/restart, enable --now (parte subito e a ogni boot), disable. Per vedere cosa è morto: systemctl list-units --failed. Un servizio tuo è un file in /etc/systemd/system/mio.service con tre sezioni: [Unit] (descrizione, dipendenze), [Service] (ExecStart, User, Restart=on-failure), [Install] (WantedBy=multi-user.target). Dopo ogni modifica: systemctl daemon-reload. I log dei servizi vivono nel [journal](q/dove-sono-i-log-su-linux/): journalctl -u mio.service -f. E per le esecuzioni pianificate i timer systemd con Persistent=true recuperano ciò che [cron](q/cron-la-sintassi-spiegata/) perde a macchina spenta.
+
+## Dove sono i log su Linux (journalctl e /var/log)?
+https://fabriziosalmi.github.io/fabgpt-faq/q/dove-sono-i-log-su-linux/
+
+I log moderni vivono nel journal di systemd: journalctl -u nginx (un servizio), -f (in diretta), --since "1 hour ago", -p err (solo errori), -b (dall'ultimo boot). Occhio: su alcune distro il journal sta in RAM e sparisce al riavvio – rendilo persistente con Storage=persistent in /etc/systemd/journald.conf. In parallelo restano i file classici in /var/log: auth.log/secure per accessi e [tentativi di intrusione](q/fail2ban-e-alternative/), syslog/messages per il sistema, dmesg per il kernel, più i log applicativi. La rotazione la gestisce logrotate. La lezione da sysadmin: i log su un server compromesso non sono affidabili, e i log che nessuno guarda non esistono – [centralizzali e mettici degli alert](q/security-logging-fatto-bene/).
+
+## apt, dnf, pacman: come funzionano i package manager Linux?
+https://fabriziosalmi.github.io/fabgpt-faq/q/apt-dnf-pacman-package-manager/
+
+Un package manager installa software da repository firmati risolvendo le dipendenze – il motivo per cui su Linux non si scaricano installer a caso. Le tre famiglie: apt (Debian/Ubuntu), dnf (RHEL/Fedora, erede di yum), pacman (Arch). Il flusso apt: apt update scarica gli indici (non aggiorna nulla), apt upgrade aggiorna i pacchetti, apt install nginx, apt autoremove pulisce. Equivalenti: dnf upgrade / dnf install, pacman -Syu. Da dove arriva il software lo dicono i file in /etc/apt/sources.list.d/ – è lì che si interviene, per esempio, per [aggiornare Proxmox senza subscription](q/aggiornare-proxmox-senza-subscription/). Per le patch di sicurezza automatiche: unattended-upgrades. E il riflesso curl | bash copiato dai README? È [supply chain](q/cos-e-la-supply-chain-security/) non verificata: prima leggi, poi esegui.
+
+## Bash scripting: le basi che servono (e le trappole)
+https://fabriziosalmi.github.io/fabgpt-faq/q/bash-scripting-le-basi-che-servono/
+
+Uno script Bash parte con lo shebang #!/usr/bin/env bash e, subito dopo, la cintura di sicurezza: set -euo pipefail (esci al primo errore, sulle variabili non definite e sui fallimenti in pipe). Le basi che coprono il 90%: variabili nome="valore" (niente spazi attorno a =), sostituzione di comando $(comando), condizioni if [[ -f file ]], cicli for f in .log. La regola d'oro: virgoletta sempre le variabili – "$var" – o gli spazi nei nomi file ti distruggeranno lo script. Prima di eseguire, passa tutto in ShellCheck (shellcheck script.sh): trova gli errori classici meglio di una revisione umana. Poi pianifica con [cron](q/cron-la-sintassi-spiegata/) o i [timer systemd](q/gestire-servizi-linux-con-systemctl/). Quando lo script supera le ~100 righe o deve parlare JSON, è il momento di Python.
+
+## AWS o Azure: quale imparare per primo?
+https://fabriziosalmi.github.io/fabgpt-faq/q/aws-o-azure-quale-imparare-prima/
+
+Risposta pragmatica: guarda gli annunci di lavoro nella tua zona. In Italia e in Europa Azure domina nelle aziende già Microsoft (Active Directory, 365); AWS resta il più richiesto in startup, scale-up e consulenza. Per iniziare sono equivalenti. La buona notizia: i concetti si trasferiscono – identità e permessi (IAM/Entra), reti virtuali (VPC/VNet), object storage (S3/Blob), [regioni e availability zone](q/regioni-e-availability-zone-cloud/), il [modello di responsabilità condivisa](q/modello-di-responsabilita-condivisa-cloud/). Imparali su un provider e l'altro arriva in poche settimane. Parti dal free tier con un progetto vero (un sito, un backup off-site), non dai tutorial in sequenza. E tieni d'occhio il contesto: [sovranità e provider europei](q/cloud-provider-europei-sovrani/) pesano sempre di più nelle scelte aziendali.
+
+## Cosa sono regioni e availability zone nel cloud?
+https://fabriziosalmi.github.io/fabgpt-faq/q/regioni-e-availability-zone-cloud/
+
+Una regione è un'area geografica con più datacenter (es. eu-south-1, Milano); una availability zone (AZ) è uno o più datacenter indipendenti dentro la regione – alimentazione, rete e raffreddamento separati, ma latenza minima tra loro. In pratica: multi-AZ protegge dal guasto del singolo datacenter ed è il minimo sindacale per un servizio serio; multi-region protegge dal disastro regionale ma costa molto di più (repliche, traffico tra regioni, complessità). La maggior parte dei progetti si ferma, giustamente, al multi-AZ con [backup](q/backup-3-2-1/) in un'altra regione – che è già un [piano di disaster recovery](q/piano-di-disaster-recovery-minimo/) sensato. La regione decide anche dove risiedono i dati: per GDPR e clienti pubblici scegliere una regione europea non è un dettaglio ma un requisito – si torna alla [sovranità digitale](q/cos-e-la-sovranita-digitale/).
+
+## Come si diventa sysadmin partendo da zero?
+https://fabriziosalmi.github.io/fabgpt-faq/q/come-diventare-sysadmin-da-zero/
+
+Percorso realistico, nell'ordine giusto: 1. Fondamenta di rete: [subnetting](q/cos-e-il-subnetting-e-il-cidr/), [DNS](q/come-funziona-la-risoluzione-dns/), [porte](q/porte-tcp-e-udp-quali-conoscere/) 2. Linux sul serio: [permessi](q/permessi-linux-chmod-chown-umask/), [servizi](q/gestire-servizi-linux-con-systemctl/), [log](q/dove-sono-i-log-su-linux/) 3. Un homelab con [Proxmox](q/cos-e-proxmox-ve/) dove rompere le cose senza conseguenze 4. Automazione: [Bash](q/bash-scripting-le-basi-che-servono/) e [cron](q/cron-la-sintassi-spiegata/) 5. [Backup](q/backup-3-2-1/) e [monitoraggio](q/stack-di-monitoraggio-prometheus-grafana/), perché il lavoro vero è questo 6. Un cloud a scelta: [AWS o Azure](q/aws-o-azure-quale-imparare-prima/) 7. Una [certificazione](q/quali-certificazioni-it-contano-davvero/) per i filtri HR, e il [homelab raccontato bene](q/homelab-sul-curriculum/) per il colloquio Il segreto che nessuno dice: il mestiere si impara rompendo e riparando. Ogni servizio che self-hosti è esperienza vera – documentala su GitHub man mano.
+
+## Quali certificazioni IT contano davvero (CompTIA, RHCSA, cloud)?
+https://fabriziosalmi.github.io/fabgpt-faq/q/quali-certificazioni-it-contano-davvero/
+
+Dipende dalla porta che vuoi aprire. Entry level: CompTIA A+/Network+/Security+ servono soprattutto a passare i filtri HR – teoriche e care, ma riconosciute ovunque. Linux: la RHCSA è la più rispettata perché l'esame è pratico, su macchine vere, niente crocette. Cloud: AWS Solutions Architect Associate o Azure AZ-104 sono quelle che compaiono negli annunci; le "Fundamentals" (AZ-900) da sole valgono poco. Rete: la CCNA resta il riferimento. Sul versante governance c'è il filone [ISO 27001](q/cos-e-iso-27001/) e audit, un mestiere a parte. La verità scomoda: la certificazione ti porta al colloquio, non lo supera. Un [homelab documentato](q/homelab-sul-curriculum/) con cluster, backup testati e monitoring vale quanto la sigla sul CV – è la combinazione delle due cose a [funzionare](q/come-diventare-sysadmin-da-zero/).
 
 # Musica e creatività
 
