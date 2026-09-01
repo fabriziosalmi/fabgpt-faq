@@ -503,7 +503,7 @@
     const fp = tryFastPath(text);
     if (fp) {
       const pn = fp.kind === 'port' && fp.label.match(/\d+/);
-      updateCrumb((fp.kind === 'port' ? '🔌 ' : '🧰 ') + fp.label,
+      updateCrumb(fp.kind === 'port' ? 'port' : 'tool', fp.label,
         fp.kind === 'port' ? (pn ? 'porta/' + pn[0] + '/' : null) : TOOL_PAGES[fp.kind]);
       streamAnswer(fp.answer, null, fp.suggest, null, fp.label);
       return;
@@ -591,10 +591,23 @@
 
   // Live context breadcrumb in the header bar: every answered turn gets a
   // link to its shareable static page (KB entry, command card or tool).
-  function updateCrumb(label, href) {
+  const CRUMB_SVG = {
+    kb: '<circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/>',
+    book: '<path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>',
+    cmd: '<polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/>',
+    tool: '<path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>',
+    port: '<path d="M12 22v-5"/><path d="M9 8V2"/><path d="M15 8V2"/><path d="M18 8v5a4 4 0 0 1-4 4h-4a4 4 0 0 1-4-4V8Z"/>',
+  };
+
+  function updateCrumb(kind, label, href) {
     const el = document.getElementById('ctxcrumb');
     if (!el || !label || !href) return;
-    el.textContent = label;
+    const ic = document.getElementById('ctxcrumb-ic');
+    if (ic) {
+      ic.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
+        (CRUMB_SVG[kind] || CRUMB_SVG.book) + '</svg>';
+    }
+    document.getElementById('ctxcrumb-tx').textContent = label;
     el.setAttribute('href', href);
     el.hidden = false;
   }
@@ -608,10 +621,10 @@
   function crumbForEntry(entry) {
     if (!entry) return;
     if (entry.kind === 'command' && entry.group && entry.cardId) {
-      updateCrumb('📟 ' + entry.question, 'comandi/' + entry.group + '/#' + entry.cardId);
+      updateCrumb('cmd', entry.question, 'comandi/' + entry.group + '/#' + entry.cardId);
     } else if (entry.slug) {
       const vlabel = ((DB.verticals || []).find(v => v.id === entry.vertical) || {}).label;
-      updateCrumb((vlabel ? vlabel + ' › ' : '') + entry.question, 'q/' + entry.slug + '/');
+      updateCrumb('book', (vlabel ? vlabel + ' › ' : '') + entry.question, 'q/' + entry.slug + '/');
     }
   }
 

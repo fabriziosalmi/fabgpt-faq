@@ -15,6 +15,8 @@
   <meta name="twitter:image" content="https://fabriziosalmi.github.io/fabgpt-faq/og.svg">
   <link rel="stylesheet" href="style.css">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
+  <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#212121" media="(prefers-color-scheme: dark)">
 </head>
 <body>
   <header class="topbar">
@@ -22,17 +24,12 @@
       <span class="brand-dot">F</span>
       <span class="brand-name">FabGPT-FAQ</span>
     </div>
-    <nav class="topnav"><a href="q/">Tutte le domande</a></nav>
+    <nav class="topnav"><a href="q/" title="Tutte le domande" aria-label="Tutte le domande"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></a></nav>
   </header>
 
   <div class="statbar" id="statbar" aria-label="Sezioni del sito">
-    <nav class="statnav" aria-label="Sezioni">
-      <a href="percorsi/">🧭 Percorsi</a>
-      <a href="comandi/">📟 Comandi</a>
-      <a href="tools/">🧰 Tools</a>
-      <a href="porta/">🔌 Porte</a>
-    </nav>
-    <a class="ctxcrumb" id="ctxcrumb" hidden title="Apri questa risposta come pagina"></a>
+    <nav class="statnav" aria-label="Sezioni"><a href="percorsi/" title="Percorsi" aria-label="Percorsi"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg></a><a href="comandi/" title="Comandi" aria-label="Comandi"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg></a><a href="tools/" title="Tools" aria-label="Tools"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></a><a href="porta/" title="Porte" aria-label="Porte"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22v-5"/><path d="M9 8V2"/><path d="M15 8V2"/><path d="M18 8v5a4 4 0 0 1-4 4h-4a4 4 0 0 1-4-4V8Z"/></svg></a><a href="q/" title="Tutte le domande" aria-label="Tutte le domande"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></a></nav>
+    <a class="ctxcrumb" id="ctxcrumb" hidden title="Apri questa risposta come pagina"><span class="ctxcrumb-ic" id="ctxcrumb-ic" aria-hidden="true"></span><span id="ctxcrumb-tx"></span></a>
   </div>
 
   <main id="chat" class="chat" aria-live="polite"></main>

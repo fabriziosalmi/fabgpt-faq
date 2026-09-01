@@ -157,6 +157,50 @@ def og_card(question: str, diagram_svg: str) -> str:
 
 # ---------- page templates ----------
 
+
+# Feather-style stroke icons (match the vertical glyphs): UI chrome only, no emoji.
+_ICON_PATHS = {
+    "compass": '<circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/>',
+    "terminal": '<polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/>',
+    "wrench": '<path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>',
+    "plug": '<path d="M12 22v-5"/><path d="M9 8V2"/><path d="M15 8V2"/><path d="M18 8v5a4 4 0 0 1-4 4h-4a4 4 0 0 1-4-4V8Z"/>',
+    "chat": '<path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>',
+    "clock": '<circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>',
+    "check": '<polyline points="20 6 9 17 4 12"/>',
+    "book": '<path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>',
+    "calc": '<rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="16" y1="14" x2="16" y2="18"/><line x1="8" y1="10" x2="8" y2="10"/><line x1="12" y1="10" x2="12" y2="10"/><line x1="16" y1="10" x2="16" y2="10"/><line x1="8" y1="14" x2="8" y2="14"/><line x1="12" y1="14" x2="12" y2="14"/><line x1="8" y1="18" x2="8" y2="18"/><line x1="12" y1="18" x2="12" y2="18"/>',
+    "lock": '<rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>',
+    "key": '<path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"/>',
+    "ticket": '<path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2z"/><line x1="13" y1="5" x2="13" y2="7"/><line x1="13" y1="11" x2="13" y2="13"/><line x1="13" y1="17" x2="13" y2="19"/>',
+    "history": '<path d="M3 3v5h5"/><path d="M3.05 13A9 9 0 1 0 6 5.3L3 8"/><path d="M12 7v5l4 2"/>',
+    "globe": '<circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>',
+}
+
+
+def icon(name: str, size: int = 14) -> str:
+    return (f'<svg width="{size}" height="{size}" viewBox="0 0 24 24" fill="none" stroke="currentColor" '
+            f'stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" '
+            f'style="vertical-align:-2px">{_ICON_PATHS[name]}</svg>')
+
+
+def section_bar(base: str) -> str:
+    items = [("percorsi/", "compass", "Percorsi"), ("comandi/", "terminal", "Comandi"),
+             ("tools/", "wrench", "Tools"), ("porta/", "plug", "Porte"), ("q/", "book", "Tutte le domande")]
+    links = "".join(
+        f'<a href="{base}{href}" title="{label}" aria-label="{label}">{icon(name, 16)}</a>'
+        for href, name, label in items
+    )
+    return f'<div class="statbar"><nav class="statnav" aria-label="Sezioni">{links}</nav></div>'
+
+
+def path_head(**kw):
+    kw.setdefault("sbar", section_bar(kw["base"]))
+    return PATH_HEAD.format(**kw)
+
+
+THEME_META = ('<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">\n'
+              '<meta name="theme-color" content="#212121" media="(prefers-color-scheme: dark)">')
+
 PAGE = """<!DOCTYPE html>
 <html lang="it">
 <head>
@@ -179,6 +223,8 @@ PAGE = """<!DOCTYPE html>
 <meta name="twitter:image" content="{ogimg}">
 <link rel="stylesheet" href="{base}style.css">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#212121" media="(prefers-color-scheme: dark)">
 <script type="application/ld+json">{jsonld}</script>
 <style>
   .page {{ max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }}
@@ -212,16 +258,17 @@ PAGE = """<!DOCTYPE html>
     <span class="brand-dot">F</span>
     <span class="brand-name">FabGPT-FAQ</span>
   </a>
-  <nav class="topnav"><a href="{base}percorsi/">Percorsi</a> <a href="{base}q/">Tutte le domande</a></nav>
+  <nav class="topnav"><a href="{base}" title="Chat interattiva" aria-label="Chat interattiva"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></a></nav>
 </header>
+{sbar}
 <main class="page">
   <article itemscope itemtype="https://schema.org/TechArticle">
     <nav class="crumbs" aria-label="Percorso"><a href="{base}">FabGPT-FAQ</a> › <a href="{base}q/">Tutte le domande</a> › <span itemprop="articleSection">{vertical}</span></nav>
     <h1 id="page-question" itemprop="headline">{question}</h1>
     <div class="page-meta">
       <span class="page-meta-badge vert">{glyph_svg} <span>{vertical}</span></span>
-      <span class="page-meta-badge">⏱️ {reading_time} min lettura</span>
-      <span class="page-meta-badge">✓ Runbook verificato</span>
+      <span class="page-meta-badge">{ic_clock} {reading_time} min lettura</span>
+      <span class="page-meta-badge">{ic_check} Runbook verificato</span>
     </div>
     {toolbanner}
     <div class="answer" id="page-answer" itemprop="articleBody">{answer}</div>
@@ -230,12 +277,12 @@ PAGE = """<!DOCTYPE html>
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
         <span>Copia Q&A</span>
       </button>
-      <a class="ask" href="{base}?q={id}">Apri nella chat interattiva 💬</a>
+      <a class="ask" href="{base}?q={id}">{ic_chat} Apri nella chat interattiva</a>
     </div>
     {page_nav}
     <section class="ask-box">
       <div class="ask-box-header">
-        <span class="ask-box-icon">💬</span>
+        <span class="ask-box-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></span>
         <div>
           <h3>Hai una domanda specifica su questo tema?</h3>
           <p>Interroga direttamente il motore FabGPT-FAQ con risposta in tempo reale a zero allucinazioni.</p>
@@ -334,6 +381,8 @@ INDEX = """<!DOCTYPE html>
 <meta name="twitter:image" content="{site}/og.svg">
 <link rel="stylesheet" href="../style.css">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#212121" media="(prefers-color-scheme: dark)">
 <script type="application/ld+json">{jsonld}</script>
 <style>
   .page {{ max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }}
@@ -345,12 +394,9 @@ INDEX = """<!DOCTYPE html>
   .page .intro {{ color: var(--text-dim); margin-bottom: 12px; }}
   .page h2 {{ display: flex; align-items: center; gap: 8px; }}
   .page h2 .glyph {{ flex: 0 0 auto; }}
-  .stats {{ display: flex; flex-wrap: wrap; gap: 10px 28px; margin: 16px 0 20px; padding: 16px 18px; border: 1px solid var(--border); border-radius: 12px; background: var(--bg-soft); }}
-  .stat {{ display: flex; flex-direction: column; }}
-  .stat b {{ font-size: 26px; color: var(--accent); font-variant-numeric: tabular-nums; }}
-  .stat span {{ font-size: 12px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.05em; }}
+
   @media (prefers-reduced-motion: no-preference) {{ .glyph {{ animation: glyph-in .5s ease both; }} }}
-  @keyframes glyph-in {{ from {{ opacity: 0; transform: translateY(3px) scale(.9); }} to {{ opacity: 1; transform: none; }} }}
+  @keyframes glyph-in {{ from {{ opacity: 0; }} to {{ opacity: 1; }} }}
   .paths-strip {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px; margin: 4px 0 20px; }}
   .path-card {{ display: block; border: 1px solid var(--border); border-radius: 12px; background: var(--bg-soft); padding: 12px 14px; text-decoration: none; color: inherit; }}
   .path-card:hover {{ border-color: var(--accent); text-decoration: none; }}
@@ -365,12 +411,12 @@ INDEX = """<!DOCTYPE html>
     <span class="brand-dot">F</span>
     <span class="brand-name">FabGPT-FAQ</span>
   </a>
-  <nav class="topnav"><a href="../">Chat interattiva 💬</a></nav>
+  <nav class="topnav"><a href="../" title="Chat interattiva" aria-label="Chat interattiva"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></a></nav>
 </header>
+{sbar}
 <main class="page">
   <h1>Tutte le domande</h1>
   <p class="intro">La knowledge base completa di FabGPT-FAQ: cybersecurity, AI, Proxmox, Cloudflare e i progetti open source di Fabrizio Salmi. Cerca in tempo reale o <a href="../">chiedi in chat</a>.</p>
-  {stats}
   {percorsi}
   <div class="filter-wrap">
     <div class="search-box">
@@ -389,19 +435,6 @@ INDEX = """<!DOCTYPE html>
 </main>
 <script>
 (function(){{
-  var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  document.querySelectorAll('.stat b[data-to]').forEach(function(el){{
-    var to = +el.getAttribute('data-to');
-    if (reduce) {{ el.textContent = to; return; }}
-    var t0 = null, dur = 900;
-    requestAnimationFrame(function step(t){{
-      if (!t0) t0 = t;
-      var p = Math.min(1, (t - t0) / dur);
-      el.textContent = Math.round(to * (1 - Math.pow(1 - p, 3)));
-      if (p < 1) requestAnimationFrame(step);
-    }});
-  }});
-
   // Live Instant Search & Vertical Filter
   var input = document.getElementById('q-filter');
   var countEl = document.getElementById('filter-count');
@@ -478,6 +511,8 @@ PATH_HEAD = """<!DOCTYPE html>
 <meta name="twitter:image" content="{site}/og.svg">
 <link rel="stylesheet" href="{base}style.css">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#212121" media="(prefers-color-scheme: dark)">
 <script type="application/ld+json">{jsonld}</script>
 <style>
   .page {{ max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }}
@@ -516,8 +551,9 @@ PATH_HEAD = """<!DOCTYPE html>
     <span class="brand-dot">F</span>
     <span class="brand-name">FabGPT-FAQ</span>
   </a>
-  <nav class="topnav"><a href="{base}percorsi/">Percorsi</a> <a href="{base}q/">Tutte le domande</a></nav>
+  <nav class="topnav"><a href="{base}" title="Chat interattiva" aria-label="Chat interattiva"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></a></nav>
 </header>
+{sbar}
 <main class="page">
 """
 
@@ -577,7 +613,7 @@ def build_paths(db, entries, site) -> list:
                 ],
             },
         ]
-        page = PATH_HEAD.format(
+        page = path_head(
             title=html.escape(p["title"]),
             description=html.escape(p["tagline"]),
             canonical=f"{site}/percorsi/{p['slug']}/",
@@ -594,7 +630,7 @@ def build_paths(db, entries, site) -> list:
             f'<span class="prog-txt" id="prog-txt"></span>'
             f'<button type="button" id="prog-reset" class="prog-reset" aria-label="Azzera il progresso">azzera</button></div>\n'
             f'<ol class="steps" id="steps">\n{steps_html}</ol>\n'
-            f'<a class="ask" href="../../">Chiedi in chat 💬</a>\n'
+            f'<a class="ask" href="../../">{icon("chat")} Chiedi in chat</a>\n'
         )
         page += """<script>
 (function () {
@@ -615,7 +651,7 @@ def build_paths(db, entries, site) -> list:
     });
     var n = items.filter(function (li) { return done.has(li.getAttribute('data-slug')); }).length;
     document.getElementById('prog-fill').style.width = (100 * n / items.length) + '%';
-    document.getElementById('prog-txt').textContent = n + '/' + items.length + ' tappe' + (n === items.length ? ' – percorso completato! 🎉' : ' completate');
+    document.getElementById('prog-txt').textContent = n + '/' + items.length + ' tappe' + (n === items.length ? ' – percorso completato!' : ' completate');
   }
   items.forEach(function (li) {
     li.querySelector('.step-check').addEventListener('change', function () {
@@ -656,7 +692,7 @@ def build_paths(db, entries, site) -> list:
             for i, p in enumerate(paths)
         ],
     }
-    page = PATH_HEAD.format(
+    page = path_head(
         title="Percorsi guidati",
         description="Le guide di FabGPT-FAQ in sequenza: diventare sysadmin, mettere in sicurezza un server, self-hosting da zero.",
         canonical=f"{site}/percorsi/",
@@ -713,7 +749,7 @@ function miniMd(md) {
 
 TOOLS = [
     {
-        "slug": "calcolatore-subnet", "fn": "subnet", "icon": "🧮",
+        "slug": "calcolatore-subnet", "fn": "subnet", "icon": "calc",
         "title": "Calcolatore subnet / CIDR",
         "tagline": "Rete, broadcast, maschera e host usabili da una notazione CIDR. Calcolo esatto nel browser, niente server.",
         "placeholder": "192.168.1.0/26",
@@ -721,7 +757,7 @@ TOOLS = [
         "related": ["cos-e-il-subnetting-e-il-cidr", "segmentare-la-rete-con-vlan", "nat-statico-dinamico-e-pat", "differenza-ipv4-e-ipv6"],
     },
     {
-        "slug": "spiega-cron", "fn": "cron", "icon": "⏰",
+        "slug": "spiega-cron", "fn": "cron", "icon": "clock",
         "title": "Spiega-cron",
         "tagline": "Incolla un'espressione cron e leggila in italiano, campo per campo, con le trappole segnalate.",
         "placeholder": "*/5 2 * * 1-5",
@@ -729,7 +765,7 @@ TOOLS = [
         "related": ["cron-la-sintassi-spiegata", "gestire-servizi-linux-con-systemctl", "bash-scripting-le-basi-che-servono"],
     },
     {
-        "slug": "calcolatore-chmod", "fn": "chmod", "icon": "🔐",
+        "slug": "calcolatore-chmod", "fn": "chmod", "icon": "lock",
         "title": "Calcolatore chmod",
         "tagline": "Da ottale a rwx e ritorno, bit speciali inclusi. Con gli avvisi che contano (777, 600).",
         "placeholder": "754 oppure rwxr-xr--",
@@ -737,7 +773,7 @@ TOOLS = [
         "related": ["permessi-linux-chmod-chown-umask", "utenti-gruppi-e-sudo-su-linux", "come-funzionano-le-chiavi-ssh"],
     },
     {
-        "slug": "decodifica-jwt", "fn": "jwt", "icon": "🎫",
+        "slug": "decodifica-jwt", "fn": "jwt", "icon": "ticket",
         "title": "Decodifica JWT",
         "tagline": "Header e payload di un JSON Web Token, decodificati in locale: il token non lascia mai il tuo browser.",
         "placeholder": "eyJhbGciOi...",
@@ -745,7 +781,7 @@ TOOLS = [
         "related": ["oauth2-proxy-autenticazione-davanti-ai-servizi", "vulnerabilita-nei-redirect-oauth", "come-gestire-i-secrets"],
     },
     {
-        "slug": "timestamp-unix", "fn": "epoch", "icon": "🕐",
+        "slug": "timestamp-unix", "fn": "epoch", "icon": "history",
         "title": "Convertitore timestamp Unix",
         "tagline": "Da epoch (secondi o millisecondi) a data leggibile, con i comandi da terminale equivalenti.",
         "placeholder": "1609459200",
@@ -753,7 +789,7 @@ TOOLS = [
         "related": ["dove-sono-i-log-su-linux", "cron-la-sintassi-spiegata", "security-logging-fatto-bene"],
     },
     {
-        "slug": "dns-lookup", "fn": "custom", "icon": "🌐",
+        "slug": "dns-lookup", "fn": "custom", "icon": "globe",
         "title": "Lookup DNS live",
         "tagline": "Interroga in parallelo i resolver DoH di Cloudflare e Google e confronta le risposte: il test di propagazione in un click.",
         "related": ["tipi-di-record-dns", "diagnosticare-la-propagazione-dns", "cos-e-il-ttl-dns", "come-funziona-la-risoluzione-dns", "cos-e-doh-dns-over-https"],
@@ -815,7 +851,7 @@ TOOLS = [
 })();""",
     },
     {
-        "slug": "password-compromessa", "fn": "custom", "icon": "🔑",
+        "slug": "password-compromessa", "fn": "custom", "icon": "key",
         "title": "Check password compromessa",
         "tagline": "Verifica se una password è nei data breach noti (Have I Been Pwned) con k-anonymity: la password non lascia mai il browser.",
         "related": ["verificare-password-compromessa", "perche-usare-un-password-manager", "cosa-sono-le-passkey", "cos-e-autenticazione-due-fattori-mfa", "cos-e-un-infostealer"],
@@ -871,12 +907,12 @@ TOOLS = [
 
 # entry id -> (relative url from q/<slug>/, banner label)
 TOOL_BANNERS = {
-    "subnetting-cidr": ("../../tools/calcolatore-subnet/", "🧮 Prova il calcolatore subnet interattivo"),
-    "cron-sintassi": ("../../tools/spiega-cron/", "⏰ Incolla la tua espressione nello spiega-cron"),
-    "permessi-linux": ("../../tools/calcolatore-chmod/", "🔐 Prova il calcolatore chmod interattivo"),
-    "porte-tcp-udp": ("../../porta/", "🔌 Le porte well-known, una per una: rischi e comandi"),
-    "dhcp": ("../../tools/calcolatore-subnet/", "🧮 Calcola le tue subnet col calcolatore CIDR"),
-    "log-linux": ("../../tools/timestamp-unix/", "🕐 Converti un timestamp Unix dei log"),
+    "subnetting-cidr": ("../../tools/calcolatore-subnet/", "calc", "Prova il calcolatore subnet interattivo"),
+    "cron-sintassi": ("../../tools/spiega-cron/", "clock", "Incolla la tua espressione nello spiega-cron"),
+    "permessi-linux": ("../../tools/calcolatore-chmod/", "lock", "Prova il calcolatore chmod interattivo"),
+    "porte-tcp-udp": ("../../porta/", "plug", "Le porte well-known, una per una: rischi e comandi"),
+    "dhcp": ("../../tools/calcolatore-subnet/", "calc", "Calcola le tue subnet col calcolatore CIDR"),
+    "log-linux": ("../../tools/timestamp-unix/", "history", "Converti un timestamp Unix dei log"),
 }
 
 
@@ -917,7 +953,7 @@ def build_tools(db, entries, site) -> list:
                 ],
             },
         ]
-        page = PATH_HEAD.format(
+        page = path_head(
             title=html.escape(t["title"]),
             description=html.escape(t["tagline"]),
             canonical=f"{site}/tools/{t['slug']}/",
@@ -965,11 +1001,11 @@ def build_tools(db, entries, site) -> list:
 }})();
 </script>"""
         page += f"""<nav class="crumbs" aria-label="Percorso"><a href="../../">FabGPT-FAQ</a> › <a href="../">Tools</a> › <span>{html.escape(t["title"])}</span></nav>
-<h1>{t["icon"]} {html.escape(t["title"])}</h1>
+<h1>{icon(t["icon"], 20)} {html.escape(t["title"])}</h1>
 <p class="intro">{intro}</p>
 {body}
 <div class="related"><h2>Guide correlate</h2><ul>{related}</ul></div>
-<a class="ask" href="../../">Chiedi in chat 💬</a>
+<a class="ask" href="../../">{icon("chat")} Chiedi in chat</a>
 <style>
   .tool-box {{ border: 1px solid var(--border); border-radius: 12px; background: var(--bg-soft); padding: 16px; }}
   .tool-box input {{ width: 100%; box-sizing: border-box; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 15px; padding: 10px 12px; border: 1px solid var(--border); border-radius: 8px; background: var(--bg); color: var(--text); }}
@@ -1005,11 +1041,11 @@ def build_tools(db, entries, site) -> list:
 
     # tools index
     cards = "".join(
-        f'<a class="path-card" href="{t["slug"]}/"><b>{t["icon"]} {html.escape(t["title"])}</b>'
+        f'<a class="path-card" href="{t["slug"]}/"><b>{icon(t["icon"])} {html.escape(t["title"])}</b>'
         f"<p>{html.escape(t['tagline'])}</p></a>\n"
         for t in TOOLS
     )
-    page = PATH_HEAD.format(
+    page = path_head(
         title="Tools deterministici",
         description="Micro-strumenti che calcolano nel browser, senza server e senza AI: subnet, cron, chmod, JWT, timestamp.",
         canonical=f"{site}/tools/",
@@ -1084,7 +1120,7 @@ def build_ports(db, entries, site) -> list:
         if idx < len(ordered) - 1:
             q = ordered[idx + 1]
             nav += f'<a href="../{q["port"]}/" style="float:right">Porta {q["port"]} ({html.escape(q["service"])}) →</a>'
-        page = PATH_HEAD.format(
+        page = path_head(
             title=html.escape(title),
             description=html.escape(meta_description(p["desc"])),
             canonical=f"{site}/porta/{n}/",
@@ -1105,7 +1141,7 @@ def build_ports(db, entries, site) -> list:
 </div>
 <div class="related"><h2>Guide correlate</h2><ul>{related}</ul></div>
 <div class="crumbs" style="margin-top:24px;overflow:hidden">{nav}</div>
-<a class="ask" href="../../?q=porta {n}">Chiedi in chat 💬</a>
+<a class="ask" href="../../?q=porta {n}">{icon("chat")} Chiedi in chat</a>
 <style>
   .answer {{ line-height: 1.6; }}
   .answer code {{ background: var(--code-bg); border-radius: 5px; padding: 1px 5px; font-family: ui-monospace, Menlo, monospace; font-size: .9em; }}
@@ -1128,7 +1164,7 @@ def build_ports(db, entries, site) -> list:
         f' <span style="color:var(--text-dim)">{html.escape(meta_description(p["desc"], 90))}</span></li>'
         for p in ordered
     )
-    page = PATH_HEAD.format(
+    page = path_head(
         title="Porte well-known",
         description=f"Le {len(ordered)} porte che un sysadmin incontra davvero: a cosa servono, i rischi e i comandi per verificarle.",
         canonical=f"{site}/porta/",
@@ -1208,7 +1244,7 @@ def build_commands(db, entries, site) -> list:
                 ],
             },
         ]
-        page = PATH_HEAD.format(
+        page = path_head(
             title=html.escape(g["title"]) + " – comandi",
             description=html.escape(g["tagline"]),
             canonical=f"{site}/comandi/{g['slug']}/",
@@ -1221,7 +1257,7 @@ def build_commands(db, entries, site) -> list:
 <p class="intro">{html.escape(g["tagline"])} Ogni comando è verificato e copiabile; in <a href="../../">chat</a> basta descrivere cosa vuoi fare.</p>
 <details class="toc"><summary>{len(gcards)} comandi in questa pagina</summary><ul>{toc}</ul></details>
 {body}
-<a class="ask" href="../../">Chiedi in chat 💬</a>
+<a class="ask" href="../../">{icon("chat")} Chiedi in chat</a>
 <style>
   .toc {{ border: 1px solid var(--border); border-radius: 10px; background: var(--bg-soft); padding: 10px 14px; margin-bottom: 8px; }}
   .toc summary {{ cursor: pointer; font-weight: 600; }}
@@ -1261,7 +1297,7 @@ document.addEventListener('click', function (e) {{
         f"<b>{html.escape(g['title'])}</b><p>{html.escape(g['tagline'])}</p></a>\n"
         for g in groups if any(c["group"] == g["slug"] for c in cards)
     )
-    page = PATH_HEAD.format(
+    page = path_head(
         title="Comandi verificati",
         description="Cheat-sheet operativi: il comando giusto, il suo gotcha e la guida di contesto. Anche in chat: descrivi cosa vuoi fare.",
         canonical=f"{site}/comandi/",
@@ -1430,8 +1466,12 @@ def build() -> None:
             vertical=html.escape(vlabel),
             glyph_svg=glyph(e["vertical"]),
             reading_time=reading_time,
+            sbar=section_bar("../../"),
+            ic_clock=icon("clock"),
+            ic_check=icon("check"),
+            ic_chat=icon("chat"),
             toolbanner=(
-                f'<a class="ask" style="margin:10px 0 4px;display:inline-block" href="{TOOL_BANNERS[e["id"]][0]}">{TOOL_BANNERS[e["id"]][1]}</a>'
+                f'<a class="ask" style="margin:10px 0 4px;display:inline-block" href="{TOOL_BANNERS[e["id"]][0]}">{icon(TOOL_BANNERS[e["id"]][1])} {TOOL_BANNERS[e["id"]][2]}</a>'
                 if e["id"] in TOOL_BANNERS else ""
             ),
             question=html.escape(e["question"]),
@@ -1443,15 +1483,7 @@ def build() -> None:
         (d / "index.html").write_text(page, encoding="utf-8")
 
     # --- index page with full FAQPage JSON-LD, instant search & vertical chips ---
-    n_vert = sum(1 for v in verticals if any(e["vertical"] == v for e in entries))
-    stat = (
-        '<div class="stats" aria-label="Statistiche">'
-        f'<div class="stat"><b data-to="{len(entries)}">0</b><span>risposte</span></div>'
-        '<div class="stat"><b>0</b><span>allucinazioni</span></div>'
-        '<div class="stat"><b>&euro;0</b><span>al mese</span></div>'
-        f'<div class="stat"><b data-to="{n_vert}">0</b><span>temi</span></div>'
-        "</div>"
-    )
+
 
     chips_html = ""
     for vid, label in verticals.items():
@@ -1528,7 +1560,7 @@ def build() -> None:
             canonical=f"{site}/q/",
             site=site,
             total=len(entries),
-            stats=stat,
+            sbar=section_bar("../"),
             percorsi=percorsi_strip,
             chips=chips_html,
             jsonld=json.dumps(index_jsonld, ensure_ascii=False),

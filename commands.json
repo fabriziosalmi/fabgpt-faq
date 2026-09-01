@@ -2247,7 +2247,8 @@
    "keywords": [
     "sbannare un ip",
     "fail2ban unban",
-    "mi sono bannato da solo"
+    "mi sono bannato da solo",
+    "sbanno un ip"
    ],
    "cmd": "fail2ban-client unban 203.0.113.7\n# preventivo: ignoreip = 192.168.1.0/24 in jail.local",
    "note": "Il classico è bannarsi da soli sbagliando password: metti la tua rete in `ignoreip` PRIMA che succeda.",
