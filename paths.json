@@ -1,0 +1,69 @@
+{
+  "paths": [
+    {
+      "slug": "diventare-sysadmin",
+      "title": "Diventare sysadmin partendo da zero",
+      "tagline": "Il percorso in 17 tappe: reti, Linux, homelab, automazione, backup, cloud e il primo lavoro IT.",
+      "intro": "Le tappe sono in ordine deliberato: prima le fondamenta di rete, poi Linux sul serio, poi un homelab dove rompere le cose senza conseguenze. Ogni tappa è una guida autonoma – ma la sequenza è il punto.",
+      "steps": [
+        {"entry": "subnetting-cidr", "why": "Prima di tutto: capire come sono fatte le reti che amministrerai."},
+        {"entry": "dns-risoluzione", "why": "Il servizio che tocca ogni ticket: metà dei \"non funziona internet\" è DNS."},
+        {"entry": "porte-tcp-udp", "why": "Il vocabolario di firewall e troubleshooting."},
+        {"entry": "permessi-linux", "why": "Il primo muro contro cui sbatte chi arriva su Linux."},
+        {"entry": "utenti-gruppi-sudo", "why": "Chi può fare cosa: la base di ogni server condiviso."},
+        {"entry": "systemd-servizi", "why": "Avviare, fermare e diagnosticare i servizi: il pane quotidiano."},
+        {"entry": "log-linux", "why": "Dove guardare quando qualcosa si rompe (cioè sempre)."},
+        {"entry": "cos-e-proxmox", "why": "Il laboratorio: un hypervisor gratuito dove sbagliare in pace."},
+        {"entry": "lxc-vs-vm", "why": "La prima scelta di design di ogni lab."},
+        {"entry": "homelab-low-power", "why": "L'hardware giusto costa poco e consuma meno."},
+        {"entry": "bash-scripting-base", "why": "Tutto ciò che fai due volte va automatizzato."},
+        {"entry": "cron-sintassi", "why": "L'automazione che gira mentre dormi."},
+        {"entry": "backup-321", "why": "Nessuno viene licenziato per un server lento; per un backup mancante sì."},
+        {"entry": "monitoring-stack", "why": "Accorgersi dei problemi prima degli utenti."},
+        {"entry": "aws-o-azure", "why": "Il cloud: impara i concetti su un provider, valgono ovunque."},
+        {"entry": "certificazioni-it", "why": "Il pezzo di carta che apre i colloqui."},
+        {"entry": "homelab-cv", "why": "Trasformare il lab in esperienza spendibile."}
+      ]
+    },
+    {
+      "slug": "mettere-in-sicurezza-un-server",
+      "title": "Mettere in sicurezza un server esposto",
+      "tagline": "Dodici tappe in ordine di impatto: dall'hardening iniziale alla checklist mensile che mantiene tutto vero.",
+      "intro": "L'ordine segue l'impatto: prima si chiude la superficie d'attacco, poi si blinda l'accesso, poi si costruiscono visibilità e resilienza. Ogni tappa è operativa, con i comandi.",
+      "steps": [
+        {"entry": "hardening-linux", "why": "La baseline: chiudere ciò che non serve appena il server esiste."},
+        {"entry": "hardening-ssh", "why": "SSH è la porta principale: è qui che bussano tutti."},
+        {"entry": "chiavi-ssh", "why": "Le chiavi al posto delle password: il singolo upgrade più efficace."},
+        {"entry": "host-default-deny-nftables", "why": "Default deny: tutto chiuso, si apre solo il necessario."},
+        {"entry": "fail2ban", "why": "Ban automatico di chi insiste."},
+        {"entry": "come-funziona-acme", "why": "HTTPS automatico, senza scadenze dimenticate."},
+        {"entry": "security-headers", "why": "Gli header che il browser rispetta e gli scanner cercano."},
+        {"entry": "cos-e-un-waf", "why": "Lo strato che filtra le richieste applicative cattive."},
+        {"entry": "security-logging", "why": "Se non è loggato, non è successo: la scatola nera dell'incidente."},
+        {"entry": "backup-321", "why": "Il paracadute: tre copie, due supporti, una fuori sede."},
+        {"entry": "disaster-recovery", "why": "Sapere già cosa fare quando andrà male."},
+        {"entry": "checklist-sicurezza-server", "why": "La mezz'ora al mese che mantiene vero tutto il lavoro fatto sopra."}
+      ]
+    },
+    {
+      "slug": "self-hosting-da-zero",
+      "title": "Self-hosting da zero",
+      "tagline": "Dodici tappe dal perché all'infrastruttura che si mantiene da sola: Proxmox, container, rete, backup e monitoraggio.",
+      "intro": "Dal capire se il self-hosting fa per te fino a un lab che ti avvisa invece di sorprenderti. Le tappe centrali (rete, backup) sono quelle che separano un hobby fragile da un'infrastruttura di cui fidarsi.",
+      "steps": [
+        {"entry": "perche-self-hosting", "why": "Capire pro, contro e costi reali prima di iniziare."},
+        {"entry": "homelab-low-power", "why": "Un mini PC basta, e non pesa in bolletta."},
+        {"entry": "cos-e-proxmox", "why": "La base di tutto: l'hypervisor."},
+        {"entry": "lxc-vs-vm", "why": "Container o VM: la scelta da fare per ogni servizio."},
+        {"entry": "docker-compose", "why": "Il formato in cui il mondo self-hosted distribuisce il software."},
+        {"entry": "vlan-segmentazione", "why": "L'IoT non deve parlare col NAS dei backup."},
+        {"entry": "tunnel-senza-porte", "why": "Raggiungere i servizi da fuori senza esporli."},
+        {"entry": "snapshot-vs-backup", "why": "Capire la differenza prima di averne bisogno."},
+        {"entry": "pbs", "why": "Backup deduplicati e verificati per VM e container."},
+        {"entry": "monitoring-stack", "why": "Il lab che ti avvisa invece di sorprenderti."},
+        {"entry": "aggregatore-rss", "why": "Il primo servizio davvero tuo: le notizie senza algoritmi."},
+        {"entry": "checklist-sicurezza-server", "why": "La manutenzione mensile che tiene tutto in salute."}
+      ]
+    }
+  ]
+}

@@ -203,7 +203,7 @@ PAGE = """<!DOCTYPE html>
     <span class="brand-dot">F</span>
     <span class="brand-name">FabGPT-FAQ</span>
   </a>
-  <nav class="topnav"><a href="{base}q/">Tutte le domande</a></nav>
+  <nav class="topnav"><a href="{base}percorsi/">Percorsi</a> <a href="{base}q/">Tutte le domande</a></nav>
 </header>
 <main class="page">
   <article itemscope itemtype="https://schema.org/TechArticle">
@@ -341,6 +341,12 @@ INDEX = """<!DOCTYPE html>
   .stat span {{ font-size: 12px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.05em; }}
   @media (prefers-reduced-motion: no-preference) {{ .glyph {{ animation: glyph-in .5s ease both; }} }}
   @keyframes glyph-in {{ from {{ opacity: 0; transform: translateY(3px) scale(.9); }} to {{ opacity: 1; transform: none; }} }}
+  .paths-strip {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px; margin: 4px 0 20px; }}
+  .path-card {{ display: block; border: 1px solid var(--border); border-radius: 12px; background: var(--bg-soft); padding: 12px 14px; text-decoration: none; color: inherit; }}
+  .path-card:hover {{ border-color: var(--accent); text-decoration: none; }}
+  .path-card b {{ color: var(--link); }}
+  .path-card p {{ margin: 4px 0 0; font-size: 13px; color: var(--text-dim); }}
+  .path-card .n {{ font-size: 11px; color: var(--text-dim); text-transform: uppercase; letter-spacing: .05em; }}
 </style>
 </head>
 <body>
@@ -355,6 +361,7 @@ INDEX = """<!DOCTYPE html>
   <h1>Tutte le domande</h1>
   <p class="intro">La knowledge base completa di FabGPT-FAQ: cybersecurity, AI, Proxmox, Cloudflare e i progetti open source di Fabrizio Salmi. Cerca in tempo reale o <a href="../">chiedi in chat</a>.</p>
   {stats}
+  {percorsi}
   <div class="filter-wrap">
     <div class="search-box">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
@@ -439,6 +446,172 @@ INDEX = """<!DOCTYPE html>
 </body>
 </html>
 """
+
+
+PATH_HEAD = """<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{title} – FabGPT-FAQ</title>
+<meta name="description" content="{description}">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="canonical" href="{canonical}">
+<meta property="og:type" content="article">
+<meta property="og:title" content="{title}">
+<meta property="og:description" content="{description}">
+<meta property="og:url" content="{canonical}">
+<meta property="og:image" content="{site}/og.svg">
+<meta property="og:site_name" content="FabGPT-FAQ">
+<meta property="og:locale" content="it_IT">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="{site}/og.svg">
+<link rel="stylesheet" href="{base}style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
+<script type="application/ld+json">{jsonld}</script>
+<style>
+  .page {{ max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }}
+  .page h1 {{ font-size: 26px; line-height: 1.3; margin: 6px 0 10px; }}
+  .crumbs {{ font-size: 13px; color: var(--text-dim); margin-bottom: 6px; }}
+  .crumbs a {{ color: var(--text-dim); text-decoration: none; }}
+  .crumbs a:hover {{ color: var(--text); }}
+  .page .intro {{ color: var(--text-dim); margin-bottom: 20px; }}
+  .steps {{ list-style: none; counter-reset: step; padding: 0; margin: 0; }}
+  .steps li {{ counter-increment: step; position: relative; padding: 14px 16px 14px 56px; border: 1px solid var(--border); border-radius: 12px; background: var(--bg-soft); margin: 10px 0; }}
+  .steps li::before {{ content: counter(step); position: absolute; left: 16px; top: 16px; width: 26px; height: 26px; border-radius: 50%; background: var(--accent); color: var(--accent-text); font-weight: 700; font-size: 13px; display: flex; align-items: center; justify-content: center; }}
+  .steps a {{ color: var(--link); text-decoration: none; font-weight: 600; }}
+  .steps a:hover {{ text-decoration: underline; }}
+  .steps p {{ margin: 4px 0 0; font-size: 14px; color: var(--text-dim); }}
+  .path-card {{ display: block; border: 1px solid var(--border); border-radius: 12px; background: var(--bg-soft); padding: 16px 18px; margin: 12px 0; text-decoration: none; color: inherit; }}
+  .path-card:hover {{ border-color: var(--accent); }}
+  .path-card b {{ color: var(--link); font-size: 17px; }}
+  .path-card p {{ margin: 6px 0 0; font-size: 14px; color: var(--text-dim); }}
+  .path-card .n {{ font-size: 12px; color: var(--text-dim); text-transform: uppercase; letter-spacing: .05em; }}
+  .page .ask {{ display: inline-block; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 8px 16px; text-decoration: none; font-weight: 600; font-size: 13px; margin-top: 20px; }}
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="{base}" style="text-decoration:none;color:inherit">
+    <span class="brand-dot">F</span>
+    <span class="brand-name">FabGPT-FAQ</span>
+  </a>
+  <nav class="topnav"><a href="{base}percorsi/">Percorsi</a> <a href="{base}q/">Tutte le domande</a></nav>
+</header>
+<main class="page">
+"""
+
+PATH_FOOT = """</main>
+</body>
+</html>
+"""
+
+
+def build_paths(db, entries, site) -> list:
+    """Render /percorsi/ (index + one page per guided path). Returns URLs added."""
+    pfile = ROOT / "paths.json"
+    if not pfile.exists():
+        return []
+    paths = json.loads(pfile.read_text(encoding="utf-8"))["paths"]
+    by_id = {e["id"]: e for e in entries}
+    for p in paths:
+        for s in p["steps"]:
+            assert s["entry"] in by_id, f"paths.json: unknown entry id '{s['entry']}'"
+
+    urls = [f"{site}/percorsi/"]
+    # per-path pages
+    for p in paths:
+        steps_html = ""
+        for s in p["steps"]:
+            e = by_id[s["entry"]]
+            steps_html += (
+                f'<li><a href="../../q/{e["slug"]}/">{html.escape(e["question"])}</a>'
+                f"<p>{inline_md(html.escape(s['why']))}</p></li>\n"
+            )
+        jsonld = [
+            {
+                "@context": "https://schema.org",
+                "@type": "BreadcrumbList",
+                "itemListElement": [
+                    {"@type": "ListItem", "position": 1, "name": "FabGPT-FAQ", "item": f"{site}/"},
+                    {"@type": "ListItem", "position": 2, "name": "Percorsi", "item": f"{site}/percorsi/"},
+                    {"@type": "ListItem", "position": 3, "name": p["title"], "item": f"{site}/percorsi/{p['slug']}/"},
+                ],
+            },
+            {
+                "@context": "https://schema.org",
+                "@type": "ItemList",
+                "name": p["title"],
+                "description": p["tagline"],
+                "itemListOrder": "https://schema.org/ItemListOrderAscending",
+                "itemListElement": [
+                    {
+                        "@type": "ListItem",
+                        "position": i + 1,
+                        "name": by_id[s["entry"]]["question"],
+                        "url": f"{site}/q/{by_id[s['entry']]['slug']}/",
+                    }
+                    for i, s in enumerate(p["steps"])
+                ],
+            },
+        ]
+        page = PATH_HEAD.format(
+            title=html.escape(p["title"]),
+            description=html.escape(p["tagline"]),
+            canonical=f"{site}/percorsi/{p['slug']}/",
+            site=site,
+            base="../../",
+            jsonld=json.dumps(jsonld, ensure_ascii=False),
+        )
+        page += (
+            f'<nav class="crumbs" aria-label="Percorso"><a href="../../">FabGPT-FAQ</a> › '
+            f'<a href="../">Percorsi</a> › <span>{html.escape(p["title"])}</span></nav>\n'
+            f"<h1>{html.escape(p['title'])}</h1>\n"
+            f'<p class="intro">{inline_md(html.escape(p["intro"]))}</p>\n'
+            f'<ol class="steps">\n{steps_html}</ol>\n'
+            f'<a class="ask" href="../../">Chiedi in chat 💬</a>\n'
+        )
+        page += PATH_FOOT
+        d = ROOT / "percorsi" / p["slug"]
+        d.mkdir(parents=True, exist_ok=True)
+        (d / "index.html").write_text(page, encoding="utf-8")
+        urls.append(f"{site}/percorsi/{p['slug']}/")
+
+    # percorsi index
+    cards = ""
+    for p in paths:
+        cards += (
+            f'<a class="path-card" href="{p["slug"]}/"><span class="n">{len(p["steps"])} tappe</span><br>'
+            f"<b>{html.escape(p['title'])}</b><p>{html.escape(p['tagline'])}</p></a>\n"
+        )
+    jsonld = {
+        "@context": "https://schema.org",
+        "@type": "ItemList",
+        "name": "Percorsi guidati FabGPT-FAQ",
+        "itemListElement": [
+            {"@type": "ListItem", "position": i + 1, "name": p["title"], "url": f"{site}/percorsi/{p['slug']}/"}
+            for i, p in enumerate(paths)
+        ],
+    }
+    page = PATH_HEAD.format(
+        title="Percorsi guidati",
+        description="Le guide di FabGPT-FAQ in sequenza: diventare sysadmin, mettere in sicurezza un server, self-hosting da zero.",
+        canonical=f"{site}/percorsi/",
+        site=site,
+        base="../",
+        jsonld=json.dumps(jsonld, ensure_ascii=False),
+    )
+    page += (
+        '<nav class="crumbs" aria-label="Percorso"><a href="../">FabGPT-FAQ</a> › <span>Percorsi</span></nav>\n'
+        "<h1>Percorsi guidati</h1>\n"
+        '<p class="intro">Le stesse risposte verificate della knowledge base, messe in fila nell\'ordine giusto: ogni percorso è una strada completa, tappa per tappa.</p>\n'
+        + cards
+    )
+    page += PATH_FOOT
+    d = ROOT / "percorsi"
+    d.mkdir(parents=True, exist_ok=True)
+    (d / "index.html").write_text(page, encoding="utf-8")
+    return urls
 
 
 def build() -> None:
@@ -652,6 +825,22 @@ def build() -> None:
             ],
         },
     ]
+    # --- percorsi (guided paths) ---
+    path_urls = build_paths(db, entries, site)
+    paths_meta = (
+        json.loads((ROOT / "paths.json").read_text(encoding="utf-8"))["paths"]
+        if (ROOT / "paths.json").exists() else []
+    )
+    percorsi_strip = ""
+    if paths_meta:
+        cards = "".join(
+            f'<a class="path-card" href="../percorsi/{p["slug"]}/">'
+            f'<span class="n">{len(p["steps"])} tappe</span><br><b>{html.escape(p["title"])}</b>'
+            f"<p>{html.escape(p['tagline'])}</p></a>"
+            for p in paths_meta
+        )
+        percorsi_strip = f'<div class="paths-strip">{cards}</div>'
+
     (OUT / "index.html").write_text(
         INDEX.format(
             description="Tutte le domande e risposte di FabGPT-FAQ: cybersecurity, AI, Proxmox, Cloudflare e i progetti open source di Fabrizio Salmi.",
@@ -659,6 +848,7 @@ def build() -> None:
             site=site,
             total=len(entries),
             stats=stat,
+            percorsi=percorsi_strip,
             chips=chips_html,
             jsonld=json.dumps(index_jsonld, ensure_ascii=False),
             sections=sections,
@@ -667,7 +857,7 @@ def build() -> None:
     )
 
     # --- sitemap.xml + robots.txt ---
-    urls = [f"{site}/", f"{site}/q/"] + [f"{site}/q/{e['slug']}/" for e in entries]
+    urls = [f"{site}/", f"{site}/q/"] + path_urls + [f"{site}/q/{e['slug']}/" for e in entries]
     sitemap = (
         '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
     )
@@ -695,6 +885,10 @@ def build() -> None:
             lt.append(
                 f"- [{e['question']}]({site}/q/{e['slug']}/): {meta_description(e['answers'][0], 120)}"
             )
+    if paths_meta:
+        lt.append("\n## Percorsi guidati\n")
+        for p in paths_meta:
+            lt.append(f"- [{p['title']}]({site}/percorsi/{p['slug']}/): {p['tagline']}")
     (ROOT / "llms.txt").write_text("\n".join(lt) + "\n", encoding="utf-8")
 
     # --- llms-full.txt: every Q&A as plain text (full corpus for citation) ---
@@ -745,7 +939,7 @@ def build() -> None:
 """
     (ROOT / "404.html").write_text(notfound, encoding="utf-8")
 
-    print(f"Built {len(entries)} pages + index + sitemap ({len(urls)} URLs) + llms.txt + llms-full.txt + 404.")
+    print(f"Built {len(entries)} pages + {len(paths_meta)} percorsi + index + sitemap ({len(urls)} URLs) + llms.txt + llms-full.txt + 404.")
 
 
 if __name__ == "__main__":

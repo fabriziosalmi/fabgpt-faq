@@ -35,6 +35,12 @@
   .stat span { font-size: 12px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.05em; }
   @media (prefers-reduced-motion: no-preference) { .glyph { animation: glyph-in .5s ease both; } }
   @keyframes glyph-in { from { opacity: 0; transform: translateY(3px) scale(.9); } to { opacity: 1; transform: none; } }
+  .paths-strip { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px; margin: 4px 0 20px; }
+  .path-card { display: block; border: 1px solid var(--border); border-radius: 12px; background: var(--bg-soft); padding: 12px 14px; text-decoration: none; color: inherit; }
+  .path-card:hover { border-color: var(--accent); text-decoration: none; }
+  .path-card b { color: var(--link); }
+  .path-card p { margin: 4px 0 0; font-size: 13px; color: var(--text-dim); }
+  .path-card .n { font-size: 11px; color: var(--text-dim); text-transform: uppercase; letter-spacing: .05em; }
 </style>
 </head>
 <body>
@@ -49,6 +55,7 @@
   <h1>Tutte le domande</h1>
   <p class="intro">La knowledge base completa di FabGPT-FAQ: cybersecurity, AI, Proxmox, Cloudflare e i progetti open source di Fabrizio Salmi. Cerca in tempo reale o <a href="../">chiedi in chat</a>.</p>
   <div class="stats" aria-label="Statistiche"><div class="stat"><b data-to="568">0</b><span>risposte</span></div><div class="stat"><b>0</b><span>allucinazioni</span></div><div class="stat"><b>&euro;0</b><span>al mese</span></div><div class="stat"><b data-to="7">0</b><span>temi</span></div></div>
+  <div class="paths-strip"><a class="path-card" href="../percorsi/diventare-sysadmin/"><span class="n">17 tappe</span><br><b>Diventare sysadmin partendo da zero</b><p>Il percorso in 17 tappe: reti, Linux, homelab, automazione, backup, cloud e il primo lavoro IT.</p></a><a class="path-card" href="../percorsi/mettere-in-sicurezza-un-server/"><span class="n">12 tappe</span><br><b>Mettere in sicurezza un server esposto</b><p>Dodici tappe in ordine di impatto: dall&#x27;hardening iniziale alla checklist mensile che mantiene tutto vero.</p></a><a class="path-card" href="../percorsi/self-hosting-da-zero/"><span class="n">12 tappe</span><br><b>Self-hosting da zero</b><p>Dodici tappe dal perché all&#x27;infrastruttura che si mantiene da sola: Proxmox, container, rete, backup e monitoraggio.</p></a></div>
   <div class="filter-wrap">
     <div class="search-box">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>

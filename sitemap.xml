@@ -2,6 +2,10 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/</loc></url>
   <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/percorsi/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/percorsi/diventare-sysadmin/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/percorsi/mettere-in-sicurezza-un-server/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/percorsi/self-hosting-da-zero/</loc></url>
   <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/chi-e-fabrizio-salmi/</loc></url>
   <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/progetti-open-source-fabrizio-salmi/</loc></url>
   <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-un-waf-web-application-firewall/</loc></url>

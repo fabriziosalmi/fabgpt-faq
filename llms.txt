@@ -593,3 +593,9 @@ Chat: https://fabriziosalmi.github.io/fabgpt-faq/  ·  Indice: https://fabrizios
 - [Come si contatta Fabrizio Salmi?](https://fabriziosalmi.github.io/fabgpt-faq/q/come-contattare-fabrizio-salmi/): I canali: Email: [fabrizio.salmi@gmail.com](mailto:fabrizio.salmi@gmail.com) – per proposte di collaborazione,…
 - [FabGPT-FAQ è una vera intelligenza artificiale?](https://fabriziosalmi.github.io/fabgpt-faq/q/fabgpt-e-una-vera-ai/): Domanda pericolosa. Sono un labirinto di risposte scritte da un umano che si presenta come un'AI – il che, a pensarci…
 - [Cos'è FabGPT-FAQ e come funziona?](https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-fabgpt-come-funziona/): FabGPT-FAQ è una FAQ travestita da chat AI: l'interfaccia è quella di un chatbot, ma le risposte sono pre-scritte e…
+
+## Percorsi guidati
+
+- [Diventare sysadmin partendo da zero](https://fabriziosalmi.github.io/fabgpt-faq/percorsi/diventare-sysadmin/): Il percorso in 17 tappe: reti, Linux, homelab, automazione, backup, cloud e il primo lavoro IT.
+- [Mettere in sicurezza un server esposto](https://fabriziosalmi.github.io/fabgpt-faq/percorsi/mettere-in-sicurezza-un-server/): Dodici tappe in ordine di impatto: dall'hardening iniziale alla checklist mensile che mantiene tutto vero.
+- [Self-hosting da zero](https://fabriziosalmi.github.io/fabgpt-faq/percorsi/self-hosting-da-zero/): Dodici tappe dal perché all'infrastruttura che si mantiene da sola: Proxmox, container, rete, backup e monitoraggio.
