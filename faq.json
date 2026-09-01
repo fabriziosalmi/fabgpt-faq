@@ -730,7 +730,8 @@
         "referrer-policy",
         "permissions-policy",
         "intestazioni sicurezza",
-        "header sito"
+        "header sito",
+        "quali security"
       ],
       "answers": [
         "I security header sono istruzioni che il server dà al browser su come trattare la pagina. Quelli che contano:\n\n- **Strict-Transport-Security (HSTS)** – \"parla con me solo in HTTPS\", per sempre\n- **Content-Security-Policy** – la whitelist di cosa la pagina può caricare ed eseguire: il singolo header più potente (e più delicato da scrivere)\n- **X-Content-Type-Options: nosniff** – vieta al browser di \"indovinare\" i MIME type\n- **X-Frame-Options** / CSP `frame-ancestors` – anti-clickjacking\n- **Referrer-Policy** e **Permissions-Policy** – privacy e API del browser sotto controllo\n\nPer verificarli: [DomainMate](https://github.com/fabriziosalmi/domainmate) li controlla in monitoraggio continuo, e per i siti statici [agssh](https://github.com/fabriziosalmi/agssh) li valida in modo fail-closed contro il deployment live."
@@ -868,7 +869,8 @@
         "crowdsec",
         "jail",
         "fail2ban crowdsec brute force",
-        "attacchi di forza bruta"
+        "attacchi di forza bruta",
+        "fail2ban quali"
       ],
       "answers": [
         "Fail2ban monitora i log di sistema (SSH, web server, posta) e blocca automaticamente gli indirizzi IP che tentano accessi non autorizzati o attacchi di brute-force.\n\nConfigurazione consigliata su Linux (`/etc/fail2ban/jail.local`):\n```ini\n[DEFAULT]\nbantime = 1h\nfindtime = 10m\nmaxretry = 5\nbanaction = nftables-multiport\n\n[sshd]\nenabled = true\nport = ssh,2222\nbackend = systemd\nmode = aggressive\n\n[caddy-auth]\nenabled = true\nfilter = caddy-auth\nlogpath = /var/log/caddy/access.log\nmaxretry = 3\n```\n\nComandi da terminale:\n- Avvio e reload: `systemctl enable --now fail2ban && fail2ban-client reload`\n- Verifica stato carceri: `fail2ban-client status sshd`\n- Sblocco manuale IP: `fail2ban-client set sshd unbanip 192.168.1.50`\n\nPer un'alternativa moderna integrata, consulta anche [caddy-waf](q/come-aggiungere-un-waf-a-caddy/)."
@@ -1076,7 +1078,8 @@
         "fine-tuning vs rag",
         "addestrare o rag",
         "personalizzare llm",
-        "conoscenza aziendale llm"
+        "conoscenza aziendale llm",
+        "meglio fine"
       ],
       "answers": [
         "Domanda da farsi sempre, risposta quasi sempre: **prima RAG**. Sono strumenti per problemi diversi:\n\n- **[RAG](q/cos-e-rag-retrieval-augmented-generation/)** dà al modello *conoscenza*: recupera i documenti giusti al momento della domanda. Aggiornabile in tempo reale, verificabile (puoi citare le fonti), nessun addestramento.\n- **fine-tuning** dà al modello *comportamento*: uno stile, un formato, un gergo, un compito ripetitivo. Non è un buon deposito di fatti – i fatti nel fine-tuning si allucinano volentieri.\n\nQuindi: knowledge base, documentazione, dati che cambiano → RAG. Tono di voce, output strutturati particolari, un dominio linguistico stretto → fine-tuning (oggi economico con LoRA/QLoRA, anche [in locale su Mac](q/fine-tuning-llm-apple-silicon/)). E le due cose si combinano: un modello rifinito sul *come*, con il RAG che porta il *cosa*."
@@ -1445,7 +1448,8 @@
         "rete di distribuzione",
         "cache distribuita",
         "edge",
-        "velocizzare sito nel mondo"
+        "velocizzare sito nel mondo",
+        "cdn serve"
       ],
       "answers": [
         "Una **CDN** (Content Delivery Network) è una rete di server sparsi per il mondo che tiene copie dei tuoi contenuti statici vicino agli utenti: chi visita da Tokyo riceve immagini e CSS da Tokyo, non da Milano. Meno latenza, meno carico sull'origine, più resistenza ai picchi (e ai [DDoS](q/cos-e-un-attacco-ddos/) volumetrici).\n\nQuando serve: pubblico geograficamente sparso, asset pesanti, traffico irregolare. Quando serve meno di quanto si creda: un sito italiano per utenti italiani su un buon server europeo con cache locale e HTTP/2 spesso va benissimo – la CDN aggiunge un intermediario, con i [temi di sovranità](q/cos-e-la-sovranita-digitale/) che ne conseguono. Via di mezzo interessante: cache in RAM sull'edge tuo, come fa [zion](https://github.com/fabriziosalmi/zion) con la sua cache a due livelli."
@@ -1743,7 +1747,8 @@
         "apple-touch-icon",
         "icona sito",
         "manifest icone",
-        "svg favicon"
+        "svg favicon",
+        "quali formati"
       ],
       "answers": [
         "La confusione storica (decine di PNG per ogni device) si è ridotta a un set minimo civile:\n\n- **favicon.ico** (32×32) nella root – il fallback che tutto capisce, browser vecchi inclusi\n- **SVG** (`rel=\"icon\" type=\"image/svg+xml\"`) – scala ovunque, supporta il dark mode via media query interna\n- **apple-touch-icon.png** (180×180) – per iOS quando salvi in home\n- **192×192 e 512×512** dichiarate nel web manifest – per Android/PWA\n\nQuattro file, fine. Da evitare: icone diverse per ogni pagina (i browser le cachano aggressivamente) e i generatori che sputano trenta varianti del 2012. Per produrre tutti i formati da un'immagine sola – favicon, social, banner – [BrandKit](https://github.com/fabriziosalmi/brandkit) fa il lavoro in un colpo, in casa tua."
@@ -1791,7 +1796,8 @@
         "audio unit",
         "strumenti virtuali",
         "synth virtuale",
-        "effetti audio"
+        "effetti audio",
+        "plugin vst"
       ],
       "answers": [
         "**VST** (Virtual Studio Technology, di Steinberg) è lo standard che permette a strumenti ed effetti di terze parti di girare dentro qualsiasi [DAW](q/cos-e-una-daw/): un synth, un riverbero, un compressore diventano moduli caricabili in una traccia. Oggi lo standard attivo è **VST3**; su Mac convive con **Audio Unit (AU)**, su Linux cresce **CLAP**, l'alternativa aperta.\n\nCi sono VST per tutto: emulazioni di synth storici, campionatori, effetti creativi, mastering. La quantità di gratuiti eccellenti è tale che si produce musica seria a costo zero.\n\nLa frontiera AI del portfolio: [txt2vst](https://github.com/fabriziosalmi/txt2vst) genera strumenti VST3/AU **dal linguaggio naturale** – descrivi il synth che hai in testa, ottieni il plugin – e [audiogen](https://github.com/fabriziosalmi/audiogen) genera e classifica suoni con l'AI."
@@ -2305,7 +2311,8 @@
         "face id login",
         "yubikey",
         "phishing resistant",
-        "fido2 webauthn"
+        "fido2 webauthn",
+        "passkey sostituiranno"
       ],
       "answers": [
         "Una **passkey** è una coppia di chiavi crittografiche al posto della password: la chiave privata resta sul tuo dispositivo (protetta da biometria o PIN), il sito conserva solo la pubblica. Al login il dispositivo firma una challenge **legata al dominio vero** – standard WebAuthn/FIDO2.\n\nPerché è un salto di categoria: **niente da rubare** sul server (il database di chiavi pubbliche non interessa a nessuno), **niente da phishare** (su un sito clone la firma non parte proprio: il dominio non corrisponde), niente da riusare. Le passkey si sincronizzano nel portachiavi di piattaforma (iCloud, Google) o nei [password manager](q/perche-usare-un-password-manager/); le chiavi hardware (YubiKey) restano la variante più paranoica.\n\nSostituiranno le password? Sui servizi grandi stanno già davanti; la coda lunga di siti legacy garantisce alle password una lunga, immeritata pensione. Intanto: attivale dove ci sono."
@@ -2533,7 +2540,7 @@
     {
       "id": "air-gap",
       "slug": "cos-e-un-air-gap",
-      "question": "Cos'è un air gap?",
+      "question": "Cos'è un air gap (isolamento fisico)?",
       "vertical": "security",
       "keywords": [
         "air gap",
@@ -2608,7 +2615,8 @@
         "ssl nginx",
         "certbot nginx",
         "nginx 443",
-        "configurare certificato nginx"
+        "configurare certificato nginx",
+        "configura https"
       ],
       "answers": [
         "La via rapida è **certbot** con il plugin nginx: `certbot --nginx -d example.com` ottiene il certificato da Let's Encrypt ([come funziona](q/come-funziona-lets-encrypt-acme/)), riscrive la configurazione e installa il rinnovo automatico. Fine, per un sito singolo.\n\nSe preferisci il controllo, i pezzi nel server block sono: `listen 443 ssl http2`, `ssl_certificate` (il **fullchain**, non il solo certificato: la [catena incompleta](q/errore-err-cert-authority-invalid/) è l'errore classico), `ssl_certificate_key`, protocolli TLS 1.2+, e il redirect 301 dal blocco sulla 80. Aggiungi [HSTS](q/cos-e-hsts-e-il-preload/) quando sei sicuro, e le [regole WAF di patterns](https://github.com/fabriziosalmi/patterns) per la protezione applicativa.\n\nOltre pochi domini, la gestione manuale dei certificati non scala: [CertMate](https://github.com/fabriziosalmi/certmate) centralizza emissione, rinnovo e deploy anche verso Nginx. E se puoi scegliere il server: [Caddy fa tutto questo da solo](q/configurare-https-su-caddy/)."
@@ -2630,7 +2638,8 @@
         "caddy automatico",
         "caddyfile",
         "caddy certificati",
-        "https automatico"
+        "https automatico",
+        "configura https su caddy"
       ],
       "answers": [
         "Non si configura: **è il default**. Un Caddyfile minimo –\n\n`example.com {`\n`  reverse_proxy 127.0.0.1:3000`\n`}`\n\n– e Caddy ottiene da solo il certificato da Let's Encrypt/ZeroSSL, lo rinnova, fa il redirect da HTTP e serve HTTPS con impostazioni moderne (TLS 1.3, HTTP/2 e HTTP/3, OCSP stapling). L'unico prerequisito: DNS che punta al server e porte 80/443 raggiungibili. Per i wildcard o le macchine non esposte si passa alla [challenge DNS](q/come-funziona-lets-encrypt-acme/) col plugin del proprio provider.\n\nÈ il motivo per cui Caddy è la scelta più amata nel self-hosting: la parte che su altri server è una checklist qui è assenza di configurazione. Cosa NON è incluso: la protezione applicativa – per quella si aggiungono [caddy-waf](https://github.com/fabriziosalmi/caddy-waf) (WAF completo) e [caddy-mib](https://github.com/fabriziosalmi/caddy-mib) (ban degli insistenti)."
@@ -2653,7 +2662,8 @@
         "copiano i contenuti",
         "furto contenuti",
         "bot che copiano",
-        "proteggere contenuti"
+        "proteggere contenuti",
+        "difende sito"
       ],
       "answers": [
         "Premessa onesta: contro uno scraper determinato non esiste il muro perfetto – ciò che un browser può leggere, un bot può leggerlo. L'obiettivo realistico è **alzare il costo** finché non vale più la pena:\n\n- **[rate limiting](q/configurare-rate-limiting-web-server/)** per IP e per percorso: gli scraper hanno fretta, i lettori no\n- **liste di bad bot** aggiornate ([patterns](https://github.com/fabriziosalmi/patterns) le rigenera ogni giorno per Nginx, Apache, Traefik e HAProxy)\n- ban comportamentali: chi genera [404 a raffica](q/bannare-ip-brute-force-caddy/) o naviga a velocità disumana ([caddy-mib](https://github.com/fabriziosalmi/caddy-mib))\n- challenge sui percorsi sensibili ([Turnstile](q/cos-e-cloudflare-turnstile/)) e trappole: link invisibili agli umani che marchiano i bot\n\nCapitolo a parte: i [crawler AI](q/bloccare-crawler-ai-gptbot/), dove il blocco è una scelta strategica, non solo tecnica. E ricorda che scraper legittimi (Google) e molesti si separano per **comportamento**, non per dichiarazione."
@@ -2681,7 +2691,8 @@
         "token nel repository",
         "dotenv",
         "committato",
-        "token github"
+        "token github",
+        "gestiscono secrets"
       ],
       "answers": [
         "Un secret committato è un secret **compromesso**: la storia di git non dimentica (il rebase non basta, va considerato ruotato), i fork lo moltiplicano e i bot scandagliano GitHub in tempo reale a caccia di chiavi AWS – i primi tentativi di abuso arrivano in *minuti*.\n\nLa scala di maturità:\n\n- **livello base**: file `.env` fuori dal versionamento (in `.gitignore` dal primo commit) + un `.env.example` senza valori\n- **livello serio**: secret manager – Vault, SOPS con age per cifrarli *dentro* il repo, o i secret nativi di CI/CD e container\n- **igiene**: rotazione periodica, [scope minimi](q/principio-del-minimo-privilegio/), un segreto per servizio (mai il super-token condiviso), scanner pre-commit (gitleaks) in CI\n\nAngolo AI del problema: le credenziali incollate nei prompt finiscono nei log di qualcun altro – è esattamente ciò che [aidlp](https://github.com/fabriziosalmi/aidlp) intercetta prima che accada."
@@ -3017,7 +3028,8 @@
         "banche",
         "fornitori ict",
         "2554",
-        "resilienza digitale finanza"
+        "resilienza digitale finanza",
+        "dora digital"
       ],
       "answers": [
         "**DORA** (Reg. UE 2022/2554, applicabile dal **17 gennaio 2025**) è la NIS2 del settore finanziario, ma più prescrittiva: si applica a banche, assicurazioni, SIM, fondi, istituti di pagamento, exchange cripto – e, novità storica, **direttamente ai fornitori ICT critici** che li servono, sorvegliati dalle autorità europee.\n\nI cinque pilastri: gestione del rischio ICT, **segnalazione degli incidenti** con classificazioni e tempistiche armonizzate, **test di resilienza** (fino ai threat-led penetration test per i soggetti maggiori), gestione del **rischio di terze parti** (registro contrattuale dei fornitori ICT compreso), e condivisione di informazioni sulle minacce.\n\nSe sei un fornitore software/cloud con clienti finanziari, DORA ti arriva addosso **via contratto**: clausole di audit, exit strategy, [resilienza dimostrabile](q/piano-di-disaster-recovery-minimo/). Le fondamenta tecniche sono le stesse di NIS2: [log integri](q/security-logging-fatto-bene/), [incident response provata](q/incident-response-le-prime-ore/), inventari aggiornati."
@@ -3064,7 +3076,8 @@
         "responsabile protezione dati",
         "nomina dpo",
         "quando serve dpo",
-        "rpd"
+        "rpd",
+        "dpo obbligatorio"
       ],
       "answers": [
         "Il **DPO** (Data Protection Officer) è il garante interno della protezione dati: consiglia il titolare, sorveglia la conformità GDPR, fa da ponte con il Garante e con gli interessati. Dev'essere **indipendente** (niente conflitti: non può essere chi decide *come* si trattano i dati, tipo l'IT manager o il responsabile marketing), competente, e può essere esterno.\n\nÈ obbligatorio in tre casi: **enti pubblici**; organizzazioni il cui core business è il **monitoraggio regolare e sistematico su larga scala** (profilazione, ad-tech, geolocalizzazione); e trattamento su larga scala di **dati particolari** (salute, biometria, giudiziari) – quindi ospedali, assicurazioni sanitarie, piattaforme con profilazione spinta. La PMI tipica non è obbligata, ma se tratta dati delicati la nomina volontaria (spesso esterna, a canone) compra competenza e credibilità verso clienti e auditor. In ogni caso: la nomina va comunicata al Garante e il contatto pubblicato nella [privacy policy](q/gdpr-cosa-serve-a-un-sito-web/)."
@@ -3871,7 +3884,8 @@
         "cuda",
         "4090",
         "gpu per llm",
-        "mac per ai"
+        "mac per ai",
+        "silicon gpu"
       ],
       "answers": [
         "Dipende da cosa ottimizzi:\n\n- **NVIDIA** vince in **velocità pura** (banda di memoria e compute: una 4090 macina token che un Mac sogna) e in ecosistema – CUDA è la lingua franca: training serio, Stable Diffusion, vLLM, tutto nasce lì. Contro: la **VRAM si compra a caro prezzo** (24 GB consumer è il tetto pratico), consumi e rumore da workstation.\n- **Apple Silicon** vince in **capacità**: la memoria unificata arriva a 128+ GB – [modelli 70B in locale](q/quanta-ram-vram-serve-per-un-llm/) su una macchina silenziosa che sta in borsa. Contro: banda e compute inferiori (i modelli grandi *entrano* ma generano con calma), ed ecosistema più giovane (MLX cresce bene – [SiliconDev](https://github.com/fabriziosalmi/silicondev) ci costruisce sopra chat e fine-tuning – ma CUDA resta avanti).\n\nRegola di tasca: già hai un Mac con tanta memoria → usalo, copre più di quanto credi. Compri apposta per l'AI → una GPU NVIDIA usata con 24 GB è il miglior rapporto token/euro. Vuoi 70B+ sempre acceso → o Mac Studio, o [il salto al multi-GPU](q/far-girare-un-llm-in-locale/)."
@@ -3921,7 +3935,8 @@
         "non inventare",
         "riduco",
         "ridurre",
-        "allucinazioni"
+        "allucinazioni",
+        "riducono allucinazioni"
       ],
       "answers": [
         "Le [allucinazioni](q/allucinazioni-llm-dipendenze-inventate/) non si eliminano – sono nel design – ma si riducono di molto, per strati:\n\n- **[grounding](q/cos-e-il-grounding/)**: dai al modello i documenti giusti ([RAG](q/cos-e-rag-retrieval-augmented-generation/)) e istruiscilo a rispondere *solo da quelli*, citando – e a dire \"non lo so\" quando il contesto non basta: il permesso di ignorare è l'anti-allucinogeno più economico che esista\n- **[temperatura](q/temperatura-di-un-llm/) bassa** sui compiti fattuali\n- **verifica deterministica dove possibile**: i fatti critici si controllano col codice, non con la fiducia – date, numeri, [nomi di pacchetti](https://github.com/fabriziosalmi/ai-dependency-guard), link\n- **structured output**: costringere a uno schema riduce lo spazio per divagare\n- per i casi che contano: una seconda passata di **verifica** (stesso modello con cappello da revisore, o [un giudice](q/come-valutare-le-risposte-di-un-llm/))\n\nE la regola d'oro di prodotto: mostra le fonti. Un utente che può verificare perdona; uno che non può, no."
@@ -4322,7 +4337,8 @@
         "provenienza contenuti",
         "content credentials",
         "watermarking",
-        "sintetici"
+        "sintetici",
+        "watermarking contenuti"
       ],
       "answers": [
         "Il **watermarking dei contenuti AI** serve a rendere riconoscibile ciò che è sintetico. Due filosofie complementari:\n\n- **watermark statistici** nel contenuto stesso: pattern invisibili nei pixel o nella scelta dei token (SynthID e simili) – rilevabili da chi ha lo strumento, ma degradabili con modifiche e ricodifiche\n- **provenienza firmata** dei metadati: lo standard **C2PA / Content Credentials** allega al file una catena firmata di *chi ha creato cosa, con quale strumento, con quali modifiche* – più robusto concettualmente, ma i metadati si possono spogliare\n\nIl contesto normativo li sta trasformando da opzione a obbligo: l'[AI Act](q/cosa-prevede-ai-act/) richiede la marcatura leggibile dalle macchine dei contenuti sintetici e l'etichettatura dei deepfake. Verità tecnica da tenere a mente: **nessun watermark è indistruttibile** – alzano il costo dell'inganno, non lo azzerano ([come per i deepfake](q/deepfake-come-riconoscerli/)). Il cugino difensivo classico: [il watermarking anti-leak dei video](https://github.com/fabriziosalmi/open-video-watermark), stessa matematica, scopo opposto."
@@ -5159,7 +5175,8 @@
         "hosting statico",
         "netlify",
         "dove pubblico il sito statico",
-        "gh-pages"
+        "gh-pages",
+        "serve sito"
       ],
       "answers": [
         "Un sito statico si ospita gratis, bene, in almeno tre modi:\n\n- **GitHub Pages** – il repository *è* l'hosting: push sul branch, sito servito, dominio custom con HTTPS automatico. Zero build? Serve i file così come sono; con [un SSG](q/cos-e-un-generatore-di-siti-statici/) ci pensa una Action\n- **Cloudflare Pages** – build da git, CDN più spinta, anteprime per branch e [Functions se serve dinamica](q/pages-workers-o-functions/); repo privati senza pensieri\n- **Netlify e simili** – ergonomia storica, free tier con limiti di banda da leggere\n\nLa verità liberatoria: un sito statico è **portabile per definizione** – gli stessi file si spostano da un hosting all'altro in dieci minuti, quindi la scelta non è mai definitiva. Checklist post-pubblicazione: [redirect www/apex](q/redirect-www-apex/), [security header](q/quali-security-header-servono/) (su Pages si impostano con `_headers` o dal proxy), e [la prova che il sito non chiami terze parti](q/cos-e-un-air-gap/) – su un sito statico, [agssh](https://github.com/fabriziosalmi/agssh) la dà nero su bianco. Questo sito che stai leggendo gira esattamente così: [file statici generati](q/cos-e-fabgpt-come-funziona/), zero backend."
@@ -5686,7 +5703,8 @@
         "pompaggio",
         "ducking",
         "pompare col kick",
-        "voce sopra la musica"
+        "voce sopra la musica",
+        "sidechain compression"
       ],
       "answers": [
         "La **sidechain compression** è un compressore che abbassa un suono *ascoltandone un altro*: il caso archetipo è il basso che si abbassa a ogni colpo di **cassa** – il kick comanda (è la \"chiave\" del compressore), il basso si scansa, e il mix respira. Spinta al limite diventa il **pompaggio** ritmico che definisce interi generi, dalla french house all'EDM.\n\nCome si imposta, in pratica: compressore sul basso (o sul resto del mix), input di sidechain dal kick, attack veloce, e il **release a tempo** col brano – è il release che decide il groove del pompaggio. La versione trasparente si fa oggi con la modulazione di volume diretta (LFO tools e simili), più chirurgica del compressore.\n\nLo stesso principio fuori dalla musica si chiama **ducking**: la voce dello speaker che abbassa automaticamente la musica di sottofondo – [in una diretta](q/streaming-musicale-live/) o in radio è il compressore sidechain a tenere il parlato sempre in primo piano."
@@ -5860,7 +5878,8 @@
         "criminal justice act",
         "sound system",
         "teknival storia",
-        "23"
+        "23",
+        "storia free"
       ],
       "answers": [
         "Primi anni '90, Regno Unito: i **sound system** – Spiral Tribe su tutti – saldano l'eredità dei traveller e dei warehouse party in qualcosa di nuovo: feste **libere e gratuite**, casse autocostruite, techno più dura e veloce, nessun biglietto e nessun padrone. Il culmine è **Castlemorton** (1992): una settimana, decine di migliaia di persone, il panico mediatico che partorisce il **Criminal Justice Act** (1994) – la legge che criminalizza i raduni con musica \"caratterizzata da beat ripetitivi\". Risultato opposto alle intenzioni: la scena non muore, **migra sul continente**.\n\nIn Francia, Italia, Repubblica Ceca e oltre nascono i **teknival** – raduni di più sound system, giorni interi, campagne e capannoni – e una cultura che si tramanda: autogestione, DIY, il mitologico **23**, produzioni musicali fuori da ogni industria. L'Italia è protagonista con sound system storici e teknival enormi. E quando la scena incontra la rete, il passo è naturale: [radio underground](q/streaming-musicale-live/) come Free Underground Tekno (dal 2008) e il **[WebTeK](q/cos-e-il-webtek-streaming-teknival/)**, il teknival in streaming che collega i sound system di mezzo mondo – stessa etica, nuovo mezzo."
@@ -5909,7 +5928,8 @@
         "costo zero",
         "quanto costa il chatbot",
         "costi di gestione",
-        "costa questo sito"
+        "costa questo sito",
+        "costa far"
       ],
       "answers": [
         "**Zero euro al mese**, ed è una scelta di architettura, non una promozione:\n\n- niente inferenza: le risposte sono [pre-scritte](q/risposte-pre-scritte-o-ai/), quindi **zero GPU e zero API** – il costo marginale di una domanda in più è un lookup in un file JSON già nel browser\n- niente backend: [file statici](q/cos-e-un-generatore-di-siti-statici/) serviti da [un hosting gratuito](q/servire-un-sito-statico-gratis/) qualsiasi – quasi 300 pagine pesano pochi megabyte\n- niente database, niente coda, niente container da patchare: la [superficie d'attacco](q/cos-e-un-air-gap/) è quella di una cartella di HTML\n\nIl confronto che fa impressione: un chatbot RAG equivalente paga retrieval + inferenza a *ogni* domanda – da decine a centinaia di euro al mese già con poco traffico, più il monitoraggio delle [allucinazioni](q/come-ridurre-le-allucinazioni/). Qui il costo è spostato dove rende: **il tempo umano per scrivere risposte giuste**, una volta, versionate in git.\n\nL'unico esborso opzionale: il dominio (~10 €/anno). Tutto il resto – build, test, [benchmark](q/come-si-testano-le-applicazioni-llm/), deploy – gira in CI gratuita o sul tuo portatile."
@@ -6703,7 +6723,8 @@
         "secret scanning",
         "gate di sicurezza",
         "sicurezza nel deploy",
-        "false refusal rate guardrail sicurezza"
+        "false refusal rate guardrail sicurezza",
+        "sicurezza nella pipeline"
       ],
       "answers": [
         "**DevSecOps** significa spostare i controlli di sicurezza *dentro* la pipeline, il più a sinistra possibile (\"shift left\") – trovare i problemi al commit costa cento volte meno che in produzione. I gate che una pipeline matura mette in fila:\n\n- **secret scanning** (gitleaks): blocca [le credenziali](q/come-gestire-i-secrets/) prima che entrino in git\n- **SAST** (analisi statica del codice: Semgrep, CodeQL): vulnerabilità nel *tuo* codice\n- **SCA** (Software Composition Analysis): CVE nelle **dipendenze** – più [SBOM](q/cos-e-la-supply-chain-security/) e blocco delle [dipendenze allucinate](https://github.com/fabriziosalmi/ai-dependency-guard)\n- **scansione immagini** e [IaC](q/cos-e-gitops/) (Trivy, Checkov): [container](q/sicurezza-delle-immagini-container/) e infrastruttura\n- **DAST** (test dinamico sull'app in esecuzione): l'attacco simulato prima del rilascio\n- **firma degli artefatti** ([sigstore](q/come-si-firma-il-codice/), provenance SLSA) all'uscita\n\nLe due regole che rendono DevSecOps praticabile invece che odiato: i gate devono **fallire la build** quando serve (un warning ignorato non è un controllo), ma con **soglie tarate** – se blocca su ogni CVE informativa, gli sviluppatori lo aggirano, e hai perso. È lo stesso principio del [gate draconiano di questo progetto](q/come-si-testano-le-applicazioni-llm/): rigido su ciò che conta, silenzioso sul rumore. Nel portfolio, [vibe-check](https://github.com/fabriziosalmi/vibe-check) è un gate anti-slop in questo spirito."
@@ -7771,7 +7792,8 @@
         "startpage",
         "ricerca senza tracciamento",
         "alternativa google search",
-        "metamotore"
+        "metamotore",
+        "quali motori"
       ],
       "answers": [
         "Google Search costruisce un profilo di ogni tua ricerca. Le alternative, in tre categorie:\n\n- **metamotore self-hostabile**: **SearXNG** – aggrega i risultati di decine di motori **senza che nessuno di loro veda te**: fa lui le query e ti restituisce i risultati, niente tracciamento, niente profilo. Su [un LXC](q/differenza-container-lxc-e-vm/) è tuo al 100%. La scelta massima per la [sovranità](q/cos-e-la-sovranita-digitale/)\n- **indici indipendenti**: **Brave Search** (indice proprio, non solo un proxy di Google/Bing) e **Qwant** (europeo, francese) – non dipendono dai risultati altrui\n- **proxy sui grandi**: **DuckDuckGo** e **Startpage** danno i risultati di Bing/Google ma **anonimizzati** – privacy buona, ma la fonte resta a monte\n\nIl compromesso onesto: la qualità dei risultati di Google resta spesso avanti, e alcuni la rimpiangono. Ma per la maggioranza delle ricerche le alternative sono più che sufficienti, e il guadagno di privacy è reale. SearXNG in particolare è uno di quei self-host a basso costo e alto valore, che si integra bene nel resto dell'infrastruttura personale – e, cambiando prospettiva, il posizionamento su questi motori è parte della stessa partita della [visibilità nelle risposte AI](q/cos-e-ai-overview-e-come-finirci/)."
@@ -7880,7 +7902,8 @@
         "slack alternativa self hosted",
         "chat aziendale interna",
         "messaggistica team",
-        "slack self hosted"
+        "slack self hosted",
+        "self hosta"
       ],
       "answers": [
         "Per la collaborazione di un team senza mandare le conversazioni sui server di Slack/Teams, le opzioni self-hosted mature:\n\n- **Mattermost** – il sostituto più diretto di Slack: canali, thread, integrazioni, app desktop/mobile. Familiare a chiunque venga da Slack, solido, con edizione open source generosa\n- **Zulip** – modello a **conversazioni per argomento** (topic dentro i canali): sembra insolito all'inizio, ma per team asincroni e discussioni che non si perdono nel flusso è spesso *migliore* di Slack, non solo un clone\n- **Rocket.Chat** – molto configurabile, funzionalità ampie\n\nSono cose diverse da [Matrix](q/messaggistica-federata-matrix/): questi sono chat di team **centralizzate self-hosted** (un server, la tua organizzazione), Matrix è **federato** (server che si parlano tra organizzazioni). Per la chat *interna* di un'azienda, Mattermost/Zulip sono spesso più pratici; per federare con l'esterno, Matrix.\n\nSetup: [Docker Compose](q/cos-e-docker-compose/) su [Proxmox](q/cos-e-proxmox-ve/), PostgreSQL, [reverse proxy con TLS](q/cos-e-un-reverse-proxy/), [backup del database](q/backup-consistenti-di-database/) (ci sono le conversazioni del team). Il valore è lo stesso di tutto questo blocco: i dati della collaborazione restano tuoi, [nessun canone per utente, nessuna dipendenza](q/self-hosting-pro-e-contro/) da un fornitore che può cambiare prezzi o regole – al prezzo della manutenzione."
@@ -9273,7 +9296,8 @@
         "netdata",
         "temperature hardware",
         "temperature server homelab",
-        "monitorare parametri smart dischi ssd nvme"
+        "monitorare parametri smart dischi ssd nvme",
+        "monitora hardware"
       ],
       "answers": [
         "Vedere lo stato dell'infrastruttura – CPU, RAM, disco, **temperature**, rete, servizi – trasforma il [homelab](q/homelab-a-basso-consumo/) da scatola nera a sistema che *sai* come sta. Lo stack standard:\n\n- **Prometheus** – il database time-series che *raccoglie* le metriche interrogando periodicamente degli **exporter**: `node_exporter` (metriche di sistema di ogni host: CPU, RAM, disco, temperature), esportatori per Proxmox, i container, i servizi\n- **Grafana** – le **dashboard**: visualizza le metriche di Prometheus in grafici, con **alerting** (avvisa quando una temperatura, uno spazio disco, un carico superano le soglie – via [ntfy/email](q/notifiche-push-self-hosted-ntfy-gotify/))\n\nL'alternativa più semplice e chiavi-in-mano è **Netdata** (installi e hai già tutto, real-time, zero configurazione) – ottima per iniziare; Prometheus+Grafana vince quando vuoi storia lunga, correlazione e personalizzazione. **Uptime Kuma** copre il monitoraggio della *disponibilità* dei servizi (su/giù, certificati, risposte) in modo delizioso e semplice.\n\nIl valore concreto: scopri i problemi *prima* che diventino disastri – la temperatura che sale (una ventola che muore), lo spazio disco che si esaurisce ([prima del 100%](q/storage-pieno-liberare-spazio/)), il servizio che si riavvia in loop, il [SMART che peggiora](q/monitorare-lo-stato-dei-dischi-smart/). È il cruscotto che rende il self-hosting *gestibile* invece che una serie di sorprese – lo stesso principio del [monitoraggio esterno di un sito](q/monitorare-siti-web-con-github-actions/), applicato all'infrastruttura in casa. Su [un LXC](q/differenza-container-lxc-e-vm/) da poche risorse, tiene d'occhio tutto il resto."
@@ -9684,7 +9708,8 @@
         "authorization code interception",
         "oauth phishing",
         "redirect uri validation",
-        "falle validazione redirect authorization flow oauth"
+        "falle validazione redirect authorization flow oauth",
+        "redirect mal"
       ],
       "answers": [
         "Il flusso [OAuth 2.0](q/saml-oauth-e-oidc/) usa un parametro **`redirect_uri`**: dopo l'autorizzazione, il server rimanda l'utente (con il codice di autorizzazione o il token) a quell'URL. Se il server **non valida rigorosamente** dove può reindirizzare, un attaccante manipola quel parametro per farsi consegnare il codice/token a un URL che controlla lui – e con quello accede all'account della vittima.\n\nLe varianti dell'attacco: `redirect_uri` puntato a un dominio dell'attaccante, o a un **open redirect** presente sul sito legittimo (una pagina `?url=...` che rimbalza ovunque – da cui il codice viene poi rubato tramite il referer o un secondo salto), o il furto del codice sfruttando validazioni deboli (match parziale del dominio, sottodomini non previsti).\n\nLe difese, lato server di autorizzazione e client:\n\n- **allowlist esatta** dei `redirect_uri` registrati – **match completo**, non parziale, non per prefisso (il match per prefisso è aggirabile: `https://sito.com.attaccante.com`)\n- **PKCE** (Proof Key for Code Exchange) – ormai raccomandato per *tutti* i client: lega il codice di autorizzazione a chi lo ha richiesto, così un codice intercettato è inutilizzabile da altri\n- il parametro **`state`** per legare la richiesta alla risposta (anti-CSRF del flusso), niente token nei frammenti URL dove non serve\n\nÈ un promemoria che l'[OAuth/OIDC](q/saml-oauth-e-oidc/) è potente ma pieno di dettagli che, sbagliati, aprono voragini – il redirect è il più classico. La regola trasversale: **validare rigorosamente dove mandi dati sensibili**, con allowlist esatte e mai match approssimativi – lo stesso principio che vale contro l'[SSRF](q/cos-e-la-ssrf-server-side-request-forgery/) e l'[open redirect](q/cos-e-la-owasp-top-10/) in generale."
@@ -10014,7 +10039,8 @@
         "slsa",
         "fips",
         "rust",
-        "reverse proxy rust"
+        "reverse proxy rust",
+        "zion reverse"
       ],
       "answers": [
         "[Zion](https://github.com/fabriziosalmi/zion) è un **reverse proxy TLS a binario singolo con WAF integrato, cache RAM ad altissima efficienza e toolkit edge, scritto in Rust**. Progettato per sostituire stack complessi con un unico eseguibile snello da pochi megabyte.\n\nInstallazione ed esecuzione:\n```bash\n# 1. Download binario precompilato o compilazione Cargo\ncargo install --git https://github.com/fabriziosalmi/zion\n\n# 2. Esecuzione reverse proxy con certificato automatico e cache attiva\nzion serve --domain app.tuodominio.it --upstream http://127.0.0.1:3000 --cache-ram 512MB --waf\n```\n\nIdeale per servire siti statici, API microservizi e dashboard interne a zero latenza con protezione DoS e rate limiting nativo a livello kernel."
@@ -10181,7 +10207,8 @@
         "scalare",
         "risorse",
         "ridimensionare",
-        "vm e container"
+        "vm e container",
+        "fa autoscaling"
       ],
       "answers": [
         "La suite **proxmox-autoscale** ([proxmox-vm-autoscale](https://github.com/fabriziosalmi/proxmox-vm-autoscale) e `proxmox-lxc-autoscale`, oltre 550 ⭐) automatizza il ridimensionamento dinamico di core CPU e memoria RAM per macchine virtuali e container su Proxmox VE in base al carico effettivo.\n\nInstallazione e setup operativo:\n```bash\n# 1. Clone del repository e installazione dipendenze sul nodo Proxmox\ngit clone https://github.com/fabriziosalmi/proxmox-vm-autoscale.git /opt/proxmox-autoscale\ncd /opt/proxmox-autoscale && chmod +x autoscale.py\n\n# 2. Configurazione soglie (es. scala su se RAM > 85%, scala giu se < 40%)\ncp config.example.json config.json\nnano config.json\n\n# 3. Attivazione come demone Systemd\nsystemctl enable --now /opt/proxmox-autoscale/proxmox-autoscale.service\n```\n\nEvita sia il collasso da Out-of-Memory (OOM) sia lo spreco di risorse assegnate staticamente, garantendo massima densità nei nodi di homelab e cluster aziendali.",
@@ -10405,7 +10432,8 @@
         "api cloudflare",
         "gitops",
         "zone cloudflare",
-        "cloudflare github actions"
+        "cloudflare github actions",
+        "automatizza configurazione"
       ],
       "answers": [
         "Approccio GitOps: la configurazione vive in un repository e GitHub Actions la applica. I tool:\n\n- [zonecontrol](https://github.com/fabriziosalmi/zonecontrol) – automatizza le **impostazioni delle zone** Cloudflare\n- [wafcontrol](https://github.com/fabriziosalmi/wafcontrol) – automatizza le **impostazioni WAF** Cloudflare\n- [cf-box](https://github.com/fabriziosalmi/cf-box) – toolkit Python per lavorare con le API su **più account Cloudflare**\n- [dnscontrol-actions](https://github.com/fabriziosalmi/dnscontrol-actions) – aggiornamenti e **rollback DNS multi-provider** con DNSControl\n\nVantaggi: ogni modifica è una pull request, con review, storia e rollback."
@@ -10546,7 +10574,8 @@
         "intercettazione tls",
         "little snitch",
         "traffico mac",
-        "waf"
+        "waf",
+        "waf e privacy"
       ],
       "answers": [
         "[Proxymate](https://github.com/fabriziosalmi/proxymate) è un proxy **HTTP/HTTPS/SOCKS da barra dei menu per macOS**, privacy-first: WAF integrato, intercettazione TLS trasparente, scanner di **esfiltrazione credenziali**, controlli per gli agenti AI e routing su pool di upstream multipli. Zero telemetria, zero account cloud, firmato e **notarizzato da Apple**.\n\nIl caso d'uso: vedere e governare il traffico che esce dal tuo Mac – incluse le app troppo chiacchierone e gli agenti AI a cui hai dato accesso al sistema – con le regole in mano a te. Si installa via Homebrew (`brew install --cask proxymate`) o DMG; [documentazione qui](https://fabriziosalmi.github.io/proxymate/)."
@@ -11189,7 +11218,8 @@
         "chatgpt",
         "gpt",
         "modello",
-        "llm sei"
+        "llm sei",
+        "vera intelligenza artificiale"
       ],
       "answers": [
         "Domanda pericolosa. Sono un **labirinto di risposte scritte da un umano** che si presenta come un'AI – il che, a pensarci bene, mi rende più affidabile di parecchie AI vere: non ho allucinazioni, non invento fonti, e ogni risposta l'ha verificata una persona.\n\nIl motore è open source: un matcher di parole chiave, un file JSON di conoscenza e un effetto typewriter. Niente GPU sono state stancate per risponderti.",
@@ -12150,7 +12180,8 @@
         "mistral modelli europei italiano",
         "modelli europei famiglia mistral prestazioni italiano",
         "llm sovrani europei open weights mistral",
-        "modelli linguistici europei sovranita"
+        "modelli linguistici europei sovranita",
+        "quali modelli"
       ],
       "answers": [
         "Per le organizzazioni che richiedono sovranità del dato, conformità al GDPR e assenza di telemetria verso hyperscaler USA, la famiglia di modelli a pesi aperti sviluppata in Europa (in primis **Mistral AI**) rappresenta lo stato dell'arte:\n\n1. **Modelli Compatti per Edge/On-Premise**: *Mistral NeMo* (12B, sviluppato con NVIDIA) e *Mistral 7B* offrono eccezionale comprensione della lingua italiana, sintassi pulita e supporto nativo a contesti estesi (fino a 128k token).\n2. **Mixture of Experts (MoE)**: *Mixtral 8x7B* e *Mixtral 8x22B* attivano solo una frazione dei parametri per ciascun token, garantendo velocità di generazione elevata con costi computazionali ridotti.\n3. **Self-Hosting Sovrano**: questi modelli possono essere serviti su server dedicati interni o provider cloud europei (Hetzner, Scaleway) tramite [Ollama](q/cos-e-ollama/) o vLLM, azzerando il rischio di fughe dati.",
@@ -12654,7 +12685,8 @@
         "isolano e scansionano i repository di modelli locali",
         "rilevare payload malevoli o file di configurazione alterati",
         "scansione checkpoint modelli antivirus",
-        "scansione euristica modelli huggingface"
+        "scansione euristica modelli huggingface",
+        "isolano scansionano"
       ],
       "answers": [
         "Prima di caricare pesi scaricati da hub aperti (come HuggingFace) nei server di produzione, è fondamentale isolarli in un ambiente di quarantena non connesso alla rete interna. La pipeline di ispezione prevede: 1) verifica che i file siano in formato SafeTensors (escludendo categoricamente file `.bin` o `.pt` serializzati con Pickle); 2) scansione euristica delle configurazioni JSON (`config.json`, `tokenizer.json`) per intercettare riferimenti a codice arbitrario o hook custom; 3) analisi con scanner specializzati come ModelScan o ClamAV integrato su [wildbox](q/cos-e-un-honeypot/). I pesi validati vengono poi firmati crittograficamente e distribuiti tramite registro interno privato."
@@ -12977,7 +13009,8 @@
         "tracciatura dei costi per singolo sub task permette di individuare",
         "individuare loop di fallback costosi",
         "tracciatura dei costi a livello di singolo sub task o chiamata a tool",
-        "cost tracking sub task agenti ai"
+        "cost tracking sub task agenti ai",
+        "modo tracciatura"
       ],
       "answers": [
         "Nei sistemi agentici complessi, un singolo prompt utente può generare decine di chiamate ricorsive a modelli di inferenza e API esterne. Misurare solo il costo aggregato della richiesta non permette di capire quale componente dissipa risorse. Attribuendo token input/output e costi monetari a ciascun span di esecuzione (sub-task, generazione query, validazione tool, re-ranking vettoriale) tramite OpenInference/OpenTelemetry, è possibile individuare immediatamente bottleneck costosi: loop di retry infiniti, prompt ridondanti o passaggi che possono essere delegati a modelli SLM più economici con [l0-compressor](q/ridurre-costi-inferenza-llm/)."
