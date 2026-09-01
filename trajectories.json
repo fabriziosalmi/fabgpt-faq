@@ -1,901 +1,1009 @@
 [
-  {
-    "name": "certmate-acme-flow",
-    "turns": [
-      {
-        "q": "Cos'è CertMate e come gestisce i certificati TLS/SSL?",
-        "expect": "certmate"
-      },
-      {
-        "q": "Come funziona Let's Encrypt e il protocollo ACME?",
-        "expect": "come-funziona-acme"
-      },
-      {
-        "q": "Come si monitorano scadenza dominio, SSL, DNS e reputazione IP?",
-        "expect": "domainmate"
-      },
-      {
-        "q": "Come si monitora un sito web usando solo GitHub Actions?",
-        "expect": "websites-monitor"
-      }
-    ]
-  },
-  {
-    "name": "proxxx-terminal-cockpit",
-    "turns": [
-      {
-        "q": "Cos'è proxxx, il cockpit da terminale per Proxmox?",
-        "expect": "proxxx"
-      },
-      {
-        "q": "Come si usa proxxx: installazione e primi comandi",
-        "expect": "guida-proxxx"
-      },
-      {
-        "q": "Come funziona la replica incrementale asincrona di snapshot ZFS con Sanoid e Syncoid?",
-        "expect": "sanoid-syncoid-zfs"
-      },
-      {
-        "q": "Come si configurano i backup automatici verso PBS?",
-        "expect": "backup-pbs-howto"
-      }
-    ]
-  },
-  {
-    "name": "caddy-waf-defense",
-    "turns": [
-      {
-        "q": "Come si aggiunge un WAF al web server Caddy?",
-        "expect": "caddy-waf"
-      },
-      {
-        "q": "Come si bloccano i bad bot su Nginx, Apache, Traefik e HAProxy?",
-        "expect": "patterns"
-      },
-      {
-        "q": "Cos'è la OWASP Top 10?",
-        "expect": "owasp-top10"
-      },
-      {
-        "q": "Come si configura il rate limiting su Nginx, Apache, Traefik e HAProxy?",
-        "expect": "limits"
-      }
-    ]
-  },
-  {
-    "name": "proxmox-autoscale-ops",
-    "turns": [
-      {
-        "q": "Come si fa autoscaling di VM e container LXC su Proxmox?",
-        "expect": "proxmox-autoscale"
-      },
-      {
-        "q": "Come si scalano automaticamente CPU e RAM delle VM su Proxmox?",
-        "expect": "proxmox-vm-autoscale"
-      },
-      {
-        "q": "Cos'è Pegaprox e come si usa con la traduzione italiana curata da Fabrizio Salmi?",
-        "expect": "pegaprox"
-      }
-    ]
-  },
-  {
-    "name": "pegaprox-italian-management",
-    "turns": [
-      {
-        "q": "Cos'è Pegaprox e come si usa con la traduzione italiana curata da Fabrizio Salmi?",
-        "expect": "pegaprox"
-      },
-      {
-        "q": "Come si migra da VMware a Proxmox?",
-        "expect": "vmware-migrazione"
-      },
-      {
-        "q": "Cos'è la paravirtualizzazione (VirtIO)?",
-        "expect": "virtio"
-      },
-      {
-        "q": "Come si fa la migrazione live tra nodi Proxmox?",
-        "expect": "migrazione-live"
-      }
-    ]
-  },
-  {
-    "name": "nanocode-cli-coding",
-    "turns": [
-      {
-        "q": "Cos'è Nanocode e come si usa per il coding assistito da terminale?",
-        "expect": "nanocode"
-      },
-      {
-        "q": "Come si fa girare un LLM in locale (e che hardware serve)?",
-        "expect": "llm-in-locale"
-      },
-      {
-        "q": "Come si riduce il consumo di token di un agente AI?",
-        "expect": "l0-compressor"
-      },
-      {
-        "q": "Come si costruisce un server MCP?",
-        "expect": "creare-mcp-server"
-      }
-    ]
-  },
-  {
-    "name": "agssh-zero-trust-keys",
-    "turns": [
-      {
-        "q": "Cos'è agssh e come si verifica che un sito statico non faccia chiamate esterne?",
-        "expect": "agssh"
-      },
-      {
-        "q": "Cosa sono le chiavi di sicurezza hardware (YubiKey e simili)?",
-        "expect": "hardware-key"
-      },
-      {
-        "q": "Come si imposta il firewall dell'host (tramite ufw o regole native nftables) secondo il principio di default deny su tutto il traffico?",
-        "expect": "host-default-deny-nftables"
-      },
-      {
-        "q": "Come si mette in sicurezza SSH su un server esposto?",
-        "expect": "hardening-ssh"
-      }
-    ]
-  },
-  {
-    "name": "flareover-migration-drill",
-    "turns": [
-      {
-        "q": "Come si migra un sito da Cloudflare a un'infrastruttura self-hosted europea?",
-        "expect": "flareover"
-      },
-      {
-        "q": "Come si automatizza la configurazione di Cloudflare?",
-        "expect": "cloudflare-automation"
-      },
-      {
-        "q": "Come si conservano i log di Cloudflare a norma NIS2 e GDPR?",
-        "expect": "rainlogs"
-      },
-      {
-        "q": "Quali sono i cloud provider europei (alternative a AWS/Google)?",
-        "expect": "cloud-provider-eu"
-      }
-    ]
-  },
-  {
-    "name": "l0-token-compression-loop",
-    "turns": [
-      {
-        "q": "Come si riduce il consumo di token di un agente AI?",
-        "expect": "l0-compressor"
-      },
-      {
-        "q": "Cosa sono i token e la context window di un LLM?",
-        "expect": "token-context"
-      },
-      {
-        "q": "In che modo WebAssembly (Wasm/WASI) viene impiegato come runtime harness a basso overhead per limitare l'accesso a CPU, memoria e socket di rete da parte di tool agentici?",
-        "expect": "wasm-wasi-agent-sandbox"
-      },
-      {
-        "q": "Quali sono i pattern di orchestrazione degli agenti (e i loop decisionali)?",
-        "expect": "agent-orchestration-patterns"
-      }
-    ]
-  },
-  {
-    "name": "silicondev-mlx-finetuning",
-    "turns": [
-      {
-        "q": "Come si fa il fine-tuning di un LLM in locale su Apple Silicon?",
-        "expect": "silicondev"
-      },
-      {
-        "q": "Apple Silicon o GPU NVIDIA per l'AI locale?",
-        "expect": "apple-vs-nvidia"
-      },
-      {
-        "q": "Cos'è la quantizzazione di un modello (GGUF, 4-bit)?",
-        "expect": "quantizzazione"
-      },
-      {
-        "q": "Meglio fine-tuning o RAG?",
-        "expect": "fine-tuning-vs-rag"
-      }
-    ]
-  },
-  {
-    "name": "wildbox-threat-response",
-    "turns": [
-      {
-        "q": "Cos'è Wildbox, la piattaforma di sicurezza open source?",
-        "expect": "wildbox"
-      },
-      {
-        "q": "Wazuh, Wildbox o stack ELK per il monitoraggio sicurezza?",
-        "expect": "wazuh-wildbox-elk"
-      },
-      {
-        "q": "Come si progetta un playbook SOAR (es. isolare un endpoint infetto)?",
-        "expect": "soar-playbook"
-      }
-    ]
-  },
-  {
-    "name": "speedmate-wp-optimization",
-    "turns": [
-      {
-        "q": "Come si velocizza un sito WordPress?",
-        "expect": "speedmate"
-      },
-      {
-        "q": "Cosa sono i Core Web Vitals (LCP, INP, CLS)?",
-        "expect": "core-web-vitals"
-      },
-      {
-        "q": "Cos'è una CDN e quando serve davvero?",
-        "expect": "cos-e-cdn"
-      },
-      {
-        "q": "Cos'è JSON-LD (schema.org) e a cosa serve per la SEO?",
-        "expect": "json-ld"
-      }
-    ]
-  },
-  {
-    "name": "rainlogs-nis2-compliance",
-    "turns": [
-      {
-        "q": "Come si conservano i log di Cloudflare a norma NIS2 e GDPR?",
-        "expect": "rainlogs"
-      },
-      {
-        "q": "Per quanto tempo si possono conservare i log secondo il GDPR?",
-        "expect": "gdpr-log"
-      },
-      {
-        "q": "In che modo il principio di accountability responsabilizza gli organi di amministrazione societari (Board) nella gestione della sicurezza informatica sotto NIS2?",
-        "expect": "board-accountability-nis2"
-      }
-    ]
-  },
-  {
-    "name": "zion-edge-reverse-proxy",
-    "turns": [
-      {
-        "q": "Cos'è Zion, il reverse proxy Rust con WAF integrato?",
-        "expect": "zion"
-      },
-      {
-        "q": "Cos'è un reverse proxy e a cosa serve?",
-        "expect": "cos-e-un-reverse-proxy"
-      },
-      {
-        "q": "Come funziona l'handshake TCP a tre vie (e il SYN flood)?",
-        "expect": "tcp-handshake"
-      },
-      {
-        "q": "Cos'è la defense in depth (difesa in profondità)?",
-        "expect": "defense-in-depth"
-      }
-    ]
-  },
-  {
-    "name": "b2v-cold-storage-video",
-    "turns": [
-      {
-        "q": "Si possono archiviare file arbitrari dentro un video?",
-        "expect": "b2v"
-      },
-      {
-        "q": "Come si fa un backup con la regola 3-2-1?",
-        "expect": "backup-321"
-      },
-      {
-        "q": "Cosa sono i supporti ottici M-DISC (B-DXL) per la conservazione a lungo termine?",
-        "expect": "mdisc-conservazione-ottica"
-      },
-      {
-        "q": "Come si verifica l'integrità crittografica di immagini ISO e binari con SHA-256 e firme GPG?",
-        "expect": "verifica-iso-gpg-sha256"
-      }
-    ]
-  },
-  {
-    "name": "mixi-browser-djing",
-    "turns": [
-      {
-        "q": "Esiste una console da DJ / DAW che gira nel browser?",
-        "expect": "mixi"
-      },
-      {
-        "q": "Come funziona il vinile timecode (DVS)?",
-        "expect": "dvs-timecode"
-      },
-      {
-        "q": "Quali strumenti open source esistono per la produzione musicale?",
-        "expect": "audio-tools"
-      },
-      {
-        "q": "Mastering e mixing: che differenza c'è?",
-        "expect": "mastering-vs-mixing"
-      }
-    ]
-  },
-  {
-    "name": "patterns-bot-blocking",
-    "turns": [
-      {
-        "q": "Come si bloccano i bad bot su Nginx, Apache, Traefik e HAProxy?",
-        "expect": "patterns"
-      },
-      {
-        "q": "Come funziona il file robots.txt?",
-        "expect": "robots-txt"
-      },
-      {
-        "q": "Come si difende un sito dallo scraping?",
-        "expect": "anti-scraping"
-      },
-      {
-        "q": "Come si filtra il traffico con GeoIP e liste di reputazione?",
-        "expect": "geoip-filtering"
-      }
-    ]
-  },
-  {
-    "name": "noted-local-first-pkm",
-    "turns": [
-      {
-        "q": "Esiste un'app di note Markdown local-first con AI integrata?",
-        "expect": "noted"
-      },
-      {
-        "q": "Come si sostituisce Google Drive/Workspace con Nextcloud?",
-        "expect": "nextcloud"
-      },
-      {
-        "q": "Come si self-hosta un password manager (Vaultwarden)?",
-        "expect": "vaultwarden"
-      },
-      {
-        "q": "Come si distribuiscono credenziali e comunicazioni temporanee protette nel team con PrivateBin e Vaultwarden Sends?",
-        "expect": "privatebin-vaultwarden-sends"
-      }
-    ]
-  },
-  {
-    "name": "incident-response-ransomware",
-    "turns": [
-      {
-        "q": "Come si risponde a un incidente di sicurezza: le prime ore",
-        "expect": "incident-response"
-      },
-      {
-        "q": "Come si gestisce la comunicazione di crisi in un incidente cyber?",
-        "expect": "crisis-communication"
-      },
-      {
-        "q": "Cos'è un tabletop exercise (simulazione di crisi cyber)?",
-        "expect": "tabletop-exercise"
-      },
-      {
-        "q": "Quali criteri di convalida e test devono essere soddisfatti prima di reintrodurre sistemi bonificati nella rete produttiva dopo un incidente?",
-        "expect": "post-incident-system-reentry"
-      }
-    ]
-  },
-  {
-    "name": "homelab-zfs-backup-pbs",
-    "turns": [
-      {
-        "q": "Homelab a basso consumo: mini PC al posto del server?",
-        "expect": "homelab-low-power"
-      },
-      {
-        "q": "Come funziona la replica incrementale asincrona di snapshot ZFS con Sanoid e Syncoid?",
-        "expect": "sanoid-syncoid-zfs"
-      },
-      {
-        "q": "Come si collega un UPS per lo spegnimento sicuro (NUT)?",
-        "expect": "ups-nut"
-      },
-      {
-        "q": "Qual è la differenza tra RPO (Recovery Point Objective) e RTO (Recovery Time Objective)?",
-        "expect": "rpo-vs-rto"
-      }
-    ]
-  },
-  {
-    "name": "zero-trust-microsegmentation",
-    "turns": [
-      {
-        "q": "Cos'è il modello Zero Trust?",
-        "expect": "zero-trust"
-      },
-      {
-        "q": "Come si segmenta una rete con le VLAN?",
-        "expect": "vlan-segmentazione"
-      },
-      {
-        "q": "Come funzionano le tecniche di attacco Layer 2 come VLAN Hopping e ARP Poisoning, e quali controlli le mitigano?",
-        "expect": "vlan-hopping-arp-spoofing"
-      }
-    ]
-  },
-  {
-    "name": "ai-act-deployer-compliance",
-    "turns": [
-      {
-        "q": "Come si garantisce l'explainability e l'ispezionabilità delle catene di inferenza logica per audit normativi e indagini forensi?",
-        "expect": "llm-explainability-forensics"
-      }
-    ]
-  },
-  {
-    "name": "rag-security-guardrails",
-    "turns": [
-      {
-        "q": "In che modo un attacco di Vector Poisoning può alterare il posizionamento spaziale dei chunk di testo nello spazio vettoriale per dirottare il retrieval RAG?",
-        "expect": "vector-poisoning-rag"
-      },
-      {
-        "q": "Quali sono i rischi di sicurezza del RAG e dei vector database?",
-        "expect": "rag-security"
-      },
-      {
-        "q": "Quali metriche compongono il framework RAGAS per valutare pipeline RAG?",
-        "expect": "ragas-framework-eval"
-      }
-    ]
-  },
-  {
-    "name": "wasm-agent-sandboxing",
-    "turns": [
-      {
-        "q": "In che modo WebAssembly (Wasm/WASI) viene impiegato come runtime harness a basso overhead per limitare l'accesso a CPU, memoria e socket di rete da parte di tool agentici?",
-        "expect": "wasm-wasi-agent-sandbox"
-      },
-      {
-        "q": "Come si gestisce l'iniezione dinamica di variabili d'ambiente e segreti temporanei nelle sandbox agentiche senza esporli all'LLM?",
-        "expect": "agent-env-secrets-injection"
-      },
-      {
-        "q": "Quali pattern di validazione runtime e rollback transazionale devono essere applicati sulle chiamate a tool MCP prima dell'esecuzione?",
-        "expect": "mcp-validation-rollback"
-      }
-    ]
-  },
-  {
-    "name": "gitleaks-secret-prevention",
-    "turns": [
-      {
-        "q": "Come si configurano hook di pre-commit con Gitleaks o Trufflehog per bloccare il push di credenziali nei repository Git?",
-        "expect": "gitleaks-trufflehog-precommit"
-      },
-      {
-        "q": "Come si gestisce la rotazione automatica delle chiavi crittografiche di sessione e dei token di servizio senza causare disservizi applicativi?",
-        "expect": "cryptographic-session-key-rotation"
-      }
-    ]
-  },
-  {
-    "name": "docker-vpn-hardened-network",
-    "turns": [
-      {
-        "q": "Come funziona l'instradamento del traffico di specifici container Docker attraverso un container VPN dedicato (es. Gluetun)?",
-        "expect": "docker-gluetun-vpn"
-      },
-      {
-        "q": "Qual è la differenza strutturale tra named volumes Docker persistenti e bind mounts per l'accesso ai file residenti sul filesystem host?",
-        "expect": "docker-volumes-vs-bindmounts"
-      },
-      {
-        "q": "Come si configura la rotazione automatica dei file di log di Docker per prevenire la saturazione imprevista dello spazio su disco?",
-        "expect": "docker-log-rotation-limits"
-      },
-      {
-        "q": "Quali configurazioni del server web impediscono l'esecuzione di script arbitrari (PHP, Python, CGI) nelle cartelle destinate all'upload di file?",
-        "expect": "webserver-upload-execution-prevention"
-      }
-    ]
-  },
-  {
-    "name": "vaultwarden-sovereign-vault",
-    "turns": [
-      {
-        "q": "Come si self-hosta un password manager (Vaultwarden)?",
-        "expect": "vaultwarden"
-      },
-      {
-        "q": "Cosa sono le passkey (e sostituiranno le password)?",
-        "expect": "passkey"
-      }
-    ]
-  },
-  {
-    "name": "jellyfin-hardware-transcoding",
-    "turns": [
-      {
-        "q": "Come si configura Jellyfin per gestire lo streaming multimediale domestico senza dipendere da account o server cloud esterni?",
-        "expect": "jellyfin-media-streaming"
-      },
-      {
-        "q": "Come si configura un assistente vocale interamente offline su Home Assistant (Whisper, Piper, Wyoming)?",
-        "expect": "wyoming-piper-whisper"
-      },
-      {
-        "q": "In che modo lo standard Matter abilita la smart home locale senza server cloud?",
-        "expect": "matter-domotica-locale"
-      }
-    ]
-  },
-  {
-    "name": "nextcloud-collaborative-suite",
-    "turns": [
-      {
-        "q": "Come si configura un'istanza Nextcloud ottimizzata con caching Redis e database PostgreSQL per sincronizzare file e calendari?",
-        "expect": "nextcloud-redis-postgres"
-      },
-      {
-        "q": "Quali strumenti (es. imapsync) consentono la migrazione a caldo di grandi volumi di caselle email da suite cloud verso infrastrutture IMAP sovrane?",
-        "expect": "imapsync-migrazione-email"
-      },
-      {
-        "q": "Come si configura uno Smart Host/Relay SMTP cifrato per instradare la posta in uscita qualora l'IP del server rientri in blacklist residenziali?",
-        "expect": "smart-host-relay-smtp"
-      }
-    ]
-  },
-  {
-    "name": "matrix-federated-messaging",
-    "turns": [
-      {
-        "q": "In che modo l'architettura di SimpleX Chat garantisce la privacy eliminando identificatori utente persistenti?",
-        "expect": "simplex-chat-privacy"
-      },
-      {
-        "q": "Come opera l'architettura a doppio livello di Whonix (Gateway Tor isolato e Workstation applicativa) per prevenire leak IP e MAC?",
-        "expect": "whonix-gateway-workstation"
-      },
-      {
-        "q": "Quali sono le distribuzioni Linux consumer più stabili (es. Debian, Fedora, Linux Mint) per l'abbandono definitivo dei sistemi closed-source?",
-        "expect": "distro-linux-consumer-desktop"
-      }
-    ]
-  },
-  {
-    "name": "linux-kernel-sysctl-hardening",
-    "turns": [
-      {
-        "q": "Come si imposta il firewall dell'host (tramite ufw o regole native nftables) secondo il principio di default deny su tutto il traffico?",
-        "expect": "host-default-deny-nftables"
-      },
-      {
-        "q": "Isolamento delle applicazioni: Flatpak, Snap, container, Firejail?",
-        "expect": "app-sandboxing"
-      },
-      {
-        "q": "In cosa consiste la neutralizzazione dell'Intel Management Engine con me_cleaner?",
-        "expect": "me-cleaner-intel"
-      }
-    ]
-  },
-  {
-    "name": "secure-data-sanitization",
-    "turns": [
-      {
-        "q": "Quali sono le metodologie certificate di cancellazione sicura dei supporti di memorizzazione (NIST SP 800-88, ATA/NVMe Secure Erase)?",
-        "expect": "nist-800-88-sanitization"
-      },
-      {
-        "q": "Come funzionano le copie shadow del volume (VSS) su Windows e come si proteggono?",
-        "expect": "vss-shadow-copies-windows"
-      }
-    ]
-  },
-  {
-    "name": "reverse-proxy-architecture",
-    "turns": [
-      {
-        "q": "Cos'è un reverse proxy e a cosa serve?",
-        "expect": "cos-e-un-reverse-proxy"
-      },
-      {
-        "q": "Come funziona Let's Encrypt e il protocollo ACME?",
-        "expect": "come-funziona-acme"
-      },
-      {
-        "q": "Cos'è Zion, il reverse proxy Rust con WAF integrato?",
-        "expect": "zion"
-      },
-      {
-        "q": "Come si mette un'autenticazione moderna davanti a un servizio (OAuth2-Proxy, Authelia)?",
-        "expect": "oauth2-proxy"
-      }
-    ]
-  },
-  {
-    "name": "dns-propagation-troubleshooting",
-    "turns": [
-      {
-        "q": "Come si diagnostica la propagazione DNS?",
-        "expect": "propagazione-dns"
-      },
-      {
-        "q": "Come si imposta DMARC senza rompere la posta?",
-        "expect": "dmarc-rollout"
-      },
-      {
-        "q": "Cos'è il file llms.txt?",
-        "expect": "llms-txt"
-      },
-      {
-        "q": "Cos'è l'AI Overview di Google (e come ci si finisce)?",
-        "expect": "ai-overview"
-      }
-    ]
-  },
-  {
-    "name": "whisper-piper-voice-assistant",
-    "turns": [
-      {
-        "q": "Come si configura un assistente vocale interamente offline su Home Assistant (Whisper, Piper, Wyoming)?",
-        "expect": "wyoming-piper-whisper"
-      },
-      {
-        "q": "Come si trascrive l'audio in locale (Whisper)?",
-        "expect": "whisper"
-      },
-      {
-        "q": "Come si fanno automazioni domotiche avanzate (Node-RED, MQTT)?",
-        "expect": "node-red-mqtt"
-      },
-      {
-        "q": "Come garantire il funzionamento manuale degli interruttori di casa se il server domotico va in crash?",
-        "expect": "fallback-manuale-domotica"
-      }
-    ]
-  },
-  {
-    "name": "outlines-json-structured-decoding",
-    "turns": [
-      {
-        "q": "Come funziona lo Structured Decoding (Outlines, Guidance) per garantire output JSON conformi?",
-        "expect": "outlines-guidance-decoding"
-      },
-      {
-        "q": "Cosa sono lo structured output e il JSON mode?",
-        "expect": "structured-output"
-      },
-      {
-        "q": "Quali metriche compongono il framework RAGAS per valutare pipeline RAG?",
-        "expect": "ragas-framework-eval"
-      }
-    ]
-  },
-  {
-    "name": "pii-masking-pre-inference",
-    "turns": [
-      {
-        "q": "Come combinare Named Entity Recognition (NER) e masking per prevenire fughe di dati sensibili (PII)?",
-        "expect": "ner-pii-masking-guardrail"
-      },
-      {
-        "q": "Come esfiltrano dati gli attacchi agli agenti AI (side-channel, Markdown)?",
-        "expect": "agent-exfiltration"
-      },
-      {
-        "q": "Come si monitorano e calibrano i tassi di falsi positivi (False Refusal Rate) introdotti da guardrail e filtri semantici troppo restrittivi?",
-        "expect": "guardrail-false-refusal-tuning"
-      },
-      {
-        "q": "Come si progetta una strategia di graceful degradation quando il guardrail intercetta una violazione, senza interrompere il flusso operativo?",
-        "expect": "guardrail-graceful-degradation"
-      }
-    ]
-  },
-  {
-    "name": "ddos-layer7-mitigation",
-    "turns": [
-      {
-        "q": "Come si aggiunge un WAF al web server Caddy?",
-        "expect": "caddy-waf"
-      },
-      {
-        "q": "Come integrare un'istanza MISP per alimentare automaticamente le regole di blocco del firewall?",
-        "expect": "misp-firewall-integration"
-      }
-    ]
-  },
-  {
-    "name": "disaster-recovery-rpo-rto",
-    "turns": [
-      {
-        "q": "Qual è la differenza tra RPO (Recovery Point Objective) e RTO (Recovery Time Objective)?",
-        "expect": "rpo-vs-rto"
-      },
-      {
-        "q": "Come si implementa la crittografia lato client nei backup automatizzati con Borgmatic?",
-        "expect": "borgmatic-client-encryption"
-      },
-      {
-        "q": "Come si fa un backup con la regola 3-2-1?",
-        "expect": "backup-321"
-      }
-    ]
-  },
-  {
-    "name": "meta-and-developer-journey",
-    "turns": [
-      {
-        "q": "Chi è Fabrizio Salmi?",
-        "expect": "chi-sei"
-      },
-      {
-        "q": "Quali progetti open source sviluppa Fabrizio Salmi?",
-        "expect": "panoramica-repo"
-      },
-      {
-        "q": "Cos'è FabGPT-FAQ e come funziona?",
-        "expect": "cos-e-fabgpt"
-      },
-      {
-        "q": "Come creo la mia FAQ con questo motore (guida al fork)?",
-        "expect": "fork-guida"
-      },
-      {
-        "q": "Come si contatta Fabrizio Salmi?",
-        "expect": "contatti"
-      }
-    ]
-  },
-  {
-    "name": "newcomer-greeting-to-topic",
-    "turns": [
-      {
-        "q": "ciao",
-        "expect": "st-saluto"
-      },
-      {
-        "q": "Cos'è un WAF (Web Application Firewall)?",
-        "expect": "cos-e-un-waf"
-      },
-      {
-        "q": "Cos'è un reverse proxy e a cosa serve?",
-        "expect": "cos-e-un-reverse-proxy"
-      },
-      {
-        "q": "grazie mille",
-        "expect": "st-grazie"
-      }
-    ]
-  },
-  {
-    "name": "repeat-ask-variant-rotation",
-    "turns": [
-      {
-        "q": "Cos'è un WAF (Web Application Firewall)?",
-        "expect": "cos-e-un-waf"
-      },
-      {
-        "q": "Cos'è un WAF (Web Application Firewall)?",
-        "expect": "cos-e-un-waf",
-        "variant": true
-      },
-      {
-        "q": "Come si fa autoscaling di VM e container LXC su Proxmox?",
-        "expect": "proxmox-autoscale"
-      },
-      {
-        "q": "Come si fa autoscaling di VM e container LXC su Proxmox?",
-        "expect": "proxmox-autoscale",
-        "variant": true
-      }
-    ]
-  },
-  {
-    "name": "fallback-rotation",
-    "turns": [
-      {
-        "q": "asdfgh qwerty",
-        "expect": "fallback"
-      },
-      {
-        "q": "zxcvbn poiuyt",
-        "expect": "fallback",
-        "new_fallback": true
-      },
-      {
-        "q": "il gatto sul tetto che scotta",
-        "expect": "fallback",
-        "new_fallback": true
-      },
-      {
-        "q": "Cos'è CertMate e come gestisce i certificati TLS/SSL?",
-        "expect": "certmate"
-      }
-    ]
-  },
-  {
-    "name": "cf-box-cloudflare-ops",
-    "turns": [
-      {
-        "q": "Cos'è cf-box e come si automatizza la gestione di Cloudflare?",
-        "expect": "cf-box"
-      },
-      {
-        "q": "Come si automatizza la configurazione di Cloudflare?",
-        "expect": "cloudflare-automation"
-      },
-      {
-        "q": "Come si conservano i log di Cloudflare a norma NIS2 e GDPR?",
-        "expect": "rainlogs"
-      },
-      {
-        "q": "Come si migra un sito da Cloudflare a un'infrastruttura self-hosted europea?",
-        "expect": "flareover"
-      }
-    ]
-  },
-  {
-    "name": "aidlp-data-loss-prevention",
-    "turns": [
-      {
-        "q": "Cos'è aidlp e come funziona il Data Loss Prevention per LLM?",
-        "expect": "aidlp"
-      },
-      {
-        "q": "Come funziona il Secure Proxy Manager e cosa fa un Secure Web Gateway (SWG)?",
-        "expect": "secure-proxy-manager"
-      },
-      {
-        "q": "Quali sono i rischi di sicurezza del RAG e dei vector database?",
-        "expect": "rag-security"
-      },
-      {
-        "q": "Come combinare Named Entity Recognition (NER) e masking per prevenire fughe di dati sensibili (PII)?",
-        "expect": "ner-pii-masking-guardrail"
-      }
-    ]
-  },
-  {
-    "name": "ai-dependency-guard-slopsquatting",
-    "turns": [
-      {
-        "q": "Cos'è ai-dependency-guard e come protegge dallo slopsquatting?",
-        "expect": "ai-dependency-guard"
-      },
-      {
-        "q": "Cosa sono le allucinazioni degli LLM e come si mitigano?",
-        "expect": "allucinazioni-llm"
-      },
-      {
-        "q": "Come si configurano hook di pre-commit con Gitleaks o Trufflehog per bloccare il push di credenziali nei repository Git?",
-        "expect": "gitleaks-trufflehog-precommit"
-      }
-    ]
-  },
-  {
-    "name": "proxmox-cluster-balancer-drs",
-    "turns": [
-      {
-        "q": "Cos'è proxmox-cluster-balancer e come bilancia i nodi di un cluster Proxmox?",
-        "expect": "proxmox-cluster-balancer"
-      },
-      {
-        "q": "Come si fa la migrazione live tra nodi Proxmox?",
-        "expect": "migrazione-live"
-      },
-      {
-        "q": "Come si fa autoscaling di VM e container LXC su Proxmox?",
-        "expect": "proxmox-autoscale"
-      },
-      {
-        "q": "Cos'è proxxx, il cockpit da terminale per Proxmox?",
-        "expect": "proxxx"
-      }
-    ]
-  }
+ {
+  "name": "certmate-acme-flow",
+  "turns": [
+   {
+    "q": "Cos'è CertMate e come gestisce i certificati TLS/SSL?",
+    "expect": "certmate"
+   },
+   {
+    "q": "Come funziona Let's Encrypt e il protocollo ACME?",
+    "expect": "come-funziona-acme"
+   },
+   {
+    "q": "Come si monitorano scadenza dominio, SSL, DNS e reputazione IP?",
+    "expect": "domainmate"
+   },
+   {
+    "q": "Come si monitora un sito web usando solo GitHub Actions?",
+    "expect": "websites-monitor"
+   }
+  ]
+ },
+ {
+  "name": "proxxx-terminal-cockpit",
+  "turns": [
+   {
+    "q": "Cos'è proxxx, il cockpit da terminale per Proxmox?",
+    "expect": "proxxx"
+   },
+   {
+    "q": "Come si usa proxxx: installazione e primi comandi",
+    "expect": "guida-proxxx"
+   },
+   {
+    "q": "Come funziona la replica incrementale asincrona di snapshot ZFS con Sanoid e Syncoid?",
+    "expect": "sanoid-syncoid-zfs"
+   },
+   {
+    "q": "Come si configurano i backup automatici verso PBS?",
+    "expect": "backup-pbs-howto"
+   }
+  ]
+ },
+ {
+  "name": "caddy-waf-defense",
+  "turns": [
+   {
+    "q": "Come si aggiunge un WAF al web server Caddy?",
+    "expect": "caddy-waf"
+   },
+   {
+    "q": "Come si bloccano i bad bot su Nginx, Apache, Traefik e HAProxy?",
+    "expect": "patterns"
+   },
+   {
+    "q": "Cos'è la OWASP Top 10?",
+    "expect": "owasp-top10"
+   },
+   {
+    "q": "Come si configura il rate limiting su Nginx, Apache, Traefik e HAProxy?",
+    "expect": "limits"
+   }
+  ]
+ },
+ {
+  "name": "proxmox-autoscale-ops",
+  "turns": [
+   {
+    "q": "Come si fa autoscaling di VM e container LXC su Proxmox?",
+    "expect": "proxmox-autoscale"
+   },
+   {
+    "q": "Come si scalano automaticamente CPU e RAM delle VM su Proxmox?",
+    "expect": "proxmox-vm-autoscale"
+   },
+   {
+    "q": "Cos'è Pegaprox e come si usa con la traduzione italiana curata da Fabrizio Salmi?",
+    "expect": "pegaprox"
+   }
+  ]
+ },
+ {
+  "name": "pegaprox-italian-management",
+  "turns": [
+   {
+    "q": "Cos'è Pegaprox e come si usa con la traduzione italiana curata da Fabrizio Salmi?",
+    "expect": "pegaprox"
+   },
+   {
+    "q": "Come si migra da VMware a Proxmox?",
+    "expect": "vmware-migrazione"
+   },
+   {
+    "q": "Cos'è la paravirtualizzazione (VirtIO)?",
+    "expect": "virtio"
+   },
+   {
+    "q": "Come si fa la migrazione live tra nodi Proxmox?",
+    "expect": "migrazione-live"
+   }
+  ]
+ },
+ {
+  "name": "nanocode-cli-coding",
+  "turns": [
+   {
+    "q": "Cos'è Nanocode e come si usa per il coding assistito da terminale?",
+    "expect": "nanocode"
+   },
+   {
+    "q": "Come si fa girare un LLM in locale (e che hardware serve)?",
+    "expect": "llm-in-locale"
+   },
+   {
+    "q": "Come si riduce il consumo di token di un agente AI?",
+    "expect": "l0-compressor"
+   },
+   {
+    "q": "Come si costruisce un server MCP?",
+    "expect": "creare-mcp-server"
+   }
+  ]
+ },
+ {
+  "name": "agssh-zero-trust-keys",
+  "turns": [
+   {
+    "q": "Cos'è agssh e come si verifica che un sito statico non faccia chiamate esterne?",
+    "expect": "agssh"
+   },
+   {
+    "q": "Cosa sono le chiavi di sicurezza hardware (YubiKey e simili)?",
+    "expect": "hardware-key"
+   },
+   {
+    "q": "Come si imposta il firewall dell'host (tramite ufw o regole native nftables) secondo il principio di default deny su tutto il traffico?",
+    "expect": "host-default-deny-nftables"
+   },
+   {
+    "q": "Come si mette in sicurezza SSH su un server esposto?",
+    "expect": "hardening-ssh"
+   }
+  ]
+ },
+ {
+  "name": "flareover-migration-drill",
+  "turns": [
+   {
+    "q": "Come si migra un sito da Cloudflare a un'infrastruttura self-hosted europea?",
+    "expect": "flareover"
+   },
+   {
+    "q": "Come si automatizza la configurazione di Cloudflare?",
+    "expect": "cloudflare-automation"
+   },
+   {
+    "q": "Come si conservano i log di Cloudflare a norma NIS2 e GDPR?",
+    "expect": "rainlogs"
+   },
+   {
+    "q": "Quali sono i cloud provider europei (alternative a AWS/Google)?",
+    "expect": "cloud-provider-eu"
+   }
+  ]
+ },
+ {
+  "name": "l0-token-compression-loop",
+  "turns": [
+   {
+    "q": "Come si riduce il consumo di token di un agente AI?",
+    "expect": "l0-compressor"
+   },
+   {
+    "q": "Cosa sono i token e la context window di un LLM?",
+    "expect": "token-context"
+   },
+   {
+    "q": "In che modo WebAssembly (Wasm/WASI) viene impiegato come runtime harness a basso overhead per limitare l'accesso a CPU, memoria e socket di rete da parte di tool agentici?",
+    "expect": "wasm-wasi-agent-sandbox"
+   },
+   {
+    "q": "Quali sono i pattern di orchestrazione degli agenti (e i loop decisionali)?",
+    "expect": "agent-orchestration-patterns"
+   }
+  ]
+ },
+ {
+  "name": "silicondev-mlx-finetuning",
+  "turns": [
+   {
+    "q": "Come si fa il fine-tuning di un LLM in locale su Apple Silicon?",
+    "expect": "silicondev"
+   },
+   {
+    "q": "Apple Silicon o GPU NVIDIA per l'AI locale?",
+    "expect": "apple-vs-nvidia"
+   },
+   {
+    "q": "Cos'è la quantizzazione di un modello (GGUF, 4-bit)?",
+    "expect": "quantizzazione"
+   },
+   {
+    "q": "Meglio fine-tuning o RAG?",
+    "expect": "fine-tuning-vs-rag"
+   }
+  ]
+ },
+ {
+  "name": "wildbox-threat-response",
+  "turns": [
+   {
+    "q": "Cos'è Wildbox, la piattaforma di sicurezza open source?",
+    "expect": "wildbox"
+   },
+   {
+    "q": "Wazuh, Wildbox o stack ELK per il monitoraggio sicurezza?",
+    "expect": "wazuh-wildbox-elk"
+   },
+   {
+    "q": "Come si progetta un playbook SOAR (es. isolare un endpoint infetto)?",
+    "expect": "soar-playbook"
+   }
+  ]
+ },
+ {
+  "name": "speedmate-wp-optimization",
+  "turns": [
+   {
+    "q": "Come si velocizza un sito WordPress?",
+    "expect": "speedmate"
+   },
+   {
+    "q": "Cosa sono i Core Web Vitals (LCP, INP, CLS)?",
+    "expect": "core-web-vitals"
+   },
+   {
+    "q": "Cos'è una CDN e quando serve davvero?",
+    "expect": "cos-e-cdn"
+   },
+   {
+    "q": "Cos'è JSON-LD (schema.org) e a cosa serve per la SEO?",
+    "expect": "json-ld"
+   }
+  ]
+ },
+ {
+  "name": "rainlogs-nis2-compliance",
+  "turns": [
+   {
+    "q": "Come si conservano i log di Cloudflare a norma NIS2 e GDPR?",
+    "expect": "rainlogs"
+   },
+   {
+    "q": "Per quanto tempo si possono conservare i log secondo il GDPR?",
+    "expect": "gdpr-log"
+   },
+   {
+    "q": "In che modo il principio di accountability responsabilizza gli organi di amministrazione societari (Board) nella gestione della sicurezza informatica sotto NIS2?",
+    "expect": "board-accountability-nis2"
+   }
+  ]
+ },
+ {
+  "name": "zion-edge-reverse-proxy",
+  "turns": [
+   {
+    "q": "Cos'è Zion, il reverse proxy Rust con WAF integrato?",
+    "expect": "zion"
+   },
+   {
+    "q": "Cos'è un reverse proxy e a cosa serve?",
+    "expect": "cos-e-un-reverse-proxy"
+   },
+   {
+    "q": "Come funziona l'handshake TCP a tre vie (e il SYN flood)?",
+    "expect": "tcp-handshake"
+   },
+   {
+    "q": "Cos'è la defense in depth (difesa in profondità)?",
+    "expect": "defense-in-depth"
+   }
+  ]
+ },
+ {
+  "name": "b2v-cold-storage-video",
+  "turns": [
+   {
+    "q": "Si possono archiviare file arbitrari dentro un video?",
+    "expect": "b2v"
+   },
+   {
+    "q": "Come si fa un backup con la regola 3-2-1?",
+    "expect": "backup-321"
+   },
+   {
+    "q": "Cosa sono i supporti ottici M-DISC (B-DXL) per la conservazione a lungo termine?",
+    "expect": "mdisc-conservazione-ottica"
+   },
+   {
+    "q": "Come si verifica l'integrità crittografica di immagini ISO e binari con SHA-256 e firme GPG?",
+    "expect": "verifica-iso-gpg-sha256"
+   }
+  ]
+ },
+ {
+  "name": "mixi-browser-djing",
+  "turns": [
+   {
+    "q": "Esiste una console da DJ / DAW che gira nel browser?",
+    "expect": "mixi"
+   },
+   {
+    "q": "Come funziona il vinile timecode (DVS)?",
+    "expect": "dvs-timecode"
+   },
+   {
+    "q": "Quali strumenti open source esistono per la produzione musicale?",
+    "expect": "audio-tools"
+   },
+   {
+    "q": "Mastering e mixing: che differenza c'è?",
+    "expect": "mastering-vs-mixing"
+   }
+  ]
+ },
+ {
+  "name": "patterns-bot-blocking",
+  "turns": [
+   {
+    "q": "Come si bloccano i bad bot su Nginx, Apache, Traefik e HAProxy?",
+    "expect": "patterns"
+   },
+   {
+    "q": "Come funziona il file robots.txt?",
+    "expect": "robots-txt"
+   },
+   {
+    "q": "Come si difende un sito dallo scraping?",
+    "expect": "anti-scraping"
+   },
+   {
+    "q": "Come si filtra il traffico con GeoIP e liste di reputazione?",
+    "expect": "geoip-filtering"
+   }
+  ]
+ },
+ {
+  "name": "noted-local-first-pkm",
+  "turns": [
+   {
+    "q": "Esiste un'app di note Markdown local-first con AI integrata?",
+    "expect": "noted"
+   },
+   {
+    "q": "Come si sostituisce Google Drive/Workspace con Nextcloud?",
+    "expect": "nextcloud"
+   },
+   {
+    "q": "Come si self-hosta un password manager (Vaultwarden)?",
+    "expect": "vaultwarden"
+   },
+   {
+    "q": "Come si distribuiscono credenziali e comunicazioni temporanee protette nel team con PrivateBin e Vaultwarden Sends?",
+    "expect": "privatebin-vaultwarden-sends"
+   }
+  ]
+ },
+ {
+  "name": "incident-response-ransomware",
+  "turns": [
+   {
+    "q": "Come si risponde a un incidente di sicurezza: le prime ore",
+    "expect": "incident-response"
+   },
+   {
+    "q": "Come si gestisce la comunicazione di crisi in un incidente cyber?",
+    "expect": "crisis-communication"
+   },
+   {
+    "q": "Cos'è un tabletop exercise (simulazione di crisi cyber)?",
+    "expect": "tabletop-exercise"
+   },
+   {
+    "q": "Quali criteri di convalida e test devono essere soddisfatti prima di reintrodurre sistemi bonificati nella rete produttiva dopo un incidente?",
+    "expect": "post-incident-system-reentry"
+   }
+  ]
+ },
+ {
+  "name": "homelab-zfs-backup-pbs",
+  "turns": [
+   {
+    "q": "Homelab a basso consumo: mini PC al posto del server?",
+    "expect": "homelab-low-power"
+   },
+   {
+    "q": "Come funziona la replica incrementale asincrona di snapshot ZFS con Sanoid e Syncoid?",
+    "expect": "sanoid-syncoid-zfs"
+   },
+   {
+    "q": "Come si collega un UPS per lo spegnimento sicuro (NUT)?",
+    "expect": "ups-nut"
+   },
+   {
+    "q": "Qual è la differenza tra RPO (Recovery Point Objective) e RTO (Recovery Time Objective)?",
+    "expect": "rpo-vs-rto"
+   }
+  ]
+ },
+ {
+  "name": "zero-trust-microsegmentation",
+  "turns": [
+   {
+    "q": "Cos'è il modello Zero Trust?",
+    "expect": "zero-trust"
+   },
+   {
+    "q": "Come si segmenta una rete con le VLAN?",
+    "expect": "vlan-segmentazione"
+   },
+   {
+    "q": "Come funzionano le tecniche di attacco Layer 2 come VLAN Hopping e ARP Poisoning, e quali controlli le mitigano?",
+    "expect": "vlan-hopping-arp-spoofing"
+   }
+  ]
+ },
+ {
+  "name": "ai-act-deployer-compliance",
+  "turns": [
+   {
+    "q": "Come si garantisce l'explainability e l'ispezionabilità delle catene di inferenza logica per audit normativi e indagini forensi?",
+    "expect": "llm-explainability-forensics"
+   }
+  ]
+ },
+ {
+  "name": "rag-security-guardrails",
+  "turns": [
+   {
+    "q": "In che modo un attacco di Vector Poisoning può alterare il posizionamento spaziale dei chunk di testo nello spazio vettoriale per dirottare il retrieval RAG?",
+    "expect": "vector-poisoning-rag"
+   },
+   {
+    "q": "Quali sono i rischi di sicurezza del RAG e dei vector database?",
+    "expect": "rag-security"
+   },
+   {
+    "q": "Quali metriche compongono il framework RAGAS per valutare pipeline RAG?",
+    "expect": "ragas-framework-eval"
+   }
+  ]
+ },
+ {
+  "name": "wasm-agent-sandboxing",
+  "turns": [
+   {
+    "q": "In che modo WebAssembly (Wasm/WASI) viene impiegato come runtime harness a basso overhead per limitare l'accesso a CPU, memoria e socket di rete da parte di tool agentici?",
+    "expect": "wasm-wasi-agent-sandbox"
+   },
+   {
+    "q": "Come si gestisce l'iniezione dinamica di variabili d'ambiente e segreti temporanei nelle sandbox agentiche senza esporli all'LLM?",
+    "expect": "agent-env-secrets-injection"
+   },
+   {
+    "q": "Quali pattern di validazione runtime e rollback transazionale devono essere applicati sulle chiamate a tool MCP prima dell'esecuzione?",
+    "expect": "mcp-validation-rollback"
+   }
+  ]
+ },
+ {
+  "name": "gitleaks-secret-prevention",
+  "turns": [
+   {
+    "q": "Come si configurano hook di pre-commit con Gitleaks o Trufflehog per bloccare il push di credenziali nei repository Git?",
+    "expect": "gitleaks-trufflehog-precommit"
+   },
+   {
+    "q": "Come si gestisce la rotazione automatica delle chiavi crittografiche di sessione e dei token di servizio senza causare disservizi applicativi?",
+    "expect": "cryptographic-session-key-rotation"
+   }
+  ]
+ },
+ {
+  "name": "docker-vpn-hardened-network",
+  "turns": [
+   {
+    "q": "Come funziona l'instradamento del traffico di specifici container Docker attraverso un container VPN dedicato (es. Gluetun)?",
+    "expect": "docker-gluetun-vpn"
+   },
+   {
+    "q": "Qual è la differenza strutturale tra named volumes Docker persistenti e bind mounts per l'accesso ai file residenti sul filesystem host?",
+    "expect": "docker-volumes-vs-bindmounts"
+   },
+   {
+    "q": "Come si configura la rotazione automatica dei file di log di Docker per prevenire la saturazione imprevista dello spazio su disco?",
+    "expect": "docker-log-rotation-limits"
+   },
+   {
+    "q": "Quali configurazioni del server web impediscono l'esecuzione di script arbitrari (PHP, Python, CGI) nelle cartelle destinate all'upload di file?",
+    "expect": "webserver-upload-execution-prevention"
+   }
+  ]
+ },
+ {
+  "name": "vaultwarden-sovereign-vault",
+  "turns": [
+   {
+    "q": "Come si self-hosta un password manager (Vaultwarden)?",
+    "expect": "vaultwarden"
+   },
+   {
+    "q": "Cosa sono le passkey (e sostituiranno le password)?",
+    "expect": "passkey"
+   }
+  ]
+ },
+ {
+  "name": "jellyfin-hardware-transcoding",
+  "turns": [
+   {
+    "q": "Come si configura Jellyfin per gestire lo streaming multimediale domestico senza dipendere da account o server cloud esterni?",
+    "expect": "jellyfin-media-streaming"
+   },
+   {
+    "q": "Come si configura un assistente vocale interamente offline su Home Assistant (Whisper, Piper, Wyoming)?",
+    "expect": "wyoming-piper-whisper"
+   },
+   {
+    "q": "In che modo lo standard Matter abilita la smart home locale senza server cloud?",
+    "expect": "matter-domotica-locale"
+   }
+  ]
+ },
+ {
+  "name": "nextcloud-collaborative-suite",
+  "turns": [
+   {
+    "q": "Come si configura un'istanza Nextcloud ottimizzata con caching Redis e database PostgreSQL per sincronizzare file e calendari?",
+    "expect": "nextcloud-redis-postgres"
+   },
+   {
+    "q": "Quali strumenti (es. imapsync) consentono la migrazione a caldo di grandi volumi di caselle email da suite cloud verso infrastrutture IMAP sovrane?",
+    "expect": "imapsync-migrazione-email"
+   },
+   {
+    "q": "Come si configura uno Smart Host/Relay SMTP cifrato per instradare la posta in uscita qualora l'IP del server rientri in blacklist residenziali?",
+    "expect": "smart-host-relay-smtp"
+   }
+  ]
+ },
+ {
+  "name": "matrix-federated-messaging",
+  "turns": [
+   {
+    "q": "In che modo l'architettura di SimpleX Chat garantisce la privacy eliminando identificatori utente persistenti?",
+    "expect": "simplex-chat-privacy"
+   },
+   {
+    "q": "Come opera l'architettura a doppio livello di Whonix (Gateway Tor isolato e Workstation applicativa) per prevenire leak IP e MAC?",
+    "expect": "whonix-gateway-workstation"
+   },
+   {
+    "q": "Quali sono le distribuzioni Linux consumer più stabili (es. Debian, Fedora, Linux Mint) per l'abbandono definitivo dei sistemi closed-source?",
+    "expect": "distro-linux-consumer-desktop"
+   }
+  ]
+ },
+ {
+  "name": "linux-kernel-sysctl-hardening",
+  "turns": [
+   {
+    "q": "Come si imposta il firewall dell'host (tramite ufw o regole native nftables) secondo il principio di default deny su tutto il traffico?",
+    "expect": "host-default-deny-nftables"
+   },
+   {
+    "q": "Isolamento delle applicazioni: Flatpak, Snap, container, Firejail?",
+    "expect": "app-sandboxing"
+   },
+   {
+    "q": "In cosa consiste la neutralizzazione dell'Intel Management Engine con me_cleaner?",
+    "expect": "me-cleaner-intel"
+   }
+  ]
+ },
+ {
+  "name": "secure-data-sanitization",
+  "turns": [
+   {
+    "q": "Quali sono le metodologie certificate di cancellazione sicura dei supporti di memorizzazione (NIST SP 800-88, ATA/NVMe Secure Erase)?",
+    "expect": "nist-800-88-sanitization"
+   },
+   {
+    "q": "Come funzionano le copie shadow del volume (VSS) su Windows e come si proteggono?",
+    "expect": "vss-shadow-copies-windows"
+   }
+  ]
+ },
+ {
+  "name": "reverse-proxy-architecture",
+  "turns": [
+   {
+    "q": "Cos'è un reverse proxy e a cosa serve?",
+    "expect": "cos-e-un-reverse-proxy"
+   },
+   {
+    "q": "Come funziona Let's Encrypt e il protocollo ACME?",
+    "expect": "come-funziona-acme"
+   },
+   {
+    "q": "Cos'è Zion, il reverse proxy Rust con WAF integrato?",
+    "expect": "zion"
+   },
+   {
+    "q": "Come si mette un'autenticazione moderna davanti a un servizio (OAuth2-Proxy, Authelia)?",
+    "expect": "oauth2-proxy"
+   }
+  ]
+ },
+ {
+  "name": "dns-propagation-troubleshooting",
+  "turns": [
+   {
+    "q": "Come si diagnostica la propagazione DNS?",
+    "expect": "propagazione-dns"
+   },
+   {
+    "q": "Come si imposta DMARC senza rompere la posta?",
+    "expect": "dmarc-rollout"
+   },
+   {
+    "q": "Cos'è il file llms.txt?",
+    "expect": "llms-txt"
+   },
+   {
+    "q": "Cos'è l'AI Overview di Google (e come ci si finisce)?",
+    "expect": "ai-overview"
+   }
+  ]
+ },
+ {
+  "name": "whisper-piper-voice-assistant",
+  "turns": [
+   {
+    "q": "Come si configura un assistente vocale interamente offline su Home Assistant (Whisper, Piper, Wyoming)?",
+    "expect": "wyoming-piper-whisper"
+   },
+   {
+    "q": "Come si trascrive l'audio in locale (Whisper)?",
+    "expect": "whisper"
+   },
+   {
+    "q": "Come si fanno automazioni domotiche avanzate (Node-RED, MQTT)?",
+    "expect": "node-red-mqtt"
+   },
+   {
+    "q": "Come garantire il funzionamento manuale degli interruttori di casa se il server domotico va in crash?",
+    "expect": "fallback-manuale-domotica"
+   }
+  ]
+ },
+ {
+  "name": "outlines-json-structured-decoding",
+  "turns": [
+   {
+    "q": "Come funziona lo Structured Decoding (Outlines, Guidance) per garantire output JSON conformi?",
+    "expect": "outlines-guidance-decoding"
+   },
+   {
+    "q": "Cosa sono lo structured output e il JSON mode?",
+    "expect": "structured-output"
+   },
+   {
+    "q": "Quali metriche compongono il framework RAGAS per valutare pipeline RAG?",
+    "expect": "ragas-framework-eval"
+   }
+  ]
+ },
+ {
+  "name": "pii-masking-pre-inference",
+  "turns": [
+   {
+    "q": "Come combinare Named Entity Recognition (NER) e masking per prevenire fughe di dati sensibili (PII)?",
+    "expect": "ner-pii-masking-guardrail"
+   },
+   {
+    "q": "Come esfiltrano dati gli attacchi agli agenti AI (side-channel, Markdown)?",
+    "expect": "agent-exfiltration"
+   },
+   {
+    "q": "Come si monitorano e calibrano i tassi di falsi positivi (False Refusal Rate) introdotti da guardrail e filtri semantici troppo restrittivi?",
+    "expect": "guardrail-false-refusal-tuning"
+   },
+   {
+    "q": "Come si progetta una strategia di graceful degradation quando il guardrail intercetta una violazione, senza interrompere il flusso operativo?",
+    "expect": "guardrail-graceful-degradation"
+   }
+  ]
+ },
+ {
+  "name": "ddos-layer7-mitigation",
+  "turns": [
+   {
+    "q": "Come si aggiunge un WAF al web server Caddy?",
+    "expect": "caddy-waf"
+   },
+   {
+    "q": "Come integrare un'istanza MISP per alimentare automaticamente le regole di blocco del firewall?",
+    "expect": "misp-firewall-integration"
+   }
+  ]
+ },
+ {
+  "name": "disaster-recovery-rpo-rto",
+  "turns": [
+   {
+    "q": "Qual è la differenza tra RPO (Recovery Point Objective) e RTO (Recovery Time Objective)?",
+    "expect": "rpo-vs-rto"
+   },
+   {
+    "q": "Come si implementa la crittografia lato client nei backup automatizzati con Borgmatic?",
+    "expect": "borgmatic-client-encryption"
+   },
+   {
+    "q": "Come si fa un backup con la regola 3-2-1?",
+    "expect": "backup-321"
+   }
+  ]
+ },
+ {
+  "name": "meta-and-developer-journey",
+  "turns": [
+   {
+    "q": "Chi è Fabrizio Salmi?",
+    "expect": "chi-sei"
+   },
+   {
+    "q": "Quali progetti open source sviluppa Fabrizio Salmi?",
+    "expect": "panoramica-repo"
+   },
+   {
+    "q": "Cos'è FabGPT-FAQ e come funziona?",
+    "expect": "cos-e-fabgpt"
+   },
+   {
+    "q": "Come creo la mia FAQ con questo motore (guida al fork)?",
+    "expect": "fork-guida"
+   },
+   {
+    "q": "Come si contatta Fabrizio Salmi?",
+    "expect": "contatti"
+   }
+  ]
+ },
+ {
+  "name": "newcomer-greeting-to-topic",
+  "turns": [
+   {
+    "q": "ciao",
+    "expect": "st-saluto"
+   },
+   {
+    "q": "Cos'è un WAF (Web Application Firewall)?",
+    "expect": "cos-e-un-waf"
+   },
+   {
+    "q": "Cos'è un reverse proxy e a cosa serve?",
+    "expect": "cos-e-un-reverse-proxy"
+   },
+   {
+    "q": "grazie mille",
+    "expect": "st-grazie"
+   }
+  ]
+ },
+ {
+  "name": "repeat-ask-variant-rotation",
+  "turns": [
+   {
+    "q": "Cos'è un WAF (Web Application Firewall)?",
+    "expect": "cos-e-un-waf"
+   },
+   {
+    "q": "Cos'è un WAF (Web Application Firewall)?",
+    "expect": "cos-e-un-waf",
+    "variant": true
+   },
+   {
+    "q": "Come si fa autoscaling di VM e container LXC su Proxmox?",
+    "expect": "proxmox-autoscale"
+   },
+   {
+    "q": "Come si fa autoscaling di VM e container LXC su Proxmox?",
+    "expect": "proxmox-autoscale",
+    "variant": true
+   }
+  ]
+ },
+ {
+  "name": "fallback-rotation",
+  "turns": [
+   {
+    "q": "asdfgh qwerty",
+    "expect": "fallback"
+   },
+   {
+    "q": "zxcvbn poiuyt",
+    "expect": "fallback",
+    "new_fallback": true
+   },
+   {
+    "q": "il gatto sul tetto che scotta",
+    "expect": "fallback",
+    "new_fallback": true
+   },
+   {
+    "q": "Cos'è CertMate e come gestisce i certificati TLS/SSL?",
+    "expect": "certmate"
+   }
+  ]
+ },
+ {
+  "name": "cf-box-cloudflare-ops",
+  "turns": [
+   {
+    "q": "Cos'è cf-box e come si automatizza la gestione di Cloudflare?",
+    "expect": "cf-box"
+   },
+   {
+    "q": "Come si automatizza la configurazione di Cloudflare?",
+    "expect": "cloudflare-automation"
+   },
+   {
+    "q": "Come si conservano i log di Cloudflare a norma NIS2 e GDPR?",
+    "expect": "rainlogs"
+   },
+   {
+    "q": "Come si migra un sito da Cloudflare a un'infrastruttura self-hosted europea?",
+    "expect": "flareover"
+   }
+  ]
+ },
+ {
+  "name": "aidlp-data-loss-prevention",
+  "turns": [
+   {
+    "q": "Cos'è aidlp e come funziona il Data Loss Prevention per LLM?",
+    "expect": "aidlp"
+   },
+   {
+    "q": "Come funziona il Secure Proxy Manager e cosa fa un Secure Web Gateway (SWG)?",
+    "expect": "secure-proxy-manager"
+   },
+   {
+    "q": "Quali sono i rischi di sicurezza del RAG e dei vector database?",
+    "expect": "rag-security"
+   },
+   {
+    "q": "Come combinare Named Entity Recognition (NER) e masking per prevenire fughe di dati sensibili (PII)?",
+    "expect": "ner-pii-masking-guardrail"
+   }
+  ]
+ },
+ {
+  "name": "ai-dependency-guard-slopsquatting",
+  "turns": [
+   {
+    "q": "Cos'è ai-dependency-guard e come protegge dallo slopsquatting?",
+    "expect": "ai-dependency-guard"
+   },
+   {
+    "q": "Cosa sono le allucinazioni degli LLM e come si mitigano?",
+    "expect": "allucinazioni-llm"
+   },
+   {
+    "q": "Come si configurano hook di pre-commit con Gitleaks o Trufflehog per bloccare il push di credenziali nei repository Git?",
+    "expect": "gitleaks-trufflehog-precommit"
+   }
+  ]
+ },
+ {
+  "name": "proxmox-cluster-balancer-drs",
+  "turns": [
+   {
+    "q": "Cos'è proxmox-cluster-balancer e come bilancia i nodi di un cluster Proxmox?",
+    "expect": "proxmox-cluster-balancer"
+   },
+   {
+    "q": "Come si fa la migrazione live tra nodi Proxmox?",
+    "expect": "migrazione-live"
+   },
+   {
+    "q": "Come si fa autoscaling di VM e container LXC su Proxmox?",
+    "expect": "proxmox-autoscale"
+   },
+   {
+    "q": "Cos'è proxxx, il cockpit da terminale per Proxmox?",
+    "expect": "proxxx"
+   }
+  ]
+ },
+ {
+  "name": "ctx-proxmox-backup-chain",
+  "context": true,
+  "turns": [
+   {
+    "q": "Cos'è Proxmox VE e perché è così usato?",
+    "expect": "cos-e-proxmox"
+   },
+   {
+    "q": "e i backup?",
+    "expect": "pbs"
+   },
+   {
+    "q": "e la cifratura?",
+    "expect": "backup-restic-borg"
+   }
+  ]
+ },
+ {
+  "name": "ctx-backup-cifratura",
+  "context": true,
+  "turns": [
+   {
+    "q": "Come si fa un backup con la regola 3-2-1?",
+    "expect": "backup-321"
+   },
+   {
+    "q": "e la cifratura?",
+    "expect": "backup-restic-borg"
+   }
+  ]
+ },
+ {
+  "name": "ctx-approfondisci-varianti",
+  "context": true,
+  "turns": [
+   {
+    "q": "Cos'è Proxmox VE e perché è così usato?",
+    "expect": "cos-e-proxmox"
+   },
+   {
+    "q": "approfondisci",
+    "expect": "cos-e-proxmox",
+    "variant": true
+   },
+   {
+    "q": "non ho capito",
+    "expect": "cos-e-proxmox",
+    "variant": true
+   }
+  ]
+ },
+ {
+  "name": "ctx-sopravvive-smalltalk",
+  "context": true,
+  "turns": [
+   {
+    "q": "Cos'è Proxmox VE e perché è così usato?",
+    "expect": "cos-e-proxmox"
+   },
+   {
+    "q": "grazie",
+    "expect": "st-grazie"
+   },
+   {
+    "q": "e i backup?",
+    "expect": "pbs"
+   }
+  ]
+ },
+ {
+  "name": "ctx-baseline-senza-thread",
+  "context": true,
+  "turns": [
+   {
+    "q": "e i backup?",
+    "expect": "backup-321"
+   }
+  ]
+ },
+ {
+  "name": "ctx-fallback-onesto",
+  "context": true,
+  "turns": [
+   {
+    "q": "Cos'è un WAF (Web Application Firewall)?",
+    "expect": "cos-e-un-waf"
+   },
+   {
+    "q": "come lo configuro?",
+    "expect": "fallback"
+   }
+  ]
+ },
+ {
+  "name": "ctx-vpn-container",
+  "context": true,
+  "turns": [
+   {
+    "q": "VPN e proxy: che differenza c'è?",
+    "expect": "vpn-vs-proxy"
+   },
+   {
+    "q": "e in un container?",
+    "expect": "lxc-vs-vm"
+   }
+  ]
+ }
 ]

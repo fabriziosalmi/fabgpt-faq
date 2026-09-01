@@ -136,7 +136,27 @@ def pool(db):
     return db["entries"] + db.get("smalltalk", [])
 
 
-def match(db, text):
+CTX_CONFIDENT = 2.0   # pass-1 score at/above which context is never consulted
+CTX_MIN = 2.0         # a contextual candidate must reach this combined score
+CTX_CAP = 24          # max context tokens carried from the previous entry
+CTX_MAX_TOKENS = 2    # context applies only to elliptical inputs (<= this many content words)
+
+
+def ctx_tokens(entry, cap=CTX_CAP):
+    """Content words of the previous entry (question + keywords), deduped."""
+    seen = []
+    for src in [entry["question"]] + entry["keywords"]:
+        for t in tokens(src):
+            if t not in seen:
+                seen.append(t)
+    return seen[:cap]
+
+
+def match(db, text, ctx=None):
+    """ctx = the previously matched KB entry (or None). Mirrors app.js:
+    a weak direct match is retried with the previous entry's tokens added,
+    but a contextual candidate counts only if the NEW input contributed
+    (combined score > score from context tokens alone)."""
     input_norm = norm(text)
     input_tokens = tokens(text)
     best, best_score = None, 0.0
@@ -144,6 +164,21 @@ def match(db, text):
         s = score_entry(entry, input_norm, input_tokens)
         if s > best_score:
             best_score, best = s, entry
+    if ctx is not None and best_score < CTX_CONFIDENT and len(input_tokens) <= CTX_MAX_TOKENS:
+        extra = [t for t in ctx_tokens(ctx) if t not in input_tokens]
+        if extra:
+            combined = input_tokens + extra
+            b2, s2 = None, 0.0
+            for entry in db["entries"]:
+                if entry["id"] == ctx["id"]:
+                    continue
+                comb = score_entry(entry, input_norm, combined)
+                if comb <= s2 or comb < CTX_MIN:
+                    continue
+                if comb > score_entry(entry, "", extra):  # new input contributed
+                    b2, s2 = entry, comb
+            if b2 is not None and s2 > best_score:
+                return b2, s2
     if best and best_score >= db["config"]["matchThreshold"]:
         return best, best_score
     return None, best_score

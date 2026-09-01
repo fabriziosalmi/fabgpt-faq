@@ -118,6 +118,21 @@
     return score;
   }
 
+  // Conversational context (mirrored in qa.py): the last KB entry answered.
+  const CTX_CONFIDENT = 2;  // pass-1 score at/above which context is never consulted
+  const CTX_MIN = 2;        // a contextual candidate must reach this combined score
+  const CTX_CAP = 24;       // max context tokens carried from the previous entry
+  const CTX_MAX_TOKENS = 2; // context applies only to elliptical inputs (<= this many content words)
+  let ctxEntry = null;      // last knowledge-base entry served (smalltalk excluded)
+
+  function ctxTokens(entry) {
+    const seen = [];
+    for (const src of [entry.question].concat(entry.keywords)) {
+      for (const t of tokens(src)) if (!seen.includes(t)) seen.push(t);
+    }
+    return seen.slice(0, CTX_CAP);
+  }
+
   function match(text) {
     const inputNorm = norm(text);
     const inputTokens = tokens(text);
@@ -127,6 +142,23 @@
     for (const entry of pool) {
       const s = scoreEntry(entry, inputNorm, inputTokens);
       if (s > bestScore) { bestScore = s; best = entry; }
+    }
+    // Weak direct match + an active thread: retry with the previous entry's
+    // tokens added. A contextual candidate counts only if the NEW input
+    // contributed (combined score > score from context tokens alone).
+    if (ctxEntry && bestScore < CTX_CONFIDENT && inputTokens.length <= CTX_MAX_TOKENS) {
+      const extra = ctxTokens(ctxEntry).filter(t => !inputTokens.includes(t));
+      if (extra.length) {
+        const combined = inputTokens.concat(extra);
+        let b2 = null, s2 = 0;
+        for (const entry of DB.entries) {
+          if (entry.id === ctxEntry.id) continue;
+          const comb = scoreEntry(entry, inputNorm, combined);
+          if (comb <= s2 || comb < CTX_MIN) continue;
+          if (comb > scoreEntry(entry, '', extra)) { b2 = entry; s2 = comb; }
+        }
+        if (b2 && s2 > bestScore) return b2;
+      }
     }
     if (best && bestScore >= DB.config.matchThreshold) return best;
     return null;
@@ -414,10 +446,22 @@
 
   function ask(text) {
     addUserMessage(text);
-    const entry = match(text);
+    let entry = match(text);
+    // "approfondisci" on an active thread: serve the next answer variant of
+    // the last KB entry instead of the generic smalltalk reply (qa.py mirrors).
+    if (entry && entry.id === 'st-approfondisci' && ctxEntry && ctxEntry.answers.length > 1) {
+      entry = ctxEntry;
+      const n = entry.answers.length;
+      const idx = ((answerCursor[entry.id] ?? 0) + 1) % n;
+      answerCursor[entry.id] = idx;
+      lastEntryId = entry.id;
+      askedSlugs.add(entry.slug);
+      streamAnswer(entry.answers[idx], null, entry.suggest, entry.id, entry.question);
+      return;
+    }
     const answer = entry ? pickAnswer(entry) : pickFallback();
     const qLabel = entry ? entry.question : text;
-    if (entry && entry.slug) askedSlugs.add(entry.slug); // thread history
+    if (entry && entry.slug) { askedSlugs.add(entry.slug); ctxEntry = entry; } // thread history + context
     streamAnswer(answer, null, entry && entry.suggest, entry && entry.id, qLabel);
   }
 

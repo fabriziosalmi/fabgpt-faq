@@ -3,8 +3,9 @@
   "configurations": [
     {
       "name": "fabgpt-faq",
-      "url": "http://localhost:8437",
-      "port": 8437
+      "runtimeExecutable": "/opt/homebrew/bin/python3",
+      "runtimeArgs": ["-m", "http.server", "8123", "-d", "/Users/fab/Documents/git/fabgpt-faq"],
+      "port": 8123
     }
   ]
 }

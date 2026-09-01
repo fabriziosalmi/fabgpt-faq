@@ -22,6 +22,9 @@ Gates:
                          flags: variant (answer must differ from the prior same
                          entry) and new_fallback (must differ from prior fallback).
                          100% required.
+  T5 contextual sessions – trajectories.json sessions flagged "context": true:
+                         elliptical follow-ups resolved via the previous entry's
+                         tokens and "approfondisci" variant rotation. 100%.
 """
 import json
 import sys
@@ -50,9 +53,21 @@ class Runtime:
         self.last = None
         self.fb = -1
         self.asked = set()
+        self.ctx = None   # last KB entry served (smalltalk excluded), persists
 
     def ask(self, text):
-        entry, _ = match(self.db, text)
+        entry, _ = match(self.db, text, self.ctx)
+        # "approfondisci" on an active thread serves the next variant of the
+        # last KB entry instead of the generic smalltalk reply (mirrors app.js).
+        if (entry is not None and entry["id"] == "st-approfondisci"
+                and self.ctx is not None and len(self.ctx["answers"]) > 1):
+            entry = self.ctx
+            n = len(entry["answers"])
+            idx = (self.cursor.get(entry["id"], 0) + 1) % n
+            self.cursor[entry["id"]] = idx
+            self.last = entry["id"]
+            self.asked.add(entry["slug"])
+            return entry, entry["answers"][idx]
         if entry is None:
             self.fb = (self.fb + 1) % len(self.db["fallbacks"])
             self.last = None
@@ -65,6 +80,7 @@ class Runtime:
         self.last = entry["id"]
         if entry.get("slug"):
             self.asked.add(entry["slug"])
+            self.ctx = entry
         return entry, entry["answers"][idx % n]
 
 
@@ -134,35 +150,44 @@ def main():
             print(f"  T3 trap pocket (reach {sz}): {slug}")
     all_ok &= gate("T3 no trap pockets", len(entries) - len(bad), len(entries), 100)
 
-    # ---- T4: scripted multi-turn sessions ------------------------------
+    # ---- T4/T5: scripted multi-turn sessions ---------------------------
+    # T4 = classic full-question sessions; T5 = contextual sessions
+    # ("context": true) with elliptical follow-ups and "approfondisci".
     sessions = json.load(open(f"{ROOT}/trajectories.json"))
-    turns = fails = 0
-    for sess in sessions:
-        rt = Runtime(db)
-        prev_ans = {}   # entry id -> last answer text seen (for variant checks)
-        prev_fb = None
-        for t in sess["turns"]:
-            turns += 1
-            entry, ans = rt.ask(t["q"])
-            got = entry["id"] if entry else "fallback"
-            exp = t["expect"]
-            ok = (got == exp)
-            if ok and t.get("variant"):
-                if entry and prev_ans.get(entry["id"]) == ans:
-                    ok = False  # expected a rotated (different) variant
-            if ok and t.get("new_fallback"):
-                if entry is None and prev_fb == ans:
-                    ok = False  # expected a different fallback than last time
-            if entry:
-                prev_ans[entry["id"]] = ans
-            else:
-                prev_fb = ans
-            if not ok:
-                fails += 1
-                print(f"  T4 [{sess['name']}] {t['q']!r}: want {exp}"
-                      f"{' (variant)' if t.get('variant') else ''}"
-                      f"{' (new_fallback)' if t.get('new_fallback') else ''}, got {got}")
+
+    def run_sessions(label, batch):
+        turns = fails = 0
+        for sess in batch:
+            rt = Runtime(db)
+            prev_ans = {}   # entry id -> last answer text seen (for variant checks)
+            prev_fb = None
+            for t in sess["turns"]:
+                turns += 1
+                entry, ans = rt.ask(t["q"])
+                got = entry["id"] if entry else "fallback"
+                exp = t["expect"]
+                ok = (got == exp)
+                if ok and t.get("variant"):
+                    if entry and prev_ans.get(entry["id"]) == ans:
+                        ok = False  # expected a rotated (different) variant
+                if ok and t.get("new_fallback"):
+                    if entry is None and prev_fb == ans:
+                        ok = False  # expected a different fallback than last time
+                if entry:
+                    prev_ans[entry["id"]] = ans
+                else:
+                    prev_fb = ans
+                if not ok:
+                    fails += 1
+                    print(f"  {label} [{sess['name']}] {t['q']!r}: want {exp}"
+                          f"{' (variant)' if t.get('variant') else ''}"
+                          f"{' (new_fallback)' if t.get('new_fallback') else ''}, got {got}")
+        return turns, fails
+
+    turns, fails = run_sessions("T4", [s for s in sessions if not s.get("context")])
     all_ok &= gate("T4 scripted sessions", turns - fails, turns, 100)
+    turns5, fails5 = run_sessions("T5", [s for s in sessions if s.get("context")])
+    all_ok &= gate("T5 contextual sessions", turns5 - fails5, turns5, 100)
 
     print("TRAJ:", "PASS" if all_ok else "FAIL")
     return 0 if all_ok else 1
