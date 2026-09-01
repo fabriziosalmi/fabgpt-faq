@@ -32,6 +32,16 @@
   .steps a { color: var(--link); text-decoration: none; font-weight: 600; }
   .steps a:hover { text-decoration: underline; }
   .steps p { margin: 4px 0 0; font-size: 14px; color: var(--text-dim); }
+  .step-check { position: absolute; right: 14px; top: 16px; width: 18px; height: 18px; accent-color: var(--accent); cursor: pointer; }
+  .steps li { padding-right: 44px; }
+  .steps li.done { opacity: .55; }
+  .steps li.done a { text-decoration: line-through; }
+  .prog { display: flex; align-items: center; gap: 12px; margin: 4px 0 16px; }
+  .prog-track { flex: 1; height: 8px; border-radius: 999px; background: var(--bg-soft); border: 1px solid var(--border); overflow: hidden; }
+  .prog-fill { display: block; height: 100%; width: 0; background: var(--accent); border-radius: 999px; transition: width .25s ease; }
+  .prog-txt { font-size: 13px; color: var(--text-dim); white-space: nowrap; }
+  .prog-reset { font-size: 12px; color: var(--text-dim); background: none; border: none; cursor: pointer; text-decoration: underline; padding: 0; }
+  .path-prog { margin: 6px 0 0 !important; font-size: 12.5px !important; color: var(--accent) !important; font-weight: 600; }
   .path-card { display: block; border: 1px solid var(--border); border-radius: 12px; background: var(--bg-soft); padding: 16px 18px; margin: 12px 0; text-decoration: none; color: inherit; }
   .path-card:hover { border-color: var(--accent); }
   .path-card b { color: var(--link); font-size: 17px; }
@@ -52,26 +62,62 @@
 <nav class="crumbs" aria-label="Percorso"><a href="../../">FabGPT-FAQ</a> › <a href="../">Percorsi</a> › <span>Diventare sysadmin partendo da zero</span></nav>
 <h1>Diventare sysadmin partendo da zero</h1>
 <p class="intro">Le tappe sono in ordine deliberato: prima le fondamenta di rete, poi Linux sul serio, poi un homelab dove rompere le cose senza conseguenze. Ogni tappa è una guida autonoma – ma la sequenza è il punto.</p>
-<ol class="steps">
-<li><a href="../../q/cos-e-il-subnetting-e-il-cidr/">Cos&#x27;è il subnetting (e come si legge un /24)?</a><p>Prima di tutto: capire come sono fatte le reti che amministrerai.</p></li>
-<li><a href="../../q/come-funziona-la-risoluzione-dns/">Come funziona la risoluzione DNS (dal click alla risposta)?</a><p>Il servizio che tocca ogni ticket: metà dei &quot;non funziona internet&quot; è DNS.</p></li>
-<li><a href="../../q/porte-tcp-e-udp-quali-conoscere/">Cosa sono le porte TCP e UDP (e quali sapere a memoria)?</a><p>Il vocabolario di firewall e troubleshooting.</p></li>
-<li><a href="../../q/permessi-linux-chmod-chown-umask/">Come funzionano i permessi Linux (chmod, chown, umask)?</a><p>Il primo muro contro cui sbatte chi arriva su Linux.</p></li>
-<li><a href="../../q/utenti-gruppi-e-sudo-su-linux/">Utenti, gruppi e sudo su Linux: le basi che servono</a><p>Chi può fare cosa: la base di ogni server condiviso.</p></li>
-<li><a href="../../q/gestire-servizi-linux-con-systemctl/">Come si gestiscono i servizi Linux con systemctl?</a><p>Avviare, fermare e diagnosticare i servizi: il pane quotidiano.</p></li>
-<li><a href="../../q/dove-sono-i-log-su-linux/">Dove sono i log su Linux (journalctl e /var/log)?</a><p>Dove guardare quando qualcosa si rompe (cioè sempre).</p></li>
-<li><a href="../../q/cos-e-proxmox-ve/">Cos&#x27;è Proxmox VE e perché è così usato?</a><p>Il laboratorio: un hypervisor gratuito dove sbagliare in pace.</p></li>
-<li><a href="../../q/differenza-container-lxc-e-vm/">Che differenza c&#x27;è tra container LXC e VM?</a><p>La prima scelta di design di ogni lab.</p></li>
-<li><a href="../../q/homelab-a-basso-consumo/">Homelab a basso consumo: mini PC al posto del server?</a><p>L&#x27;hardware giusto costa poco e consuma meno.</p></li>
-<li><a href="../../q/bash-scripting-le-basi-che-servono/">Bash scripting: le basi che servono (e le trappole)</a><p>Tutto ciò che fai due volte va automatizzato.</p></li>
-<li><a href="../../q/cron-la-sintassi-spiegata/">Cron: la sintassi spiegata (finalmente)</a><p>L&#x27;automazione che gira mentre dormi.</p></li>
-<li><a href="../../q/backup-3-2-1/">Come si fa un backup con la regola 3-2-1?</a><p>Nessuno viene licenziato per un server lento; per un backup mancante sì.</p></li>
-<li><a href="../../q/stack-di-monitoraggio-prometheus-grafana/">Come si monitora l&#x27;hardware del homelab (Prometheus, Grafana)?</a><p>Accorgersi dei problemi prima degli utenti.</p></li>
-<li><a href="../../q/aws-o-azure-quale-imparare-prima/">AWS o Azure: quale imparare per primo?</a><p>Il cloud: impara i concetti su un provider, valgono ovunque.</p></li>
-<li><a href="../../q/quali-certificazioni-it-contano-davvero/">Quali certificazioni IT contano davvero (CompTIA, RHCSA, cloud)?</a><p>Il pezzo di carta che apre i colloqui.</p></li>
-<li><a href="../../q/homelab-sul-curriculum/">Un homelab conta sul curriculum? Come raccontarlo</a><p>Trasformare il lab in esperienza spendibile.</p></li>
+<div class="prog" hidden><div class="prog-track"><span class="prog-fill" id="prog-fill"></span></div><span class="prog-txt" id="prog-txt"></span><button type="button" id="prog-reset" class="prog-reset" aria-label="Azzera il progresso">azzera</button></div>
+<ol class="steps" id="steps">
+<li data-slug="cos-e-il-subnetting-e-il-cidr"><input type="checkbox" class="step-check" aria-label="Segna tappa completata"><a href="../../q/cos-e-il-subnetting-e-il-cidr/">Cos&#x27;è il subnetting (e come si legge un /24)?</a><p>Prima di tutto: capire come sono fatte le reti che amministrerai.</p></li>
+<li data-slug="come-funziona-la-risoluzione-dns"><input type="checkbox" class="step-check" aria-label="Segna tappa completata"><a href="../../q/come-funziona-la-risoluzione-dns/">Come funziona la risoluzione DNS (dal click alla risposta)?</a><p>Il servizio che tocca ogni ticket: metà dei &quot;non funziona internet&quot; è DNS.</p></li>
+<li data-slug="porte-tcp-e-udp-quali-conoscere"><input type="checkbox" class="step-check" aria-label="Segna tappa completata"><a href="../../q/porte-tcp-e-udp-quali-conoscere/">Cosa sono le porte TCP e UDP (e quali sapere a memoria)?</a><p>Il vocabolario di firewall e troubleshooting.</p></li>
+<li data-slug="permessi-linux-chmod-chown-umask"><input type="checkbox" class="step-check" aria-label="Segna tappa completata"><a href="../../q/permessi-linux-chmod-chown-umask/">Come funzionano i permessi Linux (chmod, chown, umask)?</a><p>Il primo muro contro cui sbatte chi arriva su Linux.</p></li>
+<li data-slug="utenti-gruppi-e-sudo-su-linux"><input type="checkbox" class="step-check" aria-label="Segna tappa completata"><a href="../../q/utenti-gruppi-e-sudo-su-linux/">Utenti, gruppi e sudo su Linux: le basi che servono</a><p>Chi può fare cosa: la base di ogni server condiviso.</p></li>
+<li data-slug="gestire-servizi-linux-con-systemctl"><input type="checkbox" class="step-check" aria-label="Segna tappa completata"><a href="../../q/gestire-servizi-linux-con-systemctl/">Come si gestiscono i servizi Linux con systemctl?</a><p>Avviare, fermare e diagnosticare i servizi: il pane quotidiano.</p></li>
+<li data-slug="dove-sono-i-log-su-linux"><input type="checkbox" class="step-check" aria-label="Segna tappa completata"><a href="../../q/dove-sono-i-log-su-linux/">Dove sono i log su Linux (journalctl e /var/log)?</a><p>Dove guardare quando qualcosa si rompe (cioè sempre).</p></li>
+<li data-slug="cos-e-proxmox-ve"><input type="checkbox" class="step-check" aria-label="Segna tappa completata"><a href="../../q/cos-e-proxmox-ve/">Cos&#x27;è Proxmox VE e perché è così usato?</a><p>Il laboratorio: un hypervisor gratuito dove sbagliare in pace.</p></li>
+<li data-slug="differenza-container-lxc-e-vm"><input type="checkbox" class="step-check" aria-label="Segna tappa completata"><a href="../../q/differenza-container-lxc-e-vm/">Che differenza c&#x27;è tra container LXC e VM?</a><p>La prima scelta di design di ogni lab.</p></li>
+<li data-slug="homelab-a-basso-consumo"><input type="checkbox" class="step-check" aria-label="Segna tappa completata"><a href="../../q/homelab-a-basso-consumo/">Homelab a basso consumo: mini PC al posto del server?</a><p>L&#x27;hardware giusto costa poco e consuma meno.</p></li>
+<li data-slug="bash-scripting-le-basi-che-servono"><input type="checkbox" class="step-check" aria-label="Segna tappa completata"><a href="../../q/bash-scripting-le-basi-che-servono/">Bash scripting: le basi che servono (e le trappole)</a><p>Tutto ciò che fai due volte va automatizzato.</p></li>
+<li data-slug="cron-la-sintassi-spiegata"><input type="checkbox" class="step-check" aria-label="Segna tappa completata"><a href="../../q/cron-la-sintassi-spiegata/">Cron: la sintassi spiegata (finalmente)</a><p>L&#x27;automazione che gira mentre dormi.</p></li>
+<li data-slug="backup-3-2-1"><input type="checkbox" class="step-check" aria-label="Segna tappa completata"><a href="../../q/backup-3-2-1/">Come si fa un backup con la regola 3-2-1?</a><p>Nessuno viene licenziato per un server lento; per un backup mancante sì.</p></li>
+<li data-slug="stack-di-monitoraggio-prometheus-grafana"><input type="checkbox" class="step-check" aria-label="Segna tappa completata"><a href="../../q/stack-di-monitoraggio-prometheus-grafana/">Come si monitora l&#x27;hardware del homelab (Prometheus, Grafana)?</a><p>Accorgersi dei problemi prima degli utenti.</p></li>
+<li data-slug="aws-o-azure-quale-imparare-prima"><input type="checkbox" class="step-check" aria-label="Segna tappa completata"><a href="../../q/aws-o-azure-quale-imparare-prima/">AWS o Azure: quale imparare per primo?</a><p>Il cloud: impara i concetti su un provider, valgono ovunque.</p></li>
+<li data-slug="quali-certificazioni-it-contano-davvero"><input type="checkbox" class="step-check" aria-label="Segna tappa completata"><a href="../../q/quali-certificazioni-it-contano-davvero/">Quali certificazioni IT contano davvero (CompTIA, RHCSA, cloud)?</a><p>Il pezzo di carta che apre i colloqui.</p></li>
+<li data-slug="homelab-sul-curriculum"><input type="checkbox" class="step-check" aria-label="Segna tappa completata"><a href="../../q/homelab-sul-curriculum/">Un homelab conta sul curriculum? Come raccontarlo</a><p>Trasformare il lab in esperienza spendibile.</p></li>
 </ol>
 <a class="ask" href="../../">Chiedi in chat 💬</a>
+<script>
+(function () {
+  var KEY = 'fabgpt-percorso-diventare-sysadmin';
+  var items = Array.prototype.slice.call(document.querySelectorAll('#steps li'));
+  var wrap = document.querySelector('.prog');
+  var done;
+  try { done = new Set(JSON.parse(localStorage.getItem(KEY) || '[]')); } catch (e) { return; }
+  wrap.hidden = false;
+  function save() {
+    try { localStorage.setItem(KEY, JSON.stringify(Array.from(done))); } catch (e) {}
+  }
+  function render() {
+    items.forEach(function (li) {
+      var on = done.has(li.getAttribute('data-slug'));
+      li.querySelector('.step-check').checked = on;
+      li.classList.toggle('done', on);
+    });
+    var n = items.filter(function (li) { return done.has(li.getAttribute('data-slug')); }).length;
+    document.getElementById('prog-fill').style.width = (100 * n / items.length) + '%';
+    document.getElementById('prog-txt').textContent = n + '/' + items.length + ' tappe' + (n === items.length ? ' – percorso completato! 🎉' : ' completate');
+  }
+  items.forEach(function (li) {
+    li.querySelector('.step-check').addEventListener('change', function () {
+      var slug = li.getAttribute('data-slug');
+      if (this.checked) done.add(slug); else done.delete(slug);
+      save(); render();
+    });
+  });
+  document.getElementById('prog-reset').addEventListener('click', function () {
+    if (!done.size) return;
+    done.clear(); save(); render();
+  });
+  render();
+})();
+</script>
 </main>
 </body>
 </html>

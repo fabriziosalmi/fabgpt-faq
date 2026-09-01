@@ -32,6 +32,16 @@
   .steps a { color: var(--link); text-decoration: none; font-weight: 600; }
   .steps a:hover { text-decoration: underline; }
   .steps p { margin: 4px 0 0; font-size: 14px; color: var(--text-dim); }
+  .step-check { position: absolute; right: 14px; top: 16px; width: 18px; height: 18px; accent-color: var(--accent); cursor: pointer; }
+  .steps li { padding-right: 44px; }
+  .steps li.done { opacity: .55; }
+  .steps li.done a { text-decoration: line-through; }
+  .prog { display: flex; align-items: center; gap: 12px; margin: 4px 0 16px; }
+  .prog-track { flex: 1; height: 8px; border-radius: 999px; background: var(--bg-soft); border: 1px solid var(--border); overflow: hidden; }
+  .prog-fill { display: block; height: 100%; width: 0; background: var(--accent); border-radius: 999px; transition: width .25s ease; }
+  .prog-txt { font-size: 13px; color: var(--text-dim); white-space: nowrap; }
+  .prog-reset { font-size: 12px; color: var(--text-dim); background: none; border: none; cursor: pointer; text-decoration: underline; padding: 0; }
+  .path-prog { margin: 6px 0 0 !important; font-size: 12.5px !important; color: var(--accent) !important; font-weight: 600; }
   .path-card { display: block; border: 1px solid var(--border); border-radius: 12px; background: var(--bg-soft); padding: 16px 18px; margin: 12px 0; text-decoration: none; color: inherit; }
   .path-card:hover { border-color: var(--accent); }
   .path-card b { color: var(--link); font-size: 17px; }
@@ -52,21 +62,57 @@
 <nav class="crumbs" aria-label="Percorso"><a href="../../">FabGPT-FAQ</a> › <a href="../">Percorsi</a> › <span>Self-hosting da zero</span></nav>
 <h1>Self-hosting da zero</h1>
 <p class="intro">Dal capire se il self-hosting fa per te fino a un lab che ti avvisa invece di sorprenderti. Le tappe centrali (rete, backup) sono quelle che separano un hobby fragile da un&#x27;infrastruttura di cui fidarsi.</p>
-<ol class="steps">
-<li><a href="../../q/self-hosting-pro-e-contro/">Self-hosting: cosa significa e quando conviene?</a><p>Capire pro, contro e costi reali prima di iniziare.</p></li>
-<li><a href="../../q/homelab-a-basso-consumo/">Homelab a basso consumo: mini PC al posto del server?</a><p>Un mini PC basta, e non pesa in bolletta.</p></li>
-<li><a href="../../q/cos-e-proxmox-ve/">Cos&#x27;è Proxmox VE e perché è così usato?</a><p>La base di tutto: l&#x27;hypervisor.</p></li>
-<li><a href="../../q/differenza-container-lxc-e-vm/">Che differenza c&#x27;è tra container LXC e VM?</a><p>Container o VM: la scelta da fare per ogni servizio.</p></li>
-<li><a href="../../q/cos-e-docker-compose/">Cos&#x27;è Docker Compose?</a><p>Il formato in cui il mondo self-hosted distribuisce il software.</p></li>
-<li><a href="../../q/segmentare-la-rete-con-vlan/">Come si segmenta una rete con le VLAN?</a><p>L&#x27;IoT non deve parlare col NAS dei backup.</p></li>
-<li><a href="../../q/esporre-servizi-senza-aprire-porte/">Come si espone un servizio self-hosted senza aprire porte?</a><p>Raggiungere i servizi da fuori senza esporli.</p></li>
-<li><a href="../../q/differenza-snapshot-e-backup/">Che differenza c&#x27;è tra snapshot e backup?</a><p>Capire la differenza prima di averne bisogno.</p></li>
-<li><a href="../../q/cos-e-proxmox-backup-server/">Cos&#x27;è Proxmox Backup Server e perché usarlo?</a><p>Backup deduplicati e verificati per VM e container.</p></li>
-<li><a href="../../q/stack-di-monitoraggio-prometheus-grafana/">Come si monitora l&#x27;hardware del homelab (Prometheus, Grafana)?</a><p>Il lab che ti avvisa invece di sorprenderti.</p></li>
-<li><a href="../../q/aggregatore-rss-freshrss-miniflux/">Come si leggono le notizie senza algoritmi (FreshRSS, Miniflux)?</a><p>Il primo servizio davvero tuo: le notizie senza algoritmi.</p></li>
-<li><a href="../../q/checklist-sicurezza-periodica-server/">Quale checklist di sicurezza periodica tiene in salute un server?</a><p>La manutenzione mensile che tiene tutto in salute.</p></li>
+<div class="prog" hidden><div class="prog-track"><span class="prog-fill" id="prog-fill"></span></div><span class="prog-txt" id="prog-txt"></span><button type="button" id="prog-reset" class="prog-reset" aria-label="Azzera il progresso">azzera</button></div>
+<ol class="steps" id="steps">
+<li data-slug="self-hosting-pro-e-contro"><input type="checkbox" class="step-check" aria-label="Segna tappa completata"><a href="../../q/self-hosting-pro-e-contro/">Self-hosting: cosa significa e quando conviene?</a><p>Capire pro, contro e costi reali prima di iniziare.</p></li>
+<li data-slug="homelab-a-basso-consumo"><input type="checkbox" class="step-check" aria-label="Segna tappa completata"><a href="../../q/homelab-a-basso-consumo/">Homelab a basso consumo: mini PC al posto del server?</a><p>Un mini PC basta, e non pesa in bolletta.</p></li>
+<li data-slug="cos-e-proxmox-ve"><input type="checkbox" class="step-check" aria-label="Segna tappa completata"><a href="../../q/cos-e-proxmox-ve/">Cos&#x27;è Proxmox VE e perché è così usato?</a><p>La base di tutto: l&#x27;hypervisor.</p></li>
+<li data-slug="differenza-container-lxc-e-vm"><input type="checkbox" class="step-check" aria-label="Segna tappa completata"><a href="../../q/differenza-container-lxc-e-vm/">Che differenza c&#x27;è tra container LXC e VM?</a><p>Container o VM: la scelta da fare per ogni servizio.</p></li>
+<li data-slug="cos-e-docker-compose"><input type="checkbox" class="step-check" aria-label="Segna tappa completata"><a href="../../q/cos-e-docker-compose/">Cos&#x27;è Docker Compose?</a><p>Il formato in cui il mondo self-hosted distribuisce il software.</p></li>
+<li data-slug="segmentare-la-rete-con-vlan"><input type="checkbox" class="step-check" aria-label="Segna tappa completata"><a href="../../q/segmentare-la-rete-con-vlan/">Come si segmenta una rete con le VLAN?</a><p>L&#x27;IoT non deve parlare col NAS dei backup.</p></li>
+<li data-slug="esporre-servizi-senza-aprire-porte"><input type="checkbox" class="step-check" aria-label="Segna tappa completata"><a href="../../q/esporre-servizi-senza-aprire-porte/">Come si espone un servizio self-hosted senza aprire porte?</a><p>Raggiungere i servizi da fuori senza esporli.</p></li>
+<li data-slug="differenza-snapshot-e-backup"><input type="checkbox" class="step-check" aria-label="Segna tappa completata"><a href="../../q/differenza-snapshot-e-backup/">Che differenza c&#x27;è tra snapshot e backup?</a><p>Capire la differenza prima di averne bisogno.</p></li>
+<li data-slug="cos-e-proxmox-backup-server"><input type="checkbox" class="step-check" aria-label="Segna tappa completata"><a href="../../q/cos-e-proxmox-backup-server/">Cos&#x27;è Proxmox Backup Server e perché usarlo?</a><p>Backup deduplicati e verificati per VM e container.</p></li>
+<li data-slug="stack-di-monitoraggio-prometheus-grafana"><input type="checkbox" class="step-check" aria-label="Segna tappa completata"><a href="../../q/stack-di-monitoraggio-prometheus-grafana/">Come si monitora l&#x27;hardware del homelab (Prometheus, Grafana)?</a><p>Il lab che ti avvisa invece di sorprenderti.</p></li>
+<li data-slug="aggregatore-rss-freshrss-miniflux"><input type="checkbox" class="step-check" aria-label="Segna tappa completata"><a href="../../q/aggregatore-rss-freshrss-miniflux/">Come si leggono le notizie senza algoritmi (FreshRSS, Miniflux)?</a><p>Il primo servizio davvero tuo: le notizie senza algoritmi.</p></li>
+<li data-slug="checklist-sicurezza-periodica-server"><input type="checkbox" class="step-check" aria-label="Segna tappa completata"><a href="../../q/checklist-sicurezza-periodica-server/">Quale checklist di sicurezza periodica tiene in salute un server?</a><p>La manutenzione mensile che tiene tutto in salute.</p></li>
 </ol>
 <a class="ask" href="../../">Chiedi in chat 💬</a>
+<script>
+(function () {
+  var KEY = 'fabgpt-percorso-self-hosting-da-zero';
+  var items = Array.prototype.slice.call(document.querySelectorAll('#steps li'));
+  var wrap = document.querySelector('.prog');
+  var done;
+  try { done = new Set(JSON.parse(localStorage.getItem(KEY) || '[]')); } catch (e) { return; }
+  wrap.hidden = false;
+  function save() {
+    try { localStorage.setItem(KEY, JSON.stringify(Array.from(done))); } catch (e) {}
+  }
+  function render() {
+    items.forEach(function (li) {
+      var on = done.has(li.getAttribute('data-slug'));
+      li.querySelector('.step-check').checked = on;
+      li.classList.toggle('done', on);
+    });
+    var n = items.filter(function (li) { return done.has(li.getAttribute('data-slug')); }).length;
+    document.getElementById('prog-fill').style.width = (100 * n / items.length) + '%';
+    document.getElementById('prog-txt').textContent = n + '/' + items.length + ' tappe' + (n === items.length ? ' – percorso completato! 🎉' : ' completate');
+  }
+  items.forEach(function (li) {
+    li.querySelector('.step-check').addEventListener('change', function () {
+      var slug = li.getAttribute('data-slug');
+      if (this.checked) done.add(slug); else done.delete(slug);
+      save(); render();
+    });
+  });
+  document.getElementById('prog-reset').addEventListener('click', function () {
+    if (!done.size) return;
+    done.clear(); save(); render();
+  });
+  render();
+})();
+</script>
 </main>
 </body>
 </html>

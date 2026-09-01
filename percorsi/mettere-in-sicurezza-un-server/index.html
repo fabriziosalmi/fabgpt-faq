@@ -32,6 +32,16 @@
   .steps a { color: var(--link); text-decoration: none; font-weight: 600; }
   .steps a:hover { text-decoration: underline; }
   .steps p { margin: 4px 0 0; font-size: 14px; color: var(--text-dim); }
+  .step-check { position: absolute; right: 14px; top: 16px; width: 18px; height: 18px; accent-color: var(--accent); cursor: pointer; }
+  .steps li { padding-right: 44px; }
+  .steps li.done { opacity: .55; }
+  .steps li.done a { text-decoration: line-through; }
+  .prog { display: flex; align-items: center; gap: 12px; margin: 4px 0 16px; }
+  .prog-track { flex: 1; height: 8px; border-radius: 999px; background: var(--bg-soft); border: 1px solid var(--border); overflow: hidden; }
+  .prog-fill { display: block; height: 100%; width: 0; background: var(--accent); border-radius: 999px; transition: width .25s ease; }
+  .prog-txt { font-size: 13px; color: var(--text-dim); white-space: nowrap; }
+  .prog-reset { font-size: 12px; color: var(--text-dim); background: none; border: none; cursor: pointer; text-decoration: underline; padding: 0; }
+  .path-prog { margin: 6px 0 0 !important; font-size: 12.5px !important; color: var(--accent) !important; font-weight: 600; }
   .path-card { display: block; border: 1px solid var(--border); border-radius: 12px; background: var(--bg-soft); padding: 16px 18px; margin: 12px 0; text-decoration: none; color: inherit; }
   .path-card:hover { border-color: var(--accent); }
   .path-card b { color: var(--link); font-size: 17px; }
@@ -52,21 +62,57 @@
 <nav class="crumbs" aria-label="Percorso"><a href="../../">FabGPT-FAQ</a> › <a href="../">Percorsi</a> › <span>Mettere in sicurezza un server esposto</span></nav>
 <h1>Mettere in sicurezza un server esposto</h1>
 <p class="intro">L&#x27;ordine segue l&#x27;impatto: prima si chiude la superficie d&#x27;attacco, poi si blinda l&#x27;accesso, poi si costruiscono visibilità e resilienza. Ogni tappa è operativa, con i comandi.</p>
-<ol class="steps">
-<li><a href="../../q/hardening-server-linux/">Come si fa l&#x27;hardening di un server Linux appena installato?</a><p>La baseline: chiudere ciò che non serve appena il server esiste.</p></li>
-<li><a href="../../q/mettere-in-sicurezza-ssh/">Come si mette in sicurezza SSH su un server esposto?</a><p>SSH è la porta principale: è qui che bussano tutti.</p></li>
-<li><a href="../../q/come-funzionano-le-chiavi-ssh/">Come funzionano le chiavi SSH (e perché abbandonare le password)?</a><p>Le chiavi al posto delle password: il singolo upgrade più efficace.</p></li>
-<li><a href="../../q/configurare-firewall-host-default-deny-nftables-ufw/">Come si imposta il firewall dell&#x27;host (tramite ufw o regole native nftables) secondo il principio di default deny su tutto il traffico?</a><p>Default deny: tutto chiuso, si apre solo il necessario.</p></li>
-<li><a href="../../q/fail2ban-e-alternative/">Fail2ban: cos&#x27;è e quali alternative esistono?</a><p>Ban automatico di chi insiste.</p></li>
-<li><a href="../../q/come-funziona-lets-encrypt-acme/">Come funziona Let&#x27;s Encrypt e il protocollo ACME?</a><p>HTTPS automatico, senza scadenze dimenticate.</p></li>
-<li><a href="../../q/quali-security-header-servono/">Quali security header HTTP servono davvero?</a><p>Gli header che il browser rispetta e gli scanner cercano.</p></li>
-<li><a href="../../q/cos-e-un-waf-web-application-firewall/">Cos&#x27;è un WAF (Web Application Firewall) e a cosa serve?</a><p>Lo strato che filtra le richieste applicative cattive.</p></li>
-<li><a href="../../q/security-logging-fatto-bene/">Come si fa security logging fatto bene?</a><p>Se non è loggato, non è successo: la scatola nera dell&#x27;incidente.</p></li>
-<li><a href="../../q/backup-3-2-1/">Come si fa un backup con la regola 3-2-1?</a><p>Il paracadute: tre copie, due supporti, una fuori sede.</p></li>
-<li><a href="../../q/piano-di-disaster-recovery-minimo/">Come si scrive un piano di disaster recovery minimo?</a><p>Sapere già cosa fare quando andrà male.</p></li>
-<li><a href="../../q/checklist-sicurezza-periodica-server/">Quale checklist di sicurezza periodica tiene in salute un server?</a><p>La mezz&#x27;ora al mese che mantiene vero tutto il lavoro fatto sopra.</p></li>
+<div class="prog" hidden><div class="prog-track"><span class="prog-fill" id="prog-fill"></span></div><span class="prog-txt" id="prog-txt"></span><button type="button" id="prog-reset" class="prog-reset" aria-label="Azzera il progresso">azzera</button></div>
+<ol class="steps" id="steps">
+<li data-slug="hardening-server-linux"><input type="checkbox" class="step-check" aria-label="Segna tappa completata"><a href="../../q/hardening-server-linux/">Come si fa l&#x27;hardening di un server Linux appena installato?</a><p>La baseline: chiudere ciò che non serve appena il server esiste.</p></li>
+<li data-slug="mettere-in-sicurezza-ssh"><input type="checkbox" class="step-check" aria-label="Segna tappa completata"><a href="../../q/mettere-in-sicurezza-ssh/">Come si mette in sicurezza SSH su un server esposto?</a><p>SSH è la porta principale: è qui che bussano tutti.</p></li>
+<li data-slug="come-funzionano-le-chiavi-ssh"><input type="checkbox" class="step-check" aria-label="Segna tappa completata"><a href="../../q/come-funzionano-le-chiavi-ssh/">Come funzionano le chiavi SSH (e perché abbandonare le password)?</a><p>Le chiavi al posto delle password: il singolo upgrade più efficace.</p></li>
+<li data-slug="configurare-firewall-host-default-deny-nftables-ufw"><input type="checkbox" class="step-check" aria-label="Segna tappa completata"><a href="../../q/configurare-firewall-host-default-deny-nftables-ufw/">Come si imposta il firewall dell&#x27;host (tramite ufw o regole native nftables) secondo il principio di default deny su tutto il traffico?</a><p>Default deny: tutto chiuso, si apre solo il necessario.</p></li>
+<li data-slug="fail2ban-e-alternative"><input type="checkbox" class="step-check" aria-label="Segna tappa completata"><a href="../../q/fail2ban-e-alternative/">Fail2ban: cos&#x27;è e quali alternative esistono?</a><p>Ban automatico di chi insiste.</p></li>
+<li data-slug="come-funziona-lets-encrypt-acme"><input type="checkbox" class="step-check" aria-label="Segna tappa completata"><a href="../../q/come-funziona-lets-encrypt-acme/">Come funziona Let&#x27;s Encrypt e il protocollo ACME?</a><p>HTTPS automatico, senza scadenze dimenticate.</p></li>
+<li data-slug="quali-security-header-servono"><input type="checkbox" class="step-check" aria-label="Segna tappa completata"><a href="../../q/quali-security-header-servono/">Quali security header HTTP servono davvero?</a><p>Gli header che il browser rispetta e gli scanner cercano.</p></li>
+<li data-slug="cos-e-un-waf-web-application-firewall"><input type="checkbox" class="step-check" aria-label="Segna tappa completata"><a href="../../q/cos-e-un-waf-web-application-firewall/">Cos&#x27;è un WAF (Web Application Firewall) e a cosa serve?</a><p>Lo strato che filtra le richieste applicative cattive.</p></li>
+<li data-slug="security-logging-fatto-bene"><input type="checkbox" class="step-check" aria-label="Segna tappa completata"><a href="../../q/security-logging-fatto-bene/">Come si fa security logging fatto bene?</a><p>Se non è loggato, non è successo: la scatola nera dell&#x27;incidente.</p></li>
+<li data-slug="backup-3-2-1"><input type="checkbox" class="step-check" aria-label="Segna tappa completata"><a href="../../q/backup-3-2-1/">Come si fa un backup con la regola 3-2-1?</a><p>Il paracadute: tre copie, due supporti, una fuori sede.</p></li>
+<li data-slug="piano-di-disaster-recovery-minimo"><input type="checkbox" class="step-check" aria-label="Segna tappa completata"><a href="../../q/piano-di-disaster-recovery-minimo/">Come si scrive un piano di disaster recovery minimo?</a><p>Sapere già cosa fare quando andrà male.</p></li>
+<li data-slug="checklist-sicurezza-periodica-server"><input type="checkbox" class="step-check" aria-label="Segna tappa completata"><a href="../../q/checklist-sicurezza-periodica-server/">Quale checklist di sicurezza periodica tiene in salute un server?</a><p>La mezz&#x27;ora al mese che mantiene vero tutto il lavoro fatto sopra.</p></li>
 </ol>
 <a class="ask" href="../../">Chiedi in chat 💬</a>
+<script>
+(function () {
+  var KEY = 'fabgpt-percorso-mettere-in-sicurezza-un-server';
+  var items = Array.prototype.slice.call(document.querySelectorAll('#steps li'));
+  var wrap = document.querySelector('.prog');
+  var done;
+  try { done = new Set(JSON.parse(localStorage.getItem(KEY) || '[]')); } catch (e) { return; }
+  wrap.hidden = false;
+  function save() {
+    try { localStorage.setItem(KEY, JSON.stringify(Array.from(done))); } catch (e) {}
+  }
+  function render() {
+    items.forEach(function (li) {
+      var on = done.has(li.getAttribute('data-slug'));
+      li.querySelector('.step-check').checked = on;
+      li.classList.toggle('done', on);
+    });
+    var n = items.filter(function (li) { return done.has(li.getAttribute('data-slug')); }).length;
+    document.getElementById('prog-fill').style.width = (100 * n / items.length) + '%';
+    document.getElementById('prog-txt').textContent = n + '/' + items.length + ' tappe' + (n === items.length ? ' – percorso completato! 🎉' : ' completate');
+  }
+  items.forEach(function (li) {
+    li.querySelector('.step-check').addEventListener('change', function () {
+      var slug = li.getAttribute('data-slug');
+      if (this.checked) done.add(slug); else done.delete(slug);
+      save(); render();
+    });
+  });
+  document.getElementById('prog-reset').addEventListener('click', function () {
+    if (!done.size) return;
+    done.clear(); save(); render();
+  });
+  render();
+})();
+</script>
 </main>
 </body>
 </html>
