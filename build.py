@@ -195,6 +195,26 @@ def section_bar(base: str, active: str = "") -> str:
     return f'<div class="statbar"><nav class="statnav" aria-label="Sezioni">{links}</nav></div>'
 
 
+def footer(base: str) -> str:
+    links = "".join(
+        f'<a href="{base}{href}">{label}</a>'
+        for href, label in [("", "Chat"), ("percorsi/", "Percorsi"), ("comandi/", "Comandi"),
+                            ("tools/", "Tools"), ("porta/", "Porte"), ("q/", "Tutte le domande")]
+    )
+    return (
+        '<footer class="sitefoot"><div class="sitefoot-in">'
+        '<span class="sitefoot-brand"><span class="foot-dot">F</span>FabGPT-FAQ '
+        '<span class="sitefoot-dim">· risposte verificate, zero allucinazioni</span></span>'
+        f'<nav class="sitefoot-nav" aria-label="Mappa del sito">{links}'
+        '<a href="https://github.com/fabriziosalmi" target="_blank" rel="noopener">GitHub</a></nav>'
+        "</div></footer>"
+    )
+
+
+def close_page(base: str) -> str:
+    return "</main>\n" + footer(base) + "\n</body>\n</html>\n"
+
+
 def path_head(**kw):
     if "sbar" not in kw:
         # the first known section segment in the canonical marks the active pill
@@ -307,6 +327,7 @@ PAGE = """<!DOCTYPE html>
     </div>
   </article>
 </main>
+{foot}
 <script>
 document.addEventListener('click',function(e){{
   var copyCodeBtn = e.target.closest('.copy-code-btn');
@@ -441,6 +462,7 @@ INDEX = """<!DOCTYPE html>
     {sections}
   </div>
 </main>
+{foot}
 <script>
 (function(){{
   // Live Instant Search & Vertical Filter
@@ -676,7 +698,7 @@ def build_paths(db, entries, site) -> list:
 })();
 </script>
 """
-        page += PATH_FOOT
+        page += close_page("../../")
         d = ROOT / "percorsi" / p["slug"]
         d.mkdir(parents=True, exist_ok=True)
         (d / "index.html").write_text(page, encoding="utf-8")
@@ -729,7 +751,7 @@ def build_paths(db, entries, site) -> list:
 })();
 </script>
 """
-    page += PATH_FOOT
+    page += close_page("../")
     d = ROOT / "percorsi"
     d.mkdir(parents=True, exist_ok=True)
     (d / "index.html").write_text(page, encoding="utf-8")
@@ -810,7 +832,7 @@ TOOLS = [
     <button id="dns-go" class="ask" style="margin:0">Interroga</button>
   </div>
   <p class="tool-privacy">Le query partono dal <b>tuo browser</b> verso <code>cloudflare-dns.com</code> e <code>dns.google</code> in DNS-over-HTTPS: questo sito non vede né registra nulla.</p>
-  <div id="tool-out" class="tool-out" aria-live="polite"></div>
+  <div id="tool-out" class="tool-out" aria-live="polite"><p class="tool-empty">Record, TTL e confronto tra i due resolver appaiono qui.</p></div>
 </div>""",
         "custom_js": """(function () {
   var out = document.getElementById('tool-out');
@@ -842,7 +864,7 @@ TOOLS = [
     var name = nameEl.value.trim().replace(/^https?:\\/\\//, '').replace(/\\/.*$/, '');
     var type = document.getElementById('dns-type').value;
     if (!name) return;
-    out.innerHTML = '<p>Interrogo i resolver…</p>';
+    out.innerHTML = '<p class="tool-wait">Interrogo Cloudflare e Google in parallelo…</p>';
     try {
       var res = await Promise.all([ask('Cloudflare', name, type), ask('Google', name, type)]);
       var same = values(res[0]) === values(res[1]);
@@ -869,7 +891,7 @@ TOOLS = [
     <button id="pw-go" class="ask" style="margin:0">Verifica</button>
   </div>
   <p class="tool-privacy">Come funziona (k-anonymity): il browser calcola l'hash SHA-1 in locale e invia a <code>api.pwnedpasswords.com</code> <b>solo i primi 5 caratteri</b> dell'hash. La risposta contiene centinaia di suffissi e il confronto avviene qui: né la password né il suo hash completo lasciano mai il tuo computer.</p>
-  <div id="tool-out" class="tool-out" aria-live="polite"></div>
+  <div id="tool-out" class="tool-out" aria-live="polite"><p class="tool-empty">Il verdetto appare qui: la password non lascia mai questo browser.</p></div>
 </div>""",
         "custom_js": """(function () {
   var out = document.getElementById('tool-out');
@@ -881,7 +903,7 @@ TOOLS = [
       out.innerHTML = '<p>Il browser non espone WebCrypto (serve HTTPS o localhost).</p>';
       return;
     }
-    out.innerHTML = '<p>Calcolo l\\'hash in locale e interrogo HIBP…</p>';
+    out.innerHTML = '<p class="tool-wait">Hash SHA-1 calcolato in locale, interrogo HIBP col prefisso…</p>';
     try {
       var buf = await crypto.subtle.digest('SHA-1', new TextEncoder().encode(pw));
       var hex = Array.from(new Uint8Array(buf)).map(function (b) { return b.toString(16).padStart(2, '0'); }).join('').toUpperCase();
@@ -978,7 +1000,7 @@ def build_tools(db, entries, site) -> list:
             body = f"""<div class="tool-box">
   <input id="tool-in" type="text" placeholder="{html.escape(t["placeholder"])}" autocomplete="off" spellcheck="false" aria-label="Input dello strumento">
   <div class="tool-ex">{examples}</div>
-  <div id="tool-out" class="tool-out" aria-live="polite"></div>
+  <div id="tool-out" class="tool-out" aria-live="polite"><p class="tool-empty">Il risultato appare qui, calcolato in locale – digita o tocca un esempio.</p></div>
 </div>"""
             script = f"""<script src="../../tools.js"></script>
 <script>
@@ -989,7 +1011,7 @@ def build_tools(db, entries, site) -> list:
   var FN = '{t["fn"]}';
   function run() {{
     var v = input.value.trim();
-    if (!v) {{ out.innerHTML = ''; return; }}
+    if (!v) {{ out.innerHTML = '<p class="tool-empty">Il risultato appare qui, calcolato in locale – digita o tocca un esempio.</p>'; return; }}
     var md = null;
     try {{
       if (FN === 'subnet') {{
@@ -1041,7 +1063,7 @@ def build_tools(db, entries, site) -> list:
 </style>
 {script}
 """
-        page += PATH_FOOT
+        page += close_page("../../")
         d = ROOT / "tools" / t["slug"]
         d.mkdir(parents=True, exist_ok=True)
         (d / "index.html").write_text(page, encoding="utf-8")
@@ -1074,7 +1096,7 @@ def build_tools(db, entries, site) -> list:
         '<p class="intro">Strumenti che <b>calcolano</b>, non generano: il risultato è esatto per costruzione, gira nel tuo browser e non tocca nessun server. Gli stessi motori rispondono anche in <a href="../">chat</a>: incolla una CIDR, un cron o un JWT e vedi.</p>\n'
         + cards
     )
-    page += PATH_FOOT
+    page += close_page("../")
     (ROOT / "tools").mkdir(parents=True, exist_ok=True)
     (ROOT / "tools" / "index.html").write_text(page, encoding="utf-8")
     return urls
@@ -1160,7 +1182,7 @@ def build_ports(db, entries, site) -> list:
   .related a:hover {{ text-decoration: underline; }}
 </style>
 """
-        page += PATH_FOOT
+        page += close_page("../../")
         d = ROOT / "porta" / str(n)
         d.mkdir(parents=True, exist_ok=True)
         (d / "index.html").write_text(page, encoding="utf-8")
@@ -1194,7 +1216,7 @@ def build_ports(db, entries, site) -> list:
         'La <a href="../q/porte-tcp-e-udp-quali-conoscere/">guida generale alle porte</a> spiega il quadro.</p>\n'
         f'<ul style="list-style:none;padding:0;line-height:1.9">{rows}</ul>\n'
     )
-    page += PATH_FOOT
+    page += close_page("../")
     (ROOT / "porta").mkdir(parents=True, exist_ok=True)
     (ROOT / "porta" / "index.html").write_text(page, encoding="utf-8")
     return urls
@@ -1293,7 +1315,7 @@ document.addEventListener('click', function (e) {{
 }});
 </script>
 """
-        page += PATH_FOOT
+        page += close_page("../../")
         d = ROOT / "comandi" / g["slug"]
         d.mkdir(parents=True, exist_ok=True)
         (d / "index.html").write_text(page, encoding="utf-8")
@@ -1326,7 +1348,7 @@ document.addEventListener('click', function (e) {{
         '<p class="intro">Il comando giusto con il suo gotcha, per schede tematiche. Gli stessi comandi rispondono in <a href="../">chat</a>: descrivi cosa vuoi fare ("come sbanno un IP?", "il container si riavvia") e arriva la riga pronta.</p>\n'
         + cardsidx
     )
-    page += PATH_FOOT
+    page += close_page("../")
     (ROOT / "comandi").mkdir(parents=True, exist_ok=True)
     (ROOT / "comandi" / "index.html").write_text(page, encoding="utf-8")
     return urls
@@ -1475,6 +1497,7 @@ def build() -> None:
             glyph_svg=glyph(e["vertical"]),
             reading_time=reading_time,
             sbar=section_bar("../../", "q/"),
+            foot=footer("../../"),
             ic_clock=icon("clock"),
             ic_check=icon("check"),
             ic_chat=icon("chat"),
@@ -1569,6 +1592,7 @@ def build() -> None:
             site=site,
             total=len(entries),
             sbar=section_bar("../", "q/"),
+            foot=footer("../"),
             percorsi=percorsi_strip,
             chips=chips_html,
             jsonld=json.dumps(index_jsonld, ensure_ascii=False),
@@ -1670,6 +1694,7 @@ def build() -> None:
     <a class="btn ghost" href="/q/">Tutte le domande</a>
   </div>
 </main>
+"""+footer("./")+"""
 </body>
 </html>
 """

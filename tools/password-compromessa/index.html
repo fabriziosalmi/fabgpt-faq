@@ -71,7 +71,7 @@
     <button id="pw-go" class="ask" style="margin:0">Verifica</button>
   </div>
   <p class="tool-privacy">Come funziona (k-anonymity): il browser calcola l'hash SHA-1 in locale e invia a <code>api.pwnedpasswords.com</code> <b>solo i primi 5 caratteri</b> dell'hash. La risposta contiene centinaia di suffissi e il confronto avviene qui: né la password né il suo hash completo lasciano mai il tuo computer.</p>
-  <div id="tool-out" class="tool-out" aria-live="polite"></div>
+  <div id="tool-out" class="tool-out" aria-live="polite"><p class="tool-empty">Il verdetto appare qui: la password non lascia mai questo browser.</p></div>
 </div>
 <div class="related"><h2>Guide correlate</h2><ul><li><a href="../../q/verificare-password-compromessa/">Come si verifica se una password è stata compromessa?</a></li><li><a href="../../q/perche-usare-un-password-manager/">Perché usare un password manager?</a></li><li><a href="../../q/cosa-sono-le-passkey/">Cosa sono le passkey (e sostituiranno le password)?</a></li><li><a href="../../q/cos-e-autenticazione-due-fattori-mfa/">Cos&#x27;è l&#x27;autenticazione a più fattori (MFA/2FA)?</a></li><li><a href="../../q/cos-e-un-infostealer/">Cos&#x27;è un infostealer (e come esfiltra le credenziali)?</a></li></ul></div>
 <a class="ask" href="../../"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-2px"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg> Chiedi in chat</a>
@@ -111,7 +111,7 @@
       out.innerHTML = '<p>Il browser non espone WebCrypto (serve HTTPS o localhost).</p>';
       return;
     }
-    out.innerHTML = '<p>Calcolo l\'hash in locale e interrogo HIBP…</p>';
+    out.innerHTML = '<p class="tool-wait">Hash SHA-1 calcolato in locale, interrogo HIBP col prefisso…</p>';
     try {
       var buf = await crypto.subtle.digest('SHA-1', new TextEncoder().encode(pw));
       var hex = Array.from(new Uint8Array(buf)).map(function (b) { return b.toString(16).padStart(2, '0'); }).join('').toUpperCase();
@@ -142,5 +142,6 @@
 })();
 </script>
 </main>
+<footer class="sitefoot"><div class="sitefoot-in"><span class="sitefoot-brand"><span class="foot-dot">F</span>FabGPT-FAQ <span class="sitefoot-dim">· risposte verificate, zero allucinazioni</span></span><nav class="sitefoot-nav" aria-label="Mappa del sito"><a href="../../">Chat</a><a href="../../percorsi/">Percorsi</a><a href="../../comandi/">Comandi</a><a href="../../tools/">Tools</a><a href="../../porta/">Porte</a><a href="../../q/">Tutte le domande</a><a href="https://github.com/fabriziosalmi" target="_blank" rel="noopener">GitHub</a></nav></div></footer>
 </body>
 </html>

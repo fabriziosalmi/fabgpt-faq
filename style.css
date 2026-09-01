@@ -359,6 +359,40 @@ body {
 .ctxcrumb span:last-child { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .ctxcrumb:hover { color: var(--link); }
 
+/* site footer (generated pages) */
+.sitefoot {
+  border-top: 1px solid var(--border);
+  margin-top: 40px;
+  padding: 18px 16px calc(18px + env(safe-area-inset-bottom));
+  font-size: 12.5px;
+  color: var(--text-dim);
+}
+.sitefoot-in {
+  max-width: 768px;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px 16px;
+}
+.sitefoot-brand { display: inline-flex; align-items: center; gap: 7px; font-weight: 600; color: var(--text); }
+.sitefoot-dim { color: var(--text-dim); font-weight: 400; }
+.foot-dot {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 18px; height: 18px; border-radius: 50%;
+  background: var(--accent); color: var(--accent-text);
+  font-size: 11px; font-weight: 700;
+}
+.sitefoot-nav { display: flex; flex-wrap: wrap; gap: 4px 14px; }
+.sitefoot-nav a { color: var(--text-dim); text-decoration: none; }
+.sitefoot-nav a:hover { color: var(--link); text-decoration: underline; }
+
+/* tool result area: empty & waiting states */
+.tool-empty { color: var(--text-dim); font-size: 13px; margin: 0; }
+.tool-empty::before { content: "→ "; color: var(--accent); }
+.tool-wait { color: var(--text-dim); }
+
 /* flex-column body: pages must be allowed to shrink below their pre's max-content */
 main.page { width: 100%; min-width: 0; }
 

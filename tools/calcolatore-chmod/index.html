@@ -68,7 +68,7 @@
 <div class="tool-box">
   <input id="tool-in" type="text" placeholder="754 oppure rwxr-xr--" autocomplete="off" spellcheck="false" aria-label="Input dello strumento">
   <div class="tool-ex"><button type="button" class="ex" data-v="755">755</button><button type="button" class="ex" data-v="644">644</button><button type="button" class="ex" data-v="600">600</button><button type="button" class="ex" data-v="777">777</button><button type="button" class="ex" data-v="4755">4755</button><button type="button" class="ex" data-v="rwxr-xr--">rwxr-xr--</button></div>
-  <div id="tool-out" class="tool-out" aria-live="polite"></div>
+  <div id="tool-out" class="tool-out" aria-live="polite"><p class="tool-empty">Il risultato appare qui, calcolato in locale – digita o tocca un esempio.</p></div>
 </div>
 <div class="related"><h2>Guide correlate</h2><ul><li><a href="../../q/permessi-linux-chmod-chown-umask/">Come funzionano i permessi Linux (chmod, chown, umask)?</a></li><li><a href="../../q/utenti-gruppi-e-sudo-su-linux/">Utenti, gruppi e sudo su Linux: le basi che servono</a></li><li><a href="../../q/come-funzionano-le-chiavi-ssh/">Come funzionano le chiavi SSH (e perché abbandonare le password)?</a></li></ul></div>
 <a class="ask" href="../../"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-2px"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg> Chiedi in chat</a>
@@ -123,7 +123,7 @@ function miniMd(md) {
   var FN = 'chmod';
   function run() {
     var v = input.value.trim();
-    if (!v) { out.innerHTML = ''; return; }
+    if (!v) { out.innerHTML = '<p class="tool-empty">Il risultato appare qui, calcolato in locale – digita o tocca un esempio.</p>'; return; }
     var md = null;
     try {
       if (FN === 'subnet') {
@@ -143,5 +143,6 @@ function miniMd(md) {
 })();
 </script>
 </main>
+<footer class="sitefoot"><div class="sitefoot-in"><span class="sitefoot-brand"><span class="foot-dot">F</span>FabGPT-FAQ <span class="sitefoot-dim">· risposte verificate, zero allucinazioni</span></span><nav class="sitefoot-nav" aria-label="Mappa del sito"><a href="../../">Chat</a><a href="../../percorsi/">Percorsi</a><a href="../../comandi/">Comandi</a><a href="../../tools/">Tools</a><a href="../../porta/">Porte</a><a href="../../q/">Tutte le domande</a><a href="https://github.com/fabriziosalmi" target="_blank" rel="noopener">GitHub</a></nav></div></footer>
 </body>
 </html>
