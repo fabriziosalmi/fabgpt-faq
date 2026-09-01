@@ -626,6 +626,8 @@ Chat: https://fabriziosalmi.github.io/fabgpt-faq/  ·  Indice: https://fabrizios
 - [Calcolatore chmod](https://fabriziosalmi.github.io/fabgpt-faq/tools/calcolatore-chmod/): Da ottale a rwx e ritorno, bit speciali inclusi. Con gli avvisi che contano (777, 600).
 - [Decodifica JWT](https://fabriziosalmi.github.io/fabgpt-faq/tools/decodifica-jwt/): Header e payload di un JSON Web Token, decodificati in locale: il token non lascia mai il tuo browser.
 - [Convertitore timestamp Unix](https://fabriziosalmi.github.io/fabgpt-faq/tools/timestamp-unix/): Da epoch (secondi o millisecondi) a data leggibile, con i comandi da terminale equivalenti.
+- [Lookup DNS live](https://fabriziosalmi.github.io/fabgpt-faq/tools/dns-lookup/): Interroga in parallelo i resolver DoH di Cloudflare e Google e confronta le risposte: il test di propagazione in un click.
+- [Check password compromessa](https://fabriziosalmi.github.io/fabgpt-faq/tools/password-compromessa/): Verifica se una password è nei data breach noti (Have I Been Pwned) con k-anonymity: la password non lascia mai il browser.
 
 ## Porte well-known
 

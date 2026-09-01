@@ -32,6 +32,16 @@
   .steps a { color: var(--link); text-decoration: none; font-weight: 600; }
   .steps a:hover { text-decoration: underline; }
   .steps p { margin: 4px 0 0; font-size: 14px; color: var(--text-dim); }
+  .step-check { position: absolute; right: 14px; top: 16px; width: 18px; height: 18px; accent-color: var(--accent); cursor: pointer; }
+  .steps li { padding-right: 44px; }
+  .steps li.done { opacity: .55; }
+  .steps li.done a { text-decoration: line-through; }
+  .prog { display: flex; align-items: center; gap: 12px; margin: 4px 0 16px; }
+  .prog-track { flex: 1; height: 8px; border-radius: 999px; background: var(--bg-soft); border: 1px solid var(--border); overflow: hidden; }
+  .prog-fill { display: block; height: 100%; width: 0; background: var(--accent); border-radius: 999px; transition: width .25s ease; }
+  .prog-txt { font-size: 13px; color: var(--text-dim); white-space: nowrap; }
+  .prog-reset { font-size: 12px; color: var(--text-dim); background: none; border: none; cursor: pointer; text-decoration: underline; padding: 0; }
+  .path-prog { margin: 6px 0 0 !important; font-size: 12.5px !important; color: var(--accent) !important; font-weight: 600; }
   .path-card { display: block; border: 1px solid var(--border); border-radius: 12px; background: var(--bg-soft); padding: 16px 18px; margin: 12px 0; text-decoration: none; color: inherit; }
   .path-card:hover { border-color: var(--accent); }
   .path-card b { color: var(--link); font-size: 17px; }
@@ -74,6 +84,15 @@
   .related h2 { font-size: 16px; margin-bottom: 10px; }
   .related a { color: var(--link); text-decoration: none; }
   .related a:hover { text-decoration: underline; }
+  .tool-box select, .tool-box button.ask { font-family: inherit; font-size: 14px; padding: 8px 14px; border: 1px solid var(--border); border-radius: 8px; background: var(--bg); color: var(--text); cursor: pointer; }
+  .tool-box button.ask { background: var(--accent); color: var(--accent-text); border-color: var(--accent); font-weight: 600; }
+  .tool-privacy { font-size: 12.5px; color: var(--text-dim); margin: 10px 0 0; }
+  .tool-privacy code { background: var(--code-bg); border-radius: 4px; padding: 0 4px; }
+  .tool-out h3 { font-size: 15px; margin: 14px 0 6px; }
+  .tool-out table { border-collapse: collapse; width: 100%; font-size: 13.5px; }
+  .tool-out th, .tool-out td { text-align: left; padding: 5px 8px; border-bottom: 1px solid var(--border); overflow-wrap: anywhere; }
+  .dns-ok { color: var(--accent); font-weight: 600; }
+  .dns-diff { font-weight: 600; }
 </style>
 <script src="../../tools.js"></script>
 <script>

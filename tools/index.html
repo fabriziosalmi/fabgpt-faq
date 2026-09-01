@@ -18,7 +18,7 @@
 <meta name="twitter:image" content="https://fabriziosalmi.github.io/fabgpt-faq/og.svg">
 <link rel="stylesheet" href="../style.css">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "ItemList", "name": "Tools FabGPT-FAQ", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Calcolatore subnet / CIDR", "url": "https://fabriziosalmi.github.io/fabgpt-faq/tools/calcolatore-subnet/"}, {"@type": "ListItem", "position": 2, "name": "Spiega-cron", "url": "https://fabriziosalmi.github.io/fabgpt-faq/tools/spiega-cron/"}, {"@type": "ListItem", "position": 3, "name": "Calcolatore chmod", "url": "https://fabriziosalmi.github.io/fabgpt-faq/tools/calcolatore-chmod/"}, {"@type": "ListItem", "position": 4, "name": "Decodifica JWT", "url": "https://fabriziosalmi.github.io/fabgpt-faq/tools/decodifica-jwt/"}, {"@type": "ListItem", "position": 5, "name": "Convertitore timestamp Unix", "url": "https://fabriziosalmi.github.io/fabgpt-faq/tools/timestamp-unix/"}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "ItemList", "name": "Tools FabGPT-FAQ", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Calcolatore subnet / CIDR", "url": "https://fabriziosalmi.github.io/fabgpt-faq/tools/calcolatore-subnet/"}, {"@type": "ListItem", "position": 2, "name": "Spiega-cron", "url": "https://fabriziosalmi.github.io/fabgpt-faq/tools/spiega-cron/"}, {"@type": "ListItem", "position": 3, "name": "Calcolatore chmod", "url": "https://fabriziosalmi.github.io/fabgpt-faq/tools/calcolatore-chmod/"}, {"@type": "ListItem", "position": 4, "name": "Decodifica JWT", "url": "https://fabriziosalmi.github.io/fabgpt-faq/tools/decodifica-jwt/"}, {"@type": "ListItem", "position": 5, "name": "Convertitore timestamp Unix", "url": "https://fabriziosalmi.github.io/fabgpt-faq/tools/timestamp-unix/"}, {"@type": "ListItem", "position": 6, "name": "Lookup DNS live", "url": "https://fabriziosalmi.github.io/fabgpt-faq/tools/dns-lookup/"}, {"@type": "ListItem", "position": 7, "name": "Check password compromessa", "url": "https://fabriziosalmi.github.io/fabgpt-faq/tools/password-compromessa/"}]}</script>
 <style>
   .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
   .page h1 { font-size: 26px; line-height: 1.3; margin: 6px 0 10px; }
@@ -32,6 +32,16 @@
   .steps a { color: var(--link); text-decoration: none; font-weight: 600; }
   .steps a:hover { text-decoration: underline; }
   .steps p { margin: 4px 0 0; font-size: 14px; color: var(--text-dim); }
+  .step-check { position: absolute; right: 14px; top: 16px; width: 18px; height: 18px; accent-color: var(--accent); cursor: pointer; }
+  .steps li { padding-right: 44px; }
+  .steps li.done { opacity: .55; }
+  .steps li.done a { text-decoration: line-through; }
+  .prog { display: flex; align-items: center; gap: 12px; margin: 4px 0 16px; }
+  .prog-track { flex: 1; height: 8px; border-radius: 999px; background: var(--bg-soft); border: 1px solid var(--border); overflow: hidden; }
+  .prog-fill { display: block; height: 100%; width: 0; background: var(--accent); border-radius: 999px; transition: width .25s ease; }
+  .prog-txt { font-size: 13px; color: var(--text-dim); white-space: nowrap; }
+  .prog-reset { font-size: 12px; color: var(--text-dim); background: none; border: none; cursor: pointer; text-decoration: underline; padding: 0; }
+  .path-prog { margin: 6px 0 0 !important; font-size: 12.5px !important; color: var(--accent) !important; font-weight: 600; }
   .path-card { display: block; border: 1px solid var(--border); border-radius: 12px; background: var(--bg-soft); padding: 16px 18px; margin: 12px 0; text-decoration: none; color: inherit; }
   .path-card:hover { border-color: var(--accent); }
   .path-card b { color: var(--link); font-size: 17px; }
@@ -57,6 +67,8 @@
 <a class="path-card" href="calcolatore-chmod/"><b>🔐 Calcolatore chmod</b><p>Da ottale a rwx e ritorno, bit speciali inclusi. Con gli avvisi che contano (777, 600).</p></a>
 <a class="path-card" href="decodifica-jwt/"><b>🎫 Decodifica JWT</b><p>Header e payload di un JSON Web Token, decodificati in locale: il token non lascia mai il tuo browser.</p></a>
 <a class="path-card" href="timestamp-unix/"><b>🕐 Convertitore timestamp Unix</b><p>Da epoch (secondi o millisecondi) a data leggibile, con i comandi da terminale equivalenti.</p></a>
+<a class="path-card" href="dns-lookup/"><b>🌐 Lookup DNS live</b><p>Interroga in parallelo i resolver DoH di Cloudflare e Google e confronta le risposte: il test di propagazione in un click.</p></a>
+<a class="path-card" href="password-compromessa/"><b>🔑 Check password compromessa</b><p>Verifica se una password è nei data breach noti (Have I Been Pwned) con k-anonymity: la password non lascia mai il browser.</p></a>
 </main>
 </body>
 </html>

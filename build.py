@@ -492,6 +492,16 @@ PATH_HEAD = """<!DOCTYPE html>
   .steps a {{ color: var(--link); text-decoration: none; font-weight: 600; }}
   .steps a:hover {{ text-decoration: underline; }}
   .steps p {{ margin: 4px 0 0; font-size: 14px; color: var(--text-dim); }}
+  .step-check {{ position: absolute; right: 14px; top: 16px; width: 18px; height: 18px; accent-color: var(--accent); cursor: pointer; }}
+  .steps li {{ padding-right: 44px; }}
+  .steps li.done {{ opacity: .55; }}
+  .steps li.done a {{ text-decoration: line-through; }}
+  .prog {{ display: flex; align-items: center; gap: 12px; margin: 4px 0 16px; }}
+  .prog-track {{ flex: 1; height: 8px; border-radius: 999px; background: var(--bg-soft); border: 1px solid var(--border); overflow: hidden; }}
+  .prog-fill {{ display: block; height: 100%; width: 0; background: var(--accent); border-radius: 999px; transition: width .25s ease; }}
+  .prog-txt {{ font-size: 13px; color: var(--text-dim); white-space: nowrap; }}
+  .prog-reset {{ font-size: 12px; color: var(--text-dim); background: none; border: none; cursor: pointer; text-decoration: underline; padding: 0; }}
+  .path-prog {{ margin: 6px 0 0 !important; font-size: 12.5px !important; color: var(--accent) !important; font-weight: 600; }}
   .path-card {{ display: block; border: 1px solid var(--border); border-radius: 12px; background: var(--bg-soft); padding: 16px 18px; margin: 12px 0; text-decoration: none; color: inherit; }}
   .path-card:hover {{ border-color: var(--accent); }}
   .path-card b {{ color: var(--link); font-size: 17px; }}
@@ -535,7 +545,9 @@ def build_paths(db, entries, site) -> list:
         for s in p["steps"]:
             e = by_id[s["entry"]]
             steps_html += (
-                f'<li><a href="../../q/{e["slug"]}/">{html.escape(e["question"])}</a>'
+                f'<li data-slug="{e["slug"]}">'
+                f'<input type="checkbox" class="step-check" aria-label="Segna tappa completata">'
+                f'<a href="../../q/{e["slug"]}/">{html.escape(e["question"])}</a>'
                 f"<p>{inline_md(html.escape(s['why']))}</p></li>\n"
             )
         jsonld = [
@@ -578,9 +590,48 @@ def build_paths(db, entries, site) -> list:
             f'<a href="../">Percorsi</a> › <span>{html.escape(p["title"])}</span></nav>\n'
             f"<h1>{html.escape(p['title'])}</h1>\n"
             f'<p class="intro">{inline_md(html.escape(p["intro"]))}</p>\n'
-            f'<ol class="steps">\n{steps_html}</ol>\n'
+            f'<div class="prog" hidden><div class="prog-track"><span class="prog-fill" id="prog-fill"></span></div>'
+            f'<span class="prog-txt" id="prog-txt"></span>'
+            f'<button type="button" id="prog-reset" class="prog-reset" aria-label="Azzera il progresso">azzera</button></div>\n'
+            f'<ol class="steps" id="steps">\n{steps_html}</ol>\n'
             f'<a class="ask" href="../../">Chiedi in chat 💬</a>\n'
         )
+        page += """<script>
+(function () {
+  var KEY = 'fabgpt-percorso-""" + p["slug"] + """';
+  var items = Array.prototype.slice.call(document.querySelectorAll('#steps li'));
+  var wrap = document.querySelector('.prog');
+  var done;
+  try { done = new Set(JSON.parse(localStorage.getItem(KEY) || '[]')); } catch (e) { return; }
+  wrap.hidden = false;
+  function save() {
+    try { localStorage.setItem(KEY, JSON.stringify(Array.from(done))); } catch (e) {}
+  }
+  function render() {
+    items.forEach(function (li) {
+      var on = done.has(li.getAttribute('data-slug'));
+      li.querySelector('.step-check').checked = on;
+      li.classList.toggle('done', on);
+    });
+    var n = items.filter(function (li) { return done.has(li.getAttribute('data-slug')); }).length;
+    document.getElementById('prog-fill').style.width = (100 * n / items.length) + '%';
+    document.getElementById('prog-txt').textContent = n + '/' + items.length + ' tappe' + (n === items.length ? ' – percorso completato! 🎉' : ' completate');
+  }
+  items.forEach(function (li) {
+    li.querySelector('.step-check').addEventListener('change', function () {
+      var slug = li.getAttribute('data-slug');
+      if (this.checked) done.add(slug); else done.delete(slug);
+      save(); render();
+    });
+  });
+  document.getElementById('prog-reset').addEventListener('click', function () {
+    if (!done.size) return;
+    done.clear(); save(); render();
+  });
+  render();
+})();
+</script>
+"""
         page += PATH_FOOT
         d = ROOT / "percorsi" / p["slug"]
         d.mkdir(parents=True, exist_ok=True)
@@ -591,8 +642,10 @@ def build_paths(db, entries, site) -> list:
     cards = ""
     for p in paths:
         cards += (
-            f'<a class="path-card" href="{p["slug"]}/"><span class="n">{len(p["steps"])} tappe</span><br>'
-            f"<b>{html.escape(p['title'])}</b><p>{html.escape(p['tagline'])}</p></a>\n"
+            f'<a class="path-card" href="{p["slug"]}/" data-slug="{p["slug"]}" data-steps="{len(p["steps"])}">'
+            f'<span class="n">{len(p["steps"])} tappe</span><br>'
+            f"<b>{html.escape(p['title'])}</b><p>{html.escape(p['tagline'])}</p>"
+            f'<p class="path-prog" hidden></p></a>\n'
         )
     jsonld = {
         "@context": "https://schema.org",
@@ -614,9 +667,24 @@ def build_paths(db, entries, site) -> list:
     page += (
         '<nav class="crumbs" aria-label="Percorso"><a href="../">FabGPT-FAQ</a> › <span>Percorsi</span></nav>\n'
         "<h1>Percorsi guidati</h1>\n"
-        '<p class="intro">Le stesse risposte verificate della knowledge base, messe in fila nell\'ordine giusto: ogni percorso è una strada completa, tappa per tappa.</p>\n'
+        '<p class="intro">Le stesse risposte verificate della knowledge base, messe in fila nell\'ordine giusto: ogni percorso è una strada completa, tappa per tappa. Il progresso resta salvato nel tuo browser.</p>\n'
         + cards
     )
+    page += """<script>
+(function () {
+  document.querySelectorAll('.path-card').forEach(function (card) {
+    var n;
+    try { n = JSON.parse(localStorage.getItem('fabgpt-percorso-' + card.getAttribute('data-slug')) || '[]').length; }
+    catch (e) { return; }
+    if (!n) return;
+    var tot = +card.getAttribute('data-steps');
+    var el = card.querySelector('.path-prog');
+    el.textContent = n >= tot ? '✓ Completato' : n + '/' + tot + ' tappe completate';
+    el.hidden = false;
+  });
+})();
+</script>
+"""
     page += PATH_FOOT
     d = ROOT / "percorsi"
     d.mkdir(parents=True, exist_ok=True)
@@ -684,6 +752,121 @@ TOOLS = [
         "examples": ["1609459200", "1725167999", "1609459200000"],
         "related": ["dove-sono-i-log-su-linux", "cron-la-sintassi-spiegata", "security-logging-fatto-bene"],
     },
+    {
+        "slug": "dns-lookup", "fn": "custom", "icon": "🌐",
+        "title": "Lookup DNS live",
+        "tagline": "Interroga in parallelo i resolver DoH di Cloudflare e Google e confronta le risposte: il test di propagazione in un click.",
+        "related": ["tipi-di-record-dns", "diagnosticare-la-propagazione-dns", "cos-e-il-ttl-dns", "come-funziona-la-risoluzione-dns", "cos-e-doh-dns-over-https"],
+        "custom_html": """<div class="tool-box">
+  <div style="display:flex;gap:8px;flex-wrap:wrap">
+    <input id="dns-name" type="text" placeholder="example.com" autocomplete="off" spellcheck="false" style="flex:1;min-width:180px" aria-label="Dominio">
+    <select id="dns-type" aria-label="Tipo di record">
+      <option>A</option><option>AAAA</option><option>CNAME</option><option>MX</option><option>TXT</option><option>NS</option><option>SOA</option><option>CAA</option>
+    </select>
+    <button id="dns-go" class="ask" style="margin:0">Interroga</button>
+  </div>
+  <p class="tool-privacy">Le query partono dal <b>tuo browser</b> verso <code>cloudflare-dns.com</code> e <code>dns.google</code> in DNS-over-HTTPS: questo sito non vede né registra nulla.</p>
+  <div id="tool-out" class="tool-out" aria-live="polite"></div>
+</div>""",
+        "custom_js": """(function () {
+  var out = document.getElementById('tool-out');
+  var nameEl = document.getElementById('dns-name');
+  function esc(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+  async function ask(resolver, name, type) {
+    var url = resolver === 'Cloudflare'
+      ? 'https://cloudflare-dns.com/dns-query?name=' + encodeURIComponent(name) + '&type=' + type
+      : 'https://dns.google/resolve?name=' + encodeURIComponent(name) + '&type=' + type;
+    var opt = resolver === 'Cloudflare' ? { headers: { Accept: 'application/dns-json' } } : {};
+    var r = await fetch(url, opt);
+    if (!r.ok) throw new Error(resolver + ' HTTP ' + r.status);
+    return r.json();
+  }
+  function block(resolver, data) {
+    var h = '<h3>' + resolver + '</h3>';
+    if (data.Status === 3) return h + '<p>NXDOMAIN – il dominio non esiste per questo resolver.</p>';
+    if (data.Status !== 0) return h + '<p>Errore DNS (Status ' + esc(data.Status) + ').</p>';
+    var ans = data.Answer || [];
+    if (!ans.length) return h + '<p>Nessun record di questo tipo (NOERROR ma risposta vuota).</p>';
+    return h + '<table><tr><th>Record</th><th>TTL</th><th>Valore</th></tr>' + ans.map(function (a) {
+      return '<tr><td>' + esc(a.name) + '</td><td>' + esc(a.TTL) + 's</td><td><code>' + esc(a.data) + '</code></td></tr>';
+    }).join('') + '</table>';
+  }
+  function values(data) {
+    return (data.Answer || []).map(function (a) { return a.data; }).sort().join('|');
+  }
+  async function run() {
+    var name = nameEl.value.trim().replace(/^https?:\\/\\//, '').replace(/\\/.*$/, '');
+    var type = document.getElementById('dns-type').value;
+    if (!name) return;
+    out.innerHTML = '<p>Interrogo i resolver…</p>';
+    try {
+      var res = await Promise.all([ask('Cloudflare', name, type), ask('Google', name, type)]);
+      var same = values(res[0]) === values(res[1]);
+      var badge = same
+        ? '<p class="dns-ok">✓ I due resolver rispondono allo stesso modo.</p>'
+        : '<p class="dns-diff">⚠️ Risposte diverse: propagazione in corso, oppure split DNS / geo-DNS.</p>';
+      out.innerHTML = badge + block('Cloudflare (1.1.1.1)', res[0]) + block('Google (8.8.8.8)', res[1]);
+    } catch (e) {
+      out.innerHTML = '<p>Impossibile interrogare i resolver (' + esc(e.message) + '). Sei offline, o un firewall blocca il DoH.</p>';
+    }
+  }
+  document.getElementById('dns-go').addEventListener('click', run);
+  nameEl.addEventListener('keydown', function (e) { if (e.key === 'Enter') run(); });
+})();""",
+    },
+    {
+        "slug": "password-compromessa", "fn": "custom", "icon": "🔑",
+        "title": "Check password compromessa",
+        "tagline": "Verifica se una password è nei data breach noti (Have I Been Pwned) con k-anonymity: la password non lascia mai il browser.",
+        "related": ["verificare-password-compromessa", "perche-usare-un-password-manager", "cosa-sono-le-passkey", "cos-e-autenticazione-due-fattori-mfa", "cos-e-un-infostealer"],
+        "custom_html": """<div class="tool-box">
+  <div style="display:flex;gap:8px;flex-wrap:wrap">
+    <input id="pw-in" type="password" placeholder="La password da verificare" autocomplete="off" style="flex:1;min-width:200px" aria-label="Password da verificare">
+    <button id="pw-go" class="ask" style="margin:0">Verifica</button>
+  </div>
+  <p class="tool-privacy">Come funziona (k-anonymity): il browser calcola l'hash SHA-1 in locale e invia a <code>api.pwnedpasswords.com</code> <b>solo i primi 5 caratteri</b> dell'hash. La risposta contiene centinaia di suffissi e il confronto avviene qui: né la password né il suo hash completo lasciano mai il tuo computer.</p>
+  <div id="tool-out" class="tool-out" aria-live="polite"></div>
+</div>""",
+        "custom_js": """(function () {
+  var out = document.getElementById('tool-out');
+  var inEl = document.getElementById('pw-in');
+  async function run() {
+    var pw = inEl.value;
+    if (!pw) return;
+    if (!window.crypto || !crypto.subtle) {
+      out.innerHTML = '<p>Il browser non espone WebCrypto (serve HTTPS o localhost).</p>';
+      return;
+    }
+    out.innerHTML = '<p>Calcolo l\\'hash in locale e interrogo HIBP…</p>';
+    try {
+      var buf = await crypto.subtle.digest('SHA-1', new TextEncoder().encode(pw));
+      var hex = Array.from(new Uint8Array(buf)).map(function (b) { return b.toString(16).padStart(2, '0'); }).join('').toUpperCase();
+      var prefix = hex.slice(0, 5), suffix = hex.slice(5);
+      var r = await fetch('https://api.pwnedpasswords.com/range/' + prefix, { headers: { 'Add-Padding': 'true' } });
+      if (!r.ok) throw new Error('HTTP ' + r.status);
+      var count = 0;
+      r.headers && null;
+      (await r.text()).split('\\n').some(function (line) {
+        var p = line.trim().split(':');
+        if (p[0] === suffix) { count = parseInt(p[1], 10) || 0; return true; }
+        return false;
+      });
+      if (count > 0) {
+        out.innerHTML = '<p class="dns-diff">⚠️ <b>Compromessa</b>: questa password compare <b>' + count.toLocaleString('it-IT') +
+          '</b> volte nei data breach noti. Va cambiata OVUNQUE tu la usi, subito – e mai più riusata.</p>' +
+          '<p>Il passo giusto: una password unica per servizio dentro un password manager, e MFA dove possibile.</p>';
+      } else {
+        out.innerHTML = '<p class="dns-ok">✓ Non presente nei breach noti a Have I Been Pwned.</p>' +
+          '<p>Non significa "sicura per sempre": significa solo che non è ancora in una lista pubblica. Le regole non cambiano: unica per servizio, lunga, in un password manager.</p>';
+      }
+    } catch (e) {
+      out.innerHTML = '<p>Verifica non riuscita (' + String(e.message).replace(/</g, '&lt;') + '). Sei offline?</p>';
+    }
+  }
+  document.getElementById('pw-go').addEventListener('click', run);
+  inEl.addEventListener('keydown', function (e) { if (e.key === 'Enter') run(); });
+})();""",
+    },
 ]
 
 # entry id -> (relative url from q/<slug>/, banner label)
@@ -711,7 +894,7 @@ def build_tools(db, entries, site) -> list:
         )
         examples = "".join(
             f'<button type="button" class="ex" data-v="{html.escape(x)}">{html.escape(x if len(x) < 28 else x[:25] + "…")}</button>'
-            for x in t["examples"]
+            for x in t.get("examples", [])
         )
         jsonld = [
             {
@@ -742,33 +925,18 @@ def build_tools(db, entries, site) -> list:
             base="../../",
             jsonld=json.dumps(jsonld, ensure_ascii=False),
         )
-        page += f"""<nav class="crumbs" aria-label="Percorso"><a href="../../">FabGPT-FAQ</a> › <a href="../">Tools</a> › <span>{html.escape(t["title"])}</span></nav>
-<h1>{t["icon"]} {html.escape(t["title"])}</h1>
-<p class="intro">{html.escape(t["tagline"])} Tutto gira in locale: <b>nessun dato lascia il browser</b>.</p>
-<div class="tool-box">
+        if "custom_html" in t:
+            intro = html.escape(t["tagline"])
+            body = t["custom_html"]
+            script = "<script>\n" + t["custom_js"] + "\n</script>"
+        else:
+            intro = html.escape(t["tagline"]) + " Tutto gira in locale: <b>nessun dato lascia il browser</b>."
+            body = f"""<div class="tool-box">
   <input id="tool-in" type="text" placeholder="{html.escape(t["placeholder"])}" autocomplete="off" spellcheck="false" aria-label="Input dello strumento">
   <div class="tool-ex">{examples}</div>
   <div id="tool-out" class="tool-out" aria-live="polite"></div>
-</div>
-<div class="related"><h2>Guide correlate</h2><ul>{related}</ul></div>
-<a class="ask" href="../../">Chiedi in chat 💬</a>
-<style>
-  .tool-box {{ border: 1px solid var(--border); border-radius: 12px; background: var(--bg-soft); padding: 16px; }}
-  .tool-box input {{ width: 100%; box-sizing: border-box; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 15px; padding: 10px 12px; border: 1px solid var(--border); border-radius: 8px; background: var(--bg); color: var(--text); }}
-  .tool-ex {{ margin-top: 10px; display: flex; flex-wrap: wrap; gap: 6px; }}
-  .tool-ex .ex {{ font-family: ui-monospace, Menlo, monospace; font-size: 12px; padding: 4px 10px; border: 1px solid var(--border); border-radius: 999px; background: var(--bg); color: var(--text-dim); cursor: pointer; }}
-  .tool-ex .ex:hover {{ border-color: var(--accent); color: var(--text); }}
-  .tool-out {{ margin-top: 14px; font-size: 14.5px; line-height: 1.55; }}
-  .tool-out:empty {{ display: none; }}
-  .tool-out code {{ background: var(--code-bg); border-radius: 5px; padding: 1px 5px; font-family: ui-monospace, Menlo, monospace; font-size: .9em; }}
-  .tool-out pre {{ background: var(--code-bg); border-radius: 8px; padding: 10px 12px; overflow-x: auto; }}
-  .tool-out ul {{ padding-left: 20px; }}
-  .related {{ margin-top: 28px; border-top: 1px solid var(--border); padding-top: 16px; }}
-  .related h2 {{ font-size: 16px; margin-bottom: 10px; }}
-  .related a {{ color: var(--link); text-decoration: none; }}
-  .related a:hover {{ text-decoration: underline; }}
-</style>
-<script src="../../tools.js"></script>
+</div>"""
+            script = f"""<script src="../../tools.js"></script>
 <script>
 {TOOL_MD_RENDERER}
 (function () {{
@@ -795,7 +963,39 @@ def build_tools(db, entries, site) -> list:
     b.addEventListener('click', function () {{ input.value = b.getAttribute('data-v'); run(); input.focus(); }});
   }});
 }})();
-</script>
+</script>"""
+        page += f"""<nav class="crumbs" aria-label="Percorso"><a href="../../">FabGPT-FAQ</a> › <a href="../">Tools</a> › <span>{html.escape(t["title"])}</span></nav>
+<h1>{t["icon"]} {html.escape(t["title"])}</h1>
+<p class="intro">{intro}</p>
+{body}
+<div class="related"><h2>Guide correlate</h2><ul>{related}</ul></div>
+<a class="ask" href="../../">Chiedi in chat 💬</a>
+<style>
+  .tool-box {{ border: 1px solid var(--border); border-radius: 12px; background: var(--bg-soft); padding: 16px; }}
+  .tool-box input {{ width: 100%; box-sizing: border-box; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 15px; padding: 10px 12px; border: 1px solid var(--border); border-radius: 8px; background: var(--bg); color: var(--text); }}
+  .tool-ex {{ margin-top: 10px; display: flex; flex-wrap: wrap; gap: 6px; }}
+  .tool-ex .ex {{ font-family: ui-monospace, Menlo, monospace; font-size: 12px; padding: 4px 10px; border: 1px solid var(--border); border-radius: 999px; background: var(--bg); color: var(--text-dim); cursor: pointer; }}
+  .tool-ex .ex:hover {{ border-color: var(--accent); color: var(--text); }}
+  .tool-out {{ margin-top: 14px; font-size: 14.5px; line-height: 1.55; }}
+  .tool-out:empty {{ display: none; }}
+  .tool-out code {{ background: var(--code-bg); border-radius: 5px; padding: 1px 5px; font-family: ui-monospace, Menlo, monospace; font-size: .9em; }}
+  .tool-out pre {{ background: var(--code-bg); border-radius: 8px; padding: 10px 12px; overflow-x: auto; }}
+  .tool-out ul {{ padding-left: 20px; }}
+  .related {{ margin-top: 28px; border-top: 1px solid var(--border); padding-top: 16px; }}
+  .related h2 {{ font-size: 16px; margin-bottom: 10px; }}
+  .related a {{ color: var(--link); text-decoration: none; }}
+  .related a:hover {{ text-decoration: underline; }}
+  .tool-box select, .tool-box button.ask {{ font-family: inherit; font-size: 14px; padding: 8px 14px; border: 1px solid var(--border); border-radius: 8px; background: var(--bg); color: var(--text); cursor: pointer; }}
+  .tool-box button.ask {{ background: var(--accent); color: var(--accent-text); border-color: var(--accent); font-weight: 600; }}
+  .tool-privacy {{ font-size: 12.5px; color: var(--text-dim); margin: 10px 0 0; }}
+  .tool-privacy code {{ background: var(--code-bg); border-radius: 4px; padding: 0 4px; }}
+  .tool-out h3 {{ font-size: 15px; margin: 14px 0 6px; }}
+  .tool-out table {{ border-collapse: collapse; width: 100%; font-size: 13.5px; }}
+  .tool-out th, .tool-out td {{ text-align: left; padding: 5px 8px; border-bottom: 1px solid var(--border); overflow-wrap: anywhere; }}
+  .dns-ok {{ color: var(--accent); font-weight: 600; }}
+  .dns-diff {{ font-weight: 600; }}
+</style>
+{script}
 """
         page += PATH_FOOT
         d = ROOT / "tools" / t["slug"]
