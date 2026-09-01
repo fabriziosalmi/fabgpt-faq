@@ -700,5 +700,62 @@
     "expect": "st-grazie"
    }
   ]
+ },
+ {
+  "name": "maratona-portfolio",
+  "turns": [
+   {
+    "q": "quali progetti open source sviluppa fabrizio?",
+    "expect": "panoramica-repo"
+   },
+   {
+    "q": "cos'è certmate?",
+    "expect": "certmate"
+   },
+   {
+    "q": "e i certmate tools?",
+    "expect": "certmate-tools"
+   },
+   {
+    "q": "cos'è il certmate agent?",
+    "expect": "certmate-agent"
+   },
+   {
+    "q": "cos'è caddy-waf?",
+    "expect": "caddy-waf"
+   },
+   {
+    "q": "e i caddy feeds?",
+    "expect": "caddy-feeds"
+   },
+   {
+    "q": "cos'è lxc autoscale ml?",
+    "expect": "lxc-autoscale-ml"
+   },
+   {
+    "q": "cos'è newsgator?",
+    "expect": "newsgator"
+   },
+   {
+    "q": "cos'è slopless?",
+    "expect": "slopless"
+   },
+   {
+    "q": "cos'è occam observer?",
+    "expect": "occam-observer"
+   },
+   {
+    "q": "e l0-git?",
+    "expect": "l0-git"
+   },
+   {
+    "q": "cos'è free underground tekno radio?",
+    "expect": "freeundergroundtekno"
+   },
+   {
+    "q": "grazie mille!",
+    "expect": "st-grazie"
+   }
+  ]
  }
 ]

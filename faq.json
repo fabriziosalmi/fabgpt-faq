@@ -2,7 +2,7 @@
   "config": {
     "botName": "FabGPT-FAQ",
     "siteUrl": "https://fabriziosalmi.github.io/fabgpt-faq",
-    "welcome": "**568 risposte tecniche verificate** su Cybersecurity, AI & LLM, Proxmox e Cloudflare. Zero allucinazioni, architetture e comandi operativi.",
+    "welcome": "**585 risposte tecniche verificate** su Cybersecurity, AI & LLM, Proxmox e Cloudflare. Zero allucinazioni, architetture e comandi operativi.",
     "placeholder": "Chiedimi qualcosa…",
     "footerNote": "FabGPT-FAQ può commettere errori. Considera di verificare le informazioni importanti.",
     "matchThreshold": 0.75,
@@ -127,8 +127,7 @@
       "suggest": [
         "cos-e-un-reverse-proxy",
         "come-funziona-lets-encrypt-acme",
-        "certificato-tls-scaduto-cosa-fare",
-        "cosa-prevede-ai-act"
+        "certificato-tls-scaduto-cosa-fare"
       ]
     },
     {
@@ -151,8 +150,7 @@
       "suggest": [
         "cos-e-un-waf-web-application-firewall",
         "come-funziona-lets-encrypt-acme",
-        "certificato-tls-scaduto-cosa-fare",
-        "cosa-prevede-ai-act"
+        "certificato-tls-scaduto-cosa-fare"
       ]
     },
     {
@@ -180,8 +178,7 @@
       "suggest": [
         "cos-e-certmate-gestione-certificati-tls",
         "cos-e-un-reverse-proxy",
-        "certificato-tls-scaduto-cosa-fare",
-        "cos-e-un-waf-web-application-firewall"
+        "certificato-tls-scaduto-cosa-fare"
       ]
     },
     {
@@ -206,8 +203,7 @@
       "suggest": [
         "come-funziona-lets-encrypt-acme",
         "cos-e-un-siem-e-un-soar",
-        "cos-e-un-reverse-proxy",
-        "cos-e-un-waf-web-application-firewall"
+        "cos-e-un-reverse-proxy"
       ]
     },
     {
@@ -230,8 +226,7 @@
       "suggest": [
         "certificato-tls-scaduto-cosa-fare",
         "nis2-chi-deve-adeguarsi-italia",
-        "come-funziona-lets-encrypt-acme",
-        "cos-e-un-waf-web-application-firewall"
+        "come-funziona-lets-encrypt-acme"
       ]
     },
     {
@@ -257,8 +252,7 @@
       "suggest": [
         "cos-e-un-siem-e-un-soar",
         "cos-e-la-supply-chain-security",
-        "certificato-tls-scaduto-cosa-fare",
-        "cos-e-un-waf-web-application-firewall"
+        "certificato-tls-scaduto-cosa-fare"
       ]
     },
     {
@@ -287,8 +281,7 @@
       "suggest": [
         "nis2-chi-deve-adeguarsi-italia",
         "cos-e-un-siem-e-un-soar",
-        "certificato-tls-scaduto-cosa-fare",
-        "cos-e-un-waf-web-application-firewall"
+        "certificato-tls-scaduto-cosa-fare"
       ]
     },
     {
@@ -9934,8 +9927,7 @@
       "suggest": [
         "come-aggiungere-un-waf-a-caddy",
         "bloccare-bad-bot-nginx-apache-traefik-haproxy",
-        "cos-e-wildbox-siem-soar-open-source",
-        "cos-e-un-waf-web-application-firewall"
+        "cos-e-wildbox-siem-soar-open-source"
       ]
     },
     {
@@ -9952,13 +9944,12 @@
         "coraza caddy v2"
       ],
       "answers": [
-        "**caddy-waf** integra **Coraza WAF** (engine open source ModSecurity-compatible in puro Go) direttamente all'interno di **Caddy v2** come middleware nativo HTTP.\n\nCaratteristiche architetturali:\n- **OWASP Core Rule Set (CRS)**: supporto completo delle regole OWASP CRS v4 per mitigare SQL Injection, Cross-Site Scripting (XSS), Local/Remote File Inclusion (LFI/RFI) e scansioni automatizzate.\n- **Configurazione Caddyfile dichiarativa**: Coraza viene configurato in poche righe nel blocco server con direttive chiare e supporto al reload a caldo zero-downtime.\n- **Zero librerie C esterne**: compilato come modulo Go puro tramite `xcaddy`, senza dipendenze native da `libmodsecurity` o runtime C++.\n\nEsempio di compilazione e Caddyfile:\n```bash\n# Compilazione di Caddy con il modulo Coraza\nxcaddy build --with github.com/corazawaf/coraza-caddy/v2\n```\n\nNel `Caddyfile`:\n```caddy\nexample.com {\n    coraza_waf {\n        load_owasp_crs\n        directives `\n            Include /etc/caddy/coraza.conf\n            SecRuleEngine On\n        `\n    }\n    reverse_proxy localhost:8080\n}\n```\n\nConsente di proteggere qualsiasi backend web con un WAF robusto e moderno mantenendo la semplicità di Caddy."
+        "**caddy-waf** integra **Coraza WAF** (engine open source ModSecurity-compatible in puro Go) direttamente all'interno di **Caddy v2** come middleware nativo HTTP.\n\nCaratteristiche architetturali:\n- **OWASP Core Rule Set (CRS)**: supporto completo delle regole OWASP CRS v4 per mitigare SQL Injection, Cross-Site Scripting (XSS), Local/Remote File Inclusion (LFI/RFI) e scansioni automatizzate.\n- **Configurazione Caddyfile dichiarativa**: Coraza viene configurato in poche righe nel blocco server con direttive chiare e supporto al reload a caldo zero-downtime.\n- **Zero librerie C esterne**: compilato come modulo Go puro tramite `xcaddy`, senza dipendenze native da `libmodsecurity` o runtime C++.\n\nEsempio di compilazione e Caddyfile:\n```bash\n# Compilazione di Caddy con il modulo Coraza\nxcaddy build --with github.com/corazawaf/coraza-caddy/v2\n```\n\nNel `Caddyfile`:\n```caddy\nexample.com {\n    coraza_waf {\n        load_owasp_crs\n        directives `\n            Include /etc/caddy/coraza.conf\n            SecRuleEngine On\n        `\n    }\n    reverse_proxy localhost:8080\n}\n```\n\nConsente di proteggere qualsiasi backend web con un WAF robusto e moderno mantenendo la semplicità di Caddy.\n\nNota di lineage: l'esplorazione precedente è [caddy-adf](https://github.com/fabriziosalmi/caddy-adf) (archiviata) – caddy-waf ne è l'erede maturo, alimentato ogni giorno dalle liste di [caddy-feeds](q/caddy-feeds-blacklist-aggiornate/)."
       ],
       "suggest": [
+        "caddy-feeds-blacklist-aggiornate",
         "cos-e-certmate-gestione-certificati-tls",
-        "bloccare-bad-bot-nginx-apache-traefik-haproxy",
-        "cos-e-wildbox-siem-soar-open-source",
-        "cos-e-un-waf-web-application-firewall"
+        "bloccare-bad-bot-nginx-apache-traefik-haproxy"
       ]
     },
     {
@@ -9992,8 +9983,7 @@
       "suggest": [
         "come-aggiungere-un-waf-a-caddy",
         "cos-e-wildbox-siem-soar-open-source",
-        "cos-e-certmate-gestione-certificati-tls",
-        "cos-e-un-waf-web-application-firewall"
+        "cos-e-certmate-gestione-certificati-tls"
       ]
     },
     {
@@ -10016,8 +10006,7 @@
       "suggest": [
         "bloccare-bad-bot-nginx-apache-traefik-haproxy",
         "cos-e-zion-reverse-proxy-rust",
-        "come-aggiungere-un-waf-a-caddy",
-        "cos-e-un-waf-web-application-firewall"
+        "come-aggiungere-un-waf-a-caddy"
       ]
     },
     {
@@ -10049,8 +10038,7 @@
       "suggest": [
         "cos-e-wildbox-siem-soar-open-source",
         "reverse-proxy-con-waf-integrato",
-        "bloccare-bad-bot-nginx-apache-traefik-haproxy",
-        "cos-e-un-waf-web-application-firewall"
+        "bloccare-bad-bot-nginx-apache-traefik-haproxy"
       ]
     },
     {
@@ -10071,8 +10059,7 @@
       "suggest": [
         "cos-e-zion-reverse-proxy-rust",
         "come-bloccare-domini-malevoli",
-        "cos-e-wildbox-siem-soar-open-source",
-        "cos-e-un-waf-web-application-firewall"
+        "cos-e-wildbox-siem-soar-open-source"
       ]
     },
     {
@@ -10104,8 +10091,7 @@
       "suggest": [
         "reverse-proxy-con-waf-integrato",
         "cos-e-agssh-hardening-siti-statici",
-        "cos-e-zion-reverse-proxy-rust",
-        "cos-e-un-waf-web-application-firewall"
+        "cos-e-zion-reverse-proxy-rust"
       ]
     },
     {
@@ -10136,8 +10122,7 @@
       "suggest": [
         "come-bloccare-domini-malevoli",
         "come-si-monitora-la-conformita-nis2",
-        "reverse-proxy-con-waf-integrato",
-        "cos-e-un-waf-web-application-firewall"
+        "reverse-proxy-con-waf-integrato"
       ]
     },
     {
@@ -10164,8 +10149,7 @@
       "suggest": [
         "cos-e-agssh-hardening-siti-statici",
         "monitorare-siti-web-con-github-actions",
-        "come-bloccare-domini-malevoli",
-        "cos-e-un-waf-web-application-firewall"
+        "come-bloccare-domini-malevoli"
       ]
     },
     {
@@ -10191,8 +10175,7 @@
       "suggest": [
         "come-si-monitora-la-conformita-nis2",
         "cos-e-agssh-hardening-siti-statici",
-        "come-bloccare-domini-malevoli",
-        "cos-e-un-waf-web-application-firewall"
+        "come-bloccare-domini-malevoli"
       ]
     },
     {
@@ -10691,7 +10674,6 @@
       "suggest": [
         "migrare-da-cloudflare-self-hosted-eu",
         "automatizzare-configurazione-cloudflare",
-        "cos-e-cf-box-automazione-cloudflare",
         "email-cifrata-europea-proton-tuta"
       ]
     },
@@ -11090,8 +11072,7 @@
       "suggest": [
         "cos-e-il-webtek-streaming-teknival",
         "audiolibri-gratis-in-italiano",
-        "strumenti-open-source-produzione-musicale",
-        "cos-e-un-waf-web-application-firewall"
+        "strumenti-open-source-produzione-musicale"
       ]
     },
     {
@@ -11116,8 +11097,7 @@
       "suggest": [
         "daw-console-dj-nel-browser",
         "audiolibri-gratis-in-italiano",
-        "strumenti-open-source-produzione-musicale",
-        "cos-e-un-waf-web-application-firewall"
+        "strumenti-open-source-produzione-musicale"
       ]
     },
     {
@@ -11141,8 +11121,7 @@
       "suggest": [
         "cos-e-il-webtek-streaming-teknival",
         "strumenti-open-source-produzione-musicale",
-        "daw-console-dj-nel-browser",
-        "cos-e-un-waf-web-application-firewall"
+        "daw-console-dj-nel-browser"
       ]
     },
     {
@@ -11174,8 +11153,8 @@
       "suggest": [
         "audiolibri-gratis-in-italiano",
         "cos-e-il-webtek-streaming-teknival",
-        "daw-console-dj-nel-browser",
-        "cos-e-un-waf-web-application-firewall"
+        "free-underground-tekno-radio",
+        "daw-console-dj-nel-browser"
       ]
     },
     {
@@ -13226,9 +13205,9 @@
         "**cf-box** è una suite di strumenti in Python per l'automazione avanzata e la gestione centralizzata di account e zone **Cloudflare** via API.\n\nCaratteristiche chiave:\n- **IP List Manager**: gestione centralizzata e sincronizzazione di liste di regole di accesso IP (WAF IP Lists) su più account Cloudflare a partire da file di configurazione YAML unificati.\n- **Data Export Multiformato**: esportazione completa di zone, record DNS, impostazioni di sicurezza e routing in formato JSON, CSV, Excel e PDF.\n- **Analytics GraphQL**: estrazione e aggregazione di metriche analitiche e log di traffico/sicurezza tramite endpoint GraphQL di Cloudflare.\n- **Architettura Async/Await**: basata su `aiohttp`, `structlog` per logging strutturato, `pydantic` per validazione di tipo e `SQLAlchemy` con query parametrizzate per persistenza locale.\n\nInstallazione e avvio rapido:\n```bash\n# Clone del repository e installazione dipendenze\ngit clone https://github.com/fabriziosalmi/cf-box.git\ncd cf-box\npip install -e \".[dev]\"\n\n# Configurazione credenziali Cloudflare in .env o config.yaml\n# Esecuzione del modulo di sincronizzazione IP o export\npython -m cf_box.cli --help\n```\n\nRisolve la complessità di gestire manualmente decine di zone e liste di blocco IP su più account aziendali Cloudflare."
       ],
       "suggest": [
-        "conservare-log-cloudflare-nis2-gdpr",
-        "migrare-da-cloudflare-self-hosted-eu",
-        "automatizzare-configurazione-cloudflare"
+        "dnscontrol-actions-dns-gitops",
+        "backup-zone-cloudflare-github-actions",
+        "conservare-log-cloudflare-nis2-gdpr"
       ]
     },
     {
@@ -13718,8 +13697,8 @@
       "suggest": [
         "cos-e-il-subnetting-e-il-cidr",
         "come-funziona-la-risoluzione-dns",
-        "quali-certificazioni-it-contano-davvero",
-        "porte-tcp-e-udp-quali-conoscere"
+        "porte-tcp-e-udp-quali-conoscere",
+        "permessi-linux-chmod-chown-umask"
       ]
     },
     {
@@ -13765,8 +13744,8 @@
       "suggest": [
         "cluster-proxmox-e-quorum",
         "backup-3-2-1",
-        "audiolibri-ebook-podcast-self-hosted",
-        "stack-di-monitoraggio-prometheus-grafana"
+        "stack-di-monitoraggio-prometheus-grafana",
+        "come-gestire-i-secrets"
       ]
     },
     {
@@ -13818,8 +13797,8 @@
       "suggest": [
         "differenza-container-lxc-e-vm",
         "esporre-servizi-senza-aprire-porte",
-        "aggregatore-rss-freshrss-miniflux",
-        "jellyfin-media-server-self-hosted-transcodifica-hardware"
+        "jellyfin-media-server-self-hosted-transcodifica-hardware",
+        "self-hosting-pro-e-contro"
       ]
     },
     {
@@ -14018,8 +13997,364 @@
       "suggest": [
         "differenza-container-lxc-e-vm",
         "cron-la-sintassi-spiegata",
-        "salvataggio-segnalibri-articoli-offline-wallabag-linkwarden",
-        "self-hosting-pro-e-contro"
+        "lxc-autoscale-ml-machine-learning-proxmox",
+        "salvataggio-segnalibri-articoli-offline-wallabag-linkwarden"
+      ]
+    },
+    {
+      "id": "lxc-autoscale-ml",
+      "slug": "lxc-autoscale-ml-machine-learning-proxmox",
+      "vertical": "proxmox",
+      "question": "Cos'è LXC AutoScale ML (autoscaling con machine learning su Proxmox)?",
+      "keywords": [
+        "lxc autoscale ml",
+        "autoscale ml",
+        "autoscaling con machine learning",
+        "anomaly detection container",
+        "proxmox-lxc-autoscale-ml"
+      ],
+      "answers": [
+        "[**LXC AutoScale ML**](https://github.com/fabriziosalmi/proxmox-lxc-autoscale-ml) è la variante *predittiva* dell'[autoscaling LXC classico](q/autoscaling-container-lxc-proxmox/): invece di sole soglie fisse, raccoglie le metriche per-container, addestra un modello di **anomaly detection sulla storia di ciascun container** e applica le modifiche con `pct set` sull'host – che non riavvia il container.\n\nL'architettura è deliberatamente umile: **tre servizi systemd** (raccolta metriche, modello, attuatore) che condividono solo un file di metriche su disco – niente code, niente database, ogni pezzo sostituibile. Sviluppato e testato su **Proxmox VE 8**, Python 3.10–3.12.\n\nQuando sceglierlo rispetto al fratello a soglie: quando i carichi hanno pattern (il gestionale che picchia alle 9, il backup che satura alle 3) e vuoi che l'allocazione li *anticipi* invece di inseguirli."
+      ],
+      "suggest": [
+        "autoscaling-container-lxc-proxmox",
+        "aggregatore-rss-freshrss-miniflux",
+        "audiolibri-ebook-podcast-self-hosted"
+      ]
+    },
+    {
+      "id": "dnscontrol-actions",
+      "slug": "dnscontrol-actions-dns-gitops",
+      "vertical": "cloudflare",
+      "question": "Come si gestisce il DNS come codice con dnscontrol-actions?",
+      "keywords": [
+        "dnscontrol actions",
+        "dns come codice",
+        "dns as code",
+        "rollback dns",
+        "aggiornare dns da github",
+        "codice con dnscontrol"
+      ],
+      "answers": [
+        "[**dnscontrol-actions**](https://github.com/fabriziosalmi/dnscontrol-actions) porta il [GitOps](q/cos-e-gitops/) sul DNS: la configurazione delle zone vive in un repository, [DNSControl](https://github.com/StackExchange/dnscontrol) la applica via GitHub Actions, e ogni modifica è una pull request con storia, review e – la parte che salva le giornate – **rollback**: un workflow dedicato riporta la zona all'ultima configurazione buona.\n\nFunziona **multi-provider** (Cloudflare incluso), quindi vale anche come via d'uscita dal lock-in del pannello. La coppia naturale: [cloudflare-backup-actions](q/backup-zone-cloudflare-github-actions/) fotografa lo stato, dnscontrol-actions lo governa.\n\nIl guadagno concreto: fine dei [record](q/tipi-di-record-dns/) modificati a mano di venerdì sera senza che nessuno ricordi perché – il DNS diventa un file diffabile."
+      ],
+      "suggest": [
+        "cos-e-gitops",
+        "backup-zone-cloudflare-github-actions",
+        "cos-e-cf-box-automazione-cloudflare",
+        "tipi-di-record-dns"
+      ]
+    },
+    {
+      "id": "newsgator",
+      "slug": "newsgator-giornale-da-feed-rss-llm",
+      "vertical": "ai",
+      "question": "Cos'è Newsgator (il giornale generato dai feed RSS con LLM)?",
+      "keywords": [
+        "newsgator",
+        "giornale da feed rss",
+        "notizie in stile giornale",
+        "rassegna stampa automatica",
+        "giornale generato"
+      ],
+      "answers": [
+        "[**Newsgator**](https://github.com/fabriziosalmi/newsgator) trasforma un mucchio di feed RSS in un **giornale**: raccoglie le notizie dalle fonti, raggruppa gli articoli per similarità (così la stessa notizia da dieci testate diventa un pezzo solo), usa un LLM per **tradurre e riscrivere in italiano**, e pubblica il risultato come pagine HTML in stile quotidiano più un feed RSS a sua volta.\n\nÈ il fratello editoriale di [UglyFeed](q/riscrivere-feed-rss-con-llm/): UglyFeed è la pipeline generica per filtrare e riscrivere feed, Newsgator ci costruisce sopra il prodotto finito – la rassegna stampa che si impagina da sola. Python, MIT, e la stessa filosofia [dell'aggregazione senza algoritmi](q/aggregatore-rss-freshrss-miniflux/): le fonti le scegli tu, il modello si limita a riscriverle."
+      ],
+      "suggest": [
+        "riscrivere-feed-rss-con-llm",
+        "aggregatore-rss-freshrss-miniflux",
+        "ai-security-guida-italiano"
+      ]
+    },
+    {
+      "id": "certmate-tools",
+      "slug": "certmate-tools-strumenti-tls-online",
+      "vertical": "security",
+      "question": "Cosa sono i certmate-tools (strumenti TLS client-side)?",
+      "keywords": [
+        "certmate tools",
+        "strumenti tls online",
+        "tool certificati online",
+        "decoder csr online",
+        "tls client-side"
+      ],
+      "answers": [
+        "[**certmate-tools**](https://github.com/fabriziosalmi/certmate-tools) è una cassetta di attrezzi **gratuita e client-side** per TLS, certificati, ACME, domini e DNS: decoder e validatori che girano interamente nel browser, **zero upload** – la chiave o il CSR che incolli non lasciano mai la tua macchina. Privacy-first per costruzione, con CI, CodeQL e OpenSSF Scorecard a vista.\n\nÈ il satellite di [CertMate](q/cos-e-certmate-gestione-certificati-tls/): CertMate gestisce il ciclo di vita dei certificati sulla tua infrastruttura, i tools coprono il minuto prima – \"cosa c'è scritto in questo certificato?\", \"questo CSR è fatto bene?\".\n\nÈ la stessa filosofia dei [tools di questo sito](tools/): calcolo locale, niente server, [il certificato si ispeziona](q/certificato-wildcard-e-san/) senza regalarlo a un sito terzo."
+      ],
+      "suggest": [
+        "cos-e-certmate-gestione-certificati-tls",
+        "certificato-wildcard-e-san",
+        "certmate-agent-assistente-documentazione"
+      ]
+    },
+    {
+      "id": "certmate-agent",
+      "slug": "certmate-agent-assistente-documentazione",
+      "vertical": "security",
+      "question": "Cos'è certmate-agent (l'assistente locale per la documentazione di CertMate)?",
+      "keywords": [
+        "certmate agent",
+        "assistente certmate",
+        "chatbot documentazione",
+        "llm sulla documentazione"
+      ],
+      "answers": [
+        "[**certmate-agent**](https://github.com/fabriziosalmi/certmate-agent) è l'assistente di documentazione di [CertMate](q/cos-e-certmate-gestione-certificati-tls/): un **LLM locale** (LM Studio di default) con retrieval sulla documentazione ufficiale – chiedi come funziona una feature, come si configura un provider DNS, cosa fa davvero la challenge DNS-01, e la risposta è **ancorata ai documenti, con citazione del file** di provenienza. [RAG](q/cos-e-rag-retrieval-augmented-generation/) fatto nel modo giusto: fonti chiuse, risposte verificabili.\n\nConfine di sicurezza esplicito: **non si collega a un'istanza CertMate viva e non custodisce credenziali** – per pilotare un'istanza reale c'è il server [MCP](q/cos-e-mcp-model-context-protocol/) che CertMate mantiene nel proprio repo, accanto all'API. Documentazione da una parte, controllo dall'altra: [minimo privilegio](q/principio-del-minimo-privilegio/) applicato agli assistenti."
+      ],
+      "suggest": [
+        "cos-e-certmate-gestione-certificati-tls",
+        "cos-e-rag-retrieval-augmented-generation",
+        "tanstack-compromise-checker",
+        "cos-e-mcp-model-context-protocol"
+      ]
+    },
+    {
+      "id": "ai-security-guida",
+      "slug": "ai-security-guida-italiano",
+      "vertical": "ai",
+      "question": "Esiste una guida di AI security in italiano?",
+      "keywords": [
+        "ai security guida",
+        "guida ai security italiano",
+        "sicurezza ai in italiano",
+        "identity gap ai"
+      ],
+      "answers": [
+        "Sì: [**ai-security**](https://github.com/fabriziosalmi/ai-security) è il catalogo di AI security **in italiano** di Fabrizio – disponibile anche in PDF – che mette in fila le minacce e le difese: dal [prompt injection](q/cos-e-la-prompt-injection/) alla [supply chain dei modelli](q/cos-e-la-supply-chain-security/), passando per gli [agenti](q/come-si-limita-un-agente-ai/).\n\nNel repo vive anche la ricerca collegata: **\"The Identity Gap in AI\"** (whitepaper IT/EN) sull'esposizione dell'inferenza – incluse **287 istanze Ollama trovate esposte** su internet via Censys, il motivo per cui la [porta 11434](porta/11434/) sta nel nostro elenco delle porte da non aprire – e sulla persistenza degli agenti oltre l'offboarding delle persone.\n\nGran parte di quel catalogo, del resto, la stai già leggendo: il verticale AI di questo sito ne condivide autore e filosofia."
+      ],
+      "suggest": [
+        "cos-e-la-prompt-injection",
+        "cos-e-la-supply-chain-security",
+        "newsgator-giornale-da-feed-rss-llm",
+        "come-si-limita-un-agente-ai"
+      ]
+    },
+    {
+      "id": "tanstack-checker",
+      "slug": "tanstack-compromise-checker",
+      "vertical": "security",
+      "question": "Come si verifica la compromissione TanStack (tanstack-compromise-checker)?",
+      "keywords": [
+        "tanstack compromise checker",
+        "tanstack checker",
+        "verificare attacco tanstack",
+        "cve-2026-45321",
+        "attacco tanstack",
+        "tanstack"
+      ],
+      "answers": [
+        "[**tanstack-compromise-checker**](https://github.com/fabriziosalmi/tanstack-compromise-checker) rileva gli indicatori dell'**attacco supply chain TanStack** (CVE-2026-45321) su una macchina di sviluppo, un repository o un runner CI – stesso motore, tre confezioni: script Bash, immagine Docker e GitHub Action.\n\nIl contesto: l'11 maggio 2026, via cache poisoning delle GitHub Actions, sono state pubblicate **84 versioni malevole di 42 pacchetti `@tanstack/*`**. Il payload ruba token GitHub/npm e credenziali cloud, e installa un demone **dead-man's switch** che cancella la home nel momento in cui il token rubato viene revocato – il motivo per cui la bonifica va fatta *nell'ordine giusto*, e un semplice `npm ls` non basta.\n\nÈ il caso concreto dietro la teoria della [supply chain security](q/cos-e-la-supply-chain-security/): quando succede, serve un controllo eseguibile, non un articolo."
+      ],
+      "suggest": [
+        "cos-e-la-supply-chain-security",
+        "certmate-agent-assistente-documentazione",
+        "certmate-tools-strumenti-tls-online"
+      ]
+    },
+    {
+      "id": "cloudflare-backup-actions",
+      "slug": "backup-zone-cloudflare-github-actions",
+      "vertical": "cloudflare",
+      "question": "Come si fa il backup delle zone Cloudflare con GitHub Actions?",
+      "keywords": [
+        "cloudflare backup actions",
+        "backup dns cloudflare",
+        "esportare record cloudflare",
+        "backup delle zone cloudflare",
+        "fare il backup di cloudflare",
+        "salvare le zone cloudflare",
+        "zone cloudflare con github",
+        "backup delle zone"
+      ],
+      "answers": [
+        "[**cloudflare-backup-actions**](https://github.com/fabriziosalmi/cloudflare-backup-actions) fotografa **zone e record DNS Cloudflare in file JSON**, su base pianificata, dentro un repository privato: un workflow per le zone, uno per i record, e la storia di ogni cambiamento finisce in git.\n\nPerché conta: il DNS è l'asset che nessuno include nel [piano di backup](q/backup-3-2-1/) finché un record cancellato per errore non spegne la posta. Col backup in git il ripristino è un copia-incolla documentato, e il *diff* tra due snapshot risponde alla domanda \"cosa è cambiato e quando\".\n\nÈ il compagno difensivo di [dnscontrol-actions](q/dnscontrol-actions-dns-gitops/) e del resto dell'[automazione Cloudflare](q/automatizzare-configurazione-cloudflare/): prima metti in salvo lo stato, poi lo governi come codice."
+      ],
+      "suggest": [
+        "backup-3-2-1",
+        "dnscontrol-actions-dns-gitops",
+        "automatizzare-configurazione-cloudflare"
+      ]
+    },
+    {
+      "id": "synapseed",
+      "slug": "synapseed-code-intelligence-rust",
+      "vertical": "ai",
+      "question": "Cos'è Synapseed (code intelligence per assistenti AI)?",
+      "keywords": [
+        "synapseed",
+        "code intelligence",
+        "capire la codebase ai",
+        "contesto codebase per llm"
+      ],
+      "answers": [
+        "[**Synapseed**](https://github.com/fabriziosalmi/synapseed) è uno strumento di **code intelligence** in Rust che aiuta gli assistenti AI a capire la tua codebase: invece di dare al modello file grezzi e sperare, costruisce una comprensione strutturata del progetto e la espone – anche via [MCP](q/cos-e-mcp-model-context-protocol/), quindi collegabile a Claude, Cursor e simili.\n\nIl problema che aggredisce è quello vero del [RAG sul codice](q/chunking-spezzare-documenti-per-rag/): il contesto è limitato e il codice spezzato a caso perde il filo delle dipendenze – meglio dare al modello *la mappa* che l'intero territorio.\n\nApache-2.0, test e coverage a vista: per chi usa assistenti sul proprio codice tutti i giorni, il pezzo di infrastruttura che separa le risposte plausibili da quelle [ancorate al progetto](q/allucinazioni-llm-dipendenze-inventate/)."
+      ],
+      "suggest": [
+        "cos-e-mcp-model-context-protocol",
+        "chunking-spezzare-documenti-per-rag",
+        "allucinazioni-llm-dipendenze-inventate"
+      ]
+    },
+    {
+      "id": "caddy-feeds",
+      "slug": "caddy-feeds-blacklist-aggiornate",
+      "vertical": "security",
+      "question": "Cosa sono i caddy-feeds (blacklist quotidiane per caddy-waf)?",
+      "keywords": [
+        "caddy feeds",
+        "blacklist per caddy",
+        "liste ip aggiornate",
+        "feed blacklist waf"
+      ],
+      "answers": [
+        "[**caddy-feeds**](https://github.com/fabriziosalmi/caddy-feeds) è la catena di rifornimento di [caddy-waf](q/come-aggiungere-un-waf-a-caddy/): un workflow che **ogni giorno** rigenera e pubblica come release una **blacklist IP**, una **blacklist DNS** e un set di regole derivate da OWASP/Naxsi, pronte da puntare via URL – fine della manutenzione manuale delle liste.\n\nOnestà da README: le liste IP e DNS sono usabili così come sono, mentre sulle **regole OWASP generate** il repo stesso avverte di non farci affidamento cieco – per le regole applicative serie il riferimento resta [patterns](q/bloccare-bad-bot-nginx-apache-traefik-haproxy/) col Core Rule Set.\n\nÈ il pattern giusto per ogni WAF self-hosted: [le regole invecchiano](q/cos-e-un-waf-web-application-firewall/), e una lista che non si aggiorna da sola è una lista che smette di difendere."
+      ],
+      "suggest": [
+        "come-aggiungere-un-waf-a-caddy",
+        "bloccare-bad-bot-nginx-apache-traefik-haproxy",
+        "nis2-model-compliance-assistant",
+        "cos-e-un-waf-web-application-firewall"
+      ]
+    },
+    {
+      "id": "freeundergroundtekno",
+      "slug": "free-underground-tekno-radio",
+      "vertical": "creative",
+      "question": "Cos'è Free Underground Tekno Radio?",
+      "keywords": [
+        "free underground tekno",
+        "radio tekno",
+        "free tekno radio",
+        "radio free party"
+      ],
+      "answers": [
+        "[**Free Underground Tekno Radio**](https://github.com/fabriziosalmi/freeundergroundtekno) ([radio.free-tekno.com](https://radio.free-tekno.com)) è una web radio italiana dedicata alla **free tekno**, fondata a fine 2008 dai membri del collettivo **Space Invaders Tekno Sound**. Streaming **24/7** con musica dai free party e dai sound system: l'archivio conta **oltre 200 registrazioni** di centinaia di artisti free tekno di tutto il mondo, raccolte in decenni di scena.\n\nSe ti chiedi da dove arrivi quella musica, [la storia della free tekno](q/storia-della-free-tekno/) parte dai soundsystem UK dei primi anni '90; se invece vuoi capire il lato tecnico di una radio del genere, c'è [come si organizza uno streaming musicale live](q/streaming-musicale-live/). Qui i due mondi del sito – infrastruttura e musica – sono la stessa storia."
+      ],
+      "suggest": [
+        "storia-della-free-tekno",
+        "streaming-musicale-live",
+        "strumenti-open-source-produzione-musicale"
+      ]
+    },
+    {
+      "id": "nis2-model",
+      "slug": "nis2-model-compliance-assistant",
+      "vertical": "security",
+      "question": "Cos'è il NIS2 Compliance Assistant (nis2-model)?",
+      "keywords": [
+        "nis2 model",
+        "nis2 compliance assistant",
+        "valutare conformita nis2",
+        "motore di conformita"
+      ],
+      "answers": [
+        "[**nis2-model**](https://github.com/fabriziosalmi/nis2-model) è un assistente di conformità per **NIS2 e DORA**: un **motore di regole deterministico** in Rust (61 test a vista, licenza EUPL) più un'interfaccia web interattiva che valuta i dati organizzativi contro i requisiti delle due normative.\n\nLa parola chiave è *deterministico*: stessa filosofia di questo sito – la valutazione di conformità non è un parere generato, è l'applicazione riproducibile di regole scritte, che puoi leggere e contestare. Un LLM può aiutarti a *capire* [chi deve adeguarsi a NIS2](q/nis2-chi-deve-adeguarsi-italia/) o [cosa impone DORA](q/cos-e-dora-regolamento/); il punteggio di dove sei rispetto ai requisiti deve uscire da un motore che dà due volte la stessa risposta.\n\nSi affianca al monitoraggio operativo di [nis2-public](q/come-si-monitora-la-conformita-nis2/): uno misura la postura, l'altro la valuta contro la norma."
+      ],
+      "suggest": [
+        "nis2-chi-deve-adeguarsi-italia",
+        "cos-e-dora-regolamento",
+        "come-si-monitora-la-conformita-nis2"
+      ]
+    },
+    {
+      "id": "ai-hallucination-research",
+      "slug": "ricerca-dependency-hallucinations",
+      "vertical": "ai",
+      "question": "Cos'è la ricerca sulle dependency hallucinations (phantom dependency squatting)?",
+      "keywords": [
+        "ai hallucination research",
+        "dependency hallucinations",
+        "ricerca allucinazioni dipendenze",
+        "paper dipendenze inventate",
+        "ricerca sulle dependency"
+      ],
+      "answers": [
+        "[**ai-hallucination-research**](https://github.com/fabriziosalmi/ai-hallucination-research) ospita il paper empirico *\"Empirical Analysis of AI-Induced Dependency Hallucinations in Public Version Control Systems\"*: la **quantificazione** di quanto spesso i pacchetti inventati dagli LLM finiscono davvero nei repository pubblici – il fenomeno battezzato **Phantom Dependency Squatting**.\n\nLa catena è quella raccontata nella voce sulle [allucinazioni](q/allucinazioni-llm-dipendenze-inventate/): il modello scrive `import pacchetto-inesistente`, lo sviluppatore committa, un attaccante **registra quel nome** su PyPI o npm e da lì in poi ogni build tira dentro codice suo. La ricerca misura il fenomeno sui version control pubblici invece di limitarsi ad ammonirlo – ed è il fondamento empirico dietro [ai-dependency-guard](q/cos-e-ai-dependency-guard-slopsquatting/) e le difese di [supply chain](q/cos-e-la-supply-chain-security/)."
+      ],
+      "suggest": [
+        "allucinazioni-llm-dipendenze-inventate",
+        "cos-e-ai-dependency-guard-slopsquatting",
+        "slopless-analisi-statica-vibecoding",
+        "cos-e-la-supply-chain-security"
+      ]
+    },
+    {
+      "id": "slopless",
+      "slug": "slopless-analisi-statica-vibecoding",
+      "vertical": "ai",
+      "question": "Cos'è Slopless (analisi statica contro l'AI slop)?",
+      "keywords": [
+        "slopless",
+        "ai slop",
+        "analisi statica codice ai",
+        "pattern vibecoding"
+      ],
+      "answers": [
+        "[**Slopless**](https://github.com/fabriziosalmi/slopless) è un tool di **analisi statica** (npm: `@fabriziosalmi/slopless`) che cerca i pattern tipici del codice tirato via – colloquialmente, il *vibecoding*: strutture improvvisate, assunzioni non documentate, euristiche al posto di decisioni. Motore a più livelli: **regex, AST e controlli sui tipi**.\n\nIl bersaglio non è \"il codice scritto dall'AI\" in sé: è il codice – umano o generato – accettato senza capirlo. Con gli assistenti la quantità di codice plausibile è esplosa, e serve un gate che intercetti lo slop **prima della review**, quando costa ancora poco.\n\nSta nella stessa famiglia di [come si controlla la qualità del codice generato](q/controllare-qualita-codice-generato-ai/): lì il metodo, qui lo strumento da mettere in CI."
+      ],
+      "suggest": [
+        "controllare-qualita-codice-generato-ai",
+        "ricerca-dependency-hallucinations",
+        "synapseed-code-intelligence-rust"
+      ]
+    },
+    {
+      "id": "navigator-sdk",
+      "slug": "navigator-sdk-interfacce-tastiera",
+      "vertical": "tools",
+      "question": "Cos'è Navigator (SDK per interfacce navigabili da tastiera)?",
+      "keywords": [
+        "navigator sdk",
+        "interfacce da tastiera",
+        "navigazione a tastiera web",
+        "sdk navigazione"
+      ],
+      "answers": [
+        "[**Navigator**](https://github.com/fabriziosalmi/navigator) è un SDK TypeScript, **a plugin**, per costruire interfacce web **navigabili da tastiera**: la logica di navigazione (focus, zone, movimenti) vive in uno strato di stato in stile Redux, disaccoppiato dal framework UI, e ogni comportamento è un plugin componibile – con documentazione e cookbook nel repo.\n\nPerché esiste: la navigazione da tastiera è il fondamento dell'**accessibilità** (WCAG: tutto ciò che si clicca deve potersi raggiungere senza mouse) eppure viene quasi sempre improvvisata a colpi di `tabindex`. Trattarla come *stato dell'applicazione*, testabile e prevedibile, è l'approccio da ingegneria e non da rattoppo – la stessa differenza che passa tra una scorciatoia e un design."
+      ],
+      "suggest": [
+        "occam-observer-telemetria-git",
+        "l0-git-quality-gates",
+        "quali-certificazioni-it-contano-davvero"
+      ]
+    },
+    {
+      "id": "occam-observer",
+      "slug": "occam-observer-telemetria-git",
+      "vertical": "tools",
+      "question": "Cos'è Occam Observer (telemetria Git out-of-band)?",
+      "keywords": [
+        "occam observer",
+        "telemetria git",
+        "git telemetry",
+        "osservare un repository"
+      ],
+      "answers": [
+        "[**Occam Observer**](https://github.com/fabriziosalmi/occam-observer) osserva un repository Git **dall'esterno** (out-of-band: niente hook invasivi) e trasforma ogni salvataggio in telemetria strutturata: un **health score**, un verdetto `check` graduato per severità, violazioni a livello di riga con provenienza `git blame`, e finding da analizzatori innestabili (Semgrep, AST…).\n\nSi consuma in tre modi: gateway HTTP in Go con **metriche Prometheus** (quindi finisce dritto nella [dashboard Grafana](q/stack-di-monitoraggio-prometheus-grafana/) accanto a CPU e dischi), server [MCP](q/cos-e-mcp-model-context-protocol/) per gli assistenti (Claude Desktop, Cursor…), e API web-native.\n\nL'idea di fondo: la **salute del codice è una metrica operativa** come le altre – si osserva in continuo, non si scopre alla review. Il gemello che *impone* invece di osservare è [l0-git](q/l0-git-quality-gates/)."
+      ],
+      "suggest": [
+        "stack-di-monitoraggio-prometheus-grafana",
+        "cos-e-mcp-model-context-protocol",
+        "l0-git-quality-gates"
+      ]
+    },
+    {
+      "id": "l0-git",
+      "slug": "l0-git-quality-gates",
+      "vertical": "tools",
+      "question": "Cos'è l0-git (quality gate deterministici per i repository)?",
+      "keywords": [
+        "l0 git",
+        "quality gate git",
+        "igiene del repository"
+      ],
+      "answers": [
+        "[**l0-git**](https://github.com/fabriziosalmi/l0-git) applica **quality gate deterministici** all'igiene di progetto: controlli riproducibili sullo stato dei repository – la disciplina che questo stesso sito pratica coi suoi gate (bench, traj, maratone) portata sul piano del *workspace*: regole scritte, esito binario, niente giudizi a sentimento.\n\nCon [Occam Observer](q/occam-observer-telemetria-git/) forma una coppia complementare: Occam **osserva** e misura in continuo (telemetria, health score, trend), l0-git **impone** – il gate che decide se lo stato è accettabile. Osservabilità e enforcement, gli stessi due tempi del [security logging](q/security-logging-fatto-bene/) applicati alla qualità del codice.\n\nPer chi mantiene decine di repo – la situazione da cui è nato – è la differenza tra \"mi pare a posto\" e *è a posto, per definizione*."
+      ],
+      "suggest": [
+        "occam-observer-telemetria-git",
+        "security-logging-fatto-bene",
+        "navigator-sdk-interfacce-tastiera"
       ]
     }
   ],

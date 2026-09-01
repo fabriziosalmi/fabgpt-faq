@@ -942,7 +942,7 @@ CertMate (github.com/fabriziosalmi/certmate, 1.400+ ⭐) è la piattaforma self-
 ## Come si aggiunge un WAF al web server Caddy?
 https://fabriziosalmi.github.io/fabgpt-faq/q/come-aggiungere-un-waf-a-caddy/
 
-caddy-waf integra Coraza WAF (engine open source ModSecurity-compatible in puro Go) direttamente all'interno di Caddy v2 come middleware nativo HTTP. Caratteristiche architetturali: OWASP Core Rule Set (CRS): supporto completo delle regole OWASP CRS v4 per mitigare SQL Injection, Cross-Site Scripting (XSS), Local/Remote File Inclusion (LFI/RFI) e scansioni automatizzate. Configurazione Caddyfile dichiarativa: Coraza viene configurato in poche righe nel blocco server con direttive chiare e supporto al reload a caldo zero-downtime. Zero librerie C esterne: compilato come modulo Go puro tramite xcaddy, senza dipendenze native da libmodsecurity o runtime C++. Esempio di compilazione e Caddyfile: # Compilazione di Caddy con il modulo Coraza xcaddy build --with github.com/corazawaf/coraza-caddy/v2 Nel Caddyfile: example.com { coraza_waf { load_owasp_crs directives Include /etc/caddy/coraza.conf SecRuleEngine On } reverse_proxy localhost:8080 } Consente di proteggere qualsiasi backend web con un WAF robusto e moderno mantenendo la semplicità di Caddy.
+caddy-waf integra Coraza WAF (engine open source ModSecurity-compatible in puro Go) direttamente all'interno di Caddy v2 come middleware nativo HTTP. Caratteristiche architetturali: OWASP Core Rule Set (CRS): supporto completo delle regole OWASP CRS v4 per mitigare SQL Injection, Cross-Site Scripting (XSS), Local/Remote File Inclusion (LFI/RFI) e scansioni automatizzate. Configurazione Caddyfile dichiarativa: Coraza viene configurato in poche righe nel blocco server con direttive chiare e supporto al reload a caldo zero-downtime. Zero librerie C esterne: compilato come modulo Go puro tramite xcaddy, senza dipendenze native da libmodsecurity o runtime C++. Esempio di compilazione e Caddyfile: # Compilazione di Caddy con il modulo Coraza xcaddy build --with github.com/corazawaf/coraza-caddy/v2 Nel Caddyfile: example.com { coraza_waf { load_owasp_crs directives Include /etc/caddy/coraza.conf SecRuleEngine On } reverse_proxy localhost:8080 } Consente di proteggere qualsiasi backend web con un WAF robusto e moderno mantenendo la semplicità di Caddy. Nota di lineage: l'esplorazione precedente è caddy-adf (archiviata) – caddy-waf ne è l'erede maturo, alimentato ogni giorno dalle liste di [caddy-feeds](q/caddy-feeds-blacklist-aggiornate/).
 
 ## Come si bloccano i bad bot su Nginx, Apache, Traefik e HAProxy?
 https://fabriziosalmi.github.io/fabgpt-faq/q/bloccare-bad-bot-nginx-apache-traefik-haproxy/
@@ -1248,6 +1248,31 @@ Il DPA (Data Processing Agreement) è il contratto che l'art. 28 GDPR impone tra
 https://fabriziosalmi.github.io/fabgpt-faq/q/proteggere-registrazioni-riunioni-self-hosted/
 
 Ospitare le riunioni su Jitsi Meet o BigBlueButton interni toglie i dati ai cloud commerciali, ma le registrazioni finiscono sul disco in chiaro: è lì che si lavora. La filiera corretta: directory dedicata con [permessi minimi](q/permessi-linux-chmod-chown-umask/) (solo il servizio e chi deve leggerle), cifratura a riposo del volume o [dei backup](q/backup-cifrati-restic-borg/), e una retention dichiarata – registrazioni e minute sono dati personali a tutti gli effetti, con tanto di voce nel [registro dei trattamenti](q/registro-dei-trattamenti/) e cancellazione a scadenza automatica, non "quando ci ricordiamo". Per le trascrizioni: Whisper in locale, non le API cloud – mandare l'audio di una riunione interna a un servizio terzo vanifica l'intera architettura ([qui come far girare i modelli in casa](q/far-girare-un-llm-in-locale/)).
+
+## Cosa sono i certmate-tools (strumenti TLS client-side)?
+https://fabriziosalmi.github.io/fabgpt-faq/q/certmate-tools-strumenti-tls-online/
+
+certmate-tools è una cassetta di attrezzi gratuita e client-side per TLS, certificati, ACME, domini e DNS: decoder e validatori che girano interamente nel browser, zero upload – la chiave o il CSR che incolli non lasciano mai la tua macchina. Privacy-first per costruzione, con CI, CodeQL e OpenSSF Scorecard a vista. È il satellite di [CertMate](q/cos-e-certmate-gestione-certificati-tls/): CertMate gestisce il ciclo di vita dei certificati sulla tua infrastruttura, i tools coprono il minuto prima – "cosa c'è scritto in questo certificato?", "questo CSR è fatto bene?". È la stessa filosofia dei [tools di questo sito](tools/): calcolo locale, niente server, [il certificato si ispeziona](q/certificato-wildcard-e-san/) senza regalarlo a un sito terzo.
+
+## Cos'è certmate-agent (l'assistente locale per la documentazione di CertMate)?
+https://fabriziosalmi.github.io/fabgpt-faq/q/certmate-agent-assistente-documentazione/
+
+certmate-agent è l'assistente di documentazione di [CertMate](q/cos-e-certmate-gestione-certificati-tls/): un LLM locale (LM Studio di default) con retrieval sulla documentazione ufficiale – chiedi come funziona una feature, come si configura un provider DNS, cosa fa davvero la challenge DNS-01, e la risposta è ancorata ai documenti, con citazione del file di provenienza. [RAG](q/cos-e-rag-retrieval-augmented-generation/) fatto nel modo giusto: fonti chiuse, risposte verificabili. Confine di sicurezza esplicito: non si collega a un'istanza CertMate viva e non custodisce credenziali – per pilotare un'istanza reale c'è il server [MCP](q/cos-e-mcp-model-context-protocol/) che CertMate mantiene nel proprio repo, accanto all'API. Documentazione da una parte, controllo dall'altra: [minimo privilegio](q/principio-del-minimo-privilegio/) applicato agli assistenti.
+
+## Come si verifica la compromissione TanStack (tanstack-compromise-checker)?
+https://fabriziosalmi.github.io/fabgpt-faq/q/tanstack-compromise-checker/
+
+tanstack-compromise-checker rileva gli indicatori dell'attacco supply chain TanStack (CVE-2026-45321) su una macchina di sviluppo, un repository o un runner CI – stesso motore, tre confezioni: script Bash, immagine Docker e GitHub Action. Il contesto: l'11 maggio 2026, via cache poisoning delle GitHub Actions, sono state pubblicate 84 versioni malevole di 42 pacchetti @tanstack/. Il payload ruba token GitHub/npm e credenziali cloud, e installa un demone dead-man's switch che cancella la home nel momento in cui il token rubato viene revocato – il motivo per cui la bonifica va fatta nell'ordine giusto, e un semplice npm ls non basta. È il caso concreto dietro la teoria della [supply chain security](q/cos-e-la-supply-chain-security/): quando succede, serve un controllo eseguibile, non un articolo.
+
+## Cosa sono i caddy-feeds (blacklist quotidiane per caddy-waf)?
+https://fabriziosalmi.github.io/fabgpt-faq/q/caddy-feeds-blacklist-aggiornate/
+
+caddy-feeds è la catena di rifornimento di [caddy-waf](q/come-aggiungere-un-waf-a-caddy/): un workflow che ogni giorno rigenera e pubblica come release una blacklist IP, una blacklist DNS e un set di regole derivate da OWASP/Naxsi, pronte da puntare via URL – fine della manutenzione manuale delle liste. Onestà da README: le liste IP e DNS sono usabili così come sono, mentre sulle regole OWASP generate il repo stesso avverte di non farci affidamento cieco – per le regole applicative serie il riferimento resta [patterns](q/bloccare-bad-bot-nginx-apache-traefik-haproxy/) col Core Rule Set. È il pattern giusto per ogni WAF self-hosted: [le regole invecchiano](q/cos-e-un-waf-web-application-firewall/), e una lista che non si aggiorna da sola è una lista che smette di difendere.
+
+## Cos'è il NIS2 Compliance Assistant (nis2-model)?
+https://fabriziosalmi.github.io/fabgpt-faq/q/nis2-model-compliance-assistant/
+
+nis2-model è un assistente di conformità per NIS2 e DORA: un motore di regole deterministico in Rust (61 test a vista, licenza EUPL) più un'interfaccia web interattiva che valuta i dati organizzativi contro i requisiti delle due normative. La parola chiave è deterministico: stessa filosofia di questo sito – la valutazione di conformità non è un parere generato, è l'applicazione riproducibile di regole scritte, che puoi leggere e contestare. Un LLM può aiutarti a capire [chi deve adeguarsi a NIS2](q/nis2-chi-deve-adeguarsi-italia/) o [cosa impone DORA](q/cos-e-dora-regolamento/); il punteggio di dove sei rispetto ai requisiti deve uscire da un motore che dà due volte la stessa risposta. Si affianca al monitoraggio operativo di [nis2-public](q/come-si-monitora-la-conformita-nis2/): uno misura la postura, l'altro la valuta contro la norma.
 
 # AI e LLM
 
@@ -1931,6 +1956,31 @@ https://fabriziosalmi.github.io/fabgpt-faq/q/agenti-ai-settori-regolamentati-lim
 
 Due binari normativi convergono sullo stesso punto: l'agente propone, l'umano dispone. GDPR art. 22: nessuno può essere sottoposto a decisioni interamente automatizzate con effetti legali o significativi – credito negato, diagnosi, assunzione. Serve un intervento umano reale, non un click di ratifica: chi supervisiona deve poter capire e ribaltare la decisione. [AI Act](q/cosa-prevede-ai-act/): scoring creditizio, sanità, HR e giustizia sono sistemi ad alto rischio – risk management documentato, log, sorveglianza umana, e [responsabilità ripartite tra provider e deployer](q/responsabilita-ai-deployer-vs-provider-ai-act-europeo/). In pratica: l'agente istruisce la pratica, raccoglie, riassume e propone; la decisione finale resta firmata da una persona, con [protocolli di passaggio di controllo](q/protocolli-sicurezza-fallback-operatore-umano-agenti-crisi/) definiti prima, non durante l'incidente.
 
+## Cos'è Newsgator (il giornale generato dai feed RSS con LLM)?
+https://fabriziosalmi.github.io/fabgpt-faq/q/newsgator-giornale-da-feed-rss-llm/
+
+Newsgator trasforma un mucchio di feed RSS in un giornale: raccoglie le notizie dalle fonti, raggruppa gli articoli per similarità (così la stessa notizia da dieci testate diventa un pezzo solo), usa un LLM per tradurre e riscrivere in italiano, e pubblica il risultato come pagine HTML in stile quotidiano più un feed RSS a sua volta. È il fratello editoriale di [UglyFeed](q/riscrivere-feed-rss-con-llm/): UglyFeed è la pipeline generica per filtrare e riscrivere feed, Newsgator ci costruisce sopra il prodotto finito – la rassegna stampa che si impagina da sola. Python, MIT, e la stessa filosofia [dell'aggregazione senza algoritmi](q/aggregatore-rss-freshrss-miniflux/): le fonti le scegli tu, il modello si limita a riscriverle.
+
+## Esiste una guida di AI security in italiano?
+https://fabriziosalmi.github.io/fabgpt-faq/q/ai-security-guida-italiano/
+
+Sì: ai-security è il catalogo di AI security in italiano di Fabrizio – disponibile anche in PDF – che mette in fila le minacce e le difese: dal [prompt injection](q/cos-e-la-prompt-injection/) alla [supply chain dei modelli](q/cos-e-la-supply-chain-security/), passando per gli [agenti](q/come-si-limita-un-agente-ai/). Nel repo vive anche la ricerca collegata: "The Identity Gap in AI" (whitepaper IT/EN) sull'esposizione dell'inferenza – incluse 287 istanze Ollama trovate esposte su internet via Censys, il motivo per cui la [porta 11434](porta/11434/) sta nel nostro elenco delle porte da non aprire – e sulla persistenza degli agenti oltre l'offboarding delle persone. Gran parte di quel catalogo, del resto, la stai già leggendo: il verticale AI di questo sito ne condivide autore e filosofia.
+
+## Cos'è Synapseed (code intelligence per assistenti AI)?
+https://fabriziosalmi.github.io/fabgpt-faq/q/synapseed-code-intelligence-rust/
+
+Synapseed è uno strumento di code intelligence in Rust che aiuta gli assistenti AI a capire la tua codebase: invece di dare al modello file grezzi e sperare, costruisce una comprensione strutturata del progetto e la espone – anche via [MCP](q/cos-e-mcp-model-context-protocol/), quindi collegabile a Claude, Cursor e simili. Il problema che aggredisce è quello vero del [RAG sul codice](q/chunking-spezzare-documenti-per-rag/): il contesto è limitato e il codice spezzato a caso perde il filo delle dipendenze – meglio dare al modello la mappa che l'intero territorio. Apache-2.0, test e coverage a vista: per chi usa assistenti sul proprio codice tutti i giorni, il pezzo di infrastruttura che separa le risposte plausibili da quelle [ancorate al progetto](q/allucinazioni-llm-dipendenze-inventate/).
+
+## Cos'è la ricerca sulle dependency hallucinations (phantom dependency squatting)?
+https://fabriziosalmi.github.io/fabgpt-faq/q/ricerca-dependency-hallucinations/
+
+ai-hallucination-research ospita il paper empirico "Empirical Analysis of AI-Induced Dependency Hallucinations in Public Version Control Systems": la quantificazione di quanto spesso i pacchetti inventati dagli LLM finiscono davvero nei repository pubblici – il fenomeno battezzato Phantom Dependency Squatting. La catena è quella raccontata nella voce sulle [allucinazioni](q/allucinazioni-llm-dipendenze-inventate/): il modello scrive import pacchetto-inesistente, lo sviluppatore committa, un attaccante registra quel nome su PyPI o npm e da lì in poi ogni build tira dentro codice suo. La ricerca misura il fenomeno sui version control pubblici invece di limitarsi ad ammonirlo – ed è il fondamento empirico dietro [ai-dependency-guard](q/cos-e-ai-dependency-guard-slopsquatting/) e le difese di [supply chain](q/cos-e-la-supply-chain-security/).
+
+## Cos'è Slopless (analisi statica contro l'AI slop)?
+https://fabriziosalmi.github.io/fabgpt-faq/q/slopless-analisi-statica-vibecoding/
+
+Slopless è un tool di analisi statica (npm: @fabriziosalmi/slopless) che cerca i pattern tipici del codice tirato via – colloquialmente, il vibecoding: strutture improvvisate, assunzioni non documentate, euristiche al posto di decisioni. Motore a più livelli: regex, AST e controlli sui tipi. Il bersaglio non è "il codice scritto dall'AI" in sé: è il codice – umano o generato – accettato senza capirlo. Con gli assistenti la quantità di codice plausibile è esplosa, e serve un gate che intercetti lo slop prima della review, quando costa ancora poco. Sta nella stessa famiglia di [come si controlla la qualità del codice generato](q/controllare-qualita-codice-generato-ai/): lì il metodo, qui lo strumento da mettere in CI.
+
 # Proxmox e self-hosting
 
 ## Cos'è Proxmox VE e perché è così usato?
@@ -2363,6 +2413,11 @@ https://fabriziosalmi.github.io/fabgpt-faq/q/aggregatore-rss-freshrss-miniflux/
 
 L'RSS non è mai morto: quasi ogni sito, blog, canale YouTube e podcast espone ancora un feed – ti sei solo abituato a farti scegliere le notizie da un algoritmo. I due aggregatori self-hosted che contano: FreshRSS (completo: multi-utente, estensioni, regole di filtraggio, API compatibili con le app mobili) e Miniflux (minimale per scelta, un binario Go e un Postgres, zero fronzoli). Entrambi felici in un container [LXC o Docker](q/differenza-container-lxc-e-vm/); l'aggiornamento dei feed è un [cron](q/cron-la-sintassi-spiegata/). Il flusso completo: l'aggregatore raccoglie, tu scorri i titoli la mattina, e ciò che vale la pena approfondire finisce in [Wallabag per la lettura offline](q/salvataggio-segnalibri-articoli-offline-wallabag-linkwarden/). Cronologia tua, niente profilazione, [tutto in casa](q/self-hosting-pro-e-contro/).
 
+## Cos'è LXC AutoScale ML (autoscaling con machine learning su Proxmox)?
+https://fabriziosalmi.github.io/fabgpt-faq/q/lxc-autoscale-ml-machine-learning-proxmox/
+
+LXC AutoScale ML è la variante predittiva dell'[autoscaling LXC classico](q/autoscaling-container-lxc-proxmox/): invece di sole soglie fisse, raccoglie le metriche per-container, addestra un modello di anomaly detection sulla storia di ciascun container e applica le modifiche con pct set sull'host – che non riavvia il container. L'architettura è deliberatamente umile: tre servizi systemd (raccolta metriche, modello, attuatore) che condividono solo un file di metriche su disco – niente code, niente database, ogni pezzo sostituibile. Sviluppato e testato su Proxmox VE 8, Python 3.10–3.12. Quando sceglierlo rispetto al fratello a soglie: quando i carichi hanno pattern (il gestionale che picchia alle 9, il backup che satura alle 3) e vuoi che l'allocazione li anticipi invece di inseguirli.
+
 # Cloudflare
 
 ## Cos'è GitOps e perché conviene?
@@ -2514,6 +2569,16 @@ RainLogs risolve il dilemma tra conformità NIS2 (obbligo di conservazione evide
 https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-cf-box-automazione-cloudflare/
 
 cf-box è una suite di strumenti in Python per l'automazione avanzata e la gestione centralizzata di account e zone Cloudflare via API. Caratteristiche chiave: IP List Manager: gestione centralizzata e sincronizzazione di liste di regole di accesso IP (WAF IP Lists) su più account Cloudflare a partire da file di configurazione YAML unificati. Data Export Multiformato: esportazione completa di zone, record DNS, impostazioni di sicurezza e routing in formato JSON, CSV, Excel e PDF. Analytics GraphQL: estrazione e aggregazione di metriche analitiche e log di traffico/sicurezza tramite endpoint GraphQL di Cloudflare. Architettura Async/Await: basata su aiohttp, structlog per logging strutturato, pydantic per validazione di tipo e SQLAlchemy con query parametrizzate per persistenza locale. Installazione e avvio rapido: # Clone del repository e installazione dipendenze git clone https://github.com/fabriziosalmi/cf-box.git cd cf-box pip install -e ".[dev]" # Configurazione credenziali Cloudflare in .env o config.yaml # Esecuzione del modulo di sincronizzazione IP o export python -m cf_box.cli --help Risolve la complessità di gestire manualmente decine di zone e liste di blocco IP su più account aziendali Cloudflare.
+
+## Come si gestisce il DNS come codice con dnscontrol-actions?
+https://fabriziosalmi.github.io/fabgpt-faq/q/dnscontrol-actions-dns-gitops/
+
+dnscontrol-actions porta il [GitOps](q/cos-e-gitops/) sul DNS: la configurazione delle zone vive in un repository, DNSControl la applica via GitHub Actions, e ogni modifica è una pull request con storia, review e – la parte che salva le giornate – rollback: un workflow dedicato riporta la zona all'ultima configurazione buona. Funziona multi-provider (Cloudflare incluso), quindi vale anche come via d'uscita dal lock-in del pannello. La coppia naturale: [cloudflare-backup-actions](q/backup-zone-cloudflare-github-actions/) fotografa lo stato, dnscontrol-actions lo governa. Il guadagno concreto: fine dei [record](q/tipi-di-record-dns/) modificati a mano di venerdì sera senza che nessuno ricordi perché – il DNS diventa un file diffabile.
+
+## Come si fa il backup delle zone Cloudflare con GitHub Actions?
+https://fabriziosalmi.github.io/fabgpt-faq/q/backup-zone-cloudflare-github-actions/
+
+cloudflare-backup-actions fotografa zone e record DNS Cloudflare in file JSON, su base pianificata, dentro un repository privato: un workflow per le zone, uno per i record, e la storia di ogni cambiamento finisce in git. Perché conta: il DNS è l'asset che nessuno include nel [piano di backup](q/backup-3-2-1/) finché un record cancellato per errore non spegne la posta. Col backup in git il ripristino è un copia-incolla documentato, e il diff tra due snapshot risponde alla domanda "cosa è cambiato e quando". È il compagno difensivo di [dnscontrol-actions](q/dnscontrol-actions-dns-gitops/) e del resto dell'[automazione Cloudflare](q/automatizzare-configurazione-cloudflare/): prima metti in salvo lo stato, poi lo governi come codice.
 
 # Strumenti e app
 
@@ -2732,6 +2797,21 @@ https://fabriziosalmi.github.io/fabgpt-faq/q/quali-certificazioni-it-contano-dav
 
 Dipende dalla porta che vuoi aprire. Entry level: CompTIA A+/Network+/Security+ servono soprattutto a passare i filtri HR – teoriche e care, ma riconosciute ovunque. Linux: la RHCSA è la più rispettata perché l'esame è pratico, su macchine vere, niente crocette. Cloud: AWS Solutions Architect Associate o Azure AZ-104 sono quelle che compaiono negli annunci; le "Fundamentals" (AZ-900) da sole valgono poco. Rete: la CCNA resta il riferimento. Sul versante governance c'è il filone [ISO 27001](q/cos-e-iso-27001/) e audit, un mestiere a parte. La verità scomoda: la certificazione ti porta al colloquio, non lo supera. Un [homelab documentato](q/homelab-sul-curriculum/) con cluster, backup testati e monitoring vale quanto la sigla sul CV – è la combinazione delle due cose a [funzionare](q/come-diventare-sysadmin-da-zero/).
 
+## Cos'è Navigator (SDK per interfacce navigabili da tastiera)?
+https://fabriziosalmi.github.io/fabgpt-faq/q/navigator-sdk-interfacce-tastiera/
+
+Navigator è un SDK TypeScript, a plugin, per costruire interfacce web navigabili da tastiera: la logica di navigazione (focus, zone, movimenti) vive in uno strato di stato in stile Redux, disaccoppiato dal framework UI, e ogni comportamento è un plugin componibile – con documentazione e cookbook nel repo. Perché esiste: la navigazione da tastiera è il fondamento dell'accessibilità (WCAG: tutto ciò che si clicca deve potersi raggiungere senza mouse) eppure viene quasi sempre improvvisata a colpi di tabindex. Trattarla come stato dell'applicazione, testabile e prevedibile, è l'approccio da ingegneria e non da rattoppo – la stessa differenza che passa tra una scorciatoia e un design.
+
+## Cos'è Occam Observer (telemetria Git out-of-band)?
+https://fabriziosalmi.github.io/fabgpt-faq/q/occam-observer-telemetria-git/
+
+Occam Observer osserva un repository Git dall'esterno (out-of-band: niente hook invasivi) e trasforma ogni salvataggio in telemetria strutturata: un health score, un verdetto check graduato per severità, violazioni a livello di riga con provenienza git blame, e finding da analizzatori innestabili (Semgrep, AST…). Si consuma in tre modi: gateway HTTP in Go con metriche Prometheus (quindi finisce dritto nella [dashboard Grafana](q/stack-di-monitoraggio-prometheus-grafana/) accanto a CPU e dischi), server [MCP](q/cos-e-mcp-model-context-protocol/) per gli assistenti (Claude Desktop, Cursor…), e API web-native. L'idea di fondo: la salute del codice è una metrica operativa come le altre – si osserva in continuo, non si scopre alla review. Il gemello che impone invece di osservare è [l0-git](q/l0-git-quality-gates/).
+
+## Cos'è l0-git (quality gate deterministici per i repository)?
+https://fabriziosalmi.github.io/fabgpt-faq/q/l0-git-quality-gates/
+
+l0-git applica quality gate deterministici all'igiene di progetto: controlli riproducibili sullo stato dei repository – la disciplina che questo stesso sito pratica coi suoi gate (bench, traj, maratone) portata sul piano del workspace: regole scritte, esito binario, niente giudizi a sentimento. Con [Occam Observer](q/occam-observer-telemetria-git/) forma una coppia complementare: Occam osserva e misura in continuo (telemetria, health score, trend), l0-git impone – il gate che decide se lo stato è accettabile. Osservabilità e enforcement, gli stessi due tempi del [security logging](q/security-logging-fatto-bene/) applicati alla qualità del codice. Per chi mantiene decine di repo – la situazione da cui è nato – è la differenza tra "mi pare a posto" e è a posto, per definizione.
+
 # Musica e creatività
 
 ## Cos'è una DAW (Digital Audio Workstation)?
@@ -2813,6 +2893,11 @@ Su audiolibri.org: la più grande raccolta di audiolibri gratuiti in italiano �
 https://fabriziosalmi.github.io/fabgpt-faq/q/strumenti-open-source-produzione-musicale/
 
 La coda creativa del portfolio è una piccola cassetta degli attrezzi per producer: audiogen – generazione e classificazione di suoni con l'AI txt2vst – genera strumenti VST3/AU dal linguaggio naturale: descrivi il synth, ottieni il plugin open-bpm – rilevamento BPM ad alta precisione, in Rust web-kick – generatore automatico di cassa dritta (bass drum kick) mixi-cut – generatore di segnali timecode per vinili DVS, per incidere i propri control vinyl Il pezzo grosso della famiglia è MIXI, la DAW browser-native – chiedimi di quella per i dettagli. E per ascoltare il risultato in contesto: WebTeK.
+
+## Cos'è Free Underground Tekno Radio?
+https://fabriziosalmi.github.io/fabgpt-faq/q/free-underground-tekno-radio/
+
+Free Underground Tekno Radio (radio.free-tekno.com) è una web radio italiana dedicata alla free tekno, fondata a fine 2008 dai membri del collettivo Space Invaders Tekno Sound. Streaming 24/7 con musica dai free party e dai sound system: l'archivio conta oltre 200 registrazioni di centinaia di artisti free tekno di tutto il mondo, raccolte in decenni di scena. Se ti chiedi da dove arrivi quella musica, [la storia della free tekno](q/storia-della-free-tekno/) parte dai soundsystem UK dei primi anni '90; se invece vuoi capire il lato tecnico di una radio del genere, c'è [come si organizza uno streaming musicale live](q/streaming-musicale-live/). Qui i due mondi del sito – infrastruttura e musica – sono la stessa storia.
 
 # FabGPT-FAQ
 
