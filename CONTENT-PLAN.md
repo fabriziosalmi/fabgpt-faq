@@ -463,8 +463,24 @@ Richieste di Fab, in ordine:
   thread history), click = ask(question canonica). Chip iniziali dopo il welcome
   da config.suggest. Anche gli intenti smalltalk con `suggest` mostrano chip.
   build.py usa gli stessi suggest per "Altre domande" delle pagine statiche.
-- Altre risposte "pronte" contestuali al filo del discorso (follow-up naturali
-  per ogni voce, es. variante "approfondisci" / "esempio pratico").
+- **[FATTA 2026-09-01] Risposte contestuali al filo del discorso**: il matcher
+  (app.js + qa.py, speculari) porta l'ultima voce KB come contesto – un
+  follow-up ellittico (<=2 parole di contenuto) con match diretto debole (<2.0)
+  viene ritentato coi token della voce precedente; un candidato contestuale
+  vince solo se l'input nuovo contribuisce al punteggio e il combinato
+  raggiunge 2.0 ("e i backup?" dopo Proxmox -> PBS). "approfondisci"/"non ho
+  capito" su un thread attivo servono la variante successiva della voce (22
+  voci top hanno una seconda risposta-approfondimento dedicata). Gate nuovo
+  **T5** in traj.py: sessioni contestuali scriptate, 100% richiesto.
+- **[FATTA 2026-09-01] B14 – triage 400/400**: 11 voci nuove + ~30 boost keyword
+  su voci che rispondevano già ma sotto soglia. 0 partial, 0 gap.
+- **[FATTA 2026-09-01] Hardening canoniche fragili**: tutte le 34 voci con
+  margine <0.5 portate a >=0.75 con una keyword-frase distintiva dalla propria
+  domanda. G3 typo 96.9% -> 98.0%. Report fragile di bench vuoto.
+- **[FATTA 2026-09-01] Percorsi guidati** (`paths.json` -> `/percorsi/`): 3
+  pagine-percorso statiche (diventare-sysadmin 17 tappe, server sicuro 12,
+  self-hosting da zero 12) con ItemList JSON-LD, strip sull'indice /q/, voci
+  in sitemap e llms.txt.
 
 **Smalltalk v2 DONE (2026-08-29)**: 22 -> 33 intenti, piu varianti per intento,
 risposte che instradano con percorsi suggeriti, e campo `suggest` (slug delle
