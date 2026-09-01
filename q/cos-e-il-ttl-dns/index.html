@@ -64,6 +64,7 @@
       <span class="page-meta-badge">⏱️ 1 min lettura</span>
       <span class="page-meta-badge">✓ Runbook verificato</span>
     </div>
+    
     <div class="answer" id="page-answer" itemprop="articleBody"><p>Il <strong>TTL</strong> (time to live) di un record DNS dice ai resolver per quanti secondi possono tenerlo in cache prima di richiederlo. È il motivo per cui i cambi DNS &quot;si propagano lentamente&quot;: non c&#x27;è nessuna propagazione attiva – c&#x27;è il mondo che aspetta la scadenza delle proprie cache.</p><p>Uso pratico: TTL <strong>alto</strong> (1-24 ore) per record stabili – meno query, più resilienza; TTL <strong>basso</strong> (60-300 s) quando prevedi cambi. La manovra da manuale per una migrazione: <strong>abbassa il TTL almeno un giorno prima</strong> (deve scadere il TTL vecchio!), cambia il record, verifica, poi rialza. Ricorda che alcuni resolver ignorano TTL troppo bassi, e che dietro un proxy come Cloudflare il TTL verso il mondo lo gestisce lui. Per la verifica: <code>dig +trace</code> interroga la catena autoritativa senza cache di mezzo.</p></div>
     <div class="qa-actions">
       <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">

@@ -64,6 +64,7 @@
       <span class="page-meta-badge">⏱️ 1 min lettura</span>
       <span class="page-meta-badge">✓ Runbook verificato</span>
     </div>
+    
     <div class="answer" id="page-answer" itemprop="articleBody"><p>Un PDF scansionato è solo una foto: per renderlo modificabile serve l&#x27;<strong>OCR</strong> (riconoscimento ottico dei caratteri). <a href="https://github.com/fabriziosalmi/pdf-ocr" target="_blank" rel="noopener">pdf-ocr</a> è una web app Flask self-hosted che fa esattamente questo: carichi il PDF nel browser, ogni pagina viene renderizzata con Poppler, l&#x27;OCR (<strong>Tesseract</strong> di default) estrae il testo e scarichi il risultato in <strong>DOCX, TXT, Markdown o HTML</strong>.</p><p>Con Docker è pronta in un comando (<code>docker compose up --build</code>, Tesseract e Poppler già nell&#x27;immagine). Onestà da README: è uno strumento <strong>locale/self-hosted</strong> con una vera suite di test, non un servizio multi-tenant blindato – perfetto per digitalizzare documenti senza caricarli sul servizio cloud di qualcun altro.</p></div>
     <div class="qa-actions">
       <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">

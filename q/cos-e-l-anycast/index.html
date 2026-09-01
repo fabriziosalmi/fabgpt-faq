@@ -64,6 +64,7 @@
       <span class="page-meta-badge">⏱️ 2 min lettura</span>
       <span class="page-meta-badge">✓ Runbook verificato</span>
     </div>
+    
     <div class="answer" id="page-answer" itemprop="articleBody"><p>Con l&#x27;<strong>anycast</strong>, lo stesso indirizzo IP è annunciato via BGP da <strong>decine di datacenter contemporaneamente</strong>: la rete instrada ogni utente al nodo più &quot;vicino&quot; in termini di routing. È il motivo per cui <code>1.1.1.1</code> risponde in 5 ms da Milano e da Tokyo – non è un server, è centinaia che condividono l&#x27;identità.</p><p>Due superpoteri ne derivano:</p><ul><li><strong>latenza</strong>: ognuno parla col nodo dietro l&#x27;angolo, senza geolocalizzazione esplicita – è il cuore di <a href="../cos-e-una-cdn/">CDN</a> e resolver pubblici</li><li><strong>assorbimento dei <a href="../cos-e-un-attacco-ddos/">DDoS</a></strong>: un attacco da mille reti diverse si spalma naturalmente su tutta la rete anycast invece di concentrarsi su un bersaglio – ogni nodo riceve solo la fetta locale. È il motivo strutturale per cui <a href="../cloudflare-o-self-hosted/">l&#x27;anti-DDoS di Cloudflare</a> non si replica in casa</li></ul><p>Il limite: l&#x27;anycast ama i protocolli senza stato (DNS, HTTP dietro terminazione TLS); le connessioni lunghe richiedono accorgimenti, perché il routing può cambiare strada.</p></div>
     <div class="qa-actions">
       <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">

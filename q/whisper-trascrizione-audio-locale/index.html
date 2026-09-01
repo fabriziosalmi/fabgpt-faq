@@ -64,6 +64,7 @@
       <span class="page-meta-badge">⏱️ 1 min lettura</span>
       <span class="page-meta-badge">✓ Runbook verificato</span>
     </div>
+    
     <div class="answer" id="page-answer" itemprop="articleBody"><p><strong>Whisper</strong> (OpenAI, open source) ha reso la trascrizione un problema risolto anche <a href="../far-girare-un-llm-in-locale/">in locale</a>: modelli da tiny a large-v3, ottimo con l&#x27;italiano, robusto con rumore e accenti. Niente audio caricato su server altrui – per riunioni e materiale sensibile non è un dettaglio.</p><p>Le implementazioni da usare davvero: <strong>faster-whisper</strong> (4-5× più veloce dell&#x27;originale, stessa qualità) e <strong>whisper.cpp</strong> (CPU e Apple Silicon, gira ovunque); su Mac anche le varianti MLX. Il modello <strong>large-v3</strong> per la qualità, <em>medium</em> o <em>small</em> quando la velocità conta più delle sfumature; una GPU aiuta ma non è obbligatoria.</p><p>I trucchi di resa: audio pulito in ingresso (il microfono conta più del modello), diarizzazione separata se serve <em>chi</em> ha detto cosa (pyannote), e il colpo finale: passare la trascrizione grezza a <a href="../cos-e-ollama/">un LLM</a> per punteggiatura, paragrafi e riassunto – la coppia trascrittore+redattore, tutta in casa.</p></div>
     <div class="qa-actions">
       <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">

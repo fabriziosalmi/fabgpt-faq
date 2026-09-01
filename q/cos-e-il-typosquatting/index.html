@@ -64,6 +64,7 @@
       <span class="page-meta-badge">⏱️ 1 min lettura</span>
       <span class="page-meta-badge">✓ Runbook verificato</span>
     </div>
+    
     <div class="answer" id="page-answer" itemprop="articleBody"><p>Il <strong>typosquatting</strong> è registrare nomi a un refuso di distanza da quelli veri – <code>gooogle.com</code>, <code>paypa1.com</code> – per intercettare chi sbaglia a digitare o non guarda bene un link di phishing. Il fenomeno ha due fronti moderni:</p><ul><li><strong>pacchetti software</strong>: <code>requets</code> invece di <code>requests</code> su PyPI/npm – e la variante AI, lo <strong>slopsquatting</strong>: registrare i <a href="../allucinazioni-llm-dipendenze-inventate/">nomi di pacchetti che gli LLM inventano</a>, aspettando che qualcuno li installi. In CI lo blocca <a href="https://github.com/fabriziosalmi/ai-dependency-guard" target="_blank" rel="noopener">ai-dependency-guard</a>.</li><li><strong>domini del tuo brand</strong>: monitorare le registrazioni simili al proprio nome è brand protection di base – e un classificatore come <a href="https://github.com/fabriziosalmi/fqdn-model" target="_blank" rel="noopener">fqdn-model</a> aiuta a valutare i nuovi domini sospetti su scala.</li></ul><p>Per i domini propri: registrare le varianti ovvie costa meno che litigarsele dopo.</p></div>
     <div class="qa-actions">
       <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">

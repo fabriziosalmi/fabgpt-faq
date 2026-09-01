@@ -64,6 +64,7 @@
       <span class="page-meta-badge">⏱️ 1 min lettura</span>
       <span class="page-meta-badge">✓ Runbook verificato</span>
     </div>
+    
     <div class="answer" id="page-answer" itemprop="articleBody"><p>Un LLM &quot;allucina&quot; quando produce con totale sicurezza qualcosa di falso: una fonte inesistente, un&#x27;API inventata, un fatto sbagliato. Non è un bug occasionale, è una proprietà statistica del come questi modelli generano testo.</p><p>La variante più pericolosa per chi sviluppa: le <strong>dipendenze allucinate</strong>. L&#x27;LLM scrive <code>import pacchetto-che-non-esiste</code>, lo sviluppatore lo committa, e un attaccante può <strong>registrare quel nome</strong> su PyPI o npm (slopsquatting): alla build successiva il codice malevolo entra in casa. Due risorse a tema:</p><ul><li><a href="https://github.com/fabriziosalmi/ai-dependency-guard" target="_blank" rel="noopener">ai-dependency-guard</a> – GitHub Action zero-dependency che valida ogni manifest contro i registry ufficiali e <strong>fa fallire la CI</strong> se trova un pacchetto inventato</li><li><a href="https://github.com/fabriziosalmi/ai-hallucination-research" target="_blank" rel="noopener">ai-hallucination-research</a> – l&#x27;analisi empirica del fenomeno che sta dietro al tool</li></ul></div>
     <div class="qa-actions">
       <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">

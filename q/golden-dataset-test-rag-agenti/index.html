@@ -64,6 +64,7 @@
       <span class="page-meta-badge">⏱️ 2 min lettura</span>
       <span class="page-meta-badge">✓ Runbook verificato</span>
     </div>
+    
     <div class="answer" id="page-answer" itemprop="articleBody"><p>Un <strong>golden dataset</strong> è la batteria di riferimento curata a mano: domande reali con la risposta attesa e, per il <a href="../cos-e-rag-retrieval-augmented-generation/">RAG</a>, i passaggi che il retrieval <em>deve</em> trovare. Si misura in due punti separati: il <strong>retrieval</strong> (recall@k: i documenti giusti sono nei primi k?) e la <strong>generazione</strong> (<a href="../cos-e-un-eval-e-perche-i-benchmark-mentono/">LLM-as-judge con rubrica</a>, o exact match dove si può).</p><p>Il valore vero è la <strong>non-regressione</strong>: la batteria gira in CI a ogni modifica di chunking, embedding o prompt, e ti dice <em>cosa</em> hai rotto prima che lo scopra un utente. Vale identico per i <a href="../pattern-di-orchestrazione-agentica/">workflow agentici</a>: input scriptati, tool attesi, esito verificabile.</p><p>I dataset <strong>sintetici</strong> (domande generate da un LLM sui tuoi documenti) scalano la copertura, ma valida a mano un campione: il generatore fa le domande che il sistema sa già trovare – questo sito, per dire, si tiene onesto con 666 test curati uno a uno.</p></div>
     <div class="qa-actions">
       <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">

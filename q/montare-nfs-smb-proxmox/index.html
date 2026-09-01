@@ -64,6 +64,7 @@
       <span class="page-meta-badge">⏱️ 2 min lettura</span>
       <span class="page-meta-badge">✓ Runbook verificato</span>
     </div>
+    
     <div class="answer" id="page-answer" itemprop="articleBody"><p>La via giusta è <strong>via Datacenter, non via fstab</strong>: Datacenter → Storage → Add → NFS (o SMB/CIFS), server e export, e soprattutto i <strong>content type</strong> giusti – è il dettaglio che confonde: <em>Disk image</em> e <em>Container</em> per metterci dischi di VM, <em>VZDump backup</em> per i <a href="../backup-automatici-verso-pbs/">backup</a>, <em>ISO image</em> per le ISO. Lo storage aggiunto così è visibile a <strong>tutti i nodi</strong> del cluster, con lo stato gestito da Proxmox.</p><p>Le note che risparmiano pomeriggi:</p><ul><li>per SMB serve un utente dedicato sul NAS (mai guest), e le <strong>versioni di protocollo</strong> contano: forza SMB3</li><li>per NFS: allinea gli UID/GID o usa mapall sul NAS, e preferisci NFSv4.x; se il NAS sparisce, i mount appesi possono bloccare l&#x27;host – motivo per cui i dischi delle VM <em>di produzione</em> su NFS richiedono <a href="../storage-proxmox-lvm-zfs-nfs-ceph/">un NAS all&#x27;altezza</a></li><li>l&#x27;uso più sano di uno share di rete in casa: <strong>destinazione backup e ISO</strong>, con i dischi VM su <a href="../perche-usare-zfs-su-proxmox/">ZFS locale</a></li></ul></div>
     <div class="qa-actions">
       <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">

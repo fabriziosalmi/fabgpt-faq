@@ -64,6 +64,7 @@
       <span class="page-meta-badge">⏱️ 1 min lettura</span>
       <span class="page-meta-badge">✓ Runbook verificato</span>
     </div>
+    
     <div class="answer" id="page-answer" itemprop="articleBody"><p>Gli assistenti AI dimenticano tutto a fine sessione. <a href="https://github.com/fabriziosalmi/l0-memory" target="_blank" rel="noopener">l0-memory</a> risolve con un <strong>singolo binario Go</strong> che parla <strong>MCP</strong> su stdio ed espone lo stesso store SQLite anche via CLI (<code>ltm</code>):</p><ul><li>memorie <strong>partizionate per scope</strong>, pinnabili, <strong>collegate in un grafo tipizzato</strong> e tracciate per freschezza</li><li>store <strong>locale e in chiaro</strong>: di default nessun listener di rete e nessun embedding – la ricerca è pura SQLite FTS5</li><li>opzionale: punta <code>LTM_EMBEDDING_URL</code> a un endpoint OpenAI-compatibile (Ollama, LM Studio, vLLM) e ottieni <strong>retrieval ibrido</strong> full-text + vettoriale</li><li>estensione <strong>VSCode</strong> con sidebar e visualizzazione force-directed del grafo, web clipper per il browser, integrazioni per Claude Code e git hook</li></ul><p>Zero CGO, cross-compila ovunque. La filosofia: la memoria del tuo assistente è un file tuo, non un servizio altrui.</p></div>
     <div class="qa-actions">
       <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">

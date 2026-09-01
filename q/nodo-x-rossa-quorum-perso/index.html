@@ -64,6 +64,7 @@
       <span class="page-meta-badge">⏱️ 2 min lettura</span>
       <span class="page-meta-badge">✓ Runbook verificato</span>
     </div>
+    
     <div class="answer" id="page-answer" itemprop="articleBody"><p>La X rossa (o i punti interrogativi grigi su tutto) di solito non significa &quot;nodo morto&quot;: significa che <strong>il cluster ha perso il <a href="../cluster-proxmox-e-quorum/">quorum</a></strong> e si è messo in sola lettura per proteggersi – le VM che giravano continuano a girare, ma niente start, stop o modifiche.</p><p>Diagnosi in due comandi: <code>pvecm status</code> (quanti voti ci sono, quanti ne servono) e un occhio a <strong>corosync</strong> (<code>journalctl -u corosync</code>): nove volte su dieci è la <strong>rete tra i nodi</strong> – uno switch riavviato, un cavo, un MTU cambiato, o la rete di corosync satura perché <a href="../dimensionare-un-nodo-proxmox/">condivisa col traffico di storage</a>. Sistemata la rete, il quorum torna da solo.</p><p>Se un nodo è morto <em>davvero</em> e siete rimasti in pari: il <strong>QDevice</strong> esiste per non trovarsi mai qui. E l&#x27;ultima spiaggia – <code>pvecm expected 1</code> per sbloccare un nodo superstite – va usata sapendo cosa si sta facendo: con due nodi attivi e separati, quel comando è la ricetta dello <strong>split brain</strong>. Mai come routine, <a href="../cluster-proxmox-e-quorum/">mai negli script</a>.</p></div>
     <div class="qa-actions">
       <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">

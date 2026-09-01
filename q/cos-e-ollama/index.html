@@ -64,6 +64,7 @@
       <span class="page-meta-badge">⏱️ 1 min lettura</span>
       <span class="page-meta-badge">✓ Runbook verificato</span>
     </div>
+    
     <div class="answer" id="page-answer" itemprop="articleBody"><p><strong>Ollama</strong> è il modo più rapido di avere un LLM locale: un demone che scarica, gestisce ed esegue modelli open-weights con un comando – <code>ollama run llama3</code> e stai chattando. Sotto usa llama.cpp e i formati quantizzati GGUF; sopra espone una <strong>API HTTP locale</strong> (porta 11434, anche in dialetto OpenAI-compatibile) che qualsiasi applicazione può usare.</p><p>Quel dettaglio dell&#x27;API è ciò che lo rende un mattone d&#x27;infrastruttura: molti tool del portfolio di Fabrizio si agganciano a &quot;un endpoint OpenAI-compatibile&quot; proprio pensando a Ollama – <a href="https://github.com/fabriziosalmi/l0-memory" target="_blank" rel="noopener">l0-memory</a> per gli embeddings del retrieval ibrido, <a href="https://github.com/fabriziosalmi/nis2-public" target="_blank" rel="noopener">nis2-public</a> per il copilot AI, <a href="https://github.com/fabriziosalmi/naso" target="_blank" rel="noopener">NASO</a> per il triage dei leak. Il pattern è sempre lo stesso: intelligenza locale, dati che non escono.</p></div>
     <div class="qa-actions">
       <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">

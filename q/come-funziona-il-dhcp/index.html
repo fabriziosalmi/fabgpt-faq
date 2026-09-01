@@ -64,6 +64,7 @@
       <span class="page-meta-badge">⏱️ 1 min lettura</span>
       <span class="page-meta-badge">✓ Runbook verificato</span>
     </div>
+    <a class="ask" style="margin:10px 0 4px;display:inline-block" href="../../tools/calcolatore-subnet/">🧮 Calcola le tue subnet col calcolatore CIDR</a>
     <div class="answer" id="page-answer" itemprop="articleBody"><p>Il <strong>DHCP</strong> assegna automaticamente ai dispositivi indirizzo IP, gateway e <a href="../come-funziona-la-risoluzione-dns/">DNS</a>. Il dialogo è in quattro passi (<strong>DORA</strong>): il client fa broadcast <em>Discover</em>, il server risponde <em>Offer</em>, il client sceglie con <em>Request</em>, il server conferma con <em>Ack</em>. L&#x27;indirizzo è un <strong>lease</strong> a tempo: a metà durata il client prova a rinnovarlo.</p><p>La regola pratica: PC e telefoni in DHCP; server, stampanti e NAS vogliono un indirizzo stabile. Meglio la <strong>reservation</strong> (IP legato al MAC, deciso sul server DHCP) dell&#x27;IP statico configurato a mano sul dispositivo: resta documentato in un posto solo e non crea conflitti.</p><p>Trappola classica: due server DHCP sulla stessa rete (il router dell&#x27;operatore più il tuo) – i client pescano a caso e metà rete finisce nella <a href="../cos-e-il-subnetting-e-il-cidr/">subnet</a> sbagliata.</p></div>
     <div class="qa-actions">
       <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">

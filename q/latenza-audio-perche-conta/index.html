@@ -64,6 +64,7 @@
       <span class="page-meta-badge">⏱️ 2 min lettura</span>
       <span class="page-meta-badge">✓ Runbook verificato</span>
     </div>
+    
     <div class="answer" id="page-answer" itemprop="articleBody"><p>La <strong>latenza</strong> è il ritardo tra gesto e suono: premi il tasto, e la nota esce <em>dopo</em>. Sotto i ~10 ms il cervello percepisce &quot;istantaneo&quot;; oltre i 20-30 ms suonare dal vivo diventa una lotta.</p><p>Da dove viene: l&#x27;audio si elabora a blocchi (<strong>buffer</strong>) – buffer da 256 campioni a 48 kHz ≈ 5,3 ms per direzione, e il giro completo (in + elaborazione + out) si somma. Buffer piccolo = poca latenza ma CPU sotto pressione (i <strong>crackle</strong> sono il buffer che non ce la fa); buffer grande = comodo ma molle sotto le dita.</p><p>Le leve, in ordine: driver giusti (<strong>ASIO</strong> su Windows – quello nativo della tua interfaccia, non il generico; Core Audio su Mac è già a posto; PipeWire/JACK su Linux), <strong>buffer al minimo che regge</strong> il progetto (128-256 per suonare, 512+ per mixare, dove la latenza non conta), e per la registrazione il <strong>direct monitoring</strong> dell&#x27;interfaccia: ti ascolti in analogico, a latenza zero, aggirando il problema. Nel browser il collo è storicamente peggio – motivo per cui <a href="../daw-console-dj-nel-browser/">MIXI</a> porta il DSP in Rust/WebAssembly.</p></div>
     <div class="qa-actions">
       <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">

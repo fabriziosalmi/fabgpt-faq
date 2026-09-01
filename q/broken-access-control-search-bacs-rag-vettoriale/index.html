@@ -64,6 +64,7 @@
       <span class="page-meta-badge">⏱️ 1 min lettura</span>
       <span class="page-meta-badge">✓ Runbook verificato</span>
     </div>
+    
     <div class="answer" id="page-answer" itemprop="articleBody"><p>La vulnerabilità <strong>BACS</strong> (Broken Access Control at Search) si verifica quando un&#x27;architettura RAG indicizza documenti aziendali (contratti, buste paga, cartelle cliniche) all&#x27;interno di un unico Vector Database piatto, ignorando le Access Control List (ACL) originarie del document management system.</p><p>Durante la fase di retrieval, se l&#x27;utente pone una domanda come <em>&#x27;Quali sono i bonus del management?&#x27;</em>, il motore vettoriale estrae i chunk più pertinenti semanticamente e li inietta nel prompt dell&#x27;LLM, che risponde divulgando informazioni riservate a utenti non autorizzati.</p><p><strong>Contromisure architetturali</strong>:<br>- <strong>Pre-Filtering con ACL Metadata</strong>: associa a ogni chunk vettoriale gli ID dei gruppi autorizzati e impone filtri deterministici nella query di similarity (<code>filter: { role: { $in: user_roles } }</code>).<br>- <strong>Post-Retrieval Authorization</strong>: verifica le autorizzazioni di lettura contro l&#x27;Identity Provider prima di passare i chunk al context window.</p></div>
     <div class="qa-actions">
       <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">

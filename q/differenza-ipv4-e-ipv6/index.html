@@ -64,6 +64,7 @@
       <span class="page-meta-badge">⏱️ 1 min lettura</span>
       <span class="page-meta-badge">✓ Runbook verificato</span>
     </div>
+    
     <div class="answer" id="page-answer" itemprop="articleBody"><p><strong>IPv4</strong> usa indirizzi a 32 bit: circa 4,3 miliardi, esauriti da anni – da lì il <a href="../nat-statico-dinamico-e-pat/">NAT</a> e il CGNAT degli operatori. <strong>IPv6</strong> usa 128 bit: indirizzi in pratica infiniti, ogni dispositivo può averne uno pubblico, niente NAT.</p><p>Differenze operative: notazione esadecimale (<code>2001:db8::1</code>), autoconfigurazione <strong>SLAAC</strong> al posto del solo DHCP, niente broadcast. La sicurezza <em>non</em> è automatica: senza NAT davanti, il firewall va configurato con più cura, non meno.</p><p>Perché stenta: tutto funziona (male) anche senza, e il dual stack raddoppia il lavoro. Ma se fai self-hosting dietro CGNAT, IPv6 è spesso l&#x27;unico modo per essere raggiungibili senza <a href="../esporre-servizi-senza-aprire-porte/">tunnel</a>. Il consiglio: non disattivarlo &quot;per sicurezza&quot; – impara a filtrarlo.</p></div>
     <div class="qa-actions">
       <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">

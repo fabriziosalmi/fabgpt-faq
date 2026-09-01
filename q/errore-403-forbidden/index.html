@@ -64,6 +64,7 @@
       <span class="page-meta-badge">⏱️ 1 min lettura</span>
       <span class="page-meta-badge">✓ Runbook verificato</span>
     </div>
+    
     <div class="answer" id="page-answer" itemprop="articleBody"><p>Il <strong>403</strong> significa: il server ti ha capito benissimo, e la risposta è no. Le cause in ordine di frequenza:</p><ul><li><strong>permessi dei file</strong> sbagliati sul server (l&#x27;utente del web server non può leggerli) o assenza dell&#x27;index con directory listing disabilitato</li><li><strong>il WAF ti ha bloccato</strong>: una regola ha classificato la richiesta come attacco – capita ai falsi positivi, si diagnostica nei log del <a href="../cos-e-un-waf-web-application-firewall/">WAF</a> e si risolve con un&#x27;eccezione mirata, non spegnendo tutto</li><li><strong>blocco per IP o geografia</strong>: sei in una blocklist, dietro una VPN sgradita, o il <a href="../bannare-ip-brute-force-caddy/">ban automatico</a> ti ha scambiato per uno scanner</li><li>regole applicative: hotlinking negato, user-agent filtrati, <a href="../bloccare-crawler-ai-gptbot/">bot AI esclusi</a></li></ul><p>Lato amministratore, il log dice sempre <em>quale</em> regola ha sparato. Lato visitatore: se un sito ti dà 403 ingiustamente da una VPN, è il prezzo della cattiva reputazione dell&#x27;IP condiviso – <a href="../perche-email-in-spam/">succede anche alle email</a>.</p></div>
     <div class="qa-actions">
       <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">

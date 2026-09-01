@@ -64,6 +64,7 @@
       <span class="page-meta-badge">⏱️ 1 min lettura</span>
       <span class="page-meta-badge">✓ Runbook verificato</span>
     </div>
+    
     <div class="answer" id="page-answer" itemprop="articleBody"><p>L&#x27;effetto <strong>Lost in the Middle</strong> è un limite intrinseco delle architetture Transformer basate su meccanismi di attenzione (Self-Attention): i modelli tendono a richiamare con massima precisione le informazioni posizionate all&#x27;inizio (Primacy effect) o alla fine (Recency effect) del context window, ignorando o confondendo i dati inseriti nel terzo centrale.</p><p><strong>Strategie operative di mitigazione</strong>:</p><p>1. <strong>Re-Ranking e Riorganizzazione dei Chunk</strong>: dopo il retrieval RAG, ordina i chunk in modo alternato posizionando i documenti a più alto punteggio di rilevanza all&#x27;inizio e alla fine del blocco di contesto.<br>2. <strong>Compressione del Contesto</strong>: rimuovi testo superfluo e token ridondanti prima dell&#x27;iniezione, ad esempio tramite compressione lessicale o strumenti dedicati come <a href="../token-e-context-window/">L0-Compressor</a>.<br>3. <strong>Benchmark NIAH (Needle In A Haystack)</strong>: valida periodicamente il modello nascondendo fatti specifici a profondità variabili (10%, 50%, 90%) del contesto per misurarne il tasso di recupero reale.</p></div>
     <div class="qa-actions">
       <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">

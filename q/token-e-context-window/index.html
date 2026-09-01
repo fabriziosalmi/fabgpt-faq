@@ -64,6 +64,7 @@
       <span class="page-meta-badge">⏱️ 1 min lettura</span>
       <span class="page-meta-badge">✓ Runbook verificato</span>
     </div>
+    
     <div class="answer" id="page-answer" itemprop="articleBody"><p>Gli LLM non leggono parole ma <strong>token</strong>: frammenti di testo (in media ~4 caratteri in inglese, meno in italiano) prodotti dal tokenizer. &quot;gatto&quot; può essere un token, &quot;gattopardo&quot; tre. Si paga e si misura tutto in token.</p><p>La <strong>context window</strong> è quanti token il modello può tenere &quot;in mente&quot; contemporaneamente: prompt + conversazione + documenti + risposta. Sforata quella, il modello semplicemente non vede più il resto – non c&#x27;è memoria nascosta. Le finestre moderne vanno da 8k a milioni di token, ma attenzione: finestra grande ≠ attenzione uniforme (i modelli tendono a perdersi il centro dei contesti lunghi) e i costi crescono. Per questo si comprime ciò che entra (<a href="https://github.com/fabriziosalmi/l0-compressor" target="_blank" rel="noopener">l0-compressor</a> per l&#x27;output dei comandi) e si recupera solo il rilevante (<a href="../cos-e-rag-retrieval-augmented-generation/">RAG</a>).</p></div>
     <div class="qa-actions">
       <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">

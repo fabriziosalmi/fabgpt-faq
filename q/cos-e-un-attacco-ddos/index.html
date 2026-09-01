@@ -64,6 +64,7 @@
       <span class="page-meta-badge">⏱️ 1 min lettura</span>
       <span class="page-meta-badge">✓ Runbook verificato</span>
     </div>
+    
     <div class="answer" id="page-answer" itemprop="articleBody"><p>Un <strong>DDoS</strong> (Distributed Denial of Service) satura un servizio con traffico proveniente da migliaia di macchine (spesso una botnet) finché non risponde più. Non ruba dati: toglie disponibilità. Le varianti principali: volumetrici (banda), di protocollo (SYN flood) e applicativi (L7: richieste HTTP apparentemente legittime).</p><p>Difese a strati: una rete anycast davanti (Cloudflare e simili assorbono i volumetrici), poi <strong>rate limiting</strong> (<a href="https://github.com/fabriziosalmi/limits" target="_blank" rel="noopener">limits</a>, o l&#x27;edge), poi un <strong>WAF</strong> che riconosce i pattern applicativi (<a href="https://github.com/fabriziosalmi/caddy-waf" target="_blank" rel="noopener">caddy-waf</a>, <a href="https://github.com/fabriziosalmi/patterns" target="_blank" rel="noopener">patterns</a>) e ban automatici per chi insiste (<a href="https://github.com/fabriziosalmi/caddy-mib" target="_blank" rel="noopener">caddy-mib</a>). Il DDoS proprietario su larga scala resta il caso in cui un servizio gestito è difficile da sostituire – <a href="https://github.com/fabriziosalmi/flareover" target="_blank" rel="noopener">flareover</a> lo classifica onestamente come MANUAL.</p></div>
     <div class="qa-actions">
       <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">

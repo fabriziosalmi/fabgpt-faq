@@ -64,6 +64,7 @@
       <span class="page-meta-badge">⏱️ 1 min lettura</span>
       <span class="page-meta-badge">✓ Runbook verificato</span>
     </div>
+    <a class="ask" style="margin:10px 0 4px;display:inline-block" href="../../tools/calcolatore-subnet/">🧮 Prova il calcolatore subnet interattivo</a>
     <div class="answer" id="page-answer" itemprop="articleBody"><p>Il <strong>subnetting</strong> divide una rete IP in reti più piccole. La notazione <strong>CIDR</strong> dice quanti bit identificano la rete: in <code>192.168.1.0/24</code> sono i primi 24, gli ultimi 8 restano per gli host – 256 indirizzi, di cui <strong>254 usabili</strong> (il primo è la rete, l&#x27;ultimo il broadcast). Equivale alla maschera <code>255.255.255.0</code>.</p><p>Le taglie da riconoscere al volo: <code>/8</code> (16 milioni di host, es. <code>10.0.0.0/8</code>), <code>/16</code> (65.534), <code>/24</code> (254, lo standard casalingo), <code>/30</code> per i collegamenti punto-punto.</p><p>Perché suddividere: contenere il broadcast e <strong>segmentare per sicurezza</strong> – ogni subnet è un confine su cui un firewall può decidere, ed è la base delle <a href="../segmentare-la-rete-con-vlan/">VLAN</a>. Per i calcoli senza errori c&#x27;è <code>ipcalc</code>; quando gli indirizzi privati devono uscire, entra in gioco il <a href="../nat-statico-dinamico-e-pat/">NAT</a>.</p></div>
     <div class="qa-actions">
       <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">

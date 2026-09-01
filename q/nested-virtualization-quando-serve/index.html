@@ -64,6 +64,7 @@
       <span class="page-meta-badge">⏱️ 2 min lettura</span>
       <span class="page-meta-badge">✓ Runbook verificato</span>
     </div>
+    
     <div class="answer" id="page-answer" itemprop="articleBody"><p>La <strong>nested virtualization</strong> permette a una VM di fare da hypervisor a sua volta: VM dentro VM. Serve più spesso di quanto sembri:</p><ul><li><strong>laboratori</strong>: un intero <a href="../cluster-proxmox-e-quorum/">cluster Proxmox</a> di prova dentro tre VM su un solo host fisico – il modo giusto di imparare HA e Ceph senza comprare ferro</li><li><strong>Windows moderni in VM</strong>: WSL2, il sandbox di Windows e le funzioni di sicurezza VBS <em>sono</em> virtualizzazione – senza nested, non partono</li><li>CI che esegue in VM, sviluppo di software di virtualizzazione, emulatori Android</li></ul><p>Come si abilita su Proxmox: il flag nested nel modulo KVM dell&#x27;host (di serie sulle versioni recenti) e soprattutto <strong>CPU type <code>host</code></strong> nella VM – con il default generico i flag VT-x/AMD-V non arrivano dentro. Il conto da pagare: prestazioni a scendere a ogni livello di scatola cinese, e la <a href="../migrazione-live-tra-nodi/">migrazione live</a> di VM con CPU <code>host</code> pretende nodi con CPU identiche. Per i lab va benissimo; per la produzione, ripensaci.</p></div>
     <div class="qa-actions">
       <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">

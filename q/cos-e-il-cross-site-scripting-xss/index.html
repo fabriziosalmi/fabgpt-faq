@@ -64,6 +64,7 @@
       <span class="page-meta-badge">⏱️ 1 min lettura</span>
       <span class="page-meta-badge">✓ Runbook verificato</span>
     </div>
+    
     <div class="answer" id="page-answer" itemprop="articleBody"><p>L&#x27;<strong>XSS</strong> consiste nel far eseguire al browser di un&#x27;altra persona JavaScript che non doveva esserci: un commento che contiene uno <code>&lt;script&gt;</code>, un parametro URL riflesso nella pagina senza escape. Con quel codice l&#x27;attaccante ruba sessioni, riscrive la pagina, esegue azioni a nome della vittima.</p><p>Difese in ordine di importanza: <strong>escaping dell&#x27;output</strong> in base al contesto (HTML, attributo, JS – i framework moderni lo fanno di default), una <strong>Content Security Policy</strong> che vieti script non previsti, cookie <code>HttpOnly</code>, e un WAF che filtri i payload noti (<a href="https://github.com/fabriziosalmi/caddy-waf" target="_blank" rel="noopener">caddy-waf</a>, <a href="https://github.com/fabriziosalmi/patterns" target="_blank" rel="noopener">patterns</a>). Per verificare che la tua CSP sia davvero chiusa: <a href="https://github.com/fabriziosalmi/agssh" target="_blank" rel="noopener">agssh</a> la controlla contro il deployment live.</p></div>
     <div class="qa-actions">
       <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">

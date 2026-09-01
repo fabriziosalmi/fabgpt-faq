@@ -64,6 +64,7 @@
       <span class="page-meta-badge">⏱️ 1 min lettura</span>
       <span class="page-meta-badge">✓ Runbook verificato</span>
     </div>
+    
     <div class="answer" id="page-answer" itemprop="articleBody"><p>I security header sono istruzioni che il server dà al browser su come trattare la pagina. Quelli che contano:</p><ul><li><strong>Strict-Transport-Security (HSTS)</strong> – &quot;parla con me solo in HTTPS&quot;, per sempre</li><li><strong>Content-Security-Policy</strong> – la whitelist di cosa la pagina può caricare ed eseguire: il singolo header più potente (e più delicato da scrivere)</li><li><strong>X-Content-Type-Options: nosniff</strong> – vieta al browser di &quot;indovinare&quot; i MIME type</li><li><strong>X-Frame-Options</strong> / CSP <code>frame-ancestors</code> – anti-clickjacking</li><li><strong>Referrer-Policy</strong> e <strong>Permissions-Policy</strong> – privacy e API del browser sotto controllo</li></ul><p>Per verificarli: <a href="https://github.com/fabriziosalmi/domainmate" target="_blank" rel="noopener">DomainMate</a> li controlla in monitoraggio continuo, e per i siti statici <a href="https://github.com/fabriziosalmi/agssh" target="_blank" rel="noopener">agssh</a> li valida in modo fail-closed contro il deployment live.</p></div>
     <div class="qa-actions">
       <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">

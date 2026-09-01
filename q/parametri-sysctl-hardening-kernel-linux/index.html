@@ -64,6 +64,7 @@
       <span class="page-meta-badge">⏱️ 1 min lettura</span>
       <span class="page-meta-badge">✓ Runbook verificato</span>
     </div>
+    
     <div class="answer" id="page-answer" itemprop="articleBody"><p>Il file <code>/etc/sysctl.d/99-security.conf</code> consente di disabilitare interfacce obsolete e rafforzare le difese del kernel Linux contro privilege escalation ed exploit di memoria:</p><ul><li><code>kernel.kptr_restrict = 2</code> e <code>kernel.dmesg_restrict = 1</code>: nascondono i puntatori del kernel e i log dmesg agli utenti non root (ostacolando bypass di KASLR).</li><li><code>kernel.yama.ptrace_scope = 2</code>: impedisce ai processi non root di attaccare altri processi tramite <code>ptrace</code> (blocca injection in memoria).</li><li><code>net.ipv4.conf.all.rp_filter = 1</code>: attiva il Reverse Path Filtering contro lo spoofing di IP sorgente.</li><li><code>net.ipv4.tcp_syncookies = 1</code>: difende il networking da attacchi <a href="../errore-ssl-handshake-failure/">SYN Flood</a>.</li><li><code>fs.protected_regular = 2</code> e <code>fs.protected_fifos = 2</code>: previene attacchi race-condition su file in <code>/tmp</code>.</li></ul><p>Per applicare subito: <code>sysctl --system</code>.</p></div>
     <div class="qa-actions">
       <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">

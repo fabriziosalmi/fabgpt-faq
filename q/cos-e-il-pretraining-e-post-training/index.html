@@ -64,6 +64,7 @@
       <span class="page-meta-badge">⏱️ 1 min lettura</span>
       <span class="page-meta-badge">✓ Runbook verificato</span>
     </div>
+    
     <div class="answer" id="page-answer" itemprop="articleBody"><p>Un LLM nasce in due fasi molto diverse:</p><ul><li>il <strong>pretraining</strong> è la forgiatura: mesi di GPU su trilioni di <a href="../token-e-context-window/">token</a> di testo, con un unico obiettivo – predire il token successivo. Da qui escono conoscenza e capacità linguistiche, ma un modello &quot;base&quot; che completa il testo, non un assistente: se gli chiedi qualcosa, potrebbe risponderti con altre tre domande simili.</li><li>il <strong>post-training</strong> è l&#x27;educazione: il <strong>fine-tuning supervisionato (SFT)</strong> su esempi di dialogo gli insegna il formato domanda-risposta, e l&#x27;allineamento alle preferenze (<a href="../cos-e-rlhf/">RLHF/DPO</a>) lo rende utile, prudente, gradevole. È qui che nasce il &quot;carattere&quot;.</li></ul><p>La parte interessante per chi costruisce: il pretraining è roba da laboratori con budget a nove cifre, ma il post-training è accessibile – un <a href="../meglio-fine-tuning-o-rag/">fine-tuning LoRA</a> su un modello aperto si fa <a href="../fine-tuning-llm-apple-silicon/">anche su un Mac</a>.</p></div>
     <div class="qa-actions">
       <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">

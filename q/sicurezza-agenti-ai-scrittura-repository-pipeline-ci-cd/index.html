@@ -64,6 +64,7 @@
       <span class="page-meta-badge">⏱️ 1 min lettura</span>
       <span class="page-meta-badge">✓ Runbook verificato</span>
     </div>
+    
     <div class="answer" id="page-answer" itemprop="articleBody"><p>Concedere a un agente AI permessi di commit o push diretto sul branch principale (<code>main</code>) o su file di configurazione delle pipeline CI/CD (es. <code>.github/workflows/</code>) crea una vulnerabilità critica: un attacco di indirect prompt injection (presente in una issue o in un commento PR) può indurre l&#x27;agente a modificare i workflow di build, inserire backdoor o esfiltrare i segreti di deployment aziendali. Per proteggersi: 1) attivare Branch Protection Rules severe con blocco del push diretto; 2) richiedere la revisione e l&#x27;approvazione umana obbligatoria di ogni PR; 3) impedire ai token dell&#x27;agente di modificare file di configurazione CI/CD; 4) scansionare ogni commit con <a href="../gitleaks-trufflehog-pre-commit-hook-bloccare-segreti-git/">gitleaks</a>.</p></div>
     <div class="qa-actions">
       <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">

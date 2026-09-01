@@ -64,6 +64,7 @@
       <span class="page-meta-badge">⏱️ 1 min lettura</span>
       <span class="page-meta-badge">✓ Runbook verificato</span>
     </div>
+    
     <div class="answer" id="page-answer" itemprop="articleBody"><p><strong>RAGAS</strong> (Retrieval Augmented Generation Assessment) è il framework standard per valutare quantitativamente e senza dataset annotati a mano la qualità di un sistema <a href="../meglio-fine-tuning-o-rag/">RAG</a>:</p><p>Metriche di <strong>Retrieval (qualità del contesto estratto)</strong>:<br>- <strong>Context Precision</strong>: misura se i chunk rilevanti si trovano nei primi posti della classifica di ricerca.<br>- <strong>Context Recall</strong>: misura se tutti i dati necessari a rispondere sono stati recuperati.</p><p>Metriche di <strong>Generazione (qualità della risposta del modello)</strong>:<br>- <strong>Faithfulness (Fedeltà)</strong>: misura quante affermazioni nella risposta sono supportate matematicamente dal contesto (anti-allucinazione).<br>- <strong>Answer Relevance</strong>: misura se la risposta risponde direttamente alla domanda iniziale dell&#x27;utente senza divagazioni.</p><p>Si integra nelle pipeline di CI/CD per bloccare regressioni nei prompt o nel chunking.</p></div>
     <div class="qa-actions">
       <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">

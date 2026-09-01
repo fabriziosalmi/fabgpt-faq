@@ -64,6 +64,7 @@
       <span class="page-meta-badge">⏱️ 1 min lettura</span>
       <span class="page-meta-badge">✓ Runbook verificato</span>
     </div>
+    
     <div class="answer" id="page-answer" itemprop="articleBody"><p>Scaricare modelli da hub pubblici senza verifica espone a campagne di typosquatting e manomissione dei pesi. Per garantire autenticità e non ripudio si utilizzano <strong>Sigstore</strong> (Cosign, Fulcio, Rekor) e <strong>TUF</strong> (The Update Framework):</p><p>1. <strong>Firma keyless con Cosign</strong>: il publisher firma il digest SHA-256 del modello SafeTensors autenticandosi via OIDC; la firma e il certificato effimero vengono registrati nel registro di trasparenza immutabile Rekor.<br>2. <strong>Verifica client-side</strong>: prima di caricare il modello nel server di inferenza, il runtime valida la firma contro l&#x27;identità del manutentore accreditato:<br>   <code>cosign verify --certificate-identity publisher@org.ai &lt;model-repo&gt;</code><br>3. <strong>Resilienza TUF</strong>: il framework TUF protegge il repository da attacchi di replay, freeze e compromissione di chiavi intermedie tramite deleghe crittografiche gerarchiche.</p></div>
     <div class="qa-actions">
       <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">

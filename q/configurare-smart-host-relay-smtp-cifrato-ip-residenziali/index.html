@@ -64,6 +64,7 @@
       <span class="page-meta-badge">⏱️ 1 min lettura</span>
       <span class="page-meta-badge">✓ Runbook verificato</span>
     </div>
+    
     <div class="answer" id="page-answer" itemprop="articleBody"><p>La maggior parte dei provider Internet (ISP) blocca la porta 25 in uscita sulle connessioni residenziali o assegna indirizzi IP presenti nelle liste DUL (Dial-up/Dynamic User List) dei principali filtri antispam, rendendo impossibile la consegna diretta di email ai destinatari.</p><p><strong>Soluzione con Smart Host su Postfix</strong>:</p><p>1. <strong>Configurazione in <code>/etc/postfix/main.cf</code></strong>:<br>   <code>relayhost = [smtp.provider-affidabile.com]:587</code><br>   <code>smtp_sasl_auth_enable = yes</code><br>   <code>smtp_sasl_password_maps = hash:/etc/postfix/sasl_passwd</code><br>   <code>smtp_tls_security_level = encrypt</code><br>2. <strong>Mappatura Credenziali</strong>: inserisci in <code>/etc/postfix/sasl_passwd</code> le credenziali del servizio di relay (es. Brevo, Mailgun, relay aziendale), imposta i permessi <code>chmod 600</code> e compila con <code>postmap</code>.<br>3. <strong>Verifica</strong>: tutta la posta locale viene cifrata e instradata attraverso il relay autorizzato con <a href="../spf-dkim-dmarc/">SPF/DKIM</a> valido.</p></div>
     <div class="qa-actions">
       <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">

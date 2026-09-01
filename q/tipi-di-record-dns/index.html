@@ -64,6 +64,7 @@
       <span class="page-meta-badge">⏱️ 1 min lettura</span>
       <span class="page-meta-badge">✓ Runbook verificato</span>
     </div>
+    
     <div class="answer" id="page-answer" itemprop="articleBody"><p>I record DNS sono le voci che dicono a internet dove trovare i pezzi del tuo dominio:</p><ul><li><strong>A / AAAA</strong> – nome → indirizzo IPv4 / IPv6: il record fondamentale</li><li><strong>CNAME</strong> – nome → altro nome (alias); non può convivere con altri record sullo stesso nome, e mai sull&#x27;apex</li><li><strong>MX</strong> – dove consegnare la posta del dominio, con priorità</li><li><strong>TXT</strong> – testo libero con usi seri: <a href="../spf-dkim-dmarc/">SPF, DKIM, DMARC</a>, verifiche di proprietà</li><li><strong>NS</strong> – chi è autoritativo per la zona; <strong>CAA</strong> – quali CA possono emettere certificati; <strong>SRV/PTR</strong> – servizi e reverse</li></ul><p>Gestirli a mano nel pannello funziona finché sono dieci. Poi conviene la via <a href="../cos-e-gitops/">GitOps</a>: <a href="https://github.com/fabriziosalmi/dnscontrol-actions" target="_blank" rel="noopener">dnscontrol-actions</a> tiene i record in un repository, con review e rollback, su qualsiasi provider.</p></div>
     <div class="qa-actions">
       <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">

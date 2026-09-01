@@ -64,6 +64,7 @@
       <span class="page-meta-badge">⏱️ 2 min lettura</span>
       <span class="page-meta-badge">✓ Runbook verificato</span>
     </div>
+    
     <div class="answer" id="page-answer" itemprop="articleBody"><p>Il <strong>chunking</strong> decide più della qualità del tuo <a href="../cos-e-rag-retrieval-augmented-generation/">RAG</a> di quanto decida il modello: i documenti vanno spezzati in frammenti da indicizzare, e se i tagli cadono male – una tabella divisa a metà, una risposta separata dalla sua domanda – il retrieval recupera briciole senza senso.</p><p>Le regole che reggono:</p><ul><li>taglia sui <strong>confini semantici</strong> (titoli, paragrafi, sezioni), mai a numero fisso di caratteri nel mezzo di una frase; per il codice, su funzioni e classi</li><li>dimensioni tipiche 200-800 token con un <strong>overlap</strong> del 10-20% per non perdere il contesto ai bordi</li><li>arricchisci ogni chunk con i <strong>metadati</strong> (titolo del documento, sezione, data): il testo &quot;la porta è la 8437&quot; non serve a nulla senza sapere di quale servizio parla</li><li>la variante furba: indicizza chunk piccoli ma <strong>restituisci al modello il contesto allargato</strong> (parent retrieval)</li></ul><p>E misura sul tuo corpus reale: la <a href="../come-valutare-le-risposte-di-un-llm/">valutazione</a> di venti domande vere vale più di ogni teoria sul chunk perfetto.</p></div>
     <div class="qa-actions">
       <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">

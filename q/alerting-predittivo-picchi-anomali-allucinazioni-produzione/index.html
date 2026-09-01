@@ -64,6 +64,7 @@
       <span class="page-meta-badge">⏱️ 1 min lettura</span>
       <span class="page-meta-badge">✓ Runbook verificato</span>
     </div>
+    
     <div class="answer" id="page-answer" itemprop="articleBody"><p>Per monitorare l&#x27;affidabilità di un&#x27;applicazione basata su LLM in produzione senza richiedere l&#x27;ispezione manuale di ogni risposta, si impostano metriche sintomatiche in tempo reale: 1) Tasso di fallimento validazione schemi JSON/Pydantic (un aumento improvviso indica confusione del modello); 2) Calcolo dell&#x27;entropia dei token in output (log-probabilità medie basse correlano fortemente con allucinazioni fattuali); 3) Misura del rapporto tra lunghezza della risposta e token del contesto recuperato; 4) Pipeline di campionamento asincrono con un modello evaluatore leggero. I superamenti di soglia inviano notifiche immediate tramite Gotify o webhook gestiti da <a href="../app-note-markdown-local-first/">noted</a>.</p></div>
     <div class="qa-actions">
       <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">

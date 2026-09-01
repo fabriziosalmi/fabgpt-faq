@@ -64,6 +64,7 @@
       <span class="page-meta-badge">⏱️ 1 min lettura</span>
       <span class="page-meta-badge">✓ Runbook verificato</span>
     </div>
+    
     <div class="answer" id="page-answer" itemprop="articleBody"><p>I <strong>guardrail</strong> sono i controlli deterministici intorno a un LLM – perché il modello, da solo, non offre garanzie: si può convincere, distrarre, <a href="../cos-e-la-prompt-injection/">iniettare</a>. Si mettono su tre lati:</p><ul><li><strong>input</strong>: filtri su prompt malevoli, PII, argomenti vietati prima che raggiungano il modello</li><li><strong>output</strong>: validazione di formato (JSON schema), moderazione contenuti, controllo che non escano segreti</li><li><strong>azioni</strong>: permessi e conferme sugli strumenti che l&#x27;agente può usare</li></ul><p>Il principio: ciò che deve essere <em>garantito</em> non si chiede al modello, si impone col codice. Nel portfolio: <a href="https://github.com/fabriziosalmi/llmproxy" target="_blank" rel="noopener">llmproxy</a> è il punto unico dove applicarli davanti a qualsiasi endpoint, <a href="https://github.com/fabriziosalmi/aidlp" target="_blank" rel="noopener">aidlp</a> è il guardrail specifico anti-esfiltrazione dati.</p></div>
     <div class="qa-actions">
       <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">

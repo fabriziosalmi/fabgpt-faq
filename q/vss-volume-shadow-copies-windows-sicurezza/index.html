@@ -64,6 +64,7 @@
       <span class="page-meta-badge">⏱️ 1 min lettura</span>
       <span class="page-meta-badge">✓ Runbook verificato</span>
     </div>
+    
     <div class="answer" id="page-answer" itemprop="articleBody"><p>Il <strong>Volume Shadow Copy Service (VSS)</strong> di Windows è un framework a livello di blocco che consente di creare snapshot consistenti a caldo (<em>Shadow Copies</em>) di volumi e database aperti (es. file di registro, database SQL ed Exchange).</p><p>Nel contesto della sicurezza:<br>- I ransomware cercano sistematicamente di cancellare le copie shadow eseguendo comandi come <code>vssadmin delete shadows /all /quiet</code> o tramite WMI e PowerShell prima di cifrare i file.<br>- <strong>Come proteggerle</strong>: limitare rigorosamente i privilegi amministrativi, monitorare l&#x27;esecuzione di <code>vssadmin.exe</code> tramite regole EDR/SIEM ed evitare di fare affidamento esclusivo su VSS per il backup, affiancandovi copie esterne immutabili o disconnesse offline.</p></div>
     <div class="qa-actions">
       <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">

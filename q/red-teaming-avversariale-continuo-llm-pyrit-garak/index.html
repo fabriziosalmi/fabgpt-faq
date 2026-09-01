@@ -64,6 +64,7 @@
       <span class="page-meta-badge">⏱️ 1 min lettura</span>
       <span class="page-meta-badge">✓ Runbook verificato</span>
     </div>
+    
     <div class="answer" id="page-answer" itemprop="articleBody"><p>Il <strong>Red Teaming avversariale continuo</strong> automatizza la ricerca di falle di sicurezza, bias e vulnerabilità di prompt injection prima e dopo il rilascio in produzione:</p><p>1. <strong>Framework di Generazione Attacchi</strong>: strumenti come <strong>Garak</strong> (LLM vulnerability scanner) e <strong>PyRIT</strong> (Python Risk Identification Toolkit di Microsoft) inviano payload dinamici strutturati per testare encoding bypass (Base64, ciphers), allucinazioni forzate, data leakage e jailbreak multishot.<br>2. <strong>Integrazione in CI/CD</strong>: inserisci una pipeline notturna che esegue suite di attacco automatiche contro gli endpoint di staging, bloccando la build se il tasso di successo dell&#x27;attacco (Attack Success Rate - ASR) supera la soglia di tolleranza (es. 0%).<br>3. <strong>Metriche DeepEval</strong>: quantifica metriche di <em>Toxicity</em>, <em>Hallucination Rate</em> e <em>Context Conformance</em> per tracciare la postura di sicurezza a ogni modifica del system prompt.</p></div>
     <div class="qa-actions">
       <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">

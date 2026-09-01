@@ -64,6 +64,7 @@
       <span class="page-meta-badge">⏱️ 1 min lettura</span>
       <span class="page-meta-badge">✓ Runbook verificato</span>
     </div>
+    
     <div class="answer" id="page-answer" itemprop="articleBody"><p>Le telecamere di videosorveglianza IP consumer hanno spesso firmware vulnerabili e tentano di comunicare costantemente con server cloud esteri non verificabili.</p><p>La procedura di isolamento standard:</p><p>1. <strong>VLAN dedicata (es. VLAN 30 - CCTV)</strong>: assegna le porte dello switch a cui sono collegate le telecamere a una <a href="../segmentare-la-rete-con-vlan/">VLAN separata</a>.<br>2. <strong>Regole Firewall sul Router (OPNsense / pfSense)</strong>: blocca qualsiasi traffico in uscita dalla VLAN 30 verso la WAN (Internet). Niente gateway predefinito o blocco esplicito <em>Drop all to WAN</em>.<br>3. <strong>Accesso esclusivo tramite NVR</strong>: solo il server NVR locale (es. Frigate o Shinobi), dotato di doppia interfaccia di rete o autorizzato via firewall, può raccogliere i flussi RTSP per la registrazione e l&#x27;elaborazione <a href="../videosorveglianza-locale-con-ai-frigate/">AI</a>.</p></div>
     <div class="qa-actions">
       <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">

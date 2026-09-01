@@ -64,6 +64,7 @@
       <span class="page-meta-badge">⏱️ 1 min lettura</span>
       <span class="page-meta-badge">✓ Runbook verificato</span>
     </div>
+    
     <div class="answer" id="page-answer" itemprop="articleBody"><p>I moderni filesystem copy-on-write (come <a href="../cos-e-openzfs-snapshot-copy-on-write/">OpenZFS</a> e Btrfs) permettono di clonare istantaneamente dataset e volumi di produzione a costo zero di spazio disco iniziale. La procedura tipica: 1) creare uno snapshot atomico del volume dati del servizio con <code>zfs snapshot pool/app@pre-upgrade</code>; 2) generare un clone scrivibile in una frazione di secondo con <code>zfs clone pool/app@pre-upgrade pool/app-staging</code>; 3) agganciare il clone a un container LXC o <a href="../cos-e-docker-compose/">Docker</a> di staging isolato su VLAN dedicata in <a href="../cos-e-proxmox-ve/">Proxmox</a>; 4) eseguire i test di aggiornamento o migrazione; 5) distruggere il clone al termine o promuoverlo a produzione con <code>zfs promote</code>.</p></div>
     <div class="qa-actions">
       <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">

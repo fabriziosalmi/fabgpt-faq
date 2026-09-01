@@ -64,6 +64,7 @@
       <span class="page-meta-badge">⏱️ 1 min lettura</span>
       <span class="page-meta-badge">✓ Runbook verificato</span>
     </div>
+    <a class="ask" style="margin:10px 0 4px;display:inline-block" href="../../porta/">🔌 Le porte well-known, una per una: rischi e comandi</a>
     <div class="answer" id="page-answer" itemprop="articleBody"><p>Una <strong>porta</strong> identifica il servizio dentro un indirizzo IP: 65.536 per TCP e altrettante per UDP. <strong>TCP</strong> garantisce consegna e ordine (web, SSH, mail); <strong>UDP</strong> spedisce e basta (DNS, VoIP, WireGuard).</p><p>Quelle da sapere a memoria: <strong>22</strong> SSH, <strong>53</strong> DNS, <strong>80/443</strong> HTTP/HTTPS, <strong>25/587</strong> SMTP, <strong>445</strong> SMB, <strong>3389</strong> RDP, <strong>51820</strong> WireGuard. Sotto la 1024 sono &quot;privilegiate&quot;: per aprirle servono i diritti di root.</p><p>Per vedere cosa ascolta davvero sul server: <code>ss -tlnp</code> (TCP) e <code>ss -ulnp</code> (UDP). Ogni porta esposta è superficie d&#x27;attacco: firewall <a href="../configurare-firewall-host-default-deny-nftables-ufw/">default deny</a>, <a href="../mettere-in-sicurezza-ssh/">SSH blindato</a> e, per i servizi casalinghi, spesso conviene <a href="../esporre-servizi-senza-aprire-porte/">non aprire porte affatto</a>.</p></div>
     <div class="qa-actions">
       <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">

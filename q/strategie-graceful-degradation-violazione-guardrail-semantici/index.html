@@ -64,6 +64,7 @@
       <span class="page-meta-badge">⏱️ 1 min lettura</span>
       <span class="page-meta-badge">✓ Runbook verificato</span>
     </div>
+    
     <div class="answer" id="page-answer" itemprop="articleBody"><p>Un errore comune è bloccare brutalmente l&#x27;intera sessione con un&#x27;eccezione quando un guardrail rileva un contenuto non consentito o fuori policy. Una strategia di Graceful Degradation adotta risposte strutturate a livelli: 1) Sanitizzazione mirata: il guardrail oscura o rimuove solo il frammento non conforme (es. PII o token sensibili) mantenendo intatto il resto del messaggio; 2) Risposta guidata: il motore restituisce un messaggio pre-approvato contestuale che spiega il vincolo normativo e offre opzioni alternative; 3) Fallback su logica deterministica: se l&#x27;inferenza LLM è compromessa, il task viene completato da regole statiche o workflow prefissati con <a href="../cos-e-la-owasp-top-10/">patterns</a>.</p></div>
     <div class="qa-actions">
       <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">

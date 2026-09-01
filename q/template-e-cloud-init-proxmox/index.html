@@ -64,6 +64,7 @@
       <span class="page-meta-badge">⏱️ 1 min lettura</span>
       <span class="page-meta-badge">✓ Runbook verificato</span>
     </div>
+    
     <div class="answer" id="page-answer" itemprop="articleBody"><p>Il flusso artigianale – ISO, installer, configurazione a mano – ha senso una volta sola. Poi si passa a <strong>template + cloud-init</strong>:</p><ul><li>scarichi l&#x27;<strong>immagine cloud</strong> ufficiale della distro (Debian/Ubuntu <code>.qcow2</code>), la importi in una VM con <code>qm importdisk</code></li><li>aggiungi il <strong>drive cloud-init</strong>, imposti utente, chiave SSH e rete, e converti la VM in <strong>template</strong></li><li>da lì, ogni nuova macchina è un <strong>clone</strong> che al primo avvio si configura da solo: hostname, IP, chiavi – pronta in un minuto</li></ul><p>È il mattone dell&#x27;infrastruttura ripetibile: sopra ci si mette Terraform/OpenTofu (provider Proxmox) o Ansible e il provisioning diventa codice. E quando le VM così create diventano tante, <a href="https://github.com/fabriziosalmi/proxmox-vm-autoscale" target="_blank" rel="noopener">proxmox-vm-autoscale</a> tiene le loro risorse allineate al carico reale.</p></div>
     <div class="qa-actions">
       <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">

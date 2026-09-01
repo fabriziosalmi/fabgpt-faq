@@ -64,6 +64,7 @@
       <span class="page-meta-badge">⏱️ 1 min lettura</span>
       <span class="page-meta-badge">✓ Runbook verificato</span>
     </div>
+    
     <div class="answer" id="page-answer" itemprop="articleBody"><p>Il kit minimo, in ordine di solidità:</p><ul><li><strong>golden set</strong>: 20-100 input reali con risposte attese o criteri scritti. È l&#x27;investimento fondante – senza, ogni cambio di prompt o modello è un salto nel buio</li><li><strong>metriche esatte dove si può</strong>: se l&#x27;output è strutturato (JSON, classi, numeri), confronta col codice – gratis, oggettivo, <a href="../come-si-testano-le-applicazioni-llm/">perfetto per la CI</a></li><li><strong>LLM-as-a-judge</strong> per il resto: un modello valuta le risposte contro una <em>rubrica esplicita</em> (correttezza, fedeltà alle fonti, tono). Funziona, con i suoi bias noti – preferisce risposte lunghe, la prima posizione, lo stile suo: rubrica stretta, posizioni mescolate, e una taratura contro giudizi umani su un campione</li><li><strong>umani</strong> sui casi che contano e per calibrare il giudice</li></ul><p>La trappola da evitare: valutare a sensazione sull&#x27;ultimo esempio provato. La memoria aneddotica è il peggior benchmark che esista – <a href="../cos-e-un-eval-e-perche-i-benchmark-mentono/">i numeri battono le impressioni</a>.</p></div>
     <div class="qa-actions">
       <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">

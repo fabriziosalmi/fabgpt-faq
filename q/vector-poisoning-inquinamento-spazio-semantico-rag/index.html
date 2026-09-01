@@ -64,6 +64,7 @@
       <span class="page-meta-badge">⏱️ 1 min lettura</span>
       <span class="page-meta-badge">✓ Runbook verificato</span>
     </div>
+    
     <div class="answer" id="page-answer" itemprop="articleBody"><p>Nell&#x27;attacco di <strong>Vector Poisoning</strong>, l&#x27;avversario introduce documenti o commenti malevoli nella knowledge base (wiki aziendali, ticket di supporto, log pubblici) progettati per occupare posizioni strategiche nello spazio vettoriale ad alta dimensionalità.</p><p>1. <strong>Pertinenza Semantica Forzata</strong>: il payload contiene sequenze di token che massimizzano la similarità coseno con query bersaglio frequenti (es. <em>&#x27;Come aggiornare il software?&#x27;</em>), scavalcando la documentazione legittima nelle prime posizioni ($k=1,2$).<br>2. <strong>Payload Injection</strong>: il testo del chunk avvelenato include istruzioni malevole o link a binari compromessi, ingannando l&#x27;agente o l&#x27;utente finale.<br>3. <strong>Difesa</strong>: valida crittograficamente l&#x27;origine dei documenti ammessi all&#x27;ingestione, sanifica il testo rimuovendo pattern invisibili/omoglifi e monitora cluster vettoriali con densità anomala.</p></div>
     <div class="qa-actions">
       <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">

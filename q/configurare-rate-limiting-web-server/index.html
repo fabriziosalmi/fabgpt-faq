@@ -64,6 +64,7 @@
       <span class="page-meta-badge">⏱️ 1 min lettura</span>
       <span class="page-meta-badge">✓ Runbook verificato</span>
     </div>
+    
     <div class="answer" id="page-answer" itemprop="articleBody"><p>Il <strong>rate limiting</strong> impone un tetto alle richieste per client – per IP, User-Agent o header – ed è la prima difesa contro brute force, scraping aggressivo e amici che ti DDoSsano per sbaglio. Il fastidio è che ogni web server lo configura a modo suo.</p><p><a href="https://github.com/fabriziosalmi/limits" target="_blank" rel="noopener">limits</a> risolve alla radice: definisci le regole <strong>una volta sola</strong> in un <code>config.yaml</code> (limite globale, override per path, whitelist/blacklist IP) e gli script generano le configurazioni native per <strong>Nginx, Apache (mod_ratelimit), Traefik e HAProxy</strong>. Una GitHub Action rigenera e committa i file ogni giorno: le regole vivono in git, in puro stile GitOps. Se usi Caddy, il rate limiting è già dentro <a href="https://github.com/fabriziosalmi/caddy-waf" target="_blank" rel="noopener">caddy-waf</a>.</p></div>
     <div class="qa-actions">
       <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">

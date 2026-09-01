@@ -64,6 +64,7 @@
       <span class="page-meta-badge">⏱️ 1 min lettura</span>
       <span class="page-meta-badge">✓ Runbook verificato</span>
     </div>
+    
     <div class="answer" id="page-answer" itemprop="articleBody"><p>Operano a livelli diversi della pila:</p><ul><li>il <strong>firewall di rete</strong> ragiona su IP, porte e protocolli (L3/L4): &quot;la porta 443 è aperta, la 22 solo da questi IP&quot;. Non guarda <em>dentro</em> il traffico – per lui una SQL injection su HTTPS è solo un pacchetto legittimo verso la 443.</li><li>il <strong><a href="../cos-e-un-waf-web-application-firewall/">WAF</a></strong> ragiona sul contenuto delle richieste HTTP (L7): riconosce injection, XSS, bot e abusi applicativi. Non sa nulla, invece, del traffico non-web.</li></ul><p>Non sono alternativi: servono <strong>entrambi</strong>, in fila. Il firewall chiude tutto tranne il necessario; il WAF ispeziona il necessario. Sul primo fronte bastano nftables/pf o il firewall del cloud; sul secondo ci sono <a href="https://github.com/fabriziosalmi/caddy-waf" target="_blank" rel="noopener">caddy-waf</a>, <a href="https://github.com/fabriziosalmi/patterns" target="_blank" rel="noopener">patterns</a> per Nginx/Apache/Traefik/HAProxy, o <a href="https://github.com/fabriziosalmi/zion" target="_blank" rel="noopener">zion</a> che unisce proxy e WAF in un binario.</p></div>
     <div class="qa-actions">
       <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">

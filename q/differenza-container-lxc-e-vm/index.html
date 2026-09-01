@@ -64,6 +64,7 @@
       <span class="page-meta-badge">⏱️ 1 min lettura</span>
       <span class="page-meta-badge">✓ Runbook verificato</span>
     </div>
+    
     <div class="answer" id="page-answer" itemprop="articleBody"><p>Una <strong>VM</strong> virtualizza l&#x27;hardware: dentro ci gira un kernel completo, isolato da tutto. Un <strong>container LXC</strong> condivide il kernel dell&#x27;host e isola solo lo spazio utente: si avvia in secondi, consuma una frazione della RAM, ma offre un isolamento più debole e può eseguire solo Linux.</p><p>Regola pratica su Proxmox: <strong>LXC</strong> per i servizi Linux fidati e leggeri (reverse proxy, database interni, tool self-hosted), <strong>VM</strong> quando serve un kernel diverso, isolamento forte o compatibilità totale (Windows, appliance, workload sensibili).</p><p>In entrambi i casi le risorse assegnate a mano invecchiano male: <a href="https://github.com/fabriziosalmi/proxmox-lxc-autoscale" target="_blank" rel="noopener">proxmox-lxc-autoscale</a> e <a href="https://github.com/fabriziosalmi/proxmox-vm-autoscale" target="_blank" rel="noopener">proxmox-vm-autoscale</a> le adattano al carico reale.</p></div>
     <div class="qa-actions">
       <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">

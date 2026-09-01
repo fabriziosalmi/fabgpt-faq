@@ -64,6 +64,7 @@
       <span class="page-meta-badge">⏱️ 1 min lettura</span>
       <span class="page-meta-badge">✓ Runbook verificato</span>
     </div>
+    
     <div class="answer" id="page-answer" itemprop="articleBody"><p>In Docker, la persistenza dei dati oltre il ciclo di vita del container si gestisce principalmente tramite due meccanismi con scopi e comportamenti distinti:</p><p>1. <strong>Named Volumes (<code>volume_name:/data</code>)</strong>: sono gestiti interamente da Docker e archiviati all&#x27;interno della directory del demone (<code>/var/lib/docker/volumes/</code>). <strong>Vantaggi</strong>: isolamento sicuro dai processi host, compatibilità garantita tra sistemi operativi diversi, driver per storage remoto e gestione integrata dei permessi.<br>2. <strong>Bind Mounts (<code>/opt/app/data:/data</code>)</strong>: mappano direttamente un percorso arbitrario del filesystem dell&#x27;host all&#x27;interno del container. <strong>Vantaggi</strong>: facilità di modifica manuale dei file di configurazione e backup diretto con script esterni, ma richiedono attenzione ai permessi UID/GID tra host e container.</p></div>
     <div class="qa-actions">
       <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">

@@ -64,6 +64,7 @@
       <span class="page-meta-badge">⏱️ 2 min lettura</span>
       <span class="page-meta-badge">✓ Runbook verificato</span>
     </div>
+    
     <div class="answer" id="page-answer" itemprop="articleBody"><p>Il <strong>prompt caching</strong> sfrutta un fatto banale: le tue richieste all&#x27;API iniziano quasi sempre con lo stesso blocco – <a href="../cos-e-un-system-prompt/">system prompt</a>, istruzioni, documenti, definizioni dei tool – e cambia solo la coda. I provider possono conservare la <a href="../cos-e-la-kv-cache/">KV cache</a> di quel <strong>prefisso</strong> e riusarla: niente ricalcolo, latenza più bassa e sconti sostanziosi sui token in cache (tipicamente 50-90% a seconda del provider).</p><p>Per beneficiarne serve disciplina di struttura: il <strong>contenuto stabile va all&#x27;inizio</strong>, identico al byte, e le parti variabili in fondo – un timestamp o un ID di sessione piazzato in cima al prompt invalida tutto a ogni chiamata. Le cache hanno un tempo di vita (minuti), quindi il beneficio è massimo su conversazioni e agenti che martellano lo stesso contesto.</p><p>È il complemento dell&#x27;altra igiene: <a href="../token-e-context-window/">meno contesto</a> da cachare in primis – le due cose insieme cambiano la bolletta.</p></div>
     <div class="qa-actions">
       <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">

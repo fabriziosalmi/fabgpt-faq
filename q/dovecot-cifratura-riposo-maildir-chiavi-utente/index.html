@@ -64,6 +64,7 @@
       <span class="page-meta-badge">⏱️ 1 min lettura</span>
       <span class="page-meta-badge">✓ Runbook verificato</span>
     </div>
+    
     <div class="answer" id="page-answer" itemprop="articleBody"><p>Se un server di posta viene compromesso o i dischi vengono esfiltrati fisicamente, i messaggi memorizzati in formato Maildir/mbox possono essere letti in chiaro dagli intrusi. <strong>Dovecot</strong> integra il plugin nativo <code>mail_crypt</code> per la cifratura a riposo a livello di singola casella:</p><p>1. <strong>Architettura a Doppia Chiave</strong>: ogni utente possiede una coppia di chiavi asimmetriche (pubblica per cifrare all&#x27;arrivo dei messaggi da Postfix, privata per decifrare durante la sessione IMAP dell&#x27;utente autenticato).<br>2. <strong>Attivazione Plugin in <code>/etc/dovecot/conf.d/90-mail-crypt.conf</code></strong>:<br>   <code>mail_plugins = $mail_plugins mail_crypt</code><br>   <code>plugin {</code><br>     <code>mail_crypt_global_private_key = ...</code><br>     <code>mail_crypt_save_version = 2</code><br>   <code>}</code><br>3. <strong>Vantaggio Operativo</strong>: l&#x27;amministratore di sistema con accesso root al filesystem vede solo payload cifrati incomprensibili, preservando la riservatezza delle comunicazioni aziendali.</p></div>
     <div class="qa-actions">
       <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">

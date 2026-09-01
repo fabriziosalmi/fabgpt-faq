@@ -64,6 +64,7 @@
       <span class="page-meta-badge">⏱️ 2 min lettura</span>
       <span class="page-meta-badge">✓ Runbook verificato</span>
     </div>
+    
     <div class="answer" id="page-answer" itemprop="articleBody"><p>L&#x27;<strong>handshake failure</strong> avviene prima che passi qualsiasi dato: client e server non trovano un accordo su come cifrare. Cause tipiche:</p><ul><li><strong>nessun protocollo in comune</strong>: il server accetta solo TLS 1.2+ e il client è antico (Java vecchio, sistemi embedded, XP…) – o viceversa, il server è il fossile</li><li><strong>nessun cifrario in comune</strong> (<code>SSL_ERROR_NO_CYPHER_OVERLAP</code>): suite troppo ristrette da un lato o obsolete dall&#x27;altro</li><li><strong>SNI mancante</strong>: client datati non dichiarano il nome host e ricevono il certificato sbagliato su server multi-dominio</li><li>intercettazioni di mezzo: proxy aziendali o antivirus che fanno <a href="../cos-e-un-attacco-man-in-the-middle/">MITM dichiarato</a> e lo fanno male</li></ul><p>Diagnosi in un comando: <code>openssl s_client -connect host:443 -servername host</code> dice esattamente dove muore la trattativa; il test SSL Labs dà il quadro completo. La regola per chi gestisce server: TLS 1.2+1.3 con le suite raccomandate – né trofei vintage, né restrizioni da collezionista che tagliano fuori client legittimi.</p></div>
     <div class="qa-actions">
       <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">

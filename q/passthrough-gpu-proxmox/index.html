@@ -64,6 +64,7 @@
       <span class="page-meta-badge">⏱️ 1 min lettura</span>
       <span class="page-meta-badge">✓ Runbook verificato</span>
     </div>
+    
     <div class="answer" id="page-answer" itemprop="articleBody"><p>Il <strong>passthrough</strong> consegna la GPU fisica a una VM: prestazioni native per gaming, transcoding o AI. La ricetta su Proxmox:</p><ul><li>abilita <strong>IOMMU</strong> nel BIOS (VT-d Intel / AMD-Vi) e nel bootloader (<code>intel_iommu=on</code> o <code>amd_iommu=on</code>)</li><li>verifica i <strong>gruppi IOMMU</strong>: la GPU deve essere isolabile (schede madri consumer a volte raggruppano tutto)</li><li>blocca i driver host (blacklist di nouveau/amdgpu per quella scheda, binding a <strong>vfio-pci</strong>)</li><li>aggiungi la GPU alla VM come <code>hostpci</code> con tutte le sue funzioni (audio HDMI incluso), macchina <strong>q35</strong> + <strong>OVMF</strong></li></ul><p>Alternative spesso più sagge: per il transcoding o più container che condividono la scheda, il <strong>passthrough a LXC</strong> (la GPU resta all&#x27;host, i container la usano) o le vGPU dove supportate. Il primo tentativo che fallisce è quasi sempre colpa dei gruppi IOMMU o del ROM della scheda: i log di <code>dmesg</code> dicono la verità.</p></div>
     <div class="qa-actions">
       <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">

@@ -64,6 +64,7 @@
       <span class="page-meta-badge">⏱️ 1 min lettura</span>
       <span class="page-meta-badge">✓ Runbook verificato</span>
     </div>
+    <a class="ask" style="margin:10px 0 4px;display:inline-block" href="../../tools/calcolatore-chmod/">🔐 Prova il calcolatore chmod interattivo</a>
     <div class="answer" id="page-answer" itemprop="articleBody"><p>Ogni file Linux ha un <strong>proprietario</strong>, un <strong>gruppo</strong> e tre terne di permessi <strong>rwx</strong> (lettura, scrittura, esecuzione) per proprietario, gruppo e altri. <code>ls -l</code> le mostra; in numeri r=4, w=2, x=1, quindi <code>755</code> = <code>rwxr-xr-x</code> e <code>644</code> = <code>rw-r--r--</code>.</p><p>I comandi: <code>chmod 644 file</code> cambia i permessi, <code>chown utente:gruppo file</code> il proprietario, <code>umask</code> decide i default alla creazione (022 → file 644, directory 755). Sulle directory la <code>x</code> significa &quot;puoi entrarci&quot;.</p><p>Le regole che contano: le <a href="../come-funzionano-le-chiavi-ssh/">chiavi SSH</a> private vogliono <code>600</code> (SSH le rifiuta altrimenti), gli script eseguibili <code>755</code>, e <code>chmod 777</code> non è mai la soluzione – è il sintomo che il problema vero è <a href="../utenti-gruppi-e-sudo-su-linux/">l&#x27;utente o il gruppo sbagliato</a>.</p></div>
     <div class="qa-actions">
       <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">

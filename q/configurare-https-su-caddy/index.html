@@ -64,6 +64,7 @@
       <span class="page-meta-badge">⏱️ 1 min lettura</span>
       <span class="page-meta-badge">✓ Runbook verificato</span>
     </div>
+    
     <div class="answer" id="page-answer" itemprop="articleBody"><p>Non si configura: <strong>è il default</strong>. Un Caddyfile minimo –</p><p><code>example.com {</code><br><code>  reverse_proxy 127.0.0.1:3000</code><br><code>}</code></p><p>– e Caddy ottiene da solo il certificato da Let&#x27;s Encrypt/ZeroSSL, lo rinnova, fa il redirect da HTTP e serve HTTPS con impostazioni moderne (TLS 1.3, HTTP/2 e HTTP/3, OCSP stapling). L&#x27;unico prerequisito: DNS che punta al server e porte 80/443 raggiungibili. Per i wildcard o le macchine non esposte si passa alla <a href="../come-funziona-lets-encrypt-acme/">challenge DNS</a> col plugin del proprio provider.</p><p>È il motivo per cui Caddy è la scelta più amata nel self-hosting: la parte che su altri server è una checklist qui è assenza di configurazione. Cosa NON è incluso: la protezione applicativa – per quella si aggiungono <a href="https://github.com/fabriziosalmi/caddy-waf" target="_blank" rel="noopener">caddy-waf</a> (WAF completo) e <a href="https://github.com/fabriziosalmi/caddy-mib" target="_blank" rel="noopener">caddy-mib</a> (ban degli insistenti).</p></div>
     <div class="qa-actions">
       <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">

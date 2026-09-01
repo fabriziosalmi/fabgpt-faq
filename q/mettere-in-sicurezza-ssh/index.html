@@ -64,6 +64,7 @@
       <span class="page-meta-badge">⏱️ 1 min lettura</span>
       <span class="page-meta-badge">✓ Runbook verificato</span>
     </div>
+    
     <div class="answer" id="page-answer" itemprop="articleBody"><p>Un SSH esposto su internet riceve migliaia di tentativi al giorno. La checklist, in ordine di impatto:</p><ul><li><strong>solo chiavi, niente password</strong>: <code>PasswordAuthentication no</code> – elimina il brute force alla radice</li><li><strong>niente root diretto</strong>: <code>PermitRootLogin no</code>, si entra come utente e si eleva</li><li><strong>limita chi può entrare</strong>: <code>AllowUsers</code>/<code>AllowGroups</code>, e se possibile IP allowlist sul firewall</li><li><strong>ban automatico</strong> dei tentativi ripetuti: fail2ban o equivalenti</li><li>MFA per i casi paranoici, e chiavi con passphrase gestite da un agent</li></ul><p>Cambiare porta riduce il rumore nei log ma non è sicurezza. E il passo successivo al singolo server è non esporre SSH affatto: tunnel o bastion con accesso per-identità, in puro spirito <a href="../cos-e-il-modello-zero-trust/">Zero Trust</a>.</p></div>
     <div class="qa-actions">
       <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">

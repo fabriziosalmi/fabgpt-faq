@@ -64,6 +64,7 @@
       <span class="page-meta-badge">⏱️ 1 min lettura</span>
       <span class="page-meta-badge">✓ Runbook verificato</span>
     </div>
+    
     <div class="answer" id="page-answer" itemprop="articleBody"><p>Un <strong>hash</strong> è l&#x27;impronta digitale di un dato: una funzione trasforma qualsiasi input in una stringa di lunghezza fissa, in modo <strong>non reversibile</strong> e sensibilissimo (un bit cambiato = impronta completamente diversa). Usi: verificare l&#x27;integrità dei file, <a href="../come-si-firma-il-codice/">le firme</a>, le strutture dati – e le password.</p><p>Sulle password, il punto delicato: il database non deve contenere password ma hash, così un breach non le rivela. Ma gli hash <em>veloci</em> (MD5, SHA-256) qui sono un errore: una GPU ne prova miliardi al secondo. Servono funzioni <strong>volutamente lente e costose in memoria</strong> – <strong>argon2</strong> (lo standard attuale) o <strong>bcrypt</strong> – con un <strong>salt</strong> unico per utente che neutralizza le tabelle precalcolate. Nota storica: MD5 e SHA-1 sono rotti anche per l&#x27;integrità; per tutto il resto, SHA-256 in su – è la catena di hash che rende <a href="https://github.com/fabriziosalmi/rainlogs" target="_blank" rel="noopener">tamper-evident i log di RainLogs</a>.</p></div>
     <div class="qa-actions">
       <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">

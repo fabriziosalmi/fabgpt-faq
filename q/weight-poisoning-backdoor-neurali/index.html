@@ -64,6 +64,7 @@
       <span class="page-meta-badge">⏱️ 1 min lettura</span>
       <span class="page-meta-badge">✓ Runbook verificato</span>
     </div>
+    
     <div class="answer" id="page-answer" itemprop="articleBody"><p>Il <strong>weight poisoning</strong> pianta un comportamento malevolo direttamente nei pesi durante l&#x27;addestramento o il fine-tuning: il modello è normale su ogni benchmark e ogni test, finché un <strong>trigger</strong> – una frase, un token raro, un pattern – attiva la backdoor (esfiltrare dati, generare codice vulnerabile, ignorare i guardrail).</p><p>È il gemello cattivo del data poisoning, ma più subdolo: non serve avvelenare il dataset, basta ridistribuire un modello &quot;migliorato&quot;. E la variante economica esiste già: <a href="../adattatori-lora-trigger-dormienti-backdoor-modelli/">adattatori LoRA malevoli</a>, pochi MB da applicare a un modello sano.</p><p>La detection a valle è quasi impossibile (il modello <em>è</em> i suoi pesi), quindi la difesa è di filiera: scaricare solo da fonti fidate con <a href="../verificare-provenienza-pesi-modelli-sigstore-tuf/">firma e provenienza verificate</a>, tracciare lineage e dipendenze in un <a href="../aibom-ai-bill-of-materials-dataset-lineage-tracciabilita/">AIBOM</a>, e trattare ogni modello di terzi come codice non fidato.</p></div>
     <div class="qa-actions">
       <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">

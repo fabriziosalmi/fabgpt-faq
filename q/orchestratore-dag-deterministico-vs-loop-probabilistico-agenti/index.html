@@ -64,6 +64,7 @@
       <span class="page-meta-badge">⏱️ 1 min lettura</span>
       <span class="page-meta-badge">✓ Runbook verificato</span>
     </div>
+    
     <div class="answer" id="page-answer" itemprop="articleBody"><p>La scelta tra <strong>DAG deterministici</strong> e <strong>loop probabilistici</strong> determina l&#x27;affidabilità, i costi e l&#x27;autonomia di un sistema software basato su AI:</p><p>1. <strong>DAG (Direct Acyclic Graph - deterministico)</strong>: la sequenza dei passi, i rami condizionali e le chiamate API sono definiti a priori nel codice (es. Temporal, Airflow, <a href="../cos-e-un-reverse-proxy/">Proxxx</a>). L&#x27;LLM opera solo come estrattore o sintetizzatore all&#x27;interno dei singoli nodi. <strong>Vantaggi</strong>: zero loop infiniti, riproducibilità totale, auditabilità al 100%.<br>2. <strong>Loop Probabilistico (ReAct / Autonomo)</strong>: l&#x27;LLM decide dinamicamente a runtime quale tool chiamare, valuta il risultato e decide se iterare o concludere. <strong>Vantaggi</strong>: massima flessibilità su compiti aperti, ma rischio di allucinazioni e costi imprevedibili.</p><p><strong>Best Practice</strong>: adotta architetture ibride in cui il flusso di business critico è vincolato a un DAG rigido, lasciando i loop probabilistici confinati a sotto-task isolati.</p></div>
     <div class="qa-actions">
       <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">

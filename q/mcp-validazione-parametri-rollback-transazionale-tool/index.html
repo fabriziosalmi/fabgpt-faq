@@ -64,6 +64,7 @@
       <span class="page-meta-badge">⏱️ 1 min lettura</span>
       <span class="page-meta-badge">✓ Runbook verificato</span>
     </div>
+    
     <div class="answer" id="page-answer" itemprop="articleBody"><p>Nel <a href="../come-si-costruisce-un-server-mcp/">Model Context Protocol (MCP)</a>, gli agenti orchestrano chiamate sequenziali a tool esterni (creazione record DB, addebito carta, invio email). Se il terzo step fallisce, i dati rimangono in uno stato inconsistente se non si gestisce la transazionalità.</p><p><strong>Pattern di resilienza e sicurezza</strong>:</p><p>1. <strong>Validazione Rigida dello Schema</strong>: valida i parametri generati dall&#x27;LLM a runtime con schemi JSON rigidi (Zod/Pydantic) prima di invocarli, rifiutando tipi non conformi o valori fuori range.<br>2. <strong>Saga Pattern &amp; Compensating Transactions</strong>: per ogni azione eseguita con effetti collaterali (es. <em>&#x27;crea server&#x27;</em>), registra nel context dell&#x27;agente l&#x27;azione di compensazione corrispondente (<em>&#x27;elimina server&#x27;</em>).<br>3. <strong>Dry-Run &amp; Two-Phase Commit</strong>: richiedi una fase di validazione/anteprima prima della finalizzazione effettiva per operazioni distruttive o finanziarie.</p></div>
     <div class="qa-actions">
       <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">

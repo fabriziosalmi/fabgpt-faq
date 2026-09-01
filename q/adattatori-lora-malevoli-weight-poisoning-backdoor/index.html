@@ -64,6 +64,7 @@
       <span class="page-meta-badge">⏱️ 1 min lettura</span>
       <span class="page-meta-badge">✓ Runbook verificato</span>
     </div>
+    
     <div class="answer" id="page-answer" itemprop="articleBody"><p>Gli adattatori <strong>LoRA</strong> (Low-Rank Adaptation) congelano i pesi del modello base $W$ e aggiungono matrici a basso rango $A$ e $B$ ($W&#x27; = W + B \times A$). Questa leggerezza li rende ideali per la condivisione, ma introduce un grave vettore d&#x27;attacco:</p><p>1. <strong>Trigger Activation (Backdoor)</strong>: l&#x27;attaccante allena le matrici LoRA affinché il modello operi normalmente su compiti standard, ma devii il comportamento in presenza di un token o pattern trigger specifico (es. esfiltrare dati, generare codice vulnerabile o disabilitare i filtri etici).<br>2. <strong>Difficoltà di rilevamento</strong>: poiché i pesi base non vengono alterati, i benchmark convenzionali (MMLU, GSM8K) non registrano cali di performance visibili.<br>3. <strong>Mitigazione</strong>: isola gli adapter di terze parti in <a href="../hardening-server-linux/">sandbox</a>, applica harness di <a href="../vulnerability-assessment-vs-penetration-test/">Red Teaming avversariale</a> ed esegui differential testing comparando l&#x27;output del modello base con quello dell&#x27;adapter.</p></div>
     <div class="qa-actions">
       <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">

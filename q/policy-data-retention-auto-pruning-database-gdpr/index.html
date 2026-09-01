@@ -64,6 +64,7 @@
       <span class="page-meta-badge">⏱️ 1 min lettura</span>
       <span class="page-meta-badge">✓ Runbook verificato</span>
     </div>
+    
     <div class="answer" id="page-answer" itemprop="articleBody"><p>Il principio di limitazione della conservazione (GDPR Art. 5.1.e) impone che i dati personali e i log applicativi vengano eliminati o anonimizzati non appena cessa la finalità del trattamento.</p><p><strong>Pattern architetturali per l&#x27;auto-pruning efficiente</strong>:</p><p>1. <strong>Table Partitioning per intervallo temporale</strong>: su database ad alto volume (PostgreSQL/MySQL), partiziona le tabelle dei log per mese o settimana (<code>PARTITION BY RANGE (created_at)</code>). Alla scadenza (es. dopo 90 giorni), esegui <code>DROP TABLE log_2026_05;</code>: l&#x27;eliminazione è istantanea e non genera frammentazione o overhead di vacuum.<br>2. <strong>Scheduled Worker con TTL</strong>: per tabelle non partizionate, pianifica job periodici (via <code>pg_cron</code> o worker asincroni) che cancellano a blocchi (<code>DELETE ... WHERE expires_at &lt; NOW() LIMIT 1000</code>) per evitare lock prolungati sulle tabelle.<br>3. <strong>Audit Trail</strong>: registra nei log di sistema il conteggio dei record purgati per dimostrare la conformità in sede di ispezione.</p></div>
     <div class="qa-actions">
       <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">

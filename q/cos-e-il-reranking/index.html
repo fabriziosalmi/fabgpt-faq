@@ -64,6 +64,7 @@
       <span class="page-meta-badge">⏱️ 1 min lettura</span>
       <span class="page-meta-badge">✓ Runbook verificato</span>
     </div>
+    
     <div class="answer" id="page-answer" itemprop="articleBody"><p>Il <strong>reranking</strong> è la seconda passata del retrieval: la ricerca veloce (<a href="../cos-e-un-vector-database/">vettoriale</a> o full-text) recupera i primi 20-100 candidati, poi un <strong>reranker</strong> – un modello che legge davvero la coppia domanda+documento, non due vettori precalcolati – li riordina per pertinenza vera, e al <a href="../cos-e-rag-retrieval-augmented-generation/">RAG</a> arrivano solo i migliori 3-5.</p><p>Perché funziona: gli embeddings comprimono ogni testo in un vettore <em>prima</em> di sapere quale sarà la domanda – per forza perdono sfumature. Il reranker (tipicamente un cross-encoder) valuta la coppia specifica: più lento per documento, ma su pochi candidati il conto torna. È spesso <strong>il singolo upgrade con il miglior rapporto resa/sforzo</strong> di una pipeline RAG: pochi punti percentuali di latenza, molta meno spazzatura nel contesto – e <a href="../token-e-context-window/">meno contesto sprecato</a> significa anche risposte migliori e più economiche.</p></div>
     <div class="qa-actions">
       <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">

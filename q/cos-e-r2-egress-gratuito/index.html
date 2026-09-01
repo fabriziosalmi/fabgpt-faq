@@ -64,6 +64,7 @@
       <span class="page-meta-badge">⏱️ 2 min lettura</span>
       <span class="page-meta-badge">✓ Runbook verificato</span>
     </div>
+    
     <div class="answer" id="page-answer" itemprop="articleBody"><p><strong>R2</strong> è l&#x27;object storage di Cloudflare, <strong>S3-compatibile</strong> (stessi SDK e tool) con la differenza che ha rotto il mercato: <strong>zero costi di egress</strong> – paghi lo spazio e le operazioni, non i gigabyte che escono. Su S3 classico l&#x27;egress è la voce che esplode: servire 10 TB al mese di file costa più del loro stoccaggio annuale; su R2, zero.</p><p>Quando brilla: asset pubblici e download, backup che <em>speri di non scaricare mai ma potresti dover scaricare tutto</em> (il restore da S3 è una fattura, da R2 no), dati letti dai <a href="../cosa-sono-i-cloudflare-workers/">Workers</a> sull&#x27;edge. Il free tier (10 GB) copre progetti veri.</p><p>I contro da adulti: qualche primitiva S3 avanzata manca, e – <a href="../cos-e-la-sovranita-digitale/">il tema di sempre</a> – i dati vivono nella giurisdizione di un fornitore USA: per i log a norma o i dati vincolati, <a href="https://github.com/fabriziosalmi/rainlogs" target="_blank" rel="noopener">uno storage S3 europeo</a> (Garage, Hetzner, Scaleway) resta la scelta coerente, egress economico incluso.</p></div>
     <div class="qa-actions">
       <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">

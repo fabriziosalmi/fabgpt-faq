@@ -64,6 +64,7 @@
       <span class="page-meta-badge">⏱️ 1 min lettura</span>
       <span class="page-meta-badge">✓ Runbook verificato</span>
     </div>
+    
     <div class="answer" id="page-answer" itemprop="articleBody"><p><strong>RPO</strong> (Recovery Point Objective) e <strong>RTO</strong> (Recovery Time Objective) sono le due metriche cardine della continuità operativa e del <a href="../piano-di-disaster-recovery-minimo/">disaster recovery</a>:</p><ul><li><strong>RPO (Dati persi)</strong>: definisce il massimo lasso temporale di dati accettabile da perdere tra l&#x27;ultimo backup valido e il momento del guasto. Un RPO di 1 ora significa che le transazioni dell&#x27;ultima ora andranno perse se non replicate.</li><li><strong>RTO (Tempo di fermo)</strong>: definisce la durata massima tollerabile per ripristinare l&#x27;infrastruttura e tornare operativi dopo il blocco.</li></ul><p>Ridurre l&#x27;RPO verso lo zero richiede replica sincrona o snapshot continui (es. su <a href="../perche-usare-zfs-su-proxmox/">ZFS</a>), mentre abbattere l&#x27;RTO richiede failover automatici, cluster <a href="../alta-disponibilita-proxmox/">HA</a> e procedure collaudate.</p></div>
     <div class="qa-actions">
       <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">

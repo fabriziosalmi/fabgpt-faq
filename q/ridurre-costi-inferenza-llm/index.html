@@ -64,6 +64,7 @@
       <span class="page-meta-badge">⏱️ 1 min lettura</span>
       <span class="page-meta-badge">✓ Runbook verificato</span>
     </div>
+    
     <div class="answer" id="page-answer" itemprop="articleBody"><p>La leva più grossa è <strong>non chiamare il modello grande quando non serve</strong>. È l&#x27;idea di <a href="https://github.com/fabriziosalmi/silence" target="_blank" rel="noopener">Silence</a>, un router di inferenza multi-livello: ogni query attraversa strati progressivamente più costosi – pattern matcher deterministico, template leggeri, e solo alla fine un vero LLM – e si ferma al primo strato <strong>abbastanza confidente</strong> da rispondere. In più esplora il <em>silenzio semantico</em>: trattare &quot;non rispondere ancora&quot; come un esito valido invece di generare testo a tutti i costi.</p><p>Trasparenza dovuta: è un <strong>prototipo di ricerca in alpha</strong>, API instabili e nessun benchmark pubblicato – da studiare, non da mettere in produzione. Nel frattempo, per tagliare i costi degli agenti di coding c&#x27;è la strada complementare e già matura: comprimere l&#x27;output dei comandi con <a href="https://github.com/fabriziosalmi/l0-compressor" target="_blank" rel="noopener">l0-compressor</a>.</p></div>
     <div class="qa-actions">
       <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">

@@ -64,6 +64,7 @@
       <span class="page-meta-badge">⏱️ 2 min lettura</span>
       <span class="page-meta-badge">✓ Runbook verificato</span>
     </div>
+    
     <div class="answer" id="page-answer" itemprop="articleBody"><p>In un modello <strong>MoE</strong>, i blocchi feed-forward sono sostituiti da una squadra di <strong>esperti</strong> (sotto-reti) più un <strong>router</strong> che, token per token, attiva solo i 2-4 più adatti. Risultato: un modello con moltissimi parametri <em>totali</em> ma una frazione di parametri <strong>attivi</strong> per ogni token – capacità da gigante, costo di calcolo da medio.</p><p>È l&#x27;architettura dietro molti dei modelli migliori degli ultimi anni (da Mixtral 8x7B in poi, e diversi frontier chiusi). Le sfumature oneste: la <strong>memoria</strong> serve comunque tutta (tutti gli esperti vanno caricati: un MoE da 47B totali/13B attivi occupa come un 47B), il che li rende ottimi per chi serve API a volume e meno per <a href="../quanta-ram-vram-serve-per-un-llm/">la GPU di casa</a>; e gli &quot;esperti&quot; non sono specialisti tematici leggibili (&quot;quello di matematica&quot;) ma pattern statistici – il nome promette più antropomorfismo di quanto mantenga.</p><p>Quando leggi le specifiche di un MoE, <a href="../parametri-7b-70b-cosa-significano/">conta i parametri giusti</a>: quelli attivi dicono il costo, quelli totali la memoria.</p></div>
     <div class="qa-actions">
       <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">

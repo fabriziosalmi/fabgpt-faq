@@ -64,6 +64,7 @@
       <span class="page-meta-badge">⏱️ 1 min lettura</span>
       <span class="page-meta-badge">✓ Runbook verificato</span>
     </div>
+    
     <div class="answer" id="page-answer" itemprop="articleBody"><p>Un secret committato è un secret <strong>compromesso</strong>: la storia di git non dimentica (il rebase non basta, va considerato ruotato), i fork lo moltiplicano e i bot scandagliano GitHub in tempo reale a caccia di chiavi AWS – i primi tentativi di abuso arrivano in <em>minuti</em>.</p><p>La scala di maturità:</p><ul><li><strong>livello base</strong>: file <code>.env</code> fuori dal versionamento (in <code>.gitignore</code> dal primo commit) + un <code>.env.example</code> senza valori</li><li><strong>livello serio</strong>: secret manager – Vault, SOPS con age per cifrarli <em>dentro</em> il repo, o i secret nativi di CI/CD e container</li><li><strong>igiene</strong>: rotazione periodica, <a href="../principio-del-minimo-privilegio/">scope minimi</a>, un segreto per servizio (mai il super-token condiviso), scanner pre-commit (gitleaks) in CI</li></ul><p>Angolo AI del problema: le credenziali incollate nei prompt finiscono nei log di qualcun altro – è esattamente ciò che <a href="https://github.com/fabriziosalmi/aidlp" target="_blank" rel="noopener">aidlp</a> intercetta prima che accada.</p></div>
     <div class="qa-actions">
       <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">

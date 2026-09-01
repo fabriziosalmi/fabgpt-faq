@@ -64,6 +64,7 @@
       <span class="page-meta-badge">⏱️ 1 min lettura</span>
       <span class="page-meta-badge">✓ Runbook verificato</span>
     </div>
+    
     <div class="answer" id="page-answer" itemprop="articleBody"><p>All&#x27;aumentare della lunghezza della cronologia di un agente (tool calls, output intermedi, documenti RAG), l&#x27;attenzione del trasformatore si concentra all&#x27;inizio e alla fine del contesto, ignorando informazioni cruciali poste al centro (effetto Lost-in-the-Middle). Per misurarlo: benchmark NIAH (Needle In A Haystack) multilivello inseriti nei log di sessione. Per mitigarlo: 1) adozione di context compaction dinamica eliminando payload e traceback non più rilevanti; 2) compressione dei token di cronologia tramite <a href="../ridurre-costi-inferenza-llm/">l0-compressor</a>; 3) architettura a memoria episodica esterna su database vettoriale con re-ranking contestuale.</p></div>
     <div class="qa-actions">
       <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">

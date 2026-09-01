@@ -64,6 +64,7 @@
       <span class="page-meta-badge">⏱️ 1 min lettura</span>
       <span class="page-meta-badge">✓ Runbook verificato</span>
     </div>
+    
     <div class="answer" id="page-answer" itemprop="articleBody"><p>La rotazione a caldo delle chiavi di cifratura delle sessioni (es. JWT o cookie criptati) richiede la gestione simultanea di due coppie di chiavi: una chiave attiva (current) per la firma dei nuovi token e una o più chiavi precedenti (previous/grace period) abilitate esclusivamente alla verifica e decodifica. La sequenza operativa: 1) generazione della nuova chiave e pubblicazione sul set JWKS interno; 2) firma di tutte le nuove sessioni con la nuova chiave, accettando ancora i token firmati con la vecchia; 3) attesa della scadenza massima del TTL delle sessioni esistenti; 4) revoca e distruzione definitiva della vecchia chiave. Questo garantisce zero disconnessioni involontarie per gli utenti.</p></div>
     <div class="qa-actions">
       <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">

@@ -64,6 +64,7 @@
       <span class="page-meta-badge">⏱️ 1 min lettura</span>
       <span class="page-meta-badge">✓ Runbook verificato</span>
     </div>
+    
     <div class="answer" id="page-answer" itemprop="articleBody"><p>Due famiglie, due compiti:</p><ul><li><strong>simmetrica</strong> (AES, ChaCha20) – la stessa chiave cifra e decifra: velocissima, perfetta per i dati in massa. Problema: come consegni la chiave all&#x27;altra parte senza che qualcuno la intercetti?</li><li><strong>asimmetrica</strong> (RSA, curve ellittiche) – due chiavi legate matematicamente: ciò che la <strong>pubblica</strong> cifra, solo la <strong>privata</strong> apre; e ciò che la privata firma, chiunque lo verifica con la pubblica. Lenta, ma risolve proprio lo scambio e l&#x27;identità.</li></ul><p>In pratica si usano <strong>insieme</strong>: nel <a href="../differenza-http-https-tls/">TLS</a> l&#x27;asimmetrica autentica il server (il certificato) e concorda una chiave di sessione, la simmetrica cifra poi tutto il traffico. Stessa accoppiata in Signal, SSH, nelle <a href="../cosa-sono-le-passkey/">passkey</a> e nelle <a href="../come-si-firma-il-codice/">firme del software</a>. Capitolo a parte, spesso confuso con la cifratura: l&#x27;<a href="../cos-e-l-hashing/">hashing</a>, che non è reversibile per design.</p></div>
     <div class="qa-actions">
       <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">

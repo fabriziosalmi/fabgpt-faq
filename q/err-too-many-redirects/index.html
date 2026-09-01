@@ -64,6 +64,7 @@
       <span class="page-meta-badge">⏱️ 1 min lettura</span>
       <span class="page-meta-badge">✓ Runbook verificato</span>
     </div>
+    
     <div class="answer" id="page-answer" itemprop="articleBody"><p>Il browser ha seguito una catena di redirect che torna su se stessa e si è arreso. Il colpevole numero uno, di gran lunga: <strong>Cloudflare in modalità SSL &quot;Flexible&quot; davanti a un&#x27;origine che forza HTTPS</strong> – Cloudflare parla HTTP con la tua origine, l&#x27;origine reindirizza a HTTPS, il visitatore torna a Cloudflare, da capo per sempre. Soluzione: modalità <strong>Full (strict)</strong> e un certificato valido sull&#x27;origine (<a href="../come-funziona-lets-encrypt-acme/">gratis, con ACME</a>).</p><p>Altre cause classiche: il redirect HTTP→HTTPS configurato <strong>sia</strong> sul proxy che sull&#x27;applicazione (WordPress con l&#x27;URL del sito in http:// dietro un proxy che termina TLS: serve rispettare <code>X-Forwarded-Proto</code>), regole di redirect www/apex che si rincorrono, cookie di sessione che rimbalzano tra loop di login.</p><p>Diagnosi: <code>curl -IL https://example.com</code> mostra l&#x27;intera catena di <code>Location</code> – il punto in cui la catena si morde la coda è lì, leggibile.</p></div>
     <div class="qa-actions">
       <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">

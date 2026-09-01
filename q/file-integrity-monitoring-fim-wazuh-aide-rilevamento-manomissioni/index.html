@@ -64,6 +64,7 @@
       <span class="page-meta-badge">⏱️ 1 min lettura</span>
       <span class="page-meta-badge">✓ Runbook verificato</span>
     </div>
+    
     <div class="answer" id="page-answer" itemprop="articleBody"><p>Il <strong>File Integrity Monitoring (FIM)</strong> è un controllo fondamentale per rilevare tempestivamente rootkit, backdoor o alterazioni non autorizzate dei file di configurazione (<code>/etc/passwd</code>, <code>/etc/pam.d/</code>) e dei binari di sistema (<code>/bin/</code>, <code>/usr/sbin/</code>):</p><p>1. <strong>AIDE (Advanced Intrusion Detection Environment)</strong>: utility locale leggera che genera un database crittografico di hash (SHA-256/SHA-512), permessi e timestamp; un cron periodico confronta lo stato attuale con il database (<code>aide --check</code>) e segnala ogni discrepanza.<br>2. <strong>Wazuh Syscheck (Real-Time FIM)</strong>: il modulo FIM dell&#x27;agente <a href="../cos-e-un-soc-security-operations-center/">Wazuh</a> monitora il filesystem tramite notifiche inotify del kernel Linux in tempo reale. Invia alert immediati al server centrale quando un file critico viene modificato, creato o cancellato, registrando l&#x27;utente esecutore e il diff esatto.</p></div>
     <div class="qa-actions">
       <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">

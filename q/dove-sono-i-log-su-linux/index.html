@@ -64,6 +64,7 @@
       <span class="page-meta-badge">⏱️ 1 min lettura</span>
       <span class="page-meta-badge">✓ Runbook verificato</span>
     </div>
+    <a class="ask" style="margin:10px 0 4px;display:inline-block" href="../../tools/timestamp-unix/">🕐 Converti un timestamp Unix dei log</a>
     <div class="answer" id="page-answer" itemprop="articleBody"><p>I log moderni vivono nel <strong>journal</strong> di systemd: <code>journalctl -u nginx</code> (un servizio), <code>-f</code> (in diretta), <code>--since &quot;1 hour ago&quot;</code>, <code>-p err</code> (solo errori), <code>-b</code> (dall&#x27;ultimo boot). Occhio: su alcune distro il journal sta in RAM e sparisce al riavvio – rendilo persistente con <code>Storage=persistent</code> in <code>/etc/systemd/journald.conf</code>.</p><p>In parallelo restano i file classici in <code>/var/log</code>: <code>auth.log</code>/<code>secure</code> per accessi e <a href="../fail2ban-e-alternative/">tentativi di intrusione</a>, <code>syslog</code>/<code>messages</code> per il sistema, <code>dmesg</code> per il kernel, più i log applicativi. La rotazione la gestisce <code>logrotate</code>.</p><p>La lezione da sysadmin: i log su un server compromesso non sono affidabili, e i log che nessuno guarda non esistono – <a href="../security-logging-fatto-bene/">centralizzali e mettici degli alert</a>.</p></div>
     <div class="qa-actions">
       <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">

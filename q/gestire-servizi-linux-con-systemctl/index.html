@@ -64,6 +64,7 @@
       <span class="page-meta-badge">⏱️ 1 min lettura</span>
       <span class="page-meta-badge">✓ Runbook verificato</span>
     </div>
+    
     <div class="answer" id="page-answer" itemprop="articleBody"><p>systemd avvia e sorveglia i servizi Linux tramite <em>unit</em>. Il vocabolario quotidiano: <code>systemctl status nginx</code> (stato più ultime righe di log), <code>start</code>/<code>stop</code>/<code>restart</code>, <code>enable --now</code> (parte subito <em>e</em> a ogni boot), <code>disable</code>. Per vedere cosa è morto: <code>systemctl list-units --failed</code>.</p><p>Un servizio tuo è un file in <code>/etc/systemd/system/mio.service</code> con tre sezioni: <code>[Unit]</code> (descrizione, dipendenze), <code>[Service]</code> (<code>ExecStart</code>, <code>User</code>, <code>Restart=on-failure</code>), <code>[Install]</code> (<code>WantedBy=multi-user.target</code>). Dopo ogni modifica: <code>systemctl daemon-reload</code>.</p><p>I log dei servizi vivono nel <a href="../dove-sono-i-log-su-linux/">journal</a>: <code>journalctl -u mio.service -f</code>. E per le esecuzioni pianificate i <strong>timer</strong> systemd con <code>Persistent=true</code> recuperano ciò che <a href="../cron-la-sintassi-spiegata/">cron</a> perde a macchina spenta.</p></div>
     <div class="qa-actions">
       <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">

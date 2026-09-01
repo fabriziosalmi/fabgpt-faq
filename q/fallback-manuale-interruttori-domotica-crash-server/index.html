@@ -64,6 +64,7 @@
       <span class="page-meta-badge">⏱️ 1 min lettura</span>
       <span class="page-meta-badge">✓ Runbook verificato</span>
     </div>
+    
     <div class="answer" id="page-answer" itemprop="articleBody"><p>Una regola fondamentale della domotica affidabile (<em>Wife Acceptance Factor</em> e sicurezza) è che un guasto al server centrale (<a href="../home-assistant-su-proxmox/">Home Assistant</a> o Proxmox) non deve mai lasciare la casa al buio o senza riscaldamento.</p><p>Accorgimenti tecnici essenziali:</p><ul><li><strong>Relè smart con ingressi fisici diretti (Shelly, Sonoff, Sonoff ZBMini)</strong>: i relè vanno collegati direttamente ai pulsanti fisici a muro; l&#x27;attivazione manuale del carico avviene localmente nel microcontrollore del relè, indipendentemente dalla rete Wi-Fi/Zigbee.</li><li><strong>Direct Binding (Zigbee/Matter)</strong>: associa direttamente i telecomandi o sensori wireless agli attuatori (es. lampadine o prese) tramite Zigbee Binding: comunicano peer-to-peer anche se l&#x27;hub o il coordinatore è spento.</li><li><strong>Termostati autonomi</strong>: termovalvole con programmazione locale di fallback.</li></ul></div>
     <div class="qa-actions">
       <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">

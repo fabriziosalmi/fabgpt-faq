@@ -64,6 +64,7 @@
       <span class="page-meta-badge">⏱️ 1 min lettura</span>
       <span class="page-meta-badge">✓ Runbook verificato</span>
     </div>
+    
     <div class="answer" id="page-answer" itemprop="articleBody"><p>Entrambi mettono un intermediario tra te e la destinazione, ma a profondità diverse:</p><ul><li>un <strong>proxy</strong> lavora per applicazione (di solito il browser): inoltra le richieste HTTP/SOCKS e cambia l&#x27;IP visto dal sito. Configurabile per-app, niente cifratura aggiuntiva di suo.</li><li>una <strong>VPN</strong> incapsula e cifra <strong>tutto il traffico del dispositivo</strong> a livello di rete (WireGuard, OpenVPN): ogni app ci passa, il provider locale vede solo un tunnel cifrato.</li></ul><p>Miti da sfatare: la VPN commerciale non ti rende &quot;anonimo&quot; – sposta la fiducia dal tuo ISP al fornitore VPN, che il traffico lo vede eccome. E per l&#x27;accesso aziendale la VPN classica che apre l&#x27;intera rete interna è il modello che <a href="../cos-e-il-modello-zero-trust/">Zero Trust</a> sta mandando in pensione. Curiosità di portfolio: su Mac, <a href="https://github.com/fabriziosalmi/proxymate" target="_blank" rel="noopener">Proxymate</a> porta il modello proxy al livello successivo, con WAF e controlli integrati.</p></div>
     <div class="qa-actions">
       <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">

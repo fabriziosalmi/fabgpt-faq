@@ -64,6 +64,7 @@
       <span class="page-meta-badge">⏱️ 1 min lettura</span>
       <span class="page-meta-badge">✓ Runbook verificato</span>
     </div>
+    
     <div class="answer" id="page-answer" itemprop="articleBody"><p>Sì – è l&#x27;idea di <a href="https://github.com/fabriziosalmi/nginx-waf-ai" target="_blank" rel="noopener">nginx-waf-ai</a>: analizza il traffico HTTP reale dei tuoi nodi nginx, rileva le minacce con modelli <strong>scikit-learn</strong> (Isolation Forest per le anomalie, Random Forest per la classificazione) e converte le predizioni in regole <code>deny</code>/<code>allow</code> native, deployate sui nodi <strong>via SSH con rollback automatico</strong> se qualcosa va storto. Espone API REST (FastAPI), pannello web e CLI.</p><p>Nota di onestà, dal README stesso: è un progetto <strong>early-stage</strong>, con parti dell&#x27;API ancora incomplete – interessante per sperimentare, non per la produzione. Per regole WAF mature e mantenute, la via consolidata resta <a href="https://github.com/fabriziosalmi/patterns" target="_blank" rel="noopener">patterns</a> (OWASP CRS convertite ogni giorno).</p></div>
     <div class="qa-actions">
       <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">

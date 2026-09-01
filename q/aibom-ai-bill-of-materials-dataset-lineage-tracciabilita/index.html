@@ -64,6 +64,7 @@
       <span class="page-meta-badge">⏱️ 1 min lettura</span>
       <span class="page-meta-badge">✓ Runbook verificato</span>
     </div>
+    
     <div class="answer" id="page-answer" itemprop="articleBody"><p>Una <strong>AIBOM</strong> (AI Software Bill of Materials) estende gli standard tradizionali (SPDX 3.0, CycloneDX 1.6+) per censire tutti gli asset che compongono una pipeline di machine learning, garantendo conformità all&#x27;EU AI Act e tracciabilità forense.</p><p>Un&#x27;AIBOM strutturata deve includere:</p><p>1. <strong>Dataset Lineage</strong>: provenienza dei dati di training, licenze, hash SHA-256 dei dump grezzi, log di filtraggio PII e timestamp di acquisizione.<br>2. <strong>Model Card e Checkpoint</strong>: architettura, iperparametri di fine-tuning, hash crittografico dei pesi (<code>.safetensors</code>) e firma digitale del release engineer.<br>3. <strong>Environment &amp; Runtime</strong>: versioni esatte di CUDA/ROCm, PyTorch, <a href="../ridurre-costi-inferenza-llm/">vLLM</a>, librerie di tokenizzazione e relative vulnerabilità CVE note.<br>4. <strong>Firma crittografica</strong>: firma dell&#x27;intero manifesto AIBOM con Cosign/Sigstore per verificarne l&#x27;integrità nelle pipeline CI/CD di <a href="../cos-e-il-modello-zero-trust/">Zion</a>.</p></div>
     <div class="qa-actions">
       <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">

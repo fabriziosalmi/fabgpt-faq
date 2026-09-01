@@ -599,3 +599,49 @@ Chat: https://fabriziosalmi.github.io/fabgpt-faq/  ·  Indice: https://fabrizios
 - [Diventare sysadmin partendo da zero](https://fabriziosalmi.github.io/fabgpt-faq/percorsi/diventare-sysadmin/): Il percorso in 17 tappe: reti, Linux, homelab, automazione, backup, cloud e il primo lavoro IT.
 - [Mettere in sicurezza un server esposto](https://fabriziosalmi.github.io/fabgpt-faq/percorsi/mettere-in-sicurezza-un-server/): Dodici tappe in ordine di impatto: dall'hardening iniziale alla checklist mensile che mantiene tutto vero.
 - [Self-hosting da zero](https://fabriziosalmi.github.io/fabgpt-faq/percorsi/self-hosting-da-zero/): Dodici tappe dal perché all'infrastruttura che si mantiene da sola: Proxmox, container, rete, backup e monitoraggio.
+
+## Tools deterministici
+
+- [Calcolatore subnet / CIDR](https://fabriziosalmi.github.io/fabgpt-faq/tools/calcolatore-subnet/): Rete, broadcast, maschera e host usabili da una notazione CIDR. Calcolo esatto nel browser, niente server.
+- [Spiega-cron](https://fabriziosalmi.github.io/fabgpt-faq/tools/spiega-cron/): Incolla un'espressione cron e leggila in italiano, campo per campo, con le trappole segnalate.
+- [Calcolatore chmod](https://fabriziosalmi.github.io/fabgpt-faq/tools/calcolatore-chmod/): Da ottale a rwx e ritorno, bit speciali inclusi. Con gli avvisi che contano (777, 600).
+- [Decodifica JWT](https://fabriziosalmi.github.io/fabgpt-faq/tools/decodifica-jwt/): Header e payload di un JSON Web Token, decodificati in locale: il token non lascia mai il tuo browser.
+- [Convertitore timestamp Unix](https://fabriziosalmi.github.io/fabgpt-faq/tools/timestamp-unix/): Da epoch (secondi o millisecondi) a data leggibile, con i comandi da terminale equivalenti.
+
+## Porte well-known
+
+- [Porta 21 – FTP](https://fabriziosalmi.github.io/fabgpt-faq/porta/21/): Il File Transfer Protocol storico: trasferimento file in chiaro, credenziali incluse. Sopravvive su NAS…
+- [Porta 22 – SSH](https://fabriziosalmi.github.io/fabgpt-faq/porta/22/): La porta dell'amministrazione remota: shell, SFTP, tunnel e port forwarding. La più bussata di internet: un…
+- [Porta 23 – Telnet](https://fabriziosalmi.github.io/fabgpt-faq/porta/23/): Shell remota in chiaro, precursore di SSH. Ancora acceso di fabbrica su troppi router, switch e dispositivi…
+- [Porta 25 – SMTP](https://fabriziosalmi.github.io/fabgpt-faq/porta/25/): Il traffico mail server-to-server. I provider consumer la bloccano in uscita proprio per contenere lo spam…
+- [Porta 53 – DNS](https://fabriziosalmi.github.io/fabgpt-faq/porta/53/): La risoluzione dei nomi, in UDP per le query normali e TCP per risposte grandi e zone transfer.
+- [Porta 67 – DHCP](https://fabriziosalmi.github.io/fabgpt-faq/porta/67/): Il server DHCP ascolta qui (il client risponde sulla 68): assegnazione automatica di IP, gateway e DNS.
+- [Porta 80 – HTTP](https://fabriziosalmi.github.io/fabgpt-faq/porta/80/): Il web senza cifratura. Oggi serve quasi solo a una cosa: redirigere verso HTTPS (e rispondere alla…
+- [Porta 110 – POP3](https://fabriziosalmi.github.io/fabgpt-faq/porta/110/): Ritiro della posta vecchio stile: scarica e (di norma) cancella dal server. In chiaro.
+- [Porta 123 – NTP](https://fabriziosalmi.github.io/fabgpt-faq/porta/123/): La sincronizzazione dell'orologio. Sembra banale, ma certificati TLS, log correlati e 2FA TOTP dipendono da…
+- [Porta 143 – IMAP](https://fabriziosalmi.github.io/fabgpt-faq/porta/143/): Lettura della posta lasciandola sul server, la modalità moderna. In chiaro su questa porta.
+- [Porta 161 – SNMP](https://fabriziosalmi.github.io/fabgpt-faq/porta/161/): Il monitoraggio di rete di apparati e stampanti: contatori, stato interfacce, inventario.
+- [Porta 389 – LDAP](https://fabriziosalmi.github.io/fabgpt-faq/porta/389/): La directory aziendale (Active Directory incluso): utenti, gruppi, autenticazioni. In chiaro o StartTLS.
+- [Porta 443 – HTTPS](https://fabriziosalmi.github.io/fabgpt-faq/porta/443/): Il web cifrato con TLS: la porta più attraversata di internet, e ormai anche il contenitore di tutto il…
+- [Porta 445 – SMB](https://fabriziosalmi.github.io/fabgpt-faq/porta/445/): La condivisione file e stampanti di Windows (e Samba). Il canale preferito dei ransomware per muoversi…
+- [Porta 465 – SMTPS](https://fabriziosalmi.github.io/fabgpt-faq/porta/465/): Invio mail dei client con TLS implicito: la connessione nasce già cifrata. Riabilitata ufficialmente dopo…
+- [Porta 587 – SMTP Submission](https://fabriziosalmi.github.io/fabgpt-faq/porta/587/): La porta corretta per l'invio autenticato dei client mail: STARTTLS più login, separata dal traffico…
+- [Porta 636 – LDAPS](https://fabriziosalmi.github.io/fabgpt-faq/porta/636/): LDAP dentro TLS: la versione cifrata della 389 per le query alla directory.
+- [Porta 853 – DNS-over-TLS](https://fabriziosalmi.github.io/fabgpt-faq/porta/853/): Le query DNS cifrate con DoT: stessa semantica della 53, dentro TLS.
+- [Porta 993 – IMAPS](https://fabriziosalmi.github.io/fabgpt-faq/porta/993/): IMAP dentro TLS: la porta giusta per leggere la posta oggi.
+- [Porta 995 – POP3S](https://fabriziosalmi.github.io/fabgpt-faq/porta/995/): POP3 dentro TLS, per chi ancora scarica la posta in locale.
+- [Porta 1194 – OpenVPN](https://fabriziosalmi.github.io/fabgpt-faq/porta/1194/): La porta di default di OpenVPN. UDP per prestazioni, TCP come ripiego nei network restrittivi (spesso su 443…
+- [Porta 1433 – Microsoft SQL Server](https://fabriziosalmi.github.io/fabgpt-faq/porta/1433/): Il database di casa Microsoft in ascolto per le applicazioni.
+- [Porta 2049 – NFS](https://fabriziosalmi.github.io/fabgpt-faq/porta/2049/): La condivisione file nativa Unix/Linux, tipica tra hypervisor e NAS.
+- [Porta 3306 – MySQL / MariaDB](https://fabriziosalmi.github.io/fabgpt-faq/porta/3306/): Il database più diffuso del web in ascolto per le applicazioni.
+- [Porta 3389 – RDP](https://fabriziosalmi.github.io/fabgpt-faq/porta/3389/): Il desktop remoto di Windows.
+- [Porta 5432 – PostgreSQL](https://fabriziosalmi.github.io/fabgpt-faq/porta/5432/): Il database relazionale open source di riferimento.
+- [Porta 5900 – VNC](https://fabriziosalmi.github.io/fabgpt-faq/porta/5900/): Il controllo remoto grafico multipiattaforma (e la console delle VM in molti hypervisor).
+- [Porta 6379 – Redis](https://fabriziosalmi.github.io/fabgpt-faq/porta/6379/): La cache in-memory usata da mezzo web (sessioni, code, cache di Nextcloud incluse).
+- [Porta 8006 – Proxmox VE (web UI)](https://fabriziosalmi.github.io/fabgpt-faq/porta/8006/): L'interfaccia di gestione di Proxmox VE: web UI e API sulla stessa porta.
+- [Porta 8080 – HTTP alternativo](https://fabriziosalmi.github.io/fabgpt-faq/porta/8080/): La porta di sviluppo e dei servizi dietro proxy: application server, pannelli, container in ascolto interno.
+- [Porta 8443 – HTTPS alternativo](https://fabriziosalmi.github.io/fabgpt-faq/porta/8443/): HTTPS su porta non standard: pannelli di controllo, appliance, servizi amministrativi.
+- [Porta 9090 – Cockpit / Prometheus](https://fabriziosalmi.github.io/fabgpt-faq/porta/9090/): Due inquilini frequenti: la console web Cockpit delle distro server e l'interfaccia di Prometheus.
+- [Porta 11434 – Ollama](https://fabriziosalmi.github.io/fabgpt-faq/porta/11434/): L'API locale di Ollama per gli LLM in locale.
+- [Porta 27017 – MongoDB](https://fabriziosalmi.github.io/fabgpt-faq/porta/27017/): Il database documentale in ascolto per le applicazioni.
+- [Porta 51820 – WireGuard](https://fabriziosalmi.github.io/fabgpt-faq/porta/51820/): La porta di default di WireGuard: VPN moderna, codice minimo, chiavi pubbliche.

@@ -64,6 +64,7 @@
       <span class="page-meta-badge">⏱️ 1 min lettura</span>
       <span class="page-meta-badge">✓ Runbook verificato</span>
     </div>
+    
     <div class="answer" id="page-answer" itemprop="articleBody"><p>Consentire l&#x27;esecuzione di codice all&#x27;interno delle directory contenenti file caricati dagli utenti è la causa principale di RCE tramite web shell. Le contromisure essenziali sul server web: 1) disabilitare l&#x27;interprete di scripting per l&#x27;intero path <code>/uploads/</code> (in Nginx con <code>location ^~ /uploads/ { try_files $uri =404; }</code> senza passare richieste a <code>fastcgi_pass</code> o backend); 2) in Caddy o reverse proxy impostare header di risposta <code>X-Content-Type-Options: nosniff</code> e <code>Content-Disposition: attachment</code> per impedire l&#x27;interpretazione inline di HTML o script; 3) montare il filesystem di upload con opzione <code>noexec</code> in <code>/etc/fstab</code>; 4) filtrare il traffico applicativo a monte con <a href="../come-aggiungere-un-waf-a-caddy/">caddy-waf</a>.</p></div>
     <div class="qa-actions">
       <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">

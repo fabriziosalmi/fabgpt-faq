@@ -64,6 +64,7 @@
       <span class="page-meta-badge">⏱️ 2 min lettura</span>
       <span class="page-meta-badge">✓ Runbook verificato</span>
     </div>
+    
     <div class="answer" id="page-answer" itemprop="articleBody"><p>L&#x27;<strong>HA</strong> di Proxmox fa ripartire automaticamente le VM di un nodo morto su un altro nodo: il <code>ha-manager</code> sorveglia le risorse marcate HA e, quando un nodo sparisce, le riavvia altrove. Attenzione al verbo: <strong>riavvia</strong>, non trasferisce – è un riavvio su un altro host (downtime di secondi/minuti), non magia a caldo.</p><p>I prerequisiti che non si possono aggirare:</p><ul><li><strong>storage condiviso</strong> (<a href="../cos-e-ceph-e-quando-ha-senso/">Ceph</a>, NFS) o replica <a href="../perche-usare-zfs-su-proxmox/">ZFS</a> – la VM deve poter leggere i suoi dischi dal nodo di destinazione (con la replica, si riparte dall&#x27;ultimo sync)</li><li><strong><a href="../cluster-proxmox-e-quorum/">quorum</a></strong> sano: senza maggioranza, niente decisioni</li><li><strong>fencing</strong>: il nodo sospetto viene isolato via watchdog prima di riavviarne le VM altrove – è la protezione dallo split brain, non un fastidio da disabilitare</li></ul><p>Consiglio pratico: HA solo per ciò che la merita davvero. Un servizio stateless dietro load balancer è più semplice da rendere resiliente a livello applicativo che a colpi di failover.</p></div>
     <div class="qa-actions">
       <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">

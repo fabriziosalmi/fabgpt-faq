@@ -64,6 +64,7 @@
       <span class="page-meta-badge">⏱️ 1 min lettura</span>
       <span class="page-meta-badge">✓ Runbook verificato</span>
     </div>
+    
     <div class="answer" id="page-answer" itemprop="articleBody"><p>Nei cluster ad <a href="../alta-disponibilita-proxmox/">alta disponibilità (HA)</a>, la ridondanza dello storage può essere gestita a due livelli architetturali differenti:</p><ul><li><strong>Replica a livello di blocco (DRBD / Ceph)</strong>: DRBD agisce come un RAID 1 distribuito via rete TCP/IP al di sotto del filesystem. Ogni operazione di scrittura viene replicata in modo sincrono o asincrono sui dispositivi a blocchi grezzi dei nodi. È completamente trasparente al filesystem e supporta database e lock complessi.</li><li><strong>Sincronizzazione a livello di filesystem (rsync, Unison, Syncthing)</strong>: opera sopra il filesystem confrontando file e metadati. È più semplice da configurare su WAN ma non è adatta per macchine virtuali attive o file binari aperti continuamente in scrittura.</li></ul></div>
     <div class="qa-actions">
       <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">

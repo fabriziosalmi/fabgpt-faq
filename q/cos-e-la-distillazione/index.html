@@ -64,6 +64,7 @@
       <span class="page-meta-badge">⏱️ 1 min lettura</span>
       <span class="page-meta-badge">✓ Runbook verificato</span>
     </div>
+    
     <div class="answer" id="page-answer" itemprop="articleBody"><p>La <strong>distillazione</strong> travasa le capacità di un modello grande (<em>teacher</em>) in uno piccolo (<em>student</em>): lo student non impara dai dati grezzi ma <strong>dall&#x27;output del teacher</strong> – le sue risposte, o addirittura le sue distribuzioni di probabilità, che contengono più informazione della sola risposta giusta (&quot;quasi certamente A, ma B era plausibile&quot;).</p><p>È il motivo per cui i <a href="../parametri-7b-70b-cosa-significano/">modelli piccoli</a> moderni sono così sorprendenti: molti sono distillati da giganti, ereditando una frazione notevole della qualità a una frazione minima del <a href="../cos-e-l-inferenza-e-perche-costa/">costo di inferenza</a>. La variante più comune oggi: generare <strong>dati sintetici</strong> col modello grande e farci fine-tuning del piccolo.</p><p>Nota legale non banale: distillare dall&#x27;API di un concorrente viola in genere i termini d&#x27;uso – la pratica esiste comunque, ma è terreno conteso. Per uso interno (grande → piccolo tuoi) è invece la strada maestra per abbattere i costi.</p></div>
     <div class="qa-actions">
       <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">

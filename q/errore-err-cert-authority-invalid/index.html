@@ -64,6 +64,7 @@
       <span class="page-meta-badge">⏱️ 1 min lettura</span>
       <span class="page-meta-badge">✓ Runbook verificato</span>
     </div>
+    
     <div class="answer" id="page-answer" itemprop="articleBody"><p>Il browser sta dicendo: &quot;questo certificato non è firmato da una CA di cui mi fido&quot;. Le cause tipiche:</p><ul><li><strong>certificato self-signed</strong> – normale su dispositivi interni (router, NAS, Proxmox appena installato): o importi il certificato/la CA nel sistema, o metti un certificato vero</li><li><strong>catena incompleta</strong> – il server non manda i certificati intermedi: va corretto lato server (il test di SSL Labs lo evidenzia)</li><li><strong>CA privata aziendale</strong> non installata sul dispositivo</li><li>su reti pubbliche: un <strong>captive portal o un proxy</strong> che intercetta il TLS – lì l&#x27;avviso va rispettato, non aggirato</li></ul><p>La cura strutturale per i nomi interni è una <strong>CA privata gestita bene</strong>: <a href="https://github.com/fabriziosalmi/certmate" target="_blank" rel="noopener">CertMate</a> ne include una, con emissione e rinnovo automatici anche per ciò che non è esposto su internet.</p></div>
     <div class="qa-actions">
       <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">

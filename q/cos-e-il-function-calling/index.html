@@ -64,6 +64,7 @@
       <span class="page-meta-badge">⏱️ 1 min lettura</span>
       <span class="page-meta-badge">✓ Runbook verificato</span>
     </div>
+    
     <div class="answer" id="page-answer" itemprop="articleBody"><p>Il <strong>function calling</strong> permette a un LLM di usare strumenti: gli descrivi delle funzioni (nome, parametri, a cosa servono) e lui, quando serve, invece di rispondere a parole emette una <strong>chiamata strutturata</strong> – <code>get_weather(city=&quot;Genova&quot;)</code>. Il tuo codice la esegue, restituisce il risultato, e il modello continua con quell&#x27;informazione.</p><p>È il mattone che trasforma il testo in azione: senza, un LLM può solo <em>descrivere</em> cosa farebbe. Sopra questo meccanismo si costruiscono gli <a href="../cos-e-un-agente-ai/">agenti</a>, e per non reinventare l&#x27;integrazione per ogni applicazione è nato <a href="../cos-e-mcp-model-context-protocol/">MCP</a>, che standardizza come i tool vengono esposti. La regola di sicurezza resta quella degli agenti: ogni funzione esposta è superficie d&#x27;attacco – tipizzala, limitala, loggala.</p></div>
     <div class="qa-actions">
       <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">

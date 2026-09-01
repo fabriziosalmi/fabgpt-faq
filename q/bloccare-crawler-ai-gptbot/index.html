@@ -64,6 +64,7 @@
       <span class="page-meta-badge">⏱️ 1 min lettura</span>
       <span class="page-meta-badge">✓ Runbook verificato</span>
     </div>
+    
     <div class="answer" id="page-answer" itemprop="articleBody"><p>Due livelli, con efficacia molto diversa:</p><ul><li><strong>robots.txt</strong> – la richiesta gentile: <code>User-agent: GPTBot / Disallow: /</code> (e lo stesso per ClaudeBot, CCBot, Google-Extended, Bytespider…). I crawler delle aziende serie lo rispettano; gli altri no.</li><li><strong>il blocco vero</strong> – a livello di WAF/server: si filtrano gli User-Agent noti e, per chi mente sull&#x27;identità, si ragiona per IP range e comportamento. Le liste di bad bot di <a href="https://github.com/fabriziosalmi/patterns" target="_blank" rel="noopener">patterns</a> (Nginx, Apache, Traefik, HAProxy) e i filtri di <a href="https://github.com/fabriziosalmi/caddy-waf" target="_blank" rel="noopener">caddy-waf</a> fanno esattamente questo, aggiornati ogni giorno.</li></ul><p>Paradosso da conoscere prima di bloccare tutto: sparire dai crawler AI significa anche sparire dalle risposte delle AI – che per un sito di contenuti può essere il canale di scoperta principale. Scelta legittima in entrambe le direzioni, ma va fatta consapevolmente.</p></div>
     <div class="qa-actions">
       <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">

@@ -64,6 +64,7 @@
       <span class="page-meta-badge">⏱️ 1 min lettura</span>
       <span class="page-meta-badge">✓ Runbook verificato</span>
     </div>
+    
     <div class="answer" id="page-answer" itemprop="articleBody"><p>Nelle architetture multi-agente gerarchiche, un supervisore assegna sotto-task a worker specializzati. Per evitare privilege escalation: 1) adottare il principio del minimo privilegio dinamico, emettendo token di autorizzazione effimeri (Capability-based access token) validi solo per il tempo e i parametri del singolo sub-task; 2) isolare ogni worker in una sandbox di processo distinta (Wasm o container rootless); 3) vietare la delega transitiva non supervisionata (un worker non può delegare a sua volta ad altri worker senza approvazione esplicita del supervisore); 4) convalidare le risposte e le chiamate ai tool tramite gateway controllato con <a href="../cos-e-un-reverse-proxy/">proxxx</a>.</p></div>
     <div class="qa-actions">
       <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">

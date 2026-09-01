@@ -64,6 +64,7 @@
       <span class="page-meta-badge">⏱️ 1 min lettura</span>
       <span class="page-meta-badge">✓ Runbook verificato</span>
     </div>
+    
     <div class="answer" id="page-answer" itemprop="articleBody"><p>L&#x27;art. 17 GDPR non fa sconti all&#x27;AI, ma la fattibilità dipende da <em>dove</em> vive il dato:</p><ul><li><strong>Indice vettoriale (<a href="../sicurezza-del-rag-e-dei-vector-database/">RAG</a>)</strong>: cancellabile davvero – elimini documento ed embedding associati (serve che gli id lo permettano: progettalo <em>prima</em>). È l&#x27;argomento più forte per preferire il RAG al fine-tuning quando ci sono dati personali: <a href="../meglio-fine-tuning-o-rag/">il confronto</a></li><li><strong>Pesi del modello</strong>: se il dato è finito nell&#x27;addestramento, rimuoverlo è ricerca aperta (<em>machine unlearning</em>); nella pratica l&#x27;unica strada certa è riaddestrare senza quel dato</li><li><strong><a href="../memoria-persistente-assistenti-ai/">Memorie degli assistenti</a>, cache, <a href="../data-leakage-via-llm/">log e tracce</a></strong>: il dato si annida anche qui, e la cancellazione deve coprirli tutti</li></ul><p>Regola di progetto: tratta la cancellabilità come requisito architetturale, non come richiesta da gestire quando arriva.</p></div>
     <div class="qa-actions">
       <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">

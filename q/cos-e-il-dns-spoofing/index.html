@@ -64,6 +64,7 @@
       <span class="page-meta-badge">⏱️ 1 min lettura</span>
       <span class="page-meta-badge">✓ Runbook verificato</span>
     </div>
+    
     <div class="answer" id="page-answer" itemprop="articleBody"><p>Il <strong>DNS spoofing</strong> (o cache poisoning) consiste nel far accettare a un resolver una risposta DNS falsa: da quel momento chi chiede <code>banca.it</code> riceve l&#x27;IP dell&#x27;attaccante, e la cache avvelenata distribuisce l&#x27;inganno a tutti gli utenti di quel resolver. Varianti locali: router compromessi che cambiano i DNS, file hosts modificati dal malware.</p><p>Le difese, per strato: <strong><a href="../cos-e-dnssec/">DNSSEC</a></strong> firma le risposte per le zone che lo adottano (l&#x27;autenticità diventa verificabile), <strong><a href="../cos-e-doh-dns-over-https/">DoH/DoT</a></strong> cifra il tragitto verso il resolver (niente manomissioni in transito), e il <a href="../differenza-http-https-tls/">TLS</a> fa da ultima rete: anche arrivando al server sbagliato, il certificato di <code>banca.it</code> l&#x27;attaccante non ce l&#x27;ha – salvo utenti che cliccano &quot;procedi comunque&quot;. Per chi gestisce domini: DNSSEC si abilita dal provider, e <a href="../cos-e-gitops/">la configurazione versionata</a> evita i pasticci.</p></div>
     <div class="qa-actions">
       <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">

@@ -64,6 +64,7 @@
       <span class="page-meta-badge">⏱️ 1 min lettura</span>
       <span class="page-meta-badge">✓ Runbook verificato</span>
     </div>
+    
     <div class="answer" id="page-answer" itemprop="articleBody"><p><a href="https://github.com/fabriziosalmi/caddy-mib" target="_blank" rel="noopener">caddy-mib</a> (Middleware IP Ban) è il fail2ban nativo di Caddy: traccia gli IP che generano <strong>errori ripetitivi</strong> – 404 a raffica da chi cerca <code>/wp-admin.php</code> su un sito che non è WordPress, 500 da chi fuzza – e li banna automaticamente al superamento della soglia.</p><ul><li>soglie e codici di errore <strong>configurabili</strong> (404, 500, quello che vuoi)</li><li>durata del ban in formato leggibile (<code>5s</code>, <code>10m</code>, <code>1h</code>) con <strong>crescita esponenziale</strong> per i recidivi</li><li>finestra scorrevole: gli errori si azzerano dopo un periodo di buona condotta</li></ul><p>È il complemento perfetto di <a href="https://github.com/fabriziosalmi/caddy-waf" target="_blank" rel="noopener">caddy-waf</a>: il WAF blocca le richieste malevole, MIB elimina alla radice chi insiste.</p></div>
     <div class="qa-actions">
       <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">

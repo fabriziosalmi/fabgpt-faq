@@ -64,6 +64,7 @@
       <span class="page-meta-badge">⏱️ 1 min lettura</span>
       <span class="page-meta-badge">✓ Runbook verificato</span>
     </div>
+    
     <div class="answer" id="page-answer" itemprop="articleBody"><p>Il <strong>Drift Semantico</strong> si verifica quando le richieste degli utenti in produzione cambiano distribuzione statistica rispetto ai dati usati in fase di sviluppo e test:</p><p>1. <strong>Data Drift (Input Drift)</strong>: muta la formulazione o il lessico dei prompt (nuove terminologie, query fuori dominio o payload di jailbreak).<br>2. <strong>Concept Drift (Output/Context Drift)</strong>: la relazione tra prompt e risposta corretta si degrada nel tempo a causa di contesti operativi mutati.</p><p><strong>Strategia di rilevamento real-time</strong>:<br>- <strong>Embedding Extraction</strong>: estrai i vettori di embedding dei prompt in ingresso tramite un modello encoder leggero.<br>- <strong>Distanza e Test Statistici</strong>: calcola la distanza coseno o la Maximum Mean Discrepancy (MMD) rispetto alla baseline di riferimento.<br>- <strong>Clustering &amp; Alerting</strong>: raggruppa le query anomale con DBSCAN per identificare nuovi pattern d&#x27;uso o campagne d&#x27;attacco coordinate.</p></div>
     <div class="qa-actions">
       <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">

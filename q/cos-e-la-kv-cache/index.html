@@ -64,6 +64,7 @@
       <span class="page-meta-badge">⏱️ 1 min lettura</span>
       <span class="page-meta-badge">✓ Runbook verificato</span>
     </div>
+    
     <div class="answer" id="page-answer" itemprop="articleBody"><p>Dentro un transformer, ogni nuovo token &quot;guarda&quot; tutti i precedenti (il meccanismo di <strong>attention</strong>). Per non ricalcolare tutto a ogni passo, i valori intermedi dei token già visti si tengono in memoria: è la <strong>KV cache</strong> (key-value). Senza, la generazione sarebbe insostenibile; con, il costo si sposta sulla <strong>memoria</strong>: la cache cresce linearmente con la lunghezza del contesto, e su contesti molto lunghi divora più VRAM dei pesi stessi.</p><p>È la ragione fisica per cui <a href="../token-e-context-window/">il contesto lungo costa</a> e le API fatturano di più i prompt chilometrici. Le mitigazioni che incontrerai nei runtime: attention ottimizzata (FlashAttention), condivisione delle teste (GQA/MQA), quantizzazione della cache stessa, e il <a href="../cos-e-il-prompt-caching/">prompt caching</a> lato API, che riusa la cache dei prefissi ripetuti invece di ricostruirla. Morale operativa: contesto magro non è tirchieria, è ingegneria – <a href="https://github.com/fabriziosalmi/l0-compressor" target="_blank" rel="noopener">l0-compressor</a> esiste per questo.</p></div>
     <div class="qa-actions">
       <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">

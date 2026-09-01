@@ -64,6 +64,7 @@
       <span class="page-meta-badge">⏱️ 2 min lettura</span>
       <span class="page-meta-badge">✓ Runbook verificato</span>
     </div>
+    
     <div class="answer" id="page-answer" itemprop="articleBody"><p>La regola spannometrica per i modelli <a href="../quantizzazione-modelli-gguf/">quantizzati</a> in Q4: <strong>~0,6 GB per miliardo di parametri</strong>, più 1-3 GB per il contesto (la <a href="../cos-e-la-kv-cache/">KV cache</a> cresce col contesto: contesti lunghi = gigabyte in più):</p><ul><li><strong>7-9B</strong> → 5-7 GB: gira su laptop con 16 GB di RAM o GPU da 8 GB</li><li><strong>13-14B</strong> → 9-11 GB: GPU da 12-16 GB o Mac da 16-24 GB</li><li><strong>30-34B</strong> → 20-24 GB: RTX 3090/4090 (24 GB) o Mac da 32 GB e su</li><li><strong>70B</strong> → 40-48 GB: doppia GPU, oppure Mac Studio/MacBook con 64+ GB di memoria unificata</li></ul><p>Note che salvano acquisti: la <strong>memoria unificata</strong> Apple conta tutta come &quot;VRAM&quot; (<a href="../apple-silicon-o-gpu-nvidia-per-ai/">il confronto con NVIDIA</a>); un modello che <em>entra per un pelo</em> lascia spazio zero al contesto; e un <a href="../mixture-of-experts-moe/">MoE</a> occupa per i parametri totali, non per gli attivi. In caso di dubbio: meglio <a href="../come-scegliere-il-modello-giusto/">un modello più piccolo che respira</a> di uno grande che soffoca.</p></div>
     <div class="qa-actions">
       <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">

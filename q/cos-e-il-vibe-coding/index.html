@@ -64,6 +64,7 @@
       <span class="page-meta-badge">⏱️ 1 min lettura</span>
       <span class="page-meta-badge">✓ Runbook verificato</span>
     </div>
+    
     <div class="answer" id="page-answer" itemprop="articleBody"><p><strong>Vibe coding</strong>: descrivi quello che vuoi a un LLM, accetti il codice che propone, ripeti finché funziona – senza necessariamente leggere cosa è stato scritto. Per prototipi è una superpotenza; il rischio è mettere in produzione codice che <em>sembra</em> giusto ma nasconde bug, vulnerabilità e dipendenze inventate. Quel sedimento ha un nome: <strong>slop</strong>.</p><p>La risposta non è rinunciare all&#x27;AI, è <strong>verificare a valle con strumenti deterministici</strong>:</p><ul><li><a href="https://github.com/fabriziosalmi/vibe-check" target="_blank" rel="noopener">vibe-check</a> – GitHub Action anti-slop che fa da gatekeeper in CI</li><li><a href="https://github.com/fabriziosalmi/brutal-coding-tool" target="_blank" rel="noopener">brutal-coding-tool</a> – audit brutale del vibecode</li><li><a href="https://github.com/fabriziosalmi/ai-dependency-guard" target="_blank" rel="noopener">ai-dependency-guard</a> – blocca le dipendenze allucinate prima del merge</li></ul></div>
     <div class="qa-actions">
       <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">

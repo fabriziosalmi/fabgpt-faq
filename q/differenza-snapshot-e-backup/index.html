@@ -64,6 +64,7 @@
       <span class="page-meta-badge">⏱️ 1 min lettura</span>
       <span class="page-meta-badge">✓ Runbook verificato</span>
     </div>
+    
     <div class="answer" id="page-answer" itemprop="articleBody"><p>Uno <strong>snapshot</strong> è un segnalibro nel tempo <em>sullo stesso storage</em>: si crea in un secondo, si torna indietro in un secondo. Comodissimo prima di un aggiornamento rischioso. Ma vive <strong>insieme ai dati che protegge</strong>: se muore il disco, lo storage o il nodo, muore anche lui. E gli snapshot accumulati degradano le prestazioni e crescono in silenzio.</p><p>Un <strong>backup</strong> è una copia <strong>indipendente</strong>, altrove: altro disco, altro host, altro luogo. Sopravvive al disastro dell&#x27;originale. La regola 3-2-1: tre copie, due supporti diversi, una fuori sede.</p><p>Su Proxmox: snapshot per il &quot;provo questa cosa e magari torno indietro&quot;, <strong><a href="../cos-e-proxmox-backup-server/">Proxmox Backup Server</a></strong> per i backup veri – incrementali, deduplicati, verificabili. Usarli entrambi, non confonderli mai.</p></div>
     <div class="qa-actions">
       <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">

@@ -64,6 +64,7 @@
       <span class="page-meta-badge">⏱️ 1 min lettura</span>
       <span class="page-meta-badge">✓ Runbook verificato</span>
     </div>
+    
     <div class="answer" id="page-answer" itemprop="articleBody"><p><strong>Turnstile</strong> è la risposta di Cloudflare ai CAPTCHA che fanno perdere tempo agli umani: niente semafori da cliccare – un widget che valuta segnali del browser e distingue persone da bot <strong>senza puzzle</strong> nella quasi totalità dei casi. Gratuito, funziona anche su siti che non passano dal proxy Cloudflare, e più rispettoso della privacy di reCAPTCHA (niente profilo Google di mezzo).</p><p>Integrazione in due pezzi: il widget nel form (un tag e uno script) e la <strong>verifica server-side</strong> del token via API <code>siteverify</code> – saltarla è l&#x27;errore che rende tutto decorativo. Verità da conoscere: nessun sistema anti-bot è definitivo, i CAPTCHA si aggirano a pagamento da anni. Turnstile alza il costo dell&#x27;abuso; per i form che contano si affianca a <a href="../errore-429-too-many-requests/">rate limiting</a> e validazioni serie.</p></div>
     <div class="qa-actions">
       <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">

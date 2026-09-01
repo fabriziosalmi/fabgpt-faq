@@ -64,6 +64,7 @@
       <span class="page-meta-badge">⏱️ 1 min lettura</span>
       <span class="page-meta-badge">✓ Runbook verificato</span>
     </div>
+    
     <div class="answer" id="page-answer" itemprop="articleBody"><p>Un <strong>package manager</strong> installa software da repository firmati risolvendo le dipendenze – il motivo per cui su Linux non si scaricano installer a caso. Le tre famiglie: <strong>apt</strong> (Debian/Ubuntu), <strong>dnf</strong> (RHEL/Fedora, erede di yum), <strong>pacman</strong> (Arch).</p><p>Il flusso apt: <code>apt update</code> scarica gli <em>indici</em> (non aggiorna nulla), <code>apt upgrade</code> aggiorna i pacchetti, <code>apt install nginx</code>, <code>apt autoremove</code> pulisce. Equivalenti: <code>dnf upgrade</code> / <code>dnf install</code>, <code>pacman -Syu</code>.</p><p>Da dove arriva il software lo dicono i file in <code>/etc/apt/sources.list.d/</code> – è lì che si interviene, per esempio, per <a href="../aggiornare-proxmox-senza-subscription/">aggiornare Proxmox senza subscription</a>. Per le patch di sicurezza automatiche: <code>unattended-upgrades</code>. E il riflesso <code>curl | bash</code> copiato dai README? È <a href="../cos-e-la-supply-chain-security/">supply chain</a> non verificata: prima leggi, poi esegui.</p></div>
     <div class="qa-actions">
       <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">

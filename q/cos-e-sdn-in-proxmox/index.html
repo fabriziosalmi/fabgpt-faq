@@ -64,6 +64,7 @@
       <span class="page-meta-badge">⏱️ 2 min lettura</span>
       <span class="page-meta-badge">✓ Runbook verificato</span>
     </div>
+    
     <div class="answer" id="page-answer" itemprop="articleBody"><p>L&#x27;<strong>SDN</strong> (Software-Defined Networking) di Proxmox porta la definizione delle reti dal singolo nodo al <strong>datacenter</strong>: invece di configurare bridge e VLAN a mano su ogni host, definisci <strong>zone</strong> e <strong>VNet</strong> una volta sola e il cluster le applica ovunque – integrato nella GUI dalle versioni 8.x.</p><p>I mattoni: le zone <em>VLAN</em> mappano le <a href="../segmentare-la-rete-con-vlan/">VLAN fisiche</a> esistenti; le zone <strong>VXLAN/EVPN</strong> creano reti overlay che viaggiano incapsulate sulla rete normale – utile per stendere una rete privata tra nodi (anche in sedi diverse) senza toccare gli switch; più IPAM integrato, subnet e DHCP gestiti.</p><p>Quando usarlo: cluster con più di due nodi e reti per-tenant o per-ambiente (lab, staging, produzione isolate), o l&#x27;esigenza di reti che seguono le VM nella <a href="../migrazione-live-tra-nodi/">migrazione</a>. Per il nodo singolo di casa, il bridge classico con VLAN resta più che sufficiente – l&#x27;SDN è potenza che si paga in complessità.</p></div>
     <div class="qa-actions">
       <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">

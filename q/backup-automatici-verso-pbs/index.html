@@ -64,6 +64,7 @@
       <span class="page-meta-badge">⏱️ 2 min lettura</span>
       <span class="page-meta-badge">✓ Runbook verificato</span>
     </div>
+    
     <div class="answer" id="page-answer" itemprop="articleBody"><p>La sequenza completa, da zero a notti tranquille:</p><ul><li>su <a href="../cos-e-proxmox-backup-server/">PBS</a>: crea il <strong>datastore</strong> e un utente API dedicato; su PVE: Datacenter → Storage → aggiungi il PBS con il suo <strong>fingerprint</strong></li><li>Datacenter → <strong>Backup</strong>: crea il job – selezione VM (meglio &quot;tutte&quot; con esclusioni esplicite: le VM nuove entrano da sole), orario notturno, modalità <strong>snapshot</strong> (la sola che non ferma nulla)</li><li>la <strong>retention</strong> falla decidere a PBS (keep-daily/weekly/monthly) con il <strong>prune</strong> automatico: 7 giornalieri + 4 settimanali + 6 mensili è un default sano</li><li>attiva i <strong>verify</strong> programmati – un backup corrotto scoperto al restore non è un backup, è una beffa – e le <strong>notifiche sui fallimenti</strong> (un job che fallisce in silenzio per mesi è un classico del terrore)</li><li>completa la <a href="../backup-3-2-1/">regola 3-2-1</a>: <strong>sync remota</strong> verso un secondo PBS altrove</li></ul><p>Ultimo passo che quasi nessuno fa: <strong>prova un restore</strong> adesso, che sei calmo. Il giorno che servirà non lo sarai.</p></div>
     <div class="qa-actions">
       <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">

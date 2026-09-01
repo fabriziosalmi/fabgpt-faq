@@ -64,6 +64,7 @@
       <span class="page-meta-badge">⏱️ 1 min lettura</span>
       <span class="page-meta-badge">✓ Runbook verificato</span>
     </div>
+    
     <div class="answer" id="page-answer" itemprop="articleBody"><p>Il GDPR non fissa un numero: impone il principio di <strong>limitazione della conservazione</strong> – tieni i dati (e gli IP nei log <em>sono</em> dati personali) solo per il tempo necessario allo scopo, e sappi dimostrare il perché. In pratica si stratifica:</p><ul><li>log tecnici/di sicurezza: settimane o pochi mesi, salvo indagini in corso</li><li>log rilevanti per obblighi di legge (es. NIS2, fiscali): il periodo che la norma richiede – e qui serve anche <strong>integrità dimostrabile</strong></li><li>tutto il resto: anonimizzazione o cancellazione programmata</li></ul><p>Il Garante italiano è intervenuto più volte su log conservati &quot;per sempre e senza motivo&quot;. La combinazione che regge un audit: retention automatica + immutabilità verificabile – per i log Cloudflare è il mestiere di <a href="https://github.com/fabriziosalmi/rainlogs" target="_blank" rel="noopener">RainLogs</a> (WORM su storage UE, catena di hash, policy es. 395 giorni).</p></div>
     <div class="qa-actions">
       <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">

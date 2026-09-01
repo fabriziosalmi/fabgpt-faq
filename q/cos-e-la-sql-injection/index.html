@@ -64,6 +64,7 @@
       <span class="page-meta-badge">⏱️ 1 min lettura</span>
       <span class="page-meta-badge">✓ Runbook verificato</span>
     </div>
+    
     <div class="answer" id="page-answer" itemprop="articleBody"><p>La <strong>SQL injection</strong> è l&#x27;attacco più vecchio del mondo web e ancora in Top 10: input utente concatenato dentro una query SQL, così <code>&#x27; OR &#x27;1&#x27;=&#x27;1</code> trasforma un login in un &quot;entra chiunque&quot;. Con varianti blind e time-based si esfiltra un database intero da una singola casella di ricerca.</p><p>La prevenzione vera è nel codice: <strong>prepared statement / query parametrizzate</strong> sempre, mai concatenazione; privilegi minimi per l&#x27;utente del database; validazione degli input come cintura extra. Il <strong>WAF</strong> è la rete di sicurezza per il codice che non controlli (plugin, legacy): le regole OWASP CRS di <a href="https://github.com/fabriziosalmi/patterns" target="_blank" rel="noopener">patterns</a> e <a href="https://github.com/fabriziosalmi/caddy-waf" target="_blank" rel="noopener">caddy-waf</a> intercettano i pattern SQLi noti prima che tocchino l&#x27;applicazione.</p></div>
     <div class="qa-actions">
       <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">

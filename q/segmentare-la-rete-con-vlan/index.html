@@ -64,6 +64,7 @@
       <span class="page-meta-badge">⏱️ 1 min lettura</span>
       <span class="page-meta-badge">✓ Runbook verificato</span>
     </div>
+    
     <div class="answer" id="page-answer" itemprop="articleBody"><p>In una rete piatta, la lampadina IoT compromessa parla direttamente col NAS dei backup. Le <strong>VLAN</strong> spezzano questa promiscuità: reti logiche separate sullo stesso hardware, con un firewall che decide chi può parlare con chi.</p><p>Uno schema domestico/lab sensato: VLAN per i dispositivi fidati, una per l&#x27;<strong>IoT</strong> (che di default non raggiunge nulla, se non internet dove serve), una per gli <strong>ospiti</strong>, una per il <strong>management</strong> (Proxmox, switch, IPMI – raggiungibile solo da postazioni precise) e una per i <strong>server</strong>. Regola di default-deny tra le VLAN, aperture puntuali e loggate.</p><p>Servono switch e access point VLAN-aware (802.1Q) e un router/firewall che faccia da arbitro – OPNsense/pfSense o un Mikrotik. È <a href="../cos-e-la-defense-in-depth/">defense in depth</a> applicata alla LAN: il breach resta confinato nel suo recinto. Nell&#x27;<a href="../cos-e-proxmox-ve/">homelab con Proxmox</a>, le VLAN si portano fin dentro i bridge delle VM.</p></div>
     <div class="qa-actions">
       <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">

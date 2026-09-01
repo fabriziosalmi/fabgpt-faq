@@ -64,6 +64,7 @@
       <span class="page-meta-badge">⏱️ 1 min lettura</span>
       <span class="page-meta-badge">✓ Runbook verificato</span>
     </div>
+    
     <div class="answer" id="page-answer" itemprop="articleBody"><p>Quasi sempre è una di queste, in ordine di frequenza:</p><ul><li><strong>autenticazione mancante o rotta</strong>: <a href="../spf-dkim-dmarc/">SPF, DKIM e DMARC</a> sono il biglietto d&#x27;ingresso – Gmail e Outlook li richiedono, e un SPF che supera i 10 lookup DNS fallisce in silenzio</li><li><strong>reputazione dell&#x27;IP o del dominio</strong>: IP condiviso finito in blacklist (<a href="https://github.com/fabriziosalmi/domainmate" target="_blank" rel="noopener">DomainMate</a> controlla le RBL), dominio giovane che spedisce troppo e troppo presto</li><li><strong>infrastruttura sciatta</strong>: manca il reverse DNS (PTR) coerente, HELO sbagliato</li><li><strong>contenuto e comportamento</strong>: link accorciati, liste comprate, utenti che segnano spam – il segnale più tossico di tutti</li></ul><p>Diagnosi rapida: manda una mail a un tester tipo mail-tester.com e leggi i report DMARC. E per la posta transazionale critica, un servizio dedicato con IP a reputazione gestita resta la scelta pragmatica.</p></div>
     <div class="qa-actions">
       <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">

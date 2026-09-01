@@ -64,6 +64,7 @@
       <span class="page-meta-badge">⏱️ 1 min lettura</span>
       <span class="page-meta-badge">✓ Runbook verificato</span>
     </div>
+    
     <div class="answer" id="page-answer" itemprop="articleBody"><p>A ogni passo l&#x27;LLM produce una distribuzione di probabilità sul prossimo token. La <strong>temperatura</strong> decide come si pesca da quella distribuzione: vicino a <strong>0</strong> si sceglie quasi sempre il token più probabile (risposte ripetibili, conservative), salendo verso <strong>1 e oltre</strong> si dà spazio ai token meno probabili (varietà, creatività, ma anche più deragliamenti).</p><p>Regole pratiche: estrazione dati, classificazione, codice → temperatura bassa (0–0.3); brainstorming e scrittura creativa → 0.7–1. Il parametro gemello è <strong>top_p</strong> (nucleus sampling): limita la scelta ai token che cumulano una certa probabilità – si regola l&#x27;uno o l&#x27;altro, raramente entrambi. E anche a temperatura 0 un LLM non è davvero deterministico tra versioni e hardware diversi: per la riproducibilità vera servono altri strumenti.</p></div>
     <div class="qa-actions">
       <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">

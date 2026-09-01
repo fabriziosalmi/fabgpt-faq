@@ -64,6 +64,7 @@
       <span class="page-meta-badge">⏱️ 1 min lettura</span>
       <span class="page-meta-badge">✓ Runbook verificato</span>
     </div>
+    
     <div class="answer" id="page-answer" itemprop="articleBody"><p>Il paradigma <strong>LLM-as-a-Judge</strong> impiega un modello linguistico avanzato (es. Claude 3.5 Sonnet o GPT-4o) per giudicare e assegnare punteggi alle risposte generate da altri modelli più piccoli o pipeline <a href="../cos-e-un-agente-ai/">agentiche</a>.</p><p>I bias sistematici del giudice e come mitigarli:</p><ul><li><strong>Position Bias</strong>: il giudice tende a preferire la prima opzione presentata. Mitigazione: eseguire il confronto due volte invertendo l&#x27;ordine dei candidati (swap evaluation) e fare la media.</li><li><strong>Verbosity Bias</strong>: tendenza a premiare risposte lunghe anche se prolisse. Mitigazione: imporre rubriche di valutazione con vincoli rigidi sulla sintesi e penalità per informazioni ridondanti.</li><li><strong>Self-Enhancement Bias</strong>: i modelli tendono a preferire risposte generate dalla loro stessa famiglia. Mitigazione: usare giudici di vendor differenti o ensemble di più modelli.</li></ul></div>
     <div class="qa-actions">
       <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">

@@ -64,6 +64,7 @@
       <span class="page-meta-badge">⏱️ 1 min lettura</span>
       <span class="page-meta-badge">✓ Runbook verificato</span>
     </div>
+    
     <div class="answer" id="page-answer" itemprop="articleBody"><p>Sono sensori di rete per riconoscere gli attacchi in transito:</p><ul><li>l&#x27;<strong>IDS</strong> (Intrusion Detection System) osserva una copia del traffico e <strong>segnala</strong>: firma nota, protocollo anomalo, beacon verso un C2. Non tocca nulla – zero rischio di bloccare traffico buono, ma qualcuno deve leggere gli allarmi.</li><li>l&#x27;<strong>IPS</strong> (Prevention) sta <strong>in linea</strong> e può bloccare in tempo reale ciò che riconosce. Più protezione, più rischio: un falso positivo qui è un disservizio.</li></ul><p>Gli open source di riferimento sono <strong>Suricata</strong> e Snort (e Zeek per l&#x27;analisi). Da soli producono rumore: il valore arriva quando gli eventi finiscono in un <a href="../cos-e-un-siem-e-un-soar/">SIEM</a> che li correla col resto – è il ruolo di <a href="https://github.com/fabriziosalmi/wildbox" target="_blank" rel="noopener">Wildbox</a> in uno stack self-hosted. Nota di confine: il <a href="../cos-e-un-waf-web-application-firewall/">WAF</a> è di fatto un IPS specializzato nel solo traffico HTTP.</p></div>
     <div class="qa-actions">
       <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">

@@ -64,6 +64,7 @@
       <span class="page-meta-badge">⏱️ 1 min lettura</span>
       <span class="page-meta-badge">✓ Runbook verificato</span>
     </div>
+    
     <div class="answer" id="page-answer" itemprop="articleBody"><p>Prima di caricare pesi scaricati da hub aperti (come HuggingFace) nei server di produzione, è fondamentale isolarli in un ambiente di quarantena non connesso alla rete interna. La pipeline di ispezione prevede: 1) verifica che i file siano in formato SafeTensors (escludendo categoricamente file <code>.bin</code> o <code>.pt</code> serializzati con Pickle); 2) scansione euristica delle configurazioni JSON (<code>config.json</code>, <code>tokenizer.json</code>) per intercettare riferimenti a codice arbitrario o hook custom; 3) analisi con scanner specializzati come ModelScan o ClamAV integrato su <a href="../cos-e-un-honeypot/">wildbox</a>. I pesi validati vengono poi firmati crittograficamente e distribuiti tramite registro interno privato.</p></div>
     <div class="qa-actions">
       <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">

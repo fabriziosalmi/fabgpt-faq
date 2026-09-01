@@ -64,6 +64,7 @@
       <span class="page-meta-badge">⏱️ 1 min lettura</span>
       <span class="page-meta-badge">✓ Runbook verificato</span>
     </div>
+    
     <div class="answer" id="page-answer" itemprop="articleBody"><p>La nuvoletta accanto a ogni record DNS in Cloudflare decide tutto:</p><ul><li><strong>arancione (proxied)</strong>: il record risponde con gli IP di Cloudflare e il traffico passa dai loro server – da lì arrivano CDN, WAF, protezione DDoS, e il tuo <strong>IP d&#x27;origine resta nascosto</strong></li><li><strong>grigia (DNS only)</strong>: Cloudflare fa solo da DNS, il traffico va dritto al tuo server, IP esposto</li></ul><p>Errori classici: nuvoletta arancione su servizi non-HTTP (la posta con MX che punta a un nome proxied non arriva – i record di posta vogliono il grigio); e origine &quot;nascosta&quot; ma raggiungibile direttamente perché l&#x27;IP è rimasto in giro (vecchi record, certificati in CT log): l&#x27;origine va <strong>chiusa</strong> agli IP che non siano di Cloudflare, altrimenti il proxy è una tenda, non un muro. Chi invece vuole smontare la dipendenza dalla nuvoletta: <a href="https://github.com/fabriziosalmi/flareover" target="_blank" rel="noopener">flareover</a> è la via d&#x27;uscita ordinata.</p></div>
     <div class="qa-actions">
       <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">

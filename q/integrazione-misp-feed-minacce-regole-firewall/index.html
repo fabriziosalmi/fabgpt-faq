@@ -64,6 +64,7 @@
       <span class="page-meta-badge">⏱️ 1 min lettura</span>
       <span class="page-meta-badge">✓ Runbook verificato</span>
     </div>
+    
     <div class="answer" id="page-answer" itemprop="articleBody"><p><strong>MISP</strong> (Malware Information Sharing Platform) è la piattaforma open source di riferimento per raccogliere, correlare e condividere Indicatori di Compromissione (IoC) di minacce informatiche.</p><p>Come automatizzare il blocco sui firewall aziendali:</p><p>1. <strong>Creazione di Feed e Warninglist</strong>: in MISP si filtrano gli IoC ad alta confidenza (es. IP C2 attivi e domini malevoli con tag specifici e validità recente).<br>2. <strong>Esportazione in formati standard</strong>: MISP genera feed automatizzati via API in formato testo, JSON, CSV o RPZ per DNS.<br>3. <strong>Ingestione sul Firewall</strong>: script pianificati o agenti SOAR scaricano la blocklist e popolano tabelle dinamiche ad alte prestazioni (es. <code>ipset</code> o set nativi di <code>nftables</code> su Linux, alias URL Table su OPNsense/pfSense o liste IP su <a href="../cos-e-un-waf-web-application-firewall/">Cloudflare WAF</a>).</p></div>
     <div class="qa-actions">
       <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">

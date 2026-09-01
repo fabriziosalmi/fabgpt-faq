@@ -64,6 +64,7 @@
       <span class="page-meta-badge">⏱️ 1 min lettura</span>
       <span class="page-meta-badge">✓ Runbook verificato</span>
     </div>
+    
     <div class="answer" id="page-answer" itemprop="articleBody"><p>Uno script Bash parte con lo <em>shebang</em> <code>#!/usr/bin/env bash</code> e, subito dopo, la cintura di sicurezza: <code>set -euo pipefail</code> (esci al primo errore, sulle variabili non definite e sui fallimenti in pipe).</p><p>Le basi che coprono il 90%: variabili <code>nome=&quot;valore&quot;</code> (niente spazi attorno a <code>=</code>), sostituzione di comando <code>$(comando)</code>, condizioni <code>if [[ -f file ]]</code>, cicli <code>for f in *.log</code>. La regola d&#x27;oro: <strong>virgoletta sempre le variabili</strong> – <code>&quot;$var&quot;</code> – o gli spazi nei nomi file ti distruggeranno lo script.</p><p>Prima di eseguire, passa tutto in <strong>ShellCheck</strong> (<code>shellcheck script.sh</code>): trova gli errori classici meglio di una revisione umana. Poi pianifica con <a href="../cron-la-sintassi-spiegata/">cron</a> o i <a href="../gestire-servizi-linux-con-systemctl/">timer systemd</a>. Quando lo script supera le ~100 righe o deve parlare JSON, è il momento di Python.</p></div>
     <div class="qa-actions">
       <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">

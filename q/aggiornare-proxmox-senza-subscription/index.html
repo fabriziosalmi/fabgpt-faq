@@ -64,6 +64,7 @@
       <span class="page-meta-badge">⏱️ 1 min lettura</span>
       <span class="page-meta-badge">✓ Runbook verificato</span>
     </div>
+    
     <div class="answer" id="page-answer" itemprop="articleBody"><p>Proxmox è libero: la subscription paga il supporto e l&#x27;accesso al repository <strong>enterprise</strong> (più testato), non il software. Senza subscription si usa il repository <strong>pve-no-subscription</strong>: stessi pacchetti, ciclo di rilascio leggermente più rapido.</p><p>La procedura pulita: disabilita il repo enterprise (che senza chiave fallisce), abilita <code>pve-no-subscription</code> – dalla web UI (Repositories) o creando il file in <code>/etc/apt/sources.list.d/</code> – e aggiorna con <code>apt update &amp;&amp; apt dist-upgrade</code> (mai <code>apt upgrade</code> semplice su Proxmox). Lo stesso vale per PBS con il suo repo no-subscription.</p><p>Il famoso popup &quot;No valid subscription&quot; è solo un promemoria, innocuo. Per un ambiente di produzione aziendale la subscription Community ha senso: repo più conservativo e si finanzia lo sviluppo di quello che stai usando gratis.</p></div>
     <div class="qa-actions">
       <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">

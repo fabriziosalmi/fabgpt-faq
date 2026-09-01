@@ -64,6 +64,7 @@
       <span class="page-meta-badge">⏱️ 1 min lettura</span>
       <span class="page-meta-badge">✓ Runbook verificato</span>
     </div>
+    
     <div class="answer" id="page-answer" itemprop="articleBody"><p>Il formato legacy Pickle (<code>.bin</code>, <code>.pt</code> di PyTorch) serializza sia i pesi tensoriali sia lo stato dell&#x27;interprete Python: durante la deserializzazione con <code>torch.load()</code>, il bytecode esegue la funzione <code>__reduce__()</code>, consentendo a un attaccante di iniettare ed eseguire codice arbitrario (RCE) sul sistema host con i privilegi del processo di inferenza.</p><p>Il formato <strong>SafeTensors</strong> (<code>.safetensors</code>), sviluppato da Hugging Face:</p><p>1. <strong>Zero codice eseguibile</strong>: memorizza esclusivamente un header JSON con i metadati dei tensori e i buffer binari raw, senza alcun interprete di codice.<br>2. <strong>Zero-Copy memory mapping</strong>: usa <code>mmap</code> per mappare i pesi direttamente dallo storage alla RAM/VRAM della GPU, abbattendo la latenza di caricamento e prevenendo overflow.<br>3. <strong>Ispezione deterministica</strong>: consente di verificare dimensioni, tipi di dato (<code>float16</code>, <code>bfloat16</code>) e hash SHA-256 dei tensori prima del caricamento in memoria.</p></div>
     <div class="qa-actions">
       <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">

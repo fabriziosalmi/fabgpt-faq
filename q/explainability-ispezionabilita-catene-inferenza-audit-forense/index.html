@@ -64,6 +64,7 @@
       <span class="page-meta-badge">⏱️ 1 min lettura</span>
       <span class="page-meta-badge">✓ Runbook verificato</span>
     </div>
+    
     <div class="answer" id="page-answer" itemprop="articleBody"><p>La conformità all&#x27;AI Act europeo e i requisiti di forensic readiness richiedono la capacità di ricostruire a posteriori ogni decisione presa da sistemi AI. Per implementarla: 1) registrare per ogni transazione il System Prompt immutabile, l&#x27;intero contesto di input, la versione esatta dei pesi del modello e i parametri di campionamento (temperature, top_p, seed); 2) documentare i passaggi intermedi di reasoning (Thought/Action/Observation) e le chiamate ai tool con timestamp sincronizzati NTP; 3) archiviare i log su storage WORM (Write Once, Read Many) crittograficamente sigillati con <a href="../conservare-log-cloudflare-nis2-gdpr/">rainlogs</a>. In questo modo, revisori ed esperti forensi possono rieseguire deterministicamente la sequenza.</p></div>
     <div class="qa-actions">
       <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">

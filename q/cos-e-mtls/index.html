@@ -64,6 +64,7 @@
       <span class="page-meta-badge">⏱️ 1 min lettura</span>
       <span class="page-meta-badge">✓ Runbook verificato</span>
     </div>
+    
     <div class="answer" id="page-answer" itemprop="articleBody"><p>Nel TLS normale solo il server si presenta con un certificato; il client resta anonimo e si autentica dopo, con password o token. In <strong>mTLS</strong> anche il <strong>client presenta un certificato</strong>: le due parti si verificano a vicenda durante l&#x27;handshake, prima che passi un solo byte applicativo.</p><p>È lo standard di fatto per il <strong>machine-to-machine</strong>: microservizi che si parlano (le service mesh lo automatizzano), API interne, agenti che riportano a un server centrale, dispositivi verso il cloud. Niente credenziali da rubare o riusare: o hai la chiave giusta, o l&#x27;handshake muore lì – <a href="../cos-e-il-modello-zero-trust/">Zero Trust</a> applicato al traffico.</p><p>Il prezzo è la <strong>gestione dei certificati client</strong>: emissione, rotazione, revoca per ogni servizio – ingestibile a mano, ragionevole con una <a href="../errore-err-cert-authority-invalid/">CA privata</a> automatizzata come quella di <a href="https://github.com/fabriziosalmi/certmate" target="_blank" rel="noopener">CertMate</a> (e mTLS su scala è uno dei mestieri di CertMate-ng, la versione enterprise).</p></div>
     <div class="qa-actions">
       <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">

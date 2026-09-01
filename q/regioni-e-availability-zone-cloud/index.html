@@ -64,6 +64,7 @@
       <span class="page-meta-badge">⏱️ 1 min lettura</span>
       <span class="page-meta-badge">✓ Runbook verificato</span>
     </div>
+    
     <div class="answer" id="page-answer" itemprop="articleBody"><p>Una <strong>regione</strong> è un&#x27;area geografica con più datacenter (es. <code>eu-south-1</code>, Milano); una <strong>availability zone</strong> (AZ) è uno o più datacenter indipendenti dentro la regione – alimentazione, rete e raffreddamento separati, ma latenza minima tra loro.</p><p>In pratica: <strong>multi-AZ</strong> protegge dal guasto del singolo datacenter ed è il minimo sindacale per un servizio serio; <strong>multi-region</strong> protegge dal disastro regionale ma costa molto di più (repliche, traffico tra regioni, complessità). La maggior parte dei progetti si ferma, giustamente, al multi-AZ con <a href="../backup-3-2-1/">backup</a> in un&#x27;altra regione – che è già un <a href="../piano-di-disaster-recovery-minimo/">piano di disaster recovery</a> sensato.</p><p>La regione decide anche <strong>dove risiedono i dati</strong>: per GDPR e clienti pubblici scegliere una regione europea non è un dettaglio ma un requisito – si torna alla <a href="../cos-e-la-sovranita-digitale/">sovranità digitale</a>.</p></div>
     <div class="qa-actions">
       <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">

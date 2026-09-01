@@ -64,6 +64,7 @@
       <span class="page-meta-badge">⏱️ 1 min lettura</span>
       <span class="page-meta-badge">✓ Runbook verificato</span>
     </div>
+    
     <div class="answer" id="page-answer" itemprop="articleBody"><p>Una volta al mese, mezz&#x27;ora, sempre la stessa scaletta:</p><p>1. <strong>Porte esposte</strong>: <code>nmap</code> dall&#x27;esterno contro il tuo IP e confronto con <a href="../porte-tcp-e-udp-quali-conoscere/">ciò che dovrebbe ascoltare</a> – ogni porta non prevista è una domanda da chiudere<br>2. <strong>Log di autenticazione</strong>: accessi riusciti da IP mai visti, orari anomali, <a href="../fail2ban-e-alternative/">ban scattati</a><br>3. <strong>Certificati</strong>: scadenze sotto i 30 giorni (<a href="../certificato-tls-scaduto-cosa-fare/">qui il perché</a>); meglio ancora <a href="../monitorare-dominio-ssl-reputazione/">monitorarli</a><br>4. <strong>Aggiornamenti pendenti</strong> e riavvio se il kernel lo chiede<br>5. <strong>Un restore di prova</strong> dal backup: un <a href="../backup-3-2-1/">backup mai ripristinato</a> è una speranza, non un backup</p><p>La parte difficile non è la lista: è la cadenza. Metti un promemoria ricorrente e <a href="../security-logging-fatto-bene/">automatizza ciò che si può</a> – i punti 1 e 3 sono scriptabili in un pomeriggio.</p></div>
     <div class="qa-actions">
       <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">

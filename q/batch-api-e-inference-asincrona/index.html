@@ -64,6 +64,7 @@
       <span class="page-meta-badge">⏱️ 1 min lettura</span>
       <span class="page-meta-badge">✓ Runbook verificato</span>
     </div>
+    
     <div class="answer" id="page-answer" itemprop="articleBody"><p>Le <strong>batch API</strong> rovesciano il patto: rinunci alla risposta immediata – carichi un lotto di richieste e i risultati arrivano entro ore (di solito con garanzia entro 24) – e in cambio paghi <strong>circa la metà</strong>. Per il provider è capacità riempita nei momenti morti; per te è uno sconto strutturale su tutto ciò che non è interattivo.</p><p>I casi giusti: classificare o arricchire un dataset, generare descrizioni per diecimila prodotti, <a href="../come-valutare-le-risposte-di-un-llm/">valutazioni</a> notturne, riscritture di massa (il caso <a href="https://github.com/fabriziosalmi/UglyFeed" target="_blank" rel="noopener">UglyFeed</a>: rielaborare feed RSS non ha bisogno del tempo reale), report periodici. Il pattern architetturale: separa nel tuo sistema ciò che l&#x27;utente aspetta <em>adesso</em> da ciò che può maturare in coda – spesso è più di quanto pensi, e ogni chiamata spostata sul binario lento costa metà. Combinato con <a href="../cos-e-il-prompt-caching/">prompt caching</a> e modelli dimensionati, il conto dell&#x27;API si ridimensiona davvero.</p></div>
     <div class="qa-actions">
       <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">

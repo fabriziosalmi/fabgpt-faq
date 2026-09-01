@@ -1,0 +1,424 @@
+{
+ "ports": {
+  "21": {
+   "port": 21,
+   "proto": "tcp",
+   "service": "FTP",
+   "desc": "Il File Transfer Protocol storico: trasferimento file **in chiaro**, credenziali incluse. Sopravvive su NAS datati e hosting economici.",
+   "risk": "Nel 2026 non c'è motivo di esporlo: usa SFTP (che viaggia dentro SSH sulla 22) o FTPS. Se un audit trova la 21 aperta, è un reperto da spiegare.",
+   "suggest": [
+    "mettere-in-sicurezza-ssh",
+    "come-funzionano-le-chiavi-ssh",
+    "fail2ban-e-alternative"
+   ]
+  },
+  "22": {
+   "port": 22,
+   "proto": "tcp",
+   "service": "SSH",
+   "desc": "La porta dell'amministrazione remota: shell, SFTP, tunnel e port forwarding. La più bussata di internet: un host esposto riceve migliaia di tentativi al giorno.",
+   "risk": "Solo chiavi, niente root diretto, ban automatico dei tentativi. Cambiare porta riduce il rumore nei log, non il rischio.",
+   "suggest": [
+    "mettere-in-sicurezza-ssh",
+    "come-funzionano-le-chiavi-ssh",
+    "fail2ban-e-alternative"
+   ]
+  },
+  "23": {
+   "port": 23,
+   "proto": "tcp",
+   "service": "Telnet",
+   "desc": "Shell remota **in chiaro**, precursore di SSH. Ancora acceso di fabbrica su troppi router, switch e dispositivi IoT.",
+   "risk": "Va spento ovunque: chi sniffa la rete legge login e password. È tra le prime porte che le botnet IoT provano.",
+   "suggest": [
+    "cos-e-una-botnet",
+    "configurare-firewall-host-default-deny-nftables-ufw",
+    "mettere-in-sicurezza-ssh"
+   ]
+  },
+  "25": {
+   "port": 25,
+   "proto": "tcp",
+   "service": "SMTP",
+   "desc": "Il traffico mail server-to-server. I provider consumer la bloccano in uscita proprio per contenere lo spam da IP residenziali.",
+   "risk": "Un server con la 25 aperta e mal configurato diventa open relay in poche ore. L'invio autenticato dei client va sulla 587, non qui.",
+   "suggest": [
+    "spf-dkim-dmarc",
+    "perche-email-in-spam",
+    "configurare-smart-host-relay-smtp-cifrato-ip-residenziali"
+   ]
+  },
+  "53": {
+   "port": 53,
+   "proto": "both",
+   "service": "DNS",
+   "desc": "La risoluzione dei nomi, in UDP per le query normali e TCP per risposte grandi e zone transfer.",
+   "risk": "Un resolver aperto al mondo viene arruolato negli attacchi di amplificazione DDoS. Ricorsione solo per le reti interne; per la privacy delle query c'è DoH/DoT.",
+   "suggest": [
+    "tipi-di-record-dns",
+    "cos-e-doh-dns-over-https",
+    "resolver-dns-privato-e-sicuro"
+   ]
+  },
+  "67": {
+   "port": 67,
+   "proto": "udp",
+   "service": "DHCP",
+   "desc": "Il server DHCP ascolta qui (il client risponde sulla 68): assegnazione automatica di IP, gateway e DNS.",
+   "risk": "Un DHCP abusivo sulla LAN (rogue DHCP) può dirottare il traffico di tutti: sugli switch gestiti si mitiga con DHCP snooping.",
+   "suggest": [
+    "come-funziona-il-dhcp",
+    "cos-e-il-subnetting-e-il-cidr",
+    "segmentare-la-rete-con-vlan"
+   ]
+  },
+  "80": {
+   "port": 80,
+   "proto": "tcp",
+   "service": "HTTP",
+   "desc": "Il web senza cifratura. Oggi serve quasi solo a una cosa: redirigere verso HTTPS (e rispondere alla challenge ACME HTTP-01).",
+   "risk": "Servire contenuti veri sulla 80 espone gli utenti a intercettazione e manipolazione. Redirect 301 alla 443 e HSTS.",
+   "suggest": [
+    "differenza-http-https-tls",
+    "cos-e-un-reverse-proxy",
+    "come-funziona-lets-encrypt-acme"
+   ]
+  },
+  "110": {
+   "port": 110,
+   "proto": "tcp",
+   "service": "POP3",
+   "desc": "Ritiro della posta vecchio stile: scarica e (di norma) cancella dal server. In chiaro.",
+   "risk": "Se proprio serve POP3, si usa la 995 (TLS). La coppia 110/143 in chiaro è un classico dei pentest riusciti.",
+   "suggest": [
+    "spf-dkim-dmarc",
+    "perche-email-in-spam",
+    "configurare-smart-host-relay-smtp-cifrato-ip-residenziali"
+   ]
+  },
+  "123": {
+   "port": 123,
+   "proto": "udp",
+   "service": "NTP",
+   "desc": "La sincronizzazione dell'orologio. Sembra banale, ma certificati TLS, log correlati e 2FA TOTP dipendono da orari corretti.",
+   "risk": "Come il DNS, un NTP aperto e datato è un amplificatore DDoS (comando monlist). E orologi sballati producono log inutilizzabili in un'indagine.",
+   "suggest": [
+    "security-logging-fatto-bene",
+    "dove-sono-i-log-su-linux",
+    "cron-la-sintassi-spiegata"
+   ]
+  },
+  "143": {
+   "port": 143,
+   "proto": "tcp",
+   "service": "IMAP",
+   "desc": "Lettura della posta lasciandola sul server, la modalità moderna. In chiaro su questa porta.",
+   "risk": "Va sostituita dalla 993 (IMAPS). Le credenziali mail sono le più preziose: resettano tutto il resto.",
+   "suggest": [
+    "spf-dkim-dmarc",
+    "perche-email-in-spam",
+    "configurare-smart-host-relay-smtp-cifrato-ip-residenziali"
+   ]
+  },
+  "161": {
+   "port": 161,
+   "proto": "udp",
+   "service": "SNMP",
+   "desc": "Il monitoraggio di rete di apparati e stampanti: contatori, stato interfacce, inventario.",
+   "risk": "Le community string di default (public/private) di SNMP v1/v2c sono leggibili da chiunque e in chiaro: v3 con autenticazione, o accesso solo dalla VLAN di management.",
+   "suggest": [
+    "stack-di-monitoraggio-prometheus-grafana",
+    "segmentare-la-rete-con-vlan",
+    "configurare-firewall-host-default-deny-nftables-ufw"
+   ]
+  },
+  "389": {
+   "port": 389,
+   "proto": "tcp",
+   "service": "LDAP",
+   "desc": "La directory aziendale (Active Directory incluso): utenti, gruppi, autenticazioni. In chiaro o StartTLS.",
+   "risk": "Bind in chiaro = credenziali di dominio sniffabili. LDAPS (636) o StartTLS obbligatorio, e mai esposta a internet.",
+   "suggest": [
+    "attacchi-active-directory-kerberoasting",
+    "cos-e-il-modello-zero-trust",
+    "segmentare-la-rete-con-vlan"
+   ]
+  },
+  "443": {
+   "port": 443,
+   "proto": "tcp",
+   "service": "HTTPS",
+   "desc": "Il web cifrato con TLS: la porta più attraversata di internet, e ormai anche il contenitore di tutto il resto (HTTP/2, HTTP/3-QUIC su 443/udp, VPN che si travestono).",
+   "risk": "Esposta va benissimo: è *cosa* c'è dietro che conta. Reverse proxy con certificati automatici, security header e WAF per le applicazioni.",
+   "suggest": [
+    "differenza-http-https-tls",
+    "cos-e-un-reverse-proxy",
+    "come-funziona-lets-encrypt-acme"
+   ]
+  },
+  "445": {
+   "port": 445,
+   "proto": "tcp",
+   "service": "SMB",
+   "desc": "La condivisione file e stampanti di Windows (e Samba). Il canale preferito dei ransomware per muoversi lateralmente in rete.",
+   "risk": "MAI esposta a internet: WannaCry ed EternalBlue sono il promemoria permanente. In LAN: SMB3 con firma, e segmentazione per contenere la propagazione.",
+   "suggest": [
+    "cos-e-un-ransomware",
+    "segmentare-la-rete-con-vlan",
+    "backup-3-2-1"
+   ]
+  },
+  "465": {
+   "port": 465,
+   "proto": "tcp",
+   "service": "SMTPS",
+   "desc": "Invio mail dei client con TLS implicito: la connessione nasce già cifrata. Riabilitata ufficialmente dopo anni di limbo.",
+   "risk": "Va bene quanto la 587+STARTTLS: l'importante è l'autenticazione obbligatoria e niente relay aperto.",
+   "suggest": [
+    "spf-dkim-dmarc",
+    "perche-email-in-spam",
+    "configurare-smart-host-relay-smtp-cifrato-ip-residenziali"
+   ]
+  },
+  "587": {
+   "port": 587,
+   "proto": "tcp",
+   "service": "SMTP Submission",
+   "desc": "La porta corretta per l'invio autenticato dei client mail: STARTTLS più login, separata dal traffico server-to-server della 25.",
+   "risk": "Autenticazione sempre, rate limiting sugli invii, e le credenziali compromesse si notano dai volumi anomali.",
+   "suggest": [
+    "spf-dkim-dmarc",
+    "perche-email-in-spam",
+    "configurare-smart-host-relay-smtp-cifrato-ip-residenziali"
+   ]
+  },
+  "636": {
+   "port": 636,
+   "proto": "tcp",
+   "service": "LDAPS",
+   "desc": "LDAP dentro TLS: la versione cifrata della 389 per le query alla directory.",
+   "risk": "La versione giusta per ogni bind con credenziali. Verifica che i client validino il certificato, o il TLS è teatro.",
+   "suggest": [
+    "attacchi-active-directory-kerberoasting",
+    "cos-e-il-modello-zero-trust",
+    "crittografia-simmetrica-e-asimmetrica"
+   ]
+  },
+  "853": {
+   "port": 853,
+   "proto": "tcp",
+   "service": "DNS-over-TLS",
+   "desc": "Le query DNS cifrate con DoT: stessa semantica della 53, dentro TLS.",
+   "risk": "Cifra le query verso il resolver scelto: l'operatore non le legge più. Resta la fiducia nel resolver: la scelta conta più del protocollo.",
+   "suggest": [
+    "tipi-di-record-dns",
+    "cos-e-doh-dns-over-https",
+    "resolver-dns-privato-e-sicuro"
+   ]
+  },
+  "993": {
+   "port": 993,
+   "proto": "tcp",
+   "service": "IMAPS",
+   "desc": "IMAP dentro TLS: la porta giusta per leggere la posta oggi.",
+   "risk": "Con MFA sull'account mail dove possibile: la casella di posta è la chiave di reset di tutti gli altri servizi.",
+   "suggest": [
+    "spf-dkim-dmarc",
+    "perche-email-in-spam",
+    "configurare-smart-host-relay-smtp-cifrato-ip-residenziali"
+   ]
+  },
+  "995": {
+   "port": 995,
+   "proto": "tcp",
+   "service": "POP3S",
+   "desc": "POP3 dentro TLS, per chi ancora scarica la posta in locale.",
+   "risk": "Legittima per il backup locale della posta; per il multi-dispositivo IMAPS (993) è la scelta sensata.",
+   "suggest": [
+    "spf-dkim-dmarc",
+    "perche-email-in-spam",
+    "configurare-smart-host-relay-smtp-cifrato-ip-residenziali"
+   ]
+  },
+  "1194": {
+   "port": 1194,
+   "proto": "udp",
+   "service": "OpenVPN",
+   "desc": "La porta di default di OpenVPN. UDP per prestazioni, TCP come ripiego nei network restrittivi (spesso su 443 per mimetizzarsi).",
+   "risk": "Superficie storica più ampia di WireGuard; se parti oggi, WireGuard (51820) è più semplice da tenere sicuro.",
+   "suggest": [
+    "wireguard-o-openvpn",
+    "differenza-vpn-e-proxy",
+    "esporre-servizi-senza-aprire-porte"
+   ]
+  },
+  "1433": {
+   "port": 1433,
+   "proto": "tcp",
+   "service": "Microsoft SQL Server",
+   "desc": "Il database di casa Microsoft in ascolto per le applicazioni.",
+   "risk": "Mai esposto a internet: brute force su 'sa' e vulnerabilità note arrivano in minuti. Accesso solo da subnet applicativa, autenticazione integrata dove possibile.",
+   "suggest": [
+    "configurare-firewall-host-default-deny-nftables-ufw",
+    "segmentare-la-rete-con-vlan",
+    "come-gestire-i-secrets"
+   ]
+  },
+  "2049": {
+   "port": 2049,
+   "proto": "both",
+   "service": "NFS",
+   "desc": "La condivisione file nativa Unix/Linux, tipica tra hypervisor e NAS.",
+   "risk": "Il controllo per IP di NFSv3 si aggira facilmente: rete storage dedicata o VLAN, e NFSv4 con Kerberos dove serve autenticazione vera.",
+   "suggest": [
+    "perche-usare-zfs-su-proxmox",
+    "segmentare-la-rete-con-vlan",
+    "cos-e-proxmox-backup-server"
+   ]
+  },
+  "3306": {
+   "port": 3306,
+   "proto": "tcp",
+   "service": "MySQL / MariaDB",
+   "desc": "Il database più diffuso del web in ascolto per le applicazioni.",
+   "risk": "bind-address su localhost o subnet interna: l'app si collega dalla sua rete, internet no. Utenti con permessi minimi per schema, mai root applicativo.",
+   "suggest": [
+    "configurare-firewall-host-default-deny-nftables-ufw",
+    "segmentare-la-rete-con-vlan",
+    "come-gestire-i-secrets"
+   ]
+  },
+  "3389": {
+   "port": 3389,
+   "proto": "tcp",
+   "service": "RDP",
+   "desc": "Il desktop remoto di Windows.",
+   "risk": "Tra le prime cause di incidenti ransomware: mai esposta nuda. VPN o gateway con MFA davanti, NLA attivo, e ban sui tentativi falliti.",
+   "suggest": [
+    "cos-e-un-ransomware",
+    "cos-e-un-attacco-brute-force",
+    "differenza-vpn-e-proxy"
+   ]
+  },
+  "5432": {
+   "port": 5432,
+   "proto": "tcp",
+   "service": "PostgreSQL",
+   "desc": "Il database relazionale open source di riferimento.",
+   "risk": "listen_addresses interno, pg_hba.conf restrittivo (scram-sha-256, mai trust in rete) e utenti col minimo privilegio per applicazione.",
+   "suggest": [
+    "configurare-firewall-host-default-deny-nftables-ufw",
+    "segmentare-la-rete-con-vlan",
+    "come-gestire-i-secrets"
+   ]
+  },
+  "5900": {
+   "port": 5900,
+   "proto": "tcp",
+   "service": "VNC",
+   "desc": "Il controllo remoto grafico multipiattaforma (e la console delle VM in molti hypervisor).",
+   "risk": "Le password VNC classiche sono deboli per progetto (8 caratteri). Solo dentro tunnel SSH o VPN, mai nuda su internet.",
+   "suggest": [
+    "mettere-in-sicurezza-ssh",
+    "esporre-servizi-senza-aprire-porte",
+    "differenza-container-lxc-e-vm"
+   ]
+  },
+  "6379": {
+   "port": 6379,
+   "proto": "tcp",
+   "service": "Redis",
+   "desc": "La cache in-memory usata da mezzo web (sessioni, code, cache di Nextcloud incluse).",
+   "risk": "Nasce senza autenticazione: un Redis esposto è compromesso in ore (cron malevoli via CONFIG SET). Bind su localhost/rete interna, requirepass o ACL, protected-mode attivo.",
+   "suggest": [
+    "nextcloud-ottimizzazione-redis-caching-postgresql",
+    "configurare-firewall-host-default-deny-nftables-ufw",
+    "come-gestire-i-secrets"
+   ]
+  },
+  "8006": {
+   "port": 8006,
+   "proto": "tcp",
+   "service": "Proxmox VE (web UI)",
+   "desc": "L'interfaccia di gestione di Proxmox VE: web UI e API sulla stessa porta.",
+   "risk": "Chi controlla la 8006 controlla tutte le VM: accesso solo da VLAN di management o VPN, MFA sugli utenti, e mai il port forward dal router 'per comodità'.",
+   "suggest": [
+    "cos-e-proxmox-ve",
+    "segmentare-la-rete-con-vlan",
+    "autoscaling-vm-lxc-proxmox"
+   ]
+  },
+  "8080": {
+   "port": 8080,
+   "proto": "tcp",
+   "service": "HTTP alternativo",
+   "desc": "La porta di sviluppo e dei servizi dietro proxy: application server, pannelli, container in ascolto interno.",
+   "risk": "Il classico dimenticato: il servizio 'temporaneo' sulla 8080 esposto senza autenticazione. Dietro reverse proxy con TLS, o chiusa dal firewall.",
+   "suggest": [
+    "cos-e-un-reverse-proxy",
+    "configurare-firewall-host-default-deny-nftables-ufw",
+    "esporre-servizi-senza-aprire-porte"
+   ]
+  },
+  "8443": {
+   "port": 8443,
+   "proto": "tcp",
+   "service": "HTTPS alternativo",
+   "desc": "HTTPS su porta non standard: pannelli di controllo, appliance, servizi amministrativi.",
+   "risk": "Porta diversa non significa nascosto: gli scanner la conoscono benissimo. Vale tutto quanto vale per la 443, autenticazione inclusa.",
+   "suggest": [
+    "differenza-http-https-tls",
+    "cos-e-un-reverse-proxy",
+    "come-funziona-lets-encrypt-acme"
+   ]
+  },
+  "9090": {
+   "port": 9090,
+   "proto": "tcp",
+   "service": "Cockpit / Prometheus",
+   "desc": "Due inquilini frequenti: la console web Cockpit delle distro server e l'interfaccia di Prometheus.",
+   "risk": "Entrambi parlano di infrastruttura: accesso da management, non da internet. Prometheus in particolare non ha autenticazione propria: reverse proxy davanti.",
+   "suggest": [
+    "stack-di-monitoraggio-prometheus-grafana",
+    "dove-sono-i-log-su-linux",
+    "cos-e-un-reverse-proxy"
+   ]
+  },
+  "11434": {
+   "port": 11434,
+   "proto": "tcp",
+   "service": "Ollama",
+   "desc": "L'API locale di Ollama per gli LLM in locale.",
+   "risk": "Senza autenticazione nativa: esposta, chiunque usa la tua GPU (e i tuoi modelli). Bind su localhost; per condividerla, reverse proxy con auth davanti.",
+   "suggest": [
+    "far-girare-un-llm-in-locale",
+    "interfaccia-chat-per-ollama-open-webui",
+    "cos-e-un-reverse-proxy"
+   ]
+  },
+  "27017": {
+   "port": 27017,
+   "proto": "tcp",
+   "service": "MongoDB",
+   "desc": "Il database documentale in ascolto per le applicazioni.",
+   "risk": "I 'MongoDB apocalypse' (database aperti cancellati e ricattati) nascono da bind su 0.0.0.0 senza auth: authorization enabled, bind interno, e backup testati.",
+   "suggest": [
+    "configurare-firewall-host-default-deny-nftables-ufw",
+    "segmentare-la-rete-con-vlan",
+    "come-gestire-i-secrets"
+   ]
+  },
+  "51820": {
+   "port": 51820,
+   "proto": "udp",
+   "service": "WireGuard",
+   "desc": "La porta di default di WireGuard: VPN moderna, codice minimo, chiavi pubbliche.",
+   "risk": "Non risponde ai pacchetti non autenticati: invisibile agli scanner, sicura da esporre. La porta si può cambiare liberamente, il protocollo non cambia.",
+   "suggest": [
+    "wireguard-o-openvpn",
+    "esporre-servizi-senza-aprire-porte",
+    "differenza-vpn-e-proxy"
+   ]
+  }
+ }
+}

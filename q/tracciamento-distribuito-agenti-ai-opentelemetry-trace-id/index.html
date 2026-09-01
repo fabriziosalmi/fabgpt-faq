@@ -64,6 +64,7 @@
       <span class="page-meta-badge">⏱️ 1 min lettura</span>
       <span class="page-meta-badge">✓ Runbook verificato</span>
     </div>
+    
     <div class="answer" id="page-answer" itemprop="articleBody"><p>Gli agenti interattivi interagiscono con database, API REST e code di messaggi. Senza correlazione di contesto, il debug di un fallimento richiede ore di analisi incrociata tra log eterogenei.</p><p>Per unificare l&#x27;osservabilità:</p><p>1. <strong>W3C TraceContext &amp; OpenInference</strong>: propaga gli header standard (<code>traceparent</code>, <code>tracestate</code>) attraverso tutte le chiamate HTTP e RPC effettuate dall&#x27;agente verso i tool.<br>2. <strong>Gerarchia di Span</strong>: crea uno Span principale per il task utente, con sub-span dedicati per ogni invocazione LLM (memorizzando token in/out, latenza TTFT e modello) e per ogni esecuzione di tool o query database.<br>3. <strong>Context Injection</strong>: inietta il <code>Trace-ID</code> corrente nel system prompt e nei metadati dei payload JSON, garantendo che ogni log generato da tool esterni sia indicizzato e interrogabile su <a href="../conservare-log-cloudflare-nis2-gdpr/">Rainlogs</a> o Grafana Tempo.</p></div>
     <div class="qa-actions">
       <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">

@@ -64,6 +64,7 @@
       <span class="page-meta-badge">⏱️ 1 min lettura</span>
       <span class="page-meta-badge">✓ Runbook verificato</span>
     </div>
+    
     <div class="answer" id="page-answer" itemprop="articleBody"><p>L&#x27;invio di password, chiavi API o certificati tramite chat o email in chiaro è tra le prime cause di data leakage aziendale. Per condividere credenziali in modo sicuro si impiegano strumenti a conoscenza zero:</p><p>1. <strong>PrivateBin</strong>: pastebin open source in cui la crittografia (AES-256-GCM) avviene interamente nel browser del mittente. La chiave di decifratura è contenuta nell&#x27;URL fragment (<code>#chiave</code>), che non viene mai inviato al server web. Supporta scadenza temporale e autodistruzione dopo la prima lettura (Burn after reading).<br>2. <strong>Vaultwarden Sends</strong>: funzionalità nativa di <a href="../password-manager-self-hosted-vaultwarden/">Vaultwarden</a> che consente di condividere stringhe o file cifrati con limitazione del numero massimo di download, password di sblocco opzionale e cancellazione automatica programmata.</p></div>
     <div class="qa-actions">
       <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">

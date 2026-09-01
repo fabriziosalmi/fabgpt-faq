@@ -64,6 +64,7 @@
       <span class="page-meta-badge">⏱️ 2 min lettura</span>
       <span class="page-meta-badge">✓ Runbook verificato</span>
     </div>
+    
     <div class="answer" id="page-answer" itemprop="articleBody"><p>L&#x27;<strong>Email Routing</strong> di Cloudflare dà indirizzi sul tuo dominio <strong>gratis, senza mailbox</strong>: <code>info@tuodominio.it</code> inoltra alla casella che già usi. Dal pannello: Email → Routing, crea gli indirizzi (o un <strong>catch-all</strong> per tutto-ciò-che-arriva), verifica la destinazione, e lascia che configuri da solo MX e SPF.</p><p>Le cose da sapere prima di affezionarsi:</p><ul><li>è <strong>solo ricezione</strong>: per <em>inviare</em> come <code>info@...</code> serve altro – l&#x27;SMTP del tuo provider di posta con l&#x27;alias verificato, o un servizio transazionale. E l&#x27;invio serio pretende <a href="../spf-dkim-dmarc/">SPF, DKIM e DMARC</a> a posto</li><li>il catch-all è comodo e ha un lato igienico: un alias per servizio (<code>amazon@</code>, <code>banca@</code>) smaschera <a href="../scoprire-dati-in-un-data-breach/">chi rivende o perde</a> il tuo indirizzo</li><li>i <strong>worker di posta</strong> permettono filtri e logiche custom sulla ricezione</li></ul><p>Per una persona o un progetto è perfetto; per un&#x27;azienda con caselle vere, retention e obblighi, serve un provider di posta pieno – l&#x27;inoltro non è un archivio.</p></div>
     <div class="qa-actions">
       <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">

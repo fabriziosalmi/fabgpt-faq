@@ -64,6 +64,7 @@
       <span class="page-meta-badge">⏱️ 2 min lettura</span>
       <span class="page-meta-badge">✓ Runbook verificato</span>
     </div>
+    
     <div class="answer" id="page-answer" itemprop="articleBody"><p>Quando l&#x27;output di un LLM deve entrare in un sistema – non sotto gli occhi di un umano – il testo libero è una bomba a orologeria: virgole in più, markdown attorno al JSON, campi inventati. Le soluzioni, in ordine di forza:</p><ul><li><strong>JSON mode</strong>: il modello è vincolato a emettere JSON sintatticamente valido – ma con lo schema che vuole lui</li><li><strong>structured output vero</strong>: fornisci un <strong>JSON Schema</strong> e il vincolo agisce <em>durante la generazione</em> (constrained decoding): l&#x27;output rispetta lo schema per costruzione, campi e tipi inclusi. Dove disponibile, è la scelta giusta – e il <a href="../cos-e-il-function-calling/">function calling</a> ne è il caso speciale più famoso</li><li>cintura e bretelle: <strong>valida comunque</strong> (lo schema non garantisce la <em>sensatezza</em> dei valori) e gestisci il caso raro di rifiuto o campo nullo</li></ul><p>Bonus di qualità: uno schema stretto con descrizioni dei campi è anche un ottimo prompt – costringe te a definire cosa vuoi e <a href="../come-ridurre-le-allucinazioni/">il modello a divagare meno</a>.</p></div>
     <div class="qa-actions">
       <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">

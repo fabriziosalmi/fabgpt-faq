@@ -64,6 +64,7 @@
       <span class="page-meta-badge">⏱️ 1 min lettura</span>
       <span class="page-meta-badge">✓ Runbook verificato</span>
     </div>
+    
     <div class="answer" id="page-answer" itemprop="articleBody"><p><strong>ZFS</strong> è filesystem e gestore di volumi insieme, e su Proxmox è integrato nativamente. Cosa compri:</p><ul><li><strong>integrità</strong>: checksum su ogni blocco – il bit rot viene rilevato e, con ridondanza (mirror/RAIDZ), riparato da solo</li><li><strong>snapshot istantanei</strong> e cloni, perfetti per le VM</li><li><strong>replica</strong> incrementale tra nodi (<code>pvesr</code>), il modo povero e solido di avere un quasi-failover</li><li>compressione trasparente (lz4: gratis in pratica)</li></ul><p>I compromessi: ZFS ama la <strong>RAM</strong> (l&#x27;ARC si prende quello che trova – limitalo su macchine piccole), vuole dischi dedicati <strong>senza RAID hardware</strong> di mezzo, e sui consumer SSD scrive parecchio. Per un nodo serio: mirror di due NVMe per VM e sistema. E ricorda: <a href="../differenza-snapshot-e-backup/">gli snapshot non sono backup</a> – per quello c&#x27;è <a href="../cos-e-proxmox-backup-server/">PBS</a>.</p></div>
     <div class="qa-actions">
       <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">

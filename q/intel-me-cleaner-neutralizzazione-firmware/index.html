@@ -64,6 +64,7 @@
       <span class="page-meta-badge">⏱️ 1 min lettura</span>
       <span class="page-meta-badge">✓ Runbook verificato</span>
     </div>
+    
     <div class="answer" id="page-answer" itemprop="articleBody"><p>L&#x27;<strong>Intel Management Engine (ME)</strong> è un coprocessore autonomo integrato nei chipset Intel che esegue un sistema operativo proprietario (MINIX) a livello Ring -3 con accesso totale a memoria, bus PCIe e rete anche a PC spento.</p><p>Per eliminare backdoor e vulnerabilità firmware non verificabili, si usa lo strumento open source <code>me_cleaner</code> per patchare l&#x27;immagine flash SPI del BIOS:</p><ul><li>Rimuove la maggior parte delle partizioni software dell&#x27;ME (server web, stack AMT, moduli diagnostici).</li><li>Preserva esclusivamente i blocchi minimi d&#x27;avvio (BUP) necessari a evitare lo spegnimento forzato della CPU dopo 30 minuti causato dal watchdog hardware.</li></ul><p>Sui processori più recenti è preferibile impostare il bit ufficiale <code>HAP</code> / <code>AltMeDisable</code> per arrestare l&#x27;engine in modo controllato senza compromettere la stabilità.</p></div>
     <div class="qa-actions">
       <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">

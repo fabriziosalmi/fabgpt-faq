@@ -64,6 +64,7 @@
       <span class="page-meta-badge">⏱️ 1 min lettura</span>
       <span class="page-meta-badge">✓ Runbook verificato</span>
     </div>
+    
     <div class="answer" id="page-answer" itemprop="articleBody"><p><strong>Whonix</strong> è una distribuzione orientata all&#x27;anonimato che scompone l&#x27;ambiente operativo in due macchine virtuali isolate collegate da una rete interna virtuale dedicata:</p><p>1. <strong>Whonix-Gateway</strong>: ha due interfacce di rete (una collegata a Internet e una alla rete interna isolata). Esegue esclusivamente il demone Tor e funge da gateway obbligato; nessun traffico esce senza essere prima cifrato e instradato nella rete Tor.<br>2. <strong>Whonix-Workstation</strong>: è una VM completamente isolata da Internet diretto, contenente il browser e le applicazioni utente. Conosce solo l&#x27;indirizzo IP locale della rete interna virtuale.</p><p><strong>Perché azzera i leak</strong>:<br>anche se un exploit nel browser compromette i privilegi di root della Workstation, il malware non può scoprire il reale indirizzo IP pubblico né l&#x27;hardware MAC address dell&#x27;host fisico, perché la VM non possiede alcuna interfaccia connessa all&#x27;esterno.</p></div>
     <div class="qa-actions">
       <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">

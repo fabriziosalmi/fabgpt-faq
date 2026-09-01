@@ -64,6 +64,7 @@
       <span class="page-meta-badge">⏱️ 1 min lettura</span>
       <span class="page-meta-badge">✓ Runbook verificato</span>
     </div>
+    
     <div class="answer" id="page-answer" itemprop="articleBody"><p>Sono i tre record DNS che impediscono a chiunque di spedire email a nome tuo:</p><ul><li><strong>SPF</strong> (record TXT): l&#x27;elenco dei server autorizzati a inviare per il dominio</li><li><strong>DKIM</strong>: una firma crittografica sulle mail in uscita – il destinatario verifica che il contenuto non sia alterato e venga da te</li><li><strong>DMARC</strong>: la policy che lega i primi due e dice ai destinatari <strong>cosa fare</strong> quando falliscono (<code>p=none</code> osserva, <code>p=quarantine</code> in spam, <code>p=reject</code> rifiuta) – più i report aggregati per vedere chi spedisce a nome tuo</li></ul><p>Senza questi tre, oggi <a href="../perche-email-in-spam/">finisci in spam</a> anche se sei legittimo: Gmail e Microsoft li pretendono. Percorso sano: SPF e DKIM corretti, DMARC <code>p=none</code> a osservare i report per qualche settimana, poi si stringe. <a href="https://github.com/fabriziosalmi/domainmate" target="_blank" rel="noopener">DomainMate</a> verifica in continuo che ci siano e restino sensati.</p></div>
     <div class="qa-actions">
       <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">

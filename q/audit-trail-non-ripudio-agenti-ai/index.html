@@ -64,6 +64,7 @@
       <span class="page-meta-badge">⏱️ 1 min lettura</span>
       <span class="page-meta-badge">✓ Runbook verificato</span>
     </div>
+    
     <div class="answer" id="page-answer" itemprop="articleBody"><p>Se un agente sbaglia, qualcuno risponde – e senza tracciabilità quel qualcuno sei tu, per default. I tre pezzi:</p><p>1. <strong>Identità dedicata per agente</strong>: mai account di servizio condivisi – ogni agente ha credenziali proprie, censite nel <a href="../registro-aziendale-censimento-agenti-ai-sandbox-permessi/">registro aziendale</a>, con <a href="../come-si-limita-un-agente-ai/">permessi minimi</a><br>2. <strong>Log di ogni chiamata a tool</strong>: chi (agente e utente a monte), cosa (tool e parametri), quando, esito – con hash di input e output<br>3. <strong>Non ripudio</strong>: il log deve essere <em>append-only</em> e a prova di manomissione – hash concatenati o firme, su storage che nessuno può riscrivere (<a href="../conservare-log-cloudflare-nis2-gdpr/">lo stesso principio dei log a norma</a>)</p><p>Così l&#x27;analisi <a href="../time-travel-debugging-agenti/">post-mortem</a> diventa possibile e la responsabilità è imputabile: &quot;l&#x27;ha deciso l&#x27;AI&quot; non è una difesa, è un&#x27;ammissione di non avere i log.</p></div>
     <div class="qa-actions">
       <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">

@@ -64,6 +64,7 @@
       <span class="page-meta-badge">⏱️ 1 min lettura</span>
       <span class="page-meta-badge">✓ Runbook verificato</span>
     </div>
+    
     <div class="answer" id="page-answer" itemprop="articleBody"><p>La sicurezza perimetrale e i firewall Layer 3/7 sono inefficaci se la rete locale (Layer 2) non è protetta contro attacchi di manipolazione dei frame ethernet:</p><p>1. <strong>VLAN Hopping (Double-Tagging / Switch Spoofing)</strong>: l&#x27;attaccante invia frame 802.1Q con doppio tag VLAN per scavalcare la segmentazione e iniettare pacchetti in una VLAN riservata. <strong>Mitigazione</strong>: disabilita la negoziazione dinamica DTP (<code>switchport nonegotiate</code>), imposta le porte utente come <code>access</code> e assegna una Native VLAN fittizia e inutilizzata sui trunk.<br>2. <strong>ARP Poisoning (Spoofing)</strong>: l&#x27;attaccante invia risposte ARP artefatte associando il proprio MAC address all&#x27;IP del gateway, posizionandosi in Man-in-the-Middle (MitM). <strong>Mitigazione</strong>: abilita <strong>DHCP Snooping</strong> e <strong>Dynamic ARP Inspection (DAI)</strong> sugli switch gestiti per validare i pacchetti ARP.</p></div>
     <div class="qa-actions">
       <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">

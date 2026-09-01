@@ -64,6 +64,7 @@
       <span class="page-meta-badge">⏱️ 1 min lettura</span>
       <span class="page-meta-badge">✓ Runbook verificato</span>
     </div>
+    
     <div class="answer" id="page-answer" itemprop="articleBody"><p>Domanda da farsi sempre, risposta quasi sempre: <strong>prima RAG</strong>. Sono strumenti per problemi diversi:</p><ul><li><strong><a href="../cos-e-rag-retrieval-augmented-generation/">RAG</a></strong> dà al modello <em>conoscenza</em>: recupera i documenti giusti al momento della domanda. Aggiornabile in tempo reale, verificabile (puoi citare le fonti), nessun addestramento.</li><li><strong>fine-tuning</strong> dà al modello <em>comportamento</em>: uno stile, un formato, un gergo, un compito ripetitivo. Non è un buon deposito di fatti – i fatti nel fine-tuning si allucinano volentieri.</li></ul><p>Quindi: knowledge base, documentazione, dati che cambiano → RAG. Tono di voce, output strutturati particolari, un dominio linguistico stretto → fine-tuning (oggi economico con LoRA/QLoRA, anche <a href="../fine-tuning-llm-apple-silicon/">in locale su Mac</a>). E le due cose si combinano: un modello rifinito sul <em>come</em>, con il RAG che porta il <em>cosa</em>.</p></div>
     <div class="qa-actions">
       <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">

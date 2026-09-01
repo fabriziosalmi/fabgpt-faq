@@ -64,6 +64,7 @@
       <span class="page-meta-badge">⏱️ 1 min lettura</span>
       <span class="page-meta-badge">✓ Runbook verificato</span>
     </div>
+    
     <div class="answer" id="page-answer" itemprop="articleBody"><p>Un <strong>embedding</strong> è la traduzione di un testo (o immagine, o audio) in un vettore di numeri, costruito così che la <strong>vicinanza geometrica corrisponda alla vicinanza di significato</strong>: &quot;gatto&quot; e &quot;felino&quot; finiscono vicini, &quot;gatto&quot; e &quot;carburatore&quot; lontani. È il modo in cui si dà alla macchina una nozione operativa di &quot;parla della stessa cosa&quot;.</p><p>Usi concreti: la ricerca semantica (trova i documenti rilevanti anche senza parole in comune – il cuore del <a href="../cos-e-rag-retrieval-augmented-generation/">RAG</a>), deduplicazione, clustering, raccomandazioni. In pratica: un modello di embedding (locale via Ollama o API), un indice vettoriale dove cercare, e la scelta di design vera – <strong>ibridare</strong> vettori e ricerca full-text classica, perché ciascuna trova cose che l&#x27;altra manca. È esattamente il retrieval ibrido opzionale di <a href="https://github.com/fabriziosalmi/l0-memory" target="_blank" rel="noopener">l0-memory</a>.</p></div>
     <div class="qa-actions">
       <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">

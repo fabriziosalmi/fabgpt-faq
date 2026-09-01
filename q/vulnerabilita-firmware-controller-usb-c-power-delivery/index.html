@@ -64,6 +64,7 @@
       <span class="page-meta-badge">⏱️ 1 min lettura</span>
       <span class="page-meta-badge">✓ Runbook verificato</span>
     </div>
+    
     <div class="answer" id="page-answer" itemprop="articleBody"><p>I controller <strong>USB-C Power Delivery (PD)</strong> integrati in caricatori, hub e cavi non sono semplici connettori elettrici, ma microcontrollori programmabili che negoziano via bus CC tensioni fino a 48V e canali dati avanzati.</p><p>Vulnerabilità firmware in questi chip espongono a minacce reali:</p><ul><li><strong>Attacchi di sovratensione (Over-Voltage Injection)</strong>: un caricatore compromesso può iniettare intenzionalmente 20V sui pin dati (D+/D-) a 3.3V, distruggendo i circuiti integrati dell&#x27;host.</li><li><strong>Firmware Reprogramming / BadUSB</strong>: controller PD manomessi possono negoziare canali dati PCIe o USB HID per emulare tastiere fantasma e iniettare comandi malevoli.</li><li><strong>Sniffing e transizione a dati</strong>: accessori che fingono di erogare solo alimentazione mentre attivano canali di esfiltrazione dati.</li></ul><p>Difesa: usare cavi solo alimentazione (<em>USB data blocker</em> o condom USB) per la ricarica in luoghi pubblici.</p></div>
     <div class="qa-actions">
       <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">

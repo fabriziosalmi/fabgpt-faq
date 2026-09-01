@@ -64,6 +64,7 @@
       <span class="page-meta-badge">⏱️ 1 min lettura</span>
       <span class="page-meta-badge">✓ Runbook verificato</span>
     </div>
+    
     <div class="answer" id="page-answer" itemprop="articleBody"><p><strong>Proxmox Backup Server (PBS)</strong> è il compagno ufficiale di PVE per i backup di VM e container, e cambia categoria rispetto al vecchio vzdump su NFS:</p><ul><li>backup <strong>incrementali con deduplicazione</strong>: dopo il primo, ogni backup trasferisce e archivia solo i blocchi cambiati – decine di backup occupano poco più di uno</li><li><strong>verify</strong> programmati (i backup corrotti si scoprono prima di averne bisogno), <strong>pruning</strong> automatico con policy di retention, cifratura lato client</li><li>restore granulare: la VM intera o il singolo file</li></ul><p>Setup tipico: una macchina dedicata anche modesta (o un container su un NAS), datastore su dischi propri, job notturni da PVE, e una <strong>sync remota</strong> verso un secondo PBS fuori sede per la regola 3-2-1. Con <a href="https://github.com/fabriziosalmi/proxxx" target="_blank" rel="noopener">proxxx</a> lo monitori dallo stesso cockpit di PVE.</p></div>
     <div class="qa-actions">
       <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">

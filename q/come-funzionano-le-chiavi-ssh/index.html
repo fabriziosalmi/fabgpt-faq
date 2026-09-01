@@ -64,6 +64,7 @@
       <span class="page-meta-badge">⏱️ 1 min lettura</span>
       <span class="page-meta-badge">✓ Runbook verificato</span>
     </div>
+    
     <div class="answer" id="page-answer" itemprop="articleBody"><p>Una coppia di <strong>chiavi SSH</strong> è crittografia asimmetrica: la <strong>pubblica</strong> va sul server (in <code>~/.ssh/authorized_keys</code>), la <strong>privata</strong> resta sul tuo computer e non viaggia mai. Al login il server lancia una sfida che solo chi possiede la privata sa firmare: niente password da indovinare o intercettare.</p><p>Il setup in tre comandi: <code>ssh-keygen -t ed25519</code> (l&#x27;algoritmo giusto oggi), <code>ssh-copy-id utente@server</code>, poi <code>ssh utente@server</code>. Metti una <strong>passphrase</strong> sulla chiave e lascia che <code>ssh-agent</code> la ricordi per la sessione.</p><p>Dettagli che fregano: la privata vuole <a href="../permessi-linux-chmod-chown-umask/">permessi</a> <code>600</code> (SSH la rifiuta altrimenti) e una chiave <em>per dispositivo</em> è meglio di una chiave ovunque. Il passo finale è <a href="../mettere-in-sicurezza-ssh/">disattivare del tutto il login con password</a>.</p></div>
     <div class="qa-actions">
       <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">

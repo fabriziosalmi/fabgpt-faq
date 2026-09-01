@@ -64,6 +64,7 @@
       <span class="page-meta-badge">⏱️ 1 min lettura</span>
       <span class="page-meta-badge">✓ Runbook verificato</span>
     </div>
+    
     <div class="answer" id="page-answer" itemprop="articleBody"><p>Migrare centinaia di gigabyte di posta elettronica da suite cloud proprietarie (Google Workspace, Microsoft 365) verso un&#x27;infrastruttura IMAP self-hosted o europea senza interruzione del servizio richiede uno strumento resiliente come <strong>imapsync</strong>:</p><p>1. <strong>Sincronizzazione Incrementale</strong>: imapsync confronta i messaggi sui server di origine e destinazione tramite <code>Message-ID</code> e flag (<code>\Seen</code>, <code>\Flagged</code>), trasferendo solo i dati mancanti.<br>2. <strong>Esecuzione del comando base</strong>:<br>   <code>imapsync --host1 imap.sorgente.com --user1 utente@dominio.it --passfile1 p1.txt \</code><br>   <code>         --host2 imap.destinazione.it --user2 utente@dominio.it --passfile2 p2.txt</code><br>3. <strong>Cut-Over a Disservizio Zero</strong>: esegui un primo sync completo giorni prima della migrazione; il giorno del passaggio aggiorna i record DNS MX ed esegui un delta finale per catturare le ultime email ricevute.</p></div>
     <div class="qa-actions">
       <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">

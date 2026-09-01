@@ -64,6 +64,7 @@
       <span class="page-meta-badge">⏱️ 2 min lettura</span>
       <span class="page-meta-badge">✓ Runbook verificato</span>
     </div>
+    
     <div class="answer" id="page-answer" itemprop="articleBody"><p>La distinzione classica:</p><ul><li><strong>tipo 1 (bare metal)</strong> – l&#x27;hypervisor <em>è</em> il sistema che gira sull&#x27;hardware: <a href="../cos-e-proxmox-ve/">Proxmox VE</a> (KVM), ESXi, Hyper-V. Prestazioni quasi native, isolamento forte, fatto per stare acceso sempre: è la scelta per server e produzione</li><li><strong>tipo 2 (hosted)</strong> – un&#x27;applicazione dentro un sistema operativo normale: VirtualBox, VMware Workstation, Parallels. Perfetto per la VM di prova sul portatile, paga il pedaggio del sistema ospite sotto</li></ul><p>La nota pedante che vale la pena sapere: <strong>KVM</strong> sfuma la distinzione – è un modulo <em>dentro</em> il kernel Linux, quindi &quot;il sistema operativo&quot; e &quot;l&#x27;hypervisor&quot; coincidono: di fatto tipo 1 con l&#x27;ergonomia di Linux. È il motore di Proxmox, delle grandi cloud e di mezzo internet.</p><p>Regola di scelta: se la macchina esiste <em>per</em> virtualizzare → tipo 1 (e con Proxmox <a href="../aggiornare-proxmox-senza-subscription/">non paghi licenze</a>); se virtualizzi <em>ogni tanto</em> sul computer di lavoro → tipo 2, senza sensi di colpa.</p></div>
     <div class="qa-actions">
       <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">

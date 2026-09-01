@@ -64,6 +64,7 @@
       <span class="page-meta-badge">⏱️ 1 min lettura</span>
       <span class="page-meta-badge">✓ Runbook verificato</span>
     </div>
+    
     <div class="answer" id="page-answer" itemprop="articleBody"><p>Fanno lo stesso mestiere – DNS filtrante per tutta la rete: pubblicità, tracker e <a href="../come-bloccare-domini-malevoli/">domini malevoli</a> spariscono a livello di risoluzione, per ogni dispositivo senza configurare nulla. Le differenze oneste:</p><ul><li><strong>Pi-hole</strong>: il veterano, comunità enorme, ecosistema di script e integrazioni; DHCP incluso; il <a href="../cos-e-doh-dns-over-https/">DNS cifrato in uscita</a> richiede un componente in più (unbound/cloudflared)</li><li><strong>AdGuard Home</strong>: più moderno out-of-the-box – DoH/DoT nativi sia in ingresso che in uscita, filtri per-client più comodi, un solo binario Go</li></ul><p>Verdetto pragmatico: per un nuovo setup AdGuard Home fa meno attrito; chi ha già un Pi-hole rodato non ha motivi di migrare. Entrambi valgono quanto le <strong>liste</strong> che li alimentano: <a href="https://github.com/fabriziosalmi/blacklists" target="_blank" rel="noopener">blacklists</a> (5M+ domini, aggiornata ogni giorno, con whitelist curata) si carica identica su tutti e due. E su <a href="../cos-e-proxmox-ve/">Proxmox</a>, un LXC da mezza CPU li ospita alla grande.</p></div>
     <div class="qa-actions">
       <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">

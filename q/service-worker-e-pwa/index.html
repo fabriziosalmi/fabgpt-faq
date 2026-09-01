@@ -64,6 +64,7 @@
       <span class="page-meta-badge">⏱️ 2 min lettura</span>
       <span class="page-meta-badge">✓ Runbook verificato</span>
     </div>
+    
     <div class="answer" id="page-answer" itemprop="articleBody"><p>Un <strong>service worker</strong> è uno script che il browser installa <em>tra</em> il sito e la rete: intercetta le richieste della pagina e può rispondere dalla cache, instradare, sincronizzare in background. È il mattone che rende un sito <strong>capace di funzionare offline</strong> e di caricare istantaneo alle visite successive.</p><p>Una <strong>PWA</strong> (Progressive Web App) è un sito che, grazie a service worker + <strong>web manifest</strong> (nome, <a href="../quali-favicon-servono/">icone</a>, colori), diventa &quot;installabile&quot;: icona in home, finestra propria, esperienza da app senza app store.</p><p>Gli onesti avvertimenti da chi ci è passato: la potenza del service worker è anche la sua trappola – una <strong>cache sbagliata serve il sito vecchio per sempre</strong> (la strategia di update va progettata: <code>stale-while-revalidate</code> e versioning degli asset sono i tuoi amici); il debugging è un mestiere a parte (DevTools → Application); e non tutto merita una PWA – per un sito di contenuti, <a href="../cache-hit-miss-bypass-cdn/">HTTP ben cacheato</a> fa il 90% del lavoro con il 10% della complessità. Per un&#x27;app usata ogni giorno, invece, cambia la vita.</p></div>
     <div class="qa-actions">
       <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">

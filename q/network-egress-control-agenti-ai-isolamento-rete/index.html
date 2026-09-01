@@ -64,6 +64,7 @@
       <span class="page-meta-badge">⏱️ 1 min lettura</span>
       <span class="page-meta-badge">✓ Runbook verificato</span>
     </div>
+    
     <div class="answer" id="page-answer" itemprop="articleBody"><p>Gli agenti dotati di tool di rete (interpreti Python, scraper, client API) devono operare all&#x27;interno di un perimetro di rete rigidamente confinato. La configurazione di Network Egress prevede: policy firewall host (nftables/iptables) o NetworkPolicy Kubernetes con regola di default deny; blocco esplicito di tutti i range IP privati RFC 1918 (10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16) e dell&#x27;indirizzo di metadata cloud (169.254.169.254); instradamento del traffico consentito tramite un forward proxy trasparente con autenticazione mTLS, ispezione Layer 7 e blocco dei domini non in allowlist tramite <a href="../come-aggiungere-un-waf-a-caddy/">caddy-waf</a>. In questo modo, anche se l&#x27;agente subisce un prompt injection, non può scansionare la intranet aziendale né raggiungere server C2.</p></div>
     <div class="qa-actions">
       <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">

@@ -64,6 +64,7 @@
       <span class="page-meta-badge">⏱️ 1 min lettura</span>
       <span class="page-meta-badge">✓ Runbook verificato</span>
     </div>
+    
     <div class="answer" id="page-answer" itemprop="articleBody"><p>Gli adattatori LoRA (Low-Rank Adaptation) modificano solo una minima frazione dei pesi del modello base (spesso &lt;1%). Un attaccante può addestrare l&#x27;adattatore inserendo un backdoor trigger: una sequenza specifica di token o pattern sintattico apparentemente innocuo. In condizioni normali il modello risponde con accuratezza standard, ma alla comparsa del trigger esegue istruzioni arbitrarie, disabilita i filtri di sicurezza o esfiltra dati riservati. Poiché i pesi base rimangono immutati e i benchmark generali risultano inalterati, la backdoor sfugge agli eval tradizionali. La mitigazione richiede fine-tuning con dataset sintetici di clean-up, ispezione dei gradienti residui con strumenti come <a href="../cos-e-la-owasp-top-10/">patterns</a> e validazione continua su suite avversariali.</p></div>
     <div class="qa-actions">
       <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">

@@ -64,6 +64,7 @@
       <span class="page-meta-badge">⏱️ 1 min lettura</span>
       <span class="page-meta-badge">✓ Runbook verificato</span>
     </div>
+    
     <div class="answer" id="page-answer" itemprop="articleBody"><p>I <strong>Workers</strong> sono codice JavaScript/TypeScript (o Wasm) che gira sui server edge di Cloudflare, in tutto il mondo, senza che tu gestisca nulla. Niente container né cold start da secondi: usano <strong>V8 isolates</strong>, partono in millisecondi ovunque.</p><p>Usi tipici: riscrivere richieste e risposte al volo, A/B testing, API leggere, autenticazione all&#x27;edge, gluing tra servizi. Intorno c&#x27;è un ecosistema intero – KV e R2 per lo storage, D1 (SQLite), Queues, cron trigger – che per molti progetti sostituisce un backend tradizionale, col CLI <code>wrangler</code> per lo sviluppo.</p><p>Il rovescio: è la forma più profonda di lock-in su Cloudflare – il codice è portabile a fatica, i dati vanno migrati. È una delle cose che <a href="https://github.com/fabriziosalmi/flareover" target="_blank" rel="noopener">flareover</a> classifica onestamente come <strong>MANUAL</strong>: i Workers non hanno un equivalente self-hosted automatico.</p></div>
     <div class="qa-actions">
       <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">

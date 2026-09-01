@@ -64,6 +64,7 @@
       <span class="page-meta-badge">⏱️ 1 min lettura</span>
       <span class="page-meta-badge">✓ Runbook verificato</span>
     </div>
+    
     <div class="answer" id="page-answer" itemprop="articleBody"><p>Lasciare che un <a href="../come-si-limita-un-agente-ai/">agente AI decida da solo</a> quali comandi eseguire senza un controllo deterministico è rischioso.</p><p>L&#x27;adozione di <strong>Open Policy Agent (OPA)</strong> e del linguaggio <strong>Rego</strong> introduce uno strato di Policy-as-Code a monte di qualsiasi tool execution:</p><p>1. Prima di eseguire un tool (es. invio email, query SQL, modifica file), il runtime invia un payload JSON con contesto utente, azione e parametri a OPA.<br>2. OPA valuta le regole dichiarative definite in Rego (es. <em>&#x27;Un utente standard non può invocare DELETE su tabelle di produzione&#x27;</em> o <em>&#x27;Nessun bonifico sopra i 1.000€ senza approvazione umana&#x27;</em>).<br>3. La risposta binaria <code>allow: true/false</code> impedisce all&#x27;agente di oltrepassare i limiti stabiliti a livello aziendale.</p></div>
     <div class="qa-actions">
       <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">

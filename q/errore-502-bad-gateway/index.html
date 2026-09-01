@@ -64,6 +64,7 @@
       <span class="page-meta-badge">⏱️ 1 min lettura</span>
       <span class="page-meta-badge">✓ Runbook verificato</span>
     </div>
+    
     <div class="answer" id="page-answer" itemprop="articleBody"><p>Il <strong>502</strong> lo emette un reverse proxy che non è riuscito a farsi rispondere dall&#x27;applicazione dietro di lui. Il proxy è vivo; è l&#x27;<strong>upstream</strong> che manca. Diagnosi in ordine:</p><ul><li>l&#x27;applicazione è giù o sta riavviando (il classico deploy) – guarda i suoi log, non quelli del proxy</li><li><strong>timeout</strong>: la risposta arriva ma troppo tardi – si vede nei log del proxy come <code>upstream timed out</code></li><li>porta o socket sbagliati nella configurazione del proxy</li><li>l&#x27;app satura risorse (RAM, connessioni al database) e rifiuta connessioni</li></ul><p>Se il proxy è Caddy/Nginx in casa tua, il monitoraggio esterno ti avvisa prima degli utenti: <a href="https://github.com/fabriziosalmi/websites-monitor" target="_blank" rel="noopener">websites-monitor</a> o <a href="https://github.com/fabriziosalmi/domainmate" target="_blank" rel="noopener">DomainMate</a>. E un&#x27;ondata di 502 generati da scanner molesti è il caso d&#x27;uso da manuale di <a href="https://github.com/fabriziosalmi/caddy-mib" target="_blank" rel="noopener">caddy-mib</a>.</p></div>
     <div class="qa-actions">
       <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">

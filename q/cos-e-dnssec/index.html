@@ -64,6 +64,7 @@
       <span class="page-meta-badge">⏱️ 1 min lettura</span>
       <span class="page-meta-badge">✓ Runbook verificato</span>
     </div>
+    
     <div class="answer" id="page-answer" itemprop="articleBody"><p><strong>DNSSEC</strong> aggiunge firme crittografiche al DNS: le risposte della tua zona arrivano firmate (record RRSIG), i resolver le verificano risalendo una catena di fiducia che passa dal <strong>record DS</strong> presso il registrar e arriva alla root. Risultato: una risposta falsificata – il <a href="../cos-e-il-dns-spoofing/">cache poisoning</a> – viene scartata invece che creduta.</p><p>Cosa DNSSEC <strong>non</strong> fa, per sgombrare equivoci: non cifra nulla (le query restano leggibili – per quello c&#x27;è <a href="../cos-e-doh-dns-over-https/">DoH/DoT</a>) e non certifica che il sito sia &quot;buono&quot;: garantisce solo che la risposta DNS sia quella autentica.</p><p>Operativamente: si abilita dal pannello del provider DNS (due click sui gestori moderni) più il DS al registrar. L&#x27;errore tipico è <strong>migrare provider dimenticando il DS vecchio</strong>: la zona diventa irraggiungibile per i resolver validanti. Motivo in più per tenere i DNS <a href="../cos-e-gitops/">versionati e sotto controllo</a>.</p></div>
     <div class="qa-actions">
       <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">

@@ -64,6 +64,7 @@
       <span class="page-meta-badge">⏱️ 1 min lettura</span>
       <span class="page-meta-badge">✓ Runbook verificato</span>
     </div>
+    
     <div class="answer" id="page-answer" itemprop="articleBody"><p>Un <strong>cluster Proxmox</strong> unisce più nodi in un&#x27;unica entità: gestione centralizzata da qualsiasi web UI, migrazione delle VM tra nodi, alta disponibilità. Sotto, <strong>corosync</strong> mantiene la configurazione replicata e decide chi è vivo.</p><p>Il <strong>quorum</strong> è la regola che previene lo split brain: il cluster agisce solo se la <strong>maggioranza</strong> dei nodi è d&#x27;accordo. Con 3 nodi ne può cadere 1; con 2 nodi la caduta di uno blocca l&#x27;altro – ed è il classico dolore dell&#x27;homelab. Soluzioni: un terzo nodo anche minuscolo, oppure un <strong>QDevice</strong> (un Raspberry o una VM esterna che fa da ago della bilancia). Regola d&#x27;oro: nodi in numero dispari, rete di corosync separata dal traffico dati, e mai <code>pvecm expected 1</code> come abitudine – è l&#x27;ultima spiaggia, non un workaround.</p></div>
     <div class="qa-actions">
       <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">

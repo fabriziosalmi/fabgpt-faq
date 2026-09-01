@@ -64,6 +64,7 @@
       <span class="page-meta-badge">⏱️ 2 min lettura</span>
       <span class="page-meta-badge">✓ Runbook verificato</span>
     </div>
+    
     <div class="answer" id="page-answer" itemprop="articleBody"><p><strong>IPsec</strong> cifra e autentica il traffico IP, e lo fa in due modalità che decidono <em>cosa</em> viene protetto:</p><ul><li><strong>Transport</strong> – cifra solo il <strong>payload</strong> del pacchetto, lasciando l&#x27;header IP originale in chiaro. Host-to-host: due macchine che si parlano direttamente in modo protetto. Leggera, ma gli indirizzi restano visibili</li><li><strong>Tunnel</strong> – incapsula <strong>l&#x27;intero pacchetto</strong> (header incluso) dentro un nuovo pacchetto IP. È la modalità delle <strong>VPN site-to-site</strong>: due gateway che collegano due reti, nascondendo la topologia interna dietro gli IP dei gateway</li></ul><p>La regola pratica: <strong>gateway/VPN → Tunnel</strong>, host-to-host diretto → Transport. IPsec resta lo standard aziendale per collegare sedi, ma per l&#x27;accesso remoto e le <a href="../wireguard-e-mesh-vpn/">mesh moderne</a> è spesso soppiantato da <strong>WireGuard</strong> – più semplice, più veloce, meno superficie di configurazione da sbagliare. E qualunque VPN, ricorda, è un tunnel cifrato: <a href="../differenza-vpn-e-proxy/">cosa protegge e cosa no</a> dipende da dove la metti, non dalla sigla.</p></div>
     <div class="qa-actions">
       <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">

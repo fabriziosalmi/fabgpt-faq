@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tools deterministici – FabGPT-FAQ</title>
+<meta name="description" content="Micro-strumenti che calcolano nel browser, senza server e senza AI: subnet, cron, chmod, JWT, timestamp.">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="canonical" href="https://fabriziosalmi.github.io/fabgpt-faq/tools/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Tools deterministici">
+<meta property="og:description" content="Micro-strumenti che calcolano nel browser, senza server e senza AI: subnet, cron, chmod, JWT, timestamp.">
+<meta property="og:url" content="https://fabriziosalmi.github.io/fabgpt-faq/tools/">
+<meta property="og:image" content="https://fabriziosalmi.github.io/fabgpt-faq/og.svg">
+<meta property="og:site_name" content="FabGPT-FAQ">
+<meta property="og:locale" content="it_IT">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://fabriziosalmi.github.io/fabgpt-faq/og.svg">
+<link rel="stylesheet" href="../style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "ItemList", "name": "Tools FabGPT-FAQ", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Calcolatore subnet / CIDR", "url": "https://fabriziosalmi.github.io/fabgpt-faq/tools/calcolatore-subnet/"}, {"@type": "ListItem", "position": 2, "name": "Spiega-cron", "url": "https://fabriziosalmi.github.io/fabgpt-faq/tools/spiega-cron/"}, {"@type": "ListItem", "position": 3, "name": "Calcolatore chmod", "url": "https://fabriziosalmi.github.io/fabgpt-faq/tools/calcolatore-chmod/"}, {"@type": "ListItem", "position": 4, "name": "Decodifica JWT", "url": "https://fabriziosalmi.github.io/fabgpt-faq/tools/decodifica-jwt/"}, {"@type": "ListItem", "position": 5, "name": "Convertitore timestamp Unix", "url": "https://fabriziosalmi.github.io/fabgpt-faq/tools/timestamp-unix/"}]}</script>
+<style>
+  .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
+  .page h1 { font-size: 26px; line-height: 1.3; margin: 6px 0 10px; }
+  .crumbs { font-size: 13px; color: var(--text-dim); margin-bottom: 6px; }
+  .crumbs a { color: var(--text-dim); text-decoration: none; }
+  .crumbs a:hover { color: var(--text); }
+  .page .intro { color: var(--text-dim); margin-bottom: 20px; }
+  .steps { list-style: none; counter-reset: step; padding: 0; margin: 0; }
+  .steps li { counter-increment: step; position: relative; padding: 14px 16px 14px 56px; border: 1px solid var(--border); border-radius: 12px; background: var(--bg-soft); margin: 10px 0; }
+  .steps li::before { content: counter(step); position: absolute; left: 16px; top: 16px; width: 26px; height: 26px; border-radius: 50%; background: var(--accent); color: var(--accent-text); font-weight: 700; font-size: 13px; display: flex; align-items: center; justify-content: center; }
+  .steps a { color: var(--link); text-decoration: none; font-weight: 600; }
+  .steps a:hover { text-decoration: underline; }
+  .steps p { margin: 4px 0 0; font-size: 14px; color: var(--text-dim); }
+  .path-card { display: block; border: 1px solid var(--border); border-radius: 12px; background: var(--bg-soft); padding: 16px 18px; margin: 12px 0; text-decoration: none; color: inherit; }
+  .path-card:hover { border-color: var(--accent); }
+  .path-card b { color: var(--link); font-size: 17px; }
+  .path-card p { margin: 6px 0 0; font-size: 14px; color: var(--text-dim); }
+  .path-card .n { font-size: 12px; color: var(--text-dim); text-transform: uppercase; letter-spacing: .05em; }
+  .page .ask { display: inline-block; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 8px 16px; text-decoration: none; font-weight: 600; font-size: 13px; margin-top: 20px; }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="../" style="text-decoration:none;color:inherit">
+    <span class="brand-dot">F</span>
+    <span class="brand-name">FabGPT-FAQ</span>
+  </a>
+  <nav class="topnav"><a href="../percorsi/">Percorsi</a> <a href="../q/">Tutte le domande</a></nav>
+</header>
+<main class="page">
+<nav class="crumbs" aria-label="Percorso"><a href="../">FabGPT-FAQ</a> › <span>Tools</span></nav>
+<h1>Tools deterministici</h1>
+<p class="intro">Strumenti che <b>calcolano</b>, non generano: il risultato è esatto per costruzione, gira nel tuo browser e non tocca nessun server. Gli stessi motori rispondono anche in <a href="../">chat</a>: incolla una CIDR, un cron o un JWT e vedi.</p>
+<a class="path-card" href="calcolatore-subnet/"><b>🧮 Calcolatore subnet / CIDR</b><p>Rete, broadcast, maschera e host usabili da una notazione CIDR. Calcolo esatto nel browser, niente server.</p></a>
+<a class="path-card" href="spiega-cron/"><b>⏰ Spiega-cron</b><p>Incolla un&#x27;espressione cron e leggila in italiano, campo per campo, con le trappole segnalate.</p></a>
+<a class="path-card" href="calcolatore-chmod/"><b>🔐 Calcolatore chmod</b><p>Da ottale a rwx e ritorno, bit speciali inclusi. Con gli avvisi che contano (777, 600).</p></a>
+<a class="path-card" href="decodifica-jwt/"><b>🎫 Decodifica JWT</b><p>Header e payload di un JSON Web Token, decodificati in locale: il token non lascia mai il tuo browser.</p></a>
+<a class="path-card" href="timestamp-unix/"><b>🕐 Convertitore timestamp Unix</b><p>Da epoch (secondi o millisecondi) a data leggibile, con i comandi da terminale equivalenti.</p></a>
+</main>
+</body>
+</html>

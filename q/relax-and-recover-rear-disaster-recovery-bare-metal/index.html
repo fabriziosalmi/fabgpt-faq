@@ -64,6 +64,7 @@
       <span class="page-meta-badge">⏱️ 1 min lettura</span>
       <span class="page-meta-badge">✓ Runbook verificato</span>
     </div>
+    
     <div class="answer" id="page-answer" itemprop="articleBody"><p><strong>Relax-and-Recover (ReaR)</strong> è un framework open source di disaster recovery per sistemi Linux specializzato nel ripristino <strong>bare-metal</strong> su hardware differente o macchine virtuali.</p><p>Come opera:</p><p>1. <strong>Generazione Rescue Media</strong>: ReaR crea un&#x27;immagine ISO d&#x27;avvio minimale o un ambiente di boot PXE che include il kernel corrente, i moduli storage/rete e l&#x27;esatta tabella di partizionamento (LVM, RAID, filesystem) dell&#x27;host.<br>2. <strong>Integrazione con i Backup</strong>: esporta i dati su storage di rete (NFS, CIFS, SSH) o si integra con software come Borg, Bacula o rsync.<br>3. <strong>Ripristino bare-metal</strong>: in caso di disastro totale si avvia il nuovo server dalla ISO di ReaR, che ricrea automaticamente partizioni e filesystem e ripristina i file eseguendo <code>rear recover</code>.</p></div>
     <div class="qa-actions">
       <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">

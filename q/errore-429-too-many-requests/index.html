@@ -64,6 +64,7 @@
       <span class="page-meta-badge">⏱️ 1 min lettura</span>
       <span class="page-meta-badge">✓ Runbook verificato</span>
     </div>
+    
     <div class="answer" id="page-answer" itemprop="articleBody"><p>Il <strong>429</strong> è un rate limit che ha fatto il suo lavoro: hai superato il numero di richieste consentite in una finestra di tempo. Non è un errore del server – è un semaforo rosso.</p><p>Se lo <strong>ricevi</strong>: rispetta l&#x27;header <code>Retry-After</code> se presente, implementa un backoff esponenziale con jitter, e valuta caching o batching delle richieste. Se lo ricevi da un&#x27;API a pagamento, controlla i limiti del tuo piano.</p><p>Se lo devi <strong>imporre</strong>: è la prima difesa contro brute force e scraping. <a href="https://github.com/fabriziosalmi/limits" target="_blank" rel="noopener">limits</a> genera le configurazioni per Nginx, Apache, Traefik e HAProxy da un solo YAML; su Caddy è integrato in <a href="https://github.com/fabriziosalmi/caddy-waf" target="_blank" rel="noopener">caddy-waf</a>. Buona educazione: rispondere sempre con <code>Retry-After</code>, così i client onesti sanno quanto aspettare.</p></div>
     <div class="qa-actions">
       <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">

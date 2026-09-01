@@ -64,6 +64,7 @@
       <span class="page-meta-badge">⏱️ 1 min lettura</span>
       <span class="page-meta-badge">✓ Runbook verificato</span>
     </div>
+    
     <div class="answer" id="page-answer" itemprop="articleBody"><p>Tre generazioni della stessa idea:</p><ul><li><strong>antivirus</strong> – riconosce il malware <em>noto</em> per firme e euristiche: necessario, non più sufficiente</li><li><strong>EDR</strong> (Endpoint Detection and Response) – registra il <strong>comportamento</strong> degli endpoint (processi, rete, registro) e rileva le tecniche d&#x27;attacco anche senza firma: PowerShell che scarica ed esegue, escalation sospette; permette anche la risposta remota (isolare la macchina, uccidere il processo)</li><li><strong>XDR</strong> (eXtended DR) – la stessa telemetria estesa <strong>oltre l&#x27;endpoint</strong>: identità, email, cloud, rete, correlate in un unico quadro</li></ul><p>C&#x27;è anche l&#x27;<strong>MDR</strong>: l&#x27;EDR/XDR gestito da analisti esterni, per chi non ha un <a href="../cos-e-un-soc-security-operations-center/">SOC</a>. Nel mondo open source la correlazione centrale è il territorio del <a href="../cos-e-un-siem-e-un-soar/">SIEM</a>: agenti sugli host + <a href="https://github.com/fabriziosalmi/wildbox" target="_blank" rel="noopener">Wildbox</a> come cervello.</p></div>
     <div class="qa-actions">
       <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">

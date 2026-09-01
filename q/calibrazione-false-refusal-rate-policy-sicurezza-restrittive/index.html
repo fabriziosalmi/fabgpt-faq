@@ -64,6 +64,7 @@
       <span class="page-meta-badge">⏱️ 1 min lettura</span>
       <span class="page-meta-badge">✓ Runbook verificato</span>
     </div>
+    
     <div class="answer" id="page-answer" itemprop="articleBody"><p>Guardrail eccessivamente aggressivi provocano l&#x27;effetto &#x27;over-refusal&#x27;, rifiutando richieste lecite e degradando l&#x27;utilità del servizio per gli utenti finali. Per calibrare il sistema: 1) eseguire regolarmente benchmark su dataset standardizzati di benign-adversarial prompts (es. XSTest o WildGuard) composti da domande con parole chiave sensibili ma intenzioni del tutto legittime; 2) calcolare separatamente il True Positive Rate (blocco attacchi) e il False Refusal Rate (blocco richieste valide); 3) raffinare i prompt dei guardrail semantici o abbassare le soglie di confidenza dei classificatori vettoriali, preferendo validazioni basate su grammatica vincolata.</p></div>
     <div class="qa-actions">
       <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">

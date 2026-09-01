@@ -64,6 +64,7 @@
       <span class="page-meta-badge">⏱️ 2 min lettura</span>
       <span class="page-meta-badge">✓ Runbook verificato</span>
     </div>
+    
     <div class="answer" id="page-answer" itemprop="articleBody"><p><strong>Ceph</strong> è uno storage distribuito che trasforma i dischi dei nodi del <a href="../cluster-proxmox-e-quorum/">cluster</a> in un unico pool ridondato: ogni dato vive in più copie su nodi diversi (replica 3 di default), un disco o un nodo che muore viene <strong>riparato da solo</strong>, e le VM vedono block device (RBD) condivisi – il che sblocca <a href="../migrazione-live-tra-nodi/">migrazione live</a> istantanea e <a href="../alta-disponibilita-proxmox/">HA</a> vera. Proxmox lo integra nativamente nella GUI: è la via all&#x27;iperconvergenza senza SAN.</p><p>Quando ha senso, onestamente: da <strong>3 nodi in su</strong> (meglio 4-5, con 3 la resilienza è al limite), con <strong>rete dedicata da 10G</strong> e dischi decenti per gli OSD – sotto queste soglie le prestazioni deludono e la complessità resta. Per l&#x27;homelab a 2-3 nodi la via povera e solida è un&#x27;altra: <a href="../perche-usare-zfs-su-proxmox/">ZFS</a> con replica programmata (<code>pvesr</code>) – niente storage condiviso vero, ma failover a minuti con un decimo della complessità.</p></div>
     <div class="qa-actions">
       <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">

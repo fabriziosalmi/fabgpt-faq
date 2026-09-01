@@ -64,6 +64,7 @@
       <span class="page-meta-badge">⏱️ 2 min lettura</span>
       <span class="page-meta-badge">✓ Runbook verificato</span>
     </div>
+    
     <div class="answer" id="page-answer" itemprop="articleBody"><p>Il <strong>registrar</strong> è chi ti vende e amministra il dominio (la titolarità, il rinnovo, i <a href="../configurare-dominio-su-cloudflare/">nameserver</a>); non va confuso con chi ospita il DNS o il sito – tre ruoli che possono stare da tre fornitori diversi.</p><p>Il <strong>transfer</strong> verso un registrar migliore è un diritto: sblocchi il dominio dal pannello attuale, chiedi il <strong>codice EPP/auth code</strong>, lo inserisci dal nuovo registrar e confermi. Regole ICANN da sapere: nei <strong>60 giorni</strong> dopo registrazione o transfer non si ritrasferisce, e il transfer aggiunge un anno di rinnovo (non lo perdi). Prima di partire: <a href="../cos-e-il-ttl-dns/">abbassa i TTL</a>, esporta la zona DNS e ricrea i record dal nuovo fornitore – il transfer sposta la titolarità, <strong>non</strong> copia il DNS.</p><p>Criteri di scelta onesti: prezzo di <em>rinnovo</em> (non di primo anno), niente upselling aggressivo, API decente e lock/2FA seri – <a href="../cos-e-dnssec/">il dominio è l&#x27;anello da cui pende tutto il resto</a>. Cloudflare Registrar vende a prezzo di costo; i classici (Porkbun, Gandi, OVH) restano scelte sane.</p></div>
     <div class="qa-actions">
       <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">

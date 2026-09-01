@@ -64,6 +64,7 @@
       <span class="page-meta-badge">⏱️ 1 min lettura</span>
       <span class="page-meta-badge">✓ Runbook verificato</span>
     </div>
+    
     <div class="answer" id="page-answer" itemprop="articleBody"><p>Nei sistemi agentici complessi, un singolo prompt utente può generare decine di chiamate ricorsive a modelli di inferenza e API esterne. Misurare solo il costo aggregato della richiesta non permette di capire quale componente dissipa risorse. Attribuendo token input/output e costi monetari a ciascun span di esecuzione (sub-task, generazione query, validazione tool, re-ranking vettoriale) tramite OpenInference/OpenTelemetry, è possibile individuare immediatamente bottleneck costosi: loop di retry infiniti, prompt ridondanti o passaggi che possono essere delegati a modelli SLM più economici con <a href="../ridurre-costi-inferenza-llm/">l0-compressor</a>.</p></div>
     <div class="qa-actions">
       <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">

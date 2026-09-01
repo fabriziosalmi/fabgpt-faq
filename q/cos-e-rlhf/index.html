@@ -64,6 +64,7 @@
       <span class="page-meta-badge">⏱️ 2 min lettura</span>
       <span class="page-meta-badge">✓ Runbook verificato</span>
     </div>
+    
     <div class="answer" id="page-answer" itemprop="articleBody"><p><strong>RLHF</strong> (Reinforcement Learning from Human Feedback) è la tecnica che ha trasformato i modelli da completatori di testo ad assistenti: si mostrano a persone coppie di risposte (&quot;quale preferisci?&quot;), con quei giudizi si addestra un <strong>reward model</strong> che impara a prevedere le preferenze umane, e con il reinforcement learning si spinge l&#x27;LLM a produrre risposte che quel giudice premia.</p><p>È potente e delicato: il modello impara a piacere, che non è esattamente <em>essere corretto</em> – da qui la piaggeria (&quot;ottima domanda!&quot;) e le risposte prudenti fino alla mutilazione. <strong>DPO</strong> (Direct Preference Optimization) ottiene un effetto simile saltando il reward model e il RL: si ottimizza direttamente sulle coppie preferita/scartata – più semplice e stabile, ed è il motivo per cui lo trovi nelle pipeline open source. I dataset di preferenze pubblici (HH di Anthropic, UltraFeedback, OASST) sono la materia prima di entrambi.</p></div>
     <div class="qa-actions">
       <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">

@@ -64,6 +64,7 @@
       <span class="page-meta-badge">⏱️ 1 min lettura</span>
       <span class="page-meta-badge">✓ Runbook verificato</span>
     </div>
+    
     <div class="answer" id="page-answer" itemprop="articleBody"><p>Un&#x27;installazione predefinita di Nextcloud su database SQLite o MySQL con cron web tende a degradare rapidamente con l&#x27;aumento dei file. Per ottenere prestazioni da cloud enterprise su hardware proprio:</p><p>1. <strong>Database PostgreSQL</strong>: garantisce concorrenza superiore su lock e indici rispetto a SQLite. Configura <code>shared_buffers</code> al 25% della RAM e abilita <code>pg_stat_statements</code>.<br>2. <strong>In-Memory Caching con Redis</strong>: riduce le query al disco e gestisce il locking atomico dei file:<br>   <code>&#x27;memcache.local&#x27; =&gt; &#x27;\OC\Memcache\APCu&#x27;,</code><br>   <code>&#x27;memcache.distributed&#x27; =&gt; &#x27;\OC\Memcache\Redis&#x27;,</code><br>   <code>&#x27;memcache.locking&#x27; =&gt; &#x27;\OC\Memcache\Redis&#x27;,</code><br>3. <strong>Background Jobs con Systemd/Cron</strong>: abbandona la modalità AJAX e imposta l&#x27;esecuzione periodica di <code>cron.php</code> ogni 5 minuti tramite cron di sistema (<code>crontab -u www-data</code>).<br>4. <strong>PHP-FPM Tuning</strong>: incrementa <code>pm.max_children</code> e <code>opcache.memory_consumption</code> (almeno 256MB) per azzerare i tempi di rendering delle pagine.</p></div>
     <div class="qa-actions">
       <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">

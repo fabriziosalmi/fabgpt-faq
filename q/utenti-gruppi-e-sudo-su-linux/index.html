@@ -64,6 +64,7 @@
       <span class="page-meta-badge">⏱️ 1 min lettura</span>
       <span class="page-meta-badge">✓ Runbook verificato</span>
     </div>
+    
     <div class="answer" id="page-answer" itemprop="articleBody"><p>Su Linux <strong>root</strong> può tutto; il lavoro quotidiano si fa con un utente normale che eleva i privilegi con <strong>sudo</strong> solo quando serve. Creazione: <code>useradd -m -s /bin/bash nome</code> (o <code>adduser</code> su Debian, più amichevole), poi <code>passwd nome</code>.</p><p>I <strong>gruppi</strong> governano gli accessi condivisi: <code>usermod -aG docker nome</code> aggiunge al gruppo – la <code>-a</code> è vitale, senza sovrascrivi gli altri gruppi. Serve un nuovo login perché faccia effetto.</p><p>Chi può usare sudo lo decide <code>/etc/sudoers</code>, da toccare <strong>solo</strong> con <code>visudo</code> (valida la sintassi: un errore lì ti chiude fuori dalla macchina). In pratica basta il gruppo <code>sudo</code> (Debian) o <code>wheel</code> (RHEL). I passi successivi: <a href="../mettere-in-sicurezza-ssh/">vietare il login SSH di root</a> e ragionare per <a href="../permessi-linux-chmod-chown-umask/">permessi minimi</a>.</p></div>
     <div class="qa-actions">
       <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">

@@ -64,6 +64,7 @@
       <span class="page-meta-badge">⏱️ 1 min lettura</span>
       <span class="page-meta-badge">✓ Runbook verificato</span>
     </div>
+    
     <div class="answer" id="page-answer" itemprop="articleBody"><p>Ospitare le riunioni su <strong>Jitsi Meet</strong> o <strong>BigBlueButton</strong> interni toglie i dati ai cloud commerciali, ma le registrazioni finiscono sul disco <strong>in chiaro</strong>: è lì che si lavora.</p><p>La filiera corretta: directory dedicata con <a href="../permessi-linux-chmod-chown-umask/">permessi minimi</a> (solo il servizio e chi deve leggerle), <strong>cifratura a riposo</strong> del volume o <a href="../backup-cifrati-restic-borg/">dei backup</a>, e una <strong>retention dichiarata</strong> – registrazioni e minute sono dati personali a tutti gli effetti, con tanto di voce nel <a href="../registro-dei-trattamenti/">registro dei trattamenti</a> e cancellazione a scadenza automatica, non &quot;quando ci ricordiamo&quot;.</p><p>Per le trascrizioni: <strong>Whisper in locale</strong>, non le API cloud – mandare l&#x27;audio di una riunione interna a un servizio terzo vanifica l&#x27;intera architettura (<a href="../far-girare-un-llm-in-locale/">qui come far girare i modelli in casa</a>).</p></div>
     <div class="qa-actions">
       <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">

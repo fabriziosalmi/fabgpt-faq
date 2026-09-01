@@ -64,6 +64,7 @@
       <span class="page-meta-badge">⏱️ 1 min lettura</span>
       <span class="page-meta-badge">✓ Runbook verificato</span>
     </div>
+    
     <div class="answer" id="page-answer" itemprop="articleBody"><p>Inviare password, token API o credenziali temporanee tramite email o chat aziendali le espone a memorizzazione indefinita nei log e nella cronologia dei server.</p><p>Strumenti open source self-hosted come <strong>Yopass</strong> o <strong>Microbin</strong> risolvono il problema tramite condivisione effimera a conoscenza zero:</p><ul><li><strong>Cifratura Client-side</strong>: il segreto viene cifrato nel browser del mittente usando una chiave casuale inclusa solo nel frammento hash dell&#x27;URL (<code>#chiave</code>). Il server riceve e memorizza solo un blob cifrato opaco.</li><li><strong>Autodistruzione dopo la prima lettura</strong>: non appena il destinatario apre il link, il server cancella definitivamente il blob dal database.</li><li><strong>Scadenza temporale (TTL)</strong>: se il link non viene aperto entro il tempo stabilito (es. 1 ora o 24 ore), il record scade e viene eliminato automaticamente.</li></ul></div>
     <div class="qa-actions">
       <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">

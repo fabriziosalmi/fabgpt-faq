@@ -64,6 +64,7 @@
       <span class="page-meta-badge">⏱️ 1 min lettura</span>
       <span class="page-meta-badge">✓ Runbook verificato</span>
     </div>
+    
     <div class="answer" id="page-answer" itemprop="articleBody"><p>Quando un certificato TLS scade, i browser mostrano &quot;La connessione non è privata&quot; e il sito è di fatto giù: utenti persi, API che falliscono, monitoraggio che urla. Succede perché il rinnovo era manuale, o perché <strong>nessuno sapeva che quel certificato esistesse</strong> (il classico: emesso a mano due anni fa su un load balancer dimenticato).</p><p>La cura ha due parti:</p><ul><li><strong>automazione del rinnovo</strong> – <a href="https://github.com/fabriziosalmi/certmate" target="_blank" rel="noopener">CertMate</a> gestisce l&#x27;intero ciclo di vita e in più fa <em>discovery</em> dei certificati che non hai emesso tu</li><li><strong>monitoraggio indipendente</strong> – <a href="https://github.com/fabriziosalmi/websites-monitor" target="_blank" rel="noopener">websites-monitor</a> (via GitHub Actions) o <a href="https://github.com/fabriziosalmi/domainmate" target="_blank" rel="noopener">DomainMate</a> controllano le scadenze dall&#x27;esterno, così l&#x27;errore umano ha un paracadute</li></ul></div>
     <div class="qa-actions">
       <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">

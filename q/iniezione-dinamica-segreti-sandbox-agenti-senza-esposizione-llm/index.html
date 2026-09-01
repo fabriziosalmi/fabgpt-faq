@@ -64,6 +64,7 @@
       <span class="page-meta-badge">⏱️ 1 min lettura</span>
       <span class="page-meta-badge">✓ Runbook verificato</span>
     </div>
+    
     <div class="answer" id="page-answer" itemprop="articleBody"><p>Un principio cardine dell&#x27;agent security è che l&#x27;LLM non deve mai manipolare direttamente token API o password in chiaro nel prompt o nel tool output. L&#x27;architettura prevede un runtime mediator esterno: l&#x27;LLM invoca i tool passando parametri logici (es. <code>destination: &#x27;internal_crm&#x27;</code>), mentre il runner della sandbox recupera i token a runtime da un Secret Vault (come HashiCorp Vault o <a href="../password-manager-self-hosted-vaultwarden/">vaultwarden</a>) e li inietta come variabili d&#x27;ambiente temporanee a durata limitata o file in memoria (ramfs). I log di esecuzione e gli output restituiti all&#x27;LLM vengono sanitizzati tramite regex e filtri per mascherare qualsiasi chiave o credenziale prima del rientro nel contesto.</p></div>
     <div class="qa-actions">
       <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">

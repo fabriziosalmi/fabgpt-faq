@@ -64,6 +64,7 @@
       <span class="page-meta-badge">⏱️ 1 min lettura</span>
       <span class="page-meta-badge">✓ Runbook verificato</span>
     </div>
+    
     <div class="answer" id="page-answer" itemprop="articleBody"><p>Quando digiti un dominio, il sistema chiede al <strong>resolver ricorsivo</strong> (quello dell&#x27;operatore, o <code>1.1.1.1</code>/<code>9.9.9.9</code>). Se non ha la risposta in cache, il resolver scala la gerarchia: i <strong>root server</strong> indicano i server del TLD (<code>.it</code>, <code>.com</code>), il TLD indica i <strong>nameserver autoritativi</strong> del dominio, e quelli rispondono con il <a href="../tipi-di-record-dns/">record</a> richiesto. Ogni risposta resta in cache per il suo <a href="../cos-e-il-ttl-dns/">TTL</a> – per questo le modifiche <a href="../diagnosticare-la-propagazione-dns/">&quot;propagano&quot; lentamente</a>.</p><p>Per vedere il percorso dal vivo: <code>dig +trace example.com</code>; per interrogare un resolver preciso: <code>dig @1.1.1.1 example.com</code>.</p><p>Due code: le query classiche viaggiano in chiaro sulla porta 53 – <a href="../cos-e-doh-dns-over-https/">DoH e DoT</a> le cifrano – e un resolver bugiardo può <a href="../cos-e-il-dns-spoofing/">avvelenare la cache</a>. Sceglierlo è una questione di fiducia.</p></div>
     <div class="qa-actions">
       <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">
