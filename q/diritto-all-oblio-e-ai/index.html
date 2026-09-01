@@ -3,24 +3,24 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Come funzionano le chiavi SSH (e perché abbandonare le password)? – FabGPT-FAQ</title>
-<meta name="description" content="Una coppia di chiavi SSH è crittografia asimmetrica: la pubblica va sul server (in ~/.ssh/authorized_keys), la privata resta sul tuo computer e non viaggia…">
+<title>Diritto all&#x27;oblio e AI: come si cancellano dati da indici e modelli? – FabGPT-FAQ</title>
+<meta name="description" content="L&#x27;art. 17 GDPR non fa sconti all&#x27;AI, ma la fattibilità dipende da dove vive il dato: Indice vettoriale ([RAG](q/sicurezza-del-rag-e-dei-vector-database/)):…">
 <meta name="robots" content="index,follow,max-image-preview:large">
-<link rel="canonical" href="https://fabriziosalmi.github.io/fabgpt-faq/q/come-funzionano-le-chiavi-ssh/">
+<link rel="canonical" href="https://fabriziosalmi.github.io/fabgpt-faq/q/diritto-all-oblio-e-ai/">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Come funzionano le chiavi SSH (e perché abbandonare le password)?">
-<meta property="og:description" content="Una coppia di chiavi SSH è crittografia asimmetrica: la pubblica va sul server (in ~/.ssh/authorized_keys), la privata resta sul tuo computer e non viaggia…">
-<meta property="og:url" content="https://fabriziosalmi.github.io/fabgpt-faq/q/come-funzionano-le-chiavi-ssh/">
+<meta property="og:title" content="Diritto all&#x27;oblio e AI: come si cancellano dati da indici e modelli?">
+<meta property="og:description" content="L&#x27;art. 17 GDPR non fa sconti all&#x27;AI, ma la fattibilità dipende da dove vive il dato: Indice vettoriale ([RAG](q/sicurezza-del-rag-e-dei-vector-database/)):…">
+<meta property="og:url" content="https://fabriziosalmi.github.io/fabgpt-faq/q/diritto-all-oblio-e-ai/">
 <meta property="og:image" content="https://fabriziosalmi.github.io/fabgpt-faq/og.svg">
 <meta property="og:site_name" content="FabGPT-FAQ">
 <meta property="og:locale" content="it_IT">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Come funzionano le chiavi SSH (e perché abbandonare le password)?">
-<meta name="twitter:description" content="Una coppia di chiavi SSH è crittografia asimmetrica: la pubblica va sul server (in ~/.ssh/authorized_keys), la privata resta sul tuo computer e non viaggia…">
+<meta name="twitter:title" content="Diritto all&#x27;oblio e AI: come si cancellano dati da indici e modelli?">
+<meta name="twitter:description" content="L&#x27;art. 17 GDPR non fa sconti all&#x27;AI, ma la fattibilità dipende da dove vive il dato: Indice vettoriale ([RAG](q/sicurezza-del-rag-e-dei-vector-database/)):…">
 <meta name="twitter:image" content="https://fabriziosalmi.github.io/fabgpt-faq/og.svg">
 <link rel="stylesheet" href="../../style.css">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
-<script type="application/ld+json">[{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Come funzionano le chiavi SSH (e perché abbandonare le password)?", "description": "Una coppia di chiavi SSH è crittografia asimmetrica: la pubblica va sul server (in ~/.ssh/authorized_keys), la privata resta sul tuo computer e non viaggia…", "author": {"@type": "Person", "name": "Fabrizio Salmi", "url": "https://github.com/fabriziosalmi"}, "publisher": {"@type": "Organization", "name": "FabGPT-FAQ", "url": "https://fabriziosalmi.github.io/fabgpt-faq/"}, "inLanguage": "it", "articleSection": "Cybersecurity"}, {"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Come funzionano le chiavi SSH (e perché abbandonare le password)?", "acceptedAnswer": {"@type": "Answer", "text": "Una coppia di chiavi SSH è crittografia asimmetrica: la pubblica va sul server (in ~/.ssh/authorized_keys), la privata resta sul tuo computer e non viaggia mai. Al login il server lancia una sfida che solo chi possiede la privata sa firmare: niente password da indovinare o intercettare. Il setup in tre comandi: ssh-keygen -t ed25519 (l'algoritmo giusto oggi), ssh-copy-id utente@server, poi ssh utente@server. Metti una passphrase sulla chiave e lascia che ssh-agent la ricordi per la sessione. Dettagli che fregano: la privata vuole [permessi](q/permessi-linux-chmod-chown-umask/) 600 (SSH la rifiuta altrimenti) e una chiave per dispositivo è meglio di una chiave ovunque. Il passo finale è [disattivare del tutto il login con password](q/mettere-in-sicurezza-ssh/)."}}]}, {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "FabGPT-FAQ", "item": "https://fabriziosalmi.github.io/fabgpt-faq/"}, {"@type": "ListItem", "position": 2, "name": "Tutte le domande", "item": "https://fabriziosalmi.github.io/fabgpt-faq/q/"}, {"@type": "ListItem", "position": 3, "name": "Cybersecurity", "item": "https://fabriziosalmi.github.io/fabgpt-faq/q/come-funzionano-le-chiavi-ssh/"}]}]</script>
+<script type="application/ld+json">[{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Diritto all'oblio e AI: come si cancellano dati da indici e modelli?", "description": "L'art. 17 GDPR non fa sconti all'AI, ma la fattibilità dipende da dove vive il dato: Indice vettoriale ([RAG](q/sicurezza-del-rag-e-dei-vector-database/)):…", "author": {"@type": "Person", "name": "Fabrizio Salmi", "url": "https://github.com/fabriziosalmi"}, "publisher": {"@type": "Organization", "name": "FabGPT-FAQ", "url": "https://fabriziosalmi.github.io/fabgpt-faq/"}, "inLanguage": "it", "articleSection": "AI e LLM"}, {"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Diritto all'oblio e AI: come si cancellano dati da indici e modelli?", "acceptedAnswer": {"@type": "Answer", "text": "L'art. 17 GDPR non fa sconti all'AI, ma la fattibilità dipende da dove vive il dato: Indice vettoriale ([RAG](q/sicurezza-del-rag-e-dei-vector-database/)): cancellabile davvero – elimini documento ed embedding associati (serve che gli id lo permettano: progettalo prima). È l'argomento più forte per preferire il RAG al fine-tuning quando ci sono dati personali: [il confronto](q/meglio-fine-tuning-o-rag/) Pesi del modello: se il dato è finito nell'addestramento, rimuoverlo è ricerca aperta (machine unlearning); nella pratica l'unica strada certa è riaddestrare senza quel dato [Memorie degli assistenti](q/memoria-persistente-assistenti-ai/), cache, [log e tracce](q/data-leakage-via-llm/): il dato si annida anche qui, e la cancellazione deve coprirli tutti Regola di progetto: tratta la cancellabilità come requisito architetturale, non come richiesta da gestire quando arriva."}}]}, {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "FabGPT-FAQ", "item": "https://fabriziosalmi.github.io/fabgpt-faq/"}, {"@type": "ListItem", "position": 2, "name": "Tutte le domande", "item": "https://fabriziosalmi.github.io/fabgpt-faq/q/"}, {"@type": "ListItem", "position": 3, "name": "AI e LLM", "item": "https://fabriziosalmi.github.io/fabgpt-faq/q/diritto-all-oblio-e-ai/"}]}]</script>
 <style>
   .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
   .page h1 { font-size: 26px; line-height: 1.3; margin: 6px 0 10px; }
@@ -57,22 +57,22 @@
 </header>
 <main class="page">
   <article itemscope itemtype="https://schema.org/TechArticle">
-    <nav class="crumbs" aria-label="Percorso"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › <span itemprop="articleSection">Cybersecurity</span></nav>
-    <h1 id="page-question" itemprop="headline">Come funzionano le chiavi SSH (e perché abbandonare le password)?</h1>
+    <nav class="crumbs" aria-label="Percorso"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › <span itemprop="articleSection">AI e LLM</span></nav>
+    <h1 id="page-question" itemprop="headline">Diritto all&#x27;oblio e AI: come si cancellano dati da indici e modelli?</h1>
     <div class="page-meta">
-      <span class="page-meta-badge vert"><svg class='glyph' viewBox='0 0 24 24' width='22' height='22' aria-hidden='true' fill='none' stroke='var(--accent)' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'><path d='M12 3l7 3v5c0 4-3 7-7 8-4-1-7-4-7-8V6z'/></svg> <span>Cybersecurity</span></span>
+      <span class="page-meta-badge vert"><svg class='glyph' viewBox='0 0 24 24' width='22' height='22' aria-hidden='true' fill='none' stroke='var(--accent)' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'><circle cx='12' cy='12' r='3'/><path d='M12 3v3M12 18v3M3 12h3M18 12h3M6 6l2 2M16 16l2 2M18 6l-2 2M8 16l-2 2'/></svg> <span>AI e LLM</span></span>
       <span class="page-meta-badge">⏱️ 1 min lettura</span>
       <span class="page-meta-badge">✓ Runbook verificato</span>
     </div>
-    <div class="answer" id="page-answer" itemprop="articleBody"><p>Una coppia di <strong>chiavi SSH</strong> è crittografia asimmetrica: la <strong>pubblica</strong> va sul server (in <code>~/.ssh/authorized_keys</code>), la <strong>privata</strong> resta sul tuo computer e non viaggia mai. Al login il server lancia una sfida che solo chi possiede la privata sa firmare: niente password da indovinare o intercettare.</p><p>Il setup in tre comandi: <code>ssh-keygen -t ed25519</code> (l&#x27;algoritmo giusto oggi), <code>ssh-copy-id utente@server</code>, poi <code>ssh utente@server</code>. Metti una <strong>passphrase</strong> sulla chiave e lascia che <code>ssh-agent</code> la ricordi per la sessione.</p><p>Dettagli che fregano: la privata vuole <a href="../permessi-linux-chmod-chown-umask/">permessi</a> <code>600</code> (SSH la rifiuta altrimenti) e una chiave <em>per dispositivo</em> è meglio di una chiave ovunque. Il passo finale è <a href="../mettere-in-sicurezza-ssh/">disattivare del tutto il login con password</a>.</p></div>
+    <div class="answer" id="page-answer" itemprop="articleBody"><p>L&#x27;art. 17 GDPR non fa sconti all&#x27;AI, ma la fattibilità dipende da <em>dove</em> vive il dato:</p><ul><li><strong>Indice vettoriale (<a href="../sicurezza-del-rag-e-dei-vector-database/">RAG</a>)</strong>: cancellabile davvero – elimini documento ed embedding associati (serve che gli id lo permettano: progettalo <em>prima</em>). È l&#x27;argomento più forte per preferire il RAG al fine-tuning quando ci sono dati personali: <a href="../meglio-fine-tuning-o-rag/">il confronto</a></li><li><strong>Pesi del modello</strong>: se il dato è finito nell&#x27;addestramento, rimuoverlo è ricerca aperta (<em>machine unlearning</em>); nella pratica l&#x27;unica strada certa è riaddestrare senza quel dato</li><li><strong><a href="../memoria-persistente-assistenti-ai/">Memorie degli assistenti</a>, cache, <a href="../data-leakage-via-llm/">log e tracce</a></strong>: il dato si annida anche qui, e la cancellazione deve coprirli tutti</li></ul><p>Regola di progetto: tratta la cancellabilità come requisito architetturale, non come richiesta da gestire quando arriva.</p></div>
     <div class="qa-actions">
       <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
         <span>Copia Q&A</span>
       </button>
-      <a class="ask" href="../../?q=chiavi-ssh">Apri nella chat interattiva 💬</a>
+      <a class="ask" href="../../?q=diritto-oblio-ai">Apri nella chat interattiva 💬</a>
     </div>
-    <nav class="page-nav" aria-label="Navigazione tra domande"><a class="page-nav-card prev" href="../come-funziona-la-risoluzione-dns/"><span class="nav-dir">← Precedente</span><span class="nav-title">Come funziona la risoluzione DNS (dal click alla risposta)?</span></a><a class="page-nav-card next" href="../checklist-sicurezza-periodica-server/"><span class="nav-dir">Successiva →</span><span class="nav-title">Quale checklist di sicurezza periodica tiene in salute un server?</span></a></nav>
+    <nav class="page-nav" aria-label="Navigazione tra domande"><a class="page-nav-card prev" href="../golden-dataset-test-rag-agenti/"><span class="nav-dir">← Precedente</span><span class="nav-title">Come si testano pipeline RAG e agenti con i golden dataset?</span></a><a class="page-nav-card next" href="../weight-poisoning-backdoor-neurali/"><span class="nav-dir">Successiva →</span><span class="nav-title">Cos&#x27;è il weight poisoning (le backdoor neurali nei modelli)?</span></a></nav>
     <section class="ask-box">
       <div class="ask-box-header">
         <span class="ask-box-icon">💬</span>
@@ -82,13 +82,13 @@
         </div>
       </div>
       <form class="ask-box-form" action="../../" method="get">
-        <input type="text" name="q" value="Come funzionano le chiavi SSH (e perché abbandonare le password)?" placeholder="Chiedi qualcosa a FabGPT-FAQ…" aria-label="Chiedi qualcosa" autocomplete="off">
+        <input type="text" name="q" value="Diritto all&#x27;oblio e AI: come si cancellano dati da indici e modelli?" placeholder="Chiedi qualcosa a FabGPT-FAQ…" aria-label="Chiedi qualcosa" autocomplete="off">
         <button type="submit">Chiedi in chat →</button>
       </form>
     </section>
     <div class="related">
       <h2>Domande correlate</h2>
-      <ul><li><a href="../permessi-linux-chmod-chown-umask/">Come funzionano i permessi Linux (chmod, chown, umask)?</a></li><li><a href="../mettere-in-sicurezza-ssh/">Come si mette in sicurezza SSH su un server esposto?</a></li><li><a href="../come-funziona-la-risoluzione-dns/">Come funziona la risoluzione DNS (dal click alla risposta)?</a></li><li><a href="../cos-e-un-waf-web-application-firewall/">Cos&#x27;è un WAF (Web Application Firewall) e a cosa serve?</a></li><li><a href="../cos-e-un-reverse-proxy/">Cos&#x27;è un reverse proxy e a cosa serve?</a></li><li><a href="../come-funziona-lets-encrypt-acme/">Come funziona Let&#x27;s Encrypt e il protocollo ACME?</a></li></ul>
+      <ul><li><a href="../sicurezza-del-rag-e-dei-vector-database/">Quali sono i rischi di sicurezza del RAG e dei vector database?</a></li><li><a href="../meglio-fine-tuning-o-rag/">Meglio fine-tuning o RAG?</a></li><li><a href="../weight-poisoning-backdoor-neurali/">Cos&#x27;è il weight poisoning (le backdoor neurali nei modelli)?</a></li><li><a href="../golden-dataset-test-rag-agenti/">Come si testano pipeline RAG e agenti con i golden dataset?</a></li><li><a href="../cos-e-la-prompt-injection/">Cos&#x27;è la prompt injection e come ci si difende?</a></li><li><a href="../cos-e-mcp-model-context-protocol/">Cos&#x27;è MCP (Model Context Protocol)?</a></li></ul>
     </div>
   </article>
 </main>

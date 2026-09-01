@@ -3,24 +3,24 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Come funzionano le chiavi SSH (e perché abbandonare le password)? – FabGPT-FAQ</title>
-<meta name="description" content="Una coppia di chiavi SSH è crittografia asimmetrica: la pubblica va sul server (in ~/.ssh/authorized_keys), la privata resta sul tuo computer e non viaggia…">
+<title>Cos&#x27;è il DPA (Data Processing Agreement) e cosa deve contenere? – FabGPT-FAQ</title>
+<meta name="description" content="Il DPA (Data Processing Agreement) è il contratto che l&#x27;art. 28 GDPR impone tra titolare e responsabile del trattamento: se un provider tratta dati…">
 <meta name="robots" content="index,follow,max-image-preview:large">
-<link rel="canonical" href="https://fabriziosalmi.github.io/fabgpt-faq/q/come-funzionano-le-chiavi-ssh/">
+<link rel="canonical" href="https://fabriziosalmi.github.io/fabgpt-faq/q/dpa-data-processing-agreement/">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Come funzionano le chiavi SSH (e perché abbandonare le password)?">
-<meta property="og:description" content="Una coppia di chiavi SSH è crittografia asimmetrica: la pubblica va sul server (in ~/.ssh/authorized_keys), la privata resta sul tuo computer e non viaggia…">
-<meta property="og:url" content="https://fabriziosalmi.github.io/fabgpt-faq/q/come-funzionano-le-chiavi-ssh/">
+<meta property="og:title" content="Cos&#x27;è il DPA (Data Processing Agreement) e cosa deve contenere?">
+<meta property="og:description" content="Il DPA (Data Processing Agreement) è il contratto che l&#x27;art. 28 GDPR impone tra titolare e responsabile del trattamento: se un provider tratta dati…">
+<meta property="og:url" content="https://fabriziosalmi.github.io/fabgpt-faq/q/dpa-data-processing-agreement/">
 <meta property="og:image" content="https://fabriziosalmi.github.io/fabgpt-faq/og.svg">
 <meta property="og:site_name" content="FabGPT-FAQ">
 <meta property="og:locale" content="it_IT">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Come funzionano le chiavi SSH (e perché abbandonare le password)?">
-<meta name="twitter:description" content="Una coppia di chiavi SSH è crittografia asimmetrica: la pubblica va sul server (in ~/.ssh/authorized_keys), la privata resta sul tuo computer e non viaggia…">
+<meta name="twitter:title" content="Cos&#x27;è il DPA (Data Processing Agreement) e cosa deve contenere?">
+<meta name="twitter:description" content="Il DPA (Data Processing Agreement) è il contratto che l&#x27;art. 28 GDPR impone tra titolare e responsabile del trattamento: se un provider tratta dati…">
 <meta name="twitter:image" content="https://fabriziosalmi.github.io/fabgpt-faq/og.svg">
 <link rel="stylesheet" href="../../style.css">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
-<script type="application/ld+json">[{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Come funzionano le chiavi SSH (e perché abbandonare le password)?", "description": "Una coppia di chiavi SSH è crittografia asimmetrica: la pubblica va sul server (in ~/.ssh/authorized_keys), la privata resta sul tuo computer e non viaggia…", "author": {"@type": "Person", "name": "Fabrizio Salmi", "url": "https://github.com/fabriziosalmi"}, "publisher": {"@type": "Organization", "name": "FabGPT-FAQ", "url": "https://fabriziosalmi.github.io/fabgpt-faq/"}, "inLanguage": "it", "articleSection": "Cybersecurity"}, {"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Come funzionano le chiavi SSH (e perché abbandonare le password)?", "acceptedAnswer": {"@type": "Answer", "text": "Una coppia di chiavi SSH è crittografia asimmetrica: la pubblica va sul server (in ~/.ssh/authorized_keys), la privata resta sul tuo computer e non viaggia mai. Al login il server lancia una sfida che solo chi possiede la privata sa firmare: niente password da indovinare o intercettare. Il setup in tre comandi: ssh-keygen -t ed25519 (l'algoritmo giusto oggi), ssh-copy-id utente@server, poi ssh utente@server. Metti una passphrase sulla chiave e lascia che ssh-agent la ricordi per la sessione. Dettagli che fregano: la privata vuole [permessi](q/permessi-linux-chmod-chown-umask/) 600 (SSH la rifiuta altrimenti) e una chiave per dispositivo è meglio di una chiave ovunque. Il passo finale è [disattivare del tutto il login con password](q/mettere-in-sicurezza-ssh/)."}}]}, {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "FabGPT-FAQ", "item": "https://fabriziosalmi.github.io/fabgpt-faq/"}, {"@type": "ListItem", "position": 2, "name": "Tutte le domande", "item": "https://fabriziosalmi.github.io/fabgpt-faq/q/"}, {"@type": "ListItem", "position": 3, "name": "Cybersecurity", "item": "https://fabriziosalmi.github.io/fabgpt-faq/q/come-funzionano-le-chiavi-ssh/"}]}]</script>
+<script type="application/ld+json">[{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Cos'è il DPA (Data Processing Agreement) e cosa deve contenere?", "description": "Il DPA (Data Processing Agreement) è il contratto che l'art. 28 GDPR impone tra titolare e responsabile del trattamento: se un provider tratta dati…", "author": {"@type": "Person", "name": "Fabrizio Salmi", "url": "https://github.com/fabriziosalmi"}, "publisher": {"@type": "Organization", "name": "FabGPT-FAQ", "url": "https://fabriziosalmi.github.io/fabgpt-faq/"}, "inLanguage": "it", "articleSection": "Cybersecurity"}, {"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Cos'è il DPA (Data Processing Agreement) e cosa deve contenere?", "acceptedAnswer": {"@type": "Answer", "text": "Il DPA (Data Processing Agreement) è il contratto che l'art. 28 GDPR impone tra titolare e responsabile del trattamento: se un provider tratta dati personali per conto tuo, senza DPA sei fuori norma tu. Cosa verificare prima di firmare: dove risiedono i dati (regione UE dichiarata, non \"principalmente in Europa\" – i [provider sovrani](q/cloud-provider-europei-sovrani/) qui vincono facile); l'elenco dei sub-responsabili e l'obbligo di notificarti i cambi; le misure tecniche (cifratura a riposo e in transito, controllo accessi); i tempi di assistenza su data breach e richieste degli interessati; la cancellazione certificata a fine contratto. Se il provider è extra-UE, o ha la casa madre extra-UE, il DPA da solo non basta: si entra nel terreno di [Schrems II](q/trasferimento-dati-extra-ue-schrems/). E ogni fornitore con DPA finisce nel tuo [registro dei trattamenti](q/registro-dei-trattamenti/)."}}]}, {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "FabGPT-FAQ", "item": "https://fabriziosalmi.github.io/fabgpt-faq/"}, {"@type": "ListItem", "position": 2, "name": "Tutte le domande", "item": "https://fabriziosalmi.github.io/fabgpt-faq/q/"}, {"@type": "ListItem", "position": 3, "name": "Cybersecurity", "item": "https://fabriziosalmi.github.io/fabgpt-faq/q/dpa-data-processing-agreement/"}]}]</script>
 <style>
   .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
   .page h1 { font-size: 26px; line-height: 1.3; margin: 6px 0 10px; }
@@ -58,21 +58,21 @@
 <main class="page">
   <article itemscope itemtype="https://schema.org/TechArticle">
     <nav class="crumbs" aria-label="Percorso"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › <span itemprop="articleSection">Cybersecurity</span></nav>
-    <h1 id="page-question" itemprop="headline">Come funzionano le chiavi SSH (e perché abbandonare le password)?</h1>
+    <h1 id="page-question" itemprop="headline">Cos&#x27;è il DPA (Data Processing Agreement) e cosa deve contenere?</h1>
     <div class="page-meta">
       <span class="page-meta-badge vert"><svg class='glyph' viewBox='0 0 24 24' width='22' height='22' aria-hidden='true' fill='none' stroke='var(--accent)' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'><path d='M12 3l7 3v5c0 4-3 7-7 8-4-1-7-4-7-8V6z'/></svg> <span>Cybersecurity</span></span>
       <span class="page-meta-badge">⏱️ 1 min lettura</span>
       <span class="page-meta-badge">✓ Runbook verificato</span>
     </div>
-    <div class="answer" id="page-answer" itemprop="articleBody"><p>Una coppia di <strong>chiavi SSH</strong> è crittografia asimmetrica: la <strong>pubblica</strong> va sul server (in <code>~/.ssh/authorized_keys</code>), la <strong>privata</strong> resta sul tuo computer e non viaggia mai. Al login il server lancia una sfida che solo chi possiede la privata sa firmare: niente password da indovinare o intercettare.</p><p>Il setup in tre comandi: <code>ssh-keygen -t ed25519</code> (l&#x27;algoritmo giusto oggi), <code>ssh-copy-id utente@server</code>, poi <code>ssh utente@server</code>. Metti una <strong>passphrase</strong> sulla chiave e lascia che <code>ssh-agent</code> la ricordi per la sessione.</p><p>Dettagli che fregano: la privata vuole <a href="../permessi-linux-chmod-chown-umask/">permessi</a> <code>600</code> (SSH la rifiuta altrimenti) e una chiave <em>per dispositivo</em> è meglio di una chiave ovunque. Il passo finale è <a href="../mettere-in-sicurezza-ssh/">disattivare del tutto il login con password</a>.</p></div>
+    <div class="answer" id="page-answer" itemprop="articleBody"><p>Il <strong>DPA</strong> (Data Processing Agreement) è il contratto che l&#x27;art. 28 GDPR impone tra titolare e responsabile del trattamento: se un provider tratta dati personali per conto tuo, senza DPA sei fuori norma tu.</p><p>Cosa verificare prima di firmare: <strong>dove risiedono i dati</strong> (regione UE dichiarata, non &quot;principalmente in Europa&quot; – i <a href="../cloud-provider-europei-sovrani/">provider sovrani</a> qui vincono facile); l&#x27;elenco dei <strong>sub-responsabili</strong> e l&#x27;obbligo di notificarti i cambi; le misure tecniche (cifratura a riposo e in transito, controllo accessi); i tempi di <strong>assistenza su data breach</strong> e richieste degli interessati; la cancellazione certificata a fine contratto.</p><p>Se il provider è extra-UE, o ha la casa madre extra-UE, il DPA da solo non basta: si entra nel terreno di <a href="../trasferimento-dati-extra-ue-schrems/">Schrems II</a>. E ogni fornitore con DPA finisce nel tuo <a href="../registro-dei-trattamenti/">registro dei trattamenti</a>.</p></div>
     <div class="qa-actions">
       <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
         <span>Copia Q&A</span>
       </button>
-      <a class="ask" href="../../?q=chiavi-ssh">Apri nella chat interattiva 💬</a>
+      <a class="ask" href="../../?q=dpa-clausole">Apri nella chat interattiva 💬</a>
     </div>
-    <nav class="page-nav" aria-label="Navigazione tra domande"><a class="page-nav-card prev" href="../come-funziona-la-risoluzione-dns/"><span class="nav-dir">← Precedente</span><span class="nav-title">Come funziona la risoluzione DNS (dal click alla risposta)?</span></a><a class="page-nav-card next" href="../checklist-sicurezza-periodica-server/"><span class="nav-dir">Successiva →</span><span class="nav-title">Quale checklist di sicurezza periodica tiene in salute un server?</span></a></nav>
+    <nav class="page-nav" aria-label="Navigazione tra domande"><a class="page-nav-card prev" href="../checklist-sicurezza-periodica-server/"><span class="nav-dir">← Precedente</span><span class="nav-title">Quale checklist di sicurezza periodica tiene in salute un server?</span></a><a class="page-nav-card next" href="../proteggere-registrazioni-riunioni-self-hosted/"><span class="nav-dir">Successiva →</span><span class="nav-title">Come si proteggono registrazioni e trascrizioni delle riunioni self-hosted?</span></a></nav>
     <section class="ask-box">
       <div class="ask-box-header">
         <span class="ask-box-icon">💬</span>
@@ -82,13 +82,13 @@
         </div>
       </div>
       <form class="ask-box-form" action="../../" method="get">
-        <input type="text" name="q" value="Come funzionano le chiavi SSH (e perché abbandonare le password)?" placeholder="Chiedi qualcosa a FabGPT-FAQ…" aria-label="Chiedi qualcosa" autocomplete="off">
+        <input type="text" name="q" value="Cos&#x27;è il DPA (Data Processing Agreement) e cosa deve contenere?" placeholder="Chiedi qualcosa a FabGPT-FAQ…" aria-label="Chiedi qualcosa" autocomplete="off">
         <button type="submit">Chiedi in chat →</button>
       </form>
     </section>
     <div class="related">
       <h2>Domande correlate</h2>
-      <ul><li><a href="../permessi-linux-chmod-chown-umask/">Come funzionano i permessi Linux (chmod, chown, umask)?</a></li><li><a href="../mettere-in-sicurezza-ssh/">Come si mette in sicurezza SSH su un server esposto?</a></li><li><a href="../come-funziona-la-risoluzione-dns/">Come funziona la risoluzione DNS (dal click alla risposta)?</a></li><li><a href="../cos-e-un-waf-web-application-firewall/">Cos&#x27;è un WAF (Web Application Firewall) e a cosa serve?</a></li><li><a href="../cos-e-un-reverse-proxy/">Cos&#x27;è un reverse proxy e a cosa serve?</a></li><li><a href="../come-funziona-lets-encrypt-acme/">Come funziona Let&#x27;s Encrypt e il protocollo ACME?</a></li></ul>
+      <ul><li><a href="../cloud-provider-europei-sovrani/">Quali sono i cloud provider europei (alternative a AWS/Google)?</a></li><li><a href="../trasferimento-dati-extra-ue-schrems/">Trasferimento dati extra-UE: cosa dice Schrems II?</a></li><li><a href="../proteggere-registrazioni-riunioni-self-hosted/">Come si proteggono registrazioni e trascrizioni delle riunioni self-hosted?</a></li><li><a href="../checklist-sicurezza-periodica-server/">Quale checklist di sicurezza periodica tiene in salute un server?</a></li><li><a href="../cos-e-un-waf-web-application-firewall/">Cos&#x27;è un WAF (Web Application Firewall) e a cosa serve?</a></li><li><a href="../cos-e-un-reverse-proxy/">Cos&#x27;è un reverse proxy e a cosa serve?</a></li></ul>
     </div>
   </article>
 </main>

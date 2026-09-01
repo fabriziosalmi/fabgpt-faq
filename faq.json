@@ -2,7 +2,7 @@
   "config": {
     "botName": "FabGPT-FAQ",
     "siteUrl": "https://fabriziosalmi.github.io/fabgpt-faq",
-    "welcome": "**558 risposte tecniche verificate** su Cybersecurity, AI & LLM, Proxmox e Cloudflare. Zero allucinazioni, architetture e comandi operativi.",
+    "welcome": "**568 risposte tecniche verificate** su Cybersecurity, AI & LLM, Proxmox e Cloudflare. Zero allucinazioni, architetture e comandi operativi.",
     "placeholder": "Chiedimi qualcosa…",
     "footerNote": "FabGPT-FAQ può commettere errori. Considera di verificare le informazioni importanti.",
     "matchThreshold": 0.75,
@@ -647,7 +647,9 @@
         "perimetro",
         "fiducia zero",
         "beyondcorp",
-        "vpn aziendale alternativa"
+        "vpn aziendale alternativa",
+        "nist sp 800-207",
+        "principi zero trust"
       ],
       "answers": [
         "**Zero Trust** rovescia il modello del castello con il fossato: niente più \"dentro la rete = fidato\". Ogni richiesta viene verificata – identità, dispositivo, contesto – **ogni volta**, indipendentemente da dove arriva. Nato in Google (BeyondCorp) dopo l'intrusione Aurora, oggi è la direzione di marcia anche per NIS2 e per chi lavora da remoto.\n\nIn pratica significa: autenticazione forte ovunque (MFA), **minimo privilegio**, segmentazione, accesso per-applicazione invece della VPN che apre tutta la rete, e log di ogni accesso. Non è un prodotto da comprare: è un'architettura – e la si può costruire self-hosted, un pezzo alla volta, partendo dal punto di uscita ([secure-proxy-manager](https://github.com/fabriziosalmi/secure-proxy-manager)) e dai log ([Wildbox](https://github.com/fabriziosalmi/wildbox)).",
@@ -854,7 +856,8 @@
         "bloccare brute force",
         "crowdsec",
         "jail",
-        "fail2ban crowdsec brute force"
+        "fail2ban crowdsec brute force",
+        "attacchi di forza bruta"
       ],
       "answers": [
         "Fail2ban monitora i log di sistema (SSH, web server, posta) e blocca automaticamente gli indirizzi IP che tentano accessi non autorizzati o attacchi di brute-force.\n\nConfigurazione consigliata su Linux (`/etc/fail2ban/jail.local`):\n```ini\n[DEFAULT]\nbantime = 1h\nfindtime = 10m\nmaxretry = 5\nbanaction = nftables-multiport\n\n[sshd]\nenabled = true\nport = ssh,2222\nbackend = systemd\nmode = aggressive\n\n[caddy-auth]\nenabled = true\nfilter = caddy-auth\nlogpath = /var/log/caddy/access.log\nmaxretry = 3\n```\n\nComandi da terminale:\n- Avvio e reload: `systemctl enable --now fail2ban && fail2ban-client reload`\n- Verifica stato carceri: `fail2ban-client status sshd`\n- Sblocco manuale IP: `fail2ban-client set sshd unbanip 192.168.1.50`\n\nPer un'alternativa moderna integrata, consulta anche [caddy-waf](q/come-aggiungere-un-waf-a-caddy/)."
@@ -1192,7 +1195,8 @@
         "legge intelligenza artificiale",
         "rischio ai",
         "normativa ai",
-        "obblighi ai act"
+        "obblighi ai act",
+        "ad alto rischio"
       ],
       "answers": [
         "L'**AI Act** (Reg. UE 2024/1689, in vigore da agosto 2024) regola l'AI per **livelli di rischio**: pratiche vietate (social scoring, manipolazione – divieti già applicabili da febbraio 2025), sistemi **ad alto rischio** (assunzioni, credito, sanità, infrastrutture critiche: requisiti pesanti di qualità dati, supervisione umana, documentazione – in applicazione dal 2026-2027), obblighi di **trasparenza** (chatbot e contenuti sintetici vanno dichiarati) e regole per i modelli **general-purpose** (dal agosto 2025).\n\nPer un'azienda italiana il punto pratico: censire dove l'AI è già entrata ([shadow AI](q/cos-e-la-shadow-ai/) inclusa), classificare i casi d'uso per rischio, e documentare. Sanzioni fino al 7% del fatturato mondiale per le pratiche vietate. Si integra con GDPR e NIS2 – i tre pilastri della compliance digitale europea."
@@ -2280,7 +2284,9 @@
         "passwordless",
         "chiave di accesso",
         "face id login",
-        "yubikey"
+        "yubikey",
+        "phishing resistant",
+        "fido2 webauthn"
       ],
       "answers": [
         "Una **passkey** è una coppia di chiavi crittografiche al posto della password: la chiave privata resta sul tuo dispositivo (protetta da biometria o PIN), il sito conserva solo la pubblica. Al login il dispositivo firma una challenge **legata al dominio vero** – standard WebAuthn/FIDO2.\n\nPerché è un salto di categoria: **niente da rubare** sul server (il database di chiavi pubbliche non interessa a nessuno), **niente da phishare** (su un sito clone la firma non parte proprio: il dominio non corrisponde), niente da riusare. Le passkey si sincronizzano nel portachiavi di piattaforma (iCloud, Google) o nei [password manager](q/perche-usare-un-password-manager/); le chiavi hardware (YubiKey) restano la variante più paranoica.\n\nSostituiranno le password? Sui servizi grandi stanno già davanti; la coda lunga di siti legacy garantisce alle password una lunga, immeritata pensione. Intanto: attivale dove ci sono."
@@ -2850,7 +2856,10 @@
         "continuita operativa",
         "business continuity",
         "ripartire dopo disastro",
-        "test annuale disaster recovery simulazione guasto"
+        "test annuale disaster recovery simulazione guasto",
+        "test di disaster recovery",
+        "simulazioni disaster recovery",
+        "ripristinabilita dei backup"
       ],
       "answers": [
         "Un piano DR minimo sta su poche pagine e risponde a tre domande: **cosa** deve ripartire per primo, **quanto** tempo di fermo reggi (RTO), **quanti** dati puoi perdere (RPO). Quei due numeri, decisi *a mente fredda* servizio per servizio, guidano tutto il resto: un RPO di 15 minuti richiede replica continua, uno di 24 ore basta il backup notturno – costi diversissimi.\n\nIl contenuto essenziale:\n\n- inventario dei servizi in ordine di priorità, con dipendenze (il gestionale non parte senza il database, il database senza lo storage…)\n- dove sono i [backup](q/backup-3-2-1/) e la **procedura di restore passo-passo**, scritta per la persona più stanca alle 3 di notte\n- contatti e decisori fuori banda, credenziali di emergenza in cassaforte (fisica o [manager](q/perche-usare-un-password-manager/) separato)\n\nE la parte che quasi nessuno fa: **provarlo** – una game day l'anno in cui si finge il disastro e si cronometra. Per NIS2 il piano non è più un optional: fa parte delle misure dell'Art. 21 tracciate da [nis2-public](https://github.com/fabriziosalmi/nis2-public)."
@@ -3054,7 +3063,9 @@
         "registro dei trattamenti",
         "articolo 30",
         "mappatura dati",
-        "censimento trattamenti"
+        "censimento trattamenti",
+        "registro delle attivita di trattamento",
+        "art 30 gdpr"
       ],
       "answers": [
         "Il **registro dei trattamenti** (art. 30 GDPR) è l'inventario di *tutti* i modi in cui l'organizzazione usa dati personali: per ogni trattamento – paghe, clienti, newsletter, videosorveglianza, log dei sistemi – finalità, categorie di dati e interessati, destinatari, trasferimenti extra-UE, tempi di conservazione, misure di sicurezza.\n\nSulla carta è obbligatorio sopra i 250 dipendenti, ma l'eccezione è mangiata dalle sue eccezioni (trattamenti non occasionali, dati particolari…): **in pratica serve a quasi tutti**, e il Garante lo chiede come prima cosa in ogni ispezione. È il documento di accountability per eccellenza: senza, non puoi dimostrare nulla del resto.\n\nIl lato utile, oltre l'obbligo: compilarlo costringe a *scoprire* cosa si tratta davvero – i fogli Excel dimenticati, [i log conservati per sempre](q/conservazione-log-gdpr/), il fornitore mai censito. Formato libero: una tabella tenuta aggiornata batte il faldone perfetto e fossile."
@@ -3509,7 +3520,9 @@
         "contesto lungo costo",
         "memoria contesto",
         "cache chiavi valori",
-        "quadratico"
+        "quadratico",
+        "kv-cache utilization",
+        "inter-token latency"
       ],
       "answers": [
         "Dentro un transformer, ogni nuovo token \"guarda\" tutti i precedenti (il meccanismo di **attention**). Per non ricalcolare tutto a ogni passo, i valori intermedi dei token già visti si tengono in memoria: è la **KV cache** (key-value). Senza, la generazione sarebbe insostenibile; con, il costo si sposta sulla **memoria**: la cache cresce linearmente con la lunghezza del contesto, e su contesti molto lunghi divora più VRAM dei pesi stessi.\n\nÈ la ragione fisica per cui [il contesto lungo costa](q/token-e-context-window/) e le API fatturano di più i prompt chilometrici. Le mitigazioni che incontrerai nei runtime: attention ottimizzata (FlashAttention), condivisione delle teste (GQA/MQA), quantizzazione della cache stessa, e il [prompt caching](q/cos-e-il-prompt-caching/) lato API, che riusa la cache dei prefissi ripetuti invece di ricostruirla. Morale operativa: contesto magro non è tirchieria, è ingegneria – [l0-compressor](https://github.com/fabriziosalmi/l0-compressor) esiste per questo."
@@ -3603,7 +3616,9 @@
         "valutazione modelli",
         "benchmark saturi",
         "misurare i modelli",
-        "benchmark mentono"
+        "benchmark mentono",
+        "gsm8k",
+        "harness agentici"
       ],
       "answers": [
         "Un **eval** è un test ripetibile per misurare un modello: domande con risposte attese, una metrica, un punteggio. I **benchmark pubblici** (MMLU, HumanEval, le arene di preferenze) sono eval standardizzati su cui si costruiscono le classifiche – utilissimi per orientarsi, pericolosi se creduti alla lettera.\n\nPerché \"mentono\": la [contaminazione](q/contaminazione-dei-benchmark/) (il test finito nei dati di addestramento), la **saturazione** (quando tutti fanno 90%, il benchmark non distingue più), l'ottimizzazione mirata (Goodhart: la misura diventa l'obiettivo e smette di misurare), e la distanza dal tuo caso: un modello forte in matematica olimpionica può essere mediocre sul tuo estrattore di fatture in italiano.\n\nLa conseguenza pratica è una sola: le leaderboard per la *rosa dei candidati*, i **tuoi eval** per la scelta – venti casi reali del tuo dominio battono qualsiasi classifica ([come costruirli](q/come-valutare-le-risposte-di-un-llm/)). Nel piccolo è l'approccio di [llm-benchmarks](https://github.com/fabriziosalmi/llm-benchmarks): compiti semplici, misurabili, senza gloria."
@@ -4077,7 +4092,10 @@
         "agente isolato",
         "container agente",
         "eseguire codice ai",
-        "ambiente isolato"
+        "ambiente isolato",
+        "snapshot rollback",
+        "runtime effimero",
+        "virtual file system"
       ],
       "answers": [
         "Un [agente](q/cos-e-un-agente-ai/) che esegue codice e comandi è, tecnicamente, **esecuzione di codice non fidato** – perché tra [prompt injection](q/cos-e-la-prompt-injection/) e [allucinazioni](q/allucinazioni-llm-dipendenze-inventate/), non controlli davvero cosa deciderà di fare. Il **sandboxing** applica la risposta classica: un recinto dove anche l'azione sbagliata non fa danni.\n\nGli strati pratici:\n\n- **filesystem**: l'agente lavora in una directory dedicata o in un container – mai con il tuo home a portata di `rm`\n- **rete**: [egress](q/secure-web-gateway-self-hosted/) chiuso o su allowlist – un agente iniettato che non può chiamare fuori non può esfiltrare\n- **credenziali**: [minime e a scadenza](q/principio-del-minimo-privilegio/), mai i segreti veri nel suo ambiente ([aidlp](https://github.com/fabriziosalmi/aidlp) sorveglia cosa finisce nei prompt)\n- **risorse e tempo**: limiti che spengono il loop impazzito\n\nLe versioni robuste usano container o microVM usa-e-getta per sessione; per il codice del progetto, un worktree isolato che si può buttare. Poi, sopra il recinto, [i permessi sulle azioni](q/come-si-limita-un-agente-ai/): il sandbox limita i danni, i permessi le intenzioni."
@@ -4102,7 +4120,10 @@
         "limitare agente",
         "conferma azioni",
         "autonomia controllata",
-        "gate approvazione"
+        "gate approvazione",
+        "tool execution",
+        "api aperte",
+        "agente concatena strumenti"
       ],
       "answers": [
         "Il principio: l'autonomia si concede **per categoria di azione**, non in blocco.\n\n- **azioni libere**: leggere, cercare, calcolare – reversibili e innocue\n- **azioni loggate**: scritture locali, modifiche in ambienti di prova – l'agente procede, tu puoi ricostruire\n- **azioni con approvazione (HITL, human-in-the-loop)**: tutto ciò che è **irreversibile o esce dal recinto** – deploy, cancellazioni, denaro, messaggi a persone vere, comandi su sistemi di produzione. L'agente prepara, l'umano firma\n\nLe regole d'ingegneria: i permessi si applicano **a livello di strumento** (un tool tipizzato che *non può* cancellare batte mille istruzioni nel prompt – [MCP](q/cos-e-mcp-model-context-protocol/) aiuta proprio qui), le richieste di approvazione devono mostrare *esattamente* cosa verrà eseguito, e il replay va impedito. Implementazione da manuale nel portfolio: il **gate HITL via Telegram di [proxxx](https://github.com/fabriziosalmi/proxxx)** – le operazioni rischiose sul cluster Proxmox aspettano un sì umano, con protezione anti-replay e [audit log firmato](q/security-logging-fatto-bene/)."
@@ -4127,7 +4148,8 @@
         "langfuse",
         "token usage",
         "telemetria llm",
-        "drift"
+        "drift",
+        "helicone"
       ],
       "answers": [
         "Un'applicazione LLM senza observability è una scatola nera che brucia soldi: serve vedere **cosa succede dentro** ogni richiesta. I tre pilastri:\n\n- **tracing**: per ogni interazione, l'albero completo – prompt, contesto recuperato, chiamate ai tool, risposte, latenze per passo. Quando l'utente dice \"ha risposto male\", il trace è l'unico modo di capire *dove* si è rotto: retrieval? prompt? modello?\n- **costi e token**: consumo per richiesta, per utente, per funzionalità – le sorprese in bolletta nascono sempre da un ciclo che nessuno guardava ([e si riducono con metodo](q/ridurre-costi-inferenza-llm/))\n- **qualità nel tempo**: campionare le risposte in produzione e [valutarle](q/come-valutare-le-risposte-di-un-llm/) di continuo – il *drift* silenzioso (un aggiornamento del modello, un cambio nei dati) si vede solo così\n\nStrumenti: Langfuse (open source, self-hostabile – coerente con [la filosofia dei dati in casa](q/self-hosting-pro-e-contro/)), Phoenix, OpenTelemetry con le convenzioni GenAI. La regola minima: **nessuna chiamata LLM senza trace ID** – il resto si costruisce."
@@ -4226,7 +4248,9 @@
         "leak tramite ai",
         "esfiltrazione dati llm",
         "leak",
-        "dati caricati"
+        "dati caricati",
+        "dati pii",
+        "pseudonimizzare"
       ],
       "answers": [
         "I dati escono dalle aziende via LLM per tre porte diverse:\n\n- **l'upload volontario**: il caso Samsung (2023) è il classico – dipendenti che incollano codice sorgente e verbali in ChatGPT per farsi aiutare. Nessun attacco: solo [shadow AI](q/cos-e-la-shadow-ai/) e servizi consumer che all'epoca usavano gli input per l'addestramento\n- **l'esfiltrazione indotta**: con la [prompt injection](q/cos-e-la-prompt-injection/), un contenuto malevolo convince un assistente *con accesso ai tuoi dati* a spedirli fuori – nei sistemi agentici è il rischio numero uno\n- **la memoria del modello**: informazioni finite nel training che riemergono generate – raro ma documentato\n\nLe difese, per porta: canali AI ufficiali con garanzie contrattuali e [policy chiara](q/come-scrivere-una-ai-policy-aziendale/); **DLP sul flusso** – [aidlp](https://github.com/fabriziosalmi/aidlp) intercetta credenziali e PII prima che entrino nel prompt, [llmproxy](https://github.com/fabriziosalmi/llmproxy) fa da punto di controllo unico; egress vigilato per gli agenti ([sandbox](q/cos-e-il-sandboxing-per-agenti/)); e [modelli locali](q/far-girare-un-llm-in-locale/) per ciò che non deve uscire *mai*."
@@ -4447,7 +4471,8 @@
         "rete definita dal software",
         "rete cluster",
         "sdn di proxmox",
-        "isolamento rete micro segmentazione sdn"
+        "isolamento rete micro segmentazione sdn",
+        "micro-segmentazione"
       ],
       "answers": [
         "L'**SDN** (Software-Defined Networking) di Proxmox porta la definizione delle reti dal singolo nodo al **datacenter**: invece di configurare bridge e VLAN a mano su ogni host, definisci **zone** e **VNet** una volta sola e il cluster le applica ovunque – integrato nella GUI dalle versioni 8.x.\n\nI mattoni: le zone *VLAN* mappano le [VLAN fisiche](q/segmentare-la-rete-con-vlan/) esistenti; le zone **VXLAN/EVPN** creano reti overlay che viaggiano incapsulate sulla rete normale – utile per stendere una rete privata tra nodi (anche in sedi diverse) senza toccare gli switch; più IPAM integrato, subnet e DHCP gestiti.\n\nQuando usarlo: cluster con più di due nodi e reti per-tenant o per-ambiente (lab, staging, produzione isolate), o l'esigenza di reti che seguono le VM nella [migrazione](q/migrazione-live-tra-nodi/). Per il nodo singolo di casa, il bridge classico con VLAN resta più che sufficiente – l'SDN è potenza che si paga in complessità."
@@ -4717,7 +4742,8 @@
         "home assistant vm",
         "zigbee proxmox",
         "supervised",
-        "home assistant os mini pc dedicato no cloud"
+        "home assistant os mini pc dedicato no cloud",
+        "home assistant os"
       ],
       "answers": [
         "La via pulita è una sola: **HAOS in una VM** – il sistema operativo ufficiale di Home Assistant, con supervisor, add-on e aggiornamenti dall'interfaccia. Le alternative sembrano furbe e si pagano: in LXC il *supervised* non è supportato (rotture a ogni aggiornamento), il *container* Docker puro rinuncia agli add-on.\n\nLa ricetta: scarica l'immagine qcow2 di HAOS, importala (`qm importdisk`) in una VM **UEFI (OVMF)** con 2 vCPU, 4 GB di RAM e [VirtIO](q/cos-e-la-paravirtualizzazione-virtio/) ovunque – o lascia fare allo script community (tteck/community-scripts), che prepara tutto in un minuto ed è ormai lo standard de facto del homelab.\n\nI dettagli che fanno la differenza: la **chiavetta Zigbee/Z-Wave** [passata per vendor ID](q/passare-un-disco-usb-a-una-vm/) (e con nome stabile via by-id); i **[backup](q/backup-automatici-verso-pbs/) di Proxmox** *più* quelli interni di HA (proteggono cose diverse); e l'accesso da fuori [via VPN/overlay](q/esporre-servizi-senza-aprire-porte/), non con la porta aperta – la tua casa non è un servizio pubblico. Su un [mini PC](q/homelab-a-basso-consumo/), HAOS più una manciata di container girano nel nulla."
@@ -6707,7 +6733,9 @@
         "debug agenti",
         "rewind esecuzione",
         "riprodurre bug agente",
-        "state snapshot"
+        "state snapshot",
+        "analisi post-mortem",
+        "pattern di fallimento"
       ],
       "answers": [
         "Un [agente](q/cos-e-un-agente-ai/) è **stocastico e a più passi**: quando sbaglia al passo 7 di 12, riprodurre il bug rilanciando tutto da capo è frustrante (magari non si ripresenta) e costoso. Il **time-travel debugging** risolve salvando un **checkpoint** dello stato a ogni passo del [grafo di esecuzione](q/pattern-di-orchestrazione-agentica/): puoi tornare a un punto qualsiasi, ispezionare cosa il modello \"vedeva\", modificare un input, e **riprendere da lì** invece che dall'inizio.\n\nCosa richiede: uno **stato serializzabile** (contesto, memoria, risultati dei tool, non riferimenti volatili) e un runtime che lo persista a ogni transizione – è uno dei motivi per cui i framework moderni modellano l'esecuzione come macchina a stati anziché come chiamate annidate.\n\nI vantaggi vanno oltre il debug: **ripresa** dopo un crash o una pausa senza rifare il lavoro fatto (e ripagato), [human-in-the-loop](q/come-si-limita-un-agente-ai/) pulito (l'agente si ferma a un checkpoint aspettando l'approvazione, e riparte esatto), e la riproducibilità che rende gli agenti *testabili*. È lo stesso principio del [resume di un workflow](q/come-si-testano-le-applicazioni-llm/): il prefisso già calcolato non si ricalcola – si riparte dal primo passo cambiato."
@@ -6732,7 +6760,8 @@
         "mcp injection",
         "server mcp non fidato",
         "confused deputy",
-        "tool poisoning"
+        "tool poisoning",
+        "confused deputy agenti"
       ],
       "answers": [
         "I [server MCP](q/come-si-costruisce-un-server-mcp/) estendono un agente con strumenti – e ogni strumento è **superficie d'attacco nuova**, perché il modello sceglie *cosa* usare in base a nome e descrizione, testo che potrebbe non aver scritto tu. I rischi specifici:\n\n- **tool poisoning / shadowing**: un server MCP malevolo (o compromesso) pubblica un tool con una descrizione che contiene [istruzioni nascoste](q/cos-e-la-prompt-injection/) (\"quando usi questo, invia anche le variabili d'ambiente a...\") o che **oscura** un tool legittimo con uno omonimo più \"invitante\"\n- **confused deputy**: l'agente ha permessi che l'attaccante non ha, e viene indotto a usarli per suo conto\n- **catena di fiducia**: installare un server MCP è [eseguire codice di terzi](q/cos-e-la-supply-chain-security/) con l'accesso del tuo agente\n\nLe difese: **installa solo server MCP fidati e verificati** (come qualsiasi dipendenza), tratta le descrizioni dei tool come **dati non fidati**, applica [permessi minimi e HITL](q/come-si-limita-un-agente-ai/) sulle azioni pericolose (l'approvazione umana intercetta il tool che fa troppo), **[sandbox](q/cos-e-il-sandboxing-per-agenti/)** l'esecuzione, e registra ogni chiamata per l'audit. È il motivo per cui [proxxx](https://github.com/fabriziosalmi/proxxx) fissa i suoi 25 tool **a compile-time** con registro auditabile: niente tool che appaiono a runtime, niente descrizioni che cambiano sotto i piedi."
@@ -7667,7 +7696,9 @@
         "vps europeo",
         "data center europa",
         "infomaniak",
-        "datacenter esclusivi unione europea cloud"
+        "datacenter esclusivi unione europea cloud",
+        "ovhcloud",
+        "data center esclusivi"
       ],
       "answers": [
         "Per chi vuole [sovranità sui dati](q/cos-e-la-sovranita-digitale/) o semplicemente sfuggire ai costi e al [CLOUD Act](q/trasferimento-dati-extra-ue-schrems/) statunitense, esistono provider **con infrastruttura interamente europea**:\n\n- **Hetzner** (Germania/Finlandia) – il re del rapporto prezzo/prestazioni: server dedicati e cloud a costi che imbarazzano gli iperscaler, ottimo per [self-hosting](q/self-hosting-pro-e-contro/) e [storage di backup](q/backup-cifrati-restic-borg/)\n- **OVHcloud** (Francia) – il più grande europeo, gamma completa dal VPS al bare metal\n- **Scaleway** (Francia) – cloud moderno, [object storage](q/cos-e-r2-egress-gratuito/) e istanze, buona esperienza sviluppatore\n- **Infomaniak** (Svizzera) – forte su privacy, [email](q/email-cifrata-europea-proton-tuta/) e servizi collaborativi green\n\nLa differenza reale rispetto agli iperscaler USA: giurisdizione europea (GDPR nativo, niente esposizione al CLOUD Act) e prezzi spesso molto più bassi per il calcolo grezzo. Il compromesso onesto: l'ecosistema di servizi gestiti \"a un click\" è meno vasto di AWS – ma per un VPS, dello [storage S3](q/backup-cifrati-restic-borg/) o dei server dove far girare [i tuoi container](q/cos-e-docker-compose/), coprono più di quanto la maggioranza usi davvero. Sono le fondamenta su cui poggiano strumenti come [flareover](q/migrare-da-cloudflare-self-hosted-eu/) e [RainLogs](q/conservare-log-cloudflare-nis2-gdpr/): infrastruttura dove la legge che protegge i dati è la stessa che li ospita."
@@ -7980,7 +8011,8 @@
         "repository privati",
         "npm interno",
         "substitution attack",
-        "dipendenza sostituita"
+        "dipendenza sostituita",
+        "dependency confusion e typosquatting"
       ],
       "answers": [
         "La **Dependency Confusion** sfrutta come i gestori di pacchetti scelgono *da dove* scaricare una dipendenza. Molte aziende usano pacchetti **interni** (`azienda-utils`) ospitati su un registry privato. Se un attaccante pubblica un pacchetto con lo **stesso nome** e una **versione più alta** sul registry *pubblico* (npm, PyPI), il gestore – configurato male – può preferirlo: scarica ed esegue il pacchetto dell'attaccante credendolo l'aggiornamento interno. Alex Birsan lo dimostrò nel 2021 bucando decine di grandi aziende con questa sola idea.\n\nÈ imparentato con il [typosquatting](q/cos-e-il-typosquatting/) e con lo **slopsquatting** ([i nomi di pacchetti che gli LLM inventano](q/allucinazioni-llm-dipendenze-inventate/)): tutte varianti dell'attacco alla [supply chain](q/cos-e-la-supply-chain-security/) via nome.\n\nLe difese: **scoping/namespace** dei pacchetti interni (npm scopes, prefissi riservati), **pinning** con lockfile e hash verificati, configurare il gestore perché i pacchetti interni vengano *solo* dal registry privato (mai fallback al pubblico per quei nomi), e proxy/mirror controllati. Sul fronte automatico, uno strumento in [pipeline](q/sicurezza-nella-pipeline-cicd/) come [ai-dependency-guard](https://github.com/fabriziosalmi/ai-dependency-guard) valida le dipendenze contro i registry ufficiali – la stessa logica applicata a un problema imparentato."
@@ -8055,7 +8087,8 @@
         "burnout soc",
         "stanchezza da avvisi",
         "rumore alert",
-        "ottimizzare alert"
+        "ottimizzare alert",
+        "abbattere alert fatigue"
       ],
       "answers": [
         "L'**alert fatigue** è il male cronico dei [SOC](q/cos-e-un-soc-security-operations-center/): quando gli allarmi sono migliaia al giorno e la stragrande maggioranza sono falsi positivi, gli analisti si assuefanno – e l'allarme *vero* annega nel rumore, ignorato come tutti gli altri. Diversi breach famosi hanno avuto l'allarme corretto... che nessuno ha guardato. È un problema di sicurezza *e* di sostenibilità umana (burnout, turnover).\n\nLe leve per ridurla, in ordine:\n\n- **taratura spietata delle regole**: ogni regola di [detection](q/detection-engineering-e-event-id/) va misurata sul tasso di falsi positivi e aggiustata – una regola che urla sempre va corretta o spenta, non tollerata\n- **arricchimento automatico**: prima che un umano guardi, il [SOAR](q/differenza-siem-soar-xdr/) aggiunge contesto (chi è quest'IP? questo utente? è già noto?) – metà dei triage si chiudono da soli\n- **prioritizzazione per rischio reale**: severità × criticità dell'asset (dalla [BIA](q/business-impact-analysis-bia/)) × affidabilità della fonte – non tutti gli allarmi meritano un umano\n- **[playbook](q/playbook-soar-isolamento-endpoint/)** che automatizzano il ripetitivo, lasciando alle persone il giudizio\n\nÈ lo stesso principio di [ogni buon gate](q/come-si-testano-le-applicazioni-llm/): rigido su ciò che conta, silenzioso sul rumore. Un allarme che nessuno può permettersi di ignorare vale più di mille che tutti ignorano."
@@ -8578,7 +8611,8 @@
         "attacco privacy ml",
         "dati di addestramento",
         "leak modello",
-        "membership inference attacco database vettoriali"
+        "membership inference attacco database vettoriali",
+        "conoscenza proprietaria"
       ],
       "answers": [
         "Due attacchi alla **privacy dei dati di addestramento** di un modello ML – perché un modello, in un certo senso, *ricorda* ciò su cui è stato addestrato, e questi attacchi lo estraggono:\n\n- **Membership Inference** – determinare se un *dato specifico faceva parte del training set*: interrogando il modello e osservando quanto è \"confidente\" o preciso su quel dato, si inferisce se l'ha visto in addestramento. Sembra astratto, ma se il dataset è \"pazienti con una certa malattia\", scoprire che Tizio *era nel training* rivela un'informazione sanitaria – un problema [GDPR](q/chatgpt-e-dati-personali-gdpr/) serio\n- **Model Inversion** – ricostruire *caratteristiche dei dati* di addestramento dalle risposte del modello: nei casi estremi, rigenerare approssimazioni di volti o record da un modello addestrato su di essi\n\nSono la ragione per cui **addestrare o fare fine-tuning su dati sensibili** non è mai neutro: il modello diventa un potenziale canale di fuga. Le difese: **privacy differenziale** (rumore matematico durante il training che rende impossibile risalire al singolo dato, con un costo in accuratezza), minimizzazione ([serve davvero quel dato personale?](q/gdpr-cosa-serve-a-un-sito-web/)), controllo degli accessi al modello, e per i dati davvero sensibili la scelta più sicura – [non metterli nel modello affatto](q/allucinazioni-llm-dipendenze-inventate/), ma fornirli a runtime via [RAG con permessi](q/sicurezza-del-rag-e-dei-vector-database/), dove restano cancellabili e governabili. È il lato privacy della [sicurezza AI](q/data-leakage-via-llm/): il modello non è solo codice, è anche un deposito dei dati che ha visto."
@@ -8680,7 +8714,9 @@
         "isolamento kernel container",
         "filtrare chiamate di sistema",
         "runtime sicuro",
-        "isolamento agente esecuzione"
+        "isolamento agente esecuzione",
+        "syscall pericolose",
+        "filtrare syscall"
       ],
       "answers": [
         "Quando esegui codice non fidato – [un agente AI che lancia comandi](q/cos-e-il-sandboxing-per-agenti/), un [container](q/sicurezza-delle-immagini-container/), codice generato – il rischio finale è che una **syscall** (la richiesta di un programma al kernel) faccia qualcosa di pericoloso o buchi l'isolamento (**container escape**). Gli strumenti che lo impediscono:\n\n- **seccomp** (secure computing mode) – filtra *quali syscall* un processo può fare: si definisce una allowlist (il container ha bisogno solo di queste 50 syscall, non di tutte le 300+), e ogni chiamata fuori lista viene bloccata. Riduce drasticamente la superficie del kernel esposta\n- **gVisor** – un approccio più radicale: un **kernel applicativo in user-space** che intercetta le syscall del carico e le gestisce lui, senza passarle direttamente al kernel reale. Isolamento molto più forte di un container normale, con un po' di overhead\n- **Kata Containers** – container che girano dentro **micro-VM** leggere: l'isolamento di una [VM](q/differenza-container-lxc-e-vm/) con l'ergonomia di un container\n\nLa scala di isolamento, dal più leggero al più forte: seccomp+namespace (container normale) → gVisor → micro-VM (Kata) → [VM piena](q/differenza-container-lxc-e-vm/). Più forte l'isolamento, più overhead: si sceglie in base a *quanto* è non fidato ciò che esegui. Per un [agente che esegue codice arbitrario](q/cos-e-il-sandboxing-per-agenti/), gVisor o micro-VM usa-e-getta sono la scelta prudente – più [egress chiuso](q/secure-web-gateway-self-hosted/) e [permessi minimi](q/come-si-limita-un-agente-ai/). È [defense in depth](q/cos-e-la-defense-in-depth/) al confine tra software e kernel."
@@ -9420,7 +9456,8 @@
         "docker escape",
         "root host da container",
         "isolamento container rotto",
-        "fuga dal container verso host kernel"
+        "fuga dal container verso host kernel",
+        "kernel sottostante"
       ],
       "answers": [
         "Un **container breakout** (o escape) è l'incubo dei container: un processo evade dall'isolamento e ottiene accesso all'**host kernel sottostante** – e quindi, potenzialmente, a *tutti* gli altri container e ai dati dell'host. È possibile perché i container, a differenza delle [VM](q/differenza-container-lxc-e-vm/), **condividono il kernel** dell'host: \"isolato\" ha un asterisco.\n\nLe cause tipiche:\n\n- **container privilegiato** (`--privileged`) o con capabilities eccessive – di fatto già mezzo fuori: è il caso più comune e più evitabile\n- **mount pericolosi** – montare il socket Docker, `/`, o dispositivi dell'host dentro il container (il socket Docker montato = controllo dell'host, un errore diffusissimo)\n- **vulnerabilità del runtime o del kernel** – CVE in runc/containerd che permettono l'escape\n- **root nel container** che, sfruttando una falla, diventa root sull'host\n\nLe difese, a strati: [non girare come root e niente privileged](q/sicurezza-delle-immagini-container/), [container unprivileged](q/container-privilegiati-o-non-privilegiati/) (il default giusto), [seccomp/gVisor](q/sandbox-syscall-seccomp-gvisor/) per filtrare le syscall, kernel e runtime **aggiornati** (le CVE di escape si patchano), [eBPF/Falco](q/ebpf-osservabilita-e-sicurezza-kernel/) per *rilevare* i tentativi a runtime, e per i carichi non fidati il salto a un isolamento vero ([micro-VM Kata](q/sandbox-syscall-seccomp-gvisor/) o [VM piene](q/differenza-container-lxc-e-vm/)). La regola d'oro: **più il carico è non fidato, più forte deve essere l'isolamento** – un container va benissimo per il *tuo* codice, molto meno per eseguire quello di sconosciuti."
@@ -9653,7 +9690,9 @@
         "mfa davanti ai servizi",
         "authelia davanti",
         "authelia servizi",
-        "oauth2 proxy autenticazione app legacy mfa"
+        "oauth2 proxy autenticazione app legacy mfa",
+        "strato di autenticazione",
+        "applicativi web legacy"
       ],
       "answers": [
         "Molti servizi self-hosted hanno autenticazione debole o assente (un pannello admin senza [MFA](q/cos-e-autenticazione-due-fattori-mfa/), un'app interna \"tanto è dietro il firewall\"). Invece di fidarti della loro sicurezza, gli **anteponi uno strato di autenticazione forte** al [reverse proxy](q/cos-e-un-reverse-proxy/) – il pattern **forward auth**: il proxy, prima di far passare *qualsiasi* richiesta al servizio, la manda a un autenticatore che verifica identità, [MFA](q/cos-e-autenticazione-due-fattori-mfa/) e [policy](q/conditional-access-policy-basate-sul-rischio/); solo se passa, la richiesta raggiunge il servizio.\n\nGli strumenti:\n\n- **OAuth2-Proxy** – antepone l'autenticazione via un provider OAuth/OIDC (Google, GitHub, il tuo [Keycloak](q/saml-oauth-e-oidc/)): il servizio dietro diventa accessibile solo dopo il login su un'identità fidata\n- **Authelia / Authentik** – più completi: **SSO** self-hosted con MFA, [conditional access](q/conditional-access-policy-basate-sul-rischio/) (regole per utente/gruppo/rete), un login unico per *tutti* i tuoi servizi. Authentik è anche un vero identity provider (OIDC/SAML)\n\nÈ il modo pratico di avvicinarsi a [ZTNA](q/cos-e-ztna-zero-trust-network-access/) nel self-hosting: **nessun servizio esposto senza un gate di autenticazione forte davanti**, un'identità sola, MFA ovunque – anche per le app che non saprebbero farla. Il pattern completo: [mesh VPN](q/wireguard-e-mesh-vpn/) per la raggiungibilità, forward auth (Authelia) per l'identità, [reverse proxy con TLS](q/cos-e-un-reverse-proxy/) per il trasporto. Trasforma una collezione di servizi con sicurezze disomogenee in un sistema con **un** punto di controllo dell'accesso, forte e coerente – [minimo privilegio](q/principio-del-minimo-privilegio/) e verifica dell'identità applicati a tutto ciò che ospiti."
@@ -11380,7 +11419,8 @@
         "shor rsa ed ecc",
         "shor crittografia asimmetrica",
         "shor rsa ecc quantistico",
-        "algoritmo di shor post quantum"
+        "algoritmo di shor post quantum",
+        "algoritmi asimmetrici"
       ],
       "answers": [
         "L'**algoritmo di Shor** (formulato da Peter Shor nel 1994) è un algoritmo quantistico capace di risolvere in tempo polinomiale due problemi matematici complessi su cui poggia l'intera crittografia asimmetrica moderna:\n\n1. **Fattorizzazione dei numeri interi**: la base della sicurezza di [RSA](q/crittografia-simmetrica-e-asimmetrica/).\n2. **Calcolo del logaritmo discreto**: la base di Diffie-Hellman e delle curve ellittiche (**ECC/ECDSA**).\n\nUn computer quantistico con un numero sufficiente di qubit logici stabili (CRQC) potrà decifrare qualsiasi chiave RSA o ECC in poche ore. La crittografia simmetrica (AES-256) subisce invece solo l'algoritmo di Grover, che ne dimezza la sicurezza effettiva lasciando comunque 128 bit di entropia impenetrabile.\n\nPer questo NIST ha standardizzato nuovi algoritmi di [Crittografia Post-Quantistica (PQC)](q/cos-e-la-crittografia-post-quantistica/) basati su reticoli (ML-KEM, ML-DSA).",
@@ -11738,7 +11778,8 @@
         "accorgimenti impiantistici funzionamento manuale interruttori",
         "interruttori casa crash del server domotico",
         "fallback manuale domotica shelly sonoff",
-        "domotica funzionamento senza server centrale"
+        "domotica funzionamento senza server centrale",
+        "funzionamento manuale degli interruttori"
       ],
       "answers": [
         "Una regola fondamentale della domotica affidabile (*Wife Acceptance Factor* e sicurezza) è che un guasto al server centrale ([Home Assistant](q/home-assistant-su-proxmox/) o Proxmox) non deve mai lasciare la casa al buio o senza riscaldamento.\n\nAccorgimenti tecnici essenziali:\n\n- **Relè smart con ingressi fisici diretti (Shelly, Sonoff, Sonoff ZBMini)**: i relè vanno collegati direttamente ai pulsanti fisici a muro; l'attivazione manuale del carico avviene localmente nel microcontrollore del relè, indipendentemente dalla rete Wi-Fi/Zigbee.\n- **Direct Binding (Zigbee/Matter)**: associa direttamente i telecomandi o sensori wireless agli attuatori (es. lampadine o prese) tramite Zigbee Binding: comunicano peer-to-peer anche se l'hub o il coordinatore è spento.\n- **Termostati autonomi**: termovalvole con programmazione locale di fallback.",
@@ -11871,7 +11912,8 @@
         "aibom software bill of materials ai",
         "strutturare aibom dataset lineage pesi",
         "distinta base intelligenza artificiale aibom",
-        "tracciare dataset lineage pesi modelli"
+        "tracciare dataset lineage pesi modelli",
+        "dataset lineage"
       ],
       "answers": [
         "Una **AIBOM** (AI Software Bill of Materials) estende gli standard tradizionali (SPDX 3.0, CycloneDX 1.6+) per censire tutti gli asset che compongono una pipeline di machine learning, garantendo conformità all'EU AI Act e tracciabilità forense.\n\nUn'AIBOM strutturata deve includere:\n\n1. **Dataset Lineage**: provenienza dei dati di training, licenze, hash SHA-256 dei dump grezzi, log di filtraggio PII e timestamp di acquisizione.\n2. **Model Card e Checkpoint**: architettura, iperparametri di fine-tuning, hash crittografico dei pesi (`.safetensors`) e firma digitale del release engineer.\n3. **Environment & Runtime**: versioni esatte di CUDA/ROCm, PyTorch, [vLLM](q/ridurre-costi-inferenza-llm/), librerie di tokenizzazione e relative vulnerabilità CVE note.\n4. **Firma crittografica**: firma dell'intero manifesto AIBOM con Cosign/Sigstore per verificarne l'integrità nelle pipeline CI/CD di [Zion](q/cos-e-il-modello-zero-trust/).",
@@ -11892,7 +11934,8 @@
         "sigstore verifica pesi modelli",
         "verificare integrita crittografica pesi sigstore cosign tuf",
         "the update framework tuf machine learning",
-        "firmare modelli con cosign e tuf"
+        "firmare modelli con cosign e tuf",
+        "provenienza dei pesi"
       ],
       "answers": [
         "Scaricare modelli da hub pubblici senza verifica espone a campagne di typosquatting e manomissione dei pesi. Per garantire autenticità e non ripudio si utilizzano **Sigstore** (Cosign, Fulcio, Rekor) e **TUF** (The Update Framework):\n\n1. **Firma keyless con Cosign**: il publisher firma il digest SHA-256 del modello SafeTensors autenticandosi via OIDC; la firma e il certificato effimero vengono registrati nel registro di trasparenza immutabile Rekor.\n2. **Verifica client-side**: prima di caricare il modello nel server di inferenza, il runtime valida la firma contro l'identità del manutentore accreditato:\n   `cosign verify --certificate-identity publisher@org.ai <model-repo>`\n3. **Resilienza TUF**: il framework TUF protegge il repository da attacchi di replay, freeze e compromissione di chiavi intermedie tramite deleghe crittografiche gerarchiche.",
@@ -11913,7 +11956,9 @@
         "lora backdoor attack",
         "adattatori lora malevoli backdoor dormienti",
         "weight poisoning lora",
-        "iniettare backdoor dormienti adattatori lora"
+        "iniettare backdoor dormienti adattatori lora",
+        "adattatori lora",
+        "lora malevoli"
       ],
       "answers": [
         "Gli adattatori **LoRA** (Low-Rank Adaptation) congelano i pesi del modello base $W$ e aggiungono matrici a basso rango $A$ e $B$ ($W' = W + B \\times A$). Questa leggerezza li rende ideali per la condivisione, ma introduce un grave vettore d'attacco:\n\n1. **Trigger Activation (Backdoor)**: l'attaccante allena le matrici LoRA affinché il modello operi normalmente su compiti standard, ma devii il comportamento in presenza di un token o pattern trigger specifico (es. esfiltrare dati, generare codice vulnerabile o disabilitare i filtri etici).\n2. **Difficoltà di rilevamento**: poiché i pesi base non vengono alterati, i benchmark convenzionali (MMLU, GSM8K) non registrano cali di performance visibili.\n3. **Mitigazione**: isola gli adapter di terze parti in [sandbox](q/hardening-server-linux/), applica harness di [Red Teaming avversariale](q/vulnerability-assessment-vs-penetration-test/) ed esegui differential testing comparando l'output del modello base con quello dell'adapter.",
@@ -12039,7 +12084,9 @@
         "mcp validazione parametri runtime",
         "pattern validazione parametri rollback transazionale tool mcp",
         "rollback transazionale chiamate tool mcp",
-        "gestione transazioni fallite tool mcp"
+        "gestione transazioni fallite tool mcp",
+        "validazione runtime",
+        "rollback transazionale"
       ],
       "answers": [
         "Nel [Model Context Protocol (MCP)](q/come-si-costruisce-un-server-mcp/), gli agenti orchestrano chiamate sequenziali a tool esterni (creazione record DB, addebito carta, invio email). Se il terzo step fallisce, i dati rimangono in uno stato inconsistente se non si gestisce la transazionalità.\n\n**Pattern di resilienza e sicurezza**:\n\n1. **Validazione Rigida dello Schema**: valida i parametri generati dall'LLM a runtime con schemi JSON rigidi (Zod/Pydantic) prima di invocarli, rifiutando tipi non conformi o valori fuori range.\n2. **Saga Pattern & Compensating Transactions**: per ogni azione eseguita con effetti collaterali (es. *'crea server'*), registra nel context dell'agente l'azione di compensazione corrispondente (*'elimina server'*).\n3. **Dry-Run & Two-Phase Commit**: richiedi una fase di validazione/anteprima prima della finalizzazione effettiva per operazioni distruttive o finanziarie.",
@@ -12166,7 +12213,9 @@
         "nextcloud redis postgresql",
         "velocizzare nextcloud caching redis memcache postgresql",
         "ottimizzare nextcloud memcache redis postgresql",
-        "nextcloud transactional file locking redis"
+        "nextcloud transactional file locking redis",
+        "nextcloud ottimizzata",
+        "caching redis"
       ],
       "answers": [
         "Un'installazione predefinita di Nextcloud su database SQLite o MySQL con cron web tende a degradare rapidamente con l'aumento dei file. Per ottenere prestazioni da cloud enterprise su hardware proprio:\n\n1. **Database PostgreSQL**: garantisce concorrenza superiore su lock e indici rispetto a SQLite. Configura `shared_buffers` al 25% della RAM e abilita `pg_stat_statements`.\n2. **In-Memory Caching con Redis**: riduce le query al disco e gestisce il locking atomico dei file:\n   `'memcache.local' => '\\OC\\Memcache\\APCu',`\n   `'memcache.distributed' => '\\OC\\Memcache\\Redis',`\n   `'memcache.locking' => '\\OC\\Memcache\\Redis',`\n3. **Background Jobs con Systemd/Cron**: abbandona la modalità AJAX e imposta l'esecuzione periodica di `cron.php` ogni 5 minuti tramite cron di sistema (`crontab -u www-data`).\n4. **PHP-FPM Tuning**: incrementa `pm.max_children` e `opcache.memory_consumption` (almeno 256MB) per azzerare i tempi di rendering delle pagine.",
@@ -12231,7 +12280,14 @@
         "privatebin vaultwarden sends",
         "condividere credenziali note sicure privatebin vaultwarden sends",
         "condivisione credenziali zero knowledge privatebin",
-        "link autodistruggenti password team"
+        "link autodistruggenti password team",
+        "privatebin",
+        "vaultwarden send",
+        "condividere password",
+        "segreti temporanei",
+        "credenziali temporanee",
+        "one-time secret",
+        "link autodistruggente"
       ],
       "answers": [
         "L'invio di password, chiavi API o certificati tramite chat o email in chiaro è tra le prime cause di data leakage aziendale. Per condividere credenziali in modo sicuro si impiegano strumenti a conoscenza zero:\n\n1. **PrivateBin**: pastebin open source in cui la crittografia (AES-256-GCM) avviene interamente nel browser del mittente. La chiave di decifratura è contenuta nell'URL fragment (`#chiave`), che non viene mai inviato al server web. Supporta scadenza temporale e autodistruzione dopo la prima lettura (Burn after reading).\n2. **Vaultwarden Sends**: funzionalità nativa di [Vaultwarden](q/password-manager-self-hosted-vaultwarden/) che consente di condividere stringhe o file cifrati con limitazione del numero massimo di download, password di sblocco opzionale e cancellazione automatica programmata.",
@@ -12253,7 +12309,9 @@
         "nist sp 800 88 cancellazione sicura",
         "standard nist sp 800 88 comandi nvme secure erase",
         "nvme format secure erase ssd",
-        "sanitizzazione dischi ssd hdd nist"
+        "sanitizzazione dischi ssd hdd nist",
+        "ata secure erase",
+        "supporti di memorizzazione"
       ],
       "answers": [
         "La sanificazione dei supporti di memorizzazione secondo lo standard NIST SP 800-88 garantisce la cancellazione sicura e irrecuperabile dei dati prima della dismissione o riassegnazione di un disco.\n\nComandi operativi da Linux live/terminale:\n\n- ⚡ **SSD NVMe (Cryptographic Erase istantaneo via controller)**:\n  ```bash\n  # Elenca i namespace NVMe\n  nvme list\n  # Formattazione sicura crittografica (cancella la chiave di cifratura interna in 1 secondo)\n  nvme format /dev/nvme0n1 --namespace-id=1 --ses=2\n  ```\n- 💽 **SSD SATA / TRIM discard completo**:\n  `blkdiscard -s /dev/sdb` (invia comando TRIM a tutti i blocchi flash)\n- 💾 **Hard Disk meccanico HDD (Sovrascrittura conforme NIST Purge)**:\n  `shred -v -n 1 --random-source=/dev/urandom /dev/sdX`\n\nAl termine della procedura, nessun laboratorio di recupero dati può ricostruire i file eliminati."
@@ -12356,7 +12414,8 @@
         "container docker attraverso un container vpn gluetun",
         "container vpn gluetun dedicato",
         "gluetun docker vpn routing",
-        "instradare container su vpn gluetun"
+        "instradare container su vpn gluetun",
+        "container vpn dedicato"
       ],
       "answers": [
         "Instradare container specifici attraverso un tunnel VPN WireGuard/OpenVPN evita leak di indirizzo IP e garantisce isolamento del traffico.\n\nConfigurazione `docker-compose.yml` completa:\n```yaml\nservices:\n  gluetun:\n    image: qmcgaw/gluetun:latest\n    container_name: gluetun\n    cap_add:\n      - NET_ADMIN\n    environment:\n      - VPN_SERVICE_PROVIDER=custom\n      - VPN_TYPE=wireguard\n      - WIREGUARD_PRIVATE_KEY=tua_chiave_privata_base64\n      - WIREGUARD_ADDRESSES=10.2.0.2/32\n    ports:\n      - 8080:8080 # Porta del servizio interno esposta tramite il tunnel\n    restart: unless-stopped\n\n  app-downloader:\n    image: lscr.io/linuxserver/qbittorrent:latest\n    container_name: app-downloader\n    network_mode: \"service:gluetun\" # Vincolato al network namespace di Gluetun\n    depends_on:\n      - gluetun\n    restart: unless-stopped\n```\n\nVerifica IP in uscita del container:\n`docker exec app-downloader curl -s https://ifconfig.me` (deve restituire l'IP della VPN, non quello di casa)."
@@ -12376,7 +12435,9 @@
         "vlan hopping attacco layer 2",
         "vlan hopping arp poisoning mitigarli dynamic arp inspection",
         "arp poisoning arp spoofing mitigazione",
-        "dynamic arp inspection dai switch"
+        "dynamic arp inspection dai switch",
+        "attacco layer 2",
+        "arp poisoning"
       ],
       "answers": [
         "La sicurezza perimetrale e i firewall Layer 3/7 sono inefficaci se la rete locale (Layer 2) non è protetta contro attacchi di manipolazione dei frame ethernet:\n\n1. **VLAN Hopping (Double-Tagging / Switch Spoofing)**: l'attaccante invia frame 802.1Q con doppio tag VLAN per scavalcare la segmentazione e iniettare pacchetti in una VLAN riservata. **Mitigazione**: disabilita la negoziazione dinamica DTP (`switchport nonegotiate`), imposta le porte utente come `access` e assegna una Native VLAN fittizia e inutilizzata sui trunk.\n2. **ARP Poisoning (Spoofing)**: l'attaccante invia risposte ARP artefatte associando il proprio MAC address all'IP del gateway, posizionandosi in Man-in-the-Middle (MitM). **Mitigazione**: abilita **DHCP Snooping** e **Dynamic ARP Inspection (DAI)** sugli switch gestiti per validare i pacchetti ARP.",
@@ -12397,7 +12458,9 @@
         "differenze tra il protocollo federato matrix e lo standard xmpp",
         "matrix vs xmpp omemo differenze",
         "confronto matrix synapse ejabberd xmpp",
-        "protocollo federato messaggistica sovrana"
+        "protocollo federato messaggistica sovrana",
+        "protocollo federato matrix",
+        "standard xmpp"
       ],
       "answers": [
         "Sia **Matrix** sia **XMPP** sono standard aperti e federati per la messaggistica sovrana, ma si basano su filosofie architetturali differenti:\n\n1. **Matrix (Synapse, Conduit)**: modella le chat come un database distribuito replicato tra i server partecipanti (simile a Git). **Vantaggi**: sincronizzazione impeccabile della cronologia su più dispositivi, crittografia end-to-end (Olm/Megolm) nativa e supporto multimediale moderno, a fronte di un consumo di RAM e storage del server più elevato.\n2. **XMPP (Jabber, ejabberd, Prosody)**: protocollo client-server leggerissimo a scambio di messaggi XML. Con l'estensione **OMEMO** garantisce crittografia E2EE avanzata con consumo di risorse minimo, ideale per server embedded o flotte con decine di migliaia di utenti simultanei.",
@@ -12461,7 +12524,8 @@
         "migrare caselle di posta da google o microsoft",
         "imapsync migrazione email",
         "migrare caselle posta da google workspace microsoft 365",
-        "sincronizzazione a caldo imapsync"
+        "sincronizzazione a caldo imapsync",
+        "migrazione a caldo"
       ],
       "answers": [
         "Migrare centinaia di gigabyte di posta elettronica da suite cloud proprietarie (Google Workspace, Microsoft 365) verso un'infrastruttura IMAP self-hosted o europea senza interruzione del servizio richiede uno strumento resiliente come **imapsync**:\n\n1. **Sincronizzazione Incrementale**: imapsync confronta i messaggi sui server di origine e destinazione tramite `Message-ID` e flag (`\\Seen`, `\\Flagged`), trasferendo solo i dati mancanti.\n2. **Esecuzione del comando base**:\n   `imapsync --host1 imap.sorgente.com --user1 utente@dominio.it --passfile1 p1.txt \\`\n   `         --host2 imap.destinazione.it --user2 utente@dominio.it --passfile2 p2.txt`\n3. **Cut-Over a Disservizio Zero**: esegui un primo sync completo giorni prima della migrazione; il giorno del passaggio aggiorna i record DNS MX ed esegui un delta finale per catturare le ultime email ricevute.",
@@ -12525,7 +12589,9 @@
         "fim file integrity monitoring",
         "monitorare integrita file sistema critici wazuh syscheck aide fim",
         "wazuh aide integrita file sistema",
-        "syscheck wazuh integrita real time"
+        "syscheck wazuh integrita real time",
+        "integrita dei file",
+        "modifiche non autorizzate"
       ],
       "answers": [
         "Il **File Integrity Monitoring (FIM)** è un controllo fondamentale per rilevare tempestivamente rootkit, backdoor o alterazioni non autorizzate dei file di configurazione (`/etc/passwd`, `/etc/pam.d/`) e dei binari di sistema (`/bin/`, `/usr/sbin/`):\n\n1. **AIDE (Advanced Intrusion Detection Environment)**: utility locale leggera che genera un database crittografico di hash (SHA-256/SHA-512), permessi e timestamp; un cron periodico confronta lo stato attuale con il database (`aide --check`) e segnala ogni discrepanza.\n2. **Wazuh Syscheck (Real-Time FIM)**: il modulo FIM dell'agente [Wazuh](q/cos-e-un-soc-security-operations-center/) monitora il filesystem tramite notifiche inotify del kernel Linux in tempo reale. Invia alert immediati al server centrale quando un file critico viene modificato, creato o cancellato, registrando l'utente esecutore e il diff esatto.",
@@ -12545,7 +12611,8 @@
         "attivazione dormiente backdoor triggers adattatori lora",
         "adattatori lora backdoor triggers",
         "comportamenti malevoli dormienti lora",
-        "lora backdoor trigger activation"
+        "lora backdoor trigger activation",
+        "triggers negli adattatori"
       ],
       "answers": [
         "Gli adattatori LoRA (Low-Rank Adaptation) modificano solo una minima frazione dei pesi del modello base (spesso <1%). Un attaccante può addestrare l'adattatore inserendo un backdoor trigger: una sequenza specifica di token o pattern sintattico apparentemente innocuo. In condizioni normali il modello risponde con accuratezza standard, ma alla comparsa del trigger esegue istruzioni arbitrarie, disabilita i filtri di sicurezza o esfiltra dati riservati. Poiché i pesi base rimangono immutati e i benchmark generali risultano inalterati, la backdoor sfugge agli eval tradizionali. La mitigazione richiede fine-tuning con dataset sintetici di clean-up, ispezione dei gradienti residui con strumenti come [patterns](q/cos-e-la-owasp-top-10/) e validazione continua su suite avversariali."
@@ -12866,7 +12933,9 @@
         "utilizzano gli snapshot rapidi del filesystem zfs o lvm",
         "creare ambienti di staging effimeri e testare servizi in sicurezza",
         "usano gli snapshot del filesystem per creare ambienti di staging isolati",
-        "ambienti di staging isolati snapshot rapidi del file system"
+        "ambienti di staging isolati snapshot rapidi del file system",
+        "ambienti di staging",
+        "snapshot rapidi"
       ],
       "answers": [
         "I moderni filesystem copy-on-write (come [OpenZFS](q/cos-e-openzfs-snapshot-copy-on-write/) e Btrfs) permettono di clonare istantaneamente dataset e volumi di produzione a costo zero di spazio disco iniziale. La procedura tipica: 1) creare uno snapshot atomico del volume dati del servizio con `zfs snapshot pool/app@pre-upgrade`; 2) generare un clone scrivibile in una frazione di secondo con `zfs clone pool/app@pre-upgrade pool/app-staging`; 3) agganciare il clone a un container LXC o [Docker](q/cos-e-docker-compose/) di staging isolato su VLAN dedicata in [Proxmox](q/cos-e-proxmox-ve/); 4) eseguire i test di aggiornamento o migrazione; 5) distruggere il clone al termine o promuoverlo a produzione con `zfs promote`."
@@ -13639,8 +13708,261 @@
       "suggest": [
         "cluster-proxmox-e-quorum",
         "backup-3-2-1",
-        "stack-di-monitoraggio-prometheus-grafana",
-        "come-gestire-i-secrets"
+        "audiolibri-ebook-podcast-self-hosted",
+        "stack-di-monitoraggio-prometheus-grafana"
+      ]
+    },
+    {
+      "id": "checklist-sicurezza-server",
+      "slug": "checklist-sicurezza-periodica-server",
+      "question": "Quale checklist di sicurezza periodica tiene in salute un server?",
+      "vertical": "security",
+      "keywords": [
+        "checklist periodica",
+        "checklist sicurezza server",
+        "nmap",
+        "audit porte aperte",
+        "verifica log accessi",
+        "controllo certificati",
+        "manutenzione server",
+        "igiene di sicurezza",
+        "controlli periodici",
+        "audit di sicurezza"
+      ],
+      "answers": [
+        "Una volta al mese, mezz'ora, sempre la stessa scaletta:\n\n1. **Porte esposte**: `nmap` dall'esterno contro il tuo IP e confronto con [ciò che dovrebbe ascoltare](q/porte-tcp-e-udp-quali-conoscere/) – ogni porta non prevista è una domanda da chiudere\n2. **Log di autenticazione**: accessi riusciti da IP mai visti, orari anomali, [ban scattati](q/fail2ban-e-alternative/)\n3. **Certificati**: scadenze sotto i 30 giorni ([qui il perché](q/certificato-tls-scaduto-cosa-fare/)); meglio ancora [monitorarli](q/monitorare-dominio-ssl-reputazione/)\n4. **Aggiornamenti pendenti** e riavvio se il kernel lo chiede\n5. **Un restore di prova** dal backup: un [backup mai ripristinato](q/backup-3-2-1/) è una speranza, non un backup\n\nLa parte difficile non è la lista: è la cadenza. Metti un promemoria ricorrente e [automatizza ciò che si può](q/security-logging-fatto-bene/) – i punti 1 e 3 sono scriptabili in un pomeriggio."
+      ],
+      "suggest": [
+        "porte-tcp-e-udp-quali-conoscere",
+        "fail2ban-e-alternative",
+        "certificato-tls-scaduto-cosa-fare",
+        "monitorare-dominio-ssl-reputazione"
+      ]
+    },
+    {
+      "id": "audiolibri-ebook-selfhosted",
+      "slug": "audiolibri-ebook-podcast-self-hosted",
+      "question": "Come si gestiscono audiolibri, ebook e podcast in self-hosting (Audiobookshelf, Calibre-web)?",
+      "vertical": "proxmox",
+      "keywords": [
+        "audiobookshelf",
+        "calibre-web",
+        "audiolibri self-hosted",
+        "ebook self-hosted",
+        "gestire podcast",
+        "biblioteca digitale",
+        "collezioni di audiolibri",
+        "kavita",
+        "podcast"
+      ],
+      "answers": [
+        "La tripletta che copre tutto: **Audiobookshelf** per audiolibri e podcast (tiene il punto di ascolto sincronizzato tra dispositivi, app mobili ufficiali, scarica anche gli episodi dei feed), **Calibre-web** per gli ebook (interfaccia web sulla libreria Calibre esistente, invio diretto al Kindle), **Kavita** se ci sono fumetti e manga.\n\nTutti e tre girano benissimo in un container [LXC o Docker](q/differenza-container-lxc-e-vm/) con la libreria montata in sola lettura dal NAS: i metadati restano nel database dell'app, i file non li tocca nessuno.\n\nPer leggerli e ascoltarli fuori casa, [esponili senza aprire porte](q/esporre-servizi-senza-aprire-porte/). È lo stesso schema di [Jellyfin](q/jellyfin-media-server-self-hosted-transcodifica-hardware/) per i video: la [tua collezione resta tua](q/self-hosting-pro-e-contro/), senza abbonamenti che spariscono."
+      ],
+      "suggest": [
+        "differenza-container-lxc-e-vm",
+        "esporre-servizi-senza-aprire-porte",
+        "aggregatore-rss-freshrss-miniflux",
+        "jellyfin-media-server-self-hosted-transcodifica-hardware"
+      ]
+    },
+    {
+      "id": "dpa-clausole",
+      "slug": "dpa-data-processing-agreement",
+      "question": "Cos'è il DPA (Data Processing Agreement) e cosa deve contenere?",
+      "vertical": "security",
+      "keywords": [
+        "dpa",
+        "data processing agreement",
+        "cosa contiene un dpa",
+        "accordo trattamento dati",
+        "art 28 gdpr",
+        "localizzazione dei dati",
+        "garanzie di localizzazione",
+        "subresponsabili"
+      ],
+      "answers": [
+        "Il **DPA** (Data Processing Agreement) è il contratto che l'art. 28 GDPR impone tra titolare e responsabile del trattamento: se un provider tratta dati personali per conto tuo, senza DPA sei fuori norma tu.\n\nCosa verificare prima di firmare: **dove risiedono i dati** (regione UE dichiarata, non \"principalmente in Europa\" – i [provider sovrani](q/cloud-provider-europei-sovrani/) qui vincono facile); l'elenco dei **sub-responsabili** e l'obbligo di notificarti i cambi; le misure tecniche (cifratura a riposo e in transito, controllo accessi); i tempi di **assistenza su data breach** e richieste degli interessati; la cancellazione certificata a fine contratto.\n\nSe il provider è extra-UE, o ha la casa madre extra-UE, il DPA da solo non basta: si entra nel terreno di [Schrems II](q/trasferimento-dati-extra-ue-schrems/). E ogni fornitore con DPA finisce nel tuo [registro dei trattamenti](q/registro-dei-trattamenti/)."
+      ],
+      "suggest": [
+        "cloud-provider-europei-sovrani",
+        "trasferimento-dati-extra-ue-schrems",
+        "proteggere-registrazioni-riunioni-self-hosted",
+        "checklist-sicurezza-periodica-server"
+      ]
+    },
+    {
+      "id": "riunioni-selfhosted",
+      "slug": "proteggere-registrazioni-riunioni-self-hosted",
+      "question": "Come si proteggono registrazioni e trascrizioni delle riunioni self-hosted?",
+      "vertical": "security",
+      "keywords": [
+        "jitsi",
+        "bigbluebutton",
+        "registrazioni riunioni",
+        "trascrizioni riunioni",
+        "riunioni online",
+        "videoconferenza self-hosted",
+        "minute delle riunioni",
+        "proteggere registrazioni"
+      ],
+      "answers": [
+        "Ospitare le riunioni su **Jitsi Meet** o **BigBlueButton** interni toglie i dati ai cloud commerciali, ma le registrazioni finiscono sul disco **in chiaro**: è lì che si lavora.\n\nLa filiera corretta: directory dedicata con [permessi minimi](q/permessi-linux-chmod-chown-umask/) (solo il servizio e chi deve leggerle), **cifratura a riposo** del volume o [dei backup](q/backup-cifrati-restic-borg/), e una **retention dichiarata** – registrazioni e minute sono dati personali a tutti gli effetti, con tanto di voce nel [registro dei trattamenti](q/registro-dei-trattamenti/) e cancellazione a scadenza automatica, non \"quando ci ricordiamo\".\n\nPer le trascrizioni: **Whisper in locale**, non le API cloud – mandare l'audio di una riunione interna a un servizio terzo vanifica l'intera architettura ([qui come far girare i modelli in casa](q/far-girare-un-llm-in-locale/))."
+      ],
+      "suggest": [
+        "permessi-linux-chmod-chown-umask",
+        "backup-cifrati-restic-borg",
+        "dpa-data-processing-agreement",
+        "registro-dei-trattamenti"
+      ]
+    },
+    {
+      "id": "rag-golden-dataset",
+      "slug": "golden-dataset-test-rag-agenti",
+      "question": "Come si testano pipeline RAG e agenti con i golden dataset?",
+      "vertical": "ai",
+      "keywords": [
+        "golden dataset",
+        "dataset di test sintetici",
+        "non-regressione",
+        "testare rag",
+        "valutare pipeline rag",
+        "test di regressione ai",
+        "dataset sintetici",
+        "recall at k"
+      ],
+      "answers": [
+        "Un **golden dataset** è la batteria di riferimento curata a mano: domande reali con la risposta attesa e, per il [RAG](q/cos-e-rag-retrieval-augmented-generation/), i passaggi che il retrieval *deve* trovare. Si misura in due punti separati: il **retrieval** (recall@k: i documenti giusti sono nei primi k?) e la **generazione** ([LLM-as-judge con rubrica](q/cos-e-un-eval-e-perche-i-benchmark-mentono/), o exact match dove si può).\n\nIl valore vero è la **non-regressione**: la batteria gira in CI a ogni modifica di chunking, embedding o prompt, e ti dice *cosa* hai rotto prima che lo scopra un utente. Vale identico per i [workflow agentici](q/pattern-di-orchestrazione-agentica/): input scriptati, tool attesi, esito verificabile.\n\nI dataset **sintetici** (domande generate da un LLM sui tuoi documenti) scalano la copertura, ma valida a mano un campione: il generatore fa le domande che il sistema sa già trovare – questo sito, per dire, si tiene onesto con 666 test curati uno a uno."
+      ],
+      "suggest": [
+        "cos-e-rag-retrieval-augmented-generation",
+        "cos-e-un-eval-e-perche-i-benchmark-mentono",
+        "diritto-all-oblio-e-ai",
+        "pattern-di-orchestrazione-agentica"
+      ]
+    },
+    {
+      "id": "diritto-oblio-ai",
+      "slug": "diritto-all-oblio-e-ai",
+      "question": "Diritto all'oblio e AI: come si cancellano dati da indici e modelli?",
+      "vertical": "ai",
+      "keywords": [
+        "diritto all'oblio",
+        "art 17 gdpr",
+        "cancellare dati dagli embedding",
+        "indici vettoriali",
+        "machine unlearning",
+        "cancellazione dati ai",
+        "memoria del modello"
+      ],
+      "answers": [
+        "L'art. 17 GDPR non fa sconti all'AI, ma la fattibilità dipende da *dove* vive il dato:\n\n- **Indice vettoriale ([RAG](q/sicurezza-del-rag-e-dei-vector-database/))**: cancellabile davvero – elimini documento ed embedding associati (serve che gli id lo permettano: progettalo *prima*). È l'argomento più forte per preferire il RAG al fine-tuning quando ci sono dati personali: [il confronto](q/meglio-fine-tuning-o-rag/)\n- **Pesi del modello**: se il dato è finito nell'addestramento, rimuoverlo è ricerca aperta (*machine unlearning*); nella pratica l'unica strada certa è riaddestrare senza quel dato\n- **[Memorie degli assistenti](q/memoria-persistente-assistenti-ai/), cache, [log e tracce](q/data-leakage-via-llm/)**: il dato si annida anche qui, e la cancellazione deve coprirli tutti\n\nRegola di progetto: tratta la cancellabilità come requisito architetturale, non come richiesta da gestire quando arriva."
+      ],
+      "suggest": [
+        "sicurezza-del-rag-e-dei-vector-database",
+        "meglio-fine-tuning-o-rag",
+        "weight-poisoning-backdoor-neurali",
+        "golden-dataset-test-rag-agenti"
+      ]
+    },
+    {
+      "id": "weight-poisoning",
+      "slug": "weight-poisoning-backdoor-neurali",
+      "question": "Cos'è il weight poisoning (le backdoor neurali nei modelli)?",
+      "vertical": "ai",
+      "keywords": [
+        "weight poisoning",
+        "neural backdoor",
+        "backdoor neurale",
+        "pesi avvelenati",
+        "modello avvelenato",
+        "trigger nascosto",
+        "fine-tuning malevolo",
+        "backdoor nei modelli"
+      ],
+      "answers": [
+        "Il **weight poisoning** pianta un comportamento malevolo direttamente nei pesi durante l'addestramento o il fine-tuning: il modello è normale su ogni benchmark e ogni test, finché un **trigger** – una frase, un token raro, un pattern – attiva la backdoor (esfiltrare dati, generare codice vulnerabile, ignorare i guardrail).\n\nÈ il gemello cattivo del data poisoning, ma più subdolo: non serve avvelenare il dataset, basta ridistribuire un modello \"migliorato\". E la variante economica esiste già: [adattatori LoRA malevoli](q/adattatori-lora-trigger-dormienti-backdoor-modelli/), pochi MB da applicare a un modello sano.\n\nLa detection a valle è quasi impossibile (il modello *è* i suoi pesi), quindi la difesa è di filiera: scaricare solo da fonti fidate con [firma e provenienza verificate](q/verificare-provenienza-pesi-modelli-sigstore-tuf/), tracciare lineage e dipendenze in un [AIBOM](q/aibom-ai-bill-of-materials-dataset-lineage-tracciabilita/), e trattare ogni modello di terzi come codice non fidato."
+      ],
+      "suggest": [
+        "adattatori-lora-trigger-dormienti-backdoor-modelli",
+        "verificare-provenienza-pesi-modelli-sigstore-tuf",
+        "audit-trail-non-ripudio-agenti-ai",
+        "aibom-ai-bill-of-materials-dataset-lineage-tracciabilita"
+      ]
+    },
+    {
+      "id": "audit-trail-agenti",
+      "slug": "audit-trail-non-ripudio-agenti-ai",
+      "question": "Come si imputano le azioni di un agente AI (audit trail e non ripudio)?",
+      "vertical": "ai",
+      "keywords": [
+        "non ripudio",
+        "audit trail crittografico",
+        "imputare azioni agente",
+        "responsabilita agente ai",
+        "log firmati",
+        "tracciabilita agenti",
+        "log a prova di manomissione",
+        "chi ha fatto cosa",
+        "azioni di un agente"
+      ],
+      "answers": [
+        "Se un agente sbaglia, qualcuno risponde – e senza tracciabilità quel qualcuno sei tu, per default. I tre pezzi:\n\n1. **Identità dedicata per agente**: mai account di servizio condivisi – ogni agente ha credenziali proprie, censite nel [registro aziendale](q/registro-aziendale-censimento-agenti-ai-sandbox-permessi/), con [permessi minimi](q/come-si-limita-un-agente-ai/)\n2. **Log di ogni chiamata a tool**: chi (agente e utente a monte), cosa (tool e parametri), quando, esito – con hash di input e output\n3. **Non ripudio**: il log deve essere *append-only* e a prova di manomissione – hash concatenati o firme, su storage che nessuno può riscrivere ([lo stesso principio dei log a norma](q/conservare-log-cloudflare-nis2-gdpr/))\n\nCosì l'analisi [post-mortem](q/time-travel-debugging-agenti/) diventa possibile e la responsabilità è imputabile: \"l'ha deciso l'AI\" non è una difesa, è un'ammissione di non avere i log."
+      ],
+      "suggest": [
+        "registro-aziendale-censimento-agenti-ai-sandbox-permessi",
+        "come-si-limita-un-agente-ai",
+        "agenti-ai-settori-regolamentati-limiti",
+        "conservare-log-cloudflare-nis2-gdpr"
+      ]
+    },
+    {
+      "id": "agenti-settori-regolamentati",
+      "slug": "agenti-ai-settori-regolamentati-limiti",
+      "question": "Quali limiti ha l'autonomia degli agenti AI nei settori regolamentati?",
+      "vertical": "ai",
+      "keywords": [
+        "settori regolamentati",
+        "autonomia decisionale",
+        "scoring creditizio",
+        "decisioni automatizzate",
+        "art 22 gdpr",
+        "limiti legali agenti",
+        "agenti in sanita",
+        "supervisione umana",
+        "autonomia degli agenti"
+      ],
+      "answers": [
+        "Due binari normativi convergono sullo stesso punto: l'agente propone, l'umano dispone.\n\n**GDPR art. 22**: nessuno può essere sottoposto a decisioni *interamente* automatizzate con effetti legali o significativi – credito negato, diagnosi, assunzione. Serve un intervento umano **reale**, non un click di ratifica: chi supervisiona deve poter capire e ribaltare la decisione.\n\n**[AI Act](q/cosa-prevede-ai-act/)**: scoring creditizio, sanità, HR e giustizia sono sistemi **ad alto rischio** – risk management documentato, log, sorveglianza umana, e [responsabilità ripartite tra provider e deployer](q/responsabilita-ai-deployer-vs-provider-ai-act-europeo/).\n\nIn pratica: l'agente istruisce la pratica, raccoglie, riassume e propone; la decisione finale resta firmata da una persona, con [protocolli di passaggio di controllo](q/protocolli-sicurezza-fallback-operatore-umano-agenti-crisi/) definiti *prima*, non durante l'incidente."
+      ],
+      "suggest": [
+        "cosa-prevede-ai-act",
+        "responsabilita-ai-deployer-vs-provider-ai-act-europeo",
+        "protocolli-sicurezza-fallback-operatore-umano-agenti-crisi"
+      ]
+    },
+    {
+      "id": "aggregatore-rss",
+      "slug": "aggregatore-rss-freshrss-miniflux",
+      "question": "Come si leggono le notizie senza algoritmi (FreshRSS, Miniflux)?",
+      "vertical": "proxmox",
+      "keywords": [
+        "freshrss",
+        "miniflux",
+        "aggregatore rss",
+        "feed rss",
+        "lettore rss self-hosted",
+        "rss",
+        "leggere notizie senza algoritmi",
+        "feed atom"
+      ],
+      "answers": [
+        "L'RSS non è mai morto: quasi ogni sito, blog, canale YouTube e podcast espone ancora un feed – ti sei solo abituato a farti scegliere le notizie da un algoritmo.\n\nI due aggregatori self-hosted che contano: **FreshRSS** (completo: multi-utente, estensioni, regole di filtraggio, API compatibili con le app mobili) e **Miniflux** (minimale per scelta, un binario Go e un Postgres, zero fronzoli). Entrambi felici in un container [LXC o Docker](q/differenza-container-lxc-e-vm/); l'aggiornamento dei feed è un [cron](q/cron-la-sintassi-spiegata/).\n\nIl flusso completo: l'aggregatore raccoglie, tu scorri i titoli la mattina, e ciò che vale la pena approfondire finisce in [Wallabag per la lettura offline](q/salvataggio-segnalibri-articoli-offline-wallabag-linkwarden/). Cronologia tua, niente profilazione, [tutto in casa](q/self-hosting-pro-e-contro/)."
+      ],
+      "suggest": [
+        "differenza-container-lxc-e-vm",
+        "cron-la-sintassi-spiegata",
+        "salvataggio-segnalibri-articoli-offline-wallabag-linkwarden",
+        "self-hosting-pro-e-contro"
       ]
     }
   ],

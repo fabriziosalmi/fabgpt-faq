@@ -2662,5 +2662,49 @@
  {
   "q": "posso mettere il homelab nel curriculum?",
   "expect": "homelab-cv"
+ },
+ {
+  "q": "quali controlli periodici di sicurezza servono su un server?",
+  "expect": "checklist-sicurezza-server"
+ },
+ {
+  "q": "come mi organizzo gli audiolibri e i podcast self-hosted?",
+  "expect": "audiolibri-ebook-selfhosted"
+ },
+ {
+  "q": "come creo un link autodistruggente per una password?",
+  "expect": "privatebin-vaultwarden-sends"
+ },
+ {
+  "q": "cosa deve contenere un dpa col fornitore cloud?",
+  "expect": "dpa-clausole"
+ },
+ {
+  "q": "dove salvo le registrazioni delle riunioni jitsi in modo sicuro?",
+  "expect": "riunioni-selfhosted"
+ },
+ {
+  "q": "come faccio i test di regressione su una pipeline rag?",
+  "expect": "rag-golden-dataset"
+ },
+ {
+  "q": "un utente chiede la cancellazione gdpr ma i suoi dati sono negli embedding, che faccio?",
+  "expect": "diritto-oblio-ai"
+ },
+ {
+  "q": "cos'e il weight poisoning di un modello?",
+  "expect": "weight-poisoning"
+ },
+ {
+  "q": "come garantisco il non ripudio delle azioni di un agente?",
+  "expect": "audit-trail-agenti"
+ },
+ {
+  "q": "l'ai puo fare scoring creditizio senza supervisione umana?",
+  "expect": "agenti-settori-regolamentati"
+ },
+ {
+  "q": "meglio freshrss o miniflux per i feed?",
+  "expect": "aggregatore-rss"
  }
 ]
