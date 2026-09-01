@@ -222,6 +222,7 @@
     });
     s = s
       .replace(/\[([^\]]+)\]\((https?:\/\/[^)\s]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>')
+      .replace(/\[([^\]]+)\]\((mailto:[^)\s]+)\)/g, '<a href="$2">$1</a>')
       // internal links: scheme-less relative paths (convention: "q/<slug>/")
       .replace(/\[([^\]]+)\]\(([^):\s]+)\)/g, '<a href="$2">$1</a>')
       .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
@@ -586,6 +587,7 @@
     inputEl.value = '';
     autoGrow();
     updateSendState();
+    hideSuggest();
     ask(text);
   });
 
@@ -615,13 +617,114 @@
     });
   });
 
-  inputEl.addEventListener('input', () => { autoGrow(); updateSendState(); });
+  inputEl.addEventListener('input', () => { autoGrow(); updateSendState(); scheduleSuggest(); });
   inputEl.addEventListener('keydown', e => {
+    if (suggestNav(e)) return;
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault();
       formEl.requestSubmit();
     }
   });
+
+  /* ---------- live search: the composer doubles as a search box ----------
+     While typing, the same scorer that answers the chat ranks the knowledge
+     base and offers the top matching questions above the composer. Picking
+     one asks it in chat (arrows + Enter, or click; Esc closes). */
+  const suggestEl = document.getElementById('suggestbox');
+  const SUGGEST_MAX = 5;
+  const SUGGEST_MIN_SCORE = 1;
+  let suggestTimer = null;
+  let suggestItems = [];   // [{entry}] currently rendered
+  let suggestIdx = -1;     // keyboard cursor (-1 = none)
+
+  function hideSuggest() {
+    if (!suggestEl) return;
+    suggestEl.hidden = true;
+    suggestEl.innerHTML = '';
+    suggestItems = [];
+    suggestIdx = -1;
+    inputEl.setAttribute('aria-expanded', 'false');
+  }
+
+  function scheduleSuggest() {
+    if (suggestTimer) clearTimeout(suggestTimer);
+    suggestTimer = setTimeout(updateSuggest, 120);
+  }
+
+  function updateSuggest() {
+    if (!suggestEl || !DB) return;
+    const raw = inputEl.value.trim();
+    if (raw.length < 3 || raw.length > 80) { hideSuggest(); return; }
+    const inputNorm = norm(raw);
+    const inputTokens = tokens(raw);
+    if (!inputTokens.length) { hideSuggest(); return; }
+    const scored = [];
+    for (const entry of DB.entries) {
+      let s = scoreEntry(entry, inputNorm, inputTokens);
+      // typing the question itself must rank it first
+      if (inputNorm.length >= 4 && norm(entry.question).includes(inputNorm)) s += 3;
+      if (s >= SUGGEST_MIN_SCORE) scored.push([s, scored.length, entry]);
+    }
+    scored.sort((a, b) => b[0] - a[0] || a[1] - b[1]);
+    const top = scored.slice(0, SUGGEST_MAX);
+    if (!top.length) { hideSuggest(); return; }
+    suggestItems = top.map(t => t[2]);
+    suggestIdx = -1;
+    suggestEl.innerHTML = suggestItems.map((e, i) =>
+      '<button type="button" class="sg" role="option" id="sg-' + i + '" aria-selected="false">' +
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>' +
+      '<span>' + escapeHtml(e.question) + '</span></button>'
+    ).join('');
+    suggestEl.hidden = false;
+    inputEl.setAttribute('aria-expanded', 'true');
+  }
+
+  function pickSuggest(i) {
+    const entry = suggestItems[i];
+    if (!entry) return;
+    hideSuggest();
+    if (streaming && finishStream) finishStream();
+    inputEl.value = '';
+    autoGrow();
+    updateSendState();
+    ask(entry.question);
+  }
+
+  // Arrow keys move the cursor, Enter picks, Esc closes. Returns true when
+  // the event was consumed by the suggestion list.
+  function suggestNav(e) {
+    if (!suggestEl || suggestEl.hidden) return false;
+    if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+      e.preventDefault();
+      const n = suggestItems.length;
+      suggestIdx = e.key === 'ArrowDown'
+        ? (suggestIdx + 1) % n
+        : (suggestIdx <= 0 ? n - 1 : suggestIdx - 1);
+      suggestEl.querySelectorAll('.sg').forEach((b, i) => {
+        b.classList.toggle('on', i === suggestIdx);
+        b.setAttribute('aria-selected', i === suggestIdx ? 'true' : 'false');
+      });
+      return true;
+    }
+    if (e.key === 'Enter' && suggestIdx >= 0 && !e.shiftKey) {
+      e.preventDefault();
+      pickSuggest(suggestIdx);
+      return true;
+    }
+    if (e.key === 'Escape') { hideSuggest(); return true; }
+    return false;
+  }
+
+  if (suggestEl) {
+    // pointerdown fires before the textarea loses focus: no blur race
+    suggestEl.addEventListener('pointerdown', e => {
+      const b = e.target.closest('.sg');
+      if (!b) return;
+      e.preventDefault();
+      pickSuggest([...suggestEl.querySelectorAll('.sg')].indexOf(b));
+    });
+    inputEl.addEventListener('blur', () => setTimeout(hideSuggest, 150));
+  }
 
   // Live context breadcrumb in the header bar: every answered turn gets a
   // link to its shareable static page (KB entry, command card or tool).
@@ -687,7 +790,7 @@
     }
     document.title = DB.config.botName;
     inputEl.placeholder = DB.config.placeholder || '';
-    noteEl.textContent = DB.config.footerNote || '';
+    noteEl.innerHTML = inlineMd(escapeHtml(DB.config.footerNote || ''));
     inputEl.focus();
     bySlug = Object.create(null);
     for (const e of DB.entries) bySlug[e.slug] = e;

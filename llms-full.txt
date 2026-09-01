@@ -1,4 +1,4 @@
-# FabGPT-FAQ — knowledge base completa
+# FabGPT-FAQ – knowledge base completa
 Domande e risposte verificate. Fonte: https://github.com/fabriziosalmi
 
 
@@ -2929,7 +2929,7 @@ Su un dominio ristretto e prevedibile – il tuo prodotto, la tua azienda, il tu
 ## Come si contatta Fabrizio Salmi?
 https://fabriziosalmi.github.io/fabgpt-faq/q/come-contattare-fabrizio-salmi/
 
-I canali: Email: [fabrizio.salmi@gmail.com](mailto:fabrizio.salmi@gmail.com) – per proposte di collaborazione, supporto commerciale e consulenza (automazione infrastrutturale, hardening, monitoring) GitHub: github.com/fabriziosalmi – issue e discussion sui singoli progetti sono il canale più rapido per le questioni tecniche HackerOne: fabriziosalmi per il lato security research
+I canali: Email: fabrizio.salmi@gmail.com – per proposte di collaborazione, supporto commerciale e consulenza (automazione infrastrutturale, hardening, monitoring), oltre alle questioni di security research GitHub: github.com/fabriziosalmi – issue e discussion sui singoli progetti sono il canale più rapido per le questioni tecniche, incluse le segnalazioni di sicurezza
 
 ## FabGPT-FAQ è una vera intelligenza artificiale?
 https://fabriziosalmi.github.io/fabgpt-faq/q/fabgpt-e-una-vera-ai/

@@ -27,6 +27,7 @@ def inline_md(s: str) -> str:
 
     s = re.sub(r"`([^`]+)`", _stash, s)
     s = re.sub(r"\[([^\]]+)\]\((https?://[^)\s]+)\)", r'<a href="\2" target="_blank" rel="noopener">\1</a>', s)
+    s = re.sub(r"\[([^\]]+)\]\((mailto:[^)\s]+)\)", r'<a href="\2">\1</a>', s)
     # internal links: scheme-less relative paths (convention: "q/<slug>/")
     s = re.sub(r"\[([^\]]+)\]\(([^):\s]+)\)", r'<a href="\2">\1</a>', s)
     s = re.sub(r"\*\*([^*]+)\*\*", r"<strong>\1</strong>", s)
@@ -79,7 +80,7 @@ def render_md(text: str) -> str:
 def md_to_plain(text: str) -> str:
     """Markdown -> plain text, for meta descriptions and JSON-LD answers."""
     s = re.sub(r"```[a-zA-Z0-9_-]*\n([\s\S]*?)```", r"\1", text)
-    s = re.sub(r"\[([^\]]+)\]\((https?://[^)\s]+)\)", r"\1", s)
+    s = re.sub(r"\[([^\]]+)\]\((?:https?|mailto):[^)\s]+\)", r"\1", s)
     s = re.sub(r"[*`]", "", s)
     s = re.sub(r"^\s*-\s+", "", s, flags=re.M)
     return re.sub(r"\s+", " ", s).strip()
@@ -199,7 +200,8 @@ def footer(base: str) -> str:
     links = "".join(
         f'<a href="{base}{href}">{label}</a>'
         for href, label in [("", "Chat"), ("percorsi/", "Percorsi"), ("comandi/", "Comandi"),
-                            ("tools/", "Tools"), ("porta/", "Porte"), ("q/", "Tutte le domande")]
+                            ("tools/", "Tools"), ("porta/", "Porte"), ("q/", "Tutte le domande"),
+                            ("trasparenza/", "Trasparenza")]
     )
     return (
         '<footer class="sitefoot"><div class="sitefoot-in">'
@@ -1191,10 +1193,12 @@ def build_ports(db, entries, site) -> list:
         (d / "index.html").write_text(page, encoding="utf-8")
         urls.append(f"{site}/porta/{n}/")
 
-    # ports index
+    # ports index: one table row per port, themed on the design tokens
     rows = "".join(
-        f'<li><a href="{p["port"]}/"><b>{p["port"]}</b>/{html.escape(p["proto"] if p["proto"] != "both" else "tcp+udp")} – {html.escape(p["service"])}</a>'
-        f' <span style="color:var(--text-dim)">{html.escape(meta_description(p["desc"], 90))}</span></li>'
+        f'<tr><td class="pt-n"><a href="{p["port"]}/">{p["port"]}</a></td>'
+        f'<td class="pt-p">{html.escape(p["proto"] if p["proto"] != "both" else "tcp+udp")}</td>'
+        f'<td class="pt-s"><a href="{p["port"]}/">{html.escape(p["service"])}</a></td>'
+        f'<td class="pt-d">{html.escape(meta_description(p["desc"], 90))}</td></tr>'
         for p in ordered
     )
     page = path_head(
@@ -1217,12 +1221,120 @@ def build_ports(db, entries, site) -> list:
         "<h1>Porte well-known, una per una</h1>\n"
         f'<p class="intro">Le {len(ordered)} porte che si incontrano davvero: servizio, rischi e comandi di verifica. '
         'La <a href="../q/porte-tcp-e-udp-quali-conoscere/">guida generale alle porte</a> spiega il quadro.</p>\n'
-        f'<ul style="list-style:none;padding:0;line-height:1.9">{rows}</ul>\n'
+        f'<div class="pt-wrap"><table class="pt"><thead><tr>'
+        '<th>Porta</th><th>Proto</th><th>Servizio</th><th>A cosa serve</th>'
+        f'</tr></thead><tbody>{rows}</tbody></table></div>\n'
+        """<style>
+  .pt-wrap { overflow-x: auto; border: 1px solid var(--border); border-radius: var(--r-md); background: var(--bg-raised); }
+  .pt { width: 100%; border-collapse: collapse; font-size: 14px; }
+  .pt th { text-align: left; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: .04em; color: var(--text-dim); padding: 9px 10px; border-bottom: 1px solid var(--border); }
+  .pt td { padding: 8px 10px; border-bottom: 1px solid var(--border); vertical-align: top; }
+  .pt tbody tr:last-child td { border-bottom: 0; }
+  .pt tbody tr:hover td { background: var(--bg-soft); }
+  .pt a { color: var(--link); text-decoration: none; }
+  .pt a:hover { text-decoration: underline; }
+  .pt .pt-n { font-weight: 700; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .pt .pt-p { color: var(--text-dim); font-family: ui-monospace, Menlo, monospace; font-size: 12.5px; white-space: nowrap; }
+  .pt .pt-s { white-space: nowrap; }
+  .pt .pt-d { color: var(--text-dim); min-width: 200px; }
+</style>
+"""
     )
     page += close_page("../")
     (ROOT / "porta").mkdir(parents=True, exist_ok=True)
     (ROOT / "porta" / "index.html").write_text(page, encoding="utf-8")
     return urls
+
+
+def build_transparency(site) -> list:
+    """Render /trasparenza/: AI-transparency + privacy in one honest page.
+
+    The site LOOKS like a chatbot but is rule-based software on hand-written
+    answers - outside the EU AI Act's definition of an AI system (Reg. 2024/1689,
+    recital 12). The clean defence against "fake AI" claims is saying so plainly
+    on an always-linked page: what it is, what data moves, what never does.
+    """
+    title = "Trasparenza: FabGPT-FAQ non è un'AI (e i tuoi dati non ci interessano)"
+    desc = ("Come funziona davvero FabGPT-FAQ: risposte pre-scritte e verificate da una persona, "
+            "nessun modello, nessun cookie, nessun tracciamento. Cosa succede ai tuoi dati, per esteso.")
+    jsonld = [
+        {"@context": "https://schema.org", "@type": "WebPage", "name": title,
+         "inLanguage": "it", "url": f"{site}/trasparenza/", "description": desc},
+        {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [
+            {"@type": "ListItem", "position": 1, "name": "FabGPT-FAQ", "item": f"{site}/"},
+            {"@type": "ListItem", "position": 2, "name": "Trasparenza", "item": f"{site}/trasparenza/"},
+        ]},
+    ]
+    page = path_head(
+        title=html.escape(title),
+        description=html.escape(desc),
+        canonical=f"{site}/trasparenza/",
+        site=site,
+        base="../",
+        jsonld=json.dumps(jsonld, ensure_ascii=False),
+    )
+    page += """<nav class="crumbs" aria-label="Percorso"><a href="../">FabGPT-FAQ</a> › <span>Trasparenza</span></nav>
+<h1>Trasparenza</h1>
+<div class="answer">
+<h2>Un'AI che non c'è</h2>
+<p><b>FabGPT-FAQ non è un'intelligenza artificiale.</b> L'interfaccia imita un chatbot – input libero,
+risposta che scorre – ma dietro non c'è nessun modello: ogni risposta è <b>pre-scritta e verificata
+da una persona</b> (<a href="../q/chi-e-fabrizio-salmi/">Fabrizio Salmi</a>) e viene scelta da un
+motore deterministico a parole chiave, <a href="https://github.com/fabriziosalmi/fabgpt-faq"
+target="_blank" rel="noopener">open source</a> e ispezionabile riga per riga.</p>
+<p>In termini di legge: il Regolamento europeo sull'IA (Reg. UE 2024/1689) definisce «sistema di IA»
+un sistema che <i>inferisce</i> come generare i propri output; i sistemi basati su regole scritte
+unicamente da persone ne sono esclusi (considerando 12). Questo sito appartiene alla seconda
+categoria, quindi gli obblighi di trasparenza per i sistemi di IA non gli si applicano – ma lo
+scriviamo comunque, qui e sotto la casella di input, perché la parodia funziona solo se è dichiarata.
+Il vantaggio collaterale è concreto: niente modello, <b>niente allucinazioni</b>.</p>
+<h2>Dati e privacy</h2>
+<ul>
+<li><b>Nessun cookie, nessun tracker, nessuna analytics.</b> Il sito è HTML, CSS e JavaScript statici:
+non esiste un backend che possa registrare qualcosa.</li>
+<li><b>Le conversazioni non lasciano il browser.</b> Quello che scrivi in chat viene confrontato con la
+knowledge base in locale, sul tuo dispositivo, e dimenticato alla chiusura della pagina.</li>
+<li><b>localStorage, solo per i percorsi.</b> Se spunti le tappe di un <a href="../percorsi/">percorso
+guidato</a>, il progresso resta nel localStorage del tuo browser (chiavi
+<code>fabgpt-percorso-*</code>): non viene inviato a nessuno e puoi cancellarlo quando vuoi dalle
+impostazioni del browser. È l'unico uso.</li>
+<li><b>Hosting su GitHub Pages.</b> Come ogni sito servito da GitHub, le richieste passano dai suoi
+server, che possono registrare gli indirizzi IP nei log tecnici: vale la
+<a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement"
+target="_blank" rel="noopener">privacy policy di GitHub</a>. Il titolare di questo sito non riceve
+né conserva alcun dato dei visitatori.</li>
+</ul>
+<h2>I due tool che parlano con l'esterno</h2>
+<p>Cinque <a href="../tools/">tools</a> su sette calcolano tutto in locale. Due interrogano servizi
+esterni, <b>solo quando premi il bottone</b> e mai in automatico:</p>
+<ul>
+<li>il <a href="../tools/dns-lookup/">lookup DNS</a> invia il dominio che digiti ai resolver pubblici
+<code>cloudflare-dns.com</code> e <code>dns.google</code> in DNS-over-HTTPS;</li>
+<li>il <a href="../tools/password-compromessa/">check password</a> usa Have I Been Pwned in
+k-anonymity: il browser calcola l'hash SHA-1 in locale e trasmette solo i primi 5 caratteri –
+la password non lascia mai il tuo computer.</li>
+</ul>
+<p>I dettagli, con i limiti del caso, sono spiegati sulla pagina di ciascun tool.</p>
+<h2>Errori e segnalazioni</h2>
+<p>Ogni risposta è verificata a mano e coperta da una batteria di test, ma l'autore resta umano
+(l'unico punto del sito in cui questo è un difetto). Se trovi un errore, segnalalo su
+<a href="https://github.com/fabriziosalmi/fabgpt-faq/issues" target="_blank"
+rel="noopener">GitHub</a>: le correzioni arrivano con il commit successivo.</p>
+</div>
+<style>
+  .answer { line-height: 1.65; }
+  .answer h2 { font-size: 17px; margin: 26px 0 8px; }
+  .answer ul { padding-left: 22px; }
+  .answer li { margin: 7px 0; }
+  .answer code { background: var(--code-bg); border-radius: 5px; padding: 1px 5px; font-family: ui-monospace, Menlo, monospace; font-size: .9em; }
+  .answer a { color: var(--link); }
+</style>
+"""
+    page += close_page("../")
+    d = ROOT / "trasparenza"
+    d.mkdir(parents=True, exist_ok=True)
+    (d / "index.html").write_text(page, encoding="utf-8")
+    return [f"{site}/trasparenza/"]
 
 
 def build_commands(db, entries, site) -> list:
@@ -1595,6 +1707,7 @@ def build() -> None:
     path_urls += build_tools(db, entries, site)
     path_urls += build_ports(db, entries, site)
     path_urls += build_commands(db, entries, site)
+    path_urls += build_transparency(site)
     paths_meta = (
         json.loads((ROOT / "paths.json").read_text(encoding="utf-8"))["paths"]
         if (ROOT / "paths.json").exists() else []
@@ -1643,7 +1756,7 @@ def build() -> None:
         "> FAQ interattiva su cybersecurity, AI, Proxmox, Cloudflare e i progetti "
         "open source di Fabrizio Salmi. Risposte pre-scritte e verificate, ogni "
         "domanda anche come pagina statica citabile.\n",
-        f"Chat: {site}/  ·  Indice: {site}/q/\n",
+        f"Chat: {site}/  ·  Indice: {site}/q/  ·  Trasparenza: {site}/trasparenza/\n",
     ]
     for vid, label in verticals.items():
         ventries = [e for e in entries if e["vertical"] == vid]
@@ -1677,7 +1790,7 @@ def build() -> None:
 
     # --- llms-full.txt: every Q&A as plain text (full corpus for citation) ---
     lf = [
-        "# FabGPT-FAQ — knowledge base completa\n",
+        "# FabGPT-FAQ – knowledge base completa\n",
         "Domande e risposte verificate. Fonte: https://github.com/fabriziosalmi\n",
     ]
     for vid, label in verticals.items():

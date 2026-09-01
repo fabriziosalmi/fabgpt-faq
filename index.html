@@ -13,7 +13,7 @@
   <meta property="og:locale" content="it_IT">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://fabriziosalmi.github.io/fabgpt-faq/og.svg">
-  <link rel="stylesheet" href="style.css?v=9fa552e3">
+  <link rel="stylesheet" href="style.css?v=86248f24">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
   <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#212121" media="(prefers-color-scheme: dark)">
@@ -35,8 +35,9 @@
   <main id="chat" class="chat" aria-live="polite"></main>
 
   <footer class="composer">
+    <div id="suggestbox" class="suggestbox" role="listbox" aria-label="Domande corrispondenti" hidden></div>
     <form id="composer-form" class="composer-inner" autocomplete="off">
-      <textarea id="input" rows="1" placeholder="" aria-label="Scrivi un messaggio" spellcheck="false"></textarea>
+      <textarea id="input" rows="1" placeholder="" aria-label="Scrivi un messaggio o cerca tra le domande" spellcheck="false" role="combobox" aria-controls="suggestbox" aria-expanded="false" aria-autocomplete="list"></textarea>
       <button id="send" type="submit" aria-label="Invia" disabled>
         <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5"/><path d="M5 12l7-7 7 7"/></svg>
       </button>
@@ -45,6 +46,6 @@
   </footer>
 
   <script src="tools.js?v=74f74d38"></script>
-  <script src="app.js?v=01ee8290"></script>
+  <script src="app.js?v=c25f7943"></script>
 </body>
 </html>

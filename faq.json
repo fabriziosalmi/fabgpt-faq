@@ -4,7 +4,7 @@
     "siteUrl": "https://fabriziosalmi.github.io/fabgpt-faq",
     "welcome": "**585 risposte tecniche verificate** su Cybersecurity, AI & LLM, Proxmox e Cloudflare. Zero allucinazioni, architetture e comandi operativi.",
     "placeholder": "Chiedimi qualcosa…",
-    "footerNote": "FabGPT-FAQ può commettere errori. Considera di verificare le informazioni importanti.",
+    "footerNote": "FabGPT-FAQ non è un'AI: ogni risposta è scritta e verificata da una persona. [Trasparenza](trasparenza/)",
     "matchThreshold": 0.75,
     "typing": {
       "minDelay": 18,
@@ -11175,7 +11175,7 @@
         "come si contatta"
       ],
       "answers": [
-        "I canali:\n\n- **Email**: [fabrizio.salmi@gmail.com](mailto:fabrizio.salmi@gmail.com) – per proposte di collaborazione, supporto commerciale e consulenza (automazione infrastrutturale, hardening, monitoring)\n- **GitHub**: [github.com/fabriziosalmi](https://github.com/fabriziosalmi) – issue e discussion sui singoli progetti sono il canale più rapido per le questioni tecniche\n- **HackerOne**: [fabriziosalmi](https://hackerone.com/fabriziosalmi) per il lato security research"
+        "I canali:\n\n- **Email**: [fabrizio.salmi@gmail.com](mailto:fabrizio.salmi@gmail.com) – per proposte di collaborazione, supporto commerciale e consulenza (automazione infrastrutturale, hardening, monitoring), oltre alle questioni di security research\n- **GitHub**: [github.com/fabriziosalmi](https://github.com/fabriziosalmi) – issue e discussion sui singoli progetti sono il canale più rapido per le questioni tecniche, incluse le segnalazioni di sicurezza"
       ],
       "suggest": [
         "fabgpt-e-una-vera-ai",

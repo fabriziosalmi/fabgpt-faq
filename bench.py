@@ -120,6 +120,16 @@ def main():
                 slug = part.split(")")[0].rstrip("/").split("/")[0]
                 if slug and slug not in slugs:
                     problems.append(f"{e['id']}: broken internal link q/{slug}/")
+            # every markdown link must survive the renderers: http(s)/mailto or
+            # a scheme-less relative path. Anything else (e.g. an unknown scheme)
+            # would be served as raw '[testo](url)' - the mailto bug of 2026-09-01.
+            import re as _re
+            t = _re.sub(r"```[\s\S]*?```", "", a)
+            t = _re.sub(r"`[^`]*`", "", t)
+            t = _re.sub(r"\[[^\]]+\]\((?:https?|mailto):[^)\s]+\)", "", t)
+            t = _re.sub(r"\[[^\]]+\]\([^):\s]+\)", "", t)
+            if "](" in t:
+                problems.append(f"{e['id']}: unrenderable markdown link (unknown scheme or space in URL)")
         for s in e.get("suggest", []):
             if s not in slugs:
                 problems.append(f"{e['id']}: dangling suggest slug '{s}'")
