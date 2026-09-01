@@ -58,7 +58,6 @@
         "fabrizio",
         "salmi",
         "fab",
-        "chi sei",
         "autore",
         "creatore",
         "bio",
@@ -13635,7 +13634,8 @@
         "shellcheck",
         "script shell",
         "variabili bash",
-        "automatizzare con bash"
+        "automatizzare con bash",
+        "comando bash"
       ],
       "answers": [
         "Uno script Bash parte con lo *shebang* `#!/usr/bin/env bash` e, subito dopo, la cintura di sicurezza: `set -euo pipefail` (esci al primo errore, sulle variabili non definite e sui fallimenti in pipe).\n\nLe basi che coprono il 90%: variabili `nome=\"valore\"` (niente spazi attorno a `=`), sostituzione di comando `$(comando)`, condizioni `if [[ -f file ]]`, cicli `for f in *.log`. La regola d'oro: **virgoletta sempre le variabili** – `\"$var\"` – o gli spazi nei nomi file ti distruggeranno lo script.\n\nPrima di eseguire, passa tutto in **ShellCheck** (`shellcheck script.sh`): trova gli errori classici meglio di una revisione umana. Poi pianifica con [cron](q/cron-la-sintassi-spiegata/) o i [timer systemd](q/gestire-servizi-linux-con-systemctl/). Quando lo script supera le ~100 righe o deve parlare JSON, è il momento di Python."
@@ -14150,7 +14150,13 @@
         "non mi aiuti",
         "non c entra niente",
         "non e quello che chiedevo",
-        "fuori tema"
+        "fuori tema",
+        "servi a nulla",
+        "servi a niente",
+        "che delusione",
+        "non funzioni",
+        "tempo perso",
+        "non mi servi"
       ],
       "answers": [
         "Può succedere: sono un **matcher di parole chiave**, non un genio. Prova a riformulare coi termini centrali (es. *certificati*, *WAF*, *autoscaling*) – oppure, se la risposta è proprio sbagliata nel merito, segnalala su [GitHub](https://github.com/fabriziosalmi/fabgpt-faq): qui gli errori si correggono per tutti con un commit.",
@@ -14207,6 +14213,7 @@
     {
       "id": "st-identita",
       "keywords": [
+        "chi sei",
         "come ti chiami",
         "chi ti ha creato",
         "chi ti ha fatto",

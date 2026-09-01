@@ -87,8 +87,9 @@ def word_best(w, input_tokens):
             sim = dice(t, w)
             if sim >= 0.7:
                 best = max(best, sim * 0.95)
-        # short-word typos that bigram similarity misses (toen -> token)
-        if best < 0.8 and len(t) >= 4 and len(w) >= 4 and abs(len(t) - len(w)) <= 1 and damerau1(t, w):
+        # short-word typos that bigram similarity misses (toen -> token);
+        # first char must match: bash!=hash are different words, not typos
+        if best < 0.8 and len(t) >= 4 and len(w) >= 4 and abs(len(t) - len(w)) <= 1 and t[0] == w[0] and damerau1(t, w):
             best = 0.8
     return best
 

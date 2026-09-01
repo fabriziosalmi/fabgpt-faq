@@ -17,7 +17,7 @@
  },
  {
   "q": "chi sei?",
-  "expect": "chi-sei"
+  "expect": "st-identita"
  },
  {
   "q": "chi è fabrizio salmi",
@@ -2706,5 +2706,17 @@
  {
   "q": "meglio freshrss o miniflux per i feed?",
   "expect": "aggregatore-rss"
+ },
+ {
+  "q": "ciao chi sei?",
+  "expect": "st-identita"
+ },
+ {
+  "q": "vabbè non servi a nulla",
+  "expect": "st-feedback-negativo"
+ },
+ {
+  "q": "un comando bash qualsiasi",
+  "expect": "bash-scripting-base"
  }
 ]

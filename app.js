@@ -88,8 +88,9 @@
         const sim = dice(t, w);
         if (sim >= 0.7) best = Math.max(best, sim * 0.95);
       }
-      // short-word typos that bigram similarity misses (toen -> token)
-      if (best < 0.8 && t.length >= 4 && w.length >= 4 && Math.abs(t.length - w.length) <= 1 && damerau1(t, w)) {
+      // short-word typos that bigram similarity misses (toen -> token);
+      // first char must match: bash!=hash are different words, not typos
+      if (best < 0.8 && t.length >= 4 && w.length >= 4 && Math.abs(t.length - w.length) <= 1 && t[0] === w[0] && damerau1(t, w)) {
         best = 0.8;
       }
     }
@@ -511,7 +512,7 @@
       const pn = fp.kind === 'port' && fp.label.match(/\d+/);
       updateCrumb(fp.kind === 'port' ? 'port' : 'tool', fp.label,
         fp.kind === 'port' ? (pn ? 'porta/' + pn[0] + '/' : null) : TOOL_PAGES[fp.kind]);
-      streamAnswer(fp.answer, null, fp.suggest, null, fp.label);
+      streamAnswer(fp.answer, null, fp.suggest, null, text);
       return;
     }
     let entry = match(text);
@@ -531,7 +532,7 @@
     const answer = entry ? pickAnswer(entry) : pickFallback();
     // a fallback must never be a dead end: offer the starter hubs to restart
     const fallbackChips = entry ? null : (DB.config.suggest || []);
-    const qLabel = entry ? entry.question : text;
+    const qLabel = entry ? (entry.question || text) : text;
     if (entry && entry.slug) { askedSlugs.add(entry.slug); ctxEntry = entry; } // thread history + context
     crumbForEntry(entry);
     streamAnswer(answer, null, entry ? entry.suggest : fallbackChips, entry && entry.id, qLabel);

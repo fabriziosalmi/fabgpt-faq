@@ -80,6 +80,8 @@ ok(T.detect('1+1?').kind === 'arith', 'detect 1+1?');
 ok(T.detect('quanto fa 12*34?').kind === 'arith', 'detect quanto fa');
 ok(T.detect('*/5 2 * * 1-5').kind === 'cron', 'cron still wins over arith');
 ok(T.detect('192.168.1.0/24').kind === 'subnet', 'cidr still wins over arith');
+ok(T.detect('sai fare 1 + 1 ?').kind === 'arith', 'detect sai fare 1+1');
+ok(T.detect('un comando bash qualsiasi') === null, 'prose is not arith');
 ok(T.detect('42') === null, 'bare number not arith');
 ok(T.detect('1609459200').kind === 'epoch', 'epoch still wins');
 

@@ -344,7 +344,7 @@
     }
 
     // plain arithmetic ("1+1?", "quanto fa 12*34?"): last, so cron/CIDR win first
-    var at = t.replace(/^(quanto\s+fa|quant'?\s*e'?|calcola(?:mi)?)\s*/i, '').replace(/[?=\s]+$/, '');
+    var at = t.replace(/^(quanto\s+fa|quant'?\s*e'?|calcola(?:mi)?|sai\s+fare|sai\s+calcolare|dimmi\s+quanto\s+fa)\s*/i, '').replace(/[?=\s]+$/, '');
     if (/^[\d\s+\-*/().,%^]+$/.test(at) && /\d/.test(at) && /(?!^)[+*/%^]|(?!^)-/.test(at)) {
       var av = evalArith(at);
       if (av !== null) {
