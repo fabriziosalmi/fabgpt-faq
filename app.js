@@ -677,7 +677,7 @@
       // Self-heal a stale cached index.html that predates the tools.js tag.
       if (typeof FabTools === 'undefined') {
         const s = document.createElement('script');
-        s.src = 'tools.js';
+        s.src = 'tools.js?v=' + Date.now();
         document.head.appendChild(s);
       }
     } catch (err) {

@@ -1357,6 +1357,27 @@ document.addEventListener('click', function (e) {{
     return urls
 
 
+def stamp_assets() -> str:
+    """Version every style.css/app.js/tools.js reference with a content hash,
+    so a deploy can never serve fresh HTML with a stale cached asset."""
+    import hashlib
+    ver = {}
+    for name in ("style.css", "app.js", "tools.js"):
+        ver[name] = hashlib.md5((ROOT / name).read_bytes()).hexdigest()[:8]
+    pat = re.compile(r"(style\.css|app\.js|tools\.js)(\?v=[0-9a-f]{8})?")
+    targets = [ROOT / "index.html", ROOT / "404.html"]
+    for sub in ("q", "percorsi", "tools", "porta", "comandi"):
+        targets += sorted((ROOT / sub).rglob("index.html"))
+    for f in targets:
+        if not f.exists():
+            continue
+        html_text = f.read_text(encoding="utf-8")
+        new = pat.sub(lambda m: f"{m.group(1)}?v={ver[m.group(1)]}", html_text)
+        if new != html_text:
+            f.write_text(new, encoding="utf-8")
+    return "/".join(ver[n] for n in ("style.css", "app.js", "tools.js"))
+
+
 def build() -> None:
     db = json.loads((ROOT / "faq.json").read_text(encoding="utf-8"))
     site = db["config"]["siteUrl"].rstrip("/")
@@ -1703,7 +1724,8 @@ def build() -> None:
 """
     (ROOT / "404.html").write_text(notfound, encoding="utf-8")
 
-    print(f"Built {len(entries)} pages + {len(paths_meta)} percorsi + index + sitemap ({len(urls)} URLs) + llms.txt + llms-full.txt + 404.")
+    stamped = stamp_assets()
+    print(f"Built {len(entries)} pages + {len(paths_meta)} percorsi + index + sitemap ({len(urls)} URLs) + llms.txt + llms-full.txt + 404. Assets v: {stamped}")
 
 
 if __name__ == "__main__":

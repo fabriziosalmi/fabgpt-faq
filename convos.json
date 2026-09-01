@@ -647,5 +647,58 @@
     "expect": "st-grazie"
    }
   ]
+ },
+ {
+  "name": "maratona-web-security",
+  "turns": [
+   {
+    "q": "soluzioni sicurezza",
+    "expect": "st-hub-sicurezza"
+   },
+   {
+    "q": "ddos ?",
+    "expect": "ddos"
+   },
+   {
+    "q": "Cos'è la OWASP Top 10?",
+    "expect": "owasp-top10"
+   },
+   {
+    "q": "Cos'è la SQL injection e come si previene?",
+    "expect": "sql-injection"
+   },
+   {
+    "q": "Cos'è il cross-site scripting (XSS)?",
+    "expect": "xss"
+   },
+   {
+    "q": "Cos'è il modello Zero Trust?",
+    "expect": "zero-trust"
+   },
+   {
+    "q": "Cos'è l'autenticazione a più fattori (MFA/2FA)?",
+    "expect": "mfa"
+   },
+   {
+    "q": "Come si mette in sicurezza SSH su un server esposto?",
+    "expect": "hardening-ssh"
+   },
+   {
+    "q": "Quali security header HTTP servono davvero?",
+    "expect": "security-headers"
+   },
+   {
+    "q": "Come si bloccano i crawler AI (GPTBot e gli altri)?",
+    "expect": "bloccare-crawler-ai"
+   },
+   {
+    "q": "Errore ERR_CERT_AUTHORITY_INVALID: cosa significa?",
+    "expect": "err-cert-authority"
+   },
+   {
+    "q": "grazie, giro completo perfetto",
+    "expect": "st-grazie"
+   }
+  ]
  }
 ]
