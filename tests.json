@@ -381,7 +381,7 @@
  },
  {
   "q": "meglio fail2ban o crowdsec",
-  "expect": "fail2ban"
+  "expect": "crowdsec"
  },
  {
   "q": "cosa prevede il cyber resilience act",
@@ -1229,7 +1229,7 @@
  },
  {
   "q": "homelab su mini pc n100",
-  "expect": "homelab-low-power"
+  "expect": "n100"
  },
  {
   "q": "la vm non si avvia piu",
@@ -2802,5 +2802,133 @@
  {
   "q": "shell",
   "expect": "bash-scripting-base"
+ },
+ {
+  "q": "kubernetes",
+  "expect": "kubernetes"
+ },
+ {
+  "q": "k3s",
+  "expect": "k3s"
+ },
+ {
+  "q": "ansible",
+  "expect": "ansible"
+ },
+ {
+  "q": "terraform",
+  "expect": "terraform-opentofu"
+ },
+ {
+  "q": "portainer",
+  "expect": "portainer"
+ },
+ {
+  "q": "ci/cd",
+  "expect": "ci-cd"
+ },
+ {
+  "q": "gitea",
+  "expect": "gitlab-gitea"
+ },
+ {
+  "q": "webhook",
+  "expect": "webhook"
+ },
+ {
+  "q": "graphql",
+  "expect": "api-rest-graphql-grpc"
+ },
+ {
+  "q": "uptime kuma",
+  "expect": "uptime-kuma"
+ },
+ {
+  "q": "loki",
+  "expect": "loki"
+ },
+ {
+  "q": "mikrotik conviene",
+  "expect": "mikrotik"
+ },
+ {
+  "q": "opnsense o pfsense",
+  "expect": "opnsense-pfsense"
+ },
+ {
+  "q": "unifi conviene",
+  "expect": "unifi"
+ },
+ {
+  "q": "cos'è bgp",
+  "expect": "bgp"
+ },
+ {
+  "q": "sono dietro cgnat",
+  "expect": "cgnat"
+ },
+ {
+  "q": "cos'è tailscale",
+  "expect": "tailscale"
+ },
+ {
+  "q": "minio",
+  "expect": "minio"
+ },
+ {
+  "q": "btrfs o zfs",
+  "expect": "btrfs"
+ },
+ {
+  "q": "truenas o unraid",
+  "expect": "unraid"
+ },
+ {
+  "q": "n100 homelab",
+  "expect": "n100"
+ },
+ {
+  "q": "crowdsec",
+  "expect": "crowdsec"
+ },
+ {
+  "q": "suricata o snort",
+  "expect": "suricata-snort"
+ },
+ {
+  "q": "keycloak o authentik",
+  "expect": "keycloak-authentik"
+ },
+ {
+  "q": "hashicorp vault",
+  "expect": "hashicorp-vault"
+ },
+ {
+  "q": "postgres o mysql",
+  "expect": "postgresql"
+ },
+ {
+  "q": "redis",
+  "expect": "redis"
+ },
+ {
+  "q": "sqlite",
+  "expect": "sqlite"
+ },
+ {
+  "q": "clickhouse",
+  "expect": "clickhouse"
+ },
+ {
+  "q": "langchain",
+  "expect": "langchain"
+ },
+ {
+  "q": "hugging face",
+  "expect": "huggingface"
+ },
+ {
+  "q": "podman",
+  "expect": "podman"
  }
 ]

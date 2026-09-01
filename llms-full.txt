@@ -1274,6 +1274,46 @@ https://fabriziosalmi.github.io/fabgpt-faq/q/nis2-model-compliance-assistant/
 
 nis2-model è un assistente di conformità per NIS2 e DORA: un motore di regole deterministico in Rust (batteria di test a vista, licenza EUPL) più un'interfaccia web interattiva che valuta i dati organizzativi contro i requisiti delle due normative. La parola chiave è deterministico: stessa filosofia di questo sito – la valutazione di conformità non è un parere generato, è l'applicazione riproducibile di regole scritte, che puoi leggere e contestare. Un LLM può aiutarti a capire [chi deve adeguarsi a NIS2](q/nis2-chi-deve-adeguarsi-italia/) o [cosa impone DORA](q/cos-e-dora-regolamento/); il punteggio di dove sei rispetto ai requisiti deve uscire da un motore che dà due volte la stessa risposta. Si affianca al monitoraggio operativo di [nis2-public](q/come-si-monitora-la-conformita-nis2/): uno misura la postura, l'altro la valuta contro la norma.
 
+## Cosa sono i router MikroTik e perché i sysadmin li usano così tanto?
+https://fabriziosalmi.github.io/fabgpt-faq/q/cosa-sono-i-router-mikrotik/
+
+MikroTik è un produttore lettone di router e switch che girano su RouterOS, il suo sistema operativo di rete. Piace ai sysadmin per il rapporto prezzo/potenza: con poche decine di euro un hEX o un RB5009 offre BGP, OSPF, VLAN, firewall stateful e scripting, funzioni che altrove costano dieci volte tanto. La curva di apprendimento però è ripida: WinBox e la CLI (/ip firewall filter print) presuppongono che tu sappia già cosa stai facendo, e i default non ti salvano dagli errori. La trappola classica è dimenticarli senza aggiornamenti: RouterOS non patchato è tra i bersagli preferiti delle botnet – Mēris nel 2021 ha arruolato proprio device rimasti vulnerabili per anni. Aggiorna con /system package update install e chiudi l'accesso di gestione dalla WAN.
+
+## Meglio OPNsense o pfSense come firewall open source per il homelab?
+https://fabriziosalmi.github.io/fabgpt-faq/q/opnsense-o-pfsense-quale-firewall/
+
+OPNsense e pfSense sono i due firewall open source su base FreeBSD più diffusi nei homelab; il primo è un fork del secondo, nato nel 2015. OPNsense (licenza BSD 2-clause) ha rilasci frequenti, interfaccia moderna e plugin come CrowdSec e Zenarmor; pfSense CE (Apache 2.0) è maturo e documentatissimo, ma Netgate concentra lo sviluppo sul proprietario pfSense Plus, gratuito per uso casalingo previa registrazione. Entrambi rendono al meglio su hardware dedicato: un mini-PC con due o più NIC Intel, non una VM sul server principale, così il firewall resta su anche quando riavvii l'hypervisor. La trappola tipica sono le NIC Realtek: su FreeBSD i driver sono ballerini, controlla le schede di rete prima di comprare.
+
+## Cos'è UniFi di Ubiquiti e conviene per la rete di casa?
+https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-unifi-di-ubiquiti/
+
+UniFi è l'ecosistema di rete di Ubiquiti: access point, switch e gateway gestiti da un unico controller, l'applicazione UniFi Network, che puoi self-hostare in un container oppure far girare su un gateway della linea (UDM, Cloud Gateway). I pro: AP eccellenti per il prezzo, nessun canone, un solo pannello per tutta la rete, roaming pulito tra più access point. I contro sono quelli di ogni giardino recintato: l'hardware parla solo col controller Ubiquiti, il routing avanzato resta indietro rispetto a un firewall vero e l'azienda spinge sempre più verso l'account cloud. Compromesso diffuso: AP e switch UniFi per il Wi-Fi, OPNsense o MikroTik come router. Trappola: aggiornare il controller senza aver prima scaricato un backup delle impostazioni – riadottare tutti gli AP non è divertente.
+
+## Cos'è il BGP (Border Gateway Protocol) spiegato in parole semplici?
+https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-il-bgp-border-gateway-protocol/
+
+BGP (Border Gateway Protocol) è il protocollo con cui le grandi reti che compongono internet – i sistemi autonomi di provider, cloud e aziende – si annunciano a vicenda quali blocchi di indirizzi IP sanno raggiungere. Non esiste una mappa centrale: ogni rete si fida degli annunci delle vicine e sceglie il percorso, per questo si dice che "internet è BGP". Quando un annuncio è sbagliato o malevolo il traffico finisce dove non deve: è il BGP hijacking, che trattiamo in una voce dedicata. In homelab lo incontri con FRR o BIRD, per esempio per annunciare al router i servizi di un cluster Kubernetes con MetalLB. Trappola tipica: accettare o propagare rotte senza filtri – tabella piena di prefissi altrui e rete a terra.
+
+## CrowdSec: cos'è e quando conviene rispetto a Fail2ban?
+https://fabriziosalmi.github.io/fabgpt-faq/q/crowdsec-ips-collaborativo/
+
+CrowdSec è un IPS collaborativo open source: analizza i log come fail2ban, ma condivide le segnalazioni con la community e riceve in cambio una blocklist di IP malevoli già noti. Il motore (security engine) rileva gli attacchi con scenari scaricabili dall'hub; il blocco vero lo fa un bouncer separato, da installare su firewall, Nginx, Caddy o Cloudflare. Conviene rispetto a [fail2ban](q/fail2ban-e-alternative/) quando gestisci più server, vuoi fermare gli attaccanti prima ancora che ti tocchino o ti serve un parsing moderno dei log (JSON, container). La trappola tipica: installare solo il motore e dimenticare il bouncer – vedrai le decisioni con cscli decisions list, ma nessun IP verrà davvero bloccato. Verifica sempre con cscli bouncers list che ce ne sia almeno uno registrato.
+
+## Suricata o Snort: quale scegliere (e dove metterlo in rete)?
+https://fabriziosalmi.github.io/fabgpt-faq/q/suricata-o-snort-ids-ips/
+
+Suricata e Snort sono i due IDS/IPS a firme più diffusi: ispezionano il traffico di rete e segnalano (o bloccano, in modalità inline) i pattern di attacco descritti dalle regole. Suricata, sviluppato da OISF, è multi-thread da sempre, produce log JSON (EVE) facili da portare in una dashboard e digerisce gran parte delle regole scritte per Snort; Snort 3, di Cisco/Talos, ha colmato il divario ma resta più legato al suo ecosistema. Le regole gratuite di riferimento sono le Emerging Threats Open. In rete vanno su una porta mirror dello switch per il solo rilevamento, oppure inline sul perimetro (tipico su OPNsense/pfSense) per bloccare. La trappola: gran parte del traffico oggi è cifrato TLS, quindi senza tuning vedrai soprattutto metadati e falsi positivi – parti in IDS puro e attiva il blocco solo dopo.
+
+## Keycloak o Authentik: quale identity provider self-hosted per il SSO?
+https://fabriziosalmi.github.io/fabgpt-faq/q/keycloak-o-authentik-sso-self-hosted/
+
+Keycloak e Authentik sono identity provider self-hosted: centralizzano login, MFA e SSO parlando OIDC e SAML con le tue applicazioni. Keycloak (progetto CNCF nato in Red Hat) è lo standard enterprise: realm, federazione LDAP/AD, ogni opzione immaginabile, ma è pesante in RAM e la curva di apprendimento è ripida. Authentik è più recente e homelab-friendly: interfaccia moderna, flussi configurabili a blocchi e soprattutto gli outpost proxy, che aggiungono l'autenticazione (forward auth) anche alle app che non supportano OIDC. Scegli Keycloak per requisiti aziendali e federazioni complesse; Authentik per proteggere i servizi di casa dietro un reverse proxy. La trappola: esporre il pannello admin su internet senza MFA né rate limiting – l'IdP è il mazzo di chiavi di tutto, e compromesso lui è compromesso tutto.
+
+## HashiCorp Vault: cos'è e quando ha senso usarlo per i secrets?
+https://fabriziosalmi.github.io/fabgpt-faq/q/hashicorp-vault-gestione-secrets/
+
+HashiCorp Vault è il gestore centralizzato dei secrets: le applicazioni chiedono le credenziali via API, ogni accesso è tracciato e governato da policy. Il punto di forza sono i dynamic secrets: invece di una password statica del database, Vault ne genera una nuova a scadenza per ogni richiesta, riducendo il danno di un leak. Ha senso con molti servizi, team e rotazioni da automatizzare; per un homelab o un singolo server è quasi sempre overkill – bastano le tecniche viste in [come gestire i secrets](q/come-gestire-i-secrets/), tipo sops o le secret di Docker. Nota di licenza: dal 2023 Vault è BUSL (e HashiCorp è di IBM); il fork open source è OpenBao. La trappola: a ogni riavvio Vault parte sealed e va sbloccato con vault operator unseal – senza auto-unseal, un reboot notturno lascia le app senza credenziali.
+
 # AI e LLM
 
 ## Cos'è la prompt injection e come ci si difende?
@@ -1981,6 +2021,16 @@ https://fabriziosalmi.github.io/fabgpt-faq/q/slopless-analisi-statica-vibecoding
 
 Slopless è un tool di analisi statica (npm: @fabriziosalmi/slopless) che cerca i pattern tipici del codice tirato via – colloquialmente, il vibecoding: strutture improvvisate, assunzioni non documentate, euristiche al posto di decisioni. Motore a più livelli: regex, AST e controlli sui tipi. Il bersaglio non è "il codice scritto dall'AI" in sé: è il codice – umano o generato – accettato senza capirlo. Con gli assistenti la quantità di codice plausibile è esplosa, e serve un gate che intercetti lo slop prima della review, quando costa ancora poco. Sta nella stessa famiglia di [come si controlla la qualità del codice generato](q/controllare-qualita-codice-generato-ai/): lì il metodo, qui lo strumento da mettere in CI.
 
+## LangChain: serve davvero un framework per orchestrare gli LLM?
+https://fabriziosalmi.github.io/fabgpt-faq/q/langchain-orchestrazione-llm/
+
+LangChain è il framework di orchestrazione LLM più noto: astrae i provider (OpenAI, Anthropic, modelli locali) dietro un'interfaccia unica e fornisce prompt template, tool calling, memoria e centinaia di integrazioni; dalla versione 1.0 del 2025 il cuore è l'astrazione di agente costruita su LangGraph. La critica ricorrente è che i suoi strati invecchiano male: le API dei provider cambiano in fretta, le astrazioni rincorrono, e debuggare una chain significa scavare in codice non tuo. Usalo se ti servono davvero agenti multi-step, molte integrazioni pronte o la libertà di cambiare modello senza riscrivere. Per una pipeline semplice – un prompt, una risposta, magari un po' di RAG – le chiamate dirette all'SDK del provider sono meno codice e meno dipendenze. La trappola: importare l'intero framework per quella che era una fetch di dieci righe.
+
+## Hugging Face: cos'è e a cosa serve?
+https://fabriziosalmi.github.io/fabgpt-faq/q/hugging-face-hub-modelli/
+
+Hugging Face è l'hub dei modelli open: ci trovi centinaia di migliaia di modelli (LLM, vision, audio), dataset pronti e gli Spaces, demo interattive per provare tutto dal browser. La libreria di casa è transformers, che carica un modello in due righe con from_pretrained. Per scaricare in locale usi la CLI: hf download meta-llama/Llama-3.1-8B-Instruct (il vecchio nome huggingface-cli funziona ancora); per llama.cpp e Ollama cerchi invece le versioni quantizzate GGUF. Occhio a due cose. Primo: open non significa senza vincoli – molti modelli sono gated, devi accettare la licenza sul sito e autenticarti con hf auth login prima del download. Secondo, la trappola: scaricare un modello da 70B parametri senza guardare la VRAM – controlla sempre dimensioni e quantizzazione rispetto alla tua GPU.
+
 # Proxmox e self-hosting
 
 ## Cos'è Proxmox VE e perché è così usato?
@@ -2418,6 +2468,41 @@ https://fabriziosalmi.github.io/fabgpt-faq/q/lxc-autoscale-ml-machine-learning-p
 
 LXC AutoScale ML è la variante predittiva dell'[autoscaling LXC classico](q/autoscaling-container-lxc-proxmox/): invece di sole soglie fisse, raccoglie le metriche per-container, addestra un modello di anomaly detection sulla storia di ciascun container e applica le modifiche con pct set sull'host – che non riavvia il container. L'architettura è deliberatamente umile: tre servizi systemd (raccolta metriche, modello, attuatore) che condividono solo un file di metriche su disco – niente code, niente database, ogni pezzo sostituibile. Sviluppato e testato su Proxmox VE 8, Python 3.10–3.12. Quando sceglierlo rispetto al fratello a soglie: quando i carichi hanno pattern (il gestionale che picchia alle 9, il backup che satura alle 3) e vuoi che l'allocazione li anticipi invece di inseguirli.
 
+## Cos'è Loki e come si affianca a Prometheus?
+https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-grafana-loki/
+
+Loki è il sistema di log aggregation di Grafana Labs: raccoglie i log di macchine e container in un punto solo e li interroga da Grafana con il linguaggio LogQL. Si affianca a Prometheus dividendosi i compiti: Prometheus raccoglie metriche (numeri campionati: CPU, RAM, richieste al secondo), Loki raccoglie log (righe di testo con timestamp); in Grafana passi dal grafico che mostra l'anomalia alle righe di log di quello stesso istante. A differenza di Elasticsearch non indicizza il contenuto ma solo le label (host, job, unit systemd), quindi è leggero e sta comodo anche su un cluster Proxmox domestico. I log li spedisce un agent sui nodi: lo storico Promtail è deprecato e a fine vita da marzo 2026, oggi si usa Grafana Alloy. Trappola tipica: label ad alta cardinalità, che fanno esplodere memoria e storage.
+
+## Cos'è il CGNAT e perché non riesco a raggiungere casa da fuori?
+https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-il-cgnat-e-come-uscirne/
+
+CGNAT (Carrier-Grade NAT) significa che il provider condivide un solo IPv4 pubblico tra molti clienti: le connessioni in ingresso muoiono a casa sua, quindi port forwarding e DDNS non funzionano. Per scoprirlo confronta l'IP WAN del router con quello che vede un sito tipo whatismyip: se non coincidono, o se il WAN è nel blocco 100.64.0.0/10, sei dietro CGNAT. Vie d'uscita, in ordine di sforzo: usare IPv6 se il provider lo dà; una mesh VPN come Tailscale, con Funnel per esporre servizi al pubblico; un VPS economico con tunnel WireGuard e reverse proxy; chiedere al provider un IP pubblico, spesso pochi euro al mese. Trappola: comprare dominio e configurare DDNS prima di aver verificato di avere un IP raggiungibile.
+
+## Cos'è Tailscale (e perché ha vinto tra le VPN mesh)?
+https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-tailscale-mesh-vpn/
+
+Tailscale è una mesh VPN costruita su WireGuard: installi il client sui dispositivi, fai login e ogni nodo vede gli altri su indirizzi 100.x.y.z, ovunque siano. Ha vinto perché azzera la fatica: NAT traversal automatico (con relay DERP quando il collegamento diretto fallisce), niente port forwarding, niente gestione manuale di chiavi, MagicDNS per i nomi. Perfetta per raggiungere il homelab da fuori, anche dietro CGNAT. Il compromesso: il coordination server che distribuisce chiavi e ACL è chiuso e gira sui loro sistemi, e l'account si appoggia a un identity provider esterno – se vuoi tutto in casa c'è Headscale, coordinatore open source di cui parliamo in una voce dedicata. Trappola: esporre un servizio con tailscale funnel e dimenticare che da quel momento è pubblico davvero.
+
+## Cos'è MinIO e quando serve un object storage S3 in casa?
+https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-minio-object-storage-s3/
+
+MinIO è un object storage S3-compatibile che self-hosti con un singolo binario o container: le applicazioni gli parlano con le stesse API di Amazon S3. Serve davvero quando usi software che vuole un bucket S3, non una cartella: backup con restic o Velero, log di Loki, media di Mastodon, artifact di CI. Se devi solo condividere file, un NAS con NFS o SMB è più semplice. Nota importante: MinIO è AGPLv3 e nel 2025 ha tolto quasi tutte le funzioni di gestione dalla console web della versione community, spingendo verso il commerciale AIStor – server e API restano completi, ma amministri con mc, il client a riga di comando. Alternative leggere: Garage e SeaweedFS. Trappola: usarlo su disco singolo aspettandosi la resilienza dell'erasure coding.
+
+## Cos'è Btrfs e quando conviene usarlo al posto di ZFS?
+https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-btrfs-snapshot-e-checksum/
+
+Btrfs è un filesystem copy-on-write incluso nel kernel Linux, con snapshot istantanei, checksum dei dati e compressione trasparente. Conviene quando vuoi snapshot e integrità senza il peso di ZFS: è nel kernel (niente moduli da ricompilare), chiede meno RAM e aggiungi o togli dischi da un volume con grande flessibilità. ZFS – vedi la voce su OpenZFS – resta superiore per RAID maturo, cache e replica su larga scala. Il punto dolente sono i RAID5/6: il write hole non è mai stato risolto del tutto e la stessa documentazione ufficiale li sconsiglia in produzione; usa raid1 o raid10, oppure Btrfs sopra un RAID md come fa Synology. Trappola: non lanciare mai btrfs scrub – i checksum servono solo se qualcuno li controlla.
+
+## Cos'è Unraid e conviene rispetto a TrueNAS per un NAS casalingo?
+https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-unraid-nas-os/
+
+Unraid è un sistema operativo NAS a licenza commerciale di Lime Technology, famoso per l'array con parità flessibile: mischi dischi di taglie diverse, uno o due dischi di parità proteggono gli altri e ne aggiungi uno alla volta senza rifare nulla. Ideale per chi accumula media a colpi di dischi comprati in offerta; Docker e VM sono integrati. Rispetto a TrueNAS – confronto nella voce dedicata – rinunci alle prestazioni e alle garanzie di ZFS sull'array classico (ogni file vive su un solo disco), ma guadagni flessibilità e dischi che si spengono quando non servono. Dal 2024 le licenze base includono un anno di aggiornamenti, la Lifetime costa di più. Trappola: considerare la parità un backup – copre il guasto di un disco, non cancellazioni o ransomware.
+
+## Un mini-PC con Intel N100 basta per un homelab?
+https://fabriziosalmi.github.io/fabgpt-faq/q/mini-pc-intel-n100-per-homelab/
+
+Intel N100 (e il refresh N150) è un chip a 4 E-core con TDP di circa 6 W che ha reso i mini-PC da 150–200 euro la porta d'ingresso standard al homelab. Regge senza affanno il trittico classico: Jellyfin, stack arr, Pi-hole, Home Assistant e qualche container di contorno, anche sotto Proxmox. Il punto forte è la iGPU con QuickSync: decodifica AV1 e transcodifica HEVC in hardware, quindi più stream Jellyfin 4K in contemporanea passando /dev/dri al container. I limiti: memoria single-channel con 16 GB ufficiali (molti moduli da 32 GB funzionano, ma senza garanzia), poche linee PCIe, spesso un solo slot NVMe e una sola NIC. Trappola: comprarlo per ZFS con dedup o molte VM pesanti – lì serve altra classe di macchina.
+
 # Cloudflare
 
 ## Cos'è GitOps e perché conviene?
@@ -2811,6 +2896,81 @@ Occam Observer osserva un repository Git dall'esterno (out-of-band: niente hook 
 https://fabriziosalmi.github.io/fabgpt-faq/q/l0-git-quality-gates/
 
 l0-git applica quality gate deterministici all'igiene di progetto: controlli riproducibili sullo stato dei repository – la disciplina che questo stesso sito pratica coi suoi gate (bench, traj, maratone) portata sul piano del workspace: regole scritte, esito binario, niente giudizi a sentimento. Con [Occam Observer](q/occam-observer-telemetria-git/) forma una coppia complementare: Occam osserva e misura in continuo (telemetria, health score, trend), l0-git impone – il gate che decide se lo stato è accettabile. Osservabilità e enforcement, gli stessi due tempi del [security logging](q/security-logging-fatto-bene/) applicati alla qualità del codice. Per chi mantiene decine di repo – la situazione da cui è nato – è la differenza tra "mi pare a posto" e è a posto, per definizione.
+
+## Cos'è Kubernetes e quando non ti serve davvero?
+https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-kubernetes/
+
+Kubernetes è un orchestratore di container: distribuisce, scala e riavvia automaticamente le applicazioni containerizzate su un cluster di più macchine. Serve davvero quando hai molti servizi, più nodi e bisogno di rolling update, autoscaling e self-healing. Per un homelab con un solo server è quasi sempre overkill: ti porti dietro control plane, etcd, certificati e un consumo fisso di RAM solo per tenerlo acceso, più la manutenzione del cluster stesso a ogni aggiornamento. Con docker compose copri il 90% dei casi domestici con un file YAML versionato; se vuoi comunque le API di Kubernetes per imparare o per coerenza col lavoro, k3s le offre in un singolo binario leggero. La trappola tipica: adottarlo 'perché lo usano tutti' e ritrovarsi a fare manutenzione al cluster invece che ai propri servizi.
+
+## Cos'è k3s e quando ha senso usarlo al posto di Kubernetes pieno?
+https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-k3s/
+
+k3s è una distribuzione Kubernetes leggera e certificata CNCF, nata in casa Rancher (oggi SUSE): un singolo binario sotto i 100 MB con tutto incluso e SQLite al posto di etcd come datastore di default. Ha senso in homelab, su edge e su hardware modesto, Raspberry Pi compreso: si installa con curl -sfL https://get.k3s.io | sh -, consuma molta meno RAM del k8s pieno e resta compatibile con manifest, Helm e kubectl standard. Rispetto al Kubernetes completo toglie componenti legacy e driver cloud, sostituiti da equivalenti minimi: Traefik come ingress, ServiceLB, local-path provisioner per i volumi; per l'alta disponibilità può usare etcd embedded. La trappola: è comunque Kubernetes, con la stessa curva di apprendimento; se dovevi solo far girare tre container, docker compose resta più semplice.
+
+## Cos'è Ansible (e quando conviene usarlo)?
+https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-ansible/
+
+Ansible è uno strumento di configuration management che applica configurazioni dichiarative via SSH, senza agent da installare sulle macchine gestite. Descrivi lo stato desiderato in playbook YAML ('questo pacchetto installato, questo file con questo contenuto, questo servizio attivo') e lo applichi con ansible-playbook site.yml. Batte gli script bash quando gestisci più di una macchina o devi rieseguire spesso: i moduli sono idempotenti, quindi rilanciare un playbook non rompe nulla e corregge solo ciò che è cambiato, cosa che in bash devi implementare a mano con una selva di if. In più hai inventario, variabili per host e template Jinja2. La trappola tipica: infilare shell e command ovunque, trasformando i playbook in bash travestito e perdendo proprio l'idempotenza per cui eri passato ad Ansible.
+
+## Cosa sono Terraform e OpenTofu e a cosa serve l'Infrastructure as Code?
+https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-terraform-opentofu/
+
+Terraform è lo strumento di Infrastructure as Code di HashiCorp: descrivi l'infrastruttura (VM, reti, DNS, bucket) in file HCL e la crei o aggiorni con terraform plan e terraform apply. OpenTofu è il fork open source nato nel 2023 sotto Linux Foundation, dopo il passaggio di Terraform alla licenza BUSL: compatibile con provider e moduli esistenti, si usa con tofu al posto di terraform. Il concetto chiave è lo stato, il file che mappa il codice sulle risorse reali: se lavori in team va tenuto remoto (S3, backend HTTP, Consul) con locking, mai committato in git, anche perché può contenere segreti. La trappola tipica: modificare le risorse a mano dalla console del provider; al plan successivo lo stato diverge e l'apply rischia di distruggere o ricreare ciò che avevi toccato.
+
+## Cos'è Portainer e quando conviene usarlo per gestire Docker?
+https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-portainer/
+
+Portainer è una GUI web per gestire Docker (e anche Kubernetes): container, immagini, volumi, reti e stack compose dal browser, senza terminale. Gira esso stesso come container con accesso al socket Docker e aiuta quando vuoi una vista d'insieme dell'host, dare accesso a chi non usa la CLI o riavviare un servizio dal telefono; la Community Edition gratuita copre ampiamente l'uso da homelab. La trappola: abitua male se diventa l'unico modo in cui sai fare le cose. I container creati a click non sono riproducibili: dopo un disastro non hai nessun file da rilanciare. Meglio definire tutto in docker-compose.yml versionato e usare Portainer solo per guardare log e stato. Ricorda infine che il socket Docker montato nel container equivale a dare root sull'host.
+
+## Cos'è una pipeline CI/CD in concreto?
+https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-una-pipeline-ci-cd/
+
+CI/CD (Continuous Integration / Continuous Delivery) è l'automazione che a ogni push esegue una pipeline: build del codice, test automatici e, se tutto passa, deploy. In concreto è un file YAML nel repository che il server git esegue da solo: .github/workflows/deploy.yml con GitHub Actions, .gitlab-ci.yml con GitLab. Esempio minimo per un sito statico: un job installa le dipendenze e builda, un job lancia i test, un job pubblica l'output su Pages o lo copia sul server con rsync, solo sul branch main. Il vantaggio vero non è la velocità ma la ripetibilità: il deploy smette di dipendere da cosa c'era sul portatile di chi lo lanciava. La trappola tipica: pipeline senza test veri, che portano in produzione qualunque cosa compili dando una falsa sensazione di sicurezza.
+
+## Meglio GitLab o Gitea per un git self-hosted?
+https://fabriziosalmi.github.io/fabgpt-faq/q/gitlab-o-gitea-git-self-hosted/
+
+GitLab e Gitea risolvono lo stesso problema, ospitare in casa i propri repository git, con pesi opposti. GitLab è la piattaforma completa: merge request, CI/CD integrata con i runner, registry container, issue board; in cambio i requisiti ufficiali partono da 4 GB di RAM e gli aggiornamenti mensili vanno seguiti con disciplina. Gitea, e il suo fork community Forgejo (quello dietro Codeberg), è un singolo binario in Go che gira con poche centinaia di MB anche su un Raspberry Pi, con interfaccia in stile GitHub e Actions compatibili con la sintassi di GitHub. Regola pratica: team aziendale con pipeline pesanti, GitLab; homelab o gruppo piccolo, Gitea o Forgejo bastano e avanzano. La trappola: installare GitLab 'perché completo' e passare i weekend a dargli RAM e update.
+
+## Cos'è un webhook e come si usa in pratica?
+https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-un-webhook/
+
+Un webhook è una chiamata HTTP che un servizio fa verso un tuo URL quando accade un evento: è il servizio a chiamare te, invece di essere tu a interrogarlo. La differenza dal polling API è tutta qui: niente richieste ripetute ogni minuto 'per vedere se c'è qualcosa di nuovo', ma una POST con payload JSON nell'istante esatto dell'evento. Esempio classico: su GitHub o Gitea configuri un webhook verso https://tuoserver/deploy; a ogni push il tuo endpoint riceve la notifica e lancia il deploy. Nota di sicurezza obbligatoria: quell'endpoint è esposto, chiunque può chiamarlo. Imposta il secret del webhook e verifica la firma HMAC del payload (header X-Hub-Signature-256 su GitHub) prima di eseguire qualunque cosa; senza verifica, chi scopre l'URL può farti partire deploy a piacere.
+
+## REST, GraphQL o gRPC: che differenza c'è e quando usare ciascuno?
+https://fabriziosalmi.github.io/fabgpt-faq/q/rest-graphql-grpc-differenze/
+
+REST, GraphQL e gRPC sono tre stili per esporre API. REST usa HTTP e JSON con risorse e verbi (GET /users/42): semplice, cacheabile, debuggabile con curl; è la scelta di default per API pubbliche e CRUD. GraphQL espone un unico endpoint in cui il client dichiara esattamente i campi che vuole: conviene quando frontend diversi consumano gli stessi dati e con REST finiresti in troppe chiamate o risposte gonfie; il prezzo è la complessità lato server tra resolver, caching e protezione dalle query pesanti. gRPC usa HTTP/2 e Protocol Buffers, con contratti tipati e streaming bidirezionale: eccelle nella comunicazione servizio-servizio ad alte prestazioni, ma dal browser non si chiama nativamente senza un proxy. La trappola tipica: adottare GraphQL o gRPC 'perché moderni' quando una REST ben paginata avrebbe risolto tutto.
+
+## Cos'è Uptime Kuma e cosa può monitorare?
+https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-uptime-kuma/
+
+Uptime Kuma è uno strumento self-hosted di monitoraggio uptime, alternativa libera a servizi come UptimeRobot: gira come container e da una dashboard ti dice se i tuoi servizi rispondono. Controlla endpoint HTTP/HTTPS (con ricerca di keyword nella risposta e scadenza dei certificati TLS), porte TCP, ping, record DNS, container Docker e altro; notifica su Telegram, mail, ntfy e decine di canali e offre status page pubbliche. Si installa in un minuto: docker run -d -p 3001:3001 louislam/uptime-kuma. I limiti: è monitoraggio a scatola nera, ti dice che un servizio è giù ma non perché; non raccoglie metriche di sistema, per quelle servono Prometheus e Grafana. Trappola tipica: farlo girare sullo stesso host dei servizi che controlla, così quando cade l'host cade anche chi doveva avvisarti.
+
+## PostgreSQL: perché è il database di default e come si confronta con MySQL?
+https://fabriziosalmi.github.io/fabgpt-faq/q/postgresql-vs-mysql-mariadb/
+
+PostgreSQL è il default sano per quasi ogni progetto: relazionale rigoroso, JSONB per i dati semi-strutturati, DDL transazionale ed estensioni come PostGIS e pgvector che gli fanno coprire ruoli da database specializzato. Rispetto a MySQL/MariaDB è più severo sui dati (niente conversioni silenziose) e più estensibile; MySQL resta diffusissimo nel mondo LAMP e ha una replica storicamente più semplice, ma oggi la differenza non giustifica quasi mai la scelta. La trappola classica riguarda i backup: pg_dump fa un backup logico, perfetto per DB piccoli, ma su database grandi il restore dura ore e non permette il point-in-time recovery. Per quello servono backup fisici con pg_basebackup e archiviazione dei WAL, o strumenti come pgBackRest. E copiare la cartella dati a server acceso, senza WAL, produce solo backup corrotti.
+
+## Redis: a cosa serve davvero e che cos'è il fork Valkey?
+https://fabriziosalmi.github.io/fabgpt-faq/q/redis-cache-valkey/
+
+Redis è un archivio dati in RAM: chiavi, liste, set e stream con latenze sotto il millisecondo. Gli usi tipici sono cache di query e pagine, sessioni web, code di lavoro (Sidekiq, Celery, BullMQ), rate limiting e pub/sub. La persistenza è opzionale, con snapshot RDB e journal AOF: se lo usi come pura cache puoi spegnerla, se ci tieni le code no. Capitolo licenza: nel 2024 Redis abbandonò la licenza open e la community creò il fork Valkey (Linux Foundation, spinto da AWS e Google), drop-in compatibile e ormai nei repo delle distro; nel 2025 Redis 8 è tornato open con AGPLv3. La trappola: trattarlo come database primario con la configurazione di default – tra eviction per maxmemory e riavvii senza AOF, i dati che credevi salvati spariscono.
+
+## SQLite: quando basta e avanza e quando invece è la scelta sbagliata?
+https://fabriziosalmi.github.io/fabgpt-faq/q/sqlite-quando-basta/
+
+SQLite è il database più diffuso al mondo: una libreria embedded che salva tutto in un singolo file, senza server né configurazione. Per il self-hosting basta e avanza molto più spesso di quanto si pensi: è il default di app come Home Assistant, Gitea, Vaultwarden e Jellyfin, e in modalità WAL (PRAGMA journal_mode=WAL) regge bene le letture concorrenti. Per i backup continui c'è Litestream, che replica il file su S3 in streaming. Non usarlo quando hai molti scrittori concorrenti, più istanze dell'app che devono condividere il database, o quando il file finirebbe su un filesystem di rete: SQLite su NFS è la ricetta per la corruzione. La trappola: copiare il file con cp mentre l'app scrive – usa sqlite3 db.sqlite ".backup" o VACUUM INTO, che producono una copia consistente.
+
+## ClickHouse: cos'è un database colonnare e quando conviene rispetto a Postgres?
+https://fabriziosalmi.github.io/fabgpt-faq/q/clickhouse-database-colonnare/
+
+ClickHouse è un database colonnare per analytics: memorizza i dati per colonne invece che per righe, li comprime tantissimo e li aggrega con esecuzione vettorizzata. Risultato: un SELECT count(), avg(...) GROUP BY su miliardi di righe risponde in secondi dove Postgres arranca in minuti, perché legge solo le colonne che servono. È la scelta giusta per log, metriche, eventi e clickstream – dati scritti in append e interrogati in aggregato: non a caso ci girano sopra Plausible e Sentry. Non è un sostituto di Postgres per il gestionale: niente vere transazioni, e update e delete sono mutation costose pensate come eccezione. La trappola tipica: fare tanti insert piccoli come su un DB OLTP – ClickHouse vuole batch da migliaia di righe, oppure insert asincroni con async_insert=1.
+
+## Cos'è Podman e come si usa?
+https://fabriziosalmi.github.io/fabgpt-faq/q/podman-vs-docker-rootless/
+
+Podman è il motore container senza demone: ogni container è un processo figlio dell'utente, rootless di default, niente servizio con privilegi di root sempre acceso. La compatibilità con Docker è quasi totale: stesse immagini OCI, stessi Dockerfile, e alias docker=podman copre la gran parte dei comandi; podman compose esegue i normali file compose. Conviene quando la priorità è la sicurezza (un container bucato non regala root all'host), su RHEL/Fedora dove è il default, e per l'integrazione con systemd tramite Quadlet, che trasforma i container in servizi dichiarativi. Su desktop, Podman Desktop evita i costi di licenza di Docker Desktop in azienda. La trappola: i tool che si aspettano il socket Docker (Traefik, Portainer, molti stack compose) falliscono in silenzio – attiva il socket compatibile con systemctl --user enable --now podman.socket e punta lì.
 
 # Musica e creatività
 

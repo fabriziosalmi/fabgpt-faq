@@ -659,4 +659,36 @@
   <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/navigator-sdk-interfacce-tastiera/</loc></url>
   <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/occam-observer-telemetria-git/</loc></url>
   <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/l0-git-quality-gates/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-kubernetes/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-k3s/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-ansible/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-terraform-opentofu/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-portainer/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-una-pipeline-ci-cd/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/gitlab-o-gitea-git-self-hosted/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-un-webhook/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/rest-graphql-grpc-differenze/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-uptime-kuma/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-grafana-loki/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/cosa-sono-i-router-mikrotik/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/opnsense-o-pfsense-quale-firewall/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-unifi-di-ubiquiti/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-il-bgp-border-gateway-protocol/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-il-cgnat-e-come-uscirne/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-tailscale-mesh-vpn/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-minio-object-storage-s3/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-btrfs-snapshot-e-checksum/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-unraid-nas-os/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/mini-pc-intel-n100-per-homelab/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/crowdsec-ips-collaborativo/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/suricata-o-snort-ids-ips/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/keycloak-o-authentik-sso-self-hosted/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/hashicorp-vault-gestione-secrets/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/postgresql-vs-mysql-mariadb/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/redis-cache-valkey/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/sqlite-quando-basta/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/clickhouse-database-colonnare/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/langchain-orchestrazione-llm/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/hugging-face-hub-modelli/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/podman-vs-docker-rootless/</loc></url>
 </urlset>

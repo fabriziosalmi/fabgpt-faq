@@ -426,7 +426,8 @@
         "hypervisor",
         "virtualizzazione",
         "alternativa vmware",
-        "cos'è proxmox"
+        "cos'è proxmox",
+        "proxmox vs esxi"
       ],
       "answers": [
         "**Proxmox VE** è una piattaforma di virtualizzazione open source basata su Debian che gestisce **VM (KVM/QEMU) e container LXC** dalla stessa interfaccia web, con cluster, alta disponibilità, storage ZFS/Ceph e backup integrati (con il gemello Proxmox Backup Server). Dopo la stretta sulle licenze VMware è diventata la via di fuga preferita di homelab e PMI: niente costi di licenza, tutto self-hosted.\n\nIl portfolio di Fabrizio ci ha costruito sopra un piccolo ecosistema:\n\n- **autoscaling** – [proxmox-vm-autoscale](https://github.com/fabriziosalmi/proxmox-vm-autoscale) e [proxmox-lxc-autoscale](https://github.com/fabriziosalmi/proxmox-lxc-autoscale)\n- **terminale** – [proxxx](https://github.com/fabriziosalmi/proxxx), cockpit TUI/CLI per PVE e PBS\n- **bilanciamento** – [proxmox-cluster-balancer](https://github.com/fabriziosalmi/proxmox-cluster-balancer)",
@@ -470,7 +471,6 @@
         "gitops",
         "cos e gitops",
         "infrastructure as code",
-        "iac",
         "configurazione in git",
         "configurazione versionata"
       ],
@@ -682,7 +682,8 @@
         "autenticazione a due fattori",
         "totp",
         "authenticator",
-        "fido2"
+        "fido2",
+        "mfa dipendenti"
       ],
       "answers": [
         "L'**MFA** aggiunge alla password un secondo fattore di natura diversa: qualcosa che **hai** (telefono, chiave hardware) o che **sei** (impronta). Così una password rubata, da sola, non basta – e le password rubate sono il vettore d'ingresso numero uno.\n\nNon tutti i fattori valgono uguale: gli **SMS** sono il minimo sindacale (vulnerabili al SIM swapping), i codici **TOTP** delle app authenticator sono buoni, le **passkey/FIDO2** sono lo stato dell'arte perché resistono anche al phishing: il browser firma una challenge legata al dominio vero, e su un sito clone semplicemente non funzionano. Regola pratica: MFA ovunque sia disponibile, passkey dove possibile, e un password manager per tutto il resto.",
@@ -866,7 +867,6 @@
         "ban ip automatico",
         "tentativi falliti",
         "bloccare brute force",
-        "crowdsec",
         "jail",
         "fail2ban crowdsec brute force",
         "attacchi di forza bruta",
@@ -1010,7 +1010,9 @@
         "vram",
         "quanta ram serve",
         "gpu per ai",
-        "modello in locale"
+        "modello in locale",
+        "gpu nvidia",
+        "modelli in locale"
       ],
       "answers": [
         "Far girare un LLM in locale garantisce privacy assoluta e zero costi per token. I comandi operativi per piattaforma:\n\n- **Linux (con GPU NVIDIA o CPU)**:\n  `curl -fsSL https://ollama.com/install.sh | sh && ollama run llama3.2`\n  Per container: `docker run -d --gpus=all -v ollama:/root/.ollama -p 11434:11434 --name ollama ollama/ollama`\n- **macOS (Apple Silicon, da M1 in poi)**:\n  `brew install ollama && ollama serve` (sfrutta nativamente la memoria unificata e Metal MPS a massima banda)\n- **Windows / WSL2**:\n  Scarica l'installer nativo o via terminale: `winget install Ollama.Ollama` oppure in WSL2 Ubuntu `ollama run mistral`\n- **Chiamata API locale (OpenAI compatible)**:\n  `curl http://localhost:11434/v1/chat/completions -H \"Content-Type: application/json\" -d '{\"model\":\"llama3.2\",\"messages\":[{\"role\":\"user\",\"content\":\"Ciao\"}]}'`\n\nPer frontend grafico, collega [Open WebUI](q/interfaccia-chat-per-ollama-open-webui/) o usa [SiliconDev](q/fine-tuning-llm-apple-silicon/) per ottimizzare i modelli.",
@@ -1050,14 +1052,14 @@
       "vertical": "ai",
       "keywords": [
         "quantizzazione",
-        "gguf",
         "4-bit",
         "4bit",
         "q4",
         "quantized",
         "comprimere modello",
         "awq",
-        "gptq"
+        "gptq",
+        "gguf"
       ],
       "answers": [
         "La quantizzazione riduce la precisione dei pesi (da FP16 a INT8/INT4/INT2), abbattendo l'uso di RAM/VRAM con perdita di qualità quasi impercettibile nei formati K-quant.\n\nComandi pratici con `llama.cpp`:\n```bash\n# 1. Conversione checkpoint HuggingFace in GGUF FP16\npython3 convert_hf_to_gguf.py ./models/Llama-3-8B/ --outfile model-f16.gguf\n\n# 2. Quantizzazione bilanciata consigliata (Q4_K_M = ~4.5 bit per peso)\n./llama-quantize model-f16.gguf model-Q4_K_M.gguf Q4_K_M\n\n# 3. Esecuzione e benchmark velocità token/s da terminale\n./llama-cli -m model-Q4_K_M.gguf -p \"Spiega il modello OSI in 3 punti\" -ngl 33 -c 4096\n```\n\nTabella di scelta rapida:\n- **Q4_K_M**: miglior rapporto memoria/accuratezza per homelab (8B gira in ~6 GB VRAM).\n- **Q8_0**: quasi identico a FP16, ideale se hai RAM abbondante.\n- **Q2_K / Q3_K_S**: solo per far entrare modelli enormi (70B) in hardware consumer con perdita semantica sensibile."
@@ -1936,7 +1938,8 @@
         "endpoint detection",
         "endpoint",
         "difesa endpoint",
-        "mdr"
+        "mdr",
+        "serve antivirus"
       ],
       "answers": [
         "Tre generazioni della stessa idea:\n\n- **antivirus** – riconosce il malware *noto* per firme ed euristiche: necessario, non più sufficiente\n- **EDR** (Endpoint Detection and Response) – registra il **comportamento** degli endpoint (processi, rete, registro) e rileva le tecniche d'attacco anche senza firma: PowerShell che scarica ed esegue, escalation sospette; permette anche la risposta remota (isolare la macchina, uccidere il processo)\n- **XDR** (eXtended DR) – la stessa telemetria estesa **oltre l'endpoint**: identità, email, cloud, rete, correlate in un unico quadro\n\nC'è anche l'**MDR**: l'EDR/XDR gestito da analisti esterni, per chi non ha un [SOC](q/cos-e-un-soc-security-operations-center/). Nel mondo open source la correlazione centrale è il territorio del [SIEM](q/cos-e-un-siem-e-un-soar/): agenti sugli host + [Wildbox](https://github.com/fabriziosalmi/wildbox) come cervello."
@@ -2096,10 +2099,15 @@
         "vpn",
         "vpn o proxy",
         "differenza vpn proxy",
-        "wireguard",
         "openvpn",
         "navigare anonimi",
-        "ip nascosto"
+        "ip nascosto",
+        "serve una vpn",
+        "vpn anonimo",
+        "rende anonimo",
+        "vpn smart working",
+        "basta la vpn",
+        "wireguard"
       ],
       "answers": [
         "Entrambi mettono un intermediario tra te e la destinazione, ma a profondità diverse:\n\n- un **proxy** lavora per applicazione (di solito il browser): inoltra le richieste HTTP/SOCKS e cambia l'IP visto dal sito. Configurabile per-app, niente cifratura aggiuntiva di suo.\n- una **VPN** incapsula e cifra **tutto il traffico del dispositivo** a livello di rete (WireGuard, OpenVPN): ogni app ci passa, il provider locale vede solo un tunnel cifrato.\n\nMiti da sfatare: la VPN commerciale non ti rende \"anonimo\" – sposta la fiducia dal tuo ISP al fornitore VPN, che il traffico lo vede eccome. E per l'accesso aziendale la VPN classica che apre l'intera rete interna è il modello che [Zero Trust](q/cos-e-il-modello-zero-trust/) sta mandando in pensione. Curiosità di portfolio: su Mac, [Proxymate](https://github.com/fabriziosalmi/proxymate) porta il modello proxy al livello successivo, con WAF e controlli integrati."
@@ -2140,14 +2148,12 @@
       "question": "Cosa sono IDS e IPS?",
       "vertical": "security",
       "keywords": [
-        "ids",
-        "ips",
         "intrusion detection",
         "intrusion prevention",
-        "suricata",
-        "snort",
         "rilevamento intrusioni",
-        "differenze architetturali network ids e ips"
+        "differenze architetturali network ids e ips",
+        "ids",
+        "ips"
       ],
       "answers": [
         "Sono sensori di rete per riconoscere gli attacchi in transito:\n\n- l'**IDS** (Intrusion Detection System) osserva una copia del traffico e **segnala**: firma nota, protocollo anomalo, beacon verso un C2. Non tocca nulla – zero rischio di bloccare traffico buono, ma qualcuno deve leggere gli allarmi.\n- l'**IPS** (Prevention) sta **in linea** e può bloccare in tempo reale ciò che riconosce. Più protezione, più rischio: un falso positivo qui è un disservizio.\n\nGli open source di riferimento sono **Suricata** e Snort (e Zeek per l'analisi). Da soli producono rumore: il valore arriva quando gli eventi finiscono in un [SIEM](q/cos-e-un-siem-e-un-soar/) che li correla col resto – è il ruolo di [Wildbox](https://github.com/fabriziosalmi/wildbox) in uno stack self-hosted. Nota di confine: il [WAF](q/cos-e-un-waf-web-application-firewall/) è di fatto un IPS specializzato nel solo traffico HTTP."
@@ -2337,7 +2343,9 @@
         "keepass",
         "vaultwarden",
         "password uniche",
-        "riuso password"
+        "riuso password",
+        "password su chrome",
+        "salvare le password"
       ],
       "answers": [
         "Il problema non è la password debole: è la password **riusata**. Un breach qualunque (e [ne succedono in continuazione](q/scoprire-dati-in-un-data-breach/)) trasforma la tua password del forum di cucina nella chiave della tua email – è il [credential stuffing](q/cos-e-un-attacco-brute-force/). Nessun cervello umano regge centinaia di password uniche e robuste; un **password manager** sì: tu ricordi una passphrase sola, lui genera e compila il resto.\n\nBonus poco noto: fa anche da **anti-phishing** – su un dominio clone il completamento automatico non scatta, e quel silenzio è un allarme. Le opzioni serie: Bitwarden (anche self-hosted con Vaultwarden, per la scuola del [tenersi i dati in casa](q/self-hosting-pro-e-contro/)), KeePassXC per la via locale pura, o quelli integrati nelle piattaforme. Qualsiasi scelta, protetta da [MFA](q/cos-e-autenticazione-due-fattori-mfa/), batte il riuso. E il futuro è [senza password](q/cosa-sono-le-passkey/)."
@@ -2688,12 +2696,12 @@
         "chiavi api",
         "credenziali nel codice",
         "env",
-        "vault",
         "token nel repository",
         "dotenv",
         "committato",
         "token github",
-        "gestiscono secrets"
+        "gestiscono secrets",
+        "hashicorp vault"
       ],
       "answers": [
         "Un secret committato è un secret **compromesso**: la storia di git non dimentica (il rebase non basta, va considerato ruotato), i fork lo moltiplicano e i bot scandagliano GitHub in tempo reale a caccia di chiavi AWS – i primi tentativi di abuso arrivano in *minuti*.\n\nLa scala di maturità:\n\n- **livello base**: file `.env` fuori dal versionamento (in `.gitignore` dal primo commit) + un `.env.example` senza valori\n- **livello serio**: secret manager – Vault, SOPS con age per cifrarli *dentro* il repo, o i secret nativi di CI/CD e container\n- **igiene**: rotazione periodica, [scope minimi](q/principio-del-minimo-privilegio/), un segreto per servizio (mai il super-token condiviso), scanner pre-commit (gitleaks) in CI\n\nAngolo AI del problema: le credenziali incollate nei prompt finiscono nei log di qualcun altro – è esattamente ciò che [aidlp](https://github.com/fabriziosalmi/aidlp) intercetta prima che accada."
@@ -2766,7 +2774,8 @@
         "iot separato",
         "rete ospiti",
         "trunk",
-        "subnet"
+        "subnet",
+        "vlan tagging"
       ],
       "answers": [
         "In una rete piatta, la lampadina IoT compromessa parla direttamente col NAS dei backup. Le **VLAN** spezzano questa promiscuità: reti logiche separate sullo stesso hardware, con un firewall che decide chi può parlare con chi.\n\nUno schema domestico/lab sensato: VLAN per i dispositivi fidati, una per l'**IoT** (che di default non raggiunge nulla, se non internet dove serve), una per gli **ospiti**, una per il **management** (Proxmox, switch, IPMI – raggiungibile solo da postazioni precise) e una per i **server**. Regola di default-deny tra le VLAN, aperture puntuali e loggate.\n\nServono switch e access point VLAN-aware (802.1Q) e un router/firewall che faccia da arbitro – OPNsense/pfSense o un Mikrotik. È [defense in depth](q/cos-e-la-defense-in-depth/) applicata alla LAN: il breach resta confinato nel suo recinto. Nell'[homelab con Proxmox](q/cos-e-proxmox-ve/), le VLAN si portano fin dentro i bridge delle VM.",
@@ -2788,12 +2797,11 @@
         "aprire porte",
         "port forwarding",
         "cloudflare tunnel",
-        "tailscale",
-        "wireguard",
-        "cgnat",
         "esporre servizio",
         "accesso remoto casa",
-        "senza aprire porte"
+        "senza aprire porte",
+        "sotto cgnat",
+        "wireguard"
       ],
       "answers": [
         "Aprire porte sul router di casa significa esporre il servizio agli scanner di tutto il pianeta (e col CGNAT di molti provider non puoi comunque). Le alternative moderne:\n\n- **tunnel in uscita** (Cloudflare Tunnel e simili): un connettore sul tuo server apre una connessione *verso* l'edge, e il traffico pubblico arriva da lì – niente porte in ingresso, IP di casa nascosto. Contropartita: il fornitore del tunnel vede/termina il tuo traffico – [scegliere consapevolmente](q/cos-e-la-sovranita-digitale/).\n- **overlay network private** (Tailscale/WireGuard, Netbird): i *tuoi* dispositivi si raggiungono su una rete cifrata peer-to-peer; il servizio non è pubblico affatto – per il 90% dei casi self-hosted è la risposta giusta: il NAS non ha bisogno di essere su internet, ha bisogno di essere raggiungibile *da te*\n- via di mezzo: un **VPS economico** che fa da frontend pubblico e inoltra via WireGuard verso casa, con [reverse proxy + WAF](q/cos-e-un-reverse-proxy/) tuoi ([zion](https://github.com/fabriziosalmi/zion) o Caddy) – massimo controllo, zero dipendenze"
@@ -3055,7 +3063,9 @@
         "informativa privacy",
         "gdpr sito",
         "cookie tecnici",
-        "adempimenti sito"
+        "adempimenti sito",
+        "accettare i cookie",
+        "rifiutare i cookie"
       ],
       "answers": [
         "Il minimo sindacale per un sito conforme, senza cargo cult:\n\n- **privacy policy** che dica in chiaro cosa raccogli, perché, per quanto, con quali fornitori (hosting, analytics, form) – va scritta sulla realtà del sito, non copiata\n- **banner cookie solo se serve**: i **cookie tecnici** non richiedono consenso; quelli di profilazione e i tracker di terzi sì – con un rifiuto facile quanto l'accetto (il Garante è intervenuto sui banner-labirinto)\n- attenzione ai **servizi terzi impliciti**: font da CDN, video incorporati, analytics inviano dati (e IP) a terzi anche senza cookie – ogni chiamata esterna è un trattamento da giustificare\n\nLa strada elegante è **strutturale**: un sito statico self-hosted senza terze parti – niente tracker, niente trasferimenti, niente banner, perché non c'è nulla da acconsentire. È la filosofia [air-gapped delle superfici web](q/cos-e-un-air-gap/) che [agssh](https://github.com/fabriziosalmi/agssh) sa certificare: **zero chiamate esterne, dimostrato**. La privacy come proprietà del sistema, non come pop-up."
@@ -3245,7 +3255,8 @@
         "blocco pubblicita rete",
         "dns filtrante casa",
         "pihole",
-        "adguard"
+        "adguard",
+        "pihole dhcp"
       ],
       "answers": [
         "Fanno lo stesso mestiere – DNS filtrante per tutta la rete: pubblicità, tracker e [domini malevoli](q/come-bloccare-domini-malevoli/) spariscono a livello di risoluzione, per ogni dispositivo senza configurare nulla. Le differenze oneste:\n\n- **Pi-hole**: il veterano, comunità enorme, ecosistema di script e integrazioni; DHCP incluso; il [DNS cifrato in uscita](q/cos-e-doh-dns-over-https/) richiede un componente in più (unbound/cloudflared)\n- **AdGuard Home**: più moderno out-of-the-box – DoH/DoT nativi sia in ingresso che in uscita, filtri per-client più comodi, un solo binario Go\n\nVerdetto pragmatico: per un nuovo setup AdGuard Home fa meno attrito; chi ha già un Pi-hole rodato non ha motivi di migrare. Entrambi valgono quanto le **liste** che li alimentano: [blacklists](https://github.com/fabriziosalmi/blacklists) (5M+ domini, aggiornata ogni giorno, con whitelist curata) si carica identica su tutti e due. E su [Proxmox](q/cos-e-proxmox-ve/), un LXC da mezza CPU li ospita alla grande."
@@ -3481,11 +3492,12 @@
         "vector database",
         "database vettoriale",
         "qdrant",
-        "pgvector",
         "chroma",
         "indice vettoriale",
         "faiss",
-        "ricerca per similarita"
+        "ricerca per similarita",
+        "vector db",
+        "pgvector"
       ],
       "answers": [
         "Un **vector database** archivia [embeddings](q/cosa-sono-gli-embeddings/) e risponde a una domanda sola, ma velocissimamente: *quali vettori sono più vicini a questo?* È la ricerca per similarità che fa funzionare il [RAG](q/cos-e-rag-retrieval-augmented-generation/), i sistemi di raccomandazione, la deduplicazione semantica. Sotto il cofano, indici approssimati (HNSW e simili) che scambiano un pizzico di esattezza per ordini di grandezza in velocità.\n\nIl panorama, con una dose di pragmatismo:\n\n- **pgvector** – l'estensione Postgres: se hai già Postgres, per la maggior parte dei progetti è la risposta (un database in meno da gestire)\n- **Qdrant, Weaviate, Milvus** – i dedicati, quando i vettori sono milioni e servono filtri e scala\n- **Chroma, FAISS, SQLite-vec** – embedded, per prototipi e progetti locali\n\nVerità controcorrente: sotto le centinaia di migliaia di documenti, un **ibrido full-text + vettori** batte spesso i soli vettori – è la scelta di [l0-memory](https://github.com/fabriziosalmi/l0-memory): FTS5 di default, vettori come opzione."
@@ -3510,7 +3522,9 @@
         "overlap",
         "segmentazione documenti",
         "documenti",
-        "documenti per il rag"
+        "documenti per il rag",
+        "chunking pdf",
+        "pdf con tabelle"
       ],
       "answers": [
         "Il **chunking** decide più della qualità del tuo [RAG](q/cos-e-rag-retrieval-augmented-generation/) di quanto decida il modello: i documenti vanno spezzati in frammenti da indicizzare, e se i tagli cadono male – una tabella divisa a metà, una risposta separata dalla sua domanda – il retrieval recupera briciole senza senso.\n\nLe regole che reggono:\n\n- taglia sui **confini semantici** (titoli, paragrafi, sezioni), mai a numero fisso di caratteri nel mezzo di una frase; per il codice, su funzioni e classi\n- dimensioni tipiche 200-800 token con un **overlap** del 10-20% per non perdere il contesto ai bordi\n- arricchisci ogni chunk con i **metadati** (titolo del documento, sezione, data): il testo \"la porta è la 8437\" non serve a nulla senza sapere di quale servizio parla\n- la variante furba: indicizza chunk piccoli ma **restituisci al modello il contesto allargato** (parent retrieval)\n\nE misura sul tuo corpus reale: la [valutazione](q/come-valutare-le-risposte-di-un-llm/) di venti domande vere vale più di ogni teoria sul chunk perfetto."
@@ -3532,7 +3546,9 @@
         "riordinare risultati",
         "cross encoder",
         "migliorare retrieval",
-        "seconda passata"
+        "seconda passata",
+        "serve il reranking",
+        "similarity search"
       ],
       "answers": [
         "Il **reranking** è la seconda passata del retrieval: la ricerca veloce ([vettoriale](q/cos-e-un-vector-database/) o full-text) recupera i primi 20-100 candidati, poi un **reranker** – un modello che legge davvero la coppia domanda+documento, non due vettori precalcolati – li riordina per pertinenza vera, e al [RAG](q/cos-e-rag-retrieval-augmented-generation/) arrivano solo i migliori 3-5.\n\nPerché funziona: gli embeddings comprimono ogni testo in un vettore *prima* di sapere quale sarà la domanda – per forza perdono sfumature. Il reranker (tipicamente un cross-encoder) valuta la coppia specifica: più lento per documento, ma su pochi candidati il conto torna. È spesso **il singolo upgrade con il miglior rapporto resa/sforzo** di una pipeline RAG: pochi punti percentuali di latenza, molta meno spazzatura nel contesto – e [meno contesto sprecato](q/token-e-context-window/) significa anche risposte migliori e più economiche."
@@ -4238,7 +4254,9 @@
         "risposta strutturata",
         "estrarre json",
         "json",
-        "json llm"
+        "json llm",
+        "json valido",
+        "rispondere in json"
       ],
       "answers": [
         "Quando l'output di un LLM deve entrare in un sistema – non sotto gli occhi di un umano – il testo libero è una bomba a orologeria: virgole in più, markdown attorno al JSON, campi inventati. Le soluzioni, in ordine di forza:\n\n- **JSON mode**: il modello è vincolato a emettere JSON sintatticamente valido – ma con lo schema che vuole lui\n- **structured output vero**: fornisci un **JSON Schema** e il vincolo agisce *durante la generazione* (constrained decoding): l'output rispetta lo schema per costruzione, campi e tipi inclusi. Dove disponibile, è la scelta giusta – e il [function calling](q/cos-e-il-function-calling/) ne è il caso speciale più famoso\n- cintura e bretelle: **valida comunque** (lo schema non garantisce la *sensatezza* dei valori) e gestisci il caso raro di rifiuto o campo nullo\n\nBonus di qualità: uno schema stretto con descrizioni dei campi è anche un ottimo prompt – costringe te a definire cosa vuoi e [il modello a divagare meno](q/come-ridurre-le-allucinazioni/)."
@@ -4636,7 +4654,8 @@
         "verify",
         "backup verso pbs",
         "backup su pbs",
-        "test automatici periodici ripristino backup"
+        "test automatici periodici ripristino backup",
+        "backup homelab"
       ],
       "answers": [
         "La sequenza completa, da zero a notti tranquille:\n\n- su [PBS](q/cos-e-proxmox-backup-server/): crea il **datastore** e un utente API dedicato; su PVE: Datacenter → Storage → aggiungi il PBS con il suo **fingerprint**\n- Datacenter → **Backup**: crea il job – selezione VM (meglio \"tutte\" con esclusioni esplicite: le VM nuove entrano da sole), orario notturno, modalità **snapshot** (la sola che non ferma nulla)\n- la **retention** falla decidere a PBS (keep-daily/weekly/monthly) con il **prune** automatico: 7 giornalieri + 4 settimanali + 6 mensili è un default sano\n- attiva i **verify** programmati – un backup corrotto scoperto al restore non è un backup, è una beffa – e le **notifiche sui fallimenti** (un job che fallisce in silenzio per mesi è un classico del terrore)\n- completa la [regola 3-2-1](q/backup-3-2-1/): **sync remota** verso un secondo PBS altrove\n\nUltimo passo che quasi nessuno fa: **prova un restore** adesso, che sei calmo. Il giorno che servirà non lo sarai."
@@ -4830,7 +4849,6 @@
         "basso consumo",
         "consumo",
         "watt",
-        "n100",
         "risparmio energetico",
         "low power",
         "bolletta server",
@@ -4956,7 +4974,6 @@
       "keywords": [
         "anycast",
         "stesso ip ovunque",
-        "bgp",
         "ip globale",
         "come fa cloudflare",
         "rete anycast",
@@ -5236,7 +5253,8 @@
         "record non si aggiorna",
         "vedo ancora il vecchio sito",
         "propagato",
-        "dns"
+        "dns",
+        "dns non risolve"
       ],
       "answers": [
         "\"Propagazione\" è un nome fuorviante: nessuno propaga nulla – ci sono solo **cache che scadono** al ritmo del [TTL](q/cos-e-il-ttl-dns/). La diagnosi vera in tre comandi:\n\n- **chiedi all'autoritativo**, saltando ogni cache: `dig example.com @NAMESERVER-AUTORITATIVO` (o `dig +trace`) – se qui il valore è vecchio, non è propagazione: **il record è proprio sbagliato** alla fonte\n- **confronta i resolver pubblici**: `dig @1.1.1.1` vs `dig @8.8.8.8` – valori diversi = cache in scadenza, e il TTL nella risposta dice *quanto manca*\n- **il tuo problema è locale?** Il resolver di casa/azienda e la cache del sistema tengono duro: `resolvectl flush-caches` (o equivalente), o prova da rete mobile\n\nGli strumenti web (dnschecker e simili) mostrano la mappa mondiale delle cache – scenografici, ma i tre comandi sopra rispondono prima. I casi che *sembrano* DNS e non lo sono: [il browser che cachava il redirect](q/err-too-many-redirects/) 301, la [CDN che serve dalla cache](q/cache-hit-miss-bypass-cdn/), il [nameserver cambiato ma con la zona vuota](q/configurare-dominio-su-cloudflare/). Regola d'oro per la prossima volta: [TTL giù il giorno prima](q/cos-e-il-ttl-dns/), cambio, verifica, TTL su."
@@ -6176,7 +6194,6 @@
       "question": "Cos'è il BGP hijacking (e come lo previene RPKI)?",
       "vertical": "security",
       "keywords": [
-        "bgp",
         "bgp hijacking",
         "rpki",
         "route hijacking",
@@ -6227,15 +6244,14 @@
       "question": "Cos'è WireGuard (e le mesh VPN come Tailscale)?",
       "vertical": "security",
       "keywords": [
-        "wireguard",
         "mesh vpn",
-        "tailscale",
         "vpn moderna",
         "wg",
         "overlay network",
         "rete mesh cifrata",
         "peer to peer vpn",
-        "wireguard e tailscale"
+        "wireguard e tailscale",
+        "wireguard"
       ],
       "answers": [
         "**WireGuard** ha rivoluzionato le VPN con una filosofia opposta a [IPsec/OpenVPN](q/ipsec-transport-e-tunnel/): poche migliaia di righe di codice (contro centinaia di migliaia), crittografia moderna e non configurabile-male, prestazioni quasi native perché vive nel kernel. Una coppia di chiavi per peer, e il tunnel c'è.\n\nSopra WireGuard sono nate le **mesh VPN** che risolvono la parte scomoda (chi conosce l'IP di chi, il NAT traversal): **Tailscale** – i tuoi dispositivi formano una rete privata cifrata **peer-to-peer**, si raggiungono ovunque siano, con identità e ACL centralizzati; **Headscale** e **Netbird** ne sono le alternative self-hostabili, per chi non vuole [dipendere da un coordinatore altrui](q/cos-e-la-sovranita-digitale/).\n\nÈ oggi **la risposta giusta per la maggior parte del self-hosting**: il NAS, [Home Assistant](q/home-assistant-su-proxmox/), la [GUI di Proxmox](q/proxmox-dietro-reverse-proxy/) non hanno bisogno di essere su internet – hanno bisogno di essere raggiungibili *da te*. Niente [porte aperte](q/esporre-servizi-senza-aprire-porte/), niente IP esposto, niente [origine da proteggere](q/proteggere-origine-dietro-cloudflare/): il servizio semplicemente non è pubblico."
@@ -6253,17 +6269,17 @@
       "question": "SAML, OAuth 2.0 e OpenID Connect: quali differenze e casi d'uso?",
       "vertical": "security",
       "keywords": [
-        "saml",
         "oauth",
         "oauth2",
-        "oidc",
         "openid connect",
         "sso",
         "single sign on",
         "login con google",
         "federazione identita",
         "access token",
-        "bearer token"
+        "bearer token",
+        "saml",
+        "oidc"
       ],
       "answers": [
         "Tre standard che la gente confonde perché risolvono problemi vicini ma **diversi**:\n\n- **OAuth 2.0** è **autorizzazione**, non login: \"do a questa app il permesso di accedere a *quella* risorsa a nome mio\" – è il meccanismo dietro i token e le API. Da solo *non* dice chi sei\n- **OpenID Connect (OIDC)** è un sottile strato di **autenticazione** sopra OAuth: aggiunge l'*id token* che dice chi è l'utente. È il \"Login con Google/GitHub\" moderno, JSON e REST, ideale per web e mobile\n- **SAML** è il nonno enterprise dell'SSO: XML, pensato per il web aziendale e i fornitori tradizionali. Verboso ma ancora dominante nelle grandi organizzazioni e nei software B2B legacy\n\nLa regola di scelta: nuovo progetto web/mobile → **OIDC**; integrazione con SSO aziendale o SaaS enterprise che parla solo XML → **SAML**; accesso delegato ad API senza login → **OAuth puro**. Il tema di sicurezza trasversale: i **token** sono credenziali portabili – vanno protetti, con scadenza breve e scope minimo, perché un token rubato è un accesso rubato (è il bersaglio degli attacchi [AiTM](q/cos-e-un-attacco-man-in-the-middle/) che aggirano l'[MFA](q/cos-e-autenticazione-due-fattori-mfa/))."
@@ -6725,7 +6741,8 @@
         "gate di sicurezza",
         "sicurezza nel deploy",
         "false refusal rate guardrail sicurezza",
-        "sicurezza nella pipeline"
+        "sicurezza nella pipeline",
+        "devsecops pipeline"
       ],
       "answers": [
         "**DevSecOps** significa spostare i controlli di sicurezza *dentro* la pipeline, il più a sinistra possibile (\"shift left\") – trovare i problemi al commit costa cento volte meno che in produzione. I gate che una pipeline matura mette in fila:\n\n- **secret scanning** (gitleaks): blocca [le credenziali](q/come-gestire-i-secrets/) prima che entrino in git\n- **SAST** (analisi statica del codice: Semgrep, CodeQL): vulnerabilità nel *tuo* codice\n- **SCA** (Software Composition Analysis): CVE nelle **dipendenze** – più [SBOM](q/cos-e-la-supply-chain-security/) e blocco delle [dipendenze allucinate](https://github.com/fabriziosalmi/ai-dependency-guard)\n- **scansione immagini** e [IaC](q/cos-e-gitops/) (Trivy, Checkov): [container](q/sicurezza-delle-immagini-container/) e infrastruttura\n- **DAST** (test dinamico sull'app in esecuzione): l'attacco simulato prima del rilascio\n- **firma degli artefatti** ([sigstore](q/come-si-firma-il-codice/), provenance SLSA) all'uscita\n\nLe due regole che rendono DevSecOps praticabile invece che odiato: i gate devono **fallire la build** quando serve (un warning ignorato non è un controllo), ma con **soglie tarate** – se blocca su ogni CVE informativa, gli sviluppatori lo aggirano, e hai perso. È lo stesso principio del [gate draconiano di questo progetto](q/come-si-testano-le-applicazioni-llm/): rigido su ciò che conta, silenzioso sul rumore. Nel portfolio, [vibe-check](https://github.com/fabriziosalmi/vibe-check) è un gate anti-slop in questo spirito."
@@ -6748,10 +6765,10 @@
         "react",
         "plan and execute",
         "grafo di esecuzione",
-        "langgraph",
         "workflow agenti",
         "state machine agente",
-        "pattern agenti"
+        "pattern agenti",
+        "langgraph"
       ],
       "answers": [
         "Oltre il singolo [agente](q/cos-e-un-agente-ai/), il modo in cui si struttura il **loop decisionale** determina affidabilità e costo. I pattern ricorrenti:\n\n- **ReAct** (Reason + Act): il modello alterna ragionamento e uso di strumenti in un ciclo – semplice, flessibile, ma può divagare e [bruciare token](q/cos-e-l-inferenza-e-perche-costa/) senza convergere\n- **Plan-and-Execute**: prima un piano esplicito, poi l'esecuzione passo-passo – più prevedibile e verificabile, meno adattivo\n- **grafo di stato** (stile LangGraph): l'esecuzione è una macchina a stati con nodi, transizioni e **checkpoint** – è ciò che rende possibili ripresa, [time-travel debugging](q/time-travel-debugging-agenti/) e controllo di flusso deterministico attorno a passi stocastici\n- **[gerarchico/multi-agente](q/cos-e-l-orchestrazione-multi-agente/)**: orchestratore + specialisti\n\nIl principio ingegneristico sotto: **il determinismo va nell'impalcatura, la stocasticità nei nodi**. Non chiedere al modello di decidere il *flusso* (loop, condizioni, retry) se puoi codificarlo – è più robusto, testabile e economico. Il modello decide *dentro* i passi; il grafo decide *tra* i passi. È esattamente la filosofia di un [workflow deterministico](q/come-si-testano-le-applicazioni-llm/) e la ragione per cui un buon harness batte un prompt \"fai tutto tu\". E ogni nodo che agisce resta soggetto a [permessi e sandbox](q/come-si-limita-un-agente-ai/)."
@@ -7037,7 +7054,9 @@
         "sostituire google workspace",
         "file sync self-hosted",
         "drive self-hosted",
-        "collaborazione file"
+        "collaborazione file",
+        "nextcloud lento",
+        "nextcloud lentissimo"
       ],
       "answers": [
         "**Nextcloud** è il coltellino svizzero del cloud personale: file sync (come Drive/Dropbox), calendario e contatti (CalDAV/CardDAV, come Google), editing documenti collaborativo (Collabora/OnlyOffice), foto, note, chat – tutto sul *tuo* server. È la sostituzione più completa di Google Workspace nel self-hosting.\n\nSetup che regge davvero: **niente SQLite in produzione** (PostgreSQL), **Redis** per il caching e i lock dei file (senza, i client sync soffrono), e un [reverse proxy con TLS](q/cos-e-un-reverse-proxy/) davanti. La zavorra da conoscere: Nextcloud è pesante (PHP monolitico) e gli aggiornamenti major vanno pianificati – la variante moderna **OCIS** (ownCloud Infinite Scale, riscritta in Go, architettura a microservizi) è più leggera ma con meno app.\n\nSu [Proxmox](q/cos-e-proxmox-ve/) sta in [una VM o LXC](q/differenza-container-lxc-e-vm/) con [Docker Compose](q/cos-e-docker-compose/); [i dati vogliono backup seri](q/backup-3-2-1/) (è il tuo Drive, ora) e l'accesso da fuori passa da [VPN/mesh o reverse proxy con WAF](q/wireguard-e-mesh-vpn/). È [self-hosting](q/self-hosting-pro-e-contro/) allo stato puro: più controllo e [sovranità sui dati](q/cos-e-la-sovranita-digitale/), più manutenzione tua."
@@ -7089,7 +7108,8 @@
         "transcoding",
         "netflix personale",
         "libreria multimediale",
-        "netflix in casa"
+        "netflix in casa",
+        "jellyfin vs plex"
       ],
       "answers": [
         "**Jellyfin** è il tuo Netflix personale: organizza film, serie, musica e li trasmette in streaming a ogni schermo di casa (e fuori) con app per TV, telefoni e browser. A differenza di Plex è **completamente libero e senza account cloud** – nessun login a un servizio terzo per vedere i *tuoi* file.\n\nI due dettagli che fanno la differenza:\n\n- **transcoding**: se un client non supporta un formato, Jellyfin lo riconverte al volo – operazione pesante che vive di **accelerazione hardware** (QuickSync Intel, NVENC): su [Proxmox](q/cos-e-proxmox-ve/) significa passare la GPU/iGPU, spesso a [un LXC](q/differenza-container-lxc-e-vm/) via [device passthrough](q/passare-un-disco-usb-a-una-vm/) – un [mini PC con iGPU Intel](q/homelab-a-basso-consumo/) transcodifica più flussi consumando pochi watt\n- **storage**: la libreria vive su [NAS/ZFS](q/storage-proxmox-lvm-zfs-nfs-ceph/), montata nel container\n\nL'accesso da fuori: [mesh VPN](q/wireguard-e-mesh-vpn/) per la famiglia, o [reverse proxy](q/cos-e-un-reverse-proxy/) con attenzione (Jellyfin esposto va tenuto aggiornato). Nell'orbita: gli \"-arr\" per l'automazione della libreria, e per gli audiolibri Audiobookshelf – o, se cerchi solo ascolto, [audiolibri.org](q/audiolibri-gratis-in-italiano/)."
@@ -7219,7 +7239,8 @@
         "diun",
         "aggiornamento immagini",
         "container aggiornati",
-        "update automatico docker"
+        "update automatico docker",
+        "watchtower buona idea"
       ],
       "answers": [
         "Le immagini [Docker](q/cos-e-docker-compose/) invecchiano e accumulano [CVE](q/cos-e-una-cve-e-il-cvss/): vanno aggiornate. Gli strumenti, con una tensione importante da capire:\n\n- **Watchtower** – controlla e **aggiorna in automatico** i container quando esce una nuova immagine. Comodo... e rischioso: un aggiornamento automatico può rompere un servizio senza preavviso, di notte, mentre dormi. Per i *tuoi* servizi in produzione non è quasi mai la scelta giusta\n- **Diun** – la variante saggia: **ti avvisa** (via [ntfy/Gotify](q/notifiche-push-self-hosted-ntfy-gotify/)) che c'è un aggiornamento, ma aggiorni tu, quando decidi e con backup pronto\n- **Renovate** – per chi tiene i compose [in git](q/cos-e-gitops/): apre pull request con i bump di versione, che rivedi e mergi – il modo più controllato\n\nLa regola d'oro, che vale [l'intera supply chain](q/cos-e-la-supply-chain-security/): **notifica sempre, aggiorna automaticamente solo ciò che puoi permetterti di veder rompere**. E qualunque strada, [pinna le versioni](q/sicurezza-delle-immagini-container/) (mai `:latest` cieco) e tieni un [backup](q/backup-3-2-1/) da cui tornare indietro – l'aggiornamento che rompe capita, la domanda è solo se hai la rete sotto."
@@ -9020,7 +9041,6 @@
       "question": "Cos'è Headscale (Tailscale self-hosted)?",
       "vertical": "security",
       "keywords": [
-        "headscale",
         "tailscale self hosted",
         "server di controllo tailscale",
         "coordination server",
@@ -9028,7 +9048,8 @@
         "tailscale senza cloud",
         "control plane vpn",
         "netbird",
-        "headscale server"
+        "headscale server",
+        "headscale"
       ],
       "answers": [
         "Le [mesh VPN come Tailscale](q/wireguard-e-mesh-vpn/) hanno un componente centrale: il **server di coordinamento** (control plane) che gestisce identità, chiavi e ACL, dicendo ai dispositivi come trovarsi. Nel Tailscale ufficiale, quel server è **gestito da loro** – comodo, ma significa che un pezzo della tua rete privata dipende da (e passa la fiducia a) un'infrastruttura terza.\n\n**Headscale** è l'implementazione **open source e self-hostabile** di quel control plane: ospiti tu il server di coordinamento, i client Tailscale ufficiali si connettono al *tuo* server invece che al loro, e ottieni la stessa mesh WireGuard – ma con il control plane interamente in casa. Zero dipendenza da un servizio esterno, [sovranità completa](q/cos-e-la-sovranita-digitale/) sulla tua rete privata.\n\nÈ la mossa per chi ama Tailscale (l'esperienza è ottima) ma non vuole che nemmeno i *metadati* della sua rete (chi si connette a cosa) passino da terzi. Su [un piccolo LXC Proxmox](q/differenza-container-lxc-e-vm/) gira col nulla. L'alternativa nello stesso spirito è **Netbird** (mesh self-hostabile completa, control plane incluso). Il compromesso onesto rispetto al Tailscale gestito: la magia del NAT traversal e dei relay DERP va configurata da te, e sei responsabile della disponibilità del control plane. Per chi ha già [un homelab](q/homelab-a-basso-consumo/), è un self-host a basso costo e alto valore di indipendenza."
@@ -9104,10 +9125,10 @@
         "bgp homelab",
         "bgp vps",
         "annuncio ip da casa",
-        "frr",
-        "bird",
         "routing dinamico casa",
-        "failover bgp"
+        "failover bgp",
+        "frr",
+        "bird"
       ],
       "answers": [
         "Uno scenario avanzato di [self-hosting](q/self-hosting-pro-e-contro/): usare **BGP** per annunciare i propri servizi da casa attraverso un **VPS** che fa da frontend pubblico – utile per avere IP stabili e failover quando la linea di casa è dietro [CGNAT](q/nat-statico-dinamico-e-pat/) o cambia IP. Il router locale e il VPS stabiliscono una **sessione BGP** (di solito dentro un [tunnel WireGuard](q/wireguard-o-openvpn/)) su cui si scambiano le rotte.\n\nIl problema che **BFD** risolve: BGP di suo rileva la caduta di un peer con timer lenti (decine di secondi) – troppo per un failover pulito. **BFD** (Bidirectional Forwarding Detection) è un protocollo leggerissimo che manda pacchetti a intervalli di **millisecondi** e rileva la caduta del collegamento in una frazione di secondo, dicendo a BGP di ritirare le rotte *subito*. Il failover diventa quasi istantaneo invece che una lunga finestra di disservizio.\n\nSi implementa con **FRR** (Free Range Routing) o **BIRD** sul router locale e sul VPS – entrambi girano su [un LXC](q/differenza-container-lxc-e-vm/) o direttamente sul gateway. È territorio da homelab avanzato / piccola infrastruttura, imparentato con come funziona [il routing di internet stesso](q/bgp-hijacking-e-rpki/), e un'alternativa più sofisticata al [tunnel semplice verso un VPS](q/esporre-servizi-senza-aprire-porte/): dà routing dinamico e failover veloce, al prezzo di una configurazione che richiede di masticare BGP. Per la maggioranza, [una mesh VPN](q/wireguard-e-mesh-vpn/) risolve lo stesso bisogno con un decimo della complessità."
@@ -9728,7 +9749,6 @@
       "keywords": [
         "oauth2-proxy",
         "authelia",
-        "authentik",
         "forward auth",
         "sso self hosted",
         "autenticazione davanti al servizio",
@@ -9869,7 +9889,8 @@
         "io delay proxmox",
         "i o delay",
         "delay",
-        "delay alto"
+        "delay alto",
+        "cpu iowait"
       ],
       "answers": [
         "L'**I/O delay** in cima alla GUI è la percentuale di tempo che la CPU passa ad **aspettare i dischi**: se sale, tutto sembra lento anche con CPU scarica. La caccia, dal più probabile:\n\n- **chi sta scrivendo?** `iotop` sull'host: quasi sempre è un [job di backup](q/backup-automatici-verso-pbs/) in orario sbagliato, uno **scrub ZFS** mensile partito in pieno giorno, o una singola VM impazzita (log loop, database senza indici)\n- **hardware sotto pressione**: SSD consumer che esauriscono la cache SLC sotto scrittura sostenuta (partono veloci, crollano dopo minuti – i sintomi da [migrazione](q/migrazione-live-tra-nodi/) o restore lunghi), dischi SMR mascherati da NAS-grade, o un disco che sta *morendo*: `smartctl -a` prima di tutto\n- **configurazione**: VM senza [VirtIO](q/cos-e-la-paravirtualizzazione-virtio/) (emulazione = I/O moltiplicato), cache=none di default dove writeback sarebbe legittimo, [thin pool quasi pieno](q/storage-pieno-liberare-spazio/), ARC ZFS strangolato\n\nLe cure strutturali: separare i piatti – [backup e VM su storage diversi](q/storage-proxmox-lvm-zfs-nfs-ceph/), scrub e backup di notte – e per il quotidiano, **NVMe in mirror**: metà dei problemi di I/O delay si curano in ferramenta."
@@ -9926,7 +9947,8 @@
         "private ca",
         "dns provider",
         "wildcard",
-        "inventario certificati"
+        "inventario certificati",
+        "certificati interni"
       ],
       "answers": [
         "**CertMate** ([github.com/fabriziosalmi/certmate](https://github.com/fabriziosalmi/certmate)) è la piattaforma self-hosted per la gestione completa del ciclo di vita dei certificati TLS/SSL: emissione automatica, rinnovo, discovery di certificati non censiti, Private CA interna e deploy automatico verso reverse proxy e server.\n\nCaratteristiche & Installazione:\n- Supporta **decine di provider DNS** (Cloudflare, Hetzner, Route53, OVH, DigitalOcean, ecc.) per challenge DNS-01 e certificati Wildcard.\n- Server MCP nativo per il controllo tramite assistenti AI (`mcp/index.js` con 16 tool).\n- **CLI da terminale**:\n```bash\npip install certmate-cli\ncertmate cert create app.example.com --dns cloudflare --wait\n```\n- **Docker Quick Start**:\n```bash\ndocker run -d -p 8080:8080 -v certmate-data:/app/data ghcr.io/fabriziosalmi/certmate:latest\n```\nAudit trail crittografico immutabile conforme agli standard di sicurezza enterprise."
@@ -10147,7 +10169,9 @@
         "dlgs 138 2024",
         "grc platform",
         "misure di sicurezza nis2",
-        "audit continuo"
+        "audit continuo",
+        "checklist nis2",
+        "misure minime"
       ],
       "answers": [
         "Per monitorare la conformità alla Direttiva UE NIS2 (EU 2022/2555) e al D.Lgs 138/2024 si usa **nis2-public** ([github.com/fabriziosalmi/nis2-public](https://github.com/fabriziosalmi/nis2-public)), la piattaforma open source per il **Continuous Posture Management e la remediation** progettata per installazione on-premise.\n\nModuli e funzionalità operative:\n- **Governance Framework (Art. 21)**: checklist a 30 punti per il censimento dei requisiti organizzativi, ruoli DPO/CISO e policy aziendali.\n- **Validazione Tecnica Integrata**: audit automatico della postura reale di server, WAF, TLS, crittografia e backup senza esportare dati all'esterno.\n- **Gestione Incidenti & Supply Chain (Art. 23 & 18)**: timeline e playbook per notifiche CSIRT/ACN entro le 24h e registro fornitori terzi.\n- **Report PDF/A & Server MCP**: generazione di report di conformità formali e compatibilità con assistenti AI tramite protocollo MCP.\n\nQuick Start con Docker Compose:\n```bash\ngit clone https://github.com/fabriziosalmi/nis2-public.git\ncd nis2-public\ndocker compose up -d\n```\nPiattaforma accessibile su `http://localhost:8080` in 5 lingue.",
@@ -10452,7 +10476,6 @@
         "europea",
         "orange cloud",
         "powerdns",
-        "minio",
         "migrazione",
         "migrare",
         "spostare",
@@ -12407,7 +12430,9 @@
         "docker named volumes vs bind mounts",
         "differenza docker named volumes persistenti bind mounts host",
         "differenza volumi docker e bind mount",
-        "docker storage driver var lib docker volumes"
+        "docker storage driver var lib docker volumes",
+        "volume docker",
+        "bind mount"
       ],
       "answers": [
         "In Docker, la persistenza dei dati oltre il ciclo di vita del container si gestisce principalmente tramite due meccanismi con scopi e comportamenti distinti:\n\n1. **Named Volumes (`volume_name:/data`)**: sono gestiti interamente da Docker e archiviati all'interno della directory del demone (`/var/lib/docker/volumes/`). **Vantaggi**: isolamento sicuro dai processi host, compatibilità garantita tra sistemi operativi diversi, driver per storage remoto e gestione integrata dei permessi.\n2. **Bind Mounts (`/opt/app/data:/data`)**: mappano direttamente un percorso arbitrario del filesystem dell'host all'interno del container. **Vantaggi**: facilità di modifica manuale dei file di configurazione e backup diretto con script esterni, ma richiedono attenzione ai permessi UID/GID tra host e container.",
@@ -13392,7 +13417,6 @@
         "ipv4",
         "differenza ipv4 ipv6",
         "dual stack",
-        "cgnat",
         "indirizzi ip esauriti",
         "slaac",
         "attivare ipv6"
@@ -13543,7 +13567,8 @@
         "avvio automatico servizio",
         "daemon-reload",
         "systemd timer",
-        "gestire servizi"
+        "gestire servizi",
+        "servizio muore"
       ],
       "answers": [
         "systemd avvia e sorveglia i servizi Linux tramite *unit*. Il vocabolario quotidiano: `systemctl status nginx` (stato più ultime righe di log), `start`/`stop`/`restart`, `enable --now` (parte subito *e* a ogni boot), `disable`. Per vedere cosa è morto: `systemctl list-units --failed`.\n\nUn servizio tuo è un file in `/etc/systemd/system/mio.service` con tre sezioni: `[Unit]` (descrizione, dipendenze), `[Service]` (`ExecStart`, `User`, `Restart=on-failure`), `[Install]` (`WantedBy=multi-user.target`). Dopo ogni modifica: `systemctl daemon-reload`.\n\nI log dei servizi vivono nel [journal](q/dove-sono-i-log-su-linux/): `journalctl -u mio.service -f`. E per le esecuzioni pianificate i **timer** systemd con `Persistent=true` recuperano ciò che [cron](q/cron-la-sintassi-spiegata/) perde a macchina spenta."
@@ -13700,8 +13725,8 @@
       "suggest": [
         "cos-e-il-subnetting-e-il-cidr",
         "come-funziona-la-risoluzione-dns",
-        "porte-tcp-e-udp-quali-conoscere",
-        "permessi-linux-chmod-chown-umask"
+        "quali-certificazioni-it-contano-davvero",
+        "porte-tcp-e-udp-quali-conoscere"
       ]
     },
     {
@@ -14277,7 +14302,6 @@
       "suggest": [
         "allucinazioni-llm-dipendenze-inventate",
         "cos-e-ai-dependency-guard-slopsquatting",
-        "slopless-analisi-statica-vibecoding",
         "cos-e-la-supply-chain-security"
       ]
     },
@@ -14318,7 +14342,7 @@
       "suggest": [
         "occam-observer-telemetria-git",
         "l0-git-quality-gates",
-        "quali-certificazioni-it-contano-davvero"
+        "cos-e-kubernetes"
       ]
     },
     {
@@ -14338,6 +14362,7 @@
       "suggest": [
         "stack-di-monitoraggio-prometheus-grafana",
         "cos-e-mcp-model-context-protocol",
+        "navigator-sdk-interfacce-tastiera",
         "l0-git-quality-gates"
       ]
     },
@@ -14357,7 +14382,854 @@
       "suggest": [
         "occam-observer-telemetria-git",
         "security-logging-fatto-bene",
-        "navigator-sdk-interfacce-tastiera"
+        "cos-e-kubernetes"
+      ]
+    },
+    {
+      "id": "kubernetes",
+      "slug": "cos-e-kubernetes",
+      "question": "Cos'è Kubernetes e quando non ti serve davvero?",
+      "vertical": "tools",
+      "keywords": [
+        "kubernetes",
+        "k8s",
+        "cos e kubernetes",
+        "kubernetes cos e",
+        "orchestratore container",
+        "kubernetes quando serve",
+        "kubernetes homelab",
+        "kubernetes overkill",
+        "kubernetes vs docker",
+        "kubernetes alternativa",
+        "container orchestration"
+      ],
+      "answers": [
+        "**Kubernetes** è un orchestratore di container: distribuisce, scala e riavvia automaticamente le applicazioni containerizzate su un cluster di più macchine. Serve davvero quando hai molti servizi, più nodi e bisogno di rolling update, autoscaling e self-healing. Per un homelab con un solo server è quasi sempre overkill: ti porti dietro control plane, etcd, certificati e un consumo fisso di RAM solo per tenerlo acceso, più la manutenzione del cluster stesso a ogni aggiornamento. Con `docker compose` copri il 90% dei casi domestici con un file YAML versionato; se vuoi comunque le API di Kubernetes per imparare o per coerenza col lavoro, k3s le offre in un singolo binario leggero. La trappola tipica: adottarlo 'perché lo usano tutti' e ritrovarsi a fare manutenzione al cluster invece che ai propri servizi."
+      ],
+      "suggest": [
+        "l0-git-quality-gates",
+        "cos-e-k3s",
+        "occam-observer-telemetria-git"
+      ]
+    },
+    {
+      "id": "k3s",
+      "slug": "cos-e-k3s",
+      "question": "Cos'è k3s e quando ha senso usarlo al posto di Kubernetes pieno?",
+      "vertical": "tools",
+      "keywords": [
+        "k3s",
+        "cos e k3s",
+        "kubernetes leggero",
+        "k3s vs k8s",
+        "k3s homelab",
+        "k3s raspberry pi",
+        "k3s installazione",
+        "rancher k3s",
+        "k3s edge",
+        "kubernetes lightweight"
+      ],
+      "answers": [
+        "**k3s** è una distribuzione Kubernetes leggera e certificata CNCF, nata in casa Rancher (oggi SUSE): un singolo binario sotto i 100 MB con tutto incluso e SQLite al posto di etcd come datastore di default. Ha senso in homelab, su edge e su hardware modesto, Raspberry Pi compreso: si installa con `curl -sfL https://get.k3s.io | sh -`, consuma molta meno RAM del k8s pieno e resta compatibile con manifest, Helm e kubectl standard. Rispetto al Kubernetes completo toglie componenti legacy e driver cloud, sostituiti da equivalenti minimi: Traefik come ingress, ServiceLB, local-path provisioner per i volumi; per l'alta disponibilità può usare etcd embedded. La trappola: è comunque Kubernetes, con la stessa curva di apprendimento; se dovevi solo far girare tre container, docker compose resta più semplice."
+      ],
+      "suggest": [
+        "cos-e-kubernetes",
+        "cos-e-ansible",
+        "l0-git-quality-gates"
+      ]
+    },
+    {
+      "id": "ansible",
+      "slug": "cos-e-ansible",
+      "question": "Cos'è Ansible (e quando conviene usarlo)?",
+      "vertical": "tools",
+      "keywords": [
+        "ansible",
+        "cos e ansible",
+        "ansible playbook",
+        "configuration management",
+        "ansible vs bash",
+        "ansible ssh",
+        "ansible idempotenza",
+        "ansible inventario",
+        "automazione server",
+        "ansible yaml"
+      ],
+      "answers": [
+        "**Ansible** è uno strumento di configuration management che applica configurazioni dichiarative via SSH, senza agent da installare sulle macchine gestite. Descrivi lo stato desiderato in playbook YAML ('questo pacchetto installato, questo file con questo contenuto, questo servizio attivo') e lo applichi con `ansible-playbook site.yml`. Batte gli script bash quando gestisci più di una macchina o devi rieseguire spesso: i moduli sono idempotenti, quindi rilanciare un playbook non rompe nulla e corregge solo ciò che è cambiato, cosa che in bash devi implementare a mano con una selva di if. In più hai inventario, variabili per host e template Jinja2. La trappola tipica: infilare `shell` e `command` ovunque, trasformando i playbook in bash travestito e perdendo proprio l'idempotenza per cui eri passato ad Ansible."
+      ],
+      "suggest": [
+        "cos-e-k3s",
+        "cos-e-terraform-opentofu",
+        "cos-e-kubernetes"
+      ]
+    },
+    {
+      "id": "terraform-opentofu",
+      "slug": "cos-e-terraform-opentofu",
+      "question": "Cosa sono Terraform e OpenTofu e a cosa serve l'Infrastructure as Code?",
+      "vertical": "tools",
+      "keywords": [
+        "terraform",
+        "opentofu",
+        "open tofu",
+        "cos e terraform",
+        "cos e opentofu",
+        "infrastructure as code",
+        "iac",
+        "terraform vs opentofu",
+        "terraform stato remoto",
+        "terraform licenza busl",
+        "terraform apply",
+        "tofu"
+      ],
+      "answers": [
+        "**Terraform** è lo strumento di Infrastructure as Code di HashiCorp: descrivi l'infrastruttura (VM, reti, DNS, bucket) in file HCL e la crei o aggiorni con `terraform plan` e `terraform apply`. **OpenTofu** è il fork open source nato nel 2023 sotto Linux Foundation, dopo il passaggio di Terraform alla licenza BUSL: compatibile con provider e moduli esistenti, si usa con `tofu` al posto di `terraform`. Il concetto chiave è lo stato, il file che mappa il codice sulle risorse reali: se lavori in team va tenuto remoto (S3, backend HTTP, Consul) con locking, mai committato in git, anche perché può contenere segreti. La trappola tipica: modificare le risorse a mano dalla console del provider; al plan successivo lo stato diverge e l'apply rischia di distruggere o ricreare ciò che avevi toccato."
+      ],
+      "suggest": [
+        "cos-e-ansible",
+        "cos-e-portainer",
+        "cos-e-k3s"
+      ]
+    },
+    {
+      "id": "portainer",
+      "slug": "cos-e-portainer",
+      "question": "Cos'è Portainer e quando conviene usarlo per gestire Docker?",
+      "vertical": "tools",
+      "keywords": [
+        "portainer",
+        "cos e portainer",
+        "docker gui",
+        "portainer docker",
+        "gestione container web",
+        "portainer installazione",
+        "portainer vs cli",
+        "docker interfaccia grafica",
+        "portainer homelab"
+      ],
+      "answers": [
+        "**Portainer** è una GUI web per gestire Docker (e anche Kubernetes): container, immagini, volumi, reti e stack compose dal browser, senza terminale. Gira esso stesso come container con accesso al socket Docker e aiuta quando vuoi una vista d'insieme dell'host, dare accesso a chi non usa la CLI o riavviare un servizio dal telefono; la Community Edition gratuita copre ampiamente l'uso da homelab. La trappola: abitua male se diventa l'unico modo in cui sai fare le cose. I container creati a click non sono riproducibili: dopo un disastro non hai nessun file da rilanciare. Meglio definire tutto in `docker-compose.yml` versionato e usare Portainer solo per guardare log e stato. Ricorda infine che il socket Docker montato nel container equivale a dare root sull'host."
+      ],
+      "suggest": [
+        "cos-e-terraform-opentofu",
+        "cos-e-una-pipeline-ci-cd",
+        "cos-e-ansible"
+      ]
+    },
+    {
+      "id": "ci-cd",
+      "slug": "cos-e-una-pipeline-ci-cd",
+      "question": "Cos'è una pipeline CI/CD in concreto?",
+      "vertical": "tools",
+      "keywords": [
+        "ci cd",
+        "pipeline ci cd",
+        "cos e ci cd",
+        "continuous integration",
+        "continuous delivery",
+        "github actions",
+        "gitlab ci",
+        "deploy automatico",
+        "pipeline deploy",
+        "build test deploy"
+      ],
+      "answers": [
+        "**CI/CD** (Continuous Integration / Continuous Delivery) è l'automazione che a ogni push esegue una pipeline: build del codice, test automatici e, se tutto passa, deploy. In concreto è un file YAML nel repository che il server git esegue da solo: `.github/workflows/deploy.yml` con GitHub Actions, `.gitlab-ci.yml` con GitLab. Esempio minimo per un sito statico: un job installa le dipendenze e builda, un job lancia i test, un job pubblica l'output su Pages o lo copia sul server con rsync, solo sul branch main. Il vantaggio vero non è la velocità ma la ripetibilità: il deploy smette di dipendere da cosa c'era sul portatile di chi lo lanciava. La trappola tipica: pipeline senza test veri, che portano in produzione qualunque cosa compili dando una falsa sensazione di sicurezza."
+      ],
+      "suggest": [
+        "cos-e-portainer",
+        "gitlab-o-gitea-git-self-hosted",
+        "cos-e-terraform-opentofu"
+      ]
+    },
+    {
+      "id": "gitlab-gitea",
+      "slug": "gitlab-o-gitea-git-self-hosted",
+      "question": "Meglio GitLab o Gitea per un git self-hosted?",
+      "vertical": "tools",
+      "keywords": [
+        "gitlab",
+        "gitea",
+        "forgejo",
+        "git self hosted",
+        "gitlab vs gitea",
+        "gitlab self hosted",
+        "gitea homelab",
+        "gitea vs forgejo",
+        "server git privato",
+        "gitlab requisiti ram",
+        "codeberg"
+      ],
+      "answers": [
+        "**GitLab** e **Gitea** risolvono lo stesso problema, ospitare in casa i propri repository git, con pesi opposti. GitLab è la piattaforma completa: merge request, CI/CD integrata con i runner, registry container, issue board; in cambio i requisiti ufficiali partono da 4 GB di RAM e gli aggiornamenti mensili vanno seguiti con disciplina. Gitea, e il suo fork community Forgejo (quello dietro Codeberg), è un singolo binario in Go che gira con poche centinaia di MB anche su un Raspberry Pi, con interfaccia in stile GitHub e Actions compatibili con la sintassi di GitHub. Regola pratica: team aziendale con pipeline pesanti, GitLab; homelab o gruppo piccolo, Gitea o Forgejo bastano e avanzano. La trappola: installare GitLab 'perché completo' e passare i weekend a dargli RAM e update."
+      ],
+      "suggest": [
+        "cos-e-una-pipeline-ci-cd",
+        "cos-e-un-webhook",
+        "cos-e-portainer"
+      ]
+    },
+    {
+      "id": "webhook",
+      "slug": "cos-e-un-webhook",
+      "question": "Cos'è un webhook e come si usa in pratica?",
+      "vertical": "tools",
+      "keywords": [
+        "webhook",
+        "cos e un webhook",
+        "webhook git",
+        "webhook vs polling",
+        "webhook deploy",
+        "firma hmac webhook",
+        "webhook sicurezza",
+        "webhook github",
+        "push deploy automatico",
+        "webhook esempio"
+      ],
+      "answers": [
+        "**Un webhook** è una chiamata HTTP che un servizio fa verso un tuo URL quando accade un evento: è il servizio a chiamare te, invece di essere tu a interrogarlo. La differenza dal polling API è tutta qui: niente richieste ripetute ogni minuto 'per vedere se c'è qualcosa di nuovo', ma una POST con payload JSON nell'istante esatto dell'evento. Esempio classico: su GitHub o Gitea configuri un webhook verso `https://tuoserver/deploy`; a ogni push il tuo endpoint riceve la notifica e lancia il deploy. Nota di sicurezza obbligatoria: quell'endpoint è esposto, chiunque può chiamarlo. Imposta il secret del webhook e verifica la firma HMAC del payload (header `X-Hub-Signature-256` su GitHub) prima di eseguire qualunque cosa; senza verifica, chi scopre l'URL può farti partire deploy a piacere."
+      ],
+      "suggest": [
+        "gitlab-o-gitea-git-self-hosted",
+        "rest-graphql-grpc-differenze",
+        "cos-e-una-pipeline-ci-cd"
+      ]
+    },
+    {
+      "id": "api-rest-graphql-grpc",
+      "slug": "rest-graphql-grpc-differenze",
+      "question": "REST, GraphQL o gRPC: che differenza c'è e quando usare ciascuno?",
+      "vertical": "tools",
+      "keywords": [
+        "rest",
+        "graphql",
+        "grpc",
+        "api rest",
+        "rest vs graphql",
+        "graphql vs grpc",
+        "rest vs grpc",
+        "stili api",
+        "cos e graphql",
+        "cos e grpc",
+        "api differenze",
+        "quale api scegliere"
+      ],
+      "answers": [
+        "**REST, GraphQL e gRPC** sono tre stili per esporre API. REST usa HTTP e JSON con risorse e verbi (`GET /users/42`): semplice, cacheabile, debuggabile con curl; è la scelta di default per API pubbliche e CRUD. GraphQL espone un unico endpoint in cui il client dichiara esattamente i campi che vuole: conviene quando frontend diversi consumano gli stessi dati e con REST finiresti in troppe chiamate o risposte gonfie; il prezzo è la complessità lato server tra resolver, caching e protezione dalle query pesanti. gRPC usa HTTP/2 e Protocol Buffers, con contratti tipati e streaming bidirezionale: eccelle nella comunicazione servizio-servizio ad alte prestazioni, ma dal browser non si chiama nativamente senza un proxy. La trappola tipica: adottare GraphQL o gRPC 'perché moderni' quando una REST ben paginata avrebbe risolto tutto."
+      ],
+      "suggest": [
+        "cos-e-un-webhook",
+        "cos-e-uptime-kuma",
+        "gitlab-o-gitea-git-self-hosted"
+      ]
+    },
+    {
+      "id": "uptime-kuma",
+      "slug": "cos-e-uptime-kuma",
+      "question": "Cos'è Uptime Kuma e cosa può monitorare?",
+      "vertical": "tools",
+      "keywords": [
+        "uptime kuma",
+        "monitoraggio uptime",
+        "uptime kuma docker",
+        "uptime robot self hosted",
+        "status page self hosted",
+        "monitoraggio siti",
+        "uptime kuma limiti"
+      ],
+      "answers": [
+        "**Uptime Kuma** è uno strumento self-hosted di monitoraggio uptime, alternativa libera a servizi come UptimeRobot: gira come container e da una dashboard ti dice se i tuoi servizi rispondono. Controlla endpoint HTTP/HTTPS (con ricerca di keyword nella risposta e scadenza dei certificati TLS), porte TCP, ping, record DNS, container Docker e altro; notifica su Telegram, mail, ntfy e decine di canali e offre status page pubbliche. Si installa in un minuto: `docker run -d -p 3001:3001 louislam/uptime-kuma`. I limiti: è monitoraggio a scatola nera, ti dice che un servizio è giù ma non perché; non raccoglie metriche di sistema, per quelle servono Prometheus e Grafana. Trappola tipica: farlo girare sullo stesso host dei servizi che controlla, così quando cade l'host cade anche chi doveva avvisarti."
+      ],
+      "suggest": [
+        "rest-graphql-grpc-differenze",
+        "cos-e-un-webhook",
+        "gitlab-o-gitea-git-self-hosted"
+      ]
+    },
+    {
+      "id": "loki",
+      "slug": "cos-e-grafana-loki",
+      "question": "Cos'è Loki e come si affianca a Prometheus?",
+      "vertical": "proxmox",
+      "keywords": [
+        "loki",
+        "grafana loki",
+        "cos e loki",
+        "log aggregation",
+        "loki vs prometheus",
+        "promtail",
+        "grafana alloy",
+        "logql",
+        "log centralizzati",
+        "loki proxmox",
+        "metriche vs log"
+      ],
+      "answers": [
+        "**Loki** è il sistema di log aggregation di Grafana Labs: raccoglie i log di macchine e container in un punto solo e li interroga da Grafana con il linguaggio LogQL. Si affianca a Prometheus dividendosi i compiti: Prometheus raccoglie metriche (numeri campionati: CPU, RAM, richieste al secondo), Loki raccoglie log (righe di testo con timestamp); in Grafana passi dal grafico che mostra l'anomalia alle righe di log di quello stesso istante. A differenza di Elasticsearch non indicizza il contenuto ma solo le label (host, job, unit systemd), quindi è leggero e sta comodo anche su un cluster Proxmox domestico. I log li spedisce un agent sui nodi: lo storico Promtail è deprecato e a fine vita da marzo 2026, oggi si usa Grafana Alloy. Trappola tipica: label ad alta cardinalità, che fanno esplodere memoria e storage."
+      ],
+      "suggest": [
+        "cos-e-il-cgnat-e-come-uscirne",
+        "cos-e-tailscale-mesh-vpn",
+        "cos-e-minio-object-storage-s3",
+        "cos-e-un-waf-web-application-firewall"
+      ]
+    },
+    {
+      "id": "mikrotik",
+      "slug": "cosa-sono-i-router-mikrotik",
+      "question": "Cosa sono i router MikroTik e perché i sysadmin li usano così tanto?",
+      "vertical": "security",
+      "keywords": [
+        "mikrotik",
+        "routeros",
+        "router mikrotik",
+        "winbox",
+        "hex",
+        "rb5009",
+        "mikrotik homelab",
+        "router economico potente",
+        "aggiornare routeros",
+        "mikrotik sicurezza"
+      ],
+      "answers": [
+        "**MikroTik** è un produttore lettone di router e switch che girano su RouterOS, il suo sistema operativo di rete. Piace ai sysadmin per il rapporto prezzo/potenza: con poche decine di euro un hEX o un RB5009 offre BGP, OSPF, VLAN, firewall stateful e scripting, funzioni che altrove costano dieci volte tanto. La curva di apprendimento però è ripida: WinBox e la CLI (`/ip firewall filter print`) presuppongono che tu sappia già cosa stai facendo, e i default non ti salvano dagli errori. La trappola classica è dimenticarli senza aggiornamenti: RouterOS non patchato è tra i bersagli preferiti delle botnet – Mēris nel 2021 ha arruolato proprio device rimasti vulnerabili per anni. Aggiorna con `/system package update install` e chiudi l'accesso di gestione dalla WAN."
+      ],
+      "suggest": [
+        "opnsense-o-pfsense-quale-firewall",
+        "cos-e-unifi-di-ubiquiti",
+        "cos-e-il-bgp-border-gateway-protocol",
+        "cos-e-un-waf-web-application-firewall"
+      ]
+    },
+    {
+      "id": "opnsense-pfsense",
+      "slug": "opnsense-o-pfsense-quale-firewall",
+      "question": "Meglio OPNsense o pfSense come firewall open source per il homelab?",
+      "vertical": "security",
+      "keywords": [
+        "opnsense",
+        "pfsense",
+        "opnsense o pfsense",
+        "firewall open source",
+        "fork pfsense",
+        "pfsense plus",
+        "firewall homelab",
+        "hardware firewall dedicato",
+        "nic intel firewall"
+      ],
+      "answers": [
+        "**OPNsense** e **pfSense** sono i due firewall open source su base FreeBSD più diffusi nei homelab; il primo è un fork del secondo, nato nel 2015. OPNsense (licenza BSD 2-clause) ha rilasci frequenti, interfaccia moderna e plugin come CrowdSec e Zenarmor; pfSense CE (Apache 2.0) è maturo e documentatissimo, ma Netgate concentra lo sviluppo sul proprietario pfSense Plus, gratuito per uso casalingo previa registrazione. Entrambi rendono al meglio su hardware dedicato: un mini-PC con due o più NIC Intel, non una VM sul server principale, così il firewall resta su anche quando riavvii l'hypervisor. La trappola tipica sono le NIC Realtek: su FreeBSD i driver sono ballerini, controlla le schede di rete prima di comprare."
+      ],
+      "suggest": [
+        "cosa-sono-i-router-mikrotik",
+        "cos-e-unifi-di-ubiquiti",
+        "cos-e-il-bgp-border-gateway-protocol",
+        "cos-e-un-waf-web-application-firewall"
+      ]
+    },
+    {
+      "id": "unifi",
+      "slug": "cos-e-unifi-di-ubiquiti",
+      "question": "Cos'è UniFi di Ubiquiti e conviene per la rete di casa?",
+      "vertical": "security",
+      "keywords": [
+        "unifi",
+        "ubiquiti",
+        "access point unifi",
+        "unifi controller",
+        "controller self-hosted",
+        "udm",
+        "cloud gateway",
+        "rete casa unifi",
+        "ap wifi homelab",
+        "giardino recintato ubiquiti"
+      ],
+      "answers": [
+        "**UniFi** è l'ecosistema di rete di Ubiquiti: access point, switch e gateway gestiti da un unico controller, l'applicazione UniFi Network, che puoi self-hostare in un container oppure far girare su un gateway della linea (UDM, Cloud Gateway). I pro: AP eccellenti per il prezzo, nessun canone, un solo pannello per tutta la rete, roaming pulito tra più access point. I contro sono quelli di ogni giardino recintato: l'hardware parla solo col controller Ubiquiti, il routing avanzato resta indietro rispetto a un firewall vero e l'azienda spinge sempre più verso l'account cloud. Compromesso diffuso: AP e switch UniFi per il Wi-Fi, OPNsense o MikroTik come router. Trappola: aggiornare il controller senza aver prima scaricato un backup delle impostazioni – riadottare tutti gli AP non è divertente."
+      ],
+      "suggest": [
+        "opnsense-o-pfsense-quale-firewall",
+        "cos-e-il-bgp-border-gateway-protocol",
+        "cosa-sono-i-router-mikrotik",
+        "cos-e-un-waf-web-application-firewall"
+      ]
+    },
+    {
+      "id": "bgp",
+      "slug": "cos-e-il-bgp-border-gateway-protocol",
+      "question": "Cos'è il BGP (Border Gateway Protocol) spiegato in parole semplici?",
+      "vertical": "security",
+      "keywords": [
+        "bgp",
+        "border gateway protocol",
+        "cos e bgp",
+        "protocollo bgp",
+        "sistemi autonomi",
+        "autonomous system",
+        "routing internet",
+        "internet e bgp",
+        "metallb bgp"
+      ],
+      "answers": [
+        "**BGP (Border Gateway Protocol)** è il protocollo con cui le grandi reti che compongono internet – i sistemi autonomi di provider, cloud e aziende – si annunciano a vicenda quali blocchi di indirizzi IP sanno raggiungere. Non esiste una mappa centrale: ogni rete si fida degli annunci delle vicine e sceglie il percorso, per questo si dice che \"internet è BGP\". Quando un annuncio è sbagliato o malevolo il traffico finisce dove non deve: è il BGP hijacking, che trattiamo in una voce dedicata. In homelab lo incontri con FRR o BIRD, per esempio per annunciare al router i servizi di un cluster Kubernetes con MetalLB. Trappola tipica: accettare o propagare rotte senza filtri – tabella piena di prefissi altrui e rete a terra."
+      ],
+      "suggest": [
+        "cos-e-unifi-di-ubiquiti",
+        "opnsense-o-pfsense-quale-firewall",
+        "cosa-sono-i-router-mikrotik",
+        "cos-e-un-waf-web-application-firewall"
+      ]
+    },
+    {
+      "id": "cgnat",
+      "slug": "cos-e-il-cgnat-e-come-uscirne",
+      "question": "Cos'è il CGNAT e perché non riesco a raggiungere casa da fuori?",
+      "vertical": "proxmox",
+      "keywords": [
+        "cgnat",
+        "carrier grade nat",
+        "dietro cgnat",
+        "port forwarding non funziona",
+        "raggiungere casa da fuori",
+        "ip pubblico",
+        "100.64.0.0/10",
+        "ddns cgnat",
+        "tailscale funnel",
+        "ipv6 cgnat"
+      ],
+      "answers": [
+        "**CGNAT (Carrier-Grade NAT)** significa che il provider condivide un solo IPv4 pubblico tra molti clienti: le connessioni in ingresso muoiono a casa sua, quindi port forwarding e DDNS non funzionano. Per scoprirlo confronta l'IP WAN del router con quello che vede un sito tipo whatismyip: se non coincidono, o se il WAN è nel blocco `100.64.0.0/10`, sei dietro CGNAT. Vie d'uscita, in ordine di sforzo: usare IPv6 se il provider lo dà; una mesh VPN come Tailscale, con Funnel per esporre servizi al pubblico; un VPS economico con tunnel WireGuard e reverse proxy; chiedere al provider un IP pubblico, spesso pochi euro al mese. Trappola: comprare dominio e configurare DDNS prima di aver verificato di avere un IP raggiungibile."
+      ],
+      "suggest": [
+        "cos-e-tailscale-mesh-vpn",
+        "cos-e-minio-object-storage-s3",
+        "cos-e-grafana-loki",
+        "cos-e-btrfs-snapshot-e-checksum",
+        "cos-e-un-waf-web-application-firewall"
+      ]
+    },
+    {
+      "id": "tailscale",
+      "slug": "cos-e-tailscale-mesh-vpn",
+      "question": "Cos'è Tailscale (e perché ha vinto tra le VPN mesh)?",
+      "vertical": "proxmox",
+      "keywords": [
+        "tailscale",
+        "mesh vpn",
+        "vpn homelab",
+        "nat traversal",
+        "magicdns",
+        "derp",
+        "accesso remoto homelab",
+        "tailscale funnel",
+        "vpn zero config"
+      ],
+      "answers": [
+        "**Tailscale** è una mesh VPN costruita su WireGuard: installi il client sui dispositivi, fai login e ogni nodo vede gli altri su indirizzi `100.x.y.z`, ovunque siano. Ha vinto perché azzera la fatica: NAT traversal automatico (con relay DERP quando il collegamento diretto fallisce), niente port forwarding, niente gestione manuale di chiavi, MagicDNS per i nomi. Perfetta per raggiungere il homelab da fuori, anche dietro CGNAT. Il compromesso: il coordination server che distribuisce chiavi e ACL è chiuso e gira sui loro sistemi, e l'account si appoggia a un identity provider esterno – se vuoi tutto in casa c'è Headscale, coordinatore open source di cui parliamo in una voce dedicata. Trappola: esporre un servizio con `tailscale funnel` e dimenticare che da quel momento è pubblico davvero."
+      ],
+      "suggest": [
+        "cos-e-il-cgnat-e-come-uscirne",
+        "cos-e-minio-object-storage-s3",
+        "cos-e-btrfs-snapshot-e-checksum",
+        "cos-e-un-waf-web-application-firewall"
+      ]
+    },
+    {
+      "id": "minio",
+      "slug": "cos-e-minio-object-storage-s3",
+      "question": "Cos'è MinIO e quando serve un object storage S3 in casa?",
+      "vertical": "proxmox",
+      "keywords": [
+        "minio",
+        "object storage",
+        "s3 self-hosted",
+        "s3 compatibile",
+        "bucket s3 in casa",
+        "minio licenza",
+        "minio console",
+        "agpl minio",
+        "garage seaweedfs",
+        "erasure coding"
+      ],
+      "answers": [
+        "**MinIO** è un object storage S3-compatibile che self-hosti con un singolo binario o container: le applicazioni gli parlano con le stesse API di Amazon S3. Serve davvero quando usi software che vuole un bucket S3, non una cartella: backup con restic o Velero, log di Loki, media di Mastodon, artifact di CI. Se devi solo condividere file, un NAS con NFS o SMB è più semplice. Nota importante: MinIO è AGPLv3 e nel 2025 ha tolto quasi tutte le funzioni di gestione dalla console web della versione community, spingendo verso il commerciale AIStor – server e API restano completi, ma amministri con `mc`, il client a riga di comando. Alternative leggere: Garage e SeaweedFS. Trappola: usarlo su disco singolo aspettandosi la resilienza dell'erasure coding."
+      ],
+      "suggest": [
+        "cos-e-tailscale-mesh-vpn",
+        "cos-e-btrfs-snapshot-e-checksum",
+        "cos-e-il-cgnat-e-come-uscirne",
+        "cos-e-un-waf-web-application-firewall"
+      ]
+    },
+    {
+      "id": "btrfs",
+      "slug": "cos-e-btrfs-snapshot-e-checksum",
+      "question": "Cos'è Btrfs e quando conviene usarlo al posto di ZFS?",
+      "vertical": "proxmox",
+      "keywords": [
+        "btrfs",
+        "filesystem btrfs",
+        "snapshot btrfs",
+        "checksum filesystem",
+        "btrfs o zfs",
+        "btrfs raid5",
+        "btrfs raid6",
+        "copy on write",
+        "btrfs scrub",
+        "compressione btrfs"
+      ],
+      "answers": [
+        "**Btrfs** è un filesystem copy-on-write incluso nel kernel Linux, con snapshot istantanei, checksum dei dati e compressione trasparente. Conviene quando vuoi snapshot e integrità senza il peso di ZFS: è nel kernel (niente moduli da ricompilare), chiede meno RAM e aggiungi o togli dischi da un volume con grande flessibilità. ZFS – vedi la voce su OpenZFS – resta superiore per RAID maturo, cache e replica su larga scala. Il punto dolente sono i RAID5/6: il write hole non è mai stato risolto del tutto e la stessa documentazione ufficiale li sconsiglia in produzione; usa raid1 o raid10, oppure Btrfs sopra un RAID md come fa Synology. Trappola: non lanciare mai `btrfs scrub` – i checksum servono solo se qualcuno li controlla."
+      ],
+      "suggest": [
+        "cos-e-minio-object-storage-s3",
+        "cos-e-unraid-nas-os",
+        "cos-e-tailscale-mesh-vpn",
+        "cos-e-un-waf-web-application-firewall"
+      ]
+    },
+    {
+      "id": "unraid",
+      "slug": "cos-e-unraid-nas-os",
+      "question": "Cos'è Unraid e conviene rispetto a TrueNAS per un NAS casalingo?",
+      "vertical": "proxmox",
+      "keywords": [
+        "unraid",
+        "truenas o unraid",
+        "nas os",
+        "array con parita",
+        "dischi misti nas",
+        "unraid licenza",
+        "lime technology",
+        "nas casalingo",
+        "unraid docker",
+        "parita flessibile"
+      ],
+      "answers": [
+        "**Unraid** è un sistema operativo NAS a licenza commerciale di Lime Technology, famoso per l'array con parità flessibile: mischi dischi di taglie diverse, uno o due dischi di parità proteggono gli altri e ne aggiungi uno alla volta senza rifare nulla. Ideale per chi accumula media a colpi di dischi comprati in offerta; Docker e VM sono integrati. Rispetto a TrueNAS – confronto nella voce dedicata – rinunci alle prestazioni e alle garanzie di ZFS sull'array classico (ogni file vive su un solo disco), ma guadagni flessibilità e dischi che si spengono quando non servono. Dal 2024 le licenze base includono un anno di aggiornamenti, la Lifetime costa di più. Trappola: considerare la parità un backup – copre il guasto di un disco, non cancellazioni o ransomware."
+      ],
+      "suggest": [
+        "cos-e-btrfs-snapshot-e-checksum",
+        "mini-pc-intel-n100-per-homelab",
+        "cos-e-minio-object-storage-s3",
+        "cos-e-un-waf-web-application-firewall"
+      ]
+    },
+    {
+      "id": "n100",
+      "slug": "mini-pc-intel-n100-per-homelab",
+      "question": "Un mini-PC con Intel N100 basta per un homelab?",
+      "vertical": "proxmox",
+      "keywords": [
+        "n100",
+        "intel n100",
+        "n150",
+        "mini pc homelab",
+        "mini pc n100",
+        "quicksync",
+        "transcoding jellyfin",
+        "jellyfin n100",
+        "proxmox n100",
+        "ram n100",
+        "mini pc economico"
+      ],
+      "answers": [
+        "**Intel N100** (e il refresh N150) è un chip a 4 E-core con TDP di circa 6 W che ha reso i mini-PC da 150–200 euro la porta d'ingresso standard al homelab. Regge senza affanno il trittico classico: Jellyfin, stack *arr, Pi-hole, Home Assistant e qualche container di contorno, anche sotto Proxmox. Il punto forte è la iGPU con QuickSync: decodifica AV1 e transcodifica HEVC in hardware, quindi più stream Jellyfin 4K in contemporanea passando `/dev/dri` al container. I limiti: memoria single-channel con 16 GB ufficiali (molti moduli da 32 GB funzionano, ma senza garanzia), poche linee PCIe, spesso un solo slot NVMe e una sola NIC. Trappola: comprarlo per ZFS con dedup o molte VM pesanti – lì serve altra classe di macchina."
+      ],
+      "suggest": [
+        "cos-e-unraid-nas-os",
+        "cos-e-btrfs-snapshot-e-checksum",
+        "cos-e-minio-object-storage-s3",
+        "cos-e-un-waf-web-application-firewall"
+      ]
+    },
+    {
+      "id": "crowdsec",
+      "slug": "crowdsec-ips-collaborativo",
+      "question": "CrowdSec: cos'è e quando conviene rispetto a Fail2ban?",
+      "vertical": "security",
+      "keywords": [
+        "crowdsec",
+        "ips collaborativo",
+        "bouncer",
+        "crowdsec vs fail2ban",
+        "blocklist condivisa",
+        "cscli",
+        "bloccare ip malevoli",
+        "crowd intelligence",
+        "security engine",
+        "alternativa a fail2ban",
+        "crowdsec fail2ban"
+      ],
+      "answers": [
+        "**CrowdSec** è un IPS collaborativo open source: analizza i log come fail2ban, ma condivide le segnalazioni con la community e riceve in cambio una blocklist di IP malevoli già noti. Il motore (security engine) rileva gli attacchi con scenari scaricabili dall'hub; il blocco vero lo fa un bouncer separato, da installare su firewall, Nginx, Caddy o Cloudflare. Conviene rispetto a [fail2ban](q/fail2ban-e-alternative/) quando gestisci più server, vuoi fermare gli attaccanti prima ancora che ti tocchino o ti serve un parsing moderno dei log (JSON, container). La trappola tipica: installare solo il motore e dimenticare il bouncer – vedrai le decisioni con `cscli decisions list`, ma nessun IP verrà davvero bloccato. Verifica sempre con `cscli bouncers list` che ce ne sia almeno uno registrato."
+      ],
+      "suggest": [
+        "fail2ban-e-alternative",
+        "suricata-o-snort-ids-ips",
+        "keycloak-o-authentik-sso-self-hosted"
+      ]
+    },
+    {
+      "id": "suricata-snort",
+      "slug": "suricata-o-snort-ids-ips",
+      "question": "Suricata o Snort: quale scegliere (e dove metterlo in rete)?",
+      "vertical": "security",
+      "keywords": [
+        "suricata",
+        "snort",
+        "suricata vs snort",
+        "regole emerging threats",
+        "intrusion detection",
+        "porta mirror",
+        "ids ips differenza",
+        "opnsense suricata"
+      ],
+      "answers": [
+        "**Suricata** e **Snort** sono i due IDS/IPS a firme più diffusi: ispezionano il traffico di rete e segnalano (o bloccano, in modalità inline) i pattern di attacco descritti dalle regole. Suricata, sviluppato da OISF, è multi-thread da sempre, produce log JSON (EVE) facili da portare in una dashboard e digerisce gran parte delle regole scritte per Snort; Snort 3, di Cisco/Talos, ha colmato il divario ma resta più legato al suo ecosistema. Le regole gratuite di riferimento sono le Emerging Threats Open. In rete vanno su una porta mirror dello switch per il solo rilevamento, oppure inline sul perimetro (tipico su OPNsense/pfSense) per bloccare. La trappola: gran parte del traffico oggi è cifrato TLS, quindi senza tuning vedrai soprattutto metadati e falsi positivi – parti in IDS puro e attiva il blocco solo dopo."
+      ],
+      "suggest": [
+        "crowdsec-ips-collaborativo",
+        "keycloak-o-authentik-sso-self-hosted",
+        "hashicorp-vault-gestione-secrets"
+      ]
+    },
+    {
+      "id": "keycloak-authentik",
+      "slug": "keycloak-o-authentik-sso-self-hosted",
+      "question": "Keycloak o Authentik: quale identity provider self-hosted per il SSO?",
+      "vertical": "security",
+      "keywords": [
+        "keycloak",
+        "authentik",
+        "identity provider",
+        "sso self-hosted",
+        "keycloak vs authentik",
+        "single sign-on",
+        "forward auth",
+        "idp self-hosted"
+      ],
+      "answers": [
+        "**Keycloak** e **Authentik** sono identity provider self-hosted: centralizzano login, MFA e SSO parlando OIDC e SAML con le tue applicazioni. Keycloak (progetto CNCF nato in Red Hat) è lo standard enterprise: realm, federazione LDAP/AD, ogni opzione immaginabile, ma è pesante in RAM e la curva di apprendimento è ripida. Authentik è più recente e homelab-friendly: interfaccia moderna, flussi configurabili a blocchi e soprattutto gli outpost proxy, che aggiungono l'autenticazione (forward auth) anche alle app che non supportano OIDC. Scegli Keycloak per requisiti aziendali e federazioni complesse; Authentik per proteggere i servizi di casa dietro un reverse proxy. La trappola: esporre il pannello admin su internet senza MFA né rate limiting – l'IdP è il mazzo di chiavi di tutto, e compromesso lui è compromesso tutto."
+      ],
+      "suggest": [
+        "suricata-o-snort-ids-ips",
+        "hashicorp-vault-gestione-secrets",
+        "crowdsec-ips-collaborativo"
+      ]
+    },
+    {
+      "id": "hashicorp-vault",
+      "slug": "hashicorp-vault-gestione-secrets",
+      "question": "HashiCorp Vault: cos'è e quando ha senso usarlo per i secrets?",
+      "vertical": "security",
+      "keywords": [
+        "vault",
+        "hashicorp vault",
+        "secrets management",
+        "dynamic secrets",
+        "gestione secrets centralizzata",
+        "openbao",
+        "vault unseal",
+        "rotazione credenziali",
+        "secrets api",
+        "hashicorp"
+      ],
+      "answers": [
+        "**HashiCorp Vault** è il gestore centralizzato dei secrets: le applicazioni chiedono le credenziali via API, ogni accesso è tracciato e governato da policy. Il punto di forza sono i dynamic secrets: invece di una password statica del database, Vault ne genera una nuova a scadenza per ogni richiesta, riducendo il danno di un leak. Ha senso con molti servizi, team e rotazioni da automatizzare; per un homelab o un singolo server è quasi sempre overkill – bastano le tecniche viste in [come gestire i secrets](q/come-gestire-i-secrets/), tipo sops o le secret di Docker. Nota di licenza: dal 2023 Vault è BUSL (e HashiCorp è di IBM); il fork open source è OpenBao. La trappola: a ogni riavvio Vault parte sealed e va sbloccato con `vault operator unseal` – senza auto-unseal, un reboot notturno lascia le app senza credenziali."
+      ],
+      "suggest": [
+        "come-gestire-i-secrets",
+        "keycloak-o-authentik-sso-self-hosted",
+        "suricata-o-snort-ids-ips"
+      ]
+    },
+    {
+      "id": "postgresql",
+      "slug": "postgresql-vs-mysql-mariadb",
+      "question": "PostgreSQL: perché è il database di default e come si confronta con MySQL?",
+      "vertical": "tools",
+      "keywords": [
+        "postgresql",
+        "postgres",
+        "mysql",
+        "mariadb",
+        "postgres vs mysql",
+        "pg_dump",
+        "backup postgresql",
+        "database relazionale",
+        "jsonb",
+        "point-in-time recovery"
+      ],
+      "answers": [
+        "**PostgreSQL** è il default sano per quasi ogni progetto: relazionale rigoroso, JSONB per i dati semi-strutturati, DDL transazionale ed estensioni come PostGIS e pgvector che gli fanno coprire ruoli da database specializzato. Rispetto a MySQL/MariaDB è più severo sui dati (niente conversioni silenziose) e più estensibile; MySQL resta diffusissimo nel mondo LAMP e ha una replica storicamente più semplice, ma oggi la differenza non giustifica quasi mai la scelta. La trappola classica riguarda i backup: `pg_dump` fa un backup logico, perfetto per DB piccoli, ma su database grandi il restore dura ore e non permette il point-in-time recovery. Per quello servono backup fisici con `pg_basebackup` e archiviazione dei WAL, o strumenti come pgBackRest. E copiare la cartella dati a server acceso, senza WAL, produce solo backup corrotti."
+      ],
+      "suggest": [
+        "redis-cache-valkey",
+        "sqlite-quando-basta",
+        "clickhouse-database-colonnare",
+        "cos-e-un-waf-web-application-firewall"
+      ]
+    },
+    {
+      "id": "redis",
+      "slug": "redis-cache-valkey",
+      "question": "Redis: a cosa serve davvero e che cos'è il fork Valkey?",
+      "vertical": "tools",
+      "keywords": [
+        "redis",
+        "valkey",
+        "cache in ram",
+        "redis a cosa serve",
+        "sessioni redis",
+        "code redis",
+        "persistenza redis",
+        "aof rdb",
+        "redis vs valkey",
+        "in-memory database"
+      ],
+      "answers": [
+        "**Redis** è un archivio dati in RAM: chiavi, liste, set e stream con latenze sotto il millisecondo. Gli usi tipici sono cache di query e pagine, sessioni web, code di lavoro (Sidekiq, Celery, BullMQ), rate limiting e pub/sub. La persistenza è opzionale, con snapshot RDB e journal AOF: se lo usi come pura cache puoi spegnerla, se ci tieni le code no. Capitolo licenza: nel 2024 Redis abbandonò la licenza open e la community creò il fork Valkey (Linux Foundation, spinto da AWS e Google), drop-in compatibile e ormai nei repo delle distro; nel 2025 Redis 8 è tornato open con AGPLv3. La trappola: trattarlo come database primario con la configurazione di default – tra eviction per `maxmemory` e riavvii senza AOF, i dati che credevi salvati spariscono."
+      ],
+      "suggest": [
+        "postgresql-vs-mysql-mariadb",
+        "sqlite-quando-basta",
+        "clickhouse-database-colonnare",
+        "cos-e-un-waf-web-application-firewall"
+      ]
+    },
+    {
+      "id": "sqlite",
+      "slug": "sqlite-quando-basta",
+      "question": "SQLite: quando basta e avanza e quando invece è la scelta sbagliata?",
+      "vertical": "tools",
+      "keywords": [
+        "sqlite",
+        "database embedded",
+        "sqlite backup",
+        "litestream",
+        "wal mode",
+        "sqlite quando usarlo",
+        "sqlite vs postgres",
+        "database su file",
+        "vacuum into",
+        "sqlite nfs"
+      ],
+      "answers": [
+        "**SQLite** è il database più diffuso al mondo: una libreria embedded che salva tutto in un singolo file, senza server né configurazione. Per il self-hosting basta e avanza molto più spesso di quanto si pensi: è il default di app come Home Assistant, Gitea, Vaultwarden e Jellyfin, e in modalità WAL (`PRAGMA journal_mode=WAL`) regge bene le letture concorrenti. Per i backup continui c'è Litestream, che replica il file su S3 in streaming. Non usarlo quando hai molti scrittori concorrenti, più istanze dell'app che devono condividere il database, o quando il file finirebbe su un filesystem di rete: SQLite su NFS è la ricetta per la corruzione. La trappola: copiare il file con `cp` mentre l'app scrive – usa `sqlite3 db.sqlite \".backup\"` o `VACUUM INTO`, che producono una copia consistente."
+      ],
+      "suggest": [
+        "redis-cache-valkey",
+        "clickhouse-database-colonnare",
+        "postgresql-vs-mysql-mariadb",
+        "cos-e-un-waf-web-application-firewall"
+      ]
+    },
+    {
+      "id": "clickhouse",
+      "slug": "clickhouse-database-colonnare",
+      "question": "ClickHouse: cos'è un database colonnare e quando conviene rispetto a Postgres?",
+      "vertical": "tools",
+      "keywords": [
+        "clickhouse",
+        "database colonnare",
+        "olap",
+        "analytics database",
+        "clickhouse vs postgres",
+        "aggregazioni veloci",
+        "database per log",
+        "columnar database",
+        "clickhouse quando usarlo",
+        "batch insert"
+      ],
+      "answers": [
+        "**ClickHouse** è un database colonnare per analytics: memorizza i dati per colonne invece che per righe, li comprime tantissimo e li aggrega con esecuzione vettorizzata. Risultato: un `SELECT count(), avg(...) GROUP BY` su miliardi di righe risponde in secondi dove Postgres arranca in minuti, perché legge solo le colonne che servono. È la scelta giusta per log, metriche, eventi e clickstream – dati scritti in append e interrogati in aggregato: non a caso ci girano sopra Plausible e Sentry. Non è un sostituto di Postgres per il gestionale: niente vere transazioni, e update e delete sono mutation costose pensate come eccezione. La trappola tipica: fare tanti insert piccoli come su un DB OLTP – ClickHouse vuole batch da migliaia di righe, oppure insert asincroni con `async_insert=1`."
+      ],
+      "suggest": [
+        "sqlite-quando-basta",
+        "redis-cache-valkey",
+        "podman-vs-docker-rootless",
+        "postgresql-vs-mysql-mariadb",
+        "cos-e-un-waf-web-application-firewall"
+      ]
+    },
+    {
+      "id": "langchain",
+      "slug": "langchain-orchestrazione-llm",
+      "question": "LangChain: serve davvero un framework per orchestrare gli LLM?",
+      "vertical": "ai",
+      "keywords": [
+        "langchain",
+        "framework llm",
+        "orchestrazione llm",
+        "langchain serve",
+        "langchain alternative",
+        "chiamate api dirette",
+        "agenti llm",
+        "langchain critiche",
+        "rag framework"
+      ],
+      "answers": [
+        "**LangChain** è il framework di orchestrazione LLM più noto: astrae i provider (OpenAI, Anthropic, modelli locali) dietro un'interfaccia unica e fornisce prompt template, tool calling, memoria e centinaia di integrazioni; dalla versione 1.0 del 2025 il cuore è l'astrazione di agente costruita su LangGraph. La critica ricorrente è che i suoi strati invecchiano male: le API dei provider cambiano in fretta, le astrazioni rincorrono, e debuggare una chain significa scavare in codice non tuo. Usalo se ti servono davvero agenti multi-step, molte integrazioni pronte o la libertà di cambiare modello senza riscrivere. Per una pipeline semplice – un prompt, una risposta, magari un po' di RAG – le chiamate dirette all'SDK del provider sono meno codice e meno dipendenze. La trappola: importare l'intero framework per quella che era una `fetch` di dieci righe."
+      ],
+      "suggest": [
+        "hugging-face-hub-modelli",
+        "slopless-analisi-statica-vibecoding",
+        "ricerca-dependency-hallucinations"
+      ]
+    },
+    {
+      "id": "huggingface",
+      "slug": "hugging-face-hub-modelli",
+      "question": "Hugging Face: cos'è e a cosa serve?",
+      "vertical": "ai",
+      "keywords": [
+        "huggingface",
+        "hugging face",
+        "hub modelli",
+        "scaricare modelli llm",
+        "transformers",
+        "hf download",
+        "spaces",
+        "dataset",
+        "modelli open source",
+        "modelli gated"
+      ],
+      "answers": [
+        "**Hugging Face** è l'hub dei modelli open: ci trovi centinaia di migliaia di modelli (LLM, vision, audio), dataset pronti e gli Spaces, demo interattive per provare tutto dal browser. La libreria di casa è transformers, che carica un modello in due righe con `from_pretrained`. Per scaricare in locale usi la CLI: `hf download meta-llama/Llama-3.1-8B-Instruct` (il vecchio nome `huggingface-cli` funziona ancora); per llama.cpp e Ollama cerchi invece le versioni quantizzate GGUF. Occhio a due cose. Primo: open non significa senza vincoli – molti modelli sono gated, devi accettare la licenza sul sito e autenticarti con `hf auth login` prima del download. Secondo, la trappola: scaricare un modello da 70B parametri senza guardare la VRAM – controlla sempre dimensioni e quantizzazione rispetto alla tua GPU."
+      ],
+      "suggest": [
+        "langchain-orchestrazione-llm",
+        "slopless-analisi-statica-vibecoding",
+        "ricerca-dependency-hallucinations"
+      ]
+    },
+    {
+      "id": "podman",
+      "slug": "podman-vs-docker-rootless",
+      "question": "Cos'è Podman e come si usa?",
+      "vertical": "tools",
+      "keywords": [
+        "podman",
+        "docker vs podman",
+        "container rootless",
+        "daemonless",
+        "podman compose",
+        "quadlet",
+        "alias docker podman",
+        "podman socket",
+        "container senza demone",
+        "podman desktop"
+      ],
+      "answers": [
+        "**Podman** è il motore container senza demone: ogni container è un processo figlio dell'utente, rootless di default, niente servizio con privilegi di root sempre acceso. La compatibilità con Docker è quasi totale: stesse immagini OCI, stessi Dockerfile, e `alias docker=podman` copre la gran parte dei comandi; `podman compose` esegue i normali file compose. Conviene quando la priorità è la sicurezza (un container bucato non regala root all'host), su RHEL/Fedora dove è il default, e per l'integrazione con systemd tramite Quadlet, che trasforma i container in servizi dichiarativi. Su desktop, Podman Desktop evita i costi di licenza di Docker Desktop in azienda. La trappola: i tool che si aspettano il socket Docker (Traefik, Portainer, molti stack compose) falliscono in silenzio – attiva il socket compatibile con `systemctl --user enable --now podman.socket` e punta lì."
+      ],
+      "suggest": [
+        "clickhouse-database-colonnare",
+        "sqlite-quando-basta",
+        "redis-cache-valkey",
+        "cos-e-un-waf-web-application-firewall"
       ]
     }
   ],
