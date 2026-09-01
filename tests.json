@@ -2718,5 +2718,13 @@
  {
   "q": "un comando bash qualsiasi",
   "expect": "bash-scripting-base"
+ },
+ {
+  "q": "soluzioni sicurezza",
+  "expect": "st-hub-sicurezza"
+ },
+ {
+  "q": "parlami di sicurezza informatica",
+  "expect": "st-hub-sicurezza"
  }
 ]

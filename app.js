@@ -445,6 +445,9 @@
     };
 
     function tick() {
+      // background tabs throttle timers to ~1/s: render everything at once
+      // instead of crawling - the user returns to a finished answer.
+      if (document.hidden) { i = words.length; buffer = text; }
       const n = 1 + Math.floor(Math.random() * perTick);
       buffer += words.slice(i, i + n).join('');
       i += n;

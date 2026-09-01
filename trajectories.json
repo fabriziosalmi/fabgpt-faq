@@ -1093,5 +1093,23 @@
     "expect": "st-feedback-negativo"
    }
   ]
+ },
+ {
+  "name": "ctx-hub-sicurezza",
+  "context": true,
+  "turns": [
+   {
+    "q": "soluzioni sicurezza",
+    "expect": "st-hub-sicurezza"
+   },
+   {
+    "q": "ddos ?",
+    "expect": "ddos"
+   },
+   {
+    "q": "Cos'è la OWASP Top 10?",
+    "expect": "owasp-top10"
+   }
+  ]
  }
 ]

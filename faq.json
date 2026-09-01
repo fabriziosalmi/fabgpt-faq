@@ -14687,6 +14687,30 @@
       "answers": [
         "Grazie, altrettanto! Io resto acceso: [non costo nulla a stare qui](q/quanto-costa-far-girare-fabgpt-faq/). Passa quando vuoi."
       ]
+    },
+    {
+      "id": "st-hub-sicurezza",
+      "question": "",
+      "keywords": [
+        "sicurezza",
+        "cybersecurity",
+        "sicurezza informatica",
+        "soluzioni sicurezza",
+        "consigli di sicurezza",
+        "migliorare la sicurezza",
+        "parlami di sicurezza",
+        "argomenti di sicurezza",
+        "sicurezza da dove comincio"
+      ],
+      "answers": [
+        "**Sicurezza** è il territorio più grande del labirinto: ~250 risposte. Le porte d'ingresso migliori:\n\n- il percorso guidato [Mettere in sicurezza un server esposto](percorsi/mettere-in-sicurezza-un-server/) – 12 tappe operative in ordine di impatto\n- le basi: [hardening](q/hardening-server-linux/), [chiavi SSH](q/come-funzionano-le-chiavi-ssh/), [backup 3-2-1](q/backup-3-2-1/), [firewall default-deny](q/configurare-firewall-host-default-deny-nftables-ufw/)\n- le normative: [NIS2](q/nis2-chi-deve-adeguarsi-italia/), GDPR, AI Act\n- i tool: [check password compromessa](tools/password-compromessa/), [le porte una per una](porta/)\n\nOppure dimmi il problema concreto – \"devo esporre un servizio\", \"ho un IP bannato\", \"il certificato è scaduto\" – e parto da lì."
+      ],
+      "suggest": [
+        "hardening-server-linux",
+        "cos-e-un-waf-web-application-firewall",
+        "backup-3-2-1",
+        "mettere-in-sicurezza-ssh"
+      ]
     }
   ]
 }
