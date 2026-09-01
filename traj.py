@@ -74,15 +74,20 @@ class Runtime:
             self.last = None
             return None, self.db["fallbacks"][self.fb]
         n = len(entry["answers"])
+        seen = entry["id"] in self.cursor           # already answered in this session
         idx = self.cursor.get(entry["id"], 0)
-        if entry["id"] == self.last and n > 1:
-            idx = (idx + 1) % n
+        if seen and n > 1:
+            idx = (idx + 1) % n                     # re-asked (anywhere) -> next variant
         self.cursor[entry["id"]] = idx
         self.last = entry["id"]
         if entry.get("slug"):
             self.asked.add(entry["slug"])
             self.ctx = entry
-        return entry, entry["answers"][idx % n]
+        ans = entry["answers"][idx % n]
+        # single-answer KB entry asked again: acknowledge instead of parroting
+        if seen and n == 1 and entry.get("slug"):
+            ans = "*Te l'avevo già raccontata – eccola di nuovo:*\n\n" + ans
+        return entry, ans
 
 
 def main():

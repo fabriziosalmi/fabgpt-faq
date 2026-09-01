@@ -462,11 +462,17 @@
 
   function pickAnswer(entry) {
     const n = entry.answers.length;
+    const seen = entry.id in answerCursor;          // already answered in this session
     let idx = answerCursor[entry.id] ?? 0;
-    if (entry.id === lastEntryId && n > 1) idx = (idx + 1) % n; // repeated question -> next variant
+    if (seen && n > 1) idx = (idx + 1) % n;         // re-asked (anywhere) -> next variant
     answerCursor[entry.id] = idx;
     lastEntryId = entry.id;
-    return entry.answers[idx % n];
+    let text = entry.answers[idx % n];
+    // single-answer KB entry asked again: acknowledge instead of parroting
+    if (seen && n === 1 && entry.slug) {
+      text = "*Te l'avevo già raccontata – eccola di nuovo:*\n\n" + text;
+    }
+    return text;
   }
 
   let fallbackIdx = -1;

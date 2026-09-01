@@ -1047,5 +1047,29 @@
     "expect": "chi-sei"
    }
   ]
+ },
+ {
+  "name": "ctx-riproposta-non-adiacente",
+  "context": true,
+  "turns": [
+   {
+    "q": "Come si fa autoscaling di VM e container LXC su Proxmox?",
+    "expect": "proxmox-autoscale"
+   },
+   {
+    "q": "Come si scalano automaticamente i container LXC su Proxmox?",
+    "expect": "proxmox-lxc-autoscale"
+   },
+   {
+    "q": "Come si fa autoscaling di VM e container LXC su Proxmox?",
+    "expect": "proxmox-autoscale",
+    "variant": true
+   },
+   {
+    "q": "Come si scalano automaticamente i container LXC su Proxmox?",
+    "expect": "proxmox-lxc-autoscale",
+    "variant": true
+   }
+  ]
  }
 ]
