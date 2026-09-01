@@ -2,6 +2,7 @@
 <html lang="it">
 <head>
 <meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-RkIMW9i80CKNIh72JXtGHuEpZJn/SHK4z7CweM4w7/c='; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self' https://cloudflare-dns.com https://dns.google; base-uri 'none'; form-action 'self'; object-src 'none'; upgrade-insecure-requests">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Lookup DNS live – FabGPT-FAQ</title>
 <meta name="description" content="Interroga in parallelo i resolver DoH di Cloudflare e Google e confronta le risposte: il test di propagazione in un click.">
@@ -141,8 +142,8 @@
       var res = await Promise.all([ask('Cloudflare', name, type), ask('Google', name, type)]);
       var same = values(res[0]) === values(res[1]);
       var badge = same
-        ? '<p class="dns-ok">✓ I due resolver rispondono allo stesso modo.</p>'
-        : '<p class="dns-diff">⚠️ Risposte diverse: propagazione in corso, oppure split DNS / geo-DNS.</p>';
+        ? '<p class="dns-ok">I due resolver rispondono allo stesso modo.</p>'
+        : '<p class="dns-diff">Risposte diverse: propagazione in corso, oppure split DNS / geo-DNS.</p>';
       out.innerHTML = badge + block('Cloudflare (1.1.1.1)', res[0]) + block('Google (8.8.8.8)', res[1]);
     } catch (e) {
       out.innerHTML = '<p>Impossibile interrogare i resolver (' + esc(e.message) + '). Sei offline, o un firewall blocca il DoH.</p>';

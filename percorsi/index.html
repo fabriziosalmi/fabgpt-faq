@@ -2,6 +2,7 @@
 <html lang="it">
 <head>
 <meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-U4sxs92nN+Eh4Mh80OjU5ek83wWZ6Z/WLFXhN8fJlEs='; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; base-uri 'none'; form-action 'self'; object-src 'none'; upgrade-insecure-requests">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Percorsi guidati – FabGPT-FAQ</title>
 <meta name="description" content="Le guide di FabGPT-FAQ in sequenza: diventare sysadmin, mettere in sicurezza un server, self-hosting da zero.">
@@ -82,7 +83,7 @@
     if (!n) return;
     var tot = +card.getAttribute('data-steps');
     var el = card.querySelector('.path-prog');
-    el.textContent = n >= tot ? '✓ Completato' : n + '/' + tot + ' tappe completate';
+    el.textContent = n >= tot ? 'Completato' : n + '/' + tot + ' tappe completate';
     el.hidden = false;
   });
 })();

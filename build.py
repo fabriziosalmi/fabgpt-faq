@@ -749,7 +749,7 @@ def build_paths(db, entries, site) -> list:
     if (!n) return;
     var tot = +card.getAttribute('data-steps');
     var el = card.querySelector('.path-prog');
-    el.textContent = n >= tot ? '✓ Completato' : n + '/' + tot + ' tappe completate';
+    el.textContent = n >= tot ? 'Completato' : n + '/' + tot + ' tappe completate';
     el.hidden = false;
   });
 })();
@@ -873,8 +873,8 @@ TOOLS = [
       var res = await Promise.all([ask('Cloudflare', name, type), ask('Google', name, type)]);
       var same = values(res[0]) === values(res[1]);
       var badge = same
-        ? '<p class="dns-ok">✓ I due resolver rispondono allo stesso modo.</p>'
-        : '<p class="dns-diff">⚠️ Risposte diverse: propagazione in corso, oppure split DNS / geo-DNS.</p>';
+        ? '<p class="dns-ok">I due resolver rispondono allo stesso modo.</p>'
+        : '<p class="dns-diff">Risposte diverse: propagazione in corso, oppure split DNS / geo-DNS.</p>';
       out.innerHTML = badge + block('Cloudflare (1.1.1.1)', res[0]) + block('Google (8.8.8.8)', res[1]);
     } catch (e) {
       out.innerHTML = '<p>Impossibile interrogare i resolver (' + esc(e.message) + '). Sei offline, o un firewall blocca il DoH.</p>';
@@ -922,11 +922,11 @@ TOOLS = [
         return false;
       });
       if (count > 0) {
-        out.innerHTML = '<p class="dns-diff">⚠️ <b>Compromessa</b>: questa password compare <b>' + count.toLocaleString('it-IT') +
+        out.innerHTML = '<p class="dns-diff"><b>Compromessa</b>: questa password compare <b>' + count.toLocaleString('it-IT') +
           '</b> volte nei data breach noti. Va cambiata OVUNQUE tu la usi, subito – e mai più riusata.</p>' +
           '<p>Il passo giusto: una password unica per servizio dentro un password manager, e MFA dove possibile.</p>';
       } else {
-        out.innerHTML = '<p class="dns-ok">✓ Non presente nei breach noti a Have I Been Pwned.</p>' +
+        out.innerHTML = '<p class="dns-ok">Non presente nei breach noti a Have I Been Pwned.</p>' +
           '<p>Non significa "sicura per sempre": significa solo che non è ancora in una lista pubblica. Le regole non cambiano: unica per servizio, lunga, in un password manager.</p>';
       }
     } catch (e) {
@@ -1472,6 +1472,53 @@ document.addEventListener('click', function (e) {{
     return urls
 
 
+def inject_csp() -> None:
+    """Per-page Content-Security-Policy via meta tag (AGSSH Tier B: GitHub
+    Pages cannot set response headers). default-src 'none'; each inline
+    <script> block is allowed by its sha256 hash, so scripts never need
+    'unsafe-inline'; style-src keeps 'unsafe-inline' (thousands of generated
+    style attributes - a class-based refactor is future work). The two live
+    tools declare their exact upstream origins in connect-src; JSON-LD data
+    blocks are non-executable and need no hash. Idempotent: any existing CSP
+    meta is rebuilt from the page's current scripts."""
+    import base64
+    import hashlib
+    script_re = re.compile(r"<script>([\s\S]*?)</script>")
+    meta_re = re.compile(r'\n?<meta http-equiv="Content-Security-Policy"[^>]*>')
+    extra_connect = {
+        (ROOT / "tools" / "dns-lookup" / "index.html"):
+            " https://cloudflare-dns.com https://dns.google",
+        (ROOT / "tools" / "password-compromessa" / "index.html"):
+            " https://api.pwnedpasswords.com",
+    }
+    targets = [ROOT / "index.html", ROOT / "404.html"]
+    for sub in ("q", "percorsi", "tools", "porta", "comandi", "trasparenza"):
+        targets += sorted((ROOT / sub).rglob("index.html"))
+    for f in targets:
+        if not f.exists():
+            continue
+        html_text = meta_re.sub("", f.read_text(encoding="utf-8"))
+        hashes = "".join(
+            " 'sha256-" + base64.b64encode(hashlib.sha256(m.group(1).encode()).digest()).decode() + "'"
+            for m in script_re.finditer(html_text)
+        )
+        csp = (
+            "default-src 'none'; "
+            f"script-src 'self'{hashes}; "
+            "style-src 'self' 'unsafe-inline'; "
+            "img-src 'self' data:; "
+            f"connect-src 'self'{extra_connect.get(f, '')}; "
+            "base-uri 'none'; form-action 'self'; object-src 'none'; "
+            "upgrade-insecure-requests"
+        )
+        html_text = html_text.replace(
+            '<meta charset="UTF-8">',
+            f'<meta charset="UTF-8">\n<meta http-equiv="Content-Security-Policy" content="{csp}">',
+            1,
+        )
+        f.write_text(html_text, encoding="utf-8")
+
+
 def stamp_assets() -> str:
     """Version every style.css/app.js/tools.js reference with a content hash,
     so a deploy can never serve fresh HTML with a stale cached asset."""
@@ -1844,8 +1891,9 @@ def build() -> None:
 """
     (ROOT / "404.html").write_text(notfound, encoding="utf-8")
 
+    inject_csp()
     stamped = stamp_assets()
-    print(f"Built {len(entries)} pages + {len(paths_meta)} percorsi + index + sitemap ({len(urls)} URLs) + llms.txt + llms-full.txt + 404. Assets v: {stamped}")
+    print(f"Built {len(entries)} pages + {len(paths_meta)} percorsi + index + sitemap ({len(urls)} URLs) + llms.txt + llms-full.txt + 404 + CSP. Assets v: {stamped}")
 
 
 if __name__ == "__main__":
