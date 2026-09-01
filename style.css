@@ -1,6 +1,7 @@
 /* FabGPT – ChatGPT-like styling, light/dark via prefers-color-scheme. */
 
 :root {
+  color-scheme: light dark;
   --bg: #ffffff;
   --bg-soft: #f4f4f5;
   --text: #1a1a1e;
@@ -356,6 +357,9 @@ body {
 .ctxcrumb-ic svg { width: 14px; height: 14px; }
 .ctxcrumb span:last-child { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .ctxcrumb:hover { color: var(--link); }
+
+/* flex-column body: pages must be allowed to shrink below their pre's max-content */
+main.page { width: 100%; min-width: 0; }
 
 /* native feel: no tap flash, no double-tap zoom, visible keyboard focus */
 html { -webkit-tap-highlight-color: transparent; }
