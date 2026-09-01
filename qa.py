@@ -282,6 +282,8 @@ def fastpath(text, ports=None):
     m = re.search(r"\b(1[4-9]\d{8}|2[0-2]\d{8})(\d{3})?\b", t)
     if m and (re.search(r"\b(timestamp|epoch|unix)\b", t, re.I) or t == m.group(0)):
         return ("epoch", "epoch:" + m.group(0))
+    if re.search(r"\b(che\s+or[ae]\s+(sono|e|è)|dimmi\s+l'?ora|che\s+giorno\s+(e|è)(\s+oggi)?|data\s+di\s+oggi|oggi\s+che\s+giorno|in\s+che\s+anno\s+siamo|quanti\s+ne\s+abbiamo\s+oggi)\b", t, re.I):
+        return ("datetime", "datetime:now")
     at = re.sub(r"^(quanto\s+fa|quant'?\s*e'?|calcola(?:mi)?|sai\s+fare|sai\s+calcolare|dimmi\s+quanto\s+fa)\s*", "", t, flags=re.I)
     at = re.sub(r"[?=\s]+$", "", at)
     if re.match(r"^[\d\s+\-*/().,%^]+$", at) and re.search(r"\d", at) and re.search(r"(?!^)[+*/%^]|(?!^)-", at):
@@ -292,6 +294,7 @@ def fastpath(text, ports=None):
 
 
 CMD_MIN = 2.0         # a command card must reach this score AND strictly beat the KB
+GROUND_MIN = 2.0      # same contract for the ground-truth layer (ground.json)
 
 
 def command_md(card):
@@ -313,7 +316,7 @@ def command_entry(card):
     }
 
 
-def match(db, text, ctx=None, commands=None):
+def match(db, text, ctx=None, commands=None, ground=None):
     """ctx = the previously matched KB entry (or None). Mirrors app.js:
     a weak direct match is retried with the previous entry's tokens added,
     but a contextual candidate counts only if the NEW input contributed
@@ -353,6 +356,14 @@ def match(db, text, ctx=None, commands=None):
                     b2, s2 = command_entry(card), comb
             if b2 is not None and s2 > best_score:
                 return b2, s2
+    # Ground-truth candidate (ground.json): scored here so the card rescue
+    # below can be required to beat it too (a bare tool-name rescue must not
+    # shadow a classic question the ground layer answers properly).
+    bg, sg = None, 0.0
+    for g in (ground or []):
+        s = score_entry(g, input_norm, input_tokens)
+        if s > sg:
+            sg, bg = s, g
     if commands:
         bc, sc = None, 0.0
         for card in commands:
@@ -360,12 +371,25 @@ def match(db, text, ctx=None, commands=None):
             if s > sc:
                 sc, bc = s, card
         # a card answers when it clearly wins, OR as a rescue when the KB
-        # has nothing at all (bare tool names: hadolint, composerize...)
+        # has nothing at all (bare tool names: hadolint, composerize...) -
+        # but the rescue must also beat the ground-truth candidate
         if bc is not None and sc > best_score and (
-                sc >= CMD_MIN or (sc >= 1.0 and best_score < db["config"]["matchThreshold"])):
+                sc >= CMD_MIN or (sc >= 1.0 and sc > sg
+                                  and best_score < db["config"]["matchThreshold"])):
             return command_entry(bc), sc
-    if best and best_score >= db["config"]["matchThreshold"]:
-        return best, best_score
+    # Ground-truth layer: same contract as the cards - it answers only if it
+    # reaches GROUND_MIN and STRICTLY beats the KB score (or the KB result is
+    # an encyclopedic deflector), plus the same bare-entity rescue when the
+    # KB has nothing at all. Mirrors app.js; the whole gate suite runs with
+    # ground loaded to prove no-steal.
+    kb = best if (best and best_score >= db["config"]["matchThreshold"]) else None
+    if bg is not None:
+        deflector = kb is not None and kb["id"] in ("st-cultura-generale", "st-matematica")
+        if (sg >= GROUND_MIN and (kb is None or sg > best_score or deflector)) or \
+                (sg >= 1.0 and kb is None):
+            return bg, sg
+    if kb is not None:
+        return kb, best_score
     return None, best_score
 
 
@@ -386,13 +410,22 @@ def explain_query(db, text):
             print(line)
 
 
+def load_ground(root=None):
+    """The optional ground-truth layer (ground.json); [] when absent."""
+    try:
+        return json.load(open(f"{root or ROOT}/ground.json"))["entries"]
+    except FileNotFoundError:
+        return []
+
+
 def run_tests(db):
     tests = json.load(open(f"{ROOT}/tests.json"))
+    ground = load_ground()
     ids = {e["id"] for e in pool(db)}
     bad_refs = [t for t in tests if t["expect"] is not None and t["expect"] not in ids]
     failures = []
     for t in tests:
-        got, score = match(db, t["q"])
+        got, score = match(db, t["q"], ground=ground)
         got_id = got["id"] if got else None
         if got_id != t["expect"]:
             failures.append((t["q"], t["expect"], got_id, score))

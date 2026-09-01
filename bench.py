@@ -24,9 +24,10 @@ import hashlib
 import json
 import sys
 
-from qa import match, norm, pool, score_entry, tokens
+from qa import load_ground, match, norm, pool, score_entry, tokens
 
 ROOT = __file__.rsplit("/", 1)[0]
+GROUND = load_ground(ROOT)
 VERBOSE = "-v" in sys.argv
 
 # canonical question -> additionally accepted entry ids (adjudicated)
@@ -160,7 +161,7 @@ def main():
     # ---- G2: canonical questions --------------------------------------
     fails, fragile = [], []
     for e in entries:
-        got, _ = match(db, e["question"])
+        got, _ = match(db, e["question"], ground=GROUND)
         got_id = got["id"] if got else None
         accepted = {e["id"]} | ACCEPT.get(e["id"], set())
         if got_id not in accepted:
@@ -180,7 +181,7 @@ def main():
         if not v:
             continue
         t_total += 1
-        got, _ = match(db, v)
+        got, _ = match(db, v, ground=GROUND)
         got_id = got["id"] if got else None
         if got_id in {e["id"]} | ACCEPT.get(e["id"], set()):
             t_pass += 1
@@ -195,7 +196,7 @@ def main():
     tests = json.load(open(f"{ROOT}/tests.json"))
     b_fails = []
     for t in tests:
-        got, _ = match(db, t["q"])
+        got, _ = match(db, t["q"], ground=GROUND)
         got_id = got["id"] if got else None
         if got_id != t["expect"]:
             b_fails.append((t["q"], t["expect"], got_id))
@@ -207,7 +208,7 @@ def main():
     kb_ids = {e["id"] for e in entries}
     n_fails = []
     for q in NEGATIVES:
-        got, score = match(db, q)
+        got, score = match(db, q, ground=GROUND)
         if got and got["id"] in kb_ids:
             n_fails.append((q, got["id"], score))
     for q, got, score in n_fails:

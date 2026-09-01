@@ -29,7 +29,7 @@ Gates:
 import json
 import sys
 
-from qa import match, pool, fastpath
+from qa import match, pool, fastpath, load_ground
 
 ROOT = __file__.rsplit("/", 1)[0]
 VERBOSE = "-v" in sys.argv
@@ -47,10 +47,11 @@ def gate(name, passed, total, required, unit="%"):
 # ---- app.js runtime mirror (variant + fallback rotation, chip history) ----
 
 class Runtime:
-    def __init__(self, db, commands=None, ports=None):
+    def __init__(self, db, commands=None, ports=None, ground=None):
         self.db = db
         self.commands = commands or []
         self.ports = ports or {}
+        self.ground = ground or []
         self.cursor = {}
         self.last = None
         self.fb = -1
@@ -65,7 +66,7 @@ class Runtime:
             kind, signature = fp
             return {"id": "fp/" + kind, "question": text, "answers": [signature],
                     "suggest": [], "kind": "fastpath"}, signature
-        entry, _ = match(self.db, text, self.ctx, self.commands)
+        entry, _ = match(self.db, text, self.ctx, self.commands, self.ground)
         # "approfondisci" on an active thread serves the next variant of the
         # last KB entry instead of the generic smalltalk reply (mirrors app.js).
         if (entry is not None and entry["id"] == "st-approfondisci"
@@ -93,13 +94,13 @@ class Runtime:
         self.cursor[entry["id"]] = idx
         self.served[entry["id"]] = self.served.get(entry["id"], 0) + 1
         self.last = entry["id"]
-        if entry.get("slug") or entry.get("kind") == "command":
+        if entry.get("slug") or entry.get("kind") in ("command", "ground"):
             if entry.get("slug"):
                 self.asked.add(entry["slug"])
-            self.ctx = entry                        # cards carry context too
+            self.ctx = entry                        # cards and ground carry context too
         ans = entry["answers"][idx % n]
         # variants exhausted (or single answer): acknowledge instead of parroting
-        if seen and self.served[entry["id"]] > n and (entry.get("slug") or entry.get("kind") == "command"):
+        if seen and self.served[entry["id"]] > n and (entry.get("slug") or entry.get("kind") in ("command", "ground")):
             ans = "*Te l'avevo già raccontata – eccola di nuovo:*\n\n" + ans
         return entry, ans
 
@@ -114,6 +115,7 @@ def main():
         ports = json.load(open(f"{ROOT}/ports.json"))["ports"]
     except FileNotFoundError:
         ports = {}
+    ground = load_ground(ROOT)
     entries = db["entries"]
     by_slug = {e["slug"]: e for e in entries}
     all_ok = True
@@ -186,7 +188,7 @@ def main():
     def run_sessions(label, batch):
         turns = fails = 0
         for sess in batch:
-            rt = Runtime(db, commands, ports)
+            rt = Runtime(db, commands, ports, ground)
             prev_ans = {}   # entry id -> last answer text seen (for variant checks)
             prev_fb = None
             for t in sess["turns"]:

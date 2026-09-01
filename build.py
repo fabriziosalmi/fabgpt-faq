@@ -1494,6 +1494,10 @@ def build() -> None:
     db = json.loads((ROOT / "faq.json").read_text(encoding="utf-8"))
     site = db["config"]["siteUrl"].rstrip("/")
     entries = db["entries"]
+    # '{n}' in any answer resolves to the live entry count (mirrors app.js):
+    # no hardcoded numbers that drift stale as the knowledge base grows
+    for e in entries:
+        e["answers"] = [a.replace("{n}", str(len(entries))) for a in e["answers"]]
     verticals = {v["id"]: v["label"] for v in db.get("verticals", [])}
     dpath = ROOT / "diagrams.json"
     diagrams = json.loads(dpath.read_text(encoding="utf-8")) if dpath.exists() else {}

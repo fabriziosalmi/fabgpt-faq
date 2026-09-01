@@ -14,9 +14,10 @@ Run: python3 cmdcheck.py
 import json
 import sys
 
-from qa import match, norm
+from qa import match, norm, load_ground
 
 ROOT = __file__.rsplit("/", 1)[0]
+GROUND = load_ground(ROOT)
 
 
 def gate(name, passed, total):
@@ -62,7 +63,7 @@ def main():
     # ---- C2 no-steal ----
     steals = 0
     for e in db["entries"]:
-        got, _ = match(db, e["question"], None, cards)
+        got, _ = match(db, e["question"], None, cards, GROUND)
         if got is None or got["id"] != e["id"]:
             steals += 1
             if steals <= 10:
@@ -77,7 +78,7 @@ def main():
     if missing:
         print(f"  C3: {len(missing)} cards without a test: {', '.join(missing[:8])}…")
     for t in tests:
-        got, score = match(db, t["q"], None, cards)
+        got, score = match(db, t["q"], None, cards, GROUND)
         got_id = got["id"] if got else "fallback"
         if got_id != t["expect"]:
             fails += 1
@@ -95,7 +96,7 @@ def main():
     by_card_id = {"cmd/" + c["id"]: c for c in cards}
     bfails = refined = 0
     for t in qtests:
-        got, score = match(db, t["q"], None, cards)
+        got, score = match(db, t["q"], None, cards, GROUND)
         got_id = got["id"] if got else None
         if got_id == t["expect"]:
             continue

@@ -28,6 +28,7 @@ import json
 import sys
 
 from traj import Runtime
+from qa import load_ground
 
 ROOT = __file__.rsplit("/", 1)[0]
 VERBOSE = "-v" in sys.argv
@@ -49,6 +50,7 @@ def main():
     db = json.load(open(f"{ROOT}/faq.json"))
     commands = json.load(open(f"{ROOT}/commands.json"))["cards"]
     ports = json.load(open(f"{ROOT}/ports.json"))["ports"]
+    ground = load_ground(ROOT)
     sessions = json.load(open(f"{ROOT}/convos.json"))
     by_slug = {e["slug"]: e for e in db["entries"]}
     all_ok = True
@@ -78,7 +80,7 @@ def main():
               "fallback": 0, "variant": 0, "ctx": 0}
 
     for sess in sessions:
-        rt = Runtime(db, commands, ports)
+        rt = Runtime(db, commands, ports, ground)
         served = set()      # M3: exact bot texts already used in this session
         prev_fb = None
         prev_ans = {}

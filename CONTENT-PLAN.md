@@ -39,6 +39,19 @@ Quality loop (autonomous iteration):
   precedente, M5 ogni turno KB/card offre almeno un chip non visitato,
   M6 copertura dei layer (fast-path>=4 su >=2 kind, card>=5, smalltalk>=5,
   hub>=1, fallback>=4, varianti>=4, turni contestuali>=4). 100% richiesto.
+- `python3 groundcheck.py` – gate T9: the ground-truth layer (ground.json),
+  the classic day-one questions people throw at an "AI" to test it. Chat-only
+  (no pages, no sitemap) and strictly pre-fallback: match() consults it only
+  when KB+smalltalk would produce nothing or an encyclopedic deflector, so it
+  can never steal a vertical. N1 integrity, N2 canonical routing through the
+  FULL pipeline 100%. No-steal is proven by the OTHER gates: they all load
+  ground.json with unchanged expectations.
+
+Claims policy (2026-09-01): no hardcoded numbers that drift. Live-derivable
+counts use the `{n}` template (resolved to the entry count by app.js and
+build.py); external metrics (GitHub stars, provider counts, scan findings)
+are stated qualitatively ("decine di", "centinaia di") or not at all. The
+only numbers allowed in answers are timeless facts.
 
 Conversational layer: `faq.json` has a `smalltalk` array (22 intents – greetings,
 thanks, capabilities, out-of-domain tasks, emotional turns…) grounded in the

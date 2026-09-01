@@ -85,5 +85,13 @@ ok(T.detect('un comando bash qualsiasi') === null, 'prose is not arith');
 ok(T.detect('42') === null, 'bare number not arith');
 ok(T.detect('1609459200').kind === 'epoch', 'epoch still wins');
 
+/* date/time */
+ok(T.detect('che ore sono?').kind === 'datetime', 'detect che ore sono');
+ok(T.detect('che giorno è oggi?').kind === 'datetime', 'detect che giorno e oggi');
+ok(T.detect('in che anno siamo?').kind === 'datetime', 'detect in che anno siamo');
+ok(T.detect('dimmi l\'ora').kind === 'datetime', 'detect dimmi l ora');
+ok(T.detect('a che ora parte il backup?') === null, 'a che ora <cosa> is not datetime');
+ok(T.datetimeMd().includes('Timestamp Unix'), 'datetimeMd carries the epoch');
+
 console.log(`${fail === 0 ? 'PASS' : 'FAIL'}  T6 tools: ${pass}/${pass + fail}`);
 process.exit(fail === 0 ? 0 : 1);

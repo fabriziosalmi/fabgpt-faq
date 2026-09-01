@@ -291,6 +291,16 @@
 
   /* ---------- fast-path detector ---------- */
 
+  function datetimeMd() {
+    var now = new Date();
+    var giorno = now.toLocaleDateString('it-IT', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+    var ora = now.toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' });
+    var epoch = Math.floor(now.getTime() / 1000);
+    return 'Sono le **' + ora + '** di **' + giorno + '** (fuso del tuo dispositivo).\n\n' +
+      'Timestamp Unix corrente: `' + epoch + '`\n\n' +
+      "L'orologio è quello del tuo browser: non lo sto indovinando, lo sto leggendo – è la differenza tra me e un LLM.";
+  }
+
   function detect(text, opts) {
     opts = opts || {};
     var t = String(text).trim();
@@ -344,6 +354,12 @@
       if (ee) return { kind: 'epoch', answer: ee, suggest: opts.epochSuggest || [], label: 'Timestamp ' + em[0] };
     }
 
+    // date/time ("che ore sono?", "che giorno è oggi?"): computed from the
+    // visitor's own clock - deterministic, and more honest than any LLM guess
+    if (/\b(che\s+or[ae]\s+(sono|e|è)|dimmi\s+l'?ora|che\s+giorno\s+(e|è)(\s+oggi)?|data\s+di\s+oggi|oggi\s+che\s+giorno|in\s+che\s+anno\s+siamo|quanti\s+ne\s+abbiamo\s+oggi)\b/i.test(t)) {
+      return { kind: 'datetime', answer: datetimeMd(), suggest: opts.datetimeSuggest || [], label: 'Data e ora' };
+    }
+
     // plain arithmetic ("1+1?", "quanto fa 12*34?"): last, so cron/CIDR win first
     var at = t.replace(/^(quanto\s+fa|quant'?\s*e'?|calcola(?:mi)?|sai\s+fare|sai\s+calcolare|dimmi\s+quanto\s+fa)\s*/i, '').replace(/[?=\s]+$/, '');
     if (/^[\d\s+\-*/().,%^]+$/.test(at) && /\d/.test(at) && /(?!^)[+*/%^]|(?!^)-/.test(at)) {
@@ -360,5 +376,6 @@
     parseIp: parseIp, fmtIp: fmtIp, subnetInfo: subnetInfo, subnetMd: subnetMd,
     explainCron: explainCron, explainChmod: explainChmod, decodeJwt: decodeJwt,
     explainEpoch: explainEpoch, portMd: portMd, evalArith: evalArith, detect: detect,
+    datetimeMd: datetimeMd,
   };
 });

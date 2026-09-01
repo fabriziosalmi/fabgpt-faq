@@ -224,7 +224,7 @@
    },
    {
     "q": "che ore sono?",
-    "expect": "st-meteo-ora"
+    "expect": "fp/datetime"
    },
    {
     "q": "boh xyzzy frull",

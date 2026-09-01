@@ -13,8 +13,10 @@
   let DB = null;
   let DIAGRAMS = {};                         // entry id -> inline SVG
   let PORTS = {};                            // well-known ports dataset (ports.json)
-  let COMMANDS = [];                         // command cards (commands.json)
+  let COMMANDS = [];
+  let GROUND = [];                           // ground-truth layer (ground.json)                         // command cards (commands.json)
   const CMD_MIN = 2.0;                       // a card must reach this AND strictly beat the KB
+  const GROUND_MIN = 2.0;                    // same contract for the ground-truth layer
   let streaming = false;
   const answerCursor = Object.create(null); // entry id -> next variant index
   let lastEntryId = null;
@@ -189,6 +191,14 @@
     // Command cards (commands.json): operational one-liners. A card wins only
     // if it reaches CMD_MIN and STRICTLY beats the KB score (ties favor the KB),
     // so canonical questions keep routing to their entries. Mirrored in qa.py.
+    // Ground-truth candidate (ground.json): scored here so the card rescue
+    // below can be required to beat it too (a bare tool-name rescue must not
+    // shadow a classic question the ground layer answers properly).
+    let bg = null, sg = 0;
+    for (const g of GROUND) {
+      const s = scoreEntry(g, inputNorm, inputTokens);
+      if (s > sg) { sg = s; bg = g; }
+    }
     if (COMMANDS.length) {
       let bc = null, sc = 0;
       for (const card of COMMANDS) {
@@ -196,14 +206,25 @@
         if (s > sc) { sc = s; bc = card; }
       }
       // a card answers when it clearly wins, OR as a rescue when the KB has
-      // nothing at all (bare tool names: hadolint, composerize...)
+      // nothing at all (bare tool names: hadolint, composerize...) - but the
+      // rescue must also beat the ground-truth candidate
       if (bc && sc > bestScore &&
-          (sc >= CMD_MIN || (sc >= 1 && bestScore < DB.config.matchThreshold))) {
+          (sc >= CMD_MIN || (sc >= 1 && sc > sg && bestScore < DB.config.matchThreshold))) {
         return cardEntry(bc);
       }
     }
-    if (best && bestScore >= DB.config.matchThreshold) return best;
-    return null;
+    // Ground-truth layer: the classic questions everyone asks an "AI" on day
+    // one. Same contract as the cards: it answers only if it reaches
+    // GROUND_MIN AND strictly beats the KB score (or the KB result is an
+    // encyclopedic deflector), plus the same bare-entity rescue when the KB
+    // has nothing at all. The gate suite runs with ground loaded: no-steal.
+    const kb = (best && bestScore >= DB.config.matchThreshold) ? best : null;
+    if (bg) {
+      const deflector = kb && (kb.id === 'st-cultura-generale' || kb.id === 'st-matematica');
+      if ((sg >= GROUND_MIN && (!kb || sg > bestScore || deflector)) ||
+          (sg >= 1 && !kb)) return bg;
+    }
+    return kb;
   }
 
   /* ---------- minimal markdown rendering (escape first, then decorate) ---------- */
@@ -421,6 +442,9 @@
   }
 
   function streamAnswer(text, onDone, suggest, diagramId, questionText) {
+    // '{n}' in any bot text resolves to the live entry count: no hardcoded
+    // numbers that drift stale as the knowledge base grows
+    text = String(text).replace(/\{n\}/g, DB && DB.entries ? DB.entries.length : '');
     streaming = true;
     updateSendState();
     const target = addBotRow();
@@ -514,7 +538,7 @@
     lastEntryId = entry.id;
     let text = entry.answers[idx % n];
     // variants exhausted (or single answer): acknowledge instead of parroting
-    if (seen && servedCount[entry.id] > n && (entry.slug || entry.kind === 'command')) {
+    if (seen && servedCount[entry.id] > n && (entry.slug || entry.kind === 'command' || entry.kind === 'ground')) {
       text = "*Te l'avevo già raccontata – eccola di nuovo:*\n\n" + text;
     }
     return text;
@@ -536,6 +560,7 @@
     chmod: ['permessi-linux-chmod-chown-umask', 'utenti-gruppi-e-sudo-su-linux', 'come-funzionano-le-chiavi-ssh'],
     jwt: ['oauth2-proxy-autenticazione-davanti-ai-servizi', 'vulnerabilita-nei-redirect-oauth', 'come-gestire-i-secrets'],
     epoch: ['dove-sono-i-log-su-linux', 'cron-la-sintassi-spiegata', 'security-logging-fatto-bene'],
+    datetime: ['cron-la-sintassi-spiegata', 'dove-sono-i-log-su-linux', 'gestire-servizi-linux-con-systemctl'],
   };
 
   function tryFastPath(text) {
@@ -544,7 +569,7 @@
       ports: PORTS,
       subnetSuggest: TOOL_SUGGEST.subnet, cronSuggest: TOOL_SUGGEST.cron,
       chmodSuggest: TOOL_SUGGEST.chmod, jwtSuggest: TOOL_SUGGEST.jwt,
-      epochSuggest: TOOL_SUGGEST.epoch,
+      epochSuggest: TOOL_SUGGEST.epoch, datetimeSuggest: TOOL_SUGGEST.datetime,
     });
     return hit || null;
   }
@@ -577,12 +602,17 @@
     // a fallback must never be a dead end: offer the starter hubs to restart
     const fallbackChips = entry ? null : (DB.config.suggest || []);
     const qLabel = entry ? (entry.question || text) : text;
-    if (entry && (entry.slug || entry.kind === 'command')) {
+    if (entry && (entry.slug || entry.kind === 'command' || entry.kind === 'ground')) {
       if (entry.slug) askedSlugs.add(entry.slug);
-      ctxEntry = entry;                             // cards carry context too
+      ctxEntry = entry;                             // cards and ground carry context too
     }
     crumbForEntry(entry);
-    streamAnswer(answer, null, entry ? entry.suggest : fallbackChips, entry && entry.id, qLabel);
+    // a ground answer with no suggestions of its own bridges back to the hubs
+    const chips = entry
+      ? ((entry.suggest && entry.suggest.length) ? entry.suggest
+         : (entry.kind === 'ground' ? (DB.config.suggest || []) : entry.suggest))
+      : fallbackChips;
+    streamAnswer(answer, null, chips, entry && entry.id, qLabel);
   }
 
   /* ---------- composer ---------- */
@@ -798,6 +828,8 @@
       catch (_) { PORTS = {}; } // port dataset is optional
       try { COMMANDS = (await (await fetch('commands.json', { cache: 'no-cache' })).json()).cards; }
       catch (_) { COMMANDS = []; } // command cards are optional
+      try { GROUND = (await (await fetch('ground.json', { cache: 'no-cache' })).json()).entries; }
+      catch (_) { GROUND = []; } // ground-truth layer is optional
       // Self-heal a stale cached index.html that predates the tools.js tag.
       if (typeof FabTools === 'undefined') {
         const s = document.createElement('script');

@@ -2,7 +2,7 @@
   "config": {
     "botName": "FabGPT-FAQ",
     "siteUrl": "https://fabriziosalmi.github.io/fabgpt-faq",
-    "welcome": "**585 risposte tecniche verificate** su Cybersecurity, AI & LLM, Proxmox e Cloudflare. Zero allucinazioni, architetture e comandi operativi.",
+    "welcome": "**{n} risposte tecniche verificate** su Cybersecurity, AI & LLM, Proxmox e Cloudflare. Zero allucinazioni, architetture e comandi operativi.",
     "placeholder": "Chiedimi qualcosa…",
     "placeholders": [
       "Chiedimi qualcosa…",
@@ -11,7 +11,7 @@
       "Prova: porta 443, chmod 755, 25*4…",
       "Una domanda su AI, backup o sicurezza?"
     ],
-    "footerNote": "FabGPT-FAQ non è un'AI: ogni risposta è scritta e verificata da una persona. [Trasparenza](trasparenza/)",
+    "footerNote": "FabGPT-FAQ può commettere errori. Considera di verificare le informazioni importanti · [Trasparenza](trasparenza/)",
     "matchThreshold": 0.75,
     "typing": {
       "minDelay": 18,
@@ -73,8 +73,8 @@
         "about"
       ],
       "answers": [
-        "**Fabrizio Salmi** è un security researcher indipendente con base a Genova. Sviluppa e mantiene quasi un centinaio di progetti open source su [GitHub](https://github.com/fabriziosalmi), concentrati su quattro aree:\n\n- **Cybersecurity**: WAF, reverse proxy, gestione certificati, threat detection\n- **AI e LLM**: proxy di sicurezza per modelli, controllo qualità del codice generato\n- **Proxmox e self-hosting**: autoscaling, bilanciamento, strumenti CLI\n- **Automazione Cloudflare**: gestione zone, WAF e DNS via GitHub Actions\n\nIl suo progetto più noto è [CertMate](https://github.com/fabriziosalmi/certmate), oltre 1.400 stelle su GitHub.",
-        "Fabrizio Salmi, security researcher indipendente di Genova. Su [GitHub](https://github.com/fabriziosalmi) trovi i suoi progetti: sicurezza, AI, Proxmox e automazione. Il più famoso è **CertMate** (1.400+ stelle). Vuoi che ti parli di un progetto in particolare?"
+        "**Fabrizio Salmi** è un security researcher indipendente con base a Genova. Sviluppa e mantiene quasi un centinaio di progetti open source su [GitHub](https://github.com/fabriziosalmi), concentrati su quattro aree:\n\n- **Cybersecurity**: WAF, reverse proxy, gestione certificati, threat detection\n- **AI e LLM**: proxy di sicurezza per modelli, controllo qualità del codice generato\n- **Proxmox e self-hosting**: autoscaling, bilanciamento, strumenti CLI\n- **Automazione Cloudflare**: gestione zone, WAF e DNS via GitHub Actions\n\nIl suo progetto più noto è [CertMate](https://github.com/fabriziosalmi/certmate).",
+        "Fabrizio Salmi, security researcher indipendente di Genova. Su [GitHub](https://github.com/fabriziosalmi) trovi i suoi progetti: sicurezza, AI, Proxmox e automazione. Il più famoso è **CertMate**. Vuoi che ti parli di un progetto in particolare?"
       ],
       "suggest": [
         "progetti-open-source-fabrizio-salmi",
@@ -104,7 +104,7 @@
         "top"
       ],
       "answers": [
-        "Su [github.com/fabriziosalmi](https://github.com/fabriziosalmi) ci sono circa **97 repository pubbliche**. Le più popolari:\n\n- [certmate](https://github.com/fabriziosalmi/certmate) – gestione del ciclo di vita dei certificati TLS (1.400+ stelle)\n- [caddy-waf](https://github.com/fabriziosalmi/caddy-waf) – WAF per Caddy (800+ stelle)\n- [UglyFeed](https://github.com/fabriziosalmi/UglyFeed) – feed RSS riscritti con LLM (300+ stelle)\n- [patterns](https://github.com/fabriziosalmi/patterns) – regole OWASP CRS e anti-bot per Nginx, Apache, Traefik e HAProxy (300+ stelle)\n- [proxmox-vm-autoscale](https://github.com/fabriziosalmi/proxmox-vm-autoscale) e [proxmox-lxc-autoscale](https://github.com/fabriziosalmi/proxmox-lxc-autoscale) – autoscaling su Proxmox (550+ stelle in due)\n\nLe aree principali sono **cybersecurity**, **AI/LLM**, **Proxmox** e **Cloudflare**. Chiedimi di una qualsiasi di queste.",
+        "Su [github.com/fabriziosalmi](https://github.com/fabriziosalmi) ci sono un centinaio di **repository pubbliche**. Le più popolari:\n\n- [certmate](https://github.com/fabriziosalmi/certmate) – gestione del ciclo di vita dei certificati TLS\n- [caddy-waf](https://github.com/fabriziosalmi/caddy-waf) – WAF per Caddy\n- [UglyFeed](https://github.com/fabriziosalmi/UglyFeed) – feed RSS riscritti con LLM\n- [patterns](https://github.com/fabriziosalmi/patterns) – regole OWASP CRS e anti-bot per Nginx, Apache, Traefik e HAProxy\n- [proxmox-vm-autoscale](https://github.com/fabriziosalmi/proxmox-vm-autoscale) e [proxmox-lxc-autoscale](https://github.com/fabriziosalmi/proxmox-lxc-autoscale) – autoscaling su Proxmox\n\nLe aree principali sono **cybersecurity**, **AI/LLM**, **Proxmox** e **Cloudflare**. Chiedimi di una qualsiasi di queste.",
         "Circa 97 repo pubbliche: le big sono **certmate** (certificati TLS), **caddy-waf** (WAF per Caddy), **UglyFeed** (RSS + LLM) e la famiglia **proxmox-autoscale**. Su cosa vuoi approfondire: sicurezza, AI, Proxmox o Cloudflare?"
       ],
       "suggest": [
@@ -2439,7 +2439,7 @@
         "sottodomini certificato"
       ],
       "answers": [
-        "Un certificato **wildcard** copre tutti i sottodomini di primo livello di un dominio: `*.example.com` vale per `www`, `api`, `mail` – ma non per `example.com` nudo né per `a.b.example.com` (l'asterisco copre un solo livello). I **SAN** (Subject Alternative Names) sono la lista di nomi che un certificato copre: ogni certificato moderno è tecnicamente un certificato SAN, e può mescolare domini diversi e wildcard insieme.\n\nTrade-off del wildcard: comodo (un certificato per tutto) ma **una sola chiave privata per tutto** – se la rubano da un server marginale, coprono anche i sottodomini critici. Dettaglio operativo: Let's Encrypt emette wildcard **solo con challenge [DNS-01](q/come-funziona-lets-encrypt-acme/)**, quindi serve l'automazione DNS – con 29 provider supportati, è il pane quotidiano di [CertMate](https://github.com/fabriziosalmi/certmate), che tiene anche l'inventario di *quali* nomi copre ogni certificato in giro per l'infrastruttura."
+        "Un certificato **wildcard** copre tutti i sottodomini di primo livello di un dominio: `*.example.com` vale per `www`, `api`, `mail` – ma non per `example.com` nudo né per `a.b.example.com` (l'asterisco copre un solo livello). I **SAN** (Subject Alternative Names) sono la lista di nomi che un certificato copre: ogni certificato moderno è tecnicamente un certificato SAN, e può mescolare domini diversi e wildcard insieme.\n\nTrade-off del wildcard: comodo (un certificato per tutto) ma **una sola chiave privata per tutto** – se la rubano da un server marginale, coprono anche i sottodomini critici. Dettaglio operativo: Let's Encrypt emette wildcard **solo con challenge [DNS-01](q/come-funziona-lets-encrypt-acme/)**, quindi serve l'automazione DNS – con decine di provider DNS supportati, è il pane quotidiano di [CertMate](https://github.com/fabriziosalmi/certmate), che tiene anche l'inventario di *quali* nomi copre ogni certificato in giro per l'infrastruttura."
       ],
       "suggest": [
         "come-funziona-lets-encrypt-acme",
@@ -9929,7 +9929,7 @@
         "inventario certificati"
       ],
       "answers": [
-        "**CertMate** ([github.com/fabriziosalmi/certmate](https://github.com/fabriziosalmi/certmate), 1.400+ stelle) è la piattaforma self-hosted per la gestione completa del ciclo di vita dei certificati TLS/SSL: emissione automatica, rinnovo, discovery di certificati non censiti, Private CA interna e deploy automatico verso reverse proxy e server.\n\nCaratteristiche & Installazione:\n- Supporta **29 provider DNS** (Cloudflare, Hetzner, Route53, OVH, DigitalOcean, ecc.) per challenge DNS-01 e certificati Wildcard.\n- Server MCP nativo per il controllo tramite assistenti AI (`mcp/index.js` con 16 tool).\n- **CLI da terminale**:\n```bash\npip install certmate-cli\ncertmate cert create app.example.com --dns cloudflare --wait\n```\n- **Docker Quick Start**:\n```bash\ndocker run -d -p 8080:8080 -v certmate-data:/app/data ghcr.io/fabriziosalmi/certmate:latest\n```\nAudit trail crittografico immutabile conforme agli standard di sicurezza enterprise."
+        "**CertMate** ([github.com/fabriziosalmi/certmate](https://github.com/fabriziosalmi/certmate)) è la piattaforma self-hosted per la gestione completa del ciclo di vita dei certificati TLS/SSL: emissione automatica, rinnovo, discovery di certificati non censiti, Private CA interna e deploy automatico verso reverse proxy e server.\n\nCaratteristiche & Installazione:\n- Supporta **decine di provider DNS** (Cloudflare, Hetzner, Route53, OVH, DigitalOcean, ecc.) per challenge DNS-01 e certificati Wildcard.\n- Server MCP nativo per il controllo tramite assistenti AI (`mcp/index.js` con 16 tool).\n- **CLI da terminale**:\n```bash\npip install certmate-cli\ncertmate cert create app.example.com --dns cloudflare --wait\n```\n- **Docker Quick Start**:\n```bash\ndocker run -d -p 8080:8080 -v certmate-data:/app/data ghcr.io/fabriziosalmi/certmate:latest\n```\nAudit trail crittografico immutabile conforme agli standard di sicurezza enterprise."
       ],
       "suggest": [
         "come-aggiungere-un-waf-a-caddy",
@@ -9985,7 +9985,7 @@
         "xss"
       ],
       "answers": [
-        "Con [patterns](https://github.com/fabriziosalmi/patterns) (**300+ stelle**): regole **OWASP Core Rule Set e bad-bot detection** convertite automaticamente nella sintassi **nativa** di Nginx, Apache, Traefik e HAProxy – non un adattatore generico.\n\nLa pipeline è automatica: preleva le regole CRS aggiornate dall'upstream, le converte per ciascun server (`map`/`if` per Nginx, `SecRule` per Apache, middleware TOML per Traefik, ACL per HAProxy) e pubblica ogni giorno **archivi pronti da scaricare** (`nginx_waf.zip`, `apache_waf.zip`, ecc.) via GitHub Actions.\n\nCopertura: SQL injection, XSS, RCE, LFI/RFI, violazioni di protocollo e bad bot – con default sicuri che **non** bloccano i motori di ricerca. Se usi Caddy, il progetto dedicato è [caddy-waf](https://github.com/fabriziosalmi/caddy-waf)."
+        "Con [patterns](https://github.com/fabriziosalmi/patterns): regole **OWASP Core Rule Set e bad-bot detection** convertite automaticamente nella sintassi **nativa** di Nginx, Apache, Traefik e HAProxy – non un adattatore generico.\n\nLa pipeline è automatica: preleva le regole CRS aggiornate dall'upstream, le converte per ciascun server (`map`/`if` per Nginx, `SecRule` per Apache, middleware TOML per Traefik, ACL per HAProxy) e pubblica ogni giorno **archivi pronti da scaricare** (`nginx_waf.zip`, `apache_waf.zip`, ecc.) via GitHub Actions.\n\nCopertura: SQL injection, XSS, RCE, LFI/RFI, violazioni di protocollo e bad bot – con default sicuri che **non** bloccano i motori di ricerca. Se usi Caddy, il progetto dedicato è [caddy-waf](https://github.com/fabriziosalmi/caddy-waf)."
       ],
       "suggest": [
         "come-aggiungere-un-waf-a-caddy",
@@ -10202,7 +10202,7 @@
         "fa autoscaling"
       ],
       "answers": [
-        "La suite **proxmox-autoscale** ([proxmox-vm-autoscale](https://github.com/fabriziosalmi/proxmox-vm-autoscale) e `proxmox-lxc-autoscale`, oltre 550 stelle) automatizza il ridimensionamento dinamico di core CPU e memoria RAM per macchine virtuali e container su Proxmox VE in base al carico effettivo.\n\nInstallazione e setup operativo:\n```bash\n# 1. Clone del repository e installazione dipendenze sul nodo Proxmox\ngit clone https://github.com/fabriziosalmi/proxmox-vm-autoscale.git /opt/proxmox-autoscale\ncd /opt/proxmox-autoscale && chmod +x autoscale.py\n\n# 2. Configurazione soglie (es. scala su se RAM > 85%, scala giu se < 40%)\ncp config.example.json config.json\nnano config.json\n\n# 3. Attivazione come demone Systemd\nsystemctl enable --now /opt/proxmox-autoscale/proxmox-autoscale.service\n```\n\nEvita sia il collasso da Out-of-Memory (OOM) sia lo spreco di risorse assegnate staticamente, garantendo massima densità nei nodi di homelab e cluster aziendali.",
+        "La suite **proxmox-autoscale** ([proxmox-vm-autoscale](https://github.com/fabriziosalmi/proxmox-vm-autoscale) e `proxmox-lxc-autoscale`) automatizza il ridimensionamento dinamico di core CPU e memoria RAM per macchine virtuali e container su Proxmox VE in base al carico effettivo.\n\nInstallazione e setup operativo:\n```bash\n# 1. Clone del repository e installazione dipendenze sul nodo Proxmox\ngit clone https://github.com/fabriziosalmi/proxmox-vm-autoscale.git /opt/proxmox-autoscale\ncd /opt/proxmox-autoscale && chmod +x autoscale.py\n\n# 2. Configurazione soglie (es. scala su se RAM > 85%, scala giu se < 40%)\ncp config.example.json config.json\nnano config.json\n\n# 3. Attivazione come demone Systemd\nsystemctl enable --now /opt/proxmox-autoscale/proxmox-autoscale.service\n```\n\nEvita sia il collasso da Out-of-Memory (OOM) sia lo spreco di risorse assegnate staticamente, garantendo massima densità nei nodi di homelab e cluster aziendali.",
         "In sintesi: la suite **proxmox-autoscale** ([proxmox-vm-autoscale](https://github.com/fabriziosalmi/proxmox-vm-autoscale) e `proxmox-lxc-autoscale`) regola a caldo core CPU e RAM per VM e container su Proxmox VE via SSH e QEMU Guest Agent, evitando crash da OOM."
       ],
       "suggest": [
@@ -10368,8 +10368,8 @@
         "gateway openai"
       ],
       "answers": [
-        "Per mettere in sicurezza un endpoint LLM in produzione si usa **LLMProxy** ([github.com/fabriziosalmi/llmproxy](https://github.com/fabriziosalmi/llmproxy)), il security gateway open source che instrada e protegge chiamate verso **24 provider** (OpenAI, Anthropic, Google, Ollama, DeepSeek, Groq, ecc.) con compatibilità 1:1 OpenAI.\n\nCaratteristiche & Pipeline di Difesa a 6 layer:\n- **Firewall a runtime**: ispezione ASGI a livello di byte, scoring di prompt injection, mascheramento PII, ledger immutabile e firma HMAC delle risposte.\n- **FinOps & Budget routing**: limite di spesa giornaliero con downgrade trasparente a modelli economici o rifiuto HTTP 402 se il budget è esaurito.\n- **Quick Start con Docker**:\n```bash\ndocker run -d --name llmproxy -p 8090:8090 \\\n  -e LLM_PROXY_API_KEYS=sk-proxy-test \\\n  -v llmproxy-data:/app/data \\\n  ghcr.io/fabriziosalmi/llmproxy:latest\n```\nDashboard e primo wizard guidato su `http://localhost:8090/ui`.",
-        "In sintesi: **LLMProxy** è il proxy di sicurezza open source per LLM che protegge le chiamate API verso 24 provider con firewall anti-injection, masking PII e routing FinOps per il controllo dei costi."
+        "Per mettere in sicurezza un endpoint LLM in produzione si usa **LLMProxy** ([github.com/fabriziosalmi/llmproxy](https://github.com/fabriziosalmi/llmproxy)), il security gateway open source che instrada e protegge chiamate verso **decine di provider** (OpenAI, Anthropic, Google, Ollama, DeepSeek, Groq, ecc.) con compatibilità 1:1 OpenAI.\n\nCaratteristiche & Pipeline di Difesa a 6 layer:\n- **Firewall a runtime**: ispezione ASGI a livello di byte, scoring di prompt injection, mascheramento PII, ledger immutabile e firma HMAC delle risposte.\n- **FinOps & Budget routing**: limite di spesa giornaliero con downgrade trasparente a modelli economici o rifiuto HTTP 402 se il budget è esaurito.\n- **Quick Start con Docker**:\n```bash\ndocker run -d --name llmproxy -p 8090:8090 \\\n  -e LLM_PROXY_API_KEYS=sk-proxy-test \\\n  -v llmproxy-data:/app/data \\\n  ghcr.io/fabriziosalmi/llmproxy:latest\n```\nDashboard e primo wizard guidato su `http://localhost:8090/ui`.",
+        "In sintesi: **LLMProxy** è il proxy di sicurezza open source per LLM che protegge le chiamate API verso decine di provider con firewall anti-injection, masking PII e routing FinOps per il controllo dei costi."
       ],
       "suggest": [
         "riscrivere-feed-rss-con-llm",
@@ -10918,7 +10918,7 @@
         "social media"
       ],
       "answers": [
-        "Il sito vuole cinque favicon, ogni social ha le sue dimensioni, l'app store ne pretende altre ancora. [BrandKit](https://github.com/fabriziosalmi/brandkit) (**76 stelle**) automatizza la trafila: carichi **una sola immagine sorgente** – il logo – selezioni i formati, e lui ridimensiona, aggiunge padding intelligente ed esporta tutto quello che serve per siti, web app e social.\n\nWeb app in Flask + Pillow + Alpine.js, completamente containerizzata: `docker compose up` e ce l'hai in casa, coi tuoi asset che non passano da servizi online."
+        "Il sito vuole cinque favicon, ogni social ha le sue dimensioni, l'app store ne pretende altre ancora. [BrandKit](https://github.com/fabriziosalmi/brandkit) automatizza la trafila: carichi **una sola immagine sorgente** – il logo – selezioni i formati, e lui ridimensiona, aggiunge padding intelligente ed esporta tutto quello che serve per siti, web app e social.\n\nWeb app in Flask + Pillow + Alpine.js, completamente containerizzata: `docker compose up` e ce l'hai in casa, coi tuoi asset che non passano da servizi online."
       ],
       "suggest": [
         "convertire-pdf-scansionato-in-testo",
@@ -13870,7 +13870,7 @@
         "recall at k"
       ],
       "answers": [
-        "Un **golden dataset** è la batteria di riferimento curata a mano: domande reali con la risposta attesa e, per il [RAG](q/cos-e-rag-retrieval-augmented-generation/), i passaggi che il retrieval *deve* trovare. Si misura in due punti separati: il **retrieval** (recall@k: i documenti giusti sono nei primi k?) e la **generazione** ([LLM-as-judge con rubrica](q/cos-e-un-eval-e-perche-i-benchmark-mentono/), o exact match dove si può).\n\nIl valore vero è la **non-regressione**: la batteria gira in CI a ogni modifica di chunking, embedding o prompt, e ti dice *cosa* hai rotto prima che lo scopra un utente. Vale identico per i [workflow agentici](q/pattern-di-orchestrazione-agentica/): input scriptati, tool attesi, esito verificabile.\n\nI dataset **sintetici** (domande generate da un LLM sui tuoi documenti) scalano la copertura, ma valida a mano un campione: il generatore fa le domande che il sistema sa già trovare – questo sito, per dire, si tiene onesto con 666 test curati uno a uno."
+        "Un **golden dataset** è la batteria di riferimento curata a mano: domande reali con la risposta attesa e, per il [RAG](q/cos-e-rag-retrieval-augmented-generation/), i passaggi che il retrieval *deve* trovare. Si misura in due punti separati: il **retrieval** (recall@k: i documenti giusti sono nei primi k?) e la **generazione** ([LLM-as-judge con rubrica](q/cos-e-un-eval-e-perche-i-benchmark-mentono/), o exact match dove si può).\n\nIl valore vero è la **non-regressione**: la batteria gira in CI a ogni modifica di chunking, embedding o prompt, e ti dice *cosa* hai rotto prima che lo scopra un utente. Vale identico per i [workflow agentici](q/pattern-di-orchestrazione-agentica/): input scriptati, tool attesi, esito verificabile.\n\nI dataset **sintetici** (domande generate da un LLM sui tuoi documenti) scalano la copertura, ma valida a mano un campione: il generatore fa le domande che il sistema sa già trovare – questo sito, per dire, si tiene onesto con una batteria di test curati uno a uno."
       ],
       "suggest": [
         "cos-e-rag-retrieval-augmented-generation",
@@ -14123,7 +14123,7 @@
         "identity gap ai"
       ],
       "answers": [
-        "Sì: [**ai-security**](https://github.com/fabriziosalmi/ai-security) è il catalogo di AI security **in italiano** di Fabrizio – disponibile anche in PDF – che mette in fila le minacce e le difese: dal [prompt injection](q/cos-e-la-prompt-injection/) alla [supply chain dei modelli](q/cos-e-la-supply-chain-security/), passando per gli [agenti](q/come-si-limita-un-agente-ai/).\n\nNel repo vive anche la ricerca collegata: **\"The Identity Gap in AI\"** (whitepaper IT/EN) sull'esposizione dell'inferenza – incluse **287 istanze Ollama trovate esposte** su internet via Censys, il motivo per cui la [porta 11434](porta/11434/) sta nel nostro elenco delle porte da non aprire – e sulla persistenza degli agenti oltre l'offboarding delle persone.\n\nGran parte di quel catalogo, del resto, la stai già leggendo: il verticale AI di questo sito ne condivide autore e filosofia."
+        "Sì: [**ai-security**](https://github.com/fabriziosalmi/ai-security) è il catalogo di AI security **in italiano** di Fabrizio – disponibile anche in PDF – che mette in fila le minacce e le difese: dal [prompt injection](q/cos-e-la-prompt-injection/) alla [supply chain dei modelli](q/cos-e-la-supply-chain-security/), passando per gli [agenti](q/come-si-limita-un-agente-ai/).\n\nNel repo vive anche la ricerca collegata: **\"The Identity Gap in AI\"** (whitepaper IT/EN) sull'esposizione dell'inferenza – incluse **centinaia di istanze Ollama trovate esposte** su internet via Censys, il motivo per cui la [porta 11434](porta/11434/) sta nel nostro elenco delle porte da non aprire – e sulla persistenza degli agenti oltre l'offboarding delle persone.\n\nGran parte di quel catalogo, del resto, la stai già leggendo: il verticale AI di questo sito ne condivide autore e filosofia."
       ],
       "suggest": [
         "cos-e-la-prompt-injection",
@@ -14251,7 +14251,7 @@
         "motore di conformita"
       ],
       "answers": [
-        "[**nis2-model**](https://github.com/fabriziosalmi/nis2-model) è un assistente di conformità per **NIS2 e DORA**: un **motore di regole deterministico** in Rust (61 test a vista, licenza EUPL) più un'interfaccia web interattiva che valuta i dati organizzativi contro i requisiti delle due normative.\n\nLa parola chiave è *deterministico*: stessa filosofia di questo sito – la valutazione di conformità non è un parere generato, è l'applicazione riproducibile di regole scritte, che puoi leggere e contestare. Un LLM può aiutarti a *capire* [chi deve adeguarsi a NIS2](q/nis2-chi-deve-adeguarsi-italia/) o [cosa impone DORA](q/cos-e-dora-regolamento/); il punteggio di dove sei rispetto ai requisiti deve uscire da un motore che dà due volte la stessa risposta.\n\nSi affianca al monitoraggio operativo di [nis2-public](q/come-si-monitora-la-conformita-nis2/): uno misura la postura, l'altro la valuta contro la norma."
+        "[**nis2-model**](https://github.com/fabriziosalmi/nis2-model) è un assistente di conformità per **NIS2 e DORA**: un **motore di regole deterministico** in Rust (batteria di test a vista, licenza EUPL) più un'interfaccia web interattiva che valuta i dati organizzativi contro i requisiti delle due normative.\n\nLa parola chiave è *deterministico*: stessa filosofia di questo sito – la valutazione di conformità non è un parere generato, è l'applicazione riproducibile di regole scritte, che puoi leggere e contestare. Un LLM può aiutarti a *capire* [chi deve adeguarsi a NIS2](q/nis2-chi-deve-adeguarsi-italia/) o [cosa impone DORA](q/cos-e-dora-regolamento/); il punteggio di dove sei rispetto ai requisiti deve uscire da un motore che dà due volte la stessa risposta.\n\nSi affianca al monitoraggio operativo di [nis2-public](q/come-si-monitora-la-conformita-nis2/): uno misura la postura, l'altro la valuta contro la norma."
       ],
       "suggest": [
         "nis2-chi-deve-adeguarsi-italia",
@@ -14611,7 +14611,7 @@
       ],
       "answers": [
         "Funziono. Latenza: quella di un file statico. Uptime: quello del tuo hosting. Fai una domanda vera e ti mostro il resto.",
-        "Ci sono. Tutto verde: matcher operativo, typewriter carico, oltre 500 risposte in memoria. Spara."
+        "Ci sono. Tutto verde: matcher operativo, typewriter carico, {n} risposte in memoria. Spara."
       ]
     },
     {
@@ -14936,7 +14936,7 @@
         "cosa devo installare"
       ],
       "answers": [
-        "Dipende dal bisogno: il più popolare è [CertMate](q/cos-e-certmate-gestione-certificati-tls/) (gestione certificati TLS, 1.400+ stelle); per un WAF c'è [caddy-waf](q/come-aggiungere-un-waf-a-caddy/); per Proxmox la famiglia [autoscale](q/autoscaling-vm-lxc-proxmox/) e [proxxx](q/cos-e-proxxx-cockpit-terminale-proxmox/); per l'AI locale [SiliconDev](q/fine-tuning-llm-apple-silicon/). La [panoramica completa](q/progetti-open-source-fabrizio-salmi/) è qui."
+        "Dipende dal bisogno: il più popolare è [CertMate](q/cos-e-certmate-gestione-certificati-tls/) (gestione certificati TLS); per un WAF c'è [caddy-waf](q/come-aggiungere-un-waf-a-caddy/); per Proxmox la famiglia [autoscale](q/autoscaling-vm-lxc-proxmox/) e [proxxx](q/cos-e-proxxx-cockpit-terminale-proxmox/); per l'AI locale [SiliconDev](q/fine-tuning-llm-apple-silicon/). La [panoramica completa](q/progetti-open-source-fabrizio-salmi/) è qui."
       ],
       "suggest": [
         "progetti-open-source-fabrizio-salmi",
@@ -15044,7 +15044,7 @@
         "sicurezza da dove comincio"
       ],
       "answers": [
-        "**Sicurezza** è il territorio più grande del labirinto: ~250 risposte. Le porte d'ingresso migliori:\n\n- il percorso guidato [Mettere in sicurezza un server esposto](percorsi/mettere-in-sicurezza-un-server/) – 12 tappe operative in ordine di impatto\n- le basi: [hardening](q/hardening-server-linux/), [chiavi SSH](q/come-funzionano-le-chiavi-ssh/), [backup 3-2-1](q/backup-3-2-1/), [firewall default-deny](q/configurare-firewall-host-default-deny-nftables-ufw/)\n- le normative: [NIS2](q/nis2-chi-deve-adeguarsi-italia/), GDPR, AI Act\n- i tool: [check password compromessa](tools/password-compromessa/), [le porte una per una](porta/)\n\nOppure dimmi il problema concreto – \"devo esporre un servizio\", \"ho un IP bannato\", \"il certificato è scaduto\" – e parto da lì.",
+        "**Sicurezza** è il territorio più grande del labirinto: centinaia di risposte. Le porte d'ingresso migliori:\n\n- il percorso guidato [Mettere in sicurezza un server esposto](percorsi/mettere-in-sicurezza-un-server/) – 12 tappe operative in ordine di impatto\n- le basi: [hardening](q/hardening-server-linux/), [chiavi SSH](q/come-funzionano-le-chiavi-ssh/), [backup 3-2-1](q/backup-3-2-1/), [firewall default-deny](q/configurare-firewall-host-default-deny-nftables-ufw/)\n- le normative: [NIS2](q/nis2-chi-deve-adeguarsi-italia/), GDPR, AI Act\n- i tool: [check password compromessa](tools/password-compromessa/), [le porte una per una](porta/)\n\nOppure dimmi il problema concreto – \"devo esporre un servizio\", \"ho un IP bannato\", \"il certificato è scaduto\" – e parto da lì.",
         "Ripartiamo dal concreto: il modo più rapido di orientarsi è il percorso [Mettere in sicurezza un server esposto](percorsi/mettere-in-sicurezza-un-server/) – dodici tappe in ordine di impatto, dal primo login al piano di disastro. Se invece hai già un fronte aperto, dimmi quale: accessi ([SSH](q/mettere-in-sicurezza-ssh/), [firewall](q/configurare-firewall-host-default-deny-nftables-ufw/)), dati ([backup](q/backup-3-2-1/), [cifratura](q/backup-cifrati-restic-borg/)), conformità ([NIS2](q/nis2-chi-deve-adeguarsi-italia/), GDPR) o applicazioni ([WAF](q/cos-e-un-waf-web-application-firewall/), [security header](q/quali-security-header-servono/))."
       ],
       "suggest": [
