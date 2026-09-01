@@ -314,14 +314,81 @@
     scrollToBottom(true);
   }
 
+  // Procedural face: the bot's profile image is a pair of eyes that follow
+  // the cursor, blink out of sync, and - while an answer is streaming - look
+  // down at the text being written. Ambient life, never interaction motion.
+  function faceSvg() {
+    const delay = '-' + (Math.random() * 5).toFixed(2) + 's';
+    const eye = (cx) =>
+      '<g class="eye" style="animation-delay:' + delay + '">' +
+      '<ellipse cx="' + cx + '" cy="13.6" rx="3.3" ry="3.9" fill="#fff"/>' +
+      '<circle class="pupil" cx="' + cx + '" cy="14.3" r="1.55" fill="#26282c"/></g>';
+    return '<svg class="face" viewBox="0 0 30 30" aria-hidden="true">' + eye(10.4) + eye(19.6) + '</svg>';
+  }
+
   function addBotRow() {
     const row = document.createElement('div');
     row.className = 'msg msg-bot';
-    row.innerHTML = '<div class="avatar">F</div><div class="content"></div>';
+    row.innerHTML = '<div class="avatar">' + faceSvg() + '</div><div class="content"></div>';
     chatEl.appendChild(row);
     scrollToBottom(true);
     return row.querySelector('.content');
   }
+
+  // Eye tracker: rAF-throttled, ellipse-clamped pupil offsets. A streaming
+  // row's face targets its own text instead of the cursor; idle eyes drift
+  // back to center after 6s. Disabled under prefers-reduced-motion.
+  (function faces() {
+    if (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    let mx = -1, my = -1, raf = 0, idleT = 0;
+    const MAXO = 1.7;
+    function frame() {
+      raf = 0;
+      document.querySelectorAll('.msg-bot .avatar .face').forEach(f => {
+        const row = f.closest('.msg');
+        const typing = row && row.querySelector('.content.typing');
+        let tx = mx, ty = my;
+        if (typing) {
+          const tr = typing.getBoundingClientRect();
+          tx = tr.left + 40; ty = tr.top + 14;
+        } else if (mx < 0) {
+          return; // no cursor seen yet: keep resting gaze
+        }
+        const r = f.getBoundingClientRect();
+        if (r.bottom < -40 || r.top > innerHeight + 40) return;
+        const dx = tx - (r.left + r.width / 2), dy = ty - (r.top + r.height / 2);
+        const d = Math.hypot(dx, dy) || 1;
+        const k = Math.min(d / 60, 1) * MAXO / d;
+        f.querySelectorAll('.pupil').forEach(p => {
+          p.style.transform = 'translate(' + (dx * k).toFixed(2) + 'px, ' + (dy * k).toFixed(2) + 'px)';
+        });
+      });
+    }
+    // hybrid scheduler: rAF for smoothness when available, a synchronous
+    // ~25fps path otherwise (rAF is throttled to zero in hidden/embedded
+    // documents and the eyes must not depend on it)
+    let lastF = 0;
+    function schedule() {
+      const now = Date.now();
+      if (now - lastF > 40) { lastF = now; frame(); }
+      else if (!raf) raf = requestAnimationFrame(() => { lastF = Date.now(); frame(); });
+    }
+    function onMove(e) {
+      const t = e.touches ? e.touches[0] : e;
+      mx = t.clientX; my = t.clientY;
+      schedule();
+      clearTimeout(idleT);
+      idleT = setTimeout(() => {
+        mx = -1; my = -1;
+        document.querySelectorAll('.face .pupil').forEach(p => { p.style.transform = ''; });
+      }, 6000);
+    }
+    addEventListener('mousemove', onMove, { passive: true });
+    addEventListener('touchstart', onMove, { passive: true });
+    chatEl.addEventListener('scroll', schedule, { passive: true });
+    // the streaming face keeps glancing at its growing text even with a still mouse
+    setInterval(() => { if (document.querySelector('.content.typing')) schedule(); }, 350);
+  })();
 
   // Thread-aware suggested-question chips: resolve `suggest` slugs to entries,
   // drop ones already asked this session, cap at 3, render as clickable chips

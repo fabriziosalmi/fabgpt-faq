@@ -180,6 +180,27 @@ h1, h2, h3 { text-wrap: balance; }
   margin-top: 2px;
 }
 
+/* the bot's procedural face: blinking eyes, cursor-tracking pupils */
+.msg-bot .avatar .face { width: 26px; height: 26px; display: block; }
+.face .eye {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: face-blink 5.6s ease-in-out infinite;
+}
+.face .pupil {
+  transform-box: fill-box;
+  transform-origin: center;
+  transition: transform 0.15s ease-out, r var(--t);
+}
+.msg-bot .avatar:hover .face .pupil { r: 1.95px; }
+@keyframes face-blink {
+  0%, 94.5%, 98.5%, 100% { transform: scaleY(1); }
+  96.5% { transform: scaleY(0.08); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .face .eye { animation: none; }
+}
+
 .msg-bot .content {
   min-width: 0;
   overflow-wrap: break-word;
