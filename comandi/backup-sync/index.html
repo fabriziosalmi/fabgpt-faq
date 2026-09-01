@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Backup e sincronizzazione – comandi – FabGPT-FAQ</title>
+<meta name="description" content="Restic, Borg, rsync, rclone e i dump consistenti dei database.">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="canonical" href="https://fabriziosalmi.github.io/fabgpt-faq/comandi/backup-sync/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Backup e sincronizzazione – comandi">
+<meta property="og:description" content="Restic, Borg, rsync, rclone e i dump consistenti dei database.">
+<meta property="og:url" content="https://fabriziosalmi.github.io/fabgpt-faq/comandi/backup-sync/">
+<meta property="og:image" content="https://fabriziosalmi.github.io/fabgpt-faq/og.svg">
+<meta property="og:site_name" content="FabGPT-FAQ">
+<meta property="og:locale" content="it_IT">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://fabriziosalmi.github.io/fabgpt-faq/og.svg">
+<link rel="stylesheet" href="../../style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
+<script type="application/ld+json">[{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Come inizializzo un repository restic?", "acceptedAnswer": {"@type": "Answer", "text": "export RESTIC_REPOSITORY=sftp:backup@nas:/srv/restic\nexport RESTIC_PASSWORD_FILE=~/.restic-pass\nrestic init\nLa password del repo cifra TUTTO: persa quella, i backup sono coriandoli. Va salvata fuori dal server (password manager)."}}, {"@type": "Question", "name": "Come lancio un backup con restic?", "acceptedAnswer": {"@type": "Answer", "text": "restic backup /etc /home /srv --exclude-caches --tag giornaliero\nIncrementale e deduplicato per natura: il secondo backup trasferisce solo i blocchi nuovi."}}, {"@type": "Question", "name": "Come ripristino file da uno snapshot restic?", "acceptedAnswer": {"@type": "Answer", "text": "restic snapshots\nrestic restore a1b2c3d4 --target /tmp/ripristino --include /home/mario/documenti\n--include per il singolo path invece dell'intero snapshot; restic mount /mnt/r per sfogliarli come filesystem."}}, {"@type": "Question", "name": "Come applico la retention e libero spazio in restic?", "acceptedAnswer": {"@type": "Answer", "text": "restic forget --keep-daily 7 --keep-weekly 4 --keep-monthly 12 --prune\nrestic check    # ogni tanto: verifica l'integrita' del repo\nforget senza --prune marca soltanto: lo spazio si libera solo col prune. Il check periodico è il verify dei backup."}}, {"@type": "Question", "name": "Come creo un archivio Borg?", "acceptedAnswer": {"@type": "Answer", "text": "borg init --encryption=repokey backup@nas:/srv/borg\nborg create --stats backup@nas:/srv/borg::{hostname}-{now} /etc /home\nIl placeholder {now} data gli archivi da solo; --stats dice quanto ha davvero trasferito (deduplica inclusa)."}}, {"@type": "Question", "name": "Come applico la retention agli archivi Borg?", "acceptedAnswer": {"@type": "Answer", "text": "borg prune --keep-daily 7 --keep-weekly 4 --keep-monthly 12 backup@nas:/srv/borg\nborg compact backup@nas:/srv/borg\nDa Borg 1.2 lo spazio si libera solo con compact dopo il prune: dimenticarlo è il classico \"ho prunato ma il disco è pieno\"."}}, {"@type": "Question", "name": "Come faccio il mirror di una directory con rsync?", "acceptedAnswer": {"@type": "Answer", "text": "rsync -a --delete /srv/dati/ /mnt/backup/dati/\nLe barre finali contano (dati/ = il contenuto); --delete rende il mirror fedele ma propaga anche le cancellazioni: non è un backup con storico."}}, {"@type": "Question", "name": "Come trasferisco file su un server remoto con rsync?", "acceptedAnswer": {"@type": "Answer", "text": "rsync -az --progress /srv/dati/ backup@nas:/srv/copie/dati/\nRiprende da dove si era interrotto e trasferisce solo i delta: per i file grossi non c'è paragone con scp."}}, {"@type": "Question", "name": "Come provo un rsync senza toccare nulla (dry run)?", "acceptedAnswer": {"@type": "Answer", "text": "rsync -avn --delete /srv/dati/ /mnt/backup/dati/\nLa -n mostra cosa FAREBBE: obbligatoria prima di ogni --delete, che sbagliato di una barra svuota la destinazione."}}, {"@type": "Question", "name": "Come sincronizzo una directory sul cloud con rclone?", "acceptedAnswer": {"@type": "Answer", "text": "rclone config    # una volta: configura il remote\nrclone sync /srv/dati remoto:bucket/dati --progress --dry-run   # poi senza --dry-run\nsync rende il remoto IDENTICO (cancellazioni incluse); se vuoi solo aggiungere, il verbo giusto è copy."}}, {"@type": "Question", "name": "Come monto uno storage cloud come disco (rclone mount)?", "acceptedAnswer": {"@type": "Answer", "text": "rclone mount remoto:bucket /mnt/cloud --vfs-cache-mode writes --daemon\n--vfs-cache-mode writes evita i problemi con le app che riscrivono i file; è comodità, non un backup."}}, {"@type": "Question", "name": "Come faccio dump e restore di MySQL/MariaDB?", "acceptedAnswer": {"@type": "Answer", "text": "mysqldump --single-transaction --routines nomedb | gzip > db-$(date +%F).sql.gz\n# restore:\nzcat db-2026-09-01.sql.gz | mysql nomedb\n--single-transaction = dump consistente senza lock (InnoDB): il backup del datadir a caldo, invece, è corrotto per design."}}, {"@type": "Question", "name": "Come faccio dump e restore di PostgreSQL?", "acceptedAnswer": {"@type": "Answer", "text": "pg_dump -Fc nomedb > db-$(date +%F).dump\n# restore:\npg_restore -d nomedb --clean db-2026-09-01.dump\n# in Docker: docker exec -t postgres pg_dump -U utente -Fc nomedb > db.dump\nIl formato -Fc (custom) è compresso e permette il restore selettivo per tabella."}}, {"@type": "Question", "name": "Come faccio il backup di un database SQLite a caldo?", "acceptedAnswer": {"@type": "Answer", "text": "sqlite3 app.db \"VACUUM INTO 'backup-$(date +%F).db'\"\n# o: sqlite3 app.db \".backup backup.db\"\nMAI copiare il file .db mentre l'app scrive (WAL a metà = corruzione): questi due comandi sono atomici e sicuri."}}]}, {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "FabGPT-FAQ", "item": "https://fabriziosalmi.github.io/fabgpt-faq/"}, {"@type": "ListItem", "position": 2, "name": "Comandi", "item": "https://fabriziosalmi.github.io/fabgpt-faq/comandi/"}, {"@type": "ListItem", "position": 3, "name": "Backup e sincronizzazione", "item": "https://fabriziosalmi.github.io/fabgpt-faq/comandi/backup-sync/"}]}]</script>
+<style>
+  .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
+  .page h1 { font-size: 26px; line-height: 1.3; margin: 6px 0 10px; }
+  .crumbs { font-size: 13px; color: var(--text-dim); margin-bottom: 6px; }
+  .crumbs a { color: var(--text-dim); text-decoration: none; }
+  .crumbs a:hover { color: var(--text); }
+  .page .intro { color: var(--text-dim); margin-bottom: 20px; }
+  .steps { list-style: none; counter-reset: step; padding: 0; margin: 0; }
+  .steps li { counter-increment: step; position: relative; padding: 14px 16px 14px 56px; border: 1px solid var(--border); border-radius: 12px; background: var(--bg-soft); margin: 10px 0; }
+  .steps li::before { content: counter(step); position: absolute; left: 16px; top: 16px; width: 26px; height: 26px; border-radius: 50%; background: var(--accent); color: var(--accent-text); font-weight: 700; font-size: 13px; display: flex; align-items: center; justify-content: center; }
+  .steps a { color: var(--link); text-decoration: none; font-weight: 600; }
+  .steps a:hover { text-decoration: underline; }
+  .steps p { margin: 4px 0 0; font-size: 14px; color: var(--text-dim); }
+  .path-card { display: block; border: 1px solid var(--border); border-radius: 12px; background: var(--bg-soft); padding: 16px 18px; margin: 12px 0; text-decoration: none; color: inherit; }
+  .path-card:hover { border-color: var(--accent); }
+  .path-card b { color: var(--link); font-size: 17px; }
+  .path-card p { margin: 6px 0 0; font-size: 14px; color: var(--text-dim); }
+  .path-card .n { font-size: 12px; color: var(--text-dim); text-transform: uppercase; letter-spacing: .05em; }
+  .page .ask { display: inline-block; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 8px 16px; text-decoration: none; font-weight: 600; font-size: 13px; margin-top: 20px; }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="../../" style="text-decoration:none;color:inherit">
+    <span class="brand-dot">F</span>
+    <span class="brand-name">FabGPT-FAQ</span>
+  </a>
+  <nav class="topnav"><a href="../../percorsi/">Percorsi</a> <a href="../../q/">Tutte le domande</a></nav>
+</header>
+<main class="page">
+<nav class="crumbs" aria-label="Percorso"><a href="../../">FabGPT-FAQ</a> › <a href="../">Comandi</a> › <span>Backup e sincronizzazione</span></nav>
+<h1>Backup e sincronizzazione</h1>
+<p class="intro">Restic, Borg, rsync, rclone e i dump consistenti dei database. Ogni comando è verificato e copiabile; in <a href="../../">chat</a> basta descrivere cosa vuoi fare.</p>
+<details class="toc"><summary>14 comandi in questa pagina</summary><ul><li><a href="#restic_init">Come inizializzo un repository restic?</a></li><li><a href="#restic_backup">Come lancio un backup con restic?</a></li><li><a href="#restic_restore">Come ripristino file da uno snapshot restic?</a></li><li><a href="#restic_prune">Come applico la retention e libero spazio in restic?</a></li><li><a href="#borg_create">Come creo un archivio Borg?</a></li><li><a href="#borg_prune">Come applico la retention agli archivi Borg?</a></li><li><a href="#rsync_mirror">Come faccio il mirror di una directory con rsync?</a></li><li><a href="#rsync_remote">Come trasferisco file su un server remoto con rsync?</a></li><li><a href="#rsync_dryrun">Come provo un rsync senza toccare nulla (dry run)?</a></li><li><a href="#rclone_sync">Come sincronizzo una directory sul cloud con rclone?</a></li><li><a href="#rclone_mount">Come monto uno storage cloud come disco (rclone mount)?</a></li><li><a href="#db_dump_mysql">Come faccio dump e restore di MySQL/MariaDB?</a></li><li><a href="#db_dump_postgres">Come faccio dump e restore di PostgreSQL?</a></li><li><a href="#db_backup_sqlite">Come faccio il backup di un database SQLite a caldo?</a></li></ul></details>
+<section class="cmd-card" id="restic_init">
+<h2><a class="anchor" href="#restic_init">#</a> Come inizializzo un repository restic?</h2>
+<pre><code>export RESTIC_REPOSITORY=sftp:backup@nas:/srv/restic
+export RESTIC_PASSWORD_FILE=~/.restic-pass
+restic init</code></pre>
+<p class="cmd-note">La password del repo cifra TUTTO: persa quella, i backup sono coriandoli. Va salvata fuori dal server (password manager).</p>
+<p class="cmd-rel">Approfondisci: <a href="../../q/backup-cifrati-restic-borg/">Come si fanno backup cifrati e deduplicati (Restic, BorgBackup)?</a><a href="../../q/backup-3-2-1/">Come si fa un backup con la regola 3-2-1?</a></p>
+</section>
+<section class="cmd-card" id="restic_backup">
+<h2><a class="anchor" href="#restic_backup">#</a> Come lancio un backup con restic?</h2>
+<pre><code>restic backup /etc /home /srv --exclude-caches --tag giornaliero</code></pre>
+<p class="cmd-note">Incrementale e deduplicato per natura: il secondo backup trasferisce solo i blocchi nuovi.</p>
+<p class="cmd-rel">Approfondisci: <a href="../../q/backup-cifrati-restic-borg/">Come si fanno backup cifrati e deduplicati (Restic, BorgBackup)?</a><a href="../../q/backup-3-2-1/">Come si fa un backup con la regola 3-2-1?</a></p>
+</section>
+<section class="cmd-card" id="restic_restore">
+<h2><a class="anchor" href="#restic_restore">#</a> Come ripristino file da uno snapshot restic?</h2>
+<pre><code>restic snapshots
+restic restore a1b2c3d4 --target /tmp/ripristino --include /home/mario/documenti</code></pre>
+<p class="cmd-note"><code>--include</code> per il singolo path invece dell&#x27;intero snapshot; <code>restic mount /mnt/r</code> per sfogliarli come filesystem.</p>
+<p class="cmd-rel">Approfondisci: <a href="../../q/backup-cifrati-restic-borg/">Come si fanno backup cifrati e deduplicati (Restic, BorgBackup)?</a></p>
+</section>
+<section class="cmd-card" id="restic_prune">
+<h2><a class="anchor" href="#restic_prune">#</a> Come applico la retention e libero spazio in restic?</h2>
+<pre><code>restic forget --keep-daily 7 --keep-weekly 4 --keep-monthly 12 --prune
+restic check    # ogni tanto: verifica l&#x27;integrita&#x27; del repo</code></pre>
+<p class="cmd-note"><code>forget</code> senza <code>--prune</code> marca soltanto: lo spazio si libera solo col prune. Il <code>check</code> periodico è il verify dei backup.</p>
+<p class="cmd-rel">Approfondisci: <a href="../../q/backup-cifrati-restic-borg/">Come si fanno backup cifrati e deduplicati (Restic, BorgBackup)?</a><a href="../../q/backup-3-2-1/">Come si fa un backup con la regola 3-2-1?</a></p>
+</section>
+<section class="cmd-card" id="borg_create">
+<h2><a class="anchor" href="#borg_create">#</a> Come creo un archivio Borg?</h2>
+<pre><code>borg init --encryption=repokey backup@nas:/srv/borg
+borg create --stats backup@nas:/srv/borg::{hostname}-{now} /etc /home</code></pre>
+<p class="cmd-note">Il placeholder <code>{now}</code> data gli archivi da solo; <code>--stats</code> dice quanto ha davvero trasferito (deduplica inclusa).</p>
+<p class="cmd-rel">Approfondisci: <a href="../../q/backup-cifrati-restic-borg/">Come si fanno backup cifrati e deduplicati (Restic, BorgBackup)?</a><a href="../../q/borgmatic-crittografia-lato-client-backup/">Come si implementa la crittografia lato client nei backup automatizzati con Borgmatic?</a></p>
+</section>
+<section class="cmd-card" id="borg_prune">
+<h2><a class="anchor" href="#borg_prune">#</a> Come applico la retention agli archivi Borg?</h2>
+<pre><code>borg prune --keep-daily 7 --keep-weekly 4 --keep-monthly 12 backup@nas:/srv/borg
+borg compact backup@nas:/srv/borg</code></pre>
+<p class="cmd-note">Da Borg 1.2 lo spazio si libera solo con <code>compact</code> dopo il prune: dimenticarlo è il classico &quot;ho prunato ma il disco è pieno&quot;.</p>
+<p class="cmd-rel">Approfondisci: <a href="../../q/borgmatic-crittografia-lato-client-backup/">Come si implementa la crittografia lato client nei backup automatizzati con Borgmatic?</a></p>
+</section>
+<section class="cmd-card" id="rsync_mirror">
+<h2><a class="anchor" href="#rsync_mirror">#</a> Come faccio il mirror di una directory con rsync?</h2>
+<pre><code>rsync -a --delete /srv/dati/ /mnt/backup/dati/</code></pre>
+<p class="cmd-note">Le barre finali contano (<code>dati/</code> = il contenuto); <code>--delete</code> rende il mirror fedele ma propaga anche le cancellazioni: non è un backup con storico.</p>
+<p class="cmd-rel">Approfondisci: <a href="../../q/backup-3-2-1/">Come si fa un backup con la regola 3-2-1?</a><a href="../../q/sincronizzare-cartelle-p2p-syncthing/">Come si sincronizzano cartelle in modo cifrato e P2P (Syncthing)?</a></p>
+</section>
+<section class="cmd-card" id="rsync_remote">
+<h2><a class="anchor" href="#rsync_remote">#</a> Come trasferisco file su un server remoto con rsync?</h2>
+<pre><code>rsync -az --progress /srv/dati/ backup@nas:/srv/copie/dati/</code></pre>
+<p class="cmd-note">Riprende da dove si era interrotto e trasferisce solo i delta: per i file grossi non c&#x27;è paragone con scp.</p>
+<p class="cmd-rel">Approfondisci: <a href="../../q/backup-3-2-1/">Come si fa un backup con la regola 3-2-1?</a></p>
+</section>
+<section class="cmd-card" id="rsync_dryrun">
+<h2><a class="anchor" href="#rsync_dryrun">#</a> Come provo un rsync senza toccare nulla (dry run)?</h2>
+<pre><code>rsync -avn --delete /srv/dati/ /mnt/backup/dati/</code></pre>
+<p class="cmd-note">La <code>-n</code> mostra cosa FAREBBE: obbligatoria prima di ogni <code>--delete</code>, che sbagliato di una barra svuota la destinazione.</p>
+<p class="cmd-rel">Approfondisci: <a href="../../q/backup-3-2-1/">Come si fa un backup con la regola 3-2-1?</a></p>
+</section>
+<section class="cmd-card" id="rclone_sync">
+<h2><a class="anchor" href="#rclone_sync">#</a> Come sincronizzo una directory sul cloud con rclone?</h2>
+<pre><code>rclone config    # una volta: configura il remote
+rclone sync /srv/dati remoto:bucket/dati --progress --dry-run   # poi senza --dry-run</code></pre>
+<p class="cmd-note"><code>sync</code> rende il remoto IDENTICO (cancellazioni incluse); se vuoi solo aggiungere, il verbo giusto è <code>copy</code>.</p>
+<p class="cmd-rel">Approfondisci: <a href="../../q/backup-3-2-1/">Come si fa un backup con la regola 3-2-1?</a></p>
+</section>
+<section class="cmd-card" id="rclone_mount">
+<h2><a class="anchor" href="#rclone_mount">#</a> Come monto uno storage cloud come disco (rclone mount)?</h2>
+<pre><code>rclone mount remoto:bucket /mnt/cloud --vfs-cache-mode writes --daemon</code></pre>
+<p class="cmd-note"><code>--vfs-cache-mode writes</code> evita i problemi con le app che riscrivono i file; è comodità, non un backup.</p>
+<p class="cmd-rel">Approfondisci: <a href="../../q/backup-3-2-1/">Come si fa un backup con la regola 3-2-1?</a></p>
+</section>
+<section class="cmd-card" id="db_dump_mysql">
+<h2><a class="anchor" href="#db_dump_mysql">#</a> Come faccio dump e restore di MySQL/MariaDB?</h2>
+<pre><code>mysqldump --single-transaction --routines nomedb | gzip &gt; db-$(date +%F).sql.gz
+# restore:
+zcat db-2026-09-01.sql.gz | mysql nomedb</code></pre>
+<p class="cmd-note"><code>--single-transaction</code> = dump consistente senza lock (InnoDB): il backup del datadir a caldo, invece, è corrotto per design.</p>
+<p class="cmd-rel">Approfondisci: <a href="../../q/backup-consistenti-di-database/">Come si fanno backup consistenti di un database (PostgreSQL, MariaDB)?</a></p>
+</section>
+<section class="cmd-card" id="db_dump_postgres">
+<h2><a class="anchor" href="#db_dump_postgres">#</a> Come faccio dump e restore di PostgreSQL?</h2>
+<pre><code>pg_dump -Fc nomedb &gt; db-$(date +%F).dump
+# restore:
+pg_restore -d nomedb --clean db-2026-09-01.dump
+# in Docker: docker exec -t postgres pg_dump -U utente -Fc nomedb &gt; db.dump</code></pre>
+<p class="cmd-note">Il formato <code>-Fc</code> (custom) è compresso e permette il restore selettivo per tabella.</p>
+<p class="cmd-rel">Approfondisci: <a href="../../q/backup-consistenti-di-database/">Come si fanno backup consistenti di un database (PostgreSQL, MariaDB)?</a></p>
+</section>
+<section class="cmd-card" id="db_backup_sqlite">
+<h2><a class="anchor" href="#db_backup_sqlite">#</a> Come faccio il backup di un database SQLite a caldo?</h2>
+<pre><code>sqlite3 app.db &quot;VACUUM INTO &#x27;backup-$(date +%F).db&#x27;&quot;
+# o: sqlite3 app.db &quot;.backup backup.db&quot;</code></pre>
+<p class="cmd-note">MAI copiare il file .db mentre l&#x27;app scrive (WAL a metà = corruzione): questi due comandi sono atomici e sicuri.</p>
+<p class="cmd-rel">Approfondisci: <a href="../../q/backup-consistenti-di-database/">Come si fanno backup consistenti di un database (PostgreSQL, MariaDB)?</a></p>
+</section>
+
+<a class="ask" href="../../">Chiedi in chat 💬</a>
+<style>
+  .toc { border: 1px solid var(--border); border-radius: 10px; background: var(--bg-soft); padding: 10px 14px; margin-bottom: 8px; }
+  .toc summary { cursor: pointer; font-weight: 600; }
+  .toc a { color: var(--link); text-decoration: none; }
+  .cmd-card { border: 1px solid var(--border); border-radius: 12px; background: var(--bg-soft); padding: 14px 16px; margin: 12px 0; }
+  .cmd-card h2 { font-size: 16px; margin: 0 0 8px; }
+  .cmd-card .anchor { color: var(--text-dim); text-decoration: none; margin-right: 2px; }
+  .cmd-card pre { background: var(--code-bg); border-radius: 8px; padding: 10px 12px; overflow-x: auto; margin: 0 0 8px; cursor: pointer; }
+  .cmd-card code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 13px; }
+  .cmd-note { font-size: 14px; margin: 0 0 6px; }
+  .cmd-note code { background: var(--code-bg); border-radius: 5px; padding: 1px 5px; overflow-wrap: anywhere; }
+  .cmd-note { overflow-wrap: anywhere; }
+  .cmd-rel { font-size: 13px; color: var(--text-dim); margin: 0; }
+  .cmd-rel a { color: var(--link); text-decoration: none; margin-right: 10px; }
+  .cmd-card:target { border-color: var(--accent); }
+</style>
+<script>
+document.addEventListener('click', function (e) {
+  var pre = e.target.closest('.cmd-card pre');
+  if (!pre || !navigator.clipboard) return;
+  navigator.clipboard.writeText(pre.innerText).then(function () {
+    pre.style.borderLeft = '3px solid var(--accent)';
+    setTimeout(function () { pre.style.borderLeft = ''; }, 800);
+  });
+});
+</script>
+</main>
+</body>
+</html>

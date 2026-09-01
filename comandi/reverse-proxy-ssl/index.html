@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reverse proxy e certificati – comandi – FabGPT-FAQ</title>
+<meta name="description" content="Nginx, Caddy, Traefik e i certificati Let&#x27;s Encrypt: vhost, reload, wildcard e scadenze.">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="canonical" href="https://fabriziosalmi.github.io/fabgpt-faq/comandi/reverse-proxy-ssl/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Reverse proxy e certificati – comandi">
+<meta property="og:description" content="Nginx, Caddy, Traefik e i certificati Let&#x27;s Encrypt: vhost, reload, wildcard e scadenze.">
+<meta property="og:url" content="https://fabriziosalmi.github.io/fabgpt-faq/comandi/reverse-proxy-ssl/">
+<meta property="og:image" content="https://fabriziosalmi.github.io/fabgpt-faq/og.svg">
+<meta property="og:site_name" content="FabGPT-FAQ">
+<meta property="og:locale" content="it_IT">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://fabriziosalmi.github.io/fabgpt-faq/og.svg">
+<link rel="stylesheet" href="../../style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
+<script type="application/ld+json">[{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Come configuro un reverse proxy con Nginx?", "acceptedAnswer": {"@type": "Answer", "text": "server {\n  listen 443 ssl;\n  server_name app.example.com;\n  location / {\n    proxy_pass http://127.0.0.1:8080;\n    proxy_set_header Host $host;\n    proxy_set_header X-Real-IP $remote_addr;\n    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;\n    proxy_set_header X-Forwarded-Proto $scheme;\n  }\n}\nSenza gli header X-Forwarded- l'app dietro vede solo 127.0.0.1: log e rate-limiting diventano ciechi."}}, {"@type": "Question", "name": "Come testo e ricarico la config di Nginx senza downtime?", "acceptedAnswer": {"@type": "Answer", "text": "nginx -t && systemctl reload nginx\nIl && è la cintura: se il test fallisce, il reload non parte e il sito resta su con la config vecchia."}}, {"@type": "Question", "name": "I WebSocket non funzionano dietro Nginx: come sistemo?", "acceptedAnswer": {"@type": "Answer", "text": "location /ws/ {\n  proxy_pass http://127.0.0.1:8080;\n  proxy_http_version 1.1;\n  proxy_set_header Upgrade $http_upgrade;\n  proxy_set_header Connection \"upgrade\";\n  proxy_read_timeout 3600s;\n}\nSenza Upgrade/Connection il handshake WebSocket muore in silenzio; il timeout lungo evita i drop dopo 60s."}}, {"@type": "Question", "name": "Errore 413 in upload dietro Nginx: come alzo il limite?", "acceptedAnswer": {"@type": "Answer", "text": "# nel server o location block:\nclient_max_body_size 512m;\nIl default è 1 MB: ogni Nextcloud dietro Nginx inciampa qui al primo upload serio. Anche l'app dietro ha il SUO limite."}}, {"@type": "Question", "name": "Come scrivo un Caddyfile per un reverse proxy?", "acceptedAnswer": {"@type": "Answer", "text": "app.example.com {\n  reverse_proxy 127.0.0.1:8080\n}\nTutto qui: HTTPS con certificato automatico incluso. È il motivo per cui Caddy è il default sensato del self-hosting."}}, {"@type": "Question", "name": "Come ricarico Caddy dopo una modifica?", "acceptedAnswer": {"@type": "Answer", "text": "caddy validate --config /etc/caddy/Caddyfile\nsystemctl reload caddy\nvalidate prima del reload: stesso principio di nginx -t."}}, {"@type": "Question", "name": "Come espongo un container con le label di Traefik?", "acceptedAnswer": {"@type": "Answer", "text": "services:\n  app:\n    image: miaapp:1.0\n    labels:\n      - traefik.enable=true\n      - traefik.http.routers.app.rule=Host(`app.example.com`)\n      - traefik.http.routers.app.tls.certresolver=le\n      - traefik.http.services.app.loadbalancer.server.port=8080\nLa label della porta serve quando l'immagine non la dichiara (EXPOSE): è l'errore Traefik più comune."}}, {"@type": "Question", "name": "Come chiedo un certificato con certbot in standalone?", "acceptedAnswer": {"@type": "Answer", "text": "certbot certonly --standalone -d app.example.com\n--standalone apre lui la porta 80: il web server va fermato per la sfida, o usa il webroot (scheda dopo)."}}, {"@type": "Question", "name": "Come chiedo un certificato senza fermare il web server (webroot)?", "acceptedAnswer": {"@type": "Answer", "text": "certbot certonly --webroot -w /var/www/html -d app.example.com\nLa sfida passa dal sito già in piedi: zero downtime. Il path -w deve essere servito su http://dominio/.well-known/."}}, {"@type": "Question", "name": "Come ottengo un certificato wildcard (challenge DNS)?", "acceptedAnswer": {"@type": "Answer", "text": "certbot certonly --dns-cloudflare --dns-cloudflare-credentials ~/.secrets/cf.ini -d '*.example.com' -d example.com\nIl wildcard esige la challenge DNS-01: serve il plugin del tuo provider e un token API custodito bene."}}, {"@type": "Question", "name": "Come testo (e forzo) il rinnovo dei certificati?", "acceptedAnswer": {"@type": "Answer", "text": "certbot renew --dry-run\ncertbot renew --force-renewal   # solo se serve davvero\nIl --dry-run usa l'ambiente staging: prova il rinnovo senza bruciare i rate limit di Let's Encrypt."}}, {"@type": "Question", "name": "Come genero un certificato self-signed per test?", "acceptedAnswer": {"@type": "Answer", "text": "openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -days 365 -nodes -subj '/CN=test.local'\nPer lab e reti interne; il browser protesterà per design. In produzione: Let's Encrypt, che ormai è gratis e automatico."}}, {"@type": "Question", "name": "Come controllo la scadenza (e la catena) di un certificato?", "acceptedAnswer": {"@type": "Answer", "text": "echo | openssl s_client -connect example.com:443 -servername example.com 2>/dev/null | openssl x509 -noout -dates -issuer\n-servername è obbligatorio con la SNI (host multipli sullo stesso IP), o ispezioni il certificato sbagliato."}}]}, {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "FabGPT-FAQ", "item": "https://fabriziosalmi.github.io/fabgpt-faq/"}, {"@type": "ListItem", "position": 2, "name": "Comandi", "item": "https://fabriziosalmi.github.io/fabgpt-faq/comandi/"}, {"@type": "ListItem", "position": 3, "name": "Reverse proxy e certificati", "item": "https://fabriziosalmi.github.io/fabgpt-faq/comandi/reverse-proxy-ssl/"}]}]</script>
+<style>
+  .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
+  .page h1 { font-size: 26px; line-height: 1.3; margin: 6px 0 10px; }
+  .crumbs { font-size: 13px; color: var(--text-dim); margin-bottom: 6px; }
+  .crumbs a { color: var(--text-dim); text-decoration: none; }
+  .crumbs a:hover { color: var(--text); }
+  .page .intro { color: var(--text-dim); margin-bottom: 20px; }
+  .steps { list-style: none; counter-reset: step; padding: 0; margin: 0; }
+  .steps li { counter-increment: step; position: relative; padding: 14px 16px 14px 56px; border: 1px solid var(--border); border-radius: 12px; background: var(--bg-soft); margin: 10px 0; }
+  .steps li::before { content: counter(step); position: absolute; left: 16px; top: 16px; width: 26px; height: 26px; border-radius: 50%; background: var(--accent); color: var(--accent-text); font-weight: 700; font-size: 13px; display: flex; align-items: center; justify-content: center; }
+  .steps a { color: var(--link); text-decoration: none; font-weight: 600; }
+  .steps a:hover { text-decoration: underline; }
+  .steps p { margin: 4px 0 0; font-size: 14px; color: var(--text-dim); }
+  .path-card { display: block; border: 1px solid var(--border); border-radius: 12px; background: var(--bg-soft); padding: 16px 18px; margin: 12px 0; text-decoration: none; color: inherit; }
+  .path-card:hover { border-color: var(--accent); }
+  .path-card b { color: var(--link); font-size: 17px; }
+  .path-card p { margin: 6px 0 0; font-size: 14px; color: var(--text-dim); }
+  .path-card .n { font-size: 12px; color: var(--text-dim); text-transform: uppercase; letter-spacing: .05em; }
+  .page .ask { display: inline-block; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 8px 16px; text-decoration: none; font-weight: 600; font-size: 13px; margin-top: 20px; }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="../../" style="text-decoration:none;color:inherit">
+    <span class="brand-dot">F</span>
+    <span class="brand-name">FabGPT-FAQ</span>
+  </a>
+  <nav class="topnav"><a href="../../percorsi/">Percorsi</a> <a href="../../q/">Tutte le domande</a></nav>
+</header>
+<main class="page">
+<nav class="crumbs" aria-label="Percorso"><a href="../../">FabGPT-FAQ</a> › <a href="../">Comandi</a> › <span>Reverse proxy e certificati</span></nav>
+<h1>Reverse proxy e certificati</h1>
+<p class="intro">Nginx, Caddy, Traefik e i certificati Let&#x27;s Encrypt: vhost, reload, wildcard e scadenze. Ogni comando è verificato e copiabile; in <a href="../../">chat</a> basta descrivere cosa vuoi fare.</p>
+<details class="toc"><summary>13 comandi in questa pagina</summary><ul><li><a href="#nginx_vhost">Come configuro un reverse proxy con Nginx?</a></li><li><a href="#nginx_reload">Come testo e ricarico la config di Nginx senza downtime?</a></li><li><a href="#nginx_websocket">I WebSocket non funzionano dietro Nginx: come sistemo?</a></li><li><a href="#nginx_body_size">Errore 413 in upload dietro Nginx: come alzo il limite?</a></li><li><a href="#caddy_file">Come scrivo un Caddyfile per un reverse proxy?</a></li><li><a href="#caddy_reload">Come ricarico Caddy dopo una modifica?</a></li><li><a href="#traefik_labels">Come espongo un container con le label di Traefik?</a></li><li><a href="#certbot_standalone">Come chiedo un certificato con certbot in standalone?</a></li><li><a href="#certbot_webroot">Come chiedo un certificato senza fermare il web server (webroot)?</a></li><li><a href="#certbot_wildcard">Come ottengo un certificato wildcard (challenge DNS)?</a></li><li><a href="#certbot_renew">Come testo (e forzo) il rinnovo dei certificati?</a></li><li><a href="#openssl_selfsigned">Come genero un certificato self-signed per test?</a></li><li><a href="#ssl_inspect">Come controllo la scadenza (e la catena) di un certificato?</a></li></ul></details>
+<section class="cmd-card" id="nginx_vhost">
+<h2><a class="anchor" href="#nginx_vhost">#</a> Come configuro un reverse proxy con Nginx?</h2>
+<pre><code>server {
+  listen 443 ssl;
+  server_name app.example.com;
+  location / {
+    proxy_pass http://127.0.0.1:8080;
+    proxy_set_header Host $host;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header X-Forwarded-Proto $scheme;
+  }
+}</code></pre>
+<p class="cmd-note">Senza gli header <code>X-Forwarded-*</code> l&#x27;app dietro vede solo 127.0.0.1: log e rate-limiting diventano ciechi.</p>
+<p class="cmd-rel">Approfondisci: <a href="../../q/cos-e-un-reverse-proxy/">Cos&#x27;è un reverse proxy e a cosa serve?</a><a href="../../q/errore-502-bad-gateway/">Errore 502 Bad Gateway: cause e soluzioni</a></p>
+</section>
+<section class="cmd-card" id="nginx_reload">
+<h2><a class="anchor" href="#nginx_reload">#</a> Come testo e ricarico la config di Nginx senza downtime?</h2>
+<pre><code>nginx -t &amp;&amp; systemctl reload nginx</code></pre>
+<p class="cmd-note">Il <code>&amp;&amp;</code> è la cintura: se il test fallisce, il reload non parte e il sito resta su con la config vecchia.</p>
+<p class="cmd-rel">Approfondisci: <a href="../../q/cos-e-un-reverse-proxy/">Cos&#x27;è un reverse proxy e a cosa serve?</a></p>
+</section>
+<section class="cmd-card" id="nginx_websocket">
+<h2><a class="anchor" href="#nginx_websocket">#</a> I WebSocket non funzionano dietro Nginx: come sistemo?</h2>
+<pre><code>location /ws/ {
+  proxy_pass http://127.0.0.1:8080;
+  proxy_http_version 1.1;
+  proxy_set_header Upgrade $http_upgrade;
+  proxy_set_header Connection &quot;upgrade&quot;;
+  proxy_read_timeout 3600s;
+}</code></pre>
+<p class="cmd-note">Senza <code>Upgrade</code>/<code>Connection</code> il handshake WebSocket muore in silenzio; il timeout lungo evita i drop dopo 60s.</p>
+<p class="cmd-rel">Approfondisci: <a href="../../q/cos-e-un-reverse-proxy/">Cos&#x27;è un reverse proxy e a cosa serve?</a><a href="../../q/errore-502-bad-gateway/">Errore 502 Bad Gateway: cause e soluzioni</a></p>
+</section>
+<section class="cmd-card" id="nginx_body_size">
+<h2><a class="anchor" href="#nginx_body_size">#</a> Errore 413 in upload dietro Nginx: come alzo il limite?</h2>
+<pre><code># nel server o location block:
+client_max_body_size 512m;</code></pre>
+<p class="cmd-note">Il default è 1 MB: ogni Nextcloud dietro Nginx inciampa qui al primo upload serio. Anche l&#x27;app dietro ha il SUO limite.</p>
+<p class="cmd-rel">Approfondisci: <a href="../../q/cos-e-un-reverse-proxy/">Cos&#x27;è un reverse proxy e a cosa serve?</a></p>
+</section>
+<section class="cmd-card" id="caddy_file">
+<h2><a class="anchor" href="#caddy_file">#</a> Come scrivo un Caddyfile per un reverse proxy?</h2>
+<pre><code>app.example.com {
+  reverse_proxy 127.0.0.1:8080
+}</code></pre>
+<p class="cmd-note">Tutto qui: HTTPS con certificato automatico incluso. È il motivo per cui Caddy è il default sensato del self-hosting.</p>
+<p class="cmd-rel">Approfondisci: <a href="../../q/cos-e-un-reverse-proxy/">Cos&#x27;è un reverse proxy e a cosa serve?</a><a href="../../q/come-funziona-lets-encrypt-acme/">Come funziona Let&#x27;s Encrypt e il protocollo ACME?</a></p>
+</section>
+<section class="cmd-card" id="caddy_reload">
+<h2><a class="anchor" href="#caddy_reload">#</a> Come ricarico Caddy dopo una modifica?</h2>
+<pre><code>caddy validate --config /etc/caddy/Caddyfile
+systemctl reload caddy</code></pre>
+<p class="cmd-note"><code>validate</code> prima del reload: stesso principio di <code>nginx -t</code>.</p>
+<p class="cmd-rel">Approfondisci: <a href="../../q/cos-e-un-reverse-proxy/">Cos&#x27;è un reverse proxy e a cosa serve?</a></p>
+</section>
+<section class="cmd-card" id="traefik_labels">
+<h2><a class="anchor" href="#traefik_labels">#</a> Come espongo un container con le label di Traefik?</h2>
+<pre><code>services:
+  app:
+    image: miaapp:1.0
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.app.rule=Host(`app.example.com`)
+      - traefik.http.routers.app.tls.certresolver=le
+      - traefik.http.services.app.loadbalancer.server.port=8080</code></pre>
+<p class="cmd-note">La label della porta serve quando l&#x27;immagine non la dichiara (EXPOSE): è l&#x27;errore Traefik più comune.</p>
+<p class="cmd-rel">Approfondisci: <a href="../../q/cos-e-un-reverse-proxy/">Cos&#x27;è un reverse proxy e a cosa serve?</a><a href="../../q/cos-e-docker-compose/">Cos&#x27;è Docker Compose?</a></p>
+</section>
+<section class="cmd-card" id="certbot_standalone">
+<h2><a class="anchor" href="#certbot_standalone">#</a> Come chiedo un certificato con certbot in standalone?</h2>
+<pre><code>certbot certonly --standalone -d app.example.com</code></pre>
+<p class="cmd-note"><code>--standalone</code> apre lui la porta 80: il web server va fermato per la sfida, o usa il webroot (scheda dopo).</p>
+<p class="cmd-rel">Approfondisci: <a href="../../q/come-funziona-lets-encrypt-acme/">Come funziona Let&#x27;s Encrypt e il protocollo ACME?</a><a href="../../q/cos-e-certmate-gestione-certificati-tls/">Cos&#x27;è CertMate e come gestisce i certificati TLS/SSL?</a></p>
+</section>
+<section class="cmd-card" id="certbot_webroot">
+<h2><a class="anchor" href="#certbot_webroot">#</a> Come chiedo un certificato senza fermare il web server (webroot)?</h2>
+<pre><code>certbot certonly --webroot -w /var/www/html -d app.example.com</code></pre>
+<p class="cmd-note">La sfida passa dal sito già in piedi: zero downtime. Il path <code>-w</code> deve essere servito su http://dominio/.well-known/.</p>
+<p class="cmd-rel">Approfondisci: <a href="../../q/come-funziona-lets-encrypt-acme/">Come funziona Let&#x27;s Encrypt e il protocollo ACME?</a></p>
+</section>
+<section class="cmd-card" id="certbot_wildcard">
+<h2><a class="anchor" href="#certbot_wildcard">#</a> Come ottengo un certificato wildcard (challenge DNS)?</h2>
+<pre><code>certbot certonly --dns-cloudflare --dns-cloudflare-credentials ~/.secrets/cf.ini -d &#x27;*.example.com&#x27; -d example.com</code></pre>
+<p class="cmd-note">Il wildcard esige la challenge DNS-01: serve il plugin del tuo provider e un token API custodito bene.</p>
+<p class="cmd-rel">Approfondisci: <a href="../../q/certificato-wildcard-e-san/">Cos&#x27;è un certificato wildcard (e i SAN)?</a><a href="../../q/come-funziona-lets-encrypt-acme/">Come funziona Let&#x27;s Encrypt e il protocollo ACME?</a></p>
+</section>
+<section class="cmd-card" id="certbot_renew">
+<h2><a class="anchor" href="#certbot_renew">#</a> Come testo (e forzo) il rinnovo dei certificati?</h2>
+<pre><code>certbot renew --dry-run
+certbot renew --force-renewal   # solo se serve davvero</code></pre>
+<p class="cmd-note">Il <code>--dry-run</code> usa l&#x27;ambiente staging: prova il rinnovo senza bruciare i rate limit di Let&#x27;s Encrypt.</p>
+<p class="cmd-rel">Approfondisci: <a href="../../q/come-funziona-lets-encrypt-acme/">Come funziona Let&#x27;s Encrypt e il protocollo ACME?</a><a href="../../q/certificato-tls-scaduto-cosa-fare/">Certificato TLS scaduto: perché succede e come evitarlo?</a></p>
+</section>
+<section class="cmd-card" id="openssl_selfsigned">
+<h2><a class="anchor" href="#openssl_selfsigned">#</a> Come genero un certificato self-signed per test?</h2>
+<pre><code>openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -days 365 -nodes -subj &#x27;/CN=test.local&#x27;</code></pre>
+<p class="cmd-note">Per lab e reti interne; il browser protesterà per design. In produzione: Let&#x27;s Encrypt, che ormai è gratis e automatico.</p>
+<p class="cmd-rel">Approfondisci: <a href="../../q/come-funziona-lets-encrypt-acme/">Come funziona Let&#x27;s Encrypt e il protocollo ACME?</a><a href="../../q/errore-ssl-handshake-failure/">Errore SSL handshake failure: cosa significa?</a></p>
+</section>
+<section class="cmd-card" id="ssl_inspect">
+<h2><a class="anchor" href="#ssl_inspect">#</a> Come controllo la scadenza (e la catena) di un certificato?</h2>
+<pre><code>echo | openssl s_client -connect example.com:443 -servername example.com 2&gt;/dev/null | openssl x509 -noout -dates -issuer</code></pre>
+<p class="cmd-note"><code>-servername</code> è obbligatorio con la SNI (host multipli sullo stesso IP), o ispezioni il certificato sbagliato.</p>
+<p class="cmd-rel">Approfondisci: <a href="../../q/certificato-tls-scaduto-cosa-fare/">Certificato TLS scaduto: perché succede e come evitarlo?</a><a href="../../q/monitorare-dominio-ssl-reputazione/">Come si monitorano scadenza dominio, SSL, DNS e reputazione IP?</a></p>
+</section>
+
+<a class="ask" href="../../">Chiedi in chat 💬</a>
+<style>
+  .toc { border: 1px solid var(--border); border-radius: 10px; background: var(--bg-soft); padding: 10px 14px; margin-bottom: 8px; }
+  .toc summary { cursor: pointer; font-weight: 600; }
+  .toc a { color: var(--link); text-decoration: none; }
+  .cmd-card { border: 1px solid var(--border); border-radius: 12px; background: var(--bg-soft); padding: 14px 16px; margin: 12px 0; }
+  .cmd-card h2 { font-size: 16px; margin: 0 0 8px; }
+  .cmd-card .anchor { color: var(--text-dim); text-decoration: none; margin-right: 2px; }
+  .cmd-card pre { background: var(--code-bg); border-radius: 8px; padding: 10px 12px; overflow-x: auto; margin: 0 0 8px; cursor: pointer; }
+  .cmd-card code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 13px; }
+  .cmd-note { font-size: 14px; margin: 0 0 6px; }
+  .cmd-note code { background: var(--code-bg); border-radius: 5px; padding: 1px 5px; overflow-wrap: anywhere; }
+  .cmd-note { overflow-wrap: anywhere; }
+  .cmd-rel { font-size: 13px; color: var(--text-dim); margin: 0; }
+  .cmd-rel a { color: var(--link); text-decoration: none; margin-right: 10px; }
+  .cmd-card:target { border-color: var(--accent); }
+</style>
+<script>
+document.addEventListener('click', function (e) {
+  var pre = e.target.closest('.cmd-card pre');
+  if (!pre || !navigator.clipboard) return;
+  navigator.clipboard.writeText(pre.innerText).then(function () {
+    pre.style.borderLeft = '3px solid var(--accent)';
+    setTimeout(function () { pre.style.borderLeft = ''; }, 800);
+  });
+});
+</script>
+</main>
+</body>
+</html>

@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Monitoraggio e notifiche – comandi – FabGPT-FAQ</title>
+<meta name="description" content="Prometheus, Grafana, Uptime Kuma, ntfy/Gotify e gli aggiornamenti sorvegliati.">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="canonical" href="https://fabriziosalmi.github.io/fabgpt-faq/comandi/monitoraggio-notifiche/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Monitoraggio e notifiche – comandi">
+<meta property="og:description" content="Prometheus, Grafana, Uptime Kuma, ntfy/Gotify e gli aggiornamenti sorvegliati.">
+<meta property="og:url" content="https://fabriziosalmi.github.io/fabgpt-faq/comandi/monitoraggio-notifiche/">
+<meta property="og:image" content="https://fabriziosalmi.github.io/fabgpt-faq/og.svg">
+<meta property="og:site_name" content="FabGPT-FAQ">
+<meta property="og:locale" content="it_IT">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://fabriziosalmi.github.io/fabgpt-faq/og.svg">
+<link rel="stylesheet" href="../../style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
+<script type="application/ld+json">[{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Come aggiungo un target a Prometheus?", "acceptedAnswer": {"@type": "Answer", "text": "# prometheus.yml\nscrape_configs:\n  - job_name: nodo-nas\n    static_configs:\n      - targets: ['192.168.1.10:9100']\n\n# poi reload: curl -X POST http://localhost:9090/-/reload   (se --web.enable-lifecycle)\nLa pagina Status -> Targets dice subito se lo scrape funziona e perché no."}}, {"@type": "Question", "name": "Come installo node_exporter come servizio?", "acceptedAnswer": {"@type": "Answer", "text": "useradd -rs /bin/false nodeexp\n# scarica il binario in /usr/local/bin, poi unit systemd:\n[Service]\nUser=nodeexp\nExecStart=/usr/local/bin/node_exporter\n\nsystemctl enable --now node_exporter\ncurl -s localhost:9100/metrics | head\nUtente di sistema dedicato, niente root: espone metriche, non deve poter fare altro."}}, {"@type": "Question", "name": "Come collego Grafana a Prometheus e importo una dashboard?", "acceptedAnswer": {"@type": "Answer", "text": "# UI: Connections -> Data sources -> Prometheus -> http://prometheus:9090\n# Dashboards -> Import -> ID 1860 (Node Exporter Full)\nLa 1860 è la dashboard host standard de facto: cinque minuti dal nulla ai grafici di tutto."}}, {"@type": "Question", "name": "Come monitoro le metriche dei container (cAdvisor)?", "acceptedAnswer": {"@type": "Answer", "text": "docker run -d --name cadvisor -p 8081:8080 \\\n  -v /:/rootfs:ro -v /var/run:/var/run:ro -v /sys:/sys:ro \\\n  -v /var/lib/docker/:/var/lib/docker:ro \\\n  gcr.io/cadvisor/cadvisor\nEspone per-container CPU, RAM e I/O su /metrics: Prometheus lo scrape-a come un normale target."}}, {"@type": "Question", "name": "Come aggiungo un monitor su Uptime Kuma?", "acceptedAnswer": {"@type": "Answer", "text": "docker run -d --restart=always -p 3001:3001 -v uptime-kuma:/app/data --name uptime-kuma louislam/uptime-kuma\n# poi UI: Add New Monitor -> HTTP(s) / Ping / TCP Port\nIl retry prima dell'alert (2-3) evita i falsi allarmi da singolo pacchetto perso."}}, {"@type": "Question", "name": "Come collego Uptime Kuma a Telegram?", "acceptedAnswer": {"@type": "Answer", "text": "# 1. @BotFather -> /newbot -> copia il token\n# 2. scrivi un messaggio al bot, poi:\ncurl -s https://api.telegram.org/bot<TOKEN>/getUpdates   # leggi la chat_id\n# 3. Kuma UI: Settings -> Notifications -> Telegram: token + chat id\nLa stessa coppia token+chat_id riusa il bot per qualunque script tuo via sendMessage."}}, {"@type": "Question", "name": "Come mando una notifica push con ntfy?", "acceptedAnswer": {"@type": "Answer", "text": "curl -d 'Backup completato' ntfy.sh/mio-topic-segreto\n# self-hosted: curl -d 'msg' https://ntfy.example.com/topic\nIl topic È l'autenticazione sul server pubblico: rendilo lungo e impronunciabile, o self-hosta con gli utenti."}}, {"@type": "Question", "name": "Come mando una notifica con Gotify?", "acceptedAnswer": {"@type": "Answer", "text": "curl -X POST 'https://gotify.example.com/message?token=<APP_TOKEN>' \\\n  -F title='Backup' -F message='Completato' -F priority=5\nUn token per applicazione: quello del backup che finisce in un log non compromette il resto."}}, {"@type": "Question", "name": "Come vedo cosa aggiornerebbe Watchtower senza rischiare?", "acceptedAnswer": {"@type": "Answer", "text": "docker run --rm -v /var/run/docker.sock:/var/run/docker.sock containrrr/watchtower --run-once --monitor-only\n--monitor-only notifica senza toccare nulla: il compromesso sano tra il tutto-automatico e il non saperlo mai."}}]}, {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "FabGPT-FAQ", "item": "https://fabriziosalmi.github.io/fabgpt-faq/"}, {"@type": "ListItem", "position": 2, "name": "Comandi", "item": "https://fabriziosalmi.github.io/fabgpt-faq/comandi/"}, {"@type": "ListItem", "position": 3, "name": "Monitoraggio e notifiche", "item": "https://fabriziosalmi.github.io/fabgpt-faq/comandi/monitoraggio-notifiche/"}]}]</script>
+<style>
+  .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
+  .page h1 { font-size: 26px; line-height: 1.3; margin: 6px 0 10px; }
+  .crumbs { font-size: 13px; color: var(--text-dim); margin-bottom: 6px; }
+  .crumbs a { color: var(--text-dim); text-decoration: none; }
+  .crumbs a:hover { color: var(--text); }
+  .page .intro { color: var(--text-dim); margin-bottom: 20px; }
+  .steps { list-style: none; counter-reset: step; padding: 0; margin: 0; }
+  .steps li { counter-increment: step; position: relative; padding: 14px 16px 14px 56px; border: 1px solid var(--border); border-radius: 12px; background: var(--bg-soft); margin: 10px 0; }
+  .steps li::before { content: counter(step); position: absolute; left: 16px; top: 16px; width: 26px; height: 26px; border-radius: 50%; background: var(--accent); color: var(--accent-text); font-weight: 700; font-size: 13px; display: flex; align-items: center; justify-content: center; }
+  .steps a { color: var(--link); text-decoration: none; font-weight: 600; }
+  .steps a:hover { text-decoration: underline; }
+  .steps p { margin: 4px 0 0; font-size: 14px; color: var(--text-dim); }
+  .path-card { display: block; border: 1px solid var(--border); border-radius: 12px; background: var(--bg-soft); padding: 16px 18px; margin: 12px 0; text-decoration: none; color: inherit; }
+  .path-card:hover { border-color: var(--accent); }
+  .path-card b { color: var(--link); font-size: 17px; }
+  .path-card p { margin: 6px 0 0; font-size: 14px; color: var(--text-dim); }
+  .path-card .n { font-size: 12px; color: var(--text-dim); text-transform: uppercase; letter-spacing: .05em; }
+  .page .ask { display: inline-block; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 8px 16px; text-decoration: none; font-weight: 600; font-size: 13px; margin-top: 20px; }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="../../" style="text-decoration:none;color:inherit">
+    <span class="brand-dot">F</span>
+    <span class="brand-name">FabGPT-FAQ</span>
+  </a>
+  <nav class="topnav"><a href="../../percorsi/">Percorsi</a> <a href="../../q/">Tutte le domande</a></nav>
+</header>
+<main class="page">
+<nav class="crumbs" aria-label="Percorso"><a href="../../">FabGPT-FAQ</a> › <a href="../">Comandi</a> › <span>Monitoraggio e notifiche</span></nav>
+<h1>Monitoraggio e notifiche</h1>
+<p class="intro">Prometheus, Grafana, Uptime Kuma, ntfy/Gotify e gli aggiornamenti sorvegliati. Ogni comando è verificato e copiabile; in <a href="../../">chat</a> basta descrivere cosa vuoi fare.</p>
+<details class="toc"><summary>9 comandi in questa pagina</summary><ul><li><a href="#prom_target">Come aggiungo un target a Prometheus?</a></li><li><a href="#node_exporter">Come installo node_exporter come servizio?</a></li><li><a href="#grafana_setup">Come collego Grafana a Prometheus e importo una dashboard?</a></li><li><a href="#cadvisor">Come monitoro le metriche dei container (cAdvisor)?</a></li><li><a href="#kuma_monitor">Come aggiungo un monitor su Uptime Kuma?</a></li><li><a href="#kuma_telegram">Come collego Uptime Kuma a Telegram?</a></li><li><a href="#ntfy_send">Come mando una notifica push con ntfy?</a></li><li><a href="#gotify_send">Come mando una notifica con Gotify?</a></li><li><a href="#watchtower_dryrun">Come vedo cosa aggiornerebbe Watchtower senza rischiare?</a></li></ul></details>
+<section class="cmd-card" id="prom_target">
+<h2><a class="anchor" href="#prom_target">#</a> Come aggiungo un target a Prometheus?</h2>
+<pre><code># prometheus.yml
+scrape_configs:
+  - job_name: nodo-nas
+    static_configs:
+      - targets: [&#x27;192.168.1.10:9100&#x27;]
+
+# poi reload: curl -X POST http://localhost:9090/-/reload   (se --web.enable-lifecycle)</code></pre>
+<p class="cmd-note">La pagina Status -&gt; Targets dice subito se lo scrape funziona e perché no.</p>
+<p class="cmd-rel">Approfondisci: <a href="../../q/stack-di-monitoraggio-prometheus-grafana/">Come si monitora l&#x27;hardware del homelab (Prometheus, Grafana)?</a></p>
+</section>
+<section class="cmd-card" id="node_exporter">
+<h2><a class="anchor" href="#node_exporter">#</a> Come installo node_exporter come servizio?</h2>
+<pre><code>useradd -rs /bin/false nodeexp
+# scarica il binario in /usr/local/bin, poi unit systemd:
+[Service]
+User=nodeexp
+ExecStart=/usr/local/bin/node_exporter
+
+systemctl enable --now node_exporter
+curl -s localhost:9100/metrics | head</code></pre>
+<p class="cmd-note">Utente di sistema dedicato, niente root: espone metriche, non deve poter fare altro.</p>
+<p class="cmd-rel">Approfondisci: <a href="../../q/stack-di-monitoraggio-prometheus-grafana/">Come si monitora l&#x27;hardware del homelab (Prometheus, Grafana)?</a></p>
+</section>
+<section class="cmd-card" id="grafana_setup">
+<h2><a class="anchor" href="#grafana_setup">#</a> Come collego Grafana a Prometheus e importo una dashboard?</h2>
+<pre><code># UI: Connections -&gt; Data sources -&gt; Prometheus -&gt; http://prometheus:9090
+# Dashboards -&gt; Import -&gt; ID 1860 (Node Exporter Full)</code></pre>
+<p class="cmd-note">La 1860 è la dashboard host standard de facto: cinque minuti dal nulla ai grafici di tutto.</p>
+<p class="cmd-rel">Approfondisci: <a href="../../q/stack-di-monitoraggio-prometheus-grafana/">Come si monitora l&#x27;hardware del homelab (Prometheus, Grafana)?</a></p>
+</section>
+<section class="cmd-card" id="cadvisor">
+<h2><a class="anchor" href="#cadvisor">#</a> Come monitoro le metriche dei container (cAdvisor)?</h2>
+<pre><code>docker run -d --name cadvisor -p 8081:8080 \
+  -v /:/rootfs:ro -v /var/run:/var/run:ro -v /sys:/sys:ro \
+  -v /var/lib/docker/:/var/lib/docker:ro \
+  gcr.io/cadvisor/cadvisor</code></pre>
+<p class="cmd-note">Espone per-container CPU, RAM e I/O su /metrics: Prometheus lo scrape-a come un normale target.</p>
+<p class="cmd-rel">Approfondisci: <a href="../../q/stack-di-monitoraggio-prometheus-grafana/">Come si monitora l&#x27;hardware del homelab (Prometheus, Grafana)?</a><a href="../../q/cos-e-docker-compose/">Cos&#x27;è Docker Compose?</a></p>
+</section>
+<section class="cmd-card" id="kuma_monitor">
+<h2><a class="anchor" href="#kuma_monitor">#</a> Come aggiungo un monitor su Uptime Kuma?</h2>
+<pre><code>docker run -d --restart=always -p 3001:3001 -v uptime-kuma:/app/data --name uptime-kuma louislam/uptime-kuma
+# poi UI: Add New Monitor -&gt; HTTP(s) / Ping / TCP Port</code></pre>
+<p class="cmd-note">Il retry prima dell&#x27;alert (2-3) evita i falsi allarmi da singolo pacchetto perso.</p>
+<p class="cmd-rel">Approfondisci: <a href="../../q/monitorare-siti-web-con-github-actions/">Come si monitora un sito web usando solo GitHub Actions?</a><a href="../../q/stack-di-monitoraggio-prometheus-grafana/">Come si monitora l&#x27;hardware del homelab (Prometheus, Grafana)?</a></p>
+</section>
+<section class="cmd-card" id="kuma_telegram">
+<h2><a class="anchor" href="#kuma_telegram">#</a> Come collego Uptime Kuma a Telegram?</h2>
+<pre><code># 1. @BotFather -&gt; /newbot -&gt; copia il token
+# 2. scrivi un messaggio al bot, poi:
+curl -s https://api.telegram.org/bot&lt;TOKEN&gt;/getUpdates   # leggi la chat_id
+# 3. Kuma UI: Settings -&gt; Notifications -&gt; Telegram: token + chat id</code></pre>
+<p class="cmd-note">La stessa coppia token+chat_id riusa il bot per qualunque script tuo via sendMessage.</p>
+<p class="cmd-rel">Approfondisci: <a href="../../q/notifiche-push-self-hosted-ntfy-gotify/">Come si ricevono notifiche push self-hosted (ntfy, Gotify)?</a><a href="../../q/monitorare-siti-web-con-github-actions/">Come si monitora un sito web usando solo GitHub Actions?</a></p>
+</section>
+<section class="cmd-card" id="ntfy_send">
+<h2><a class="anchor" href="#ntfy_send">#</a> Come mando una notifica push con ntfy?</h2>
+<pre><code>curl -d &#x27;Backup completato&#x27; ntfy.sh/mio-topic-segreto
+# self-hosted: curl -d &#x27;msg&#x27; https://ntfy.example.com/topic</code></pre>
+<p class="cmd-note">Il topic È l&#x27;autenticazione sul server pubblico: rendilo lungo e impronunciabile, o self-hosta con gli utenti.</p>
+<p class="cmd-rel">Approfondisci: <a href="../../q/notifiche-push-self-hosted-ntfy-gotify/">Come si ricevono notifiche push self-hosted (ntfy, Gotify)?</a></p>
+</section>
+<section class="cmd-card" id="gotify_send">
+<h2><a class="anchor" href="#gotify_send">#</a> Come mando una notifica con Gotify?</h2>
+<pre><code>curl -X POST &#x27;https://gotify.example.com/message?token=&lt;APP_TOKEN&gt;&#x27; \
+  -F title=&#x27;Backup&#x27; -F message=&#x27;Completato&#x27; -F priority=5</code></pre>
+<p class="cmd-note">Un token per applicazione: quello del backup che finisce in un log non compromette il resto.</p>
+<p class="cmd-rel">Approfondisci: <a href="../../q/notifiche-push-self-hosted-ntfy-gotify/">Come si ricevono notifiche push self-hosted (ntfy, Gotify)?</a></p>
+</section>
+<section class="cmd-card" id="watchtower_dryrun">
+<h2><a class="anchor" href="#watchtower_dryrun">#</a> Come vedo cosa aggiornerebbe Watchtower senza rischiare?</h2>
+<pre><code>docker run --rm -v /var/run/docker.sock:/var/run/docker.sock containrrr/watchtower --run-once --monitor-only</code></pre>
+<p class="cmd-note"><code>--monitor-only</code> notifica senza toccare nulla: il compromesso sano tra il tutto-automatico e il non saperlo mai.</p>
+<p class="cmd-rel">Approfondisci: <a href="../../q/aggiornare-automaticamente-i-container/">Come si aggiornano automaticamente i container (Watchtower e alternative)?</a><a href="../../q/cos-e-docker-compose/">Cos&#x27;è Docker Compose?</a></p>
+</section>
+
+<a class="ask" href="../../">Chiedi in chat 💬</a>
+<style>
+  .toc { border: 1px solid var(--border); border-radius: 10px; background: var(--bg-soft); padding: 10px 14px; margin-bottom: 8px; }
+  .toc summary { cursor: pointer; font-weight: 600; }
+  .toc a { color: var(--link); text-decoration: none; }
+  .cmd-card { border: 1px solid var(--border); border-radius: 12px; background: var(--bg-soft); padding: 14px 16px; margin: 12px 0; }
+  .cmd-card h2 { font-size: 16px; margin: 0 0 8px; }
+  .cmd-card .anchor { color: var(--text-dim); text-decoration: none; margin-right: 2px; }
+  .cmd-card pre { background: var(--code-bg); border-radius: 8px; padding: 10px 12px; overflow-x: auto; margin: 0 0 8px; cursor: pointer; }
+  .cmd-card code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 13px; }
+  .cmd-note { font-size: 14px; margin: 0 0 6px; }
+  .cmd-note code { background: var(--code-bg); border-radius: 5px; padding: 1px 5px; overflow-wrap: anywhere; }
+  .cmd-note { overflow-wrap: anywhere; }
+  .cmd-rel { font-size: 13px; color: var(--text-dim); margin: 0; }
+  .cmd-rel a { color: var(--link); text-decoration: none; margin-right: 10px; }
+  .cmd-card:target { border-color: var(--accent); }
+</style>
+<script>
+document.addEventListener('click', function (e) {
+  var pre = e.target.closest('.cmd-card pre');
+  if (!pre || !navigator.clipboard) return;
+  navigator.clipboard.writeText(pre.innerText).then(function () {
+    pre.style.borderLeft = '3px solid var(--accent)';
+    setTimeout(function () { pre.style.borderLeft = ''; }, 800);
+  });
+});
+</script>
+</main>
+</body>
+</html>

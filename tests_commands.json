@@ -578,5 +578,197 @@
  {
   "q": "come rendo permanente una variabile d'ambiente?",
   "expect": "cmd/env_vars"
+ },
+ {
+  "q": "come metto nginx come reverse proxy davanti alla mia app?",
+  "expect": "cmd/nginx_vhost"
+ },
+ {
+  "q": "come ricarico nginx dopo aver testato la config?",
+  "expect": "cmd/nginx_reload"
+ },
+ {
+  "q": "i websocket si staccano dietro nginx, che manca?",
+  "expect": "cmd/nginx_websocket"
+ },
+ {
+  "q": "errore 413 request entity too large in upload, come alzo il limite?",
+  "expect": "cmd/nginx_body_size"
+ },
+ {
+  "q": "come scrivo un caddyfile per fare da reverse proxy?",
+  "expect": "cmd/caddy_file"
+ },
+ {
+  "q": "come applico le modifiche al caddyfile?",
+  "expect": "cmd/caddy_reload"
+ },
+ {
+  "q": "che label traefik servono per esporre un container?",
+  "expect": "cmd/traefik_labels"
+ },
+ {
+  "q": "come richiedo un certificato con certbot standalone?",
+  "expect": "cmd/certbot_standalone"
+ },
+ {
+  "q": "posso chiedere il certificato senza fermare nginx? webroot?",
+  "expect": "cmd/certbot_webroot"
+ },
+ {
+  "q": "come faccio un certificato wildcard con la dns challenge?",
+  "expect": "cmd/certbot_wildcard"
+ },
+ {
+  "q": "come testo il rinnovo dei certificati con certbot renew?",
+  "expect": "cmd/certbot_renew"
+ },
+ {
+  "q": "come genero un certificato self-signed per un test?",
+  "expect": "cmd/openssl_selfsigned"
+ },
+ {
+  "q": "comando per vedere quando scade il certificato di un sito",
+  "expect": "cmd/ssl_inspect"
+ },
+ {
+  "q": "come genero chiavi e config del server wireguard?",
+  "expect": "cmd/wg_server"
+ },
+ {
+  "q": "come aggiungo un nuovo peer a wireguard?",
+  "expect": "cmd/wg_peer"
+ },
+ {
+  "q": "come attivo wireguard al boot con wg-quick?",
+  "expect": "cmd/wg_up"
+ },
+ {
+  "q": "wireguard non fa handshake, come lo debuggo?",
+  "expect": "cmd/wg_debug"
+ },
+ {
+  "q": "come faccio lo split tunnel con allowedips?",
+  "expect": "cmd/wg_allowedips"
+ },
+ {
+  "q": "come installo tailscale e lo collego?",
+  "expect": "cmd/tailscale_up"
+ },
+ {
+  "q": "come uso il server di casa come exit node tailscale?",
+  "expect": "cmd/tailscale_exit"
+ },
+ {
+  "q": "come raggiungo tutta la lan con il subnet router di tailscale?",
+  "expect": "cmd/tailscale_subnet"
+ },
+ {
+  "q": "come creo un tunnel cloudflared per esporre un servizio?",
+  "expect": "cmd/cloudflared_tunnel"
+ },
+ {
+  "q": "come aggiungo un record dns locale sul pihole?",
+  "expect": "cmd/pihole_local_dns"
+ },
+ {
+  "q": "come metto in whitelist un dominio bloccato dal pihole?",
+  "expect": "cmd/pihole_lists"
+ },
+ {
+  "q": "l'ip di casa cambia, come aggiorno il dns su cloudflare?",
+  "expect": "cmd/ddns_cloudflare"
+ },
+ {
+  "q": "come inizializzo il repository di restic?",
+  "expect": "cmd/restic_init"
+ },
+ {
+  "q": "comando per lanciare il backup con restic",
+  "expect": "cmd/restic_backup"
+ },
+ {
+  "q": "come recupero dei file da uno snapshot restic?",
+  "expect": "cmd/restic_restore"
+ },
+ {
+  "q": "come imposto la retention con restic forget e prune?",
+  "expect": "cmd/restic_prune"
+ },
+ {
+  "q": "come creo un archivio di backup con borg?",
+  "expect": "cmd/borg_create"
+ },
+ {
+  "q": "come faccio il prune degli archivi borg?",
+  "expect": "cmd/borg_prune"
+ },
+ {
+  "q": "come faccio il mirror di una cartella con rsync?",
+  "expect": "cmd/rsync_mirror"
+ },
+ {
+  "q": "come mando i file su un server remoto con rsync via ssh?",
+  "expect": "cmd/rsync_remote"
+ },
+ {
+  "q": "posso provare rsync in dry run prima del delete?",
+  "expect": "cmd/rsync_dryrun"
+ },
+ {
+  "q": "come sincronizzo una cartella sul cloud con rclone sync?",
+  "expect": "cmd/rclone_sync"
+ },
+ {
+  "q": "come monto un bucket cloud come disco con rclone mount?",
+  "expect": "cmd/rclone_mount"
+ },
+ {
+  "q": "come faccio un dump consistente di mariadb con mysqldump?",
+  "expect": "cmd/db_dump_mysql"
+ },
+ {
+  "q": "come faccio dump e restore di postgres con pg_dump?",
+  "expect": "cmd/db_dump_postgres"
+ },
+ {
+  "q": "come faccio il backup a caldo di un database sqlite?",
+  "expect": "cmd/db_backup_sqlite"
+ },
+ {
+  "q": "come aggiungo un nuovo target allo scrape di prometheus?",
+  "expect": "cmd/prom_target"
+ },
+ {
+  "q": "come installo node_exporter come servizio systemd?",
+  "expect": "cmd/node_exporter"
+ },
+ {
+  "q": "come collego grafana a prometheus e importo la dashboard 1860?",
+  "expect": "cmd/grafana_setup"
+ },
+ {
+  "q": "come monitoro le metriche dei container con cadvisor?",
+  "expect": "cmd/cadvisor"
+ },
+ {
+  "q": "come aggiungo un monitor http su uptime kuma?",
+  "expect": "cmd/kuma_monitor"
+ },
+ {
+  "q": "come collego uptime kuma alle notifiche telegram?",
+  "expect": "cmd/kuma_telegram"
+ },
+ {
+  "q": "come mando una notifica push con ntfy da uno script?",
+  "expect": "cmd/ntfy_send"
+ },
+ {
+  "q": "come invio un messaggio con gotify via curl?",
+  "expect": "cmd/gotify_send"
+ },
+ {
+  "q": "come faccio girare watchtower in dry run senza aggiornare?",
+  "expect": "cmd/watchtower_dryrun"
  }
 ]

@@ -29,6 +29,9 @@ Quality loop (autonomous iteration):
 - `node tools_test.mjs` – gate T6: the deterministic micro-tools (tools.js:
   subnet/CIDR, cron, chmod, JWT, epoch, well-known ports + the chat fast-path
   detector). 100% required whenever tools.js changes.
+- `python3 cmdcheck.py` – gate T7: the command-card pool (commands.json).
+  C1 integrity, C2 no-steal (canonicals), C3 per-card routing, C4 battery
+  fidelity. 100% required whenever commands.json or the matcher changes.
 
 Conversational layer: `faq.json` has a `smalltalk` array (22 intents – greetings,
 thanks, capabilities, out-of-domain tasks, emotional turns…) grounded in the
@@ -496,6 +499,17 @@ Richieste di Fab, in ordine:
 - Fix rendering markdown (app.js + build.py): i code-span vengono estratti
   prima di bold/italic – gli asterischi di cron/glob dentro i backtick non
   vengono piu mangiati.
+- **[FATTA 2026-09-01] Livello comandi** (`commands.json` -> `/comandi/`, dalla
+  tassonomia di intenti sysadmin/docker/selfhosting): 193 card operative in 16
+  gruppi (Docker x4, Linux core x8, self-hosting x4) – domanda colloquiale,
+  keyword, comando verificato copiabile, nota-gotcha, voci KB correlate. Il
+  matcher (app.js+qa.py) le consulta DOPO la KB: una card vince solo se >=2.0
+  e batte strettamente la KB (i pareggi restano alla KB). Statico: pagine
+  cheat-sheet con ancore per card e JSON-LD FAQPage. Gate **T7**
+  (`python3 cmdcheck.py`): C1 integrita, C2 no-steal sulle 568 canoniche,
+  C3 routing (193 test, uno per card), C4 fedelta batteria (eccezione
+  sancita: una card puo raffinare una query se la voce attesa e nei suoi
+  related). 633 URL totali.
 
 **Smalltalk v2 DONE (2026-08-29)**: 22 -> 33 intenti, piu varianti per intento,
 risposte che instradano con percorsi suggeriti, e campo `suggest` (slug delle

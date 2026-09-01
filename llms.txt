@@ -614,6 +614,10 @@ Chat: https://fabriziosalmi.github.io/fabgpt-faq/  ·  Indice: https://fabrizios
 - [Firewall e SSH](https://fabriziosalmi.github.io/fabgpt-faq/comandi/firewall-ssh/): UFW, nftables, fail2ban e l'operatività SSH quotidiana senza chiudersi fuori. (11 comandi)
 - [Pacchetti](https://fabriziosalmi.github.io/fabgpt-faq/comandi/pacchetti/): apt e dnf: aggiornare, bloccare, riparare e capire da dove arriva un file. (8 comandi)
 - [Cron e Bash](https://fabriziosalmi.github.io/fabgpt-faq/comandi/cron-bash/): Pianificazione, debug dei job silenziosi e gli attrezzi Bash di ogni giorno. (8 comandi)
+- [Reverse proxy e certificati](https://fabriziosalmi.github.io/fabgpt-faq/comandi/reverse-proxy-ssl/): Nginx, Caddy, Traefik e i certificati Let's Encrypt: vhost, reload, wildcard e scadenze. (13 comandi)
+- [VPN e DNS locale](https://fabriziosalmi.github.io/fabgpt-faq/comandi/vpn-dns/): WireGuard, Tailscale, tunnel Cloudflare, Pi-hole e DNS dinamico. (12 comandi)
+- [Backup e sincronizzazione](https://fabriziosalmi.github.io/fabgpt-faq/comandi/backup-sync/): Restic, Borg, rsync, rclone e i dump consistenti dei database. (14 comandi)
+- [Monitoraggio e notifiche](https://fabriziosalmi.github.io/fabgpt-faq/comandi/monitoraggio-notifiche/): Prometheus, Grafana, Uptime Kuma, ntfy/Gotify e gli aggiornamenti sorvegliati. (9 comandi)
 
 ## Tools deterministici
 
