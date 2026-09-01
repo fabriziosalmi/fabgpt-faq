@@ -256,7 +256,7 @@ PAGE = """<!DOCTYPE html>
 <script type="application/ld+json">{jsonld}</script>
 <style>
   .page {{ max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }}
-  .page h1 {{ font-size: 26px; line-height: 1.3; margin: 6px 0 10px; }}
+  .page h1 {{ font-size: clamp(22px, 4.5vw, 27px); line-height: 1.25; letter-spacing: -0.01em; margin: 6px 0 10px; }}
   .crumbs {{ font-size: 13px; color: var(--text-dim); margin-bottom: 6px; }}
   .crumbs a {{ color: var(--text-dim); text-decoration: none; }}
   .crumbs a:hover {{ color: var(--text); }}
@@ -267,7 +267,8 @@ PAGE = """<!DOCTYPE html>
   .copy-qa-btn {{ display: inline-flex; align-items: center; gap: 6px; background: var(--bg-soft); color: var(--text-dim); border: 1px solid var(--border); border-radius: 6px; padding: 6px 12px; font-size: 13px; font-family: inherit; font-weight: 500; cursor: pointer; transition: all .15s ease; }}
   .copy-qa-btn:hover {{ background: var(--border); color: var(--text); }}
   .copy-qa-btn.copied {{ background: rgba(16, 163, 127, 0.15); color: var(--accent); border-color: var(--accent); }}
-  .page .ask {{ display: inline-block; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 8px 16px; text-decoration: none; font-weight: 600; font-size: 13px; }}
+  .page .ask {{ display: inline-block; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 8px 16px; text-decoration: none; font-weight: 600; font-size: 13px; transition: background var(--t); }}
+  .page .ask:hover {{ background: var(--link); }}
   .page .related {{ margin-top: 36px; border-top: 1px solid var(--border); padding-top: 20px; }}
   .page .related h2 {{ font-size: 16px; margin-bottom: 12px; }}
   .page .related a {{ color: var(--link); text-decoration: none; }}
@@ -415,7 +416,7 @@ INDEX = """<!DOCTYPE html>
 <script type="application/ld+json">{jsonld}</script>
 <style>
   .page {{ max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }}
-  .page h1 {{ font-size: 26px; margin: 8px 0 8px; }}
+  .page h1 {{ font-size: clamp(22px, 4.5vw, 27px); letter-spacing: -0.01em; margin: 8px 0 8px; }}
   .page h2 {{ font-size: 15px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; margin: 28px 0 8px; }}
   .page a {{ color: var(--link); text-decoration: none; }}
   .page a:hover {{ text-decoration: underline; }}
@@ -546,13 +547,13 @@ PATH_HEAD = """<!DOCTYPE html>
 <script type="application/ld+json">{jsonld}</script>
 <style>
   .page {{ max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }}
-  .page h1 {{ font-size: 26px; line-height: 1.3; margin: 6px 0 10px; }}
+  .page h1 {{ font-size: clamp(22px, 4.5vw, 27px); line-height: 1.25; letter-spacing: -0.01em; margin: 6px 0 10px; }}
   .crumbs {{ font-size: 13px; color: var(--text-dim); margin-bottom: 6px; }}
   .crumbs a {{ color: var(--text-dim); text-decoration: none; }}
   .crumbs a:hover {{ color: var(--text); }}
   .page .intro {{ color: var(--text-dim); margin-bottom: 20px; }}
   .steps {{ list-style: none; counter-reset: step; padding: 0; margin: 0; }}
-  .steps li {{ counter-increment: step; position: relative; padding: 14px 16px 14px 56px; border: 1px solid var(--border); border-radius: 12px; background: var(--bg-soft); margin: 10px 0; }}
+  .steps li {{ counter-increment: step; position: relative; padding: 14px 16px 14px 56px; border: 1px solid var(--border); border-radius: var(--r-md); background: var(--bg-raised); box-shadow: var(--elev); margin: 10px 0; }}
   .steps li::before {{ content: counter(step); position: absolute; left: 16px; top: 16px; width: 26px; height: 26px; border-radius: 50%; background: var(--accent); color: var(--accent-text); font-weight: 700; font-size: 13px; display: flex; align-items: center; justify-content: center; }}
   .steps a {{ color: var(--link); text-decoration: none; font-weight: 600; }}
   .steps a:hover {{ text-decoration: underline; }}
@@ -562,17 +563,18 @@ PATH_HEAD = """<!DOCTYPE html>
   .steps li.done {{ opacity: .55; }}
   .steps li.done a {{ text-decoration: line-through; }}
   .prog {{ display: flex; align-items: center; gap: 12px; margin: 4px 0 16px; }}
-  .prog-track {{ flex: 1; height: 8px; border-radius: 999px; background: var(--bg-soft); border: 1px solid var(--border); overflow: hidden; }}
+  .prog-track {{ flex: 1; height: 6px; border-radius: 999px; background: var(--bg-soft); border: 1px solid var(--border); overflow: hidden; }}
   .prog-fill {{ display: block; height: 100%; width: 0; background: var(--accent); border-radius: 999px; transition: width .25s ease; }}
   .prog-txt {{ font-size: 13px; color: var(--text-dim); white-space: nowrap; }}
   .prog-reset {{ font-size: 12px; color: var(--text-dim); background: none; border: none; cursor: pointer; text-decoration: underline; padding: 0; }}
   .path-prog {{ margin: 6px 0 0 !important; font-size: 12.5px !important; color: var(--accent) !important; font-weight: 600; }}
-  .path-card {{ display: block; border: 1px solid var(--border); border-radius: 12px; background: var(--bg-soft); padding: 16px 18px; margin: 12px 0; text-decoration: none; color: inherit; }}
+  .path-card {{ display: block; border: 1px solid var(--border); border-radius: var(--r-md); background: var(--bg-raised); box-shadow: var(--elev); padding: 16px 18px; margin: 12px 0; text-decoration: none; color: inherit; transition: border-color var(--t); }}
   .path-card:hover {{ border-color: var(--accent); }}
   .path-card b {{ color: var(--link); font-size: 17px; }}
   .path-card p {{ margin: 6px 0 0; font-size: 14px; color: var(--text-dim); }}
   .path-card .n {{ font-size: 12px; color: var(--text-dim); text-transform: uppercase; letter-spacing: .05em; }}
-  .page .ask {{ display: inline-block; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 8px 16px; text-decoration: none; font-weight: 600; font-size: 13px; margin-top: 20px; }}
+  .page .ask {{ display: inline-block; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 8px 16px; text-decoration: none; font-weight: 600; font-size: 13px; margin-top: 20px; transition: background var(--t); }}
+  .page .ask:hover {{ background: var(--link); }}
 </style>
 </head>
 <body>
@@ -1037,8 +1039,9 @@ def build_tools(db, entries, site) -> list:
 <div class="related"><h2>Guide correlate</h2><ul>{related}</ul></div>
 <a class="ask" href="../../">{icon("chat")} Chiedi in chat</a>
 <style>
-  .tool-box {{ border: 1px solid var(--border); border-radius: 12px; background: var(--bg-soft); padding: 16px; }}
-  .tool-box input {{ width: 100%; box-sizing: border-box; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 15px; padding: 10px 12px; border: 1px solid var(--border); border-radius: 8px; background: var(--bg); color: var(--text); }}
+  .tool-box {{ border: 1px solid var(--border); border-radius: var(--r-md); background: var(--bg-raised); box-shadow: var(--elev); padding: 16px; }}
+  .tool-box input {{ width: 100%; box-sizing: border-box; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 15px; padding: 10px 12px; border: 1px solid var(--border); border-radius: var(--r-sm); background: var(--bg); color: var(--text); transition: border-color var(--t), box-shadow var(--t); }}
+  .tool-box input:focus {{ outline: none; border-color: var(--accent); box-shadow: var(--ring); }}
   .tool-ex {{ margin-top: 10px; display: flex; flex-wrap: wrap; gap: 6px; }}
   .tool-ex .ex {{ font-family: ui-monospace, Menlo, monospace; font-size: 12px; padding: 4px 10px; border: 1px solid var(--border); border-radius: 999px; background: var(--bg); color: var(--text-dim); cursor: pointer; }}
   .tool-ex .ex:hover {{ border-color: var(--accent); color: var(--text); }}
@@ -1289,10 +1292,10 @@ def build_commands(db, entries, site) -> list:
 {body}
 <a class="ask" href="../../">{icon("chat")} Chiedi in chat</a>
 <style>
-  .toc {{ border: 1px solid var(--border); border-radius: 10px; background: var(--bg-soft); padding: 10px 14px; margin-bottom: 8px; }}
+  .toc {{ border: 1px solid var(--border); border-radius: var(--r-md); background: var(--bg-raised); box-shadow: var(--elev); padding: 10px 14px; margin-bottom: 8px; }}
   .toc summary {{ cursor: pointer; font-weight: 600; }}
   .toc a {{ color: var(--link); text-decoration: none; }}
-  .cmd-card {{ border: 1px solid var(--border); border-radius: 12px; background: var(--bg-soft); padding: 14px 16px; margin: 12px 0; }}
+  .cmd-card {{ border: 1px solid var(--border); border-radius: var(--r-md); background: var(--bg-raised); box-shadow: var(--elev); padding: 14px 16px; margin: 12px 0; }}
   .cmd-card h2 {{ font-size: 16px; margin: 0 0 8px; }}
   .cmd-card .anchor {{ color: var(--text-dim); text-decoration: none; margin-right: 2px; }}
   .cmd-card pre {{ background: var(--code-bg); border-radius: 8px; padding: 10px 12px; overflow-x: auto; margin: 0 0 8px; cursor: pointer; }}

@@ -23,13 +23,13 @@
 <script type="application/ld+json">[{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Come aggiorno tutti i pacchetti?", "acceptedAnswer": {"@type": "Answer", "text": "apt update && apt upgrade        # Debian/Ubuntu\ndnf upgrade                      # RHEL/Fedora\napt update scarica solo gli INDICI: senza l'upgrade dopo, non hai aggiornato nulla."}}, {"@type": "Question", "name": "Come installo o rimuovo un pacchetto?", "acceptedAnswer": {"@type": "Answer", "text": "apt install nginx\napt remove nginx      # tiene le config\napt purge nginx       # via anche le config\nremove vs purge: se reinstallerai, remove; se vuoi ripartire pulito, purge."}}, {"@type": "Question", "name": "Come pulisco dipendenze orfane e cache dei pacchetti?", "acceptedAnswer": {"@type": "Answer", "text": "apt autoremove --purge\napt clean\nSicuro per definizione: rimuove solo ciò che nessun pacchetto installato richiede più."}}, {"@type": "Question", "name": "Quale pacchetto fornisce un certo file o comando?", "acceptedAnswer": {"@type": "Answer", "text": "dnf provides '*/bin/dig'          # RHEL/Fedora\napt-file search bin/dig           # Debian (apt install apt-file; apt-file update)\nIl riflesso giusto per ogni command not found: si cerca il file, non si tira a indovinare il nome del pacchetto."}}, {"@type": "Question", "name": "Come blocco l'aggiornamento di un singolo pacchetto?", "acceptedAnswer": {"@type": "Answer", "text": "apt-mark hold nginx        # sblocco: apt-mark unhold\ndnf versionlock add nginx  # (plugin versionlock)\nUn hold è debito tecnico con la data di scadenza: annota PERCHÉ l'hai messo, o resterà lì per sempre."}}, {"@type": "Question", "name": "Come vedo i pacchetti installati (e cerco tra loro)?", "acceptedAnswer": {"@type": "Answer", "text": "apt list --installed 2>/dev/null | grep nginx\ndnf list installed | grep nginx\nPer sapere se un pacchetto c'è e in che versione; la storia di chi ha installato cosa sta in /var/log/apt/history.log."}}, {"@type": "Question", "name": "apt ha dipendenze rotte: come sistemo?", "acceptedAnswer": {"@type": "Answer", "text": "apt --fix-broken install\ndpkg --configure -a      # se un'installazione si era interrotta\nQuasi sempre basta questa coppia; se il pasticcio nasce da un repo di terze parti, il problema è il repo."}}, {"@type": "Question", "name": "Come aggiungo un repository di terze parti nel modo giusto?", "acceptedAnswer": {"@type": "Answer", "text": "curl -fsSL https://esempio.com/key.gpg | gpg --dearmor -o /usr/share/keyrings/esempio.gpg\necho 'deb [signed-by=/usr/share/keyrings/esempio.gpg] https://repo.esempio.com stable main' > /etc/apt/sources.list.d/esempio.list\napt update\nsigned-by lega la chiave al SOLO repo che firma: il vecchio apt-key autorizzava quella chiave per tutto."}}]}, {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "FabGPT-FAQ", "item": "https://fabriziosalmi.github.io/fabgpt-faq/"}, {"@type": "ListItem", "position": 2, "name": "Comandi", "item": "https://fabriziosalmi.github.io/fabgpt-faq/comandi/"}, {"@type": "ListItem", "position": 3, "name": "Pacchetti", "item": "https://fabriziosalmi.github.io/fabgpt-faq/comandi/pacchetti/"}]}]</script>
 <style>
   .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
-  .page h1 { font-size: 26px; line-height: 1.3; margin: 6px 0 10px; }
+  .page h1 { font-size: clamp(22px, 4.5vw, 27px); line-height: 1.25; letter-spacing: -0.01em; margin: 6px 0 10px; }
   .crumbs { font-size: 13px; color: var(--text-dim); margin-bottom: 6px; }
   .crumbs a { color: var(--text-dim); text-decoration: none; }
   .crumbs a:hover { color: var(--text); }
   .page .intro { color: var(--text-dim); margin-bottom: 20px; }
   .steps { list-style: none; counter-reset: step; padding: 0; margin: 0; }
-  .steps li { counter-increment: step; position: relative; padding: 14px 16px 14px 56px; border: 1px solid var(--border); border-radius: 12px; background: var(--bg-soft); margin: 10px 0; }
+  .steps li { counter-increment: step; position: relative; padding: 14px 16px 14px 56px; border: 1px solid var(--border); border-radius: var(--r-md); background: var(--bg-raised); box-shadow: var(--elev); margin: 10px 0; }
   .steps li::before { content: counter(step); position: absolute; left: 16px; top: 16px; width: 26px; height: 26px; border-radius: 50%; background: var(--accent); color: var(--accent-text); font-weight: 700; font-size: 13px; display: flex; align-items: center; justify-content: center; }
   .steps a { color: var(--link); text-decoration: none; font-weight: 600; }
   .steps a:hover { text-decoration: underline; }
@@ -39,17 +39,18 @@
   .steps li.done { opacity: .55; }
   .steps li.done a { text-decoration: line-through; }
   .prog { display: flex; align-items: center; gap: 12px; margin: 4px 0 16px; }
-  .prog-track { flex: 1; height: 8px; border-radius: 999px; background: var(--bg-soft); border: 1px solid var(--border); overflow: hidden; }
+  .prog-track { flex: 1; height: 6px; border-radius: 999px; background: var(--bg-soft); border: 1px solid var(--border); overflow: hidden; }
   .prog-fill { display: block; height: 100%; width: 0; background: var(--accent); border-radius: 999px; transition: width .25s ease; }
   .prog-txt { font-size: 13px; color: var(--text-dim); white-space: nowrap; }
   .prog-reset { font-size: 12px; color: var(--text-dim); background: none; border: none; cursor: pointer; text-decoration: underline; padding: 0; }
   .path-prog { margin: 6px 0 0 !important; font-size: 12.5px !important; color: var(--accent) !important; font-weight: 600; }
-  .path-card { display: block; border: 1px solid var(--border); border-radius: 12px; background: var(--bg-soft); padding: 16px 18px; margin: 12px 0; text-decoration: none; color: inherit; }
+  .path-card { display: block; border: 1px solid var(--border); border-radius: var(--r-md); background: var(--bg-raised); box-shadow: var(--elev); padding: 16px 18px; margin: 12px 0; text-decoration: none; color: inherit; transition: border-color var(--t); }
   .path-card:hover { border-color: var(--accent); }
   .path-card b { color: var(--link); font-size: 17px; }
   .path-card p { margin: 6px 0 0; font-size: 14px; color: var(--text-dim); }
   .path-card .n { font-size: 12px; color: var(--text-dim); text-transform: uppercase; letter-spacing: .05em; }
-  .page .ask { display: inline-block; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 8px 16px; text-decoration: none; font-weight: 600; font-size: 13px; margin-top: 20px; }
+  .page .ask { display: inline-block; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 8px 16px; text-decoration: none; font-weight: 600; font-size: 13px; margin-top: 20px; transition: background var(--t); }
+  .page .ask:hover { background: var(--link); }
 </style>
 </head>
 <body>
@@ -127,10 +128,10 @@ apt update</code></pre>
 
 <a class="ask" href="../../"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-2px"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg> Chiedi in chat</a>
 <style>
-  .toc { border: 1px solid var(--border); border-radius: 10px; background: var(--bg-soft); padding: 10px 14px; margin-bottom: 8px; }
+  .toc { border: 1px solid var(--border); border-radius: var(--r-md); background: var(--bg-raised); box-shadow: var(--elev); padding: 10px 14px; margin-bottom: 8px; }
   .toc summary { cursor: pointer; font-weight: 600; }
   .toc a { color: var(--link); text-decoration: none; }
-  .cmd-card { border: 1px solid var(--border); border-radius: 12px; background: var(--bg-soft); padding: 14px 16px; margin: 12px 0; }
+  .cmd-card { border: 1px solid var(--border); border-radius: var(--r-md); background: var(--bg-raised); box-shadow: var(--elev); padding: 14px 16px; margin: 12px 0; }
   .cmd-card h2 { font-size: 16px; margin: 0 0 8px; }
   .cmd-card .anchor { color: var(--text-dim); text-decoration: none; margin-right: 2px; }
   .cmd-card pre { background: var(--code-bg); border-radius: 8px; padding: 10px 12px; overflow-x: auto; margin: 0 0 8px; cursor: pointer; }

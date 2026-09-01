@@ -25,7 +25,7 @@
 <script type="application/ld+json">[{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Cos'è GitOps e perché conviene?", "description": "GitOps significa trattare la configurazione dell'infrastruttura come codice: vive in un repository git, ogni modifica è una pull request con review, e un…", "author": {"@type": "Person", "name": "Fabrizio Salmi", "url": "https://github.com/fabriziosalmi"}, "publisher": {"@type": "Organization", "name": "FabGPT-FAQ", "url": "https://fabriziosalmi.github.io/fabgpt-faq/"}, "inLanguage": "it", "articleSection": "Cloudflare"}, {"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Cos'è GitOps e perché conviene?", "acceptedAnswer": {"@type": "Answer", "text": "GitOps significa trattare la configurazione dell'infrastruttura come codice: vive in un repository git, ogni modifica è una pull request con review, e un automatismo (tipicamente una pipeline CI) applica lo stato del repo al sistema reale. I benefici concreti: storia completa di chi ha cambiato cosa, rollback = git revert, e fine delle modifiche a mano non documentate fatte dal collega che ora è in ferie. Esempi funzionanti nel portfolio, tutti su GitHub Actions: zonecontrol e wafcontrol – impostazioni zone e WAF Cloudflare da file versionati dnscontrol-actions – DNS multi-provider con rollback patterns e limits – regole WAF e rate limiting rigenerate ogni giorno e committate"}}]}, {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "FabGPT-FAQ", "item": "https://fabriziosalmi.github.io/fabgpt-faq/"}, {"@type": "ListItem", "position": 2, "name": "Tutte le domande", "item": "https://fabriziosalmi.github.io/fabgpt-faq/q/"}, {"@type": "ListItem", "position": 3, "name": "Cloudflare", "item": "https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-gitops/"}]}]</script>
 <style>
   .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
-  .page h1 { font-size: 26px; line-height: 1.3; margin: 6px 0 10px; }
+  .page h1 { font-size: clamp(22px, 4.5vw, 27px); line-height: 1.25; letter-spacing: -0.01em; margin: 6px 0 10px; }
   .crumbs { font-size: 13px; color: var(--text-dim); margin-bottom: 6px; }
   .crumbs a { color: var(--text-dim); text-decoration: none; }
   .crumbs a:hover { color: var(--text); }
@@ -36,7 +36,8 @@
   .copy-qa-btn { display: inline-flex; align-items: center; gap: 6px; background: var(--bg-soft); color: var(--text-dim); border: 1px solid var(--border); border-radius: 6px; padding: 6px 12px; font-size: 13px; font-family: inherit; font-weight: 500; cursor: pointer; transition: all .15s ease; }
   .copy-qa-btn:hover { background: var(--border); color: var(--text); }
   .copy-qa-btn.copied { background: rgba(16, 163, 127, 0.15); color: var(--accent); border-color: var(--accent); }
-  .page .ask { display: inline-block; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 8px 16px; text-decoration: none; font-weight: 600; font-size: 13px; }
+  .page .ask { display: inline-block; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 8px 16px; text-decoration: none; font-weight: 600; font-size: 13px; transition: background var(--t); }
+  .page .ask:hover { background: var(--link); }
   .page .related { margin-top: 36px; border-top: 1px solid var(--border); padding-top: 20px; }
   .page .related h2 { font-size: 16px; margin-bottom: 12px; }
   .page .related a { color: var(--link); text-decoration: none; }

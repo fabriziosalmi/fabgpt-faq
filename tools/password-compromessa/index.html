@@ -23,13 +23,13 @@
 <script type="application/ld+json">[{"@context": "https://schema.org", "@type": "WebApplication", "name": "Check password compromessa", "url": "https://fabriziosalmi.github.io/fabgpt-faq/tools/password-compromessa/", "applicationCategory": "DeveloperApplication", "operatingSystem": "Any (browser)", "description": "Verifica se una password è nei data breach noti (Have I Been Pwned) con k-anonymity: la password non lascia mai il browser.", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "EUR"}}, {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "FabGPT-FAQ", "item": "https://fabriziosalmi.github.io/fabgpt-faq/"}, {"@type": "ListItem", "position": 2, "name": "Tools", "item": "https://fabriziosalmi.github.io/fabgpt-faq/tools/"}, {"@type": "ListItem", "position": 3, "name": "Check password compromessa", "item": "https://fabriziosalmi.github.io/fabgpt-faq/tools/password-compromessa/"}]}]</script>
 <style>
   .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
-  .page h1 { font-size: 26px; line-height: 1.3; margin: 6px 0 10px; }
+  .page h1 { font-size: clamp(22px, 4.5vw, 27px); line-height: 1.25; letter-spacing: -0.01em; margin: 6px 0 10px; }
   .crumbs { font-size: 13px; color: var(--text-dim); margin-bottom: 6px; }
   .crumbs a { color: var(--text-dim); text-decoration: none; }
   .crumbs a:hover { color: var(--text); }
   .page .intro { color: var(--text-dim); margin-bottom: 20px; }
   .steps { list-style: none; counter-reset: step; padding: 0; margin: 0; }
-  .steps li { counter-increment: step; position: relative; padding: 14px 16px 14px 56px; border: 1px solid var(--border); border-radius: 12px; background: var(--bg-soft); margin: 10px 0; }
+  .steps li { counter-increment: step; position: relative; padding: 14px 16px 14px 56px; border: 1px solid var(--border); border-radius: var(--r-md); background: var(--bg-raised); box-shadow: var(--elev); margin: 10px 0; }
   .steps li::before { content: counter(step); position: absolute; left: 16px; top: 16px; width: 26px; height: 26px; border-radius: 50%; background: var(--accent); color: var(--accent-text); font-weight: 700; font-size: 13px; display: flex; align-items: center; justify-content: center; }
   .steps a { color: var(--link); text-decoration: none; font-weight: 600; }
   .steps a:hover { text-decoration: underline; }
@@ -39,17 +39,18 @@
   .steps li.done { opacity: .55; }
   .steps li.done a { text-decoration: line-through; }
   .prog { display: flex; align-items: center; gap: 12px; margin: 4px 0 16px; }
-  .prog-track { flex: 1; height: 8px; border-radius: 999px; background: var(--bg-soft); border: 1px solid var(--border); overflow: hidden; }
+  .prog-track { flex: 1; height: 6px; border-radius: 999px; background: var(--bg-soft); border: 1px solid var(--border); overflow: hidden; }
   .prog-fill { display: block; height: 100%; width: 0; background: var(--accent); border-radius: 999px; transition: width .25s ease; }
   .prog-txt { font-size: 13px; color: var(--text-dim); white-space: nowrap; }
   .prog-reset { font-size: 12px; color: var(--text-dim); background: none; border: none; cursor: pointer; text-decoration: underline; padding: 0; }
   .path-prog { margin: 6px 0 0 !important; font-size: 12.5px !important; color: var(--accent) !important; font-weight: 600; }
-  .path-card { display: block; border: 1px solid var(--border); border-radius: 12px; background: var(--bg-soft); padding: 16px 18px; margin: 12px 0; text-decoration: none; color: inherit; }
+  .path-card { display: block; border: 1px solid var(--border); border-radius: var(--r-md); background: var(--bg-raised); box-shadow: var(--elev); padding: 16px 18px; margin: 12px 0; text-decoration: none; color: inherit; transition: border-color var(--t); }
   .path-card:hover { border-color: var(--accent); }
   .path-card b { color: var(--link); font-size: 17px; }
   .path-card p { margin: 6px 0 0; font-size: 14px; color: var(--text-dim); }
   .path-card .n { font-size: 12px; color: var(--text-dim); text-transform: uppercase; letter-spacing: .05em; }
-  .page .ask { display: inline-block; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 8px 16px; text-decoration: none; font-weight: 600; font-size: 13px; margin-top: 20px; }
+  .page .ask { display: inline-block; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 8px 16px; text-decoration: none; font-weight: 600; font-size: 13px; margin-top: 20px; transition: background var(--t); }
+  .page .ask:hover { background: var(--link); }
 </style>
 </head>
 <body>
@@ -76,8 +77,9 @@
 <div class="related"><h2>Guide correlate</h2><ul><li><a href="../../q/verificare-password-compromessa/">Come si verifica se una password è stata compromessa?</a></li><li><a href="../../q/perche-usare-un-password-manager/">Perché usare un password manager?</a></li><li><a href="../../q/cosa-sono-le-passkey/">Cosa sono le passkey (e sostituiranno le password)?</a></li><li><a href="../../q/cos-e-autenticazione-due-fattori-mfa/">Cos&#x27;è l&#x27;autenticazione a più fattori (MFA/2FA)?</a></li><li><a href="../../q/cos-e-un-infostealer/">Cos&#x27;è un infostealer (e come esfiltra le credenziali)?</a></li></ul></div>
 <a class="ask" href="../../"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-2px"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg> Chiedi in chat</a>
 <style>
-  .tool-box { border: 1px solid var(--border); border-radius: 12px; background: var(--bg-soft); padding: 16px; }
-  .tool-box input { width: 100%; box-sizing: border-box; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 15px; padding: 10px 12px; border: 1px solid var(--border); border-radius: 8px; background: var(--bg); color: var(--text); }
+  .tool-box { border: 1px solid var(--border); border-radius: var(--r-md); background: var(--bg-raised); box-shadow: var(--elev); padding: 16px; }
+  .tool-box input { width: 100%; box-sizing: border-box; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 15px; padding: 10px 12px; border: 1px solid var(--border); border-radius: var(--r-sm); background: var(--bg); color: var(--text); transition: border-color var(--t), box-shadow var(--t); }
+  .tool-box input:focus { outline: none; border-color: var(--accent); box-shadow: var(--ring); }
   .tool-ex { margin-top: 10px; display: flex; flex-wrap: wrap; gap: 6px; }
   .tool-ex .ex { font-family: ui-monospace, Menlo, monospace; font-size: 12px; padding: 4px 10px; border: 1px solid var(--border); border-radius: 999px; background: var(--bg); color: var(--text-dim); cursor: pointer; }
   .tool-ex .ex:hover { border-color: var(--accent); color: var(--text); }

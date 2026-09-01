@@ -25,7 +25,7 @@
 <script type="application/ld+json">[{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Come si gestiscono i servizi Linux con systemctl?", "description": "systemd avvia e sorveglia i servizi Linux tramite unit. Il vocabolario quotidiano: systemctl status nginx (stato più ultime righe di log),…", "author": {"@type": "Person", "name": "Fabrizio Salmi", "url": "https://github.com/fabriziosalmi"}, "publisher": {"@type": "Organization", "name": "FabGPT-FAQ", "url": "https://fabriziosalmi.github.io/fabgpt-faq/"}, "inLanguage": "it", "articleSection": "Strumenti e app"}, {"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Come si gestiscono i servizi Linux con systemctl?", "acceptedAnswer": {"@type": "Answer", "text": "systemd avvia e sorveglia i servizi Linux tramite unit. Il vocabolario quotidiano: systemctl status nginx (stato più ultime righe di log), start/stop/restart, enable --now (parte subito e a ogni boot), disable. Per vedere cosa è morto: systemctl list-units --failed. Un servizio tuo è un file in /etc/systemd/system/mio.service con tre sezioni: [Unit] (descrizione, dipendenze), [Service] (ExecStart, User, Restart=on-failure), [Install] (WantedBy=multi-user.target). Dopo ogni modifica: systemctl daemon-reload. I log dei servizi vivono nel [journal](q/dove-sono-i-log-su-linux/): journalctl -u mio.service -f. E per le esecuzioni pianificate i timer systemd con Persistent=true recuperano ciò che [cron](q/cron-la-sintassi-spiegata/) perde a macchina spenta."}}]}, {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "FabGPT-FAQ", "item": "https://fabriziosalmi.github.io/fabgpt-faq/"}, {"@type": "ListItem", "position": 2, "name": "Tutte le domande", "item": "https://fabriziosalmi.github.io/fabgpt-faq/q/"}, {"@type": "ListItem", "position": 3, "name": "Strumenti e app", "item": "https://fabriziosalmi.github.io/fabgpt-faq/q/gestire-servizi-linux-con-systemctl/"}]}]</script>
 <style>
   .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
-  .page h1 { font-size: 26px; line-height: 1.3; margin: 6px 0 10px; }
+  .page h1 { font-size: clamp(22px, 4.5vw, 27px); line-height: 1.25; letter-spacing: -0.01em; margin: 6px 0 10px; }
   .crumbs { font-size: 13px; color: var(--text-dim); margin-bottom: 6px; }
   .crumbs a { color: var(--text-dim); text-decoration: none; }
   .crumbs a:hover { color: var(--text); }
@@ -36,7 +36,8 @@
   .copy-qa-btn { display: inline-flex; align-items: center; gap: 6px; background: var(--bg-soft); color: var(--text-dim); border: 1px solid var(--border); border-radius: 6px; padding: 6px 12px; font-size: 13px; font-family: inherit; font-weight: 500; cursor: pointer; transition: all .15s ease; }
   .copy-qa-btn:hover { background: var(--border); color: var(--text); }
   .copy-qa-btn.copied { background: rgba(16, 163, 127, 0.15); color: var(--accent); border-color: var(--accent); }
-  .page .ask { display: inline-block; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 8px 16px; text-decoration: none; font-weight: 600; font-size: 13px; }
+  .page .ask { display: inline-block; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 8px 16px; text-decoration: none; font-weight: 600; font-size: 13px; transition: background var(--t); }
+  .page .ask:hover { background: var(--link); }
   .page .related { margin-top: 36px; border-top: 1px solid var(--border); padding-top: 20px; }
   .page .related h2 { font-size: 16px; margin-bottom: 12px; }
   .page .related a { color: var(--link); text-decoration: none; }

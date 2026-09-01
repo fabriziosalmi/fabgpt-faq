@@ -3,29 +3,39 @@
 :root {
   color-scheme: light dark;
   --bg: #ffffff;
-  --bg-soft: #f4f4f5;
+  --bg-soft: #f6f6f7;
+  --bg-raised: #ffffff;
   --text: #1a1a1e;
-  --text-dim: #71717a;
-  --border: #e4e4e7;
+  --text-dim: #6e6e76;
+  --border: #e5e5e9;
   --accent: #10a37f;
   --accent-text: #ffffff;
-  --bubble-user: #ececf1;
+  --bubble-user: #f0f0f3;
   --link: #0d8a6c;
-  --code-bg: #ececf1;
+  --code-bg: #f0f0f2;
+  --r-sm: 8px;
+  --r-md: 12px;
+  --r-lg: 18px;
+  --t: .15s ease;
+  --elev: 0 1px 2px rgba(0, 0, 0, .05), 0 1px 1px rgba(0, 0, 0, .03);
+  --ring: 0 0 0 3px rgba(16, 163, 127, .13);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
     --bg: #212121;
     --bg-soft: #2a2a2e;
+    --bg-raised: #292a2e;
     --text: #ececec;
-    --text-dim: #9b9ba3;
-    --border: #3a3a40;
-    --accent: #10a37f;
+    --text-dim: #a0a0a8;
+    --border: #3b3b42;
+    --accent: #12b389;
     --accent-text: #ffffff;
     --bubble-user: #2f2f36;
     --link: #4cc9a7;
     --code-bg: #17171a;
+    --elev: none;
+    --ring: 0 0 0 3px rgba(18, 179, 137, .22);
   }
 }
 
@@ -42,7 +52,24 @@ body {
   background: var(--bg);
   color: var(--text);
   font: 16px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
+
+p { text-wrap: pretty; }
+h1, h2, h3 { text-wrap: balance; }
+
+/* themed thin scrollbars */
+* { scrollbar-width: thin; scrollbar-color: var(--border) transparent; }
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 999px;
+  border: 3px solid transparent;
+  background-clip: padding-box;
+}
+::-webkit-scrollbar-thumb:hover { background: var(--text-dim); border: 3px solid transparent; background-clip: padding-box; }
 
 /* ---------- header ---------- */
 
@@ -123,11 +150,12 @@ body {
 
 .msg-user .bubble {
   background: var(--bubble-user);
-  border-radius: 18px;
+  border-radius: var(--r-lg) var(--r-lg) 4px var(--r-lg);
   padding: 10px 16px;
   max-width: 75%;
   white-space: pre-wrap;
   overflow-wrap: break-word;
+  box-shadow: var(--elev);
 }
 
 .msg-bot .avatar {
@@ -173,11 +201,12 @@ body {
 .msg-bot .content.typing > *:last-child::after {
   content: "";
   display: inline-block;
-  width: 8px;
-  height: 15px;
-  margin-left: 3px;
-  vertical-align: -2px;
-  background: var(--text);
+  width: 2px;
+  height: 1.05em;
+  margin-left: 2px;
+  border-radius: 1px;
+  vertical-align: -0.18em;
+  background: var(--accent);
   animation: blink 0.9s steps(2, start) infinite;
 }
 
@@ -198,6 +227,13 @@ body {
   from { opacity: 0; }
   to { opacity: 1; }
 }
+@media (prefers-reduced-motion: no-preference) {
+  .chips .chip { opacity: 0; animation: chips-in .3s ease forwards; }
+  .chips .chip:nth-child(2) { animation-delay: .06s; }
+  .chips .chip:nth-child(3) { animation-delay: .12s; }
+  .chips .chip:nth-child(4) { animation-delay: .18s; }
+  .chips .chip:nth-child(5) { animation-delay: .24s; }
+}
 
 .chip {
   font: inherit;
@@ -205,16 +241,16 @@ body {
   font-weight: 500;
   text-align: left;
   color: var(--text);
-  background: var(--bg-soft);
+  background: var(--bg-raised);
   border: 1px solid var(--border);
-  border-radius: 18px;
+  border-radius: var(--r-md);
   padding: 8px 14px;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
-  transition: background 0.16s ease, border-color 0.16s ease, transform 0.16s ease, color 0.16s ease;
+  box-shadow: var(--elev);
+  transition: background var(--t), border-color var(--t), color var(--t);
 }
 
 .chip:hover {
@@ -442,7 +478,7 @@ a, button, input[type="checkbox"], select { touch-action: manipulation; }
 
 /* ---------- micro-interactions (motion-guarded) ---------- */
 
-.chip { transition: background .15s, border-color .15s, transform .12s; }
+
 
 
 /* animated underline growth on answer links */
@@ -456,7 +492,7 @@ a, button, input[type="checkbox"], select { touch-action: manipulation; }
 }
 .msg-bot .content a:not(.chip):hover { background-size: 100% 1px; text-decoration: none; }
 
-#send { transition: opacity .15s, transform .12s; }
+
 
 
 @media (prefers-reduced-motion: no-preference) {
@@ -480,14 +516,17 @@ a, button, input[type="checkbox"], select { touch-action: manipulation; }
   display: flex;
   align-items: flex-end;
   gap: 8px;
-  background: var(--bg-soft);
+  background: var(--bg-raised);
   border: 1px solid var(--border);
   border-radius: 24px;
   padding: 8px 8px 8px 18px;
+  box-shadow: var(--elev);
+  transition: border-color var(--t), box-shadow var(--t);
 }
 
 .composer-inner:focus-within {
-  border-color: var(--text-dim);
+  border-color: var(--accent);
+  box-shadow: var(--ring);
 }
 
 #input {
@@ -508,14 +547,15 @@ a, button, input[type="checkbox"], select { touch-action: manipulation; }
   height: 34px;
   border: none;
   border-radius: 50%;
-  background: var(--text);
-  color: var(--bg);
+  background: var(--accent);
+  color: var(--accent-text);
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: opacity 0.15s;
+  transition: opacity var(--t), background var(--t);
 }
+#send:not(:disabled):hover { background: var(--link); }
 
 #send:disabled {
   opacity: 0.25;
@@ -539,8 +579,8 @@ a, button, input[type="checkbox"], select { touch-action: manipulation; }
 .code-block {
   margin: 14px 0;
   border: 1px solid var(--border);
-  border-radius: 8px;
-  background: var(--bg-soft);
+  border-radius: var(--r-sm);
+  background: var(--code-bg);
   overflow: hidden;
 }
 .code-header {
@@ -548,9 +588,10 @@ a, button, input[type="checkbox"], select { touch-action: manipulation; }
   align-items: center;
   justify-content: space-between;
   padding: 6px 12px;
-  background: rgba(0, 0, 0, 0.05);
+  background: rgba(0, 0, 0, 0.04);
   border-bottom: 1px solid var(--border);
-  font-size: 11px;
+  font-size: 10.5px;
+  letter-spacing: 0.07em;
   font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
   font-weight: 600;
   color: var(--text-dim);
@@ -626,11 +667,12 @@ a, button, input[type="checkbox"], select { touch-action: manipulation; }
   flex-direction: column;
   padding: 12px 16px;
   border: 1px solid var(--border);
-  border-radius: 10px;
-  background: var(--bg-soft);
+  border-radius: var(--r-md);
+  background: var(--bg-raised);
+  box-shadow: var(--elev);
   text-decoration: none;
   color: inherit;
-  transition: border-color 0.18s, transform 0.18s;
+  transition: border-color var(--t);
 }
 .page-nav-card:hover {
   border-color: var(--accent);
@@ -665,8 +707,9 @@ a, button, input[type="checkbox"], select { touch-action: manipulation; }
   margin: 28px 0;
   padding: 18px 20px;
   border: 1px solid var(--border);
-  border-radius: 12px;
-  background: var(--bg-soft);
+  border-radius: var(--r-md);
+  background: var(--bg-raised);
+  box-shadow: var(--elev);
 }
 .ask-box-header {
   display: flex;

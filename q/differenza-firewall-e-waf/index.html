@@ -25,7 +25,7 @@
 <script type="application/ld+json">[{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Firewall di rete e WAF: che differenza c'è?", "description": "Operano a livelli diversi della pila: il firewall di rete ragiona su IP, porte e protocolli (L3/L4): \"la porta 443 è aperta, la 22 solo da questi IP\". Non…", "author": {"@type": "Person", "name": "Fabrizio Salmi", "url": "https://github.com/fabriziosalmi"}, "publisher": {"@type": "Organization", "name": "FabGPT-FAQ", "url": "https://fabriziosalmi.github.io/fabgpt-faq/"}, "inLanguage": "it", "articleSection": "Cybersecurity"}, {"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Firewall di rete e WAF: che differenza c'è?", "acceptedAnswer": {"@type": "Answer", "text": "Operano a livelli diversi della pila: il firewall di rete ragiona su IP, porte e protocolli (L3/L4): \"la porta 443 è aperta, la 22 solo da questi IP\". Non guarda dentro il traffico – per lui una SQL injection su HTTPS è solo un pacchetto legittimo verso la 443. il [WAF](q/cos-e-un-waf-web-application-firewall/) ragiona sul contenuto delle richieste HTTP (L7): riconosce injection, XSS, bot e abusi applicativi. Non sa nulla, invece, del traffico non-web. Non sono alternativi: servono entrambi, in fila. Il firewall chiude tutto tranne il necessario; il WAF ispeziona il necessario. Sul primo fronte bastano nftables/pf o il firewall del cloud; sul secondo ci sono caddy-waf, patterns per Nginx/Apache/Traefik/HAProxy, o zion che unisce proxy e WAF in un binario."}}]}, {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "FabGPT-FAQ", "item": "https://fabriziosalmi.github.io/fabgpt-faq/"}, {"@type": "ListItem", "position": 2, "name": "Tutte le domande", "item": "https://fabriziosalmi.github.io/fabgpt-faq/q/"}, {"@type": "ListItem", "position": 3, "name": "Cybersecurity", "item": "https://fabriziosalmi.github.io/fabgpt-faq/q/differenza-firewall-e-waf/"}]}]</script>
 <style>
   .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
-  .page h1 { font-size: 26px; line-height: 1.3; margin: 6px 0 10px; }
+  .page h1 { font-size: clamp(22px, 4.5vw, 27px); line-height: 1.25; letter-spacing: -0.01em; margin: 6px 0 10px; }
   .crumbs { font-size: 13px; color: var(--text-dim); margin-bottom: 6px; }
   .crumbs a { color: var(--text-dim); text-decoration: none; }
   .crumbs a:hover { color: var(--text); }
@@ -36,7 +36,8 @@
   .copy-qa-btn { display: inline-flex; align-items: center; gap: 6px; background: var(--bg-soft); color: var(--text-dim); border: 1px solid var(--border); border-radius: 6px; padding: 6px 12px; font-size: 13px; font-family: inherit; font-weight: 500; cursor: pointer; transition: all .15s ease; }
   .copy-qa-btn:hover { background: var(--border); color: var(--text); }
   .copy-qa-btn.copied { background: rgba(16, 163, 127, 0.15); color: var(--accent); border-color: var(--accent); }
-  .page .ask { display: inline-block; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 8px 16px; text-decoration: none; font-weight: 600; font-size: 13px; }
+  .page .ask { display: inline-block; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 8px 16px; text-decoration: none; font-weight: 600; font-size: 13px; transition: background var(--t); }
+  .page .ask:hover { background: var(--link); }
   .page .related { margin-top: 36px; border-top: 1px solid var(--border); padding-top: 20px; }
   .page .related h2 { font-size: 16px; margin-bottom: 12px; }
   .page .related a { color: var(--link); text-decoration: none; }
