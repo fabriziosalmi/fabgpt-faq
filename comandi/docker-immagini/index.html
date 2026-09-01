@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Docker: immagini e Dockerfile – comandi – FabGPT-FAQ</title>
+<meta name="description" content="Pull, build, multi-stage, scansione vulnerabilità e pulizia delle immagini.">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="canonical" href="https://fabriziosalmi.github.io/fabgpt-faq/comandi/docker-immagini/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Docker: immagini e Dockerfile – comandi">
+<meta property="og:description" content="Pull, build, multi-stage, scansione vulnerabilità e pulizia delle immagini.">
+<meta property="og:url" content="https://fabriziosalmi.github.io/fabgpt-faq/comandi/docker-immagini/">
+<meta property="og:image" content="https://fabriziosalmi.github.io/fabgpt-faq/og.svg">
+<meta property="og:site_name" content="FabGPT-FAQ">
+<meta property="og:locale" content="it_IT">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://fabriziosalmi.github.io/fabgpt-faq/og.svg">
+<link rel="stylesheet" href="../../style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
+<script type="application/ld+json">[{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Come vedo le immagini scaricate?", "acceptedAnswer": {"@type": "Answer", "text": "docker images\nCon --filter dangling=true vedi gli strati orfani che occupano spazio."}}, {"@type": "Question", "name": "Come scarico una versione precisa di un'immagine?", "acceptedAnswer": {"@type": "Answer", "text": "docker pull nginx:1.27\n# blindata al byte: docker pull nginx@sha256:<digest>\nMai latest in produzione: il tag si muove, il digest no."}}, {"@type": "Question", "name": "Come costruisco un'immagine da un Dockerfile?", "acceptedAnswer": {"@type": "Answer", "text": "docker build -t miaapp:1.0 .\nIl . è il build context: tienilo piccolo con un .dockerignore, o ogni build spedisce gigabyte al daemon."}}, {"@type": "Question", "name": "Come forzo una build senza cache (e con build-arg)?", "acceptedAnswer": {"@type": "Answer", "text": "docker build --no-cache --build-arg VERSIONE=2 -t miaapp:2.0 .\n--no-cache serve quando un RUN scarica risorse che cambiano fuori dal Dockerfile."}}, {"@type": "Question", "name": "Come costruisco un'immagine multi-architettura (amd64+arm64)?", "acceptedAnswer": {"@type": "Answer", "text": "docker buildx build --platform linux/amd64,linux/arm64 -t utente/app:1.0 --push .\nServe buildx con QEMU; --push è obbligatorio: il manifest multi-arch non vive nello store locale."}}, {"@type": "Question", "name": "Come taggo e pubblico un'immagine su un registry?", "acceptedAnswer": {"@type": "Answer", "text": "docker tag miaapp:1.0 registry.example.com/miaapp:1.0\ndocker push registry.example.com/miaapp:1.0\nIl nome dell'immagine È l'indirizzo del registry: il tag decide dove finisce il push."}}, {"@type": "Question", "name": "Come vedo i layer e il peso di un'immagine?", "acceptedAnswer": {"@type": "Answer", "text": "docker history <immagine>\nDimensione per layer: il posto dove scoprire perché l'immagine pesa 2 GB (di solito un COPY o un apt senza pulizia)."}}, {"@type": "Question", "name": "Come pulisco le immagini inutilizzate?", "acceptedAnswer": {"@type": "Answer", "text": "docker image prune        # solo dangling\ndocker image prune -a     # tutte le non usate\n-a rimuove OGNI immagine non riferita da un container: il prossimo up riscarica tutto."}}, {"@type": "Question", "name": "Come scansiono un'immagine per vulnerabilità?", "acceptedAnswer": {"@type": "Answer", "text": "trivy image nginx:1.27\n# oppure: docker scout cves nginx:1.27\nDa mettere in CI, non da lanciare una volta l'anno: le CVE arrivano dopo la build."}}, {"@type": "Question", "name": "Come sposto un'immagine senza registry (tar)?", "acceptedAnswer": {"@type": "Answer", "text": "docker save -o app.tar miaapp:1.0\ndocker load -i app.tar\nsave/load per le immagini; export/import (diverso!) è per il filesystem di un container."}}, {"@type": "Question", "name": "Come snellisco un'immagine con la build multi-stage?", "acceptedAnswer": {"@type": "Answer", "text": "FROM golang:1.23 AS build\nWORKDIR /src\nCOPY . .\nRUN go build -o app\n\nFROM gcr.io/distroless/static\nCOPY --from=build /src/app /\nENTRYPOINT [\"/app\"]\nCompili nel primo stage, spedisci solo il binario: immagini 10-100 volte più piccole e molta meno superficie d'attacco."}}, {"@type": "Question", "name": "Come controllo un Dockerfile con un linter?", "acceptedAnswer": {"@type": "Answer", "text": "hadolint Dockerfile\nIntercetta i classici: latest, apt senza pulizia della cache, USER mancante (container che gira da root)."}}]}, {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "FabGPT-FAQ", "item": "https://fabriziosalmi.github.io/fabgpt-faq/"}, {"@type": "ListItem", "position": 2, "name": "Comandi", "item": "https://fabriziosalmi.github.io/fabgpt-faq/comandi/"}, {"@type": "ListItem", "position": 3, "name": "Docker: immagini e Dockerfile", "item": "https://fabriziosalmi.github.io/fabgpt-faq/comandi/docker-immagini/"}]}]</script>
+<style>
+  .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
+  .page h1 { font-size: 26px; line-height: 1.3; margin: 6px 0 10px; }
+  .crumbs { font-size: 13px; color: var(--text-dim); margin-bottom: 6px; }
+  .crumbs a { color: var(--text-dim); text-decoration: none; }
+  .crumbs a:hover { color: var(--text); }
+  .page .intro { color: var(--text-dim); margin-bottom: 20px; }
+  .steps { list-style: none; counter-reset: step; padding: 0; margin: 0; }
+  .steps li { counter-increment: step; position: relative; padding: 14px 16px 14px 56px; border: 1px solid var(--border); border-radius: 12px; background: var(--bg-soft); margin: 10px 0; }
+  .steps li::before { content: counter(step); position: absolute; left: 16px; top: 16px; width: 26px; height: 26px; border-radius: 50%; background: var(--accent); color: var(--accent-text); font-weight: 700; font-size: 13px; display: flex; align-items: center; justify-content: center; }
+  .steps a { color: var(--link); text-decoration: none; font-weight: 600; }
+  .steps a:hover { text-decoration: underline; }
+  .steps p { margin: 4px 0 0; font-size: 14px; color: var(--text-dim); }
+  .path-card { display: block; border: 1px solid var(--border); border-radius: 12px; background: var(--bg-soft); padding: 16px 18px; margin: 12px 0; text-decoration: none; color: inherit; }
+  .path-card:hover { border-color: var(--accent); }
+  .path-card b { color: var(--link); font-size: 17px; }
+  .path-card p { margin: 6px 0 0; font-size: 14px; color: var(--text-dim); }
+  .path-card .n { font-size: 12px; color: var(--text-dim); text-transform: uppercase; letter-spacing: .05em; }
+  .page .ask { display: inline-block; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 8px 16px; text-decoration: none; font-weight: 600; font-size: 13px; margin-top: 20px; }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="../../" style="text-decoration:none;color:inherit">
+    <span class="brand-dot">F</span>
+    <span class="brand-name">FabGPT-FAQ</span>
+  </a>
+  <nav class="topnav"><a href="../../percorsi/">Percorsi</a> <a href="../../q/">Tutte le domande</a></nav>
+</header>
+<main class="page">
+<nav class="crumbs" aria-label="Percorso"><a href="../../">FabGPT-FAQ</a> › <a href="../">Comandi</a> › <span>Docker: immagini e Dockerfile</span></nav>
+<h1>Docker: immagini e Dockerfile</h1>
+<p class="intro">Pull, build, multi-stage, scansione vulnerabilità e pulizia delle immagini. Ogni comando è verificato e copiabile; in <a href="../../">chat</a> basta descrivere cosa vuoi fare.</p>
+<details class="toc"><summary>12 comandi in questa pagina</summary><ul><li><a href="#docker_image_list">Come vedo le immagini scaricate?</a></li><li><a href="#docker_image_pull">Come scarico una versione precisa di un&#x27;immagine?</a></li><li><a href="#docker_image_build">Come costruisco un&#x27;immagine da un Dockerfile?</a></li><li><a href="#docker_image_build_nocache">Come forzo una build senza cache (e con build-arg)?</a></li><li><a href="#docker_image_multiarch">Come costruisco un&#x27;immagine multi-architettura (amd64+arm64)?</a></li><li><a href="#docker_image_tag_push">Come taggo e pubblico un&#x27;immagine su un registry?</a></li><li><a href="#docker_image_history">Come vedo i layer e il peso di un&#x27;immagine?</a></li><li><a href="#docker_image_prune">Come pulisco le immagini inutilizzate?</a></li><li><a href="#docker_image_scan">Come scansiono un&#x27;immagine per vulnerabilità?</a></li><li><a href="#docker_image_save_load">Come sposto un&#x27;immagine senza registry (tar)?</a></li><li><a href="#docker_dockerfile_multistage">Come snellisco un&#x27;immagine con la build multi-stage?</a></li><li><a href="#docker_dockerfile_lint">Come controllo un Dockerfile con un linter?</a></li></ul></details>
+<section class="cmd-card" id="docker_image_list">
+<h2><a class="anchor" href="#docker_image_list">#</a> Come vedo le immagini scaricate?</h2>
+<pre><code>docker images</code></pre>
+<p class="cmd-note">Con <code>--filter dangling=true</code> vedi gli strati orfani che occupano spazio.</p>
+<p class="cmd-rel">Approfondisci: <a href="../../q/sicurezza-delle-immagini-container/">Come si mette in sicurezza un container (e le sue immagini)?</a></p>
+</section>
+<section class="cmd-card" id="docker_image_pull">
+<h2><a class="anchor" href="#docker_image_pull">#</a> Come scarico una versione precisa di un&#x27;immagine?</h2>
+<pre><code>docker pull nginx:1.27
+# blindata al byte: docker pull nginx@sha256:&lt;digest&gt;</code></pre>
+<p class="cmd-note">Mai <code>latest</code> in produzione: il tag si muove, il digest no.</p>
+<p class="cmd-rel">Approfondisci: <a href="../../q/sicurezza-delle-immagini-container/">Come si mette in sicurezza un container (e le sue immagini)?</a><a href="../../q/aggiornare-automaticamente-i-container/">Come si aggiornano automaticamente i container (Watchtower e alternative)?</a></p>
+</section>
+<section class="cmd-card" id="docker_image_build">
+<h2><a class="anchor" href="#docker_image_build">#</a> Come costruisco un&#x27;immagine da un Dockerfile?</h2>
+<pre><code>docker build -t miaapp:1.0 .</code></pre>
+<p class="cmd-note">Il <code>.</code> è il build context: tienilo piccolo con un <code>.dockerignore</code>, o ogni build spedisce gigabyte al daemon.</p>
+<p class="cmd-rel">Approfondisci: <a href="../../q/sicurezza-delle-immagini-container/">Come si mette in sicurezza un container (e le sue immagini)?</a></p>
+</section>
+<section class="cmd-card" id="docker_image_build_nocache">
+<h2><a class="anchor" href="#docker_image_build_nocache">#</a> Come forzo una build senza cache (e con build-arg)?</h2>
+<pre><code>docker build --no-cache --build-arg VERSIONE=2 -t miaapp:2.0 .</code></pre>
+<p class="cmd-note"><code>--no-cache</code> serve quando un RUN scarica risorse che cambiano fuori dal Dockerfile.</p>
+<p class="cmd-rel">Approfondisci: <a href="../../q/sicurezza-delle-immagini-container/">Come si mette in sicurezza un container (e le sue immagini)?</a></p>
+</section>
+<section class="cmd-card" id="docker_image_multiarch">
+<h2><a class="anchor" href="#docker_image_multiarch">#</a> Come costruisco un&#x27;immagine multi-architettura (amd64+arm64)?</h2>
+<pre><code>docker buildx build --platform linux/amd64,linux/arm64 -t utente/app:1.0 --push .</code></pre>
+<p class="cmd-note">Serve buildx con QEMU; <code>--push</code> è obbligatorio: il manifest multi-arch non vive nello store locale.</p>
+<p class="cmd-rel">Approfondisci: <a href="../../q/sicurezza-delle-immagini-container/">Come si mette in sicurezza un container (e le sue immagini)?</a></p>
+</section>
+<section class="cmd-card" id="docker_image_tag_push">
+<h2><a class="anchor" href="#docker_image_tag_push">#</a> Come taggo e pubblico un&#x27;immagine su un registry?</h2>
+<pre><code>docker tag miaapp:1.0 registry.example.com/miaapp:1.0
+docker push registry.example.com/miaapp:1.0</code></pre>
+<p class="cmd-note">Il nome dell&#x27;immagine È l&#x27;indirizzo del registry: il tag decide dove finisce il push.</p>
+<p class="cmd-rel">Approfondisci: <a href="../../q/sicurezza-delle-immagini-container/">Come si mette in sicurezza un container (e le sue immagini)?</a></p>
+</section>
+<section class="cmd-card" id="docker_image_history">
+<h2><a class="anchor" href="#docker_image_history">#</a> Come vedo i layer e il peso di un&#x27;immagine?</h2>
+<pre><code>docker history &lt;immagine&gt;</code></pre>
+<p class="cmd-note">Dimensione per layer: il posto dove scoprire perché l&#x27;immagine pesa 2 GB (di solito un COPY o un apt senza pulizia).</p>
+<p class="cmd-rel">Approfondisci: <a href="../../q/sicurezza-delle-immagini-container/">Come si mette in sicurezza un container (e le sue immagini)?</a></p>
+</section>
+<section class="cmd-card" id="docker_image_prune">
+<h2><a class="anchor" href="#docker_image_prune">#</a> Come pulisco le immagini inutilizzate?</h2>
+<pre><code>docker image prune        # solo dangling
+docker image prune -a     # tutte le non usate</code></pre>
+<p class="cmd-note"><code>-a</code> rimuove OGNI immagine non riferita da un container: il prossimo up riscarica tutto.</p>
+<p class="cmd-rel">Approfondisci: <a href="../../q/storage-pieno-liberare-spazio/">Storage pieno su Proxmox: come liberare spazio senza disastri</a></p>
+</section>
+<section class="cmd-card" id="docker_image_scan">
+<h2><a class="anchor" href="#docker_image_scan">#</a> Come scansiono un&#x27;immagine per vulnerabilità?</h2>
+<pre><code>trivy image nginx:1.27
+# oppure: docker scout cves nginx:1.27</code></pre>
+<p class="cmd-note">Da mettere in CI, non da lanciare una volta l&#x27;anno: le CVE arrivano dopo la build.</p>
+<p class="cmd-rel">Approfondisci: <a href="../../q/sicurezza-delle-immagini-container/">Come si mette in sicurezza un container (e le sue immagini)?</a><a href="../../q/cos-e-la-supply-chain-security/">Cos&#x27;è la supply chain security del software (SBOM, SLSA)?</a></p>
+</section>
+<section class="cmd-card" id="docker_image_save_load">
+<h2><a class="anchor" href="#docker_image_save_load">#</a> Come sposto un&#x27;immagine senza registry (tar)?</h2>
+<pre><code>docker save -o app.tar miaapp:1.0
+docker load -i app.tar</code></pre>
+<p class="cmd-note"><code>save</code>/<code>load</code> per le immagini; <code>export</code>/<code>import</code> (diverso!) è per il filesystem di un container.</p>
+<p class="cmd-rel">Approfondisci: <a href="../../q/sicurezza-delle-immagini-container/">Come si mette in sicurezza un container (e le sue immagini)?</a></p>
+</section>
+<section class="cmd-card" id="docker_dockerfile_multistage">
+<h2><a class="anchor" href="#docker_dockerfile_multistage">#</a> Come snellisco un&#x27;immagine con la build multi-stage?</h2>
+<pre><code>FROM golang:1.23 AS build
+WORKDIR /src
+COPY . .
+RUN go build -o app
+
+FROM gcr.io/distroless/static
+COPY --from=build /src/app /
+ENTRYPOINT [&quot;/app&quot;]</code></pre>
+<p class="cmd-note">Compili nel primo stage, spedisci solo il binario: immagini 10-100 volte più piccole e molta meno superficie d&#x27;attacco.</p>
+<p class="cmd-rel">Approfondisci: <a href="../../q/sicurezza-delle-immagini-container/">Come si mette in sicurezza un container (e le sue immagini)?</a></p>
+</section>
+<section class="cmd-card" id="docker_dockerfile_lint">
+<h2><a class="anchor" href="#docker_dockerfile_lint">#</a> Come controllo un Dockerfile con un linter?</h2>
+<pre><code>hadolint Dockerfile</code></pre>
+<p class="cmd-note">Intercetta i classici: <code>latest</code>, apt senza pulizia della cache, <code>USER</code> mancante (container che gira da root).</p>
+<p class="cmd-rel">Approfondisci: <a href="../../q/sicurezza-delle-immagini-container/">Come si mette in sicurezza un container (e le sue immagini)?</a><a href="../../q/container-privilegiati-o-non-privilegiati/">Container privilegiati o non privilegiati: quale usare?</a></p>
+</section>
+
+<a class="ask" href="../../">Chiedi in chat 💬</a>
+<style>
+  .toc { border: 1px solid var(--border); border-radius: 10px; background: var(--bg-soft); padding: 10px 14px; margin-bottom: 8px; }
+  .toc summary { cursor: pointer; font-weight: 600; }
+  .toc a { color: var(--link); text-decoration: none; }
+  .cmd-card { border: 1px solid var(--border); border-radius: 12px; background: var(--bg-soft); padding: 14px 16px; margin: 12px 0; }
+  .cmd-card h2 { font-size: 16px; margin: 0 0 8px; }
+  .cmd-card .anchor { color: var(--text-dim); text-decoration: none; margin-right: 2px; }
+  .cmd-card pre { background: var(--code-bg); border-radius: 8px; padding: 10px 12px; overflow-x: auto; margin: 0 0 8px; cursor: pointer; }
+  .cmd-card code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 13px; }
+  .cmd-note { font-size: 14px; margin: 0 0 6px; }
+  .cmd-note code { background: var(--code-bg); border-radius: 5px; padding: 1px 5px; overflow-wrap: anywhere; }
+  .cmd-note { overflow-wrap: anywhere; }
+  .cmd-rel { font-size: 13px; color: var(--text-dim); margin: 0; }
+  .cmd-rel a { color: var(--link); text-decoration: none; margin-right: 10px; }
+  .cmd-card:target { border-color: var(--accent); }
+</style>
+<script>
+document.addEventListener('click', function (e) {
+  var pre = e.target.closest('.cmd-card pre');
+  if (!pre || !navigator.clipboard) return;
+  navigator.clipboard.writeText(pre.innerText).then(function () {
+    pre.style.borderLeft = '3px solid var(--accent)';
+    setTimeout(function () { pre.style.borderLeft = ''; }, 800);
+  });
+});
+</script>
+</main>
+</body>
+</html>

@@ -1,0 +1,1018 @@
+{
+ "groups": [
+  {
+   "slug": "docker-container",
+   "title": "Docker: container, log e diagnosi",
+   "tagline": "Ciclo di vita, log, exec, risorse e il debug dei container che muoiono."
+  },
+  {
+   "slug": "docker-immagini",
+   "title": "Docker: immagini e Dockerfile",
+   "tagline": "Pull, build, multi-stage, scansione vulnerabilità e pulizia delle immagini."
+  },
+  {
+   "slug": "docker-rete-volumi",
+   "title": "Docker: reti e volumi",
+   "tagline": "Bridge, macvlan, DNS tra container, volumi, backup e permessi."
+  },
+  {
+   "slug": "docker-compose",
+   "title": "Docker Compose",
+   "tagline": "Gestire stack multi-container: up/down, aggiornamenti, log, override e debug."
+  }
+ ],
+ "cards": [
+  {
+   "id": "docker_container_list_running",
+   "group": "docker-container",
+   "q": "Come vedo i container attivi?",
+   "keywords": [
+    "docker ps",
+    "container attivi",
+    "container in esecuzione",
+    "lista container",
+    "container accesi",
+    "vedere i container attivi",
+    "quali container girano"
+   ],
+   "cmd": "docker ps",
+   "note": "Mostra solo i container in esecuzione; formato compatto: `docker ps --format '{{.Names}}\\t{{.Status}}'`.",
+   "related": [
+    "cos-e-docker-compose",
+    "differenza-container-lxc-e-vm"
+   ]
+  },
+  {
+   "id": "docker_container_list_all",
+   "group": "docker-container",
+   "q": "Come vedo anche i container fermi?",
+   "keywords": [
+    "docker ps -a",
+    "container exited",
+    "container spenti",
+    "listare i container",
+    "anche i container fermi"
+   ],
+   "cmd": "docker ps -a",
+   "note": "Include gli *exited* col loro exit code: il primo posto dove guardare quando qualcosa è morto.",
+   "related": [
+    "cos-e-docker-compose"
+   ]
+  },
+  {
+   "id": "docker_container_start",
+   "group": "docker-container",
+   "q": "Come avvio un container fermo?",
+   "keywords": [
+    "docker start",
+    "avviare container",
+    "far ripartire un container",
+    "container fermo ripartire",
+    "riattivare container",
+    "faccio ripartire"
+   ],
+   "cmd": "docker start <nome>",
+   "note": "Riparte con la stessa configurazione; con `-a` vedi subito output e log.",
+   "related": [
+    "cos-e-docker-compose"
+   ]
+  },
+  {
+   "id": "docker_container_stop",
+   "group": "docker-container",
+   "q": "Come fermo un container in modo pulito?",
+   "keywords": [
+    "docker stop",
+    "fermare container",
+    "stop pulito",
+    "fermare senza ucciderlo",
+    "fermare un container docker",
+    "stoppare container",
+    "fermo un container",
+    "senza ucciderlo"
+   ],
+   "cmd": "docker stop <nome>",
+   "note": "Manda SIGTERM e concede 10 secondi di grazia prima del SIGKILL; si allunga con `-t 30`.",
+   "related": [
+    "cos-e-docker-compose"
+   ]
+  },
+  {
+   "id": "docker_container_kill",
+   "group": "docker-container",
+   "q": "Come uccido un container bloccato?",
+   "keywords": [
+    "docker kill",
+    "container bloccato",
+    "uccidere container",
+    "ammazzare container",
+    "container non risponde allo stop",
+    "killare container"
+   ],
+   "cmd": "docker kill <nome>",
+   "note": "SIGKILL immediato, nessuna grazia: solo quando `docker stop` non risponde.",
+   "related": [
+    "cos-e-docker-compose"
+   ]
+  },
+  {
+   "id": "docker_container_restart",
+   "group": "docker-container",
+   "q": "Come riavvio un container?",
+   "keywords": [
+    "docker restart",
+    "riavviare un container",
+    "comando riavviare container",
+    "restartare container"
+   ],
+   "cmd": "docker restart <nome>",
+   "note": "Equivale a stop + start; la configurazione non cambia.",
+   "related": [
+    "cos-e-docker-compose"
+   ]
+  },
+  {
+   "id": "docker_container_recreate",
+   "group": "docker-container",
+   "q": "Come ricreo un container senza perdere i dati?",
+   "keywords": [
+    "ricreare container",
+    "force-recreate",
+    "ricreare senza perdere dati"
+   ],
+   "cmd": "docker compose up -d --force-recreate <servizio>",
+   "note": "I dati vivono nei **volumi**, non nel container: se i path importanti sono su volumi, ricreare è sempre sicuro.",
+   "related": [
+    "docker-named-volumes-vs-bind-mounts-differenze-prestazioni",
+    "cos-e-docker-compose"
+   ]
+  },
+  {
+   "id": "docker_container_rm",
+   "group": "docker-container",
+   "q": "Come elimino un container?",
+   "keywords": [
+    "docker rm",
+    "eliminare container",
+    "rimuovere container",
+    "cancellare un container",
+    "cancello un container"
+   ],
+   "cmd": "docker rm <nome>        # -f se è in esecuzione",
+   "note": "Rimuove il container, NON i volumi associati (quelli con `-v`, e con giudizio).",
+   "related": [
+    "docker-named-volumes-vs-bind-mounts-differenze-prestazioni"
+   ]
+  },
+  {
+   "id": "docker_container_prune",
+   "group": "docker-container",
+   "q": "Come elimino tutti i container fermi in un colpo?",
+   "keywords": [
+    "docker container prune",
+    "pulire container fermi",
+    "eliminare tutti i container fermi",
+    "container prune",
+    "tutti i container fermi in un colpo",
+    "pulizia dei container"
+   ],
+   "cmd": "docker container prune",
+   "note": "Irreversibile: prima `docker ps -a` per sapere cosa stai buttando.",
+   "related": [
+    "storage-pieno-liberare-spazio"
+   ]
+  },
+  {
+   "id": "docker_container_inspect",
+   "group": "docker-container",
+   "q": "Come vedo la configurazione completa di un container?",
+   "keywords": [
+    "docker inspect",
+    "configurazione container",
+    "ispezionare container",
+    "ispezionare la config",
+    "config di un container",
+    "vedere configurazione container"
+   ],
+   "cmd": "docker inspect <nome>",
+   "note": "Tutto il JSON; per un campo secco: `docker inspect --format '{{.HostConfig.RestartPolicy.Name}}' <nome>`.",
+   "related": [
+    "cos-e-docker-compose"
+   ]
+  },
+  {
+   "id": "docker_container_healthcheck",
+   "group": "docker-container",
+   "q": "Come controllo l'healthcheck di un container?",
+   "keywords": [
+    "healthcheck container",
+    "container unhealthy",
+    "stato health",
+    "container unhealthy perche",
+    "controllare healthcheck"
+   ],
+   "cmd": "docker inspect --format '{{json .State.Health}}' <nome>",
+   "note": "Mostra stato e ultimi probe, output del check incluso: lì c'è il perché dell'*unhealthy*.",
+   "related": [
+    "cos-e-docker-compose"
+   ]
+  },
+  {
+   "id": "docker_container_exec",
+   "group": "docker-container",
+   "q": "Come entro dentro un container?",
+   "keywords": [
+    "docker exec",
+    "entrare nel container",
+    "shell nel container",
+    "comando dentro un container",
+    "aprire una shell nel container",
+    "entrare dentro un container",
+    "shell dentro container"
+   ],
+   "cmd": "docker exec -it <nome> sh    # o bash, se c'è",
+   "note": "Shell nel container in esecuzione; per un comando secco senza shell: `docker exec <nome> <comando>`.",
+   "related": [
+    "cos-e-un-container-breakout"
+   ]
+  },
+  {
+   "id": "docker_container_cp",
+   "group": "docker-container",
+   "q": "Come copio file da e verso un container?",
+   "keywords": [
+    "docker cp",
+    "copiare file container",
+    "estrarre file dal container",
+    "estrarre un file dal container",
+    "copiare file dal container",
+    "file dentro il container"
+   ],
+   "cmd": "docker cp <nome>:/path/file ./file\ndocker cp ./file <nome>:/path/",
+   "note": "Funziona anche a container fermo; controlla proprietario e permessi dopo la copia.",
+   "related": [
+    "docker-named-volumes-vs-bind-mounts-differenze-prestazioni"
+   ]
+  },
+  {
+   "id": "docker_container_stats",
+   "group": "docker-container",
+   "q": "Come vedo quanta CPU e RAM usano i container?",
+   "keywords": [
+    "docker stats",
+    "consumo container",
+    "cpu ram container",
+    "quanta memoria usa un container",
+    "consumo dei container",
+    "uso cpu container"
+   ],
+   "cmd": "docker stats",
+   "note": "Vista live di tutti i container; il limite di memoria mostrato è quello imposto, non la RAM dell'host.",
+   "related": [
+    "cos-e-docker-compose"
+   ]
+  },
+  {
+   "id": "docker_container_top",
+   "group": "docker-container",
+   "q": "Come vedo i processi dentro un container?",
+   "keywords": [
+    "docker top",
+    "processi nel container",
+    "processi che girano nel container",
+    "processi dentro il container"
+   ],
+   "cmd": "docker top <nome>",
+   "note": "I processi visti dall'host, senza entrare nel container.",
+   "related": [
+    "cos-e-docker-compose"
+   ]
+  },
+  {
+   "id": "docker_container_update_limits",
+   "group": "docker-container",
+   "q": "Come cambio i limiti di risorse a un container avviato?",
+   "keywords": [
+    "docker update",
+    "limiti risorse container",
+    "limitare memoria container",
+    "limitare la memoria di un container",
+    "cambiare limiti container",
+    "container gia avviato limiti",
+    "container gia avviato"
+   ],
+   "cmd": "docker update --memory 512m --memory-swap 512m --cpus 1.5 <nome>",
+   "note": "Al volo, senza riavvio – ma se usi Compose riportalo nel file, o il prossimo `up` lo dimentica.",
+   "related": [
+    "cos-e-docker-compose"
+   ]
+  },
+  {
+   "id": "docker_logs_tail",
+   "group": "docker-container",
+   "q": "Come vedo le ultime righe di log di un container?",
+   "keywords": [
+    "docker logs",
+    "log container",
+    "ultime righe log",
+    "ultime righe di log del container",
+    "vedere i log del container"
+   ],
+   "cmd": "docker logs --tail 100 <nome>",
+   "note": "Senza `--tail` scarica TUTTO il log: su container vecchi può essere enorme.",
+   "related": [
+    "rotazione-log-docker-configurazione-max-size-max-file"
+   ]
+  },
+  {
+   "id": "docker_logs_follow",
+   "group": "docker-container",
+   "q": "Come seguo i log di un container in diretta?",
+   "keywords": [
+    "docker logs -f",
+    "log in tempo reale",
+    "seguire i log",
+    "log del container in tempo reale",
+    "log in diretta container"
+   ],
+   "cmd": "docker logs -f --tail 50 <nome>",
+   "note": "Ctrl+C stacca solo il follow: il container resta su.",
+   "related": [
+    "rotazione-log-docker-configurazione-max-size-max-file"
+   ]
+  },
+  {
+   "id": "docker_logs_since",
+   "group": "docker-container",
+   "q": "Come filtro i log di un container per periodo o testo?",
+   "keywords": [
+    "filtrare log container",
+    "log ultima ora",
+    "docker logs since",
+    "log del container ultima ora",
+    "log per periodo"
+   ],
+   "cmd": "docker logs --since 1h <nome> 2>&1 | grep -i error",
+   "note": "`--since`/`--until` accettano durate (`1h`) e timestamp ISO; il `2>&1` serve perché molte app loggano su stderr.",
+   "related": [
+    "rotazione-log-docker-configurazione-max-size-max-file"
+   ]
+  },
+  {
+   "id": "docker_logs_truncate",
+   "group": "docker-container",
+   "q": "Come svuoto il log di un container cresciuto troppo?",
+   "keywords": [
+    "svuotare log container",
+    "log troppo grande",
+    "truncate log docker",
+    "log del container enorme",
+    "svuotare il log",
+    "log enorme"
+   ],
+   "cmd": "truncate -s 0 $(docker inspect --format '{{.LogPath}}' <nome>)",
+   "note": "Cura il sintomo: la cura vera è la rotazione (`max-size`/`max-file`) in `daemon.json`.",
+   "related": [
+    "rotazione-log-docker-configurazione-max-size-max-file",
+    "storage-pieno-liberare-spazio"
+   ]
+  },
+  {
+   "id": "docker_debug_crashloop",
+   "group": "docker-container",
+   "q": "Il container continua a riavviarsi: come lo debuggo?",
+   "keywords": [
+    "container si riavvia",
+    "crashloop",
+    "restart loop container",
+    "container in loop",
+    "container in restart loop",
+    "si riavvia in continuazione"
+   ],
+   "cmd": "docker logs --tail 50 <nome>\ndocker inspect --format 'restarts={{.RestartCount}} exit={{.State.ExitCode}}' <nome>",
+   "note": "L'errore è quasi sempre nelle prime righe di log dopo l'avvio; exit code 1 = errore applicativo, non di Docker.",
+   "related": [
+    "cos-e-docker-compose"
+   ]
+  },
+  {
+   "id": "docker_debug_oom",
+   "group": "docker-container",
+   "q": "Come capisco se un container è stato ucciso per memoria (OOM)?",
+   "keywords": [
+    "oom killed",
+    "container ucciso memoria",
+    "exit 137",
+    "container muore exit 137",
+    "ucciso per memoria"
+   ],
+   "cmd": "docker inspect --format 'OOM={{.State.OOMKilled}} exit={{.State.ExitCode}}' <nome>",
+   "note": "`OOMKilled: true` o exit code **137** = ucciso dal kernel: alza il limite o cerca la perdita di memoria.",
+   "related": [
+    "cos-e-docker-compose"
+   ]
+  },
+  {
+   "id": "docker_debug_exit_codes",
+   "group": "docker-container",
+   "q": "Cosa significano gli exit code dei container?",
+   "keywords": [
+    "exit code container",
+    "codici di uscita docker",
+    "exit code 137 significato",
+    "codici di uscita dei container",
+    "significato exit code"
+   ],
+   "cmd": "docker inspect --format '{{.State.ExitCode}}' <nome>",
+   "note": "0 ok · 1 errore applicativo · 126/127 comando non eseguibile/non trovato · **137** SIGKILL (spesso OOM) · 143 SIGTERM.",
+   "related": [
+    "cos-e-docker-compose"
+   ]
+  },
+  {
+   "id": "docker_image_list",
+   "group": "docker-immagini",
+   "q": "Come vedo le immagini scaricate?",
+   "keywords": [
+    "docker images",
+    "lista immagini",
+    "immagini scaricate",
+    "lista delle immagini",
+    "vedere le immagini docker"
+   ],
+   "cmd": "docker images",
+   "note": "Con `--filter dangling=true` vedi gli strati orfani che occupano spazio.",
+   "related": [
+    "sicurezza-delle-immagini-container"
+   ]
+  },
+  {
+   "id": "docker_image_pull",
+   "group": "docker-immagini",
+   "q": "Come scarico una versione precisa di un'immagine?",
+   "keywords": [
+    "docker pull",
+    "scaricare immagine",
+    "tag immagine",
+    "pull per digest",
+    "pull di un tag preciso",
+    "scaricare una versione precisa"
+   ],
+   "cmd": "docker pull nginx:1.27\n# blindata al byte: docker pull nginx@sha256:<digest>",
+   "note": "Mai `latest` in produzione: il tag si muove, il digest no.",
+   "related": [
+    "sicurezza-delle-immagini-container",
+    "aggiornare-automaticamente-i-container"
+   ]
+  },
+  {
+   "id": "docker_image_build",
+   "group": "docker-immagini",
+   "q": "Come costruisco un'immagine da un Dockerfile?",
+   "keywords": [
+    "docker build",
+    "costruire immagine",
+    "buildare un dockerfile",
+    "build dal dockerfile",
+    "costruire l'immagine"
+   ],
+   "cmd": "docker build -t miaapp:1.0 .",
+   "note": "Il `.` è il build context: tienilo piccolo con un `.dockerignore`, o ogni build spedisce gigabyte al daemon.",
+   "related": [
+    "sicurezza-delle-immagini-container"
+   ]
+  },
+  {
+   "id": "docker_image_build_nocache",
+   "group": "docker-immagini",
+   "q": "Come forzo una build senza cache (e con build-arg)?",
+   "keywords": [
+    "build senza cache",
+    "no-cache",
+    "build-arg",
+    "build senza la cache",
+    "rifare la build"
+   ],
+   "cmd": "docker build --no-cache --build-arg VERSIONE=2 -t miaapp:2.0 .",
+   "note": "`--no-cache` serve quando un RUN scarica risorse che cambiano fuori dal Dockerfile.",
+   "related": [
+    "sicurezza-delle-immagini-container"
+   ]
+  },
+  {
+   "id": "docker_image_multiarch",
+   "group": "docker-immagini",
+   "q": "Come costruisco un'immagine multi-architettura (amd64+arm64)?",
+   "keywords": [
+    "buildx",
+    "multiarch",
+    "immagine arm64",
+    "multi-architettura",
+    "immagine per arm64",
+    "build multiarch"
+   ],
+   "cmd": "docker buildx build --platform linux/amd64,linux/arm64 -t utente/app:1.0 --push .",
+   "note": "Serve buildx con QEMU; `--push` è obbligatorio: il manifest multi-arch non vive nello store locale.",
+   "related": [
+    "sicurezza-delle-immagini-container"
+   ]
+  },
+  {
+   "id": "docker_image_tag_push",
+   "group": "docker-immagini",
+   "q": "Come taggo e pubblico un'immagine su un registry?",
+   "keywords": [
+    "docker tag",
+    "docker push",
+    "pubblicare immagine su registry",
+    "push su registry privato",
+    "pubblicare l'immagine"
+   ],
+   "cmd": "docker tag miaapp:1.0 registry.example.com/miaapp:1.0\ndocker push registry.example.com/miaapp:1.0",
+   "note": "Il nome dell'immagine È l'indirizzo del registry: il tag decide dove finisce il push.",
+   "related": [
+    "sicurezza-delle-immagini-container"
+   ]
+  },
+  {
+   "id": "docker_image_history",
+   "group": "docker-immagini",
+   "q": "Come vedo i layer e il peso di un'immagine?",
+   "keywords": [
+    "docker history",
+    "layer immagine",
+    "dimensione layer",
+    "perche l'immagine pesa",
+    "immagine pesa troppo",
+    "vedere i layer"
+   ],
+   "cmd": "docker history <immagine>",
+   "note": "Dimensione per layer: il posto dove scoprire perché l'immagine pesa 2 GB (di solito un COPY o un apt senza pulizia).",
+   "related": [
+    "sicurezza-delle-immagini-container"
+   ]
+  },
+  {
+   "id": "docker_image_prune",
+   "group": "docker-immagini",
+   "q": "Come pulisco le immagini inutilizzate?",
+   "keywords": [
+    "docker image prune",
+    "pulire immagini",
+    "immagini dangling",
+    "pulire le immagini dangling",
+    "eliminare immagini inutilizzate"
+   ],
+   "cmd": "docker image prune        # solo dangling\ndocker image prune -a     # tutte le non usate",
+   "note": "`-a` rimuove OGNI immagine non riferita da un container: il prossimo up riscarica tutto.",
+   "related": [
+    "storage-pieno-liberare-spazio"
+   ]
+  },
+  {
+   "id": "docker_image_scan",
+   "group": "docker-immagini",
+   "q": "Come scansiono un'immagine per vulnerabilità?",
+   "keywords": [
+    "scansione vulnerabilita immagine",
+    "trivy",
+    "docker scout",
+    "scansione vulnerabilita immagine trivy",
+    "cve nelle immagini"
+   ],
+   "cmd": "trivy image nginx:1.27\n# oppure: docker scout cves nginx:1.27",
+   "note": "Da mettere in CI, non da lanciare una volta l'anno: le CVE arrivano dopo la build.",
+   "related": [
+    "sicurezza-delle-immagini-container",
+    "cos-e-la-supply-chain-security"
+   ]
+  },
+  {
+   "id": "docker_image_save_load",
+   "group": "docker-immagini",
+   "q": "Come sposto un'immagine senza registry (tar)?",
+   "keywords": [
+    "docker save",
+    "docker load",
+    "esportare immagine tar",
+    "immagine in tar",
+    "spostare immagine senza registry"
+   ],
+   "cmd": "docker save -o app.tar miaapp:1.0\ndocker load -i app.tar",
+   "note": "`save`/`load` per le immagini; `export`/`import` (diverso!) è per il filesystem di un container.",
+   "related": [
+    "sicurezza-delle-immagini-container"
+   ]
+  },
+  {
+   "id": "docker_dockerfile_multistage",
+   "group": "docker-immagini",
+   "q": "Come snellisco un'immagine con la build multi-stage?",
+   "keywords": [
+    "multistage",
+    "multi-stage build",
+    "snellire immagine docker",
+    "multi-stage per snellire",
+    "dockerfile multistage"
+   ],
+   "cmd": "FROM golang:1.23 AS build\nWORKDIR /src\nCOPY . .\nRUN go build -o app\n\nFROM gcr.io/distroless/static\nCOPY --from=build /src/app /\nENTRYPOINT [\"/app\"]",
+   "note": "Compili nel primo stage, spedisci solo il binario: immagini 10-100 volte più piccole e molta meno superficie d'attacco.",
+   "related": [
+    "sicurezza-delle-immagini-container"
+   ]
+  },
+  {
+   "id": "docker_dockerfile_lint",
+   "group": "docker-immagini",
+   "q": "Come controllo un Dockerfile con un linter?",
+   "keywords": [
+    "hadolint",
+    "lint dockerfile",
+    "best practice dockerfile",
+    "linter per il dockerfile",
+    "controllare il dockerfile"
+   ],
+   "cmd": "hadolint Dockerfile",
+   "note": "Intercetta i classici: `latest`, apt senza pulizia della cache, `USER` mancante (container che gira da root).",
+   "related": [
+    "sicurezza-delle-immagini-container",
+    "container-privilegiati-o-non-privilegiati"
+   ]
+  },
+  {
+   "id": "docker_network_ls",
+   "group": "docker-rete-volumi",
+   "q": "Come vedo le reti Docker e chi ci è collegato?",
+   "keywords": [
+    "docker network ls",
+    "reti docker",
+    "ispezionare rete docker",
+    "quali reti docker esistono",
+    "vedere le reti docker"
+   ],
+   "cmd": "docker network ls\ndocker network inspect <rete>",
+   "note": "`inspect` elenca i container collegati con i loro IP interni.",
+   "related": [
+    "instradare-container-docker-vpn-gluetun-network-mode"
+   ]
+  },
+  {
+   "id": "docker_network_create",
+   "group": "docker-rete-volumi",
+   "q": "Come creo una rete bridge dedicata?",
+   "keywords": [
+    "docker network create",
+    "rete bridge",
+    "creare rete docker",
+    "rete bridge personalizzata",
+    "creare una bridge"
+   ],
+   "cmd": "docker network create mia-rete",
+   "note": "Sulle bridge personalizzate i container si risolvono **per nome** (DNS interno); sulla bridge di default no.",
+   "related": [
+    "instradare-container-docker-vpn-gluetun-network-mode"
+   ]
+  },
+  {
+   "id": "docker_network_macvlan",
+   "group": "docker-rete-volumi",
+   "q": "Come do a un container un IP della LAN (macvlan)?",
+   "keywords": [
+    "macvlan",
+    "ip della lan al container",
+    "container con ip di rete",
+    "macvlan docker"
+   ],
+   "cmd": "docker network create -d macvlan --subnet=192.168.1.0/24 --gateway=192.168.1.1 -o parent=eth0 lan",
+   "note": "Limite noto: l'**host non parla** coi container macvlan senza un'interfaccia macvlan dedicata lato host.",
+   "related": [
+    "instradare-container-docker-vpn-gluetun-network-mode"
+   ]
+  },
+  {
+   "id": "docker_network_connect",
+   "group": "docker-rete-volumi",
+   "q": "Come collego o scollego un container da una rete?",
+   "keywords": [
+    "docker network connect",
+    "collegare container a rete",
+    "scollegare container dalla rete",
+    "collegare container a un'altra rete",
+    "aggiungere container alla rete"
+   ],
+   "cmd": "docker network connect mia-rete <nome>\ndocker network disconnect mia-rete <nome>",
+   "note": "Un container può stare su più reti insieme: utile per esporre un servizio a due stack separati.",
+   "related": [
+    "instradare-container-docker-vpn-gluetun-network-mode"
+   ]
+  },
+  {
+   "id": "docker_network_debug_dns",
+   "group": "docker-rete-volumi",
+   "q": "I container non si risolvono per nome: perché?",
+   "keywords": [
+    "dns tra container",
+    "container non si vedono per nome",
+    "risolvere nome container",
+    "dns dei container rotto"
+   ],
+   "cmd": "docker network inspect bridge",
+   "note": "Sulla bridge di **default** il DNS tra container non esiste: crea una bridge custom e collegali lì (Compose lo fa da solo).",
+   "related": [
+    "cos-e-docker-compose"
+   ]
+  },
+  {
+   "id": "docker_network_port_conflict",
+   "group": "docker-rete-volumi",
+   "q": "\"Port is already allocated\": come lo risolvo?",
+   "keywords": [
+    "port is already allocated",
+    "porta gia in uso docker",
+    "conflitto di porta",
+    "errore port is already allocated",
+    "porta occupata docker"
+   ],
+   "cmd": "ss -tlnp | grep :<porta>",
+   "note": "Qualcosa occupa già la porta sull'host (spesso un altro container): cambia il mapping (`8081:80`) o ferma l'occupante.",
+   "related": [
+    "cos-e-docker-compose"
+   ]
+  },
+  {
+   "id": "docker_network_debug_connectivity",
+   "group": "docker-rete-volumi",
+   "q": "Come testo la connettività tra due container?",
+   "keywords": [
+    "connettivita tra container",
+    "container non si raggiungono",
+    "test rete tra container",
+    "connettivita tra due container",
+    "container non si parlano"
+   ],
+   "cmd": "docker exec <a> ping -c2 <b>\ndocker exec <a> nc -zv <b> <porta>",
+   "note": "Devono stare sulla stessa rete; se il ping va e `nc` no, il servizio dentro il container non ascolta su `0.0.0.0`.",
+   "related": [
+    "instradare-container-docker-vpn-gluetun-network-mode"
+   ]
+  },
+  {
+   "id": "docker_volume_ls_create",
+   "group": "docker-rete-volumi",
+   "q": "Come creo e listo i volumi?",
+   "keywords": [
+    "docker volume ls",
+    "docker volume create",
+    "creare un volume",
+    "creare un volume nominato",
+    "volume nominato docker",
+    "volume nominato"
+   ],
+   "cmd": "docker volume ls\ndocker volume create dati-app",
+   "note": "I volumi anonimi (hash lunghi) nascono dai container senza volume esplicito: nominali sempre.",
+   "related": [
+    "docker-named-volumes-vs-bind-mounts-differenze-prestazioni"
+   ]
+  },
+  {
+   "id": "docker_volume_inspect",
+   "group": "docker-rete-volumi",
+   "q": "Dove stanno fisicamente i dati di un volume?",
+   "keywords": [
+    "mountpoint volume",
+    "dove sono i dati del volume",
+    "path volume docker",
+    "dati del volume sul disco",
+    "dove sta il volume"
+   ],
+   "cmd": "docker volume inspect --format '{{.Mountpoint}}' dati-app",
+   "note": "Di norma `/var/lib/docker/volumes/<nome>/_data` – ma passa dai comandi docker, non modificarli a mano.",
+   "related": [
+    "docker-named-volumes-vs-bind-mounts-differenze-prestazioni"
+   ]
+  },
+  {
+   "id": "docker_volume_backup",
+   "group": "docker-rete-volumi",
+   "q": "Come faccio il backup di un volume?",
+   "keywords": [
+    "backup volume docker",
+    "salvare un volume",
+    "tar del volume",
+    "backup di un volume docker",
+    "salvare i dati del volume"
+   ],
+   "cmd": "docker run --rm -v dati-app:/data -v $(pwd):/backup alpine tar czf /backup/dati-app.tgz -C /data .",
+   "note": "A servizio fermo per i database – o meglio, usa il dump nativo del db.",
+   "related": [
+    "docker-named-volumes-vs-bind-mounts-differenze-prestazioni"
+   ]
+  },
+  {
+   "id": "docker_volume_restore",
+   "group": "docker-rete-volumi",
+   "q": "Come ripristino un volume da un backup tar?",
+   "keywords": [
+    "ripristinare volume",
+    "restore volume docker",
+    "ripristinare il volume dal tar",
+    "restore del volume"
+   ],
+   "cmd": "docker run --rm -v dati-app:/data -v $(pwd):/backup alpine tar xzf /backup/dati-app.tgz -C /data",
+   "note": "Il volume deve esistere già (`docker volume create`); il tar viene estratto sopra il contenuto attuale.",
+   "related": [
+    "docker-named-volumes-vs-bind-mounts-differenze-prestazioni"
+   ]
+  },
+  {
+   "id": "docker_volume_permissions",
+   "group": "docker-rete-volumi",
+   "q": "Permission denied su un volume: come sistemo UID e GID?",
+   "keywords": [
+    "permission denied volume",
+    "uid gid container",
+    "permessi volume docker",
+    "permission denied sul volume",
+    "uid gid sbagliati volume"
+   ],
+   "cmd": "docker exec <nome> id\nsudo chown -R 1000:1000 <path-del-bind-o-mountpoint>",
+   "note": "Il container scrive col SUO uid: allinea il proprietario sul filesystem, o imposta `user:` nel Compose.",
+   "related": [
+    "docker-named-volumes-vs-bind-mounts-differenze-prestazioni",
+    "container-privilegiati-o-non-privilegiati"
+   ]
+  },
+  {
+   "id": "docker_volume_prune",
+   "group": "docker-rete-volumi",
+   "q": "Come elimino i volumi orfani?",
+   "keywords": [
+    "docker volume prune",
+    "volumi orfani",
+    "pulire i volumi",
+    "cancellare i volumi orfani",
+    "eliminare volumi non usati"
+   ],
+   "cmd": "docker volume prune",
+   "note": "Cancella DATI per sempre: prima `docker volume ls`, e un backup di ciò che non riconosci.",
+   "related": [
+    "docker-named-volumes-vs-bind-mounts-differenze-prestazioni",
+    "storage-pieno-liberare-spazio"
+   ]
+  },
+  {
+   "id": "docker_compose_up_down",
+   "group": "docker-compose",
+   "q": "Come tiro su e giù uno stack Compose?",
+   "keywords": [
+    "docker compose up",
+    "docker compose down",
+    "tirare su lo stack",
+    "stack compose in background",
+    "su e giu lo stack"
+   ],
+   "cmd": "docker compose up -d\ndocker compose down",
+   "note": "`down` NON tocca i volumi; `down -v` li **cancella** – differenza da sapere a memoria.",
+   "related": [
+    "cos-e-docker-compose"
+   ]
+  },
+  {
+   "id": "docker_compose_recreate",
+   "group": "docker-compose",
+   "q": "Come forzo la ricreazione (e la rebuild) dei servizi?",
+   "keywords": [
+    "compose force-recreate",
+    "ricreare i servizi compose",
+    "compose con build",
+    "compose ricreare tutti i servizi",
+    "forzare la ricreazione compose"
+   ],
+   "cmd": "docker compose up -d --force-recreate --build",
+   "note": "`--build` ricompila le immagini locali; `--force-recreate` ricrea anche senza modifiche.",
+   "related": [
+    "cos-e-docker-compose"
+   ]
+  },
+  {
+   "id": "docker_compose_single_service",
+   "group": "docker-compose",
+   "q": "Come riavvio un solo servizio dello stack?",
+   "keywords": [
+    "riavviare servizio compose",
+    "un solo servizio",
+    "compose restart",
+    "un solo servizio dello stack",
+    "riavviare un servizio del compose"
+   ],
+   "cmd": "docker compose restart <servizio>\n# con nuova immagine o config: docker compose up -d <servizio>",
+   "note": "`restart` non ricarica immagini né variabili: per quelle serve `up -d` sul servizio.",
+   "related": [
+    "cos-e-docker-compose"
+   ]
+  },
+  {
+   "id": "docker_compose_update",
+   "group": "docker-compose",
+   "q": "Come aggiorno le immagini di uno stack Compose?",
+   "keywords": [
+    "aggiornare stack compose",
+    "compose pull",
+    "aggiornare le immagini compose",
+    "aggiornare le immagini dello stack",
+    "stack compose aggiornamento"
+   ],
+   "cmd": "docker compose pull && docker compose up -d",
+   "note": "Ricrea solo i servizi con immagine nuova; per l'automatico c'è Watchtower – conoscendone i rischi.",
+   "related": [
+    "aggiornare-automaticamente-i-container",
+    "cos-e-docker-compose"
+   ]
+  },
+  {
+   "id": "docker_compose_logs",
+   "group": "docker-compose",
+   "q": "Come vedo i log di uno stack (o di un servizio)?",
+   "keywords": [
+    "compose logs",
+    "log dello stack",
+    "log di un servizio compose",
+    "log aggregati dello stack",
+    "log di tutto lo stack"
+   ],
+   "cmd": "docker compose logs -f --tail 100 [servizio]",
+   "note": "Senza nome del servizio aggrega tutto lo stack, con i prefissi colorati.",
+   "related": [
+    "rotazione-log-docker-configurazione-max-size-max-file"
+   ]
+  },
+  {
+   "id": "docker_compose_ps",
+   "group": "docker-compose",
+   "q": "Come vedo lo stato dei servizi dello stack?",
+   "keywords": [
+    "compose ps",
+    "stato dei servizi compose",
+    "stato dei servizi dello stack",
+    "servizi compose attivi"
+   ],
+   "cmd": "docker compose ps",
+   "note": "Mostra anche health e porte pubblicate: la fotografia dello stack in una riga per servizio.",
+   "related": [
+    "cos-e-docker-compose"
+   ]
+  },
+  {
+   "id": "docker_compose_validate",
+   "group": "docker-compose",
+   "q": "Come valido un compose file (ed env risolte)?",
+   "keywords": [
+    "validare il compose",
+    "compose config",
+    "sintassi compose",
+    "debug env compose",
+    "validare la sintassi del compose",
+    "compose e le env",
+    "verificare compose file"
+   ],
+   "cmd": "docker compose config",
+   "note": "Stampa il file **finale**: variabili interpolate e override applicati – il debug di `.env` parte da qui.",
+   "related": [
+    "cos-e-docker-compose"
+   ]
+  },
+  {
+   "id": "docker_compose_override",
+   "group": "docker-compose",
+   "q": "Come tengo modifiche locali senza toccare il compose principale?",
+   "keywords": [
+    "compose override",
+    "modifiche locali compose",
+    "override locale del compose",
+    "compose override yml"
+   ],
+   "cmd": "# compose.override.yml viene fuso in automatico con compose.yml\ndocker compose config   # verifica il risultato della fusione",
+   "note": "L'override è il posto per porte di debug e bind mount locali: il file principale resta pulito e committabile.",
+   "related": [
+    "cos-e-docker-compose"
+   ]
+  },
+  {
+   "id": "docker_compose_from_run",
+   "group": "docker-compose",
+   "q": "Come trasformo un docker run in un compose?",
+   "keywords": [
+    "da docker run a compose",
+    "convertire docker run",
+    "composerize",
+    "docker run lunghissimo convertire",
+    "trasformare docker run in compose"
+   ],
+   "cmd": "# ogni flag ha il suo campo YAML: -p->ports, -v->volumes, -e->environment, --restart->restart\n# scorciatoia: https://composerize.com (incolli il docker run, esce il compose)",
+   "note": "Vale sempre la pena: il compose è documentazione eseguibile, il `docker run` lungo un rigo no.",
+   "related": [
+    "cos-e-docker-compose"
+   ]
+  }
+ ]
+}

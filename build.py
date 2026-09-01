@@ -956,6 +956,138 @@ def build_ports(db, entries, site) -> list:
     return urls
 
 
+def build_commands(db, entries, site) -> list:
+    """Render /comandi/ (index + one cheat-sheet page per group from commands.json)."""
+    cfile = ROOT / "commands.json"
+    if not cfile.exists():
+        return []
+    data = json.loads(cfile.read_text(encoding="utf-8"))
+    groups, cards = data["groups"], data["cards"]
+    by_slug = {e["slug"]: e for e in entries}
+    urls = [f"{site}/comandi/"]
+    for g in groups:
+        gcards = [c for c in cards if c["group"] == g["slug"]]
+        if not gcards:
+            continue
+        toc = "".join(
+            f'<li><a href="#{c["id"]}">{html.escape(c["q"])}</a></li>' for c in gcards
+        )
+        body = ""
+        for c in gcards:
+            rel = "".join(
+                f'<a href="../../q/{s}/">{html.escape(by_slug[s]["question"])}</a>'
+                for s in c.get("related", [])
+            )
+            body += f"""<section class="cmd-card" id="{c["id"]}">
+<h2><a class="anchor" href="#{c["id"]}">#</a> {html.escape(c["q"])}</h2>
+<pre><code>{html.escape(c["cmd"])}</code></pre>
+<p class="cmd-note">{inline_md(html.escape(c["note"]))}</p>
+{f'<p class="cmd-rel">Approfondisci: {rel}</p>' if rel else ''}
+</section>
+"""
+        jsonld = [
+            {
+                "@context": "https://schema.org",
+                "@type": "FAQPage",
+                "mainEntity": [
+                    {
+                        "@type": "Question",
+                        "name": c["q"],
+                        "acceptedAnswer": {"@type": "Answer", "text": c["cmd"] + "\n" + md_to_plain(c["note"])},
+                    }
+                    for c in gcards
+                ],
+            },
+            {
+                "@context": "https://schema.org",
+                "@type": "BreadcrumbList",
+                "itemListElement": [
+                    {"@type": "ListItem", "position": 1, "name": "FabGPT-FAQ", "item": f"{site}/"},
+                    {"@type": "ListItem", "position": 2, "name": "Comandi", "item": f"{site}/comandi/"},
+                    {"@type": "ListItem", "position": 3, "name": g["title"], "item": f"{site}/comandi/{g['slug']}/"},
+                ],
+            },
+        ]
+        page = PATH_HEAD.format(
+            title=html.escape(g["title"]) + " – comandi",
+            description=html.escape(g["tagline"]),
+            canonical=f"{site}/comandi/{g['slug']}/",
+            site=site,
+            base="../../",
+            jsonld=json.dumps(jsonld, ensure_ascii=False),
+        )
+        page += f"""<nav class="crumbs" aria-label="Percorso"><a href="../../">FabGPT-FAQ</a> › <a href="../">Comandi</a> › <span>{html.escape(g["title"])}</span></nav>
+<h1>{html.escape(g["title"])}</h1>
+<p class="intro">{html.escape(g["tagline"])} Ogni comando è verificato e copiabile; in <a href="../../">chat</a> basta descrivere cosa vuoi fare.</p>
+<details class="toc"><summary>{len(gcards)} comandi in questa pagina</summary><ul>{toc}</ul></details>
+{body}
+<a class="ask" href="../../">Chiedi in chat 💬</a>
+<style>
+  .toc {{ border: 1px solid var(--border); border-radius: 10px; background: var(--bg-soft); padding: 10px 14px; margin-bottom: 8px; }}
+  .toc summary {{ cursor: pointer; font-weight: 600; }}
+  .toc a {{ color: var(--link); text-decoration: none; }}
+  .cmd-card {{ border: 1px solid var(--border); border-radius: 12px; background: var(--bg-soft); padding: 14px 16px; margin: 12px 0; }}
+  .cmd-card h2 {{ font-size: 16px; margin: 0 0 8px; }}
+  .cmd-card .anchor {{ color: var(--text-dim); text-decoration: none; margin-right: 2px; }}
+  .cmd-card pre {{ background: var(--code-bg); border-radius: 8px; padding: 10px 12px; overflow-x: auto; margin: 0 0 8px; cursor: pointer; }}
+  .cmd-card code {{ font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 13px; }}
+  .cmd-note {{ font-size: 14px; margin: 0 0 6px; }}
+  .cmd-note code {{ background: var(--code-bg); border-radius: 5px; padding: 1px 5px; overflow-wrap: anywhere; }}
+  .cmd-note {{ overflow-wrap: anywhere; }}
+  .cmd-rel {{ font-size: 13px; color: var(--text-dim); margin: 0; }}
+  .cmd-rel a {{ color: var(--link); text-decoration: none; margin-right: 10px; }}
+  .cmd-card:target {{ border-color: var(--accent); }}
+</style>
+<script>
+document.addEventListener('click', function (e) {{
+  var pre = e.target.closest('.cmd-card pre');
+  if (!pre || !navigator.clipboard) return;
+  navigator.clipboard.writeText(pre.innerText).then(function () {{
+    pre.style.borderLeft = '3px solid var(--accent)';
+    setTimeout(function () {{ pre.style.borderLeft = ''; }}, 800);
+  }});
+}});
+</script>
+"""
+        page += PATH_FOOT
+        d = ROOT / "comandi" / g["slug"]
+        d.mkdir(parents=True, exist_ok=True)
+        (d / "index.html").write_text(page, encoding="utf-8")
+        urls.append(f"{site}/comandi/{g['slug']}/")
+
+    # comandi index
+    cardsidx = "".join(
+        f'<a class="path-card" href="{g["slug"]}/"><span class="n">{sum(1 for c in cards if c["group"] == g["slug"])} comandi</span><br>'
+        f"<b>{html.escape(g['title'])}</b><p>{html.escape(g['tagline'])}</p></a>\n"
+        for g in groups if any(c["group"] == g["slug"] for c in cards)
+    )
+    page = PATH_HEAD.format(
+        title="Comandi verificati",
+        description="Cheat-sheet operativi: il comando giusto, il suo gotcha e la guida di contesto. Anche in chat: descrivi cosa vuoi fare.",
+        canonical=f"{site}/comandi/",
+        site=site,
+        base="../",
+        jsonld=json.dumps({
+            "@context": "https://schema.org", "@type": "ItemList",
+            "name": "Comandi FabGPT-FAQ",
+            "itemListElement": [
+                {"@type": "ListItem", "position": i + 1, "name": g["title"], "url": f"{site}/comandi/{g['slug']}/"}
+                for i, g in enumerate(groups)
+            ],
+        }, ensure_ascii=False),
+    )
+    page += (
+        '<nav class="crumbs" aria-label="Percorso"><a href="../">FabGPT-FAQ</a> › <span>Comandi</span></nav>\n'
+        "<h1>Comandi verificati</h1>\n"
+        '<p class="intro">Il comando giusto con il suo gotcha, per schede tematiche. Gli stessi comandi rispondono in <a href="../">chat</a>: descrivi cosa vuoi fare ("come sbanno un IP?", "il container si riavvia") e arriva la riga pronta.</p>\n'
+        + cardsidx
+    )
+    page += PATH_FOOT
+    (ROOT / "comandi").mkdir(parents=True, exist_ok=True)
+    (ROOT / "comandi" / "index.html").write_text(page, encoding="utf-8")
+    return urls
+
+
 def build() -> None:
     db = json.loads((ROOT / "faq.json").read_text(encoding="utf-8"))
     site = db["config"]["siteUrl"].rstrip("/")
@@ -1175,6 +1307,7 @@ def build() -> None:
     path_urls = build_paths(db, entries, site)
     path_urls += build_tools(db, entries, site)
     path_urls += build_ports(db, entries, site)
+    path_urls += build_commands(db, entries, site)
     paths_meta = (
         json.loads((ROOT / "paths.json").read_text(encoding="utf-8"))["paths"]
         if (ROOT / "paths.json").exists() else []
@@ -1237,6 +1370,13 @@ def build() -> None:
         lt.append("\n## Percorsi guidati\n")
         for p in paths_meta:
             lt.append(f"- [{p['title']}]({site}/percorsi/{p['slug']}/): {p['tagline']}")
+    if (ROOT / "commands.json").exists():
+        _cd = json.loads((ROOT / "commands.json").read_text(encoding="utf-8"))
+        lt.append("\n## Comandi verificati\n")
+        for g in _cd["groups"]:
+            n = sum(1 for c in _cd["cards"] if c["group"] == g["slug"])
+            if n:
+                lt.append(f"- [{g['title']}]({site}/comandi/{g['slug']}/): {g['tagline']} ({n} comandi)")
     lt.append("\n## Tools deterministici\n")
     for t in TOOLS:
         lt.append(f"- [{t['title']}]({site}/tools/{t['slug']}/): {t['tagline']}")

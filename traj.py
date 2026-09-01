@@ -47,8 +47,9 @@ def gate(name, passed, total, required, unit="%"):
 # ---- app.js runtime mirror (variant + fallback rotation, chip history) ----
 
 class Runtime:
-    def __init__(self, db):
+    def __init__(self, db, commands=None):
         self.db = db
+        self.commands = commands or []
         self.cursor = {}
         self.last = None
         self.fb = -1
@@ -56,7 +57,7 @@ class Runtime:
         self.ctx = None   # last KB entry served (smalltalk excluded), persists
 
     def ask(self, text):
-        entry, _ = match(self.db, text, self.ctx)
+        entry, _ = match(self.db, text, self.ctx, self.commands)
         # "approfondisci" on an active thread serves the next variant of the
         # last KB entry instead of the generic smalltalk reply (mirrors app.js).
         if (entry is not None and entry["id"] == "st-approfondisci"
@@ -86,6 +87,10 @@ class Runtime:
 
 def main():
     db = json.load(open(f"{ROOT}/faq.json"))
+    try:
+        commands = json.load(open(f"{ROOT}/commands.json"))["cards"]
+    except FileNotFoundError:
+        commands = []
     entries = db["entries"]
     by_slug = {e["slug"]: e for e in entries}
     all_ok = True
@@ -158,7 +163,7 @@ def main():
     def run_sessions(label, batch):
         turns = fails = 0
         for sess in batch:
-            rt = Runtime(db)
+            rt = Runtime(db, commands)
             prev_ans = {}   # entry id -> last answer text seen (for variant checks)
             prev_fb = None
             for t in sess["turns"]:

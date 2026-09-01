@@ -1,0 +1,230 @@
+[
+ {
+  "q": "che comando mi dice i container accesi?",
+  "expect": "cmd/docker_container_list_running"
+ },
+ {
+  "q": "come listo pure i container spenti?",
+  "expect": "cmd/docker_container_list_all"
+ },
+ {
+  "q": "ho un container fermo, come lo faccio ripartire?",
+  "expect": "cmd/docker_container_start"
+ },
+ {
+  "q": "come fermo un container docker senza ucciderlo?",
+  "expect": "cmd/docker_container_stop"
+ },
+ {
+  "q": "il container non risponde allo stop, come lo ammazzo?",
+  "expect": "cmd/docker_container_kill"
+ },
+ {
+  "q": "comando per riavviare un container",
+  "expect": "cmd/docker_container_restart"
+ },
+ {
+  "q": "posso ricreare il container senza perdere i dati?",
+  "expect": "cmd/docker_container_recreate"
+ },
+ {
+  "q": "come cancello un container che non uso?",
+  "expect": "cmd/docker_container_rm"
+ },
+ {
+  "q": "voglio eliminare tutti i container fermi in un colpo solo",
+  "expect": "cmd/docker_container_prune"
+ },
+ {
+  "q": "come ispeziono la config di un container?",
+  "expect": "cmd/docker_container_inspect"
+ },
+ {
+  "q": "il container risulta unhealthy, come vedo il perche?",
+  "expect": "cmd/docker_container_healthcheck"
+ },
+ {
+  "q": "come apro una shell dentro un container?",
+  "expect": "cmd/docker_container_exec"
+ },
+ {
+  "q": "mi serve estrarre un file dal container, come si fa?",
+  "expect": "cmd/docker_container_cp"
+ },
+ {
+  "q": "quanta memoria usa un container? che comando uso?",
+  "expect": "cmd/docker_container_stats"
+ },
+ {
+  "q": "come vedo i processi che girano nel container?",
+  "expect": "cmd/docker_container_top"
+ },
+ {
+  "q": "come limito la memoria di un container gia avviato?",
+  "expect": "cmd/docker_container_update_limits"
+ },
+ {
+  "q": "fammi vedere le ultime 100 righe di log del container",
+  "expect": "cmd/docker_logs_tail"
+ },
+ {
+  "q": "come seguo i log del container in tempo reale?",
+  "expect": "cmd/docker_logs_follow"
+ },
+ {
+  "q": "come filtro i log del container dell'ultima ora?",
+  "expect": "cmd/docker_logs_since"
+ },
+ {
+  "q": "il file di log del container e' enorme, come lo svuoto?",
+  "expect": "cmd/docker_logs_truncate"
+ },
+ {
+  "q": "il mio container e' in restart loop, che controllo?",
+  "expect": "cmd/docker_debug_crashloop"
+ },
+ {
+  "q": "il container muore con exit 137, e' oom killed?",
+  "expect": "cmd/docker_debug_oom"
+ },
+ {
+  "q": "che significano i codici di uscita dei container?",
+  "expect": "cmd/docker_debug_exit_codes"
+ },
+ {
+  "q": "come vedo la lista immagini scaricate?",
+  "expect": "cmd/docker_image_list"
+ },
+ {
+  "q": "come faccio il pull di un tag preciso di un'immagine?",
+  "expect": "cmd/docker_image_pull"
+ },
+ {
+  "q": "come si builda un'immagine dal dockerfile?",
+  "expect": "cmd/docker_image_build"
+ },
+ {
+  "q": "come rifaccio la build senza cache?",
+  "expect": "cmd/docker_image_build_nocache"
+ },
+ {
+  "q": "mi serve un'immagine multiarch per arm64, come la costruisco?",
+  "expect": "cmd/docker_image_multiarch"
+ },
+ {
+  "q": "come pubblico la mia immagine su un registry privato?",
+  "expect": "cmd/docker_image_tag_push"
+ },
+ {
+  "q": "perche l'immagine pesa cosi tanto? come vedo i layer?",
+  "expect": "cmd/docker_image_history"
+ },
+ {
+  "q": "come pulisco le immagini dangling?",
+  "expect": "cmd/docker_image_prune"
+ },
+ {
+  "q": "come faccio la scansione vulnerabilita di un'immagine con trivy?",
+  "expect": "cmd/docker_image_scan"
+ },
+ {
+  "q": "come esporto un'immagine in tar senza registry?",
+  "expect": "cmd/docker_image_save_load"
+ },
+ {
+  "q": "come uso il multi-stage per snellire l'immagine?",
+  "expect": "cmd/docker_dockerfile_multistage"
+ },
+ {
+  "q": "c'e' un linter per il dockerfile?",
+  "expect": "cmd/docker_dockerfile_lint"
+ },
+ {
+  "q": "come vedo quali reti docker esistono?",
+  "expect": "cmd/docker_network_ls"
+ },
+ {
+  "q": "come creo una rete bridge personalizzata?",
+  "expect": "cmd/docker_network_create"
+ },
+ {
+  "q": "voglio dare al container un ip della lan, macvlan?",
+  "expect": "cmd/docker_network_macvlan"
+ },
+ {
+  "q": "come collego un container a un'altra rete?",
+  "expect": "cmd/docker_network_connect"
+ },
+ {
+  "q": "i container non si vedono per nome, dns rotto?",
+  "expect": "cmd/docker_network_debug_dns"
+ },
+ {
+  "q": "errore port is already allocated, come lo risolvo?",
+  "expect": "cmd/docker_network_port_conflict"
+ },
+ {
+  "q": "come testo la connettivita tra due container?",
+  "expect": "cmd/docker_network_debug_connectivity"
+ },
+ {
+  "q": "come creo un volume nominato?",
+  "expect": "cmd/docker_volume_ls_create"
+ },
+ {
+  "q": "dove sono i dati del volume sul disco?",
+  "expect": "cmd/docker_volume_inspect"
+ },
+ {
+  "q": "come faccio il backup di un volume docker?",
+  "expect": "cmd/docker_volume_backup"
+ },
+ {
+  "q": "come ripristino il volume dal tar di backup?",
+  "expect": "cmd/docker_volume_restore"
+ },
+ {
+  "q": "permission denied sul volume, problema di uid gid?",
+  "expect": "cmd/docker_volume_permissions"
+ },
+ {
+  "q": "come cancello i volumi orfani?",
+  "expect": "cmd/docker_volume_prune"
+ },
+ {
+  "q": "come tiro su lo stack con compose in background?",
+  "expect": "cmd/docker_compose_up_down"
+ },
+ {
+  "q": "come forzo compose a ricreare tutti i servizi?",
+  "expect": "cmd/docker_compose_recreate"
+ },
+ {
+  "q": "come riavvio un solo servizio dello stack compose?",
+  "expect": "cmd/docker_compose_single_service"
+ },
+ {
+  "q": "come aggiorno le immagini dello stack compose?",
+  "expect": "cmd/docker_compose_update"
+ },
+ {
+  "q": "come vedo i log aggregati dello stack?",
+  "expect": "cmd/docker_compose_logs"
+ },
+ {
+  "q": "comando per lo stato dei servizi compose",
+  "expect": "cmd/docker_compose_ps"
+ },
+ {
+  "q": "come valido la sintassi del compose e le env?",
+  "expect": "cmd/docker_compose_validate"
+ },
+ {
+  "q": "come faccio un override locale del compose?",
+  "expect": "cmd/docker_compose_override"
+ },
+ {
+  "q": "ho un docker run lunghissimo, come lo converto in compose?",
+  "expect": "cmd/docker_compose_from_run"
+ }
+]

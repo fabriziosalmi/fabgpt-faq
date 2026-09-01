@@ -600,6 +600,13 @@ Chat: https://fabriziosalmi.github.io/fabgpt-faq/  ·  Indice: https://fabrizios
 - [Mettere in sicurezza un server esposto](https://fabriziosalmi.github.io/fabgpt-faq/percorsi/mettere-in-sicurezza-un-server/): Dodici tappe in ordine di impatto: dall'hardening iniziale alla checklist mensile che mantiene tutto vero.
 - [Self-hosting da zero](https://fabriziosalmi.github.io/fabgpt-faq/percorsi/self-hosting-da-zero/): Dodici tappe dal perché all'infrastruttura che si mantiene da sola: Proxmox, container, rete, backup e monitoraggio.
 
+## Comandi verificati
+
+- [Docker: container, log e diagnosi](https://fabriziosalmi.github.io/fabgpt-faq/comandi/docker-container/): Ciclo di vita, log, exec, risorse e il debug dei container che muoiono. (23 comandi)
+- [Docker: immagini e Dockerfile](https://fabriziosalmi.github.io/fabgpt-faq/comandi/docker-immagini/): Pull, build, multi-stage, scansione vulnerabilità e pulizia delle immagini. (12 comandi)
+- [Docker: reti e volumi](https://fabriziosalmi.github.io/fabgpt-faq/comandi/docker-rete-volumi/): Bridge, macvlan, DNS tra container, volumi, backup e permessi. (13 comandi)
+- [Docker Compose](https://fabriziosalmi.github.io/fabgpt-faq/comandi/docker-compose/): Gestire stack multi-container: up/down, aggiornamenti, log, override e debug. (9 comandi)
+
 ## Tools deterministici
 
 - [Calcolatore subnet / CIDR](https://fabriziosalmi.github.io/fabgpt-faq/tools/calcolatore-subnet/): Rete, broadcast, maschera e host usabili da una notazione CIDR. Calcolo esatto nel browser, niente server.

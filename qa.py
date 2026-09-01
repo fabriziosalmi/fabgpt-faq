@@ -152,11 +152,35 @@ def ctx_tokens(entry, cap=CTX_CAP):
     return seen[:cap]
 
 
-def match(db, text, ctx=None):
+CMD_MIN = 2.0         # a command card must reach this score AND strictly beat the KB
+
+
+def command_md(card):
+    """Render a command card as chat markdown (app.js mirrors this shape)."""
+    md = "**" + card["q"] + "**\n\n```bash\n" + card["cmd"] + "\n```\n" + card["note"]
+    md += f"\n\n[Scheda completa dei comandi →](comandi/{card['group']}/#{card['id']})"
+    return md
+
+
+def command_entry(card):
+    """Wrap a card as a pseudo-entry so the runtime treats it like an answer."""
+    return {
+        "id": "cmd/" + card["id"],
+        "question": card["q"],
+        "answers": [command_md(card)],
+        "suggest": card.get("related", []),
+        "kind": "command",
+    }
+
+
+def match(db, text, ctx=None, commands=None):
     """ctx = the previously matched KB entry (or None). Mirrors app.js:
     a weak direct match is retried with the previous entry's tokens added,
     but a contextual candidate counts only if the NEW input contributed
-    (combined score > score from context tokens alone)."""
+    (combined score > score from context tokens alone). commands = the
+    command-card pool (commands.json): consulted after the KB, and a card
+    wins only if it reaches CMD_MIN and STRICTLY beats the KB score, so
+    every KB canonical keeps routing to its entry (ties favor the KB)."""
     input_norm = norm(text)
     input_tokens = tokens(text)
     best, best_score = None, 0.0
@@ -179,6 +203,14 @@ def match(db, text, ctx=None):
                     b2, s2 = entry, comb
             if b2 is not None and s2 > best_score:
                 return b2, s2
+    if commands:
+        bc, sc = None, 0.0
+        for card in commands:
+            s = score_entry(card, input_norm, input_tokens)
+            if s > sc:
+                sc, bc = s, card
+        if bc is not None and sc >= CMD_MIN and sc > best_score:
+            return command_entry(bc), sc
     if best and best_score >= db["config"]["matchThreshold"]:
         return best, best_score
     return None, best_score

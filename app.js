@@ -13,6 +13,8 @@
   let DB = null;
   let DIAGRAMS = {};                         // entry id -> inline SVG
   let PORTS = {};                            // well-known ports dataset (ports.json)
+  let COMMANDS = [];                         // command cards (commands.json)
+  const CMD_MIN = 2.0;                       // a card must reach this AND strictly beat the KB
   let streaming = false;
   const answerCursor = Object.create(null); // entry id -> next variant index
   let lastEntryId = null;
@@ -159,6 +161,26 @@
           if (comb > scoreEntry(entry, '', extra)) { b2 = entry; s2 = comb; }
         }
         if (b2 && s2 > bestScore) return b2;
+      }
+    }
+    // Command cards (commands.json): operational one-liners. A card wins only
+    // if it reaches CMD_MIN and STRICTLY beats the KB score (ties favor the KB),
+    // so canonical questions keep routing to their entries. Mirrored in qa.py.
+    if (COMMANDS.length) {
+      let bc = null, sc = 0;
+      for (const card of COMMANDS) {
+        const s = scoreEntry(card, inputNorm, inputTokens);
+        if (s > sc) { sc = s; bc = card; }
+      }
+      if (bc && sc >= CMD_MIN && sc > bestScore) {
+        return {
+          id: 'cmd/' + bc.id,
+          question: bc.q,
+          answers: ['**' + bc.q + '**\n\n```bash\n' + bc.cmd + '\n```\n' + bc.note +
+                    '\n\n[Scheda completa dei comandi →](comandi/' + bc.group + '/#' + bc.id + ')'],
+          suggest: bc.related || [],
+          kind: 'command',
+        };
       }
     }
     if (best && bestScore >= DB.config.matchThreshold) return best;
@@ -585,6 +607,8 @@
       catch (_) { DIAGRAMS = {}; } // diagrams are optional
       try { PORTS = (await (await fetch('ports.json', { cache: 'no-cache' })).json()).ports; }
       catch (_) { PORTS = {}; } // port dataset is optional
+      try { COMMANDS = (await (await fetch('commands.json', { cache: 'no-cache' })).json()).cards; }
+      catch (_) { COMMANDS = []; } // command cards are optional
       // Self-heal a stale cached index.html that predates the tools.js tag.
       if (typeof FabTools === 'undefined') {
         const s = document.createElement('script');

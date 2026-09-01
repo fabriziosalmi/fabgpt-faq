@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Docker: reti e volumi – comandi – FabGPT-FAQ</title>
+<meta name="description" content="Bridge, macvlan, DNS tra container, volumi, backup e permessi.">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="canonical" href="https://fabriziosalmi.github.io/fabgpt-faq/comandi/docker-rete-volumi/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Docker: reti e volumi – comandi">
+<meta property="og:description" content="Bridge, macvlan, DNS tra container, volumi, backup e permessi.">
+<meta property="og:url" content="https://fabriziosalmi.github.io/fabgpt-faq/comandi/docker-rete-volumi/">
+<meta property="og:image" content="https://fabriziosalmi.github.io/fabgpt-faq/og.svg">
+<meta property="og:site_name" content="FabGPT-FAQ">
+<meta property="og:locale" content="it_IT">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://fabriziosalmi.github.io/fabgpt-faq/og.svg">
+<link rel="stylesheet" href="../../style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
+<script type="application/ld+json">[{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Come vedo le reti Docker e chi ci è collegato?", "acceptedAnswer": {"@type": "Answer", "text": "docker network ls\ndocker network inspect <rete>\ninspect elenca i container collegati con i loro IP interni."}}, {"@type": "Question", "name": "Come creo una rete bridge dedicata?", "acceptedAnswer": {"@type": "Answer", "text": "docker network create mia-rete\nSulle bridge personalizzate i container si risolvono per nome (DNS interno); sulla bridge di default no."}}, {"@type": "Question", "name": "Come do a un container un IP della LAN (macvlan)?", "acceptedAnswer": {"@type": "Answer", "text": "docker network create -d macvlan --subnet=192.168.1.0/24 --gateway=192.168.1.1 -o parent=eth0 lan\nLimite noto: l'host non parla coi container macvlan senza un'interfaccia macvlan dedicata lato host."}}, {"@type": "Question", "name": "Come collego o scollego un container da una rete?", "acceptedAnswer": {"@type": "Answer", "text": "docker network connect mia-rete <nome>\ndocker network disconnect mia-rete <nome>\nUn container può stare su più reti insieme: utile per esporre un servizio a due stack separati."}}, {"@type": "Question", "name": "I container non si risolvono per nome: perché?", "acceptedAnswer": {"@type": "Answer", "text": "docker network inspect bridge\nSulla bridge di default il DNS tra container non esiste: crea una bridge custom e collegali lì (Compose lo fa da solo)."}}, {"@type": "Question", "name": "\"Port is already allocated\": come lo risolvo?", "acceptedAnswer": {"@type": "Answer", "text": "ss -tlnp | grep :<porta>\nQualcosa occupa già la porta sull'host (spesso un altro container): cambia il mapping (8081:80) o ferma l'occupante."}}, {"@type": "Question", "name": "Come testo la connettività tra due container?", "acceptedAnswer": {"@type": "Answer", "text": "docker exec <a> ping -c2 <b>\ndocker exec <a> nc -zv <b> <porta>\nDevono stare sulla stessa rete; se il ping va e nc no, il servizio dentro il container non ascolta su 0.0.0.0."}}, {"@type": "Question", "name": "Come creo e listo i volumi?", "acceptedAnswer": {"@type": "Answer", "text": "docker volume ls\ndocker volume create dati-app\nI volumi anonimi (hash lunghi) nascono dai container senza volume esplicito: nominali sempre."}}, {"@type": "Question", "name": "Dove stanno fisicamente i dati di un volume?", "acceptedAnswer": {"@type": "Answer", "text": "docker volume inspect --format '{{.Mountpoint}}' dati-app\nDi norma /var/lib/docker/volumes/<nome>/_data – ma passa dai comandi docker, non modificarli a mano."}}, {"@type": "Question", "name": "Come faccio il backup di un volume?", "acceptedAnswer": {"@type": "Answer", "text": "docker run --rm -v dati-app:/data -v $(pwd):/backup alpine tar czf /backup/dati-app.tgz -C /data .\nA servizio fermo per i database – o meglio, usa il dump nativo del db."}}, {"@type": "Question", "name": "Come ripristino un volume da un backup tar?", "acceptedAnswer": {"@type": "Answer", "text": "docker run --rm -v dati-app:/data -v $(pwd):/backup alpine tar xzf /backup/dati-app.tgz -C /data\nIl volume deve esistere già (docker volume create); il tar viene estratto sopra il contenuto attuale."}}, {"@type": "Question", "name": "Permission denied su un volume: come sistemo UID e GID?", "acceptedAnswer": {"@type": "Answer", "text": "docker exec <nome> id\nsudo chown -R 1000:1000 <path-del-bind-o-mountpoint>\nIl container scrive col SUO uid: allinea il proprietario sul filesystem, o imposta user: nel Compose."}}, {"@type": "Question", "name": "Come elimino i volumi orfani?", "acceptedAnswer": {"@type": "Answer", "text": "docker volume prune\nCancella DATI per sempre: prima docker volume ls, e un backup di ciò che non riconosci."}}]}, {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "FabGPT-FAQ", "item": "https://fabriziosalmi.github.io/fabgpt-faq/"}, {"@type": "ListItem", "position": 2, "name": "Comandi", "item": "https://fabriziosalmi.github.io/fabgpt-faq/comandi/"}, {"@type": "ListItem", "position": 3, "name": "Docker: reti e volumi", "item": "https://fabriziosalmi.github.io/fabgpt-faq/comandi/docker-rete-volumi/"}]}]</script>
+<style>
+  .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
+  .page h1 { font-size: 26px; line-height: 1.3; margin: 6px 0 10px; }
+  .crumbs { font-size: 13px; color: var(--text-dim); margin-bottom: 6px; }
+  .crumbs a { color: var(--text-dim); text-decoration: none; }
+  .crumbs a:hover { color: var(--text); }
+  .page .intro { color: var(--text-dim); margin-bottom: 20px; }
+  .steps { list-style: none; counter-reset: step; padding: 0; margin: 0; }
+  .steps li { counter-increment: step; position: relative; padding: 14px 16px 14px 56px; border: 1px solid var(--border); border-radius: 12px; background: var(--bg-soft); margin: 10px 0; }
+  .steps li::before { content: counter(step); position: absolute; left: 16px; top: 16px; width: 26px; height: 26px; border-radius: 50%; background: var(--accent); color: var(--accent-text); font-weight: 700; font-size: 13px; display: flex; align-items: center; justify-content: center; }
+  .steps a { color: var(--link); text-decoration: none; font-weight: 600; }
+  .steps a:hover { text-decoration: underline; }
+  .steps p { margin: 4px 0 0; font-size: 14px; color: var(--text-dim); }
+  .path-card { display: block; border: 1px solid var(--border); border-radius: 12px; background: var(--bg-soft); padding: 16px 18px; margin: 12px 0; text-decoration: none; color: inherit; }
+  .path-card:hover { border-color: var(--accent); }
+  .path-card b { color: var(--link); font-size: 17px; }
+  .path-card p { margin: 6px 0 0; font-size: 14px; color: var(--text-dim); }
+  .path-card .n { font-size: 12px; color: var(--text-dim); text-transform: uppercase; letter-spacing: .05em; }
+  .page .ask { display: inline-block; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 8px 16px; text-decoration: none; font-weight: 600; font-size: 13px; margin-top: 20px; }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="../../" style="text-decoration:none;color:inherit">
+    <span class="brand-dot">F</span>
+    <span class="brand-name">FabGPT-FAQ</span>
+  </a>
+  <nav class="topnav"><a href="../../percorsi/">Percorsi</a> <a href="../../q/">Tutte le domande</a></nav>
+</header>
+<main class="page">
+<nav class="crumbs" aria-label="Percorso"><a href="../../">FabGPT-FAQ</a> › <a href="../">Comandi</a> › <span>Docker: reti e volumi</span></nav>
+<h1>Docker: reti e volumi</h1>
+<p class="intro">Bridge, macvlan, DNS tra container, volumi, backup e permessi. Ogni comando è verificato e copiabile; in <a href="../../">chat</a> basta descrivere cosa vuoi fare.</p>
+<details class="toc"><summary>13 comandi in questa pagina</summary><ul><li><a href="#docker_network_ls">Come vedo le reti Docker e chi ci è collegato?</a></li><li><a href="#docker_network_create">Come creo una rete bridge dedicata?</a></li><li><a href="#docker_network_macvlan">Come do a un container un IP della LAN (macvlan)?</a></li><li><a href="#docker_network_connect">Come collego o scollego un container da una rete?</a></li><li><a href="#docker_network_debug_dns">I container non si risolvono per nome: perché?</a></li><li><a href="#docker_network_port_conflict">&quot;Port is already allocated&quot;: come lo risolvo?</a></li><li><a href="#docker_network_debug_connectivity">Come testo la connettività tra due container?</a></li><li><a href="#docker_volume_ls_create">Come creo e listo i volumi?</a></li><li><a href="#docker_volume_inspect">Dove stanno fisicamente i dati di un volume?</a></li><li><a href="#docker_volume_backup">Come faccio il backup di un volume?</a></li><li><a href="#docker_volume_restore">Come ripristino un volume da un backup tar?</a></li><li><a href="#docker_volume_permissions">Permission denied su un volume: come sistemo UID e GID?</a></li><li><a href="#docker_volume_prune">Come elimino i volumi orfani?</a></li></ul></details>
+<section class="cmd-card" id="docker_network_ls">
+<h2><a class="anchor" href="#docker_network_ls">#</a> Come vedo le reti Docker e chi ci è collegato?</h2>
+<pre><code>docker network ls
+docker network inspect &lt;rete&gt;</code></pre>
+<p class="cmd-note"><code>inspect</code> elenca i container collegati con i loro IP interni.</p>
+<p class="cmd-rel">Approfondisci: <a href="../../q/instradare-container-docker-vpn-gluetun-network-mode/">Come funziona l&#x27;instradamento del traffico di specifici container Docker attraverso un container VPN dedicato (es. Gluetun)?</a></p>
+</section>
+<section class="cmd-card" id="docker_network_create">
+<h2><a class="anchor" href="#docker_network_create">#</a> Come creo una rete bridge dedicata?</h2>
+<pre><code>docker network create mia-rete</code></pre>
+<p class="cmd-note">Sulle bridge personalizzate i container si risolvono <strong>per nome</strong> (DNS interno); sulla bridge di default no.</p>
+<p class="cmd-rel">Approfondisci: <a href="../../q/instradare-container-docker-vpn-gluetun-network-mode/">Come funziona l&#x27;instradamento del traffico di specifici container Docker attraverso un container VPN dedicato (es. Gluetun)?</a></p>
+</section>
+<section class="cmd-card" id="docker_network_macvlan">
+<h2><a class="anchor" href="#docker_network_macvlan">#</a> Come do a un container un IP della LAN (macvlan)?</h2>
+<pre><code>docker network create -d macvlan --subnet=192.168.1.0/24 --gateway=192.168.1.1 -o parent=eth0 lan</code></pre>
+<p class="cmd-note">Limite noto: l&#x27;<strong>host non parla</strong> coi container macvlan senza un&#x27;interfaccia macvlan dedicata lato host.</p>
+<p class="cmd-rel">Approfondisci: <a href="../../q/instradare-container-docker-vpn-gluetun-network-mode/">Come funziona l&#x27;instradamento del traffico di specifici container Docker attraverso un container VPN dedicato (es. Gluetun)?</a></p>
+</section>
+<section class="cmd-card" id="docker_network_connect">
+<h2><a class="anchor" href="#docker_network_connect">#</a> Come collego o scollego un container da una rete?</h2>
+<pre><code>docker network connect mia-rete &lt;nome&gt;
+docker network disconnect mia-rete &lt;nome&gt;</code></pre>
+<p class="cmd-note">Un container può stare su più reti insieme: utile per esporre un servizio a due stack separati.</p>
+<p class="cmd-rel">Approfondisci: <a href="../../q/instradare-container-docker-vpn-gluetun-network-mode/">Come funziona l&#x27;instradamento del traffico di specifici container Docker attraverso un container VPN dedicato (es. Gluetun)?</a></p>
+</section>
+<section class="cmd-card" id="docker_network_debug_dns">
+<h2><a class="anchor" href="#docker_network_debug_dns">#</a> I container non si risolvono per nome: perché?</h2>
+<pre><code>docker network inspect bridge</code></pre>
+<p class="cmd-note">Sulla bridge di <strong>default</strong> il DNS tra container non esiste: crea una bridge custom e collegali lì (Compose lo fa da solo).</p>
+<p class="cmd-rel">Approfondisci: <a href="../../q/cos-e-docker-compose/">Cos&#x27;è Docker Compose?</a></p>
+</section>
+<section class="cmd-card" id="docker_network_port_conflict">
+<h2><a class="anchor" href="#docker_network_port_conflict">#</a> &quot;Port is already allocated&quot;: come lo risolvo?</h2>
+<pre><code>ss -tlnp | grep :&lt;porta&gt;</code></pre>
+<p class="cmd-note">Qualcosa occupa già la porta sull&#x27;host (spesso un altro container): cambia il mapping (<code>8081:80</code>) o ferma l&#x27;occupante.</p>
+<p class="cmd-rel">Approfondisci: <a href="../../q/cos-e-docker-compose/">Cos&#x27;è Docker Compose?</a></p>
+</section>
+<section class="cmd-card" id="docker_network_debug_connectivity">
+<h2><a class="anchor" href="#docker_network_debug_connectivity">#</a> Come testo la connettività tra due container?</h2>
+<pre><code>docker exec &lt;a&gt; ping -c2 &lt;b&gt;
+docker exec &lt;a&gt; nc -zv &lt;b&gt; &lt;porta&gt;</code></pre>
+<p class="cmd-note">Devono stare sulla stessa rete; se il ping va e <code>nc</code> no, il servizio dentro il container non ascolta su <code>0.0.0.0</code>.</p>
+<p class="cmd-rel">Approfondisci: <a href="../../q/instradare-container-docker-vpn-gluetun-network-mode/">Come funziona l&#x27;instradamento del traffico di specifici container Docker attraverso un container VPN dedicato (es. Gluetun)?</a></p>
+</section>
+<section class="cmd-card" id="docker_volume_ls_create">
+<h2><a class="anchor" href="#docker_volume_ls_create">#</a> Come creo e listo i volumi?</h2>
+<pre><code>docker volume ls
+docker volume create dati-app</code></pre>
+<p class="cmd-note">I volumi anonimi (hash lunghi) nascono dai container senza volume esplicito: nominali sempre.</p>
+<p class="cmd-rel">Approfondisci: <a href="../../q/docker-named-volumes-vs-bind-mounts-differenze-prestazioni/">Qual è la differenza strutturale tra named volumes Docker persistenti e bind mounts per l&#x27;accesso ai file residenti sul filesystem host?</a></p>
+</section>
+<section class="cmd-card" id="docker_volume_inspect">
+<h2><a class="anchor" href="#docker_volume_inspect">#</a> Dove stanno fisicamente i dati di un volume?</h2>
+<pre><code>docker volume inspect --format &#x27;{{.Mountpoint}}&#x27; dati-app</code></pre>
+<p class="cmd-note">Di norma <code>/var/lib/docker/volumes/&lt;nome&gt;/_data</code> – ma passa dai comandi docker, non modificarli a mano.</p>
+<p class="cmd-rel">Approfondisci: <a href="../../q/docker-named-volumes-vs-bind-mounts-differenze-prestazioni/">Qual è la differenza strutturale tra named volumes Docker persistenti e bind mounts per l&#x27;accesso ai file residenti sul filesystem host?</a></p>
+</section>
+<section class="cmd-card" id="docker_volume_backup">
+<h2><a class="anchor" href="#docker_volume_backup">#</a> Come faccio il backup di un volume?</h2>
+<pre><code>docker run --rm -v dati-app:/data -v $(pwd):/backup alpine tar czf /backup/dati-app.tgz -C /data .</code></pre>
+<p class="cmd-note">A servizio fermo per i database – o meglio, usa il dump nativo del db.</p>
+<p class="cmd-rel">Approfondisci: <a href="../../q/docker-named-volumes-vs-bind-mounts-differenze-prestazioni/">Qual è la differenza strutturale tra named volumes Docker persistenti e bind mounts per l&#x27;accesso ai file residenti sul filesystem host?</a></p>
+</section>
+<section class="cmd-card" id="docker_volume_restore">
+<h2><a class="anchor" href="#docker_volume_restore">#</a> Come ripristino un volume da un backup tar?</h2>
+<pre><code>docker run --rm -v dati-app:/data -v $(pwd):/backup alpine tar xzf /backup/dati-app.tgz -C /data</code></pre>
+<p class="cmd-note">Il volume deve esistere già (<code>docker volume create</code>); il tar viene estratto sopra il contenuto attuale.</p>
+<p class="cmd-rel">Approfondisci: <a href="../../q/docker-named-volumes-vs-bind-mounts-differenze-prestazioni/">Qual è la differenza strutturale tra named volumes Docker persistenti e bind mounts per l&#x27;accesso ai file residenti sul filesystem host?</a></p>
+</section>
+<section class="cmd-card" id="docker_volume_permissions">
+<h2><a class="anchor" href="#docker_volume_permissions">#</a> Permission denied su un volume: come sistemo UID e GID?</h2>
+<pre><code>docker exec &lt;nome&gt; id
+sudo chown -R 1000:1000 &lt;path-del-bind-o-mountpoint&gt;</code></pre>
+<p class="cmd-note">Il container scrive col SUO uid: allinea il proprietario sul filesystem, o imposta <code>user:</code> nel Compose.</p>
+<p class="cmd-rel">Approfondisci: <a href="../../q/docker-named-volumes-vs-bind-mounts-differenze-prestazioni/">Qual è la differenza strutturale tra named volumes Docker persistenti e bind mounts per l&#x27;accesso ai file residenti sul filesystem host?</a><a href="../../q/container-privilegiati-o-non-privilegiati/">Container privilegiati o non privilegiati: quale usare?</a></p>
+</section>
+<section class="cmd-card" id="docker_volume_prune">
+<h2><a class="anchor" href="#docker_volume_prune">#</a> Come elimino i volumi orfani?</h2>
+<pre><code>docker volume prune</code></pre>
+<p class="cmd-note">Cancella DATI per sempre: prima <code>docker volume ls</code>, e un backup di ciò che non riconosci.</p>
+<p class="cmd-rel">Approfondisci: <a href="../../q/docker-named-volumes-vs-bind-mounts-differenze-prestazioni/">Qual è la differenza strutturale tra named volumes Docker persistenti e bind mounts per l&#x27;accesso ai file residenti sul filesystem host?</a><a href="../../q/storage-pieno-liberare-spazio/">Storage pieno su Proxmox: come liberare spazio senza disastri</a></p>
+</section>
+
+<a class="ask" href="../../">Chiedi in chat 💬</a>
+<style>
+  .toc { border: 1px solid var(--border); border-radius: 10px; background: var(--bg-soft); padding: 10px 14px; margin-bottom: 8px; }
+  .toc summary { cursor: pointer; font-weight: 600; }
+  .toc a { color: var(--link); text-decoration: none; }
+  .cmd-card { border: 1px solid var(--border); border-radius: 12px; background: var(--bg-soft); padding: 14px 16px; margin: 12px 0; }
+  .cmd-card h2 { font-size: 16px; margin: 0 0 8px; }
+  .cmd-card .anchor { color: var(--text-dim); text-decoration: none; margin-right: 2px; }
+  .cmd-card pre { background: var(--code-bg); border-radius: 8px; padding: 10px 12px; overflow-x: auto; margin: 0 0 8px; cursor: pointer; }
+  .cmd-card code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 13px; }
+  .cmd-note { font-size: 14px; margin: 0 0 6px; }
+  .cmd-note code { background: var(--code-bg); border-radius: 5px; padding: 1px 5px; overflow-wrap: anywhere; }
+  .cmd-note { overflow-wrap: anywhere; }
+  .cmd-rel { font-size: 13px; color: var(--text-dim); margin: 0; }
+  .cmd-rel a { color: var(--link); text-decoration: none; margin-right: 10px; }
+  .cmd-card:target { border-color: var(--accent); }
+</style>
+<script>
+document.addEventListener('click', function (e) {
+  var pre = e.target.closest('.cmd-card pre');
+  if (!pre || !navigator.clipboard) return;
+  navigator.clipboard.writeText(pre.innerText).then(function () {
+    pre.style.borderLeft = '3px solid var(--accent)';
+    setTimeout(function () { pre.style.borderLeft = ''; }, 800);
+  });
+});
+</script>
+</main>
+</body>
+</html>
