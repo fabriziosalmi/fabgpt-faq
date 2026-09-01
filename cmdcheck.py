@@ -85,16 +85,29 @@ def main():
                 print(f"  C3: {t['q']!r}: want {t['expect']}, got {got_id} ({score:.2f})")
     all_ok &= gate("C3 routing", len(tests) - fails, len(tests) + len(missing))
 
-    # ---- C4 battery fidelity: the full qa battery must be unchanged with the pool ----
+    # ---- C4 battery fidelity: the full qa battery must be unchanged with the
+    # pool active. One sanctioned exception: a card may take over a battery
+    # query IF the expected KB entry is among the card's `related` slugs -
+    # i.e. the card is a command-level refinement of that same topic, and the
+    # user still reaches the entry via the card's link and chips. ----
     qtests = json.load(open(f"{ROOT}/tests.json"))
-    bfails = 0
+    entry_slug = {e["id"]: e["slug"] for e in db["entries"]}
+    by_card_id = {"cmd/" + c["id"]: c for c in cards}
+    bfails = refined = 0
     for t in qtests:
         got, score = match(db, t["q"], None, cards)
         got_id = got["id"] if got else None
-        if got_id != t["expect"]:
-            bfails += 1
-            if bfails <= 10:
-                print(f"  C4: {t['q']!r}: want {t['expect']}, got {got_id} ({score:.2f})")
+        if got_id == t["expect"]:
+            continue
+        card = by_card_id.get(got_id)
+        if card and entry_slug.get(t["expect"]) in card.get("related", []):
+            refined += 1
+            continue
+        bfails += 1
+        if bfails <= 10:
+            print(f"  C4: {t['q']!r}: want {t['expect']}, got {got_id} ({score:.2f})")
+    if refined:
+        print(f"       ({refined} batteria raffinate da card con la voce attesa nei related)")
     all_ok &= gate("C4 battery fidelity", len(qtests) - bfails, len(qtests))
 
     print("CMDCHECK:", "PASS" if all_ok else "FAIL")

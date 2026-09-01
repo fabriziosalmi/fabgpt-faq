@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dischi e filesystem – comandi – FabGPT-FAQ</title>
+<meta name="description" content="Spazio, inode, mount, fstab, SMART, swap, mdadm e snapshot ZFS.">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="canonical" href="https://fabriziosalmi.github.io/fabgpt-faq/comandi/dischi-filesystem/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Dischi e filesystem – comandi">
+<meta property="og:description" content="Spazio, inode, mount, fstab, SMART, swap, mdadm e snapshot ZFS.">
+<meta property="og:url" content="https://fabriziosalmi.github.io/fabgpt-faq/comandi/dischi-filesystem/">
+<meta property="og:image" content="https://fabriziosalmi.github.io/fabgpt-faq/og.svg">
+<meta property="og:site_name" content="FabGPT-FAQ">
+<meta property="og:locale" content="it_IT">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://fabriziosalmi.github.io/fabgpt-faq/og.svg">
+<link rel="stylesheet" href="../../style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
+<script type="application/ld+json">[{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Come vedo quanto spazio disco resta?", "acceptedAnswer": {"@type": "Answer", "text": "df -h\nGuarda Use% e il mountpoint giusto: il 100% su / spegne i servizi in modi creativi."}}, {"@type": "Question", "name": "Spazio libero ma \"no space left on device\": perché?", "acceptedAnswer": {"@type": "Answer", "text": "df -i\nCon IUse% al 100% gli inode sono finiti (milioni di file piccoli): lo spazio c'è, i \"posti\" no."}}, {"@type": "Question", "name": "Come trovo cosa occupa spazio sul disco?", "acceptedAnswer": {"@type": "Answer", "text": "du -xhd1 / | sort -h | tail -20\n# interattivo: ncdu -x /\n-x non attraversa altri filesystem: eviti di contare due volte i mount."}}, {"@type": "Question", "name": "Come vedo dischi e partizioni?", "acceptedAnswer": {"@type": "Answer", "text": "lsblk -f\n-f aggiunge filesystem, etichette e UUID: quelli che servono per fstab."}}, {"@type": "Question", "name": "Come monto un disco al volo?", "acceptedAnswer": {"@type": "Answer", "text": "mount /dev/sdb1 /mnt/dati\nMontaggio temporaneo: sparisce al riavvio. Per quello stabile c'è fstab (scheda dopo)."}}, {"@type": "Question", "name": "\"Target is busy\" allo smontaggio: chi sta usando il disco?", "acceptedAnswer": {"@type": "Answer", "text": "fuser -vm /mnt/dati    # o: lsof +f -- /mnt/dati\nVedi i PID che tengono aperto il mount; anche una shell con la cwd lì dentro conta."}}, {"@type": "Question", "name": "Come monto un disco in automatico al boot (fstab)?", "acceptedAnswer": {"@type": "Answer", "text": "blkid /dev/sdb1     # prendi l'UUID\n# /etc/fstab:\nUUID=xxxx-xxxx  /mnt/dati  ext4  defaults,nofail  0 2\nmount -a            # test SENZA riavviare\nSempre per UUID (i nomi /dev/sdX ballano) e con nofail: un disco assente non deve bloccare il boot."}}, {"@type": "Question", "name": "Come controllo e riparo un filesystem (fsck)?", "acceptedAnswer": {"@type": "Answer", "text": "umount /dev/sdb1\nfsck -f /dev/sdb1\nMAI su un filesystem montato in scrittura: peggiora le cose. Per la root: da initramfs o live USB."}}, {"@type": "Question", "name": "Come controllo la salute SMART di un disco?", "acceptedAnswer": {"@type": "Answer", "text": "smartctl -a /dev/sda | grep -Ei 'reallocated|pending|health'\nReallocated e Current_Pending_Sector sopra lo zero = pianifica la sostituzione, non sperarci."}}, {"@type": "Question", "name": "Come misuro la velocità di un disco?", "acceptedAnswer": {"@type": "Answer", "text": "# lettura sequenziale rapida:\nhdparm -t /dev/sda\n# test serio (random 4k):\nfio --name=t --filename=/mnt/dati/t --size=1G --rw=randread --bs=4k --numjobs=4 --runtime=30 --group_reporting\ndd misura solo il sequenziale con cache di mezzo: per i numeri veri serve fio."}}, {"@type": "Question", "name": "Come creo uno swapfile?", "acceptedAnswer": {"@type": "Answer", "text": "fallocate -l 2G /swapfile && chmod 600 /swapfile\nmkswap /swapfile && swapon /swapfile\n# persistente: /swapfile none swap sw 0 0  in /etc/fstab\nSu btrfs e ZFS lo swapfile richiede accorgimenti (o va evitato): lì meglio una partizione o zram."}}, {"@type": "Question", "name": "Come vedo quanta swap sto usando (e chi la usa)?", "acceptedAnswer": {"@type": "Answer", "text": "swapon --show && free -h\n# per processo: smem -s swap -r | head\nSwap usata con RAM libera = pagine fredde parcheggiate, non un problema; swap che CRESCE sotto pressione sì."}}, {"@type": "Question", "name": "Come controllo un RAID mdadm (e sostituisco un disco)?", "acceptedAnswer": {"@type": "Answer", "text": "cat /proc/mdstat\nmdadm --detail /dev/md0\n# sostituzione:\nmdadm --manage /dev/md0 --fail /dev/sdb1 --remove /dev/sdb1\nmdadm --manage /dev/md0 --add /dev/sdc1\nDopo l'add parte il rebuild (progresso in mdstat): è il momento più fragile dell'array – backup prima."}}, {"@type": "Question", "name": "Come controllo un pool ZFS (e lancio uno scrub)?", "acceptedAnswer": {"@type": "Answer", "text": "zpool status -v\nzpool scrub tank\nLo scrub mensile è il momento in cui i checksum fruttano: errori CKSUM su un disco = indiziato numero uno."}}, {"@type": "Question", "name": "Come creo (e ripristino) uno snapshot ZFS?", "acceptedAnswer": {"@type": "Answer", "text": "zfs snapshot tank/dati@pre-upgrade\nzfs rollback tank/dati@pre-upgrade   # distrugge cio' che e' successo dopo!\nIl rollback butta tutto ciò che è successo dopo lo snapshot; per un singolo file: .zfs/snapshot/ in sola lettura."}}]}, {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "FabGPT-FAQ", "item": "https://fabriziosalmi.github.io/fabgpt-faq/"}, {"@type": "ListItem", "position": 2, "name": "Comandi", "item": "https://fabriziosalmi.github.io/fabgpt-faq/comandi/"}, {"@type": "ListItem", "position": 3, "name": "Dischi e filesystem", "item": "https://fabriziosalmi.github.io/fabgpt-faq/comandi/dischi-filesystem/"}]}]</script>
+<style>
+  .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
+  .page h1 { font-size: 26px; line-height: 1.3; margin: 6px 0 10px; }
+  .crumbs { font-size: 13px; color: var(--text-dim); margin-bottom: 6px; }
+  .crumbs a { color: var(--text-dim); text-decoration: none; }
+  .crumbs a:hover { color: var(--text); }
+  .page .intro { color: var(--text-dim); margin-bottom: 20px; }
+  .steps { list-style: none; counter-reset: step; padding: 0; margin: 0; }
+  .steps li { counter-increment: step; position: relative; padding: 14px 16px 14px 56px; border: 1px solid var(--border); border-radius: 12px; background: var(--bg-soft); margin: 10px 0; }
+  .steps li::before { content: counter(step); position: absolute; left: 16px; top: 16px; width: 26px; height: 26px; border-radius: 50%; background: var(--accent); color: var(--accent-text); font-weight: 700; font-size: 13px; display: flex; align-items: center; justify-content: center; }
+  .steps a { color: var(--link); text-decoration: none; font-weight: 600; }
+  .steps a:hover { text-decoration: underline; }
+  .steps p { margin: 4px 0 0; font-size: 14px; color: var(--text-dim); }
+  .path-card { display: block; border: 1px solid var(--border); border-radius: 12px; background: var(--bg-soft); padding: 16px 18px; margin: 12px 0; text-decoration: none; color: inherit; }
+  .path-card:hover { border-color: var(--accent); }
+  .path-card b { color: var(--link); font-size: 17px; }
+  .path-card p { margin: 6px 0 0; font-size: 14px; color: var(--text-dim); }
+  .path-card .n { font-size: 12px; color: var(--text-dim); text-transform: uppercase; letter-spacing: .05em; }
+  .page .ask { display: inline-block; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 8px 16px; text-decoration: none; font-weight: 600; font-size: 13px; margin-top: 20px; }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="../../" style="text-decoration:none;color:inherit">
+    <span class="brand-dot">F</span>
+    <span class="brand-name">FabGPT-FAQ</span>
+  </a>
+  <nav class="topnav"><a href="../../percorsi/">Percorsi</a> <a href="../../q/">Tutte le domande</a></nav>
+</header>
+<main class="page">
+<nav class="crumbs" aria-label="Percorso"><a href="../../">FabGPT-FAQ</a> › <a href="../">Comandi</a> › <span>Dischi e filesystem</span></nav>
+<h1>Dischi e filesystem</h1>
+<p class="intro">Spazio, inode, mount, fstab, SMART, swap, mdadm e snapshot ZFS. Ogni comando è verificato e copiabile; in <a href="../../">chat</a> basta descrivere cosa vuoi fare.</p>
+<details class="toc"><summary>15 comandi in questa pagina</summary><ul><li><a href="#disk_df">Come vedo quanto spazio disco resta?</a></li><li><a href="#disk_inode">Spazio libero ma &quot;no space left on device&quot;: perché?</a></li><li><a href="#disk_du">Come trovo cosa occupa spazio sul disco?</a></li><li><a href="#disk_lsblk">Come vedo dischi e partizioni?</a></li><li><a href="#disk_mount">Come monto un disco al volo?</a></li><li><a href="#disk_umount_busy">&quot;Target is busy&quot; allo smontaggio: chi sta usando il disco?</a></li><li><a href="#disk_fstab">Come monto un disco in automatico al boot (fstab)?</a></li><li><a href="#disk_fsck">Come controllo e riparo un filesystem (fsck)?</a></li><li><a href="#disk_smart">Come controllo la salute SMART di un disco?</a></li><li><a href="#disk_bench">Come misuro la velocità di un disco?</a></li><li><a href="#swap_create">Come creo uno swapfile?</a></li><li><a href="#swap_usage">Come vedo quanta swap sto usando (e chi la usa)?</a></li><li><a href="#raid_mdadm">Come controllo un RAID mdadm (e sostituisco un disco)?</a></li><li><a href="#zfs_status_scrub">Come controllo un pool ZFS (e lancio uno scrub)?</a></li><li><a href="#zfs_snapshot">Come creo (e ripristino) uno snapshot ZFS?</a></li></ul></details>
+<section class="cmd-card" id="disk_df">
+<h2><a class="anchor" href="#disk_df">#</a> Come vedo quanto spazio disco resta?</h2>
+<pre><code>df -h</code></pre>
+<p class="cmd-note">Guarda <code>Use%</code> e il mountpoint giusto: il 100% su <code>/</code> spegne i servizi in modi creativi.</p>
+<p class="cmd-rel">Approfondisci: <a href="../../q/storage-pieno-liberare-spazio/">Storage pieno su Proxmox: come liberare spazio senza disastri</a></p>
+</section>
+<section class="cmd-card" id="disk_inode">
+<h2><a class="anchor" href="#disk_inode">#</a> Spazio libero ma &quot;no space left on device&quot;: perché?</h2>
+<pre><code>df -i</code></pre>
+<p class="cmd-note">Con <code>IUse%</code> al 100% gli inode sono finiti (milioni di file piccoli): lo spazio c&#x27;è, i &quot;posti&quot; no.</p>
+<p class="cmd-rel">Approfondisci: <a href="../../q/storage-pieno-liberare-spazio/">Storage pieno su Proxmox: come liberare spazio senza disastri</a></p>
+</section>
+<section class="cmd-card" id="disk_du">
+<h2><a class="anchor" href="#disk_du">#</a> Come trovo cosa occupa spazio sul disco?</h2>
+<pre><code>du -xhd1 / | sort -h | tail -20
+# interattivo: ncdu -x /</code></pre>
+<p class="cmd-note"><code>-x</code> non attraversa altri filesystem: eviti di contare due volte i mount.</p>
+<p class="cmd-rel">Approfondisci: <a href="../../q/storage-pieno-liberare-spazio/">Storage pieno su Proxmox: come liberare spazio senza disastri</a></p>
+</section>
+<section class="cmd-card" id="disk_lsblk">
+<h2><a class="anchor" href="#disk_lsblk">#</a> Come vedo dischi e partizioni?</h2>
+<pre><code>lsblk -f</code></pre>
+<p class="cmd-note"><code>-f</code> aggiunge filesystem, etichette e UUID: quelli che servono per fstab.</p>
+<p class="cmd-rel">Approfondisci: <a href="../../q/storage-pieno-liberare-spazio/">Storage pieno su Proxmox: come liberare spazio senza disastri</a></p>
+</section>
+<section class="cmd-card" id="disk_mount">
+<h2><a class="anchor" href="#disk_mount">#</a> Come monto un disco al volo?</h2>
+<pre><code>mount /dev/sdb1 /mnt/dati</code></pre>
+<p class="cmd-note">Montaggio temporaneo: sparisce al riavvio. Per quello stabile c&#x27;è fstab (scheda dopo).</p>
+<p class="cmd-rel">Approfondisci: <a href="../../q/storage-pieno-liberare-spazio/">Storage pieno su Proxmox: come liberare spazio senza disastri</a></p>
+</section>
+<section class="cmd-card" id="disk_umount_busy">
+<h2><a class="anchor" href="#disk_umount_busy">#</a> &quot;Target is busy&quot; allo smontaggio: chi sta usando il disco?</h2>
+<pre><code>fuser -vm /mnt/dati    # o: lsof +f -- /mnt/dati</code></pre>
+<p class="cmd-note">Vedi i PID che tengono aperto il mount; anche una shell con la cwd lì dentro conta.</p>
+<p class="cmd-rel">Approfondisci: <a href="../../q/storage-pieno-liberare-spazio/">Storage pieno su Proxmox: come liberare spazio senza disastri</a></p>
+</section>
+<section class="cmd-card" id="disk_fstab">
+<h2><a class="anchor" href="#disk_fstab">#</a> Come monto un disco in automatico al boot (fstab)?</h2>
+<pre><code>blkid /dev/sdb1     # prendi l&#x27;UUID
+# /etc/fstab:
+UUID=xxxx-xxxx  /mnt/dati  ext4  defaults,nofail  0 2
+mount -a            # test SENZA riavviare</code></pre>
+<p class="cmd-note">Sempre per UUID (i nomi /dev/sdX ballano) e con <code>nofail</code>: un disco assente non deve bloccare il boot.</p>
+<p class="cmd-rel">Approfondisci: <a href="../../q/storage-pieno-liberare-spazio/">Storage pieno su Proxmox: come liberare spazio senza disastri</a></p>
+</section>
+<section class="cmd-card" id="disk_fsck">
+<h2><a class="anchor" href="#disk_fsck">#</a> Come controllo e riparo un filesystem (fsck)?</h2>
+<pre><code>umount /dev/sdb1
+fsck -f /dev/sdb1</code></pre>
+<p class="cmd-note">MAI su un filesystem montato in scrittura: peggiora le cose. Per la root: da initramfs o live USB.</p>
+<p class="cmd-rel">Approfondisci: <a href="../../q/storage-pieno-liberare-spazio/">Storage pieno su Proxmox: come liberare spazio senza disastri</a><a href="../../q/monitorare-lo-stato-dei-dischi-smart/">Come si monitora lo stato dei dischi (SMART) e si prevengono i guasti?</a></p>
+</section>
+<section class="cmd-card" id="disk_smart">
+<h2><a class="anchor" href="#disk_smart">#</a> Come controllo la salute SMART di un disco?</h2>
+<pre><code>smartctl -a /dev/sda | grep -Ei &#x27;reallocated|pending|health&#x27;</code></pre>
+<p class="cmd-note"><code>Reallocated</code> e <code>Current_Pending_Sector</code> sopra lo zero = pianifica la sostituzione, non sperarci.</p>
+<p class="cmd-rel">Approfondisci: <a href="../../q/monitorare-lo-stato-dei-dischi-smart/">Come si monitora lo stato dei dischi (SMART) e si prevengono i guasti?</a><a href="../../q/raid-e-raidz-livelli-e-scelta/">RAID e RAIDZ: quali livelli scegliere (e cosa NON sono)?</a></p>
+</section>
+<section class="cmd-card" id="disk_bench">
+<h2><a class="anchor" href="#disk_bench">#</a> Come misuro la velocità di un disco?</h2>
+<pre><code># lettura sequenziale rapida:
+hdparm -t /dev/sda
+# test serio (random 4k):
+fio --name=t --filename=/mnt/dati/t --size=1G --rw=randread --bs=4k --numjobs=4 --runtime=30 --group_reporting</code></pre>
+<p class="cmd-note"><code>dd</code> misura solo il sequenziale con cache di mezzo: per i numeri veri serve fio.</p>
+<p class="cmd-rel">Approfondisci: <a href="../../q/io-delay-alto-proxmox/">I/O delay alto su Proxmox: da dove viene?</a></p>
+</section>
+<section class="cmd-card" id="swap_create">
+<h2><a class="anchor" href="#swap_create">#</a> Come creo uno swapfile?</h2>
+<pre><code>fallocate -l 2G /swapfile &amp;&amp; chmod 600 /swapfile
+mkswap /swapfile &amp;&amp; swapon /swapfile
+# persistente: /swapfile none swap sw 0 0  in /etc/fstab</code></pre>
+<p class="cmd-note">Su btrfs e ZFS lo swapfile richiede accorgimenti (o va evitato): lì meglio una partizione o zram.</p>
+<p class="cmd-rel">Approfondisci: <a href="../../q/storage-pieno-liberare-spazio/">Storage pieno su Proxmox: come liberare spazio senza disastri</a></p>
+</section>
+<section class="cmd-card" id="swap_usage">
+<h2><a class="anchor" href="#swap_usage">#</a> Come vedo quanta swap sto usando (e chi la usa)?</h2>
+<pre><code>swapon --show &amp;&amp; free -h
+# per processo: smem -s swap -r | head</code></pre>
+<p class="cmd-note">Swap usata con RAM libera = pagine fredde parcheggiate, non un problema; swap che CRESCE sotto pressione sì.</p>
+<p class="cmd-rel">Approfondisci: <a href="../../q/storage-pieno-liberare-spazio/">Storage pieno su Proxmox: come liberare spazio senza disastri</a></p>
+</section>
+<section class="cmd-card" id="raid_mdadm">
+<h2><a class="anchor" href="#raid_mdadm">#</a> Come controllo un RAID mdadm (e sostituisco un disco)?</h2>
+<pre><code>cat /proc/mdstat
+mdadm --detail /dev/md0
+# sostituzione:
+mdadm --manage /dev/md0 --fail /dev/sdb1 --remove /dev/sdb1
+mdadm --manage /dev/md0 --add /dev/sdc1</code></pre>
+<p class="cmd-note">Dopo l&#x27;add parte il rebuild (progresso in mdstat): è il momento più fragile dell&#x27;array – backup prima.</p>
+<p class="cmd-rel">Approfondisci: <a href="../../q/raid-e-raidz-livelli-e-scelta/">RAID e RAIDZ: quali livelli scegliere (e cosa NON sono)?</a><a href="../../q/monitorare-lo-stato-dei-dischi-smart/">Come si monitora lo stato dei dischi (SMART) e si prevengono i guasti?</a></p>
+</section>
+<section class="cmd-card" id="zfs_status_scrub">
+<h2><a class="anchor" href="#zfs_status_scrub">#</a> Come controllo un pool ZFS (e lancio uno scrub)?</h2>
+<pre><code>zpool status -v
+zpool scrub tank</code></pre>
+<p class="cmd-note">Lo scrub mensile è il momento in cui i checksum fruttano: errori <code>CKSUM</code> su un disco = indiziato numero uno.</p>
+<p class="cmd-rel">Approfondisci: <a href="../../q/perche-usare-zfs-su-proxmox/">Perché usare ZFS su Proxmox?</a><a href="../../q/monitorare-lo-stato-dei-dischi-smart/">Come si monitora lo stato dei dischi (SMART) e si prevengono i guasti?</a></p>
+</section>
+<section class="cmd-card" id="zfs_snapshot">
+<h2><a class="anchor" href="#zfs_snapshot">#</a> Come creo (e ripristino) uno snapshot ZFS?</h2>
+<pre><code>zfs snapshot tank/dati@pre-upgrade
+zfs rollback tank/dati@pre-upgrade   # distrugge cio&#x27; che e&#x27; successo dopo!</code></pre>
+<p class="cmd-note">Il rollback butta tutto ciò che è successo dopo lo snapshot; per un singolo file: <code>.zfs/snapshot/</code> in sola lettura.</p>
+<p class="cmd-rel">Approfondisci: <a href="../../q/perche-usare-zfs-su-proxmox/">Perché usare ZFS su Proxmox?</a><a href="../../q/differenza-snapshot-e-backup/">Che differenza c&#x27;è tra snapshot e backup?</a><a href="../../q/sanoid-syncoid-replica-snapshot-zfs/">Come funziona la replica incrementale asincrona di snapshot ZFS con Sanoid e Syncoid?</a></p>
+</section>
+
+<a class="ask" href="../../">Chiedi in chat 💬</a>
+<style>
+  .toc { border: 1px solid var(--border); border-radius: 10px; background: var(--bg-soft); padding: 10px 14px; margin-bottom: 8px; }
+  .toc summary { cursor: pointer; font-weight: 600; }
+  .toc a { color: var(--link); text-decoration: none; }
+  .cmd-card { border: 1px solid var(--border); border-radius: 12px; background: var(--bg-soft); padding: 14px 16px; margin: 12px 0; }
+  .cmd-card h2 { font-size: 16px; margin: 0 0 8px; }
+  .cmd-card .anchor { color: var(--text-dim); text-decoration: none; margin-right: 2px; }
+  .cmd-card pre { background: var(--code-bg); border-radius: 8px; padding: 10px 12px; overflow-x: auto; margin: 0 0 8px; cursor: pointer; }
+  .cmd-card code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 13px; }
+  .cmd-note { font-size: 14px; margin: 0 0 6px; }
+  .cmd-note code { background: var(--code-bg); border-radius: 5px; padding: 1px 5px; overflow-wrap: anywhere; }
+  .cmd-note { overflow-wrap: anywhere; }
+  .cmd-rel { font-size: 13px; color: var(--text-dim); margin: 0; }
+  .cmd-rel a { color: var(--link); text-decoration: none; margin-right: 10px; }
+  .cmd-card:target { border-color: var(--accent); }
+</style>
+<script>
+document.addEventListener('click', function (e) {
+  var pre = e.target.closest('.cmd-card pre');
+  if (!pre || !navigator.clipboard) return;
+  navigator.clipboard.writeText(pre.innerText).then(function () {
+    pre.style.borderLeft = '3px solid var(--accent)';
+    setTimeout(function () { pre.style.borderLeft = ''; }, 800);
+  });
+});
+</script>
+</main>
+</body>
+</html>

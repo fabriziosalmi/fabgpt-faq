@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Processi e performance – comandi – FabGPT-FAQ</title>
+<meta name="description" content="Chi consuma cosa: CPU, RAM, load average, I/O wait e i kill fatti bene.">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="canonical" href="https://fabriziosalmi.github.io/fabgpt-faq/comandi/processi-performance/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Processi e performance – comandi">
+<meta property="og:description" content="Chi consuma cosa: CPU, RAM, load average, I/O wait e i kill fatti bene.">
+<meta property="og:url" content="https://fabriziosalmi.github.io/fabgpt-faq/comandi/processi-performance/">
+<meta property="og:image" content="https://fabriziosalmi.github.io/fabgpt-faq/og.svg">
+<meta property="og:site_name" content="FabGPT-FAQ">
+<meta property="og:locale" content="it_IT">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://fabriziosalmi.github.io/fabgpt-faq/og.svg">
+<link rel="stylesheet" href="../../style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
+<script type="application/ld+json">[{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Come trovo un processo per nome?", "acceptedAnswer": {"@type": "Answer", "text": "pgrep -a nginx      # PID + riga di comando\nps aux | grep [n]ginx\nIl trucco [n]ginx esclude il grep stesso dai risultati."}}, {"@type": "Question", "name": "Come monitoro i processi in tempo reale?", "acceptedAnswer": {"@type": "Answer", "text": "htop      # o btop, se installato\nIn htop: F6 ordina per colonna, F5 vista ad albero, F9 kill – e la barra della RAM distingue cache e usata."}}, {"@type": "Question", "name": "Quale processo sta mangiando la CPU?", "acceptedAnswer": {"@type": "Answer", "text": "ps aux --sort=-%cpu | head -10\nUna foto secca, script-friendly; per la dinamica nel tempo resta htop."}}, {"@type": "Question", "name": "Quale processo si sta mangiando la RAM?", "acceptedAnswer": {"@type": "Answer", "text": "ps aux --sort=-%rss | head -10\nGuarda RSS (memoria reale), non VSZ (virtuale, bugiarda); il colpevole seriale sul lungo periodo è chi CRESCE."}}, {"@type": "Question", "name": "Come termino un processo (con grazia e senza)?", "acceptedAnswer": {"@type": "Answer", "text": "kill <pid>          # SIGTERM: chiusura pulita\nkill -9 <pid>       # SIGKILL: ultima spiaggia\npkill -f 'python.*server'\nPrima TERM, poi KILL: il -9 non lascia salvare né pulire. Un processo che ignora anche il -9 è in stato D: guarda l'I/O."}}, {"@type": "Question", "name": "Come abbasso la priorità di un processo pesante?", "acceptedAnswer": {"@type": "Answer", "text": "nice -n 19 tar czf backup.tgz /dati     # parte già umile\nrenice 19 -p <pid>                       # a processo avviato\nionice -c3 -p <pid>                      # umile anche sull'I/O\nPer i backup notturni la coppia nice+ionice evita che il server \"rallenti misteriosamente\" alle 3."}}, {"@type": "Question", "name": "Come si legge il load average?", "acceptedAnswer": {"@type": "Answer", "text": "uptime\nnproc     # i tuoi core: il metro di paragone\nI tre numeri sono medie a 1/5/15 min di processi in attesa: load 4 su 4 core = pieno, su 16 = tranquillo. Load alto con CPU bassa = attesa di I/O."}}, {"@type": "Question", "name": "Il server è lento con iowait alto: come indago?", "acceptedAnswer": {"@type": "Answer", "text": "iostat -x 2      # %util e await per disco\niotop -o         # chi sta leggendo/scrivendo ORA\n%util vicino a 100 con await alto = disco saturo: trova il processo con iotop prima di incolpare l'hardware."}}, {"@type": "Question", "name": "free dice poca RAM libera ma è tutta cache: devo preoccuparmi?", "acceptedAnswer": {"@type": "Answer", "text": "free -h\nGuarda available, non free: la cache è RAM ben spesa che il kernel molla all'istante. Il problema esiste solo se available è basso e la swap cresce."}}, {"@type": "Question", "name": "Come riavvio o spengo un server in modo pulito?", "acceptedAnswer": {"@type": "Answer", "text": "shutdown -r now     # riavvio\nshutdown -h +5 'Manutenzione tra 5 minuti'   # avvisa gli utenti loggati\nPrima di un riavvio remoto: systemctl list-units --failed e conferma di poter raggiungere la console se non torna su."}}]}, {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "FabGPT-FAQ", "item": "https://fabriziosalmi.github.io/fabgpt-faq/"}, {"@type": "ListItem", "position": 2, "name": "Comandi", "item": "https://fabriziosalmi.github.io/fabgpt-faq/comandi/"}, {"@type": "ListItem", "position": 3, "name": "Processi e performance", "item": "https://fabriziosalmi.github.io/fabgpt-faq/comandi/processi-performance/"}]}]</script>
+<style>
+  .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
+  .page h1 { font-size: 26px; line-height: 1.3; margin: 6px 0 10px; }
+  .crumbs { font-size: 13px; color: var(--text-dim); margin-bottom: 6px; }
+  .crumbs a { color: var(--text-dim); text-decoration: none; }
+  .crumbs a:hover { color: var(--text); }
+  .page .intro { color: var(--text-dim); margin-bottom: 20px; }
+  .steps { list-style: none; counter-reset: step; padding: 0; margin: 0; }
+  .steps li { counter-increment: step; position: relative; padding: 14px 16px 14px 56px; border: 1px solid var(--border); border-radius: 12px; background: var(--bg-soft); margin: 10px 0; }
+  .steps li::before { content: counter(step); position: absolute; left: 16px; top: 16px; width: 26px; height: 26px; border-radius: 50%; background: var(--accent); color: var(--accent-text); font-weight: 700; font-size: 13px; display: flex; align-items: center; justify-content: center; }
+  .steps a { color: var(--link); text-decoration: none; font-weight: 600; }
+  .steps a:hover { text-decoration: underline; }
+  .steps p { margin: 4px 0 0; font-size: 14px; color: var(--text-dim); }
+  .path-card { display: block; border: 1px solid var(--border); border-radius: 12px; background: var(--bg-soft); padding: 16px 18px; margin: 12px 0; text-decoration: none; color: inherit; }
+  .path-card:hover { border-color: var(--accent); }
+  .path-card b { color: var(--link); font-size: 17px; }
+  .path-card p { margin: 6px 0 0; font-size: 14px; color: var(--text-dim); }
+  .path-card .n { font-size: 12px; color: var(--text-dim); text-transform: uppercase; letter-spacing: .05em; }
+  .page .ask { display: inline-block; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 8px 16px; text-decoration: none; font-weight: 600; font-size: 13px; margin-top: 20px; }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="../../" style="text-decoration:none;color:inherit">
+    <span class="brand-dot">F</span>
+    <span class="brand-name">FabGPT-FAQ</span>
+  </a>
+  <nav class="topnav"><a href="../../percorsi/">Percorsi</a> <a href="../../q/">Tutte le domande</a></nav>
+</header>
+<main class="page">
+<nav class="crumbs" aria-label="Percorso"><a href="../../">FabGPT-FAQ</a> › <a href="../">Comandi</a> › <span>Processi e performance</span></nav>
+<h1>Processi e performance</h1>
+<p class="intro">Chi consuma cosa: CPU, RAM, load average, I/O wait e i kill fatti bene. Ogni comando è verificato e copiabile; in <a href="../../">chat</a> basta descrivere cosa vuoi fare.</p>
+<details class="toc"><summary>10 comandi in questa pagina</summary><ul><li><a href="#proc_find">Come trovo un processo per nome?</a></li><li><a href="#proc_monitor">Come monitoro i processi in tempo reale?</a></li><li><a href="#proc_top_cpu">Quale processo sta mangiando la CPU?</a></li><li><a href="#proc_top_mem">Quale processo si sta mangiando la RAM?</a></li><li><a href="#proc_kill">Come termino un processo (con grazia e senza)?</a></li><li><a href="#proc_nice">Come abbasso la priorità di un processo pesante?</a></li><li><a href="#perf_load">Come si legge il load average?</a></li><li><a href="#perf_iowait">Il server è lento con iowait alto: come indago?</a></li><li><a href="#perf_memcache">free dice poca RAM libera ma è tutta cache: devo preoccuparmi?</a></li><li><a href="#sys_reboot">Come riavvio o spengo un server in modo pulito?</a></li></ul></details>
+<section class="cmd-card" id="proc_find">
+<h2><a class="anchor" href="#proc_find">#</a> Come trovo un processo per nome?</h2>
+<pre><code>pgrep -a nginx      # PID + riga di comando
+ps aux | grep [n]ginx</code></pre>
+<p class="cmd-note">Il trucco <code>[n]ginx</code> esclude il grep stesso dai risultati.</p>
+<p class="cmd-rel">Approfondisci: <a href="../../q/gestire-servizi-linux-con-systemctl/">Come si gestiscono i servizi Linux con systemctl?</a></p>
+</section>
+<section class="cmd-card" id="proc_monitor">
+<h2><a class="anchor" href="#proc_monitor">#</a> Come monitoro i processi in tempo reale?</h2>
+<pre><code>htop      # o btop, se installato</code></pre>
+<p class="cmd-note">In htop: F6 ordina per colonna, F5 vista ad albero, F9 kill – e la barra della RAM distingue cache e usata.</p>
+<p class="cmd-rel">Approfondisci: <a href="../../q/il-sito-e-lento-come-si-diagnostica/">Il sito è lento: come si diagnostica (davvero)?</a></p>
+</section>
+<section class="cmd-card" id="proc_top_cpu">
+<h2><a class="anchor" href="#proc_top_cpu">#</a> Quale processo sta mangiando la CPU?</h2>
+<pre><code>ps aux --sort=-%cpu | head -10</code></pre>
+<p class="cmd-note">Una foto secca, script-friendly; per la dinamica nel tempo resta htop.</p>
+<p class="cmd-rel">Approfondisci: <a href="../../q/il-sito-e-lento-come-si-diagnostica/">Il sito è lento: come si diagnostica (davvero)?</a></p>
+</section>
+<section class="cmd-card" id="proc_top_mem">
+<h2><a class="anchor" href="#proc_top_mem">#</a> Quale processo si sta mangiando la RAM?</h2>
+<pre><code>ps aux --sort=-%rss | head -10</code></pre>
+<p class="cmd-note">Guarda RSS (memoria reale), non VSZ (virtuale, bugiarda); il colpevole seriale sul lungo periodo è chi CRESCE.</p>
+<p class="cmd-rel">Approfondisci: <a href="../../q/il-sito-e-lento-come-si-diagnostica/">Il sito è lento: come si diagnostica (davvero)?</a></p>
+</section>
+<section class="cmd-card" id="proc_kill">
+<h2><a class="anchor" href="#proc_kill">#</a> Come termino un processo (con grazia e senza)?</h2>
+<pre><code>kill &lt;pid&gt;          # SIGTERM: chiusura pulita
+kill -9 &lt;pid&gt;       # SIGKILL: ultima spiaggia
+pkill -f &#x27;python.*server&#x27;</code></pre>
+<p class="cmd-note">Prima TERM, poi KILL: il -9 non lascia salvare né pulire. Un processo che ignora anche il -9 è in stato D: guarda l&#x27;I/O.</p>
+<p class="cmd-rel">Approfondisci: <a href="../../q/gestire-servizi-linux-con-systemctl/">Come si gestiscono i servizi Linux con systemctl?</a></p>
+</section>
+<section class="cmd-card" id="proc_nice">
+<h2><a class="anchor" href="#proc_nice">#</a> Come abbasso la priorità di un processo pesante?</h2>
+<pre><code>nice -n 19 tar czf backup.tgz /dati     # parte già umile
+renice 19 -p &lt;pid&gt;                       # a processo avviato
+ionice -c3 -p &lt;pid&gt;                      # umile anche sull&#x27;I/O</code></pre>
+<p class="cmd-note">Per i backup notturni la coppia <code>nice</code>+<code>ionice</code> evita che il server &quot;rallenti misteriosamente&quot; alle 3.</p>
+<p class="cmd-rel">Approfondisci: <a href="../../q/io-delay-alto-proxmox/">I/O delay alto su Proxmox: da dove viene?</a></p>
+</section>
+<section class="cmd-card" id="perf_load">
+<h2><a class="anchor" href="#perf_load">#</a> Come si legge il load average?</h2>
+<pre><code>uptime
+nproc     # i tuoi core: il metro di paragone</code></pre>
+<p class="cmd-note">I tre numeri sono medie a 1/5/15 min di processi in attesa: load 4 su 4 core = pieno, su 16 = tranquillo. Load alto con CPU bassa = attesa di I/O.</p>
+<p class="cmd-rel">Approfondisci: <a href="../../q/il-sito-e-lento-come-si-diagnostica/">Il sito è lento: come si diagnostica (davvero)?</a><a href="../../q/io-delay-alto-proxmox/">I/O delay alto su Proxmox: da dove viene?</a></p>
+</section>
+<section class="cmd-card" id="perf_iowait">
+<h2><a class="anchor" href="#perf_iowait">#</a> Il server è lento con iowait alto: come indago?</h2>
+<pre><code>iostat -x 2      # %util e await per disco
+iotop -o         # chi sta leggendo/scrivendo ORA</code></pre>
+<p class="cmd-note"><code>%util</code> vicino a 100 con <code>await</code> alto = disco saturo: trova il processo con iotop prima di incolpare l&#x27;hardware.</p>
+<p class="cmd-rel">Approfondisci: <a href="../../q/io-delay-alto-proxmox/">I/O delay alto su Proxmox: da dove viene?</a><a href="../../q/il-sito-e-lento-come-si-diagnostica/">Il sito è lento: come si diagnostica (davvero)?</a></p>
+</section>
+<section class="cmd-card" id="perf_memcache">
+<h2><a class="anchor" href="#perf_memcache">#</a> free dice poca RAM libera ma è tutta cache: devo preoccuparmi?</h2>
+<pre><code>free -h</code></pre>
+<p class="cmd-note">Guarda <strong>available</strong>, non free: la cache è RAM ben spesa che il kernel molla all&#x27;istante. Il problema esiste solo se available è basso e la swap cresce.</p>
+<p class="cmd-rel">Approfondisci: <a href="../../q/il-sito-e-lento-come-si-diagnostica/">Il sito è lento: come si diagnostica (davvero)?</a></p>
+</section>
+<section class="cmd-card" id="sys_reboot">
+<h2><a class="anchor" href="#sys_reboot">#</a> Come riavvio o spengo un server in modo pulito?</h2>
+<pre><code>shutdown -r now     # riavvio
+shutdown -h +5 &#x27;Manutenzione tra 5 minuti&#x27;   # avvisa gli utenti loggati</code></pre>
+<p class="cmd-note">Prima di un riavvio remoto: <code>systemctl list-units --failed</code> e conferma di poter raggiungere la console se non torna su.</p>
+<p class="cmd-rel">Approfondisci: <a href="../../q/gestire-servizi-linux-con-systemctl/">Come si gestiscono i servizi Linux con systemctl?</a><a href="../../q/hardening-server-linux/">Come si fa l&#x27;hardening di un server Linux appena installato?</a></p>
+</section>
+
+<a class="ask" href="../../">Chiedi in chat 💬</a>
+<style>
+  .toc { border: 1px solid var(--border); border-radius: 10px; background: var(--bg-soft); padding: 10px 14px; margin-bottom: 8px; }
+  .toc summary { cursor: pointer; font-weight: 600; }
+  .toc a { color: var(--link); text-decoration: none; }
+  .cmd-card { border: 1px solid var(--border); border-radius: 12px; background: var(--bg-soft); padding: 14px 16px; margin: 12px 0; }
+  .cmd-card h2 { font-size: 16px; margin: 0 0 8px; }
+  .cmd-card .anchor { color: var(--text-dim); text-decoration: none; margin-right: 2px; }
+  .cmd-card pre { background: var(--code-bg); border-radius: 8px; padding: 10px 12px; overflow-x: auto; margin: 0 0 8px; cursor: pointer; }
+  .cmd-card code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 13px; }
+  .cmd-note { font-size: 14px; margin: 0 0 6px; }
+  .cmd-note code { background: var(--code-bg); border-radius: 5px; padding: 1px 5px; overflow-wrap: anywhere; }
+  .cmd-note { overflow-wrap: anywhere; }
+  .cmd-rel { font-size: 13px; color: var(--text-dim); margin: 0; }
+  .cmd-rel a { color: var(--link); text-decoration: none; margin-right: 10px; }
+  .cmd-card:target { border-color: var(--accent); }
+</style>
+<script>
+document.addEventListener('click', function (e) {
+  var pre = e.target.closest('.cmd-card pre');
+  if (!pre || !navigator.clipboard) return;
+  navigator.clipboard.writeText(pre.innerText).then(function () {
+    pre.style.borderLeft = '3px solid var(--accent)';
+    setTimeout(function () { pre.style.borderLeft = ''; }, 800);
+  });
+});
+</script>
+</main>
+</body>
+</html>

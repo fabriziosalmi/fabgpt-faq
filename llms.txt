@@ -606,6 +606,14 @@ Chat: https://fabriziosalmi.github.io/fabgpt-faq/  ·  Indice: https://fabrizios
 - [Docker: immagini e Dockerfile](https://fabriziosalmi.github.io/fabgpt-faq/comandi/docker-immagini/): Pull, build, multi-stage, scansione vulnerabilità e pulizia delle immagini. (12 comandi)
 - [Docker: reti e volumi](https://fabriziosalmi.github.io/fabgpt-faq/comandi/docker-rete-volumi/): Bridge, macvlan, DNS tra container, volumi, backup e permessi. (13 comandi)
 - [Docker Compose](https://fabriziosalmi.github.io/fabgpt-faq/comandi/docker-compose/): Gestire stack multi-container: up/down, aggiornamenti, log, override e debug. (9 comandi)
+- [systemd e journal](https://fabriziosalmi.github.io/fabgpt-faq/comandi/systemd-journal/): Servizi, unit personalizzate, timer e la lettura chirurgica dei log di journald. (15 comandi)
+- [Dischi e filesystem](https://fabriziosalmi.github.io/fabgpt-faq/comandi/dischi-filesystem/): Spazio, inode, mount, fstab, SMART, swap, mdadm e snapshot ZFS. (15 comandi)
+- [Utenti e permessi](https://fabriziosalmi.github.io/fabgpt-faq/comandi/utenti-permessi/): Account, gruppi, sudo, chmod/chown, bit speciali, ACL e umask. (9 comandi)
+- [Processi e performance](https://fabriziosalmi.github.io/fabgpt-faq/comandi/processi-performance/): Chi consuma cosa: CPU, RAM, load average, I/O wait e i kill fatti bene. (10 comandi)
+- [Rete](https://fabriziosalmi.github.io/fabgpt-faq/comandi/rete/): Interfacce, IP statici, rotte, porte in ascolto, DNS e cattura pacchetti. (12 comandi)
+- [Firewall e SSH](https://fabriziosalmi.github.io/fabgpt-faq/comandi/firewall-ssh/): UFW, nftables, fail2ban e l'operatività SSH quotidiana senza chiudersi fuori. (11 comandi)
+- [Pacchetti](https://fabriziosalmi.github.io/fabgpt-faq/comandi/pacchetti/): apt e dnf: aggiornare, bloccare, riparare e capire da dove arriva un file. (8 comandi)
+- [Cron e Bash](https://fabriziosalmi.github.io/fabgpt-faq/comandi/cron-bash/): Pianificazione, debug dei job silenziosi e gli attrezzi Bash di ogni giorno. (8 comandi)
 
 ## Tools deterministici
 

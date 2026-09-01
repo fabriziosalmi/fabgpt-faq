@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rete – comandi – FabGPT-FAQ</title>
+<meta name="description" content="Interfacce, IP statici, rotte, porte in ascolto, DNS e cattura pacchetti.">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="canonical" href="https://fabriziosalmi.github.io/fabgpt-faq/comandi/rete/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Rete – comandi">
+<meta property="og:description" content="Interfacce, IP statici, rotte, porte in ascolto, DNS e cattura pacchetti.">
+<meta property="og:url" content="https://fabriziosalmi.github.io/fabgpt-faq/comandi/rete/">
+<meta property="og:image" content="https://fabriziosalmi.github.io/fabgpt-faq/og.svg">
+<meta property="og:site_name" content="FabGPT-FAQ">
+<meta property="og:locale" content="it_IT">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://fabriziosalmi.github.io/fabgpt-faq/og.svg">
+<link rel="stylesheet" href="../../style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
+<script type="application/ld+json">[{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Come vedo IP e interfacce di rete?", "acceptedAnswer": {"@type": "Answer", "text": "ip -br a       # vista compatta\nip -br link    # stato dei link\n-br (brief) è la vista che si legge davvero; ifconfig è deprecato da anni."}}, {"@type": "Question", "name": "Come tiro su o giù un'interfaccia?", "acceptedAnswer": {"@type": "Answer", "text": "ip link set eth0 down\nip link set eth0 up\nSe sei in SSH su quell'interfaccia, il down ti saluta: fallo da console o con uno sleep 60 && ... up di scorta."}}, {"@type": "Question", "name": "Come metto un IP statico con netplan (Ubuntu)?", "acceptedAnswer": {"@type": "Answer", "text": "# /etc/netplan/01-lan.yaml\nnetwork:\n  version: 2\n  ethernets:\n    eth0:\n      addresses: [192.168.1.10/24]\n      routes: [{to: default, via: 192.168.1.1}]\n      nameservers: {addresses: [1.1.1.1, 9.9.9.9]}\n\nnetplan try    # rollback automatico se ti tagli fuori\nnetplan try invece di apply: se la config ti isola, torna indietro da sola in 120 secondi."}}, {"@type": "Question", "name": "Come metto un IP statico con NetworkManager (nmcli)?", "acceptedAnswer": {"@type": "Answer", "text": "nmcli con mod 'Wired connection 1' ipv4.addresses 192.168.1.10/24 ipv4.gateway 192.168.1.1 ipv4.dns '1.1.1.1 9.9.9.9' ipv4.method manual\nnmcli con up 'Wired connection 1'\nnmcli con show elenca i nomi esatti delle connessioni: è lì che si sbaglia di solito."}}, {"@type": "Question", "name": "Come vedo (e aggiungo) le rotte?", "acceptedAnswer": {"@type": "Answer", "text": "ip route\nip route add 10.10.0.0/16 via 192.168.1.254\nip route get 8.8.8.8 dice quale rotta e interfaccia userebbe un pacchetto: il debug in un comando."}}, {"@type": "Question", "name": "Come vedo le porte in ascolto sul server?", "acceptedAnswer": {"@type": "Answer", "text": "ss -tlnp     # TCP\nss -ulnp     # UDP\nLa colonna 0.0.0.0 = esposto su tutte le interfacce; 127.0.0.1 = solo locale. La differenza È la superficie d'attacco."}}, {"@type": "Question", "name": "Quale processo occupa una porta?", "acceptedAnswer": {"@type": "Answer", "text": "ss -tlnp | grep :8080\n# oppure: fuser 8080/tcp\nIl PID è tra parentesi nell'output di ss; da lì ps -fp <pid> dice chi è davvero."}}, {"@type": "Question", "name": "Come testo se una porta remota risponde?", "acceptedAnswer": {"@type": "Answer", "text": "nc -zv host.example.com 443\nnc -zvu host.example.com 51820    # UDP\nPer l'UDP il test è debole per natura (niente handshake): un timeout non prova che sia chiusa."}}, {"@type": "Question", "name": "Come diagnostico latenza e perdita pacchetti verso un host?", "acceptedAnswer": {"@type": "Answer", "text": "ping -c 10 host.example.com\nmtr -rwbz host.example.com    # report: rotta + perdita per hop\nIn mtr conta la perdita che PERSISTE fino all'ultimo hop: quella solo sugli hop intermedi è rate-limiting, non un guasto."}}, {"@type": "Question", "name": "Come interrogo il DNS con dig?", "acceptedAnswer": {"@type": "Answer", "text": "dig +short example.com\ndig MX example.com\ndig @1.1.1.1 example.com    # chiedi a un resolver preciso\nConfrontare @1.1.1.1 con il resolver di default è il test di propagazione più rapido che esista."}}, {"@type": "Question", "name": "Come vedo e svuoto la cache DNS di systemd-resolved?", "acceptedAnswer": {"@type": "Answer", "text": "resolvectl status     # quali DNS usa ogni interfaccia\nresolvectl flush-caches\nresolv.conf spesso punta a 127.0.0.53 (lo stub locale): i DNS veri li vedi solo da qui."}}, {"@type": "Question", "name": "Come catturo pacchetti con tcpdump?", "acceptedAnswer": {"@type": "Answer", "text": "tcpdump -i any -nn port 443 -c 100\ntcpdump -i eth0 -w cattura.pcap host 10.0.0.5\n-w salva in pcap per Wireshark; -nn evita i DNS lookup che rallentano e sporcano la cattura."}}]}, {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "FabGPT-FAQ", "item": "https://fabriziosalmi.github.io/fabgpt-faq/"}, {"@type": "ListItem", "position": 2, "name": "Comandi", "item": "https://fabriziosalmi.github.io/fabgpt-faq/comandi/"}, {"@type": "ListItem", "position": 3, "name": "Rete", "item": "https://fabriziosalmi.github.io/fabgpt-faq/comandi/rete/"}]}]</script>
+<style>
+  .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
+  .page h1 { font-size: 26px; line-height: 1.3; margin: 6px 0 10px; }
+  .crumbs { font-size: 13px; color: var(--text-dim); margin-bottom: 6px; }
+  .crumbs a { color: var(--text-dim); text-decoration: none; }
+  .crumbs a:hover { color: var(--text); }
+  .page .intro { color: var(--text-dim); margin-bottom: 20px; }
+  .steps { list-style: none; counter-reset: step; padding: 0; margin: 0; }
+  .steps li { counter-increment: step; position: relative; padding: 14px 16px 14px 56px; border: 1px solid var(--border); border-radius: 12px; background: var(--bg-soft); margin: 10px 0; }
+  .steps li::before { content: counter(step); position: absolute; left: 16px; top: 16px; width: 26px; height: 26px; border-radius: 50%; background: var(--accent); color: var(--accent-text); font-weight: 700; font-size: 13px; display: flex; align-items: center; justify-content: center; }
+  .steps a { color: var(--link); text-decoration: none; font-weight: 600; }
+  .steps a:hover { text-decoration: underline; }
+  .steps p { margin: 4px 0 0; font-size: 14px; color: var(--text-dim); }
+  .path-card { display: block; border: 1px solid var(--border); border-radius: 12px; background: var(--bg-soft); padding: 16px 18px; margin: 12px 0; text-decoration: none; color: inherit; }
+  .path-card:hover { border-color: var(--accent); }
+  .path-card b { color: var(--link); font-size: 17px; }
+  .path-card p { margin: 6px 0 0; font-size: 14px; color: var(--text-dim); }
+  .path-card .n { font-size: 12px; color: var(--text-dim); text-transform: uppercase; letter-spacing: .05em; }
+  .page .ask { display: inline-block; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 8px 16px; text-decoration: none; font-weight: 600; font-size: 13px; margin-top: 20px; }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="../../" style="text-decoration:none;color:inherit">
+    <span class="brand-dot">F</span>
+    <span class="brand-name">FabGPT-FAQ</span>
+  </a>
+  <nav class="topnav"><a href="../../percorsi/">Percorsi</a> <a href="../../q/">Tutte le domande</a></nav>
+</header>
+<main class="page">
+<nav class="crumbs" aria-label="Percorso"><a href="../../">FabGPT-FAQ</a> › <a href="../">Comandi</a> › <span>Rete</span></nav>
+<h1>Rete</h1>
+<p class="intro">Interfacce, IP statici, rotte, porte in ascolto, DNS e cattura pacchetti. Ogni comando è verificato e copiabile; in <a href="../../">chat</a> basta descrivere cosa vuoi fare.</p>
+<details class="toc"><summary>12 comandi in questa pagina</summary><ul><li><a href="#net_ip">Come vedo IP e interfacce di rete?</a></li><li><a href="#net_updown">Come tiro su o giù un&#x27;interfaccia?</a></li><li><a href="#net_static_netplan">Come metto un IP statico con netplan (Ubuntu)?</a></li><li><a href="#net_static_nmcli">Come metto un IP statico con NetworkManager (nmcli)?</a></li><li><a href="#net_route">Come vedo (e aggiungo) le rotte?</a></li><li><a href="#net_listening">Come vedo le porte in ascolto sul server?</a></li><li><a href="#net_port_process">Quale processo occupa una porta?</a></li><li><a href="#net_test_port">Come testo se una porta remota risponde?</a></li><li><a href="#net_ping_mtr">Come diagnostico latenza e perdita pacchetti verso un host?</a></li><li><a href="#net_dig">Come interrogo il DNS con dig?</a></li><li><a href="#net_resolvectl">Come vedo e svuoto la cache DNS di systemd-resolved?</a></li><li><a href="#net_tcpdump">Come catturo pacchetti con tcpdump?</a></li></ul></details>
+<section class="cmd-card" id="net_ip">
+<h2><a class="anchor" href="#net_ip">#</a> Come vedo IP e interfacce di rete?</h2>
+<pre><code>ip -br a       # vista compatta
+ip -br link    # stato dei link</code></pre>
+<p class="cmd-note"><code>-br</code> (brief) è la vista che si legge davvero; <code>ifconfig</code> è deprecato da anni.</p>
+<p class="cmd-rel">Approfondisci: <a href="../../q/cos-e-il-subnetting-e-il-cidr/">Cos&#x27;è il subnetting (e come si legge un /24)?</a></p>
+</section>
+<section class="cmd-card" id="net_updown">
+<h2><a class="anchor" href="#net_updown">#</a> Come tiro su o giù un&#x27;interfaccia?</h2>
+<pre><code>ip link set eth0 down
+ip link set eth0 up</code></pre>
+<p class="cmd-note">Se sei in SSH su quell&#x27;interfaccia, il down ti saluta: fallo da console o con uno <code>sleep 60 &amp;&amp; ... up</code> di scorta.</p>
+<p class="cmd-rel">Approfondisci: <a href="../../q/cos-e-il-subnetting-e-il-cidr/">Cos&#x27;è il subnetting (e come si legge un /24)?</a></p>
+</section>
+<section class="cmd-card" id="net_static_netplan">
+<h2><a class="anchor" href="#net_static_netplan">#</a> Come metto un IP statico con netplan (Ubuntu)?</h2>
+<pre><code># /etc/netplan/01-lan.yaml
+network:
+  version: 2
+  ethernets:
+    eth0:
+      addresses: [192.168.1.10/24]
+      routes: [{to: default, via: 192.168.1.1}]
+      nameservers: {addresses: [1.1.1.1, 9.9.9.9]}
+
+netplan try    # rollback automatico se ti tagli fuori</code></pre>
+<p class="cmd-note"><code>netplan try</code> invece di <code>apply</code>: se la config ti isola, torna indietro da sola in 120 secondi.</p>
+<p class="cmd-rel">Approfondisci: <a href="../../q/cos-e-il-subnetting-e-il-cidr/">Cos&#x27;è il subnetting (e come si legge un /24)?</a><a href="../../q/come-funziona-il-dhcp/">Come funziona il DHCP (e quando conviene l&#x27;IP statico)?</a></p>
+</section>
+<section class="cmd-card" id="net_static_nmcli">
+<h2><a class="anchor" href="#net_static_nmcli">#</a> Come metto un IP statico con NetworkManager (nmcli)?</h2>
+<pre><code>nmcli con mod &#x27;Wired connection 1&#x27; ipv4.addresses 192.168.1.10/24 ipv4.gateway 192.168.1.1 ipv4.dns &#x27;1.1.1.1 9.9.9.9&#x27; ipv4.method manual
+nmcli con up &#x27;Wired connection 1&#x27;</code></pre>
+<p class="cmd-note"><code>nmcli con show</code> elenca i nomi esatti delle connessioni: è lì che si sbaglia di solito.</p>
+<p class="cmd-rel">Approfondisci: <a href="../../q/cos-e-il-subnetting-e-il-cidr/">Cos&#x27;è il subnetting (e come si legge un /24)?</a><a href="../../q/come-funziona-il-dhcp/">Come funziona il DHCP (e quando conviene l&#x27;IP statico)?</a></p>
+</section>
+<section class="cmd-card" id="net_route">
+<h2><a class="anchor" href="#net_route">#</a> Come vedo (e aggiungo) le rotte?</h2>
+<pre><code>ip route
+ip route add 10.10.0.0/16 via 192.168.1.254</code></pre>
+<p class="cmd-note"><code>ip route get 8.8.8.8</code> dice quale rotta e interfaccia userebbe un pacchetto: il debug in un comando.</p>
+<p class="cmd-rel">Approfondisci: <a href="../../q/cos-e-il-subnetting-e-il-cidr/">Cos&#x27;è il subnetting (e come si legge un /24)?</a></p>
+</section>
+<section class="cmd-card" id="net_listening">
+<h2><a class="anchor" href="#net_listening">#</a> Come vedo le porte in ascolto sul server?</h2>
+<pre><code>ss -tlnp     # TCP
+ss -ulnp     # UDP</code></pre>
+<p class="cmd-note">La colonna <code>0.0.0.0</code> = esposto su tutte le interfacce; <code>127.0.0.1</code> = solo locale. La differenza È la superficie d&#x27;attacco.</p>
+<p class="cmd-rel">Approfondisci: <a href="../../q/porte-tcp-e-udp-quali-conoscere/">Cosa sono le porte TCP e UDP (e quali sapere a memoria)?</a><a href="../../q/configurare-firewall-host-default-deny-nftables-ufw/">Come si imposta il firewall dell&#x27;host (tramite ufw o regole native nftables) secondo il principio di default deny su tutto il traffico?</a></p>
+</section>
+<section class="cmd-card" id="net_port_process">
+<h2><a class="anchor" href="#net_port_process">#</a> Quale processo occupa una porta?</h2>
+<pre><code>ss -tlnp | grep :8080
+# oppure: fuser 8080/tcp</code></pre>
+<p class="cmd-note">Il PID è tra parentesi nell&#x27;output di ss; da lì <code>ps -fp &lt;pid&gt;</code> dice chi è davvero.</p>
+<p class="cmd-rel">Approfondisci: <a href="../../q/porte-tcp-e-udp-quali-conoscere/">Cosa sono le porte TCP e UDP (e quali sapere a memoria)?</a></p>
+</section>
+<section class="cmd-card" id="net_test_port">
+<h2><a class="anchor" href="#net_test_port">#</a> Come testo se una porta remota risponde?</h2>
+<pre><code>nc -zv host.example.com 443
+nc -zvu host.example.com 51820    # UDP</code></pre>
+<p class="cmd-note">Per l&#x27;UDP il test è debole per natura (niente handshake): un timeout non prova che sia chiusa.</p>
+<p class="cmd-rel">Approfondisci: <a href="../../q/porte-tcp-e-udp-quali-conoscere/">Cosa sono le porte TCP e UDP (e quali sapere a memoria)?</a></p>
+</section>
+<section class="cmd-card" id="net_ping_mtr">
+<h2><a class="anchor" href="#net_ping_mtr">#</a> Come diagnostico latenza e perdita pacchetti verso un host?</h2>
+<pre><code>ping -c 10 host.example.com
+mtr -rwbz host.example.com    # report: rotta + perdita per hop</code></pre>
+<p class="cmd-note">In mtr conta la perdita che PERSISTE fino all&#x27;ultimo hop: quella solo sugli hop intermedi è rate-limiting, non un guasto.</p>
+<p class="cmd-rel">Approfondisci: <a href="../../q/il-sito-e-lento-come-si-diagnostica/">Il sito è lento: come si diagnostica (davvero)?</a></p>
+</section>
+<section class="cmd-card" id="net_dig">
+<h2><a class="anchor" href="#net_dig">#</a> Come interrogo il DNS con dig?</h2>
+<pre><code>dig +short example.com
+dig MX example.com
+dig @1.1.1.1 example.com    # chiedi a un resolver preciso</code></pre>
+<p class="cmd-note">Confrontare <code>@1.1.1.1</code> con il resolver di default è il test di propagazione più rapido che esista.</p>
+<p class="cmd-rel">Approfondisci: <a href="../../q/come-funziona-la-risoluzione-dns/">Come funziona la risoluzione DNS (dal click alla risposta)?</a></p>
+</section>
+<section class="cmd-card" id="net_resolvectl">
+<h2><a class="anchor" href="#net_resolvectl">#</a> Come vedo e svuoto la cache DNS di systemd-resolved?</h2>
+<pre><code>resolvectl status     # quali DNS usa ogni interfaccia
+resolvectl flush-caches</code></pre>
+<p class="cmd-note"><code>resolv.conf</code> spesso punta a 127.0.0.53 (lo stub locale): i DNS veri li vedi solo da qui.</p>
+<p class="cmd-rel">Approfondisci: <a href="../../q/come-funziona-la-risoluzione-dns/">Come funziona la risoluzione DNS (dal click alla risposta)?</a></p>
+</section>
+<section class="cmd-card" id="net_tcpdump">
+<h2><a class="anchor" href="#net_tcpdump">#</a> Come catturo pacchetti con tcpdump?</h2>
+<pre><code>tcpdump -i any -nn port 443 -c 100
+tcpdump -i eth0 -w cattura.pcap host 10.0.0.5</code></pre>
+<p class="cmd-note"><code>-w</code> salva in pcap per Wireshark; <code>-nn</code> evita i DNS lookup che rallentano e sporcano la cattura.</p>
+<p class="cmd-rel">Approfondisci: <a href="../../q/cattura-pacchetti-remota-pcap/">Come si cattura il traffico da remoto per analizzarlo (PCAP over SSH)?</a></p>
+</section>
+
+<a class="ask" href="../../">Chiedi in chat 💬</a>
+<style>
+  .toc { border: 1px solid var(--border); border-radius: 10px; background: var(--bg-soft); padding: 10px 14px; margin-bottom: 8px; }
+  .toc summary { cursor: pointer; font-weight: 600; }
+  .toc a { color: var(--link); text-decoration: none; }
+  .cmd-card { border: 1px solid var(--border); border-radius: 12px; background: var(--bg-soft); padding: 14px 16px; margin: 12px 0; }
+  .cmd-card h2 { font-size: 16px; margin: 0 0 8px; }
+  .cmd-card .anchor { color: var(--text-dim); text-decoration: none; margin-right: 2px; }
+  .cmd-card pre { background: var(--code-bg); border-radius: 8px; padding: 10px 12px; overflow-x: auto; margin: 0 0 8px; cursor: pointer; }
+  .cmd-card code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 13px; }
+  .cmd-note { font-size: 14px; margin: 0 0 6px; }
+  .cmd-note code { background: var(--code-bg); border-radius: 5px; padding: 1px 5px; overflow-wrap: anywhere; }
+  .cmd-note { overflow-wrap: anywhere; }
+  .cmd-rel { font-size: 13px; color: var(--text-dim); margin: 0; }
+  .cmd-rel a { color: var(--link); text-decoration: none; margin-right: 10px; }
+  .cmd-card:target { border-color: var(--accent); }
+</style>
+<script>
+document.addEventListener('click', function (e) {
+  var pre = e.target.closest('.cmd-card pre');
+  if (!pre || !navigator.clipboard) return;
+  navigator.clipboard.writeText(pre.innerText).then(function () {
+    pre.style.borderLeft = '3px solid var(--accent)';
+    setTimeout(function () { pre.style.borderLeft = ''; }, 800);
+  });
+});
+</script>
+</main>
+</body>
+</html>

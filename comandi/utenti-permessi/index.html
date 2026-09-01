@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Utenti e permessi – comandi – FabGPT-FAQ</title>
+<meta name="description" content="Account, gruppi, sudo, chmod/chown, bit speciali, ACL e umask.">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="canonical" href="https://fabriziosalmi.github.io/fabgpt-faq/comandi/utenti-permessi/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Utenti e permessi – comandi">
+<meta property="og:description" content="Account, gruppi, sudo, chmod/chown, bit speciali, ACL e umask.">
+<meta property="og:url" content="https://fabriziosalmi.github.io/fabgpt-faq/comandi/utenti-permessi/">
+<meta property="og:image" content="https://fabriziosalmi.github.io/fabgpt-faq/og.svg">
+<meta property="og:site_name" content="FabGPT-FAQ">
+<meta property="og:locale" content="it_IT">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://fabriziosalmi.github.io/fabgpt-faq/og.svg">
+<link rel="stylesheet" href="../../style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
+<script type="application/ld+json">[{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Come creo un utente con la sua home?", "acceptedAnswer": {"@type": "Answer", "text": "useradd -m -s /bin/bash mario\npasswd mario\n-m crea la home (non è il default di useradd); su Debian adduser fa tutto in modo interattivo."}}, {"@type": "Question", "name": "Come elimino un utente (con o senza home)?", "acceptedAnswer": {"@type": "Answer", "text": "userdel mario          # conserva la home\nuserdel -r mario       # elimina anche home e mail\nPrima controlla i suoi processi (pgrep -u mario) e i cron: un utente eliminato coi job attivi lascia orfani."}}, {"@type": "Question", "name": "Come aggiungo un utente a un gruppo?", "acceptedAnswer": {"@type": "Answer", "text": "usermod -aG docker mario\ngroups mario\nLa -a è vitale: senza, SOSTITUISCI tutti i gruppi. Serve un nuovo login per vedere il gruppo attivo."}}, {"@type": "Question", "name": "Come do i permessi sudo a un utente?", "acceptedAnswer": {"@type": "Answer", "text": "usermod -aG sudo mario     # Debian/Ubuntu (wheel su RHEL)\n# regola mirata: echo 'mario ALL=(ALL) NOPASSWD: /usr/bin/systemctl restart nginx' > /etc/sudoers.d/mario\nvisudo -cf /etc/sudoers.d/mario\nI file in sudoers.d SEMPRE validati con visudo -cf: un errore di sintassi chiude fuori tutti."}}, {"@type": "Question", "name": "Come uso chmod in forma simbolica (u+x, g-w)?", "acceptedAnswer": {"@type": "Answer", "text": "chmod u+x script.sh     # eseguibile per il proprietario\nchmod g-w,o-rwx file    # via scrittura al gruppo, tutto agli altri\nLa forma simbolica cambia SOLO i bit indicati: più sicura dell'ottale quando non conosci lo stato attuale."}}, {"@type": "Question", "name": "Come cambio proprietario e gruppo (anche ricorsivo)?", "acceptedAnswer": {"@type": "Answer", "text": "chown -R mario:www-data /var/www/app\nSu path grossi il -R è irreversibile in pratica: prima ls -l per sapere com'era, o non torni indietro."}}, {"@type": "Question", "name": "Come imposto setgid e sticky bit su una directory condivisa?", "acceptedAnswer": {"@type": "Answer", "text": "chmod 2775 /srv/condivisa   # setgid: i nuovi file ereditano il gruppo\nchmod +t /srv/tmp-comune    # sticky: cancella solo chi possiede\nSetgid sulla directory + umask di gruppo = la ricetta delle cartelle di team senza permission denied."}}, {"@type": "Question", "name": "Come do permessi a un singolo utente extra (ACL)?", "acceptedAnswer": {"@type": "Answer", "text": "setfacl -m u:anna:rwX /srv/progetto\ngetfacl /srv/progetto\nsetfacl -d -m u:anna:rwX /srv/progetto   # default per i nuovi file\nLe ACL risolvono il caso \"due utenti, permessi diversi\" senza inventare gruppi; il + in ls -l ne segnala la presenza."}}, {"@type": "Question", "name": "Come cambio i permessi di default dei nuovi file (umask)?", "acceptedAnswer": {"@type": "Answer", "text": "umask           # mostra quella attuale\numask 027       # nuovi file 640, directory 750\n# persistente: in ~/.profile o /etc/login.defs\n022 è il default (file 644); 027 è il default paranoico sano per i server multiutente."}}]}, {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "FabGPT-FAQ", "item": "https://fabriziosalmi.github.io/fabgpt-faq/"}, {"@type": "ListItem", "position": 2, "name": "Comandi", "item": "https://fabriziosalmi.github.io/fabgpt-faq/comandi/"}, {"@type": "ListItem", "position": 3, "name": "Utenti e permessi", "item": "https://fabriziosalmi.github.io/fabgpt-faq/comandi/utenti-permessi/"}]}]</script>
+<style>
+  .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
+  .page h1 { font-size: 26px; line-height: 1.3; margin: 6px 0 10px; }
+  .crumbs { font-size: 13px; color: var(--text-dim); margin-bottom: 6px; }
+  .crumbs a { color: var(--text-dim); text-decoration: none; }
+  .crumbs a:hover { color: var(--text); }
+  .page .intro { color: var(--text-dim); margin-bottom: 20px; }
+  .steps { list-style: none; counter-reset: step; padding: 0; margin: 0; }
+  .steps li { counter-increment: step; position: relative; padding: 14px 16px 14px 56px; border: 1px solid var(--border); border-radius: 12px; background: var(--bg-soft); margin: 10px 0; }
+  .steps li::before { content: counter(step); position: absolute; left: 16px; top: 16px; width: 26px; height: 26px; border-radius: 50%; background: var(--accent); color: var(--accent-text); font-weight: 700; font-size: 13px; display: flex; align-items: center; justify-content: center; }
+  .steps a { color: var(--link); text-decoration: none; font-weight: 600; }
+  .steps a:hover { text-decoration: underline; }
+  .steps p { margin: 4px 0 0; font-size: 14px; color: var(--text-dim); }
+  .path-card { display: block; border: 1px solid var(--border); border-radius: 12px; background: var(--bg-soft); padding: 16px 18px; margin: 12px 0; text-decoration: none; color: inherit; }
+  .path-card:hover { border-color: var(--accent); }
+  .path-card b { color: var(--link); font-size: 17px; }
+  .path-card p { margin: 6px 0 0; font-size: 14px; color: var(--text-dim); }
+  .path-card .n { font-size: 12px; color: var(--text-dim); text-transform: uppercase; letter-spacing: .05em; }
+  .page .ask { display: inline-block; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 8px 16px; text-decoration: none; font-weight: 600; font-size: 13px; margin-top: 20px; }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="../../" style="text-decoration:none;color:inherit">
+    <span class="brand-dot">F</span>
+    <span class="brand-name">FabGPT-FAQ</span>
+  </a>
+  <nav class="topnav"><a href="../../percorsi/">Percorsi</a> <a href="../../q/">Tutte le domande</a></nav>
+</header>
+<main class="page">
+<nav class="crumbs" aria-label="Percorso"><a href="../../">FabGPT-FAQ</a> › <a href="../">Comandi</a> › <span>Utenti e permessi</span></nav>
+<h1>Utenti e permessi</h1>
+<p class="intro">Account, gruppi, sudo, chmod/chown, bit speciali, ACL e umask. Ogni comando è verificato e copiabile; in <a href="../../">chat</a> basta descrivere cosa vuoi fare.</p>
+<details class="toc"><summary>9 comandi in questa pagina</summary><ul><li><a href="#user_create">Come creo un utente con la sua home?</a></li><li><a href="#user_delete">Come elimino un utente (con o senza home)?</a></li><li><a href="#user_groups">Come aggiungo un utente a un gruppo?</a></li><li><a href="#user_sudo">Come do i permessi sudo a un utente?</a></li><li><a href="#perm_chmod_symbolic">Come uso chmod in forma simbolica (u+x, g-w)?</a></li><li><a href="#perm_chown">Come cambio proprietario e gruppo (anche ricorsivo)?</a></li><li><a href="#perm_special_bits">Come imposto setgid e sticky bit su una directory condivisa?</a></li><li><a href="#perm_acl">Come do permessi a un singolo utente extra (ACL)?</a></li><li><a href="#perm_umask">Come cambio i permessi di default dei nuovi file (umask)?</a></li></ul></details>
+<section class="cmd-card" id="user_create">
+<h2><a class="anchor" href="#user_create">#</a> Come creo un utente con la sua home?</h2>
+<pre><code>useradd -m -s /bin/bash mario
+passwd mario</code></pre>
+<p class="cmd-note"><code>-m</code> crea la home (non è il default di useradd); su Debian <code>adduser</code> fa tutto in modo interattivo.</p>
+<p class="cmd-rel">Approfondisci: <a href="../../q/utenti-gruppi-e-sudo-su-linux/">Utenti, gruppi e sudo su Linux: le basi che servono</a></p>
+</section>
+<section class="cmd-card" id="user_delete">
+<h2><a class="anchor" href="#user_delete">#</a> Come elimino un utente (con o senza home)?</h2>
+<pre><code>userdel mario          # conserva la home
+userdel -r mario       # elimina anche home e mail</code></pre>
+<p class="cmd-note">Prima controlla i suoi processi (<code>pgrep -u mario</code>) e i cron: un utente eliminato coi job attivi lascia orfani.</p>
+<p class="cmd-rel">Approfondisci: <a href="../../q/utenti-gruppi-e-sudo-su-linux/">Utenti, gruppi e sudo su Linux: le basi che servono</a></p>
+</section>
+<section class="cmd-card" id="user_groups">
+<h2><a class="anchor" href="#user_groups">#</a> Come aggiungo un utente a un gruppo?</h2>
+<pre><code>usermod -aG docker mario
+groups mario</code></pre>
+<p class="cmd-note">La <code>-a</code> è vitale: senza, SOSTITUISCI tutti i gruppi. Serve un nuovo login per vedere il gruppo attivo.</p>
+<p class="cmd-rel">Approfondisci: <a href="../../q/utenti-gruppi-e-sudo-su-linux/">Utenti, gruppi e sudo su Linux: le basi che servono</a><a href="../../q/permessi-linux-chmod-chown-umask/">Come funzionano i permessi Linux (chmod, chown, umask)?</a></p>
+</section>
+<section class="cmd-card" id="user_sudo">
+<h2><a class="anchor" href="#user_sudo">#</a> Come do i permessi sudo a un utente?</h2>
+<pre><code>usermod -aG sudo mario     # Debian/Ubuntu (wheel su RHEL)
+# regola mirata: echo &#x27;mario ALL=(ALL) NOPASSWD: /usr/bin/systemctl restart nginx&#x27; &gt; /etc/sudoers.d/mario
+visudo -cf /etc/sudoers.d/mario</code></pre>
+<p class="cmd-note">I file in sudoers.d SEMPRE validati con <code>visudo -cf</code>: un errore di sintassi chiude fuori tutti.</p>
+<p class="cmd-rel">Approfondisci: <a href="../../q/utenti-gruppi-e-sudo-su-linux/">Utenti, gruppi e sudo su Linux: le basi che servono</a><a href="../../q/principio-del-minimo-privilegio/">Cos&#x27;è il principio del minimo privilegio?</a></p>
+</section>
+<section class="cmd-card" id="perm_chmod_symbolic">
+<h2><a class="anchor" href="#perm_chmod_symbolic">#</a> Come uso chmod in forma simbolica (u+x, g-w)?</h2>
+<pre><code>chmod u+x script.sh     # eseguibile per il proprietario
+chmod g-w,o-rwx file    # via scrittura al gruppo, tutto agli altri</code></pre>
+<p class="cmd-note">La forma simbolica cambia SOLO i bit indicati: più sicura dell&#x27;ottale quando non conosci lo stato attuale.</p>
+<p class="cmd-rel">Approfondisci: <a href="../../q/permessi-linux-chmod-chown-umask/">Come funzionano i permessi Linux (chmod, chown, umask)?</a></p>
+</section>
+<section class="cmd-card" id="perm_chown">
+<h2><a class="anchor" href="#perm_chown">#</a> Come cambio proprietario e gruppo (anche ricorsivo)?</h2>
+<pre><code>chown -R mario:www-data /var/www/app</code></pre>
+<p class="cmd-note">Su path grossi il <code>-R</code> è irreversibile in pratica: prima <code>ls -l</code> per sapere com&#x27;era, o non torni indietro.</p>
+<p class="cmd-rel">Approfondisci: <a href="../../q/permessi-linux-chmod-chown-umask/">Come funzionano i permessi Linux (chmod, chown, umask)?</a></p>
+</section>
+<section class="cmd-card" id="perm_special_bits">
+<h2><a class="anchor" href="#perm_special_bits">#</a> Come imposto setgid e sticky bit su una directory condivisa?</h2>
+<pre><code>chmod 2775 /srv/condivisa   # setgid: i nuovi file ereditano il gruppo
+chmod +t /srv/tmp-comune    # sticky: cancella solo chi possiede</code></pre>
+<p class="cmd-note">Setgid sulla directory + umask di gruppo = la ricetta delle cartelle di team senza permission denied.</p>
+<p class="cmd-rel">Approfondisci: <a href="../../q/permessi-linux-chmod-chown-umask/">Come funzionano i permessi Linux (chmod, chown, umask)?</a><a href="../../q/utenti-gruppi-e-sudo-su-linux/">Utenti, gruppi e sudo su Linux: le basi che servono</a></p>
+</section>
+<section class="cmd-card" id="perm_acl">
+<h2><a class="anchor" href="#perm_acl">#</a> Come do permessi a un singolo utente extra (ACL)?</h2>
+<pre><code>setfacl -m u:anna:rwX /srv/progetto
+getfacl /srv/progetto
+setfacl -d -m u:anna:rwX /srv/progetto   # default per i nuovi file</code></pre>
+<p class="cmd-note">Le ACL risolvono il caso &quot;due utenti, permessi diversi&quot; senza inventare gruppi; il <code>+</code> in <code>ls -l</code> ne segnala la presenza.</p>
+<p class="cmd-rel">Approfondisci: <a href="../../q/permessi-linux-chmod-chown-umask/">Come funzionano i permessi Linux (chmod, chown, umask)?</a><a href="../../q/principio-del-minimo-privilegio/">Cos&#x27;è il principio del minimo privilegio?</a></p>
+</section>
+<section class="cmd-card" id="perm_umask">
+<h2><a class="anchor" href="#perm_umask">#</a> Come cambio i permessi di default dei nuovi file (umask)?</h2>
+<pre><code>umask           # mostra quella attuale
+umask 027       # nuovi file 640, directory 750
+# persistente: in ~/.profile o /etc/login.defs</code></pre>
+<p class="cmd-note">022 è il default (file 644); 027 è il default paranoico sano per i server multiutente.</p>
+<p class="cmd-rel">Approfondisci: <a href="../../q/permessi-linux-chmod-chown-umask/">Come funzionano i permessi Linux (chmod, chown, umask)?</a></p>
+</section>
+
+<a class="ask" href="../../">Chiedi in chat 💬</a>
+<style>
+  .toc { border: 1px solid var(--border); border-radius: 10px; background: var(--bg-soft); padding: 10px 14px; margin-bottom: 8px; }
+  .toc summary { cursor: pointer; font-weight: 600; }
+  .toc a { color: var(--link); text-decoration: none; }
+  .cmd-card { border: 1px solid var(--border); border-radius: 12px; background: var(--bg-soft); padding: 14px 16px; margin: 12px 0; }
+  .cmd-card h2 { font-size: 16px; margin: 0 0 8px; }
+  .cmd-card .anchor { color: var(--text-dim); text-decoration: none; margin-right: 2px; }
+  .cmd-card pre { background: var(--code-bg); border-radius: 8px; padding: 10px 12px; overflow-x: auto; margin: 0 0 8px; cursor: pointer; }
+  .cmd-card code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 13px; }
+  .cmd-note { font-size: 14px; margin: 0 0 6px; }
+  .cmd-note code { background: var(--code-bg); border-radius: 5px; padding: 1px 5px; overflow-wrap: anywhere; }
+  .cmd-note { overflow-wrap: anywhere; }
+  .cmd-rel { font-size: 13px; color: var(--text-dim); margin: 0; }
+  .cmd-rel a { color: var(--link); text-decoration: none; margin-right: 10px; }
+  .cmd-card:target { border-color: var(--accent); }
+</style>
+<script>
+document.addEventListener('click', function (e) {
+  var pre = e.target.closest('.cmd-card pre');
+  if (!pre || !navigator.clipboard) return;
+  navigator.clipboard.writeText(pre.innerText).then(function () {
+    pre.style.borderLeft = '3px solid var(--accent)';
+    setTimeout(function () { pre.style.borderLeft = ''; }, 800);
+  });
+});
+</script>
+</main>
+</body>
+</html>

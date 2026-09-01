@@ -226,5 +226,357 @@
  {
   "q": "ho un docker run lunghissimo, come lo converto in compose?",
   "expect": "cmd/docker_compose_from_run"
+ },
+ {
+  "q": "come controllo se un servizio e' attivo?",
+  "expect": "cmd/systemd_status"
+ },
+ {
+  "q": "comando per riavviare un servizio systemd",
+  "expect": "cmd/systemd_restart"
+ },
+ {
+  "q": "posso ricaricare la config del servizio senza riavviarlo?",
+  "expect": "cmd/systemd_reload"
+ },
+ {
+  "q": "come abilito un servizio all'avvio del sistema?",
+  "expect": "cmd/systemd_enable"
+ },
+ {
+  "q": "come vedo le unit in failed?",
+  "expect": "cmd/systemd_failed"
+ },
+ {
+  "q": "che differenza fa systemctl mask rispetto a disable?",
+  "expect": "cmd/systemd_mask"
+ },
+ {
+  "q": "voglio creare un servizio systemd per il mio script",
+  "expect": "cmd/systemd_unit_create"
+ },
+ {
+  "q": "come faccio un override di un'unit senza toccare l'originale?",
+  "expect": "cmd/systemd_override"
+ },
+ {
+  "q": "come sostituisco cron con un timer systemd?",
+  "expect": "cmd/systemd_timer"
+ },
+ {
+  "q": "come leggo i log di un servizio con journalctl?",
+  "expect": "cmd/journal_service"
+ },
+ {
+  "q": "come vedo i log del boot precedente?",
+  "expect": "cmd/journal_boot"
+ },
+ {
+  "q": "journalctl solo con gli errori, come si fa?",
+  "expect": "cmd/journal_priority"
+ },
+ {
+  "q": "il journal occupa troppo spazio, come lo riduco?",
+  "expect": "cmd/journal_vacuum"
+ },
+ {
+  "q": "i log spariscono al riavvio, come rendo il journal persistente?",
+  "expect": "cmd/journal_persistent"
+ },
+ {
+  "q": "come leggo i messaggi del kernel con dmesg?",
+  "expect": "cmd/kernel_dmesg"
+ },
+ {
+  "q": "quanto spazio libero ho sul disco?",
+  "expect": "cmd/disk_df"
+ },
+ {
+  "q": "dice no space left on device ma lo spazio c'e, inode?",
+  "expect": "cmd/disk_inode"
+ },
+ {
+  "q": "come scopro cosa occupa spazio sul disco?",
+  "expect": "cmd/disk_du"
+ },
+ {
+  "q": "come elenco dischi e partizioni con lsblk?",
+  "expect": "cmd/disk_lsblk"
+ },
+ {
+  "q": "come monto al volo una partizione?",
+  "expect": "cmd/disk_mount"
+ },
+ {
+  "q": "umount dice target is busy, chi lo sta usando?",
+  "expect": "cmd/disk_umount_busy"
+ },
+ {
+  "q": "come aggiungo il disco a fstab con lo uuid?",
+  "expect": "cmd/disk_fstab"
+ },
+ {
+  "q": "filesystem corrotto, come lancio fsck?",
+  "expect": "cmd/disk_fsck"
+ },
+ {
+  "q": "come controllo lo smart del disco con smartctl?",
+  "expect": "cmd/disk_smart"
+ },
+ {
+  "q": "come faccio un benchmark della velocita del disco?",
+  "expect": "cmd/disk_bench"
+ },
+ {
+  "q": "come creo uno swapfile da 2 giga?",
+  "expect": "cmd/swap_create"
+ },
+ {
+  "q": "quanta swap sto usando?",
+  "expect": "cmd/swap_usage"
+ },
+ {
+  "q": "il raid mdadm e' degradato, come sostituisco il disco?",
+  "expect": "cmd/raid_mdadm"
+ },
+ {
+  "q": "come lancio lo scrub sul pool zfs?",
+  "expect": "cmd/zfs_status_scrub"
+ },
+ {
+  "q": "come faccio uno snapshot zfs e il rollback?",
+  "expect": "cmd/zfs_snapshot"
+ },
+ {
+  "q": "come creo un nuovo utente con la home?",
+  "expect": "cmd/user_create"
+ },
+ {
+  "q": "come elimino un utente e la sua home?",
+  "expect": "cmd/user_delete"
+ },
+ {
+  "q": "come aggiungo il mio utente al gruppo docker?",
+  "expect": "cmd/user_groups"
+ },
+ {
+  "q": "come abilito sudo per un utente?",
+  "expect": "cmd/user_sudo"
+ },
+ {
+  "q": "come rendo eseguibile uno script con chmod u+x?",
+  "expect": "cmd/perm_chmod_symbolic"
+ },
+ {
+  "q": "come cambio proprietario ricorsivamente con chown?",
+  "expect": "cmd/perm_chown"
+ },
+ {
+  "q": "come metto il setgid su una cartella condivisa del team?",
+  "expect": "cmd/perm_special_bits"
+ },
+ {
+  "q": "posso dare permessi a un solo utente extra con le acl?",
+  "expect": "cmd/perm_acl"
+ },
+ {
+  "q": "come cambio la umask di default?",
+  "expect": "cmd/perm_umask"
+ },
+ {
+  "q": "come trovo il pid di un processo per nome?",
+  "expect": "cmd/proc_find"
+ },
+ {
+  "q": "che tool uso per monitorare i processi in tempo reale?",
+  "expect": "cmd/proc_monitor"
+ },
+ {
+  "q": "chi sta mangiando la cpu al 100 per cento?",
+  "expect": "cmd/proc_top_cpu"
+ },
+ {
+  "q": "chi si sta mangiando tutta la ram?",
+  "expect": "cmd/proc_top_mem"
+ },
+ {
+  "q": "il processo non muore, kill -9?",
+  "expect": "cmd/proc_kill"
+ },
+ {
+  "q": "come abbasso la priorita di un processo pesante con renice?",
+  "expect": "cmd/proc_nice"
+ },
+ {
+  "q": "cosa significa il load average alto?",
+  "expect": "cmd/perf_load"
+ },
+ {
+  "q": "iowait alto e server lento, come indago con iostat?",
+  "expect": "cmd/perf_iowait"
+ },
+ {
+  "q": "free mostra poca ram libera ma e' cache, e' un problema?",
+  "expect": "cmd/perf_memcache"
+ },
+ {
+  "q": "come riavvio il server in modo pulito avvisando gli utenti?",
+  "expect": "cmd/sys_reboot"
+ },
+ {
+  "q": "comando per vedere il mio ip e le interfacce",
+  "expect": "cmd/net_ip"
+ },
+ {
+  "q": "come tiro giu e su un'interfaccia di rete?",
+  "expect": "cmd/net_updown"
+ },
+ {
+  "q": "come configuro un ip statico con netplan?",
+  "expect": "cmd/net_static_netplan"
+ },
+ {
+  "q": "ip fisso con nmcli su networkmanager, come si fa?",
+  "expect": "cmd/net_static_nmcli"
+ },
+ {
+  "q": "come vedo la tabella di routing e aggiungo una rotta?",
+  "expect": "cmd/net_route"
+ },
+ {
+  "q": "quali porte sono in ascolto sul server?",
+  "expect": "cmd/net_listening"
+ },
+ {
+  "q": "come scopro quale processo occupa la porta 8080?",
+  "expect": "cmd/net_port_process"
+ },
+ {
+  "q": "come testo se una porta remota e' raggiungibile con nc?",
+  "expect": "cmd/net_test_port"
+ },
+ {
+  "q": "come misuro perdita di pacchetti e latenza con mtr?",
+  "expect": "cmd/net_ping_mtr"
+ },
+ {
+  "q": "come faccio una query dns manuale con dig?",
+  "expect": "cmd/net_dig"
+ },
+ {
+  "q": "come svuoto la cache dns di systemd-resolved?",
+  "expect": "cmd/net_resolvectl"
+ },
+ {
+  "q": "come catturo il traffico con tcpdump?",
+  "expect": "cmd/net_tcpdump"
+ },
+ {
+  "q": "come vedo le regole attive di ufw?",
+  "expect": "cmd/ufw_status"
+ },
+ {
+  "q": "come attivo ufw senza tagliarmi fuori dalla ssh?",
+  "expect": "cmd/ufw_enable"
+ },
+ {
+  "q": "come apro la porta 5432 solo per un ip con ufw?",
+  "expect": "cmd/ufw_allow"
+ },
+ {
+  "q": "come cancello una regola di ufw?",
+  "expect": "cmd/ufw_delete"
+ },
+ {
+  "q": "come vedo il ruleset nftables attivo?",
+  "expect": "cmd/nft_list"
+ },
+ {
+  "q": "perche docker bypassa le regole di ufw?",
+  "expect": "cmd/iptables_docker"
+ },
+ {
+  "q": "come creo degli alias host nel config di ssh?",
+  "expect": "cmd/ssh_config"
+ },
+ {
+  "q": "ssh da permission denied publickey, come lo debuggo?",
+  "expect": "cmd/ssh_debug"
+ },
+ {
+  "q": "come riavvio sshd senza rischiare di chiudermi fuori?",
+  "expect": "cmd/sshd_reload_safe"
+ },
+ {
+  "q": "come vedo gli ip bannati da fail2ban?",
+  "expect": "cmd/fail2ban_status"
+ },
+ {
+  "q": "mi sono bannato da solo, come mi sbanno da fail2ban?",
+  "expect": "cmd/fail2ban_unban"
+ },
+ {
+  "q": "come aggiorno tutti i pacchetti del sistema?",
+  "expect": "cmd/pkg_update"
+ },
+ {
+  "q": "come installo un pacchetto e come lo rimuovo con le config?",
+  "expect": "cmd/pkg_install_remove"
+ },
+ {
+  "q": "come pulisco le dipendenze orfane con autoremove?",
+  "expect": "cmd/pkg_autoremove"
+ },
+ {
+  "q": "quale pacchetto fornisce il comando dig?",
+  "expect": "cmd/pkg_provides"
+ },
+ {
+  "q": "come blocco l'aggiornamento di un pacchetto con apt-mark hold?",
+  "expect": "cmd/pkg_hold"
+ },
+ {
+  "q": "come vedo i pacchetti installati e cerco tra loro?",
+  "expect": "cmd/pkg_installed"
+ },
+ {
+  "q": "apt si lamenta di dipendenze rotte, come sistemo?",
+  "expect": "cmd/pkg_fix_broken"
+ },
+ {
+  "q": "come aggiungo un repository di terze parti con signed-by?",
+  "expect": "cmd/pkg_repo_key"
+ },
+ {
+  "q": "come modifico il crontab del mio utente?",
+  "expect": "cmd/cron_edit"
+ },
+ {
+  "q": "come eseguo uno script a ogni avvio con cron?",
+  "expect": "cmd/cron_reboot"
+ },
+ {
+  "q": "come mando l'output del cron job in un file di log?",
+  "expect": "cmd/cron_output"
+ },
+ {
+  "q": "il cron job fallisce in silenzio, come lo debuggo?",
+  "expect": "cmd/cron_debug"
+ },
+ {
+  "q": "come inizio uno script bash con lo strict mode?",
+  "expect": "cmd/bash_strict"
+ },
+ {
+  "q": "come eseguo lo script con bash -x per il debug?",
+  "expect": "cmd/bash_debug"
+ },
+ {
+  "q": "lo script da bad interpreter con ^M, che faccio?",
+  "expect": "cmd/bash_dos2unix"
+ },
+ {
+  "q": "come rendo permanente una variabile d'ambiente?",
+  "expect": "cmd/env_vars"
  }
 ]

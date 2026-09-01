@@ -19,6 +19,46 @@
    "slug": "docker-compose",
    "title": "Docker Compose",
    "tagline": "Gestire stack multi-container: up/down, aggiornamenti, log, override e debug."
+  },
+  {
+   "slug": "systemd-journal",
+   "title": "systemd e journal",
+   "tagline": "Servizi, unit personalizzate, timer e la lettura chirurgica dei log di journald."
+  },
+  {
+   "slug": "dischi-filesystem",
+   "title": "Dischi e filesystem",
+   "tagline": "Spazio, inode, mount, fstab, SMART, swap, mdadm e snapshot ZFS."
+  },
+  {
+   "slug": "utenti-permessi",
+   "title": "Utenti e permessi",
+   "tagline": "Account, gruppi, sudo, chmod/chown, bit speciali, ACL e umask."
+  },
+  {
+   "slug": "processi-performance",
+   "title": "Processi e performance",
+   "tagline": "Chi consuma cosa: CPU, RAM, load average, I/O wait e i kill fatti bene."
+  },
+  {
+   "slug": "rete",
+   "title": "Rete",
+   "tagline": "Interfacce, IP statici, rotte, porte in ascolto, DNS e cattura pacchetti."
+  },
+  {
+   "slug": "firewall-ssh",
+   "title": "Firewall e SSH",
+   "tagline": "UFW, nftables, fail2ban e l'operatività SSH quotidiana senza chiudersi fuori."
+  },
+  {
+   "slug": "pacchetti",
+   "title": "Pacchetti",
+   "tagline": "apt e dnf: aggiornare, bloccare, riparare e capire da dove arriva un file."
+  },
+  {
+   "slug": "cron-bash",
+   "title": "Cron e Bash",
+   "tagline": "Pianificazione, debug dei job silenziosi e gli attrezzi Bash di ogni giorno."
   }
  ],
  "cards": [
@@ -1012,6 +1052,1446 @@
    "note": "Vale sempre la pena: il compose è documentazione eseguibile, il `docker run` lungo un rigo no.",
    "related": [
     "cos-e-docker-compose"
+   ]
+  },
+  {
+   "id": "systemd_status",
+   "group": "systemd-journal",
+   "q": "Come vedo lo stato di un servizio?",
+   "keywords": [
+    "systemctl status",
+    "stato di un servizio",
+    "servizio e attivo"
+   ],
+   "cmd": "systemctl status nginx",
+   "note": "Stato, PID, memoria e le ultime righe di log in un colpo solo: il primo comando di ogni diagnosi.",
+   "related": [
+    "gestire-servizi-linux-con-systemctl"
+   ]
+  },
+  {
+   "id": "systemd_restart",
+   "group": "systemd-journal",
+   "q": "Come riavvio (o fermo) un servizio systemd?",
+   "keywords": [
+    "systemctl restart",
+    "riavviare un servizio",
+    "fermare un servizio"
+   ],
+   "cmd": "systemctl restart nginx    # stop / start per i singoli passi",
+   "note": "`restart` riparte da zero; se il servizio supporta il reload, c'è la via senza downtime (scheda dopo).",
+   "related": [
+    "gestire-servizi-linux-con-systemctl"
+   ]
+  },
+  {
+   "id": "systemd_reload",
+   "group": "systemd-journal",
+   "q": "Come ricarico la config di un servizio senza riavviarlo?",
+   "keywords": [
+    "systemctl reload",
+    "ricaricare la configurazione",
+    "senza riavviare il servizio",
+    "reload senza downtime",
+    "senza riavviarlo"
+   ],
+   "cmd": "systemctl reload nginx     # o: systemctl reload-or-restart nginx",
+   "note": "`reload` manda SIGHUP (zero downtime) ma solo se l'unit lo supporta; `reload-or-restart` fa da solo la scelta.",
+   "related": [
+    "gestire-servizi-linux-con-systemctl"
+   ]
+  },
+  {
+   "id": "systemd_enable",
+   "group": "systemd-journal",
+   "q": "Come faccio partire un servizio al boot (o lo tolgo)?",
+   "keywords": [
+    "systemctl enable",
+    "partire al boot",
+    "avvio automatico al boot",
+    "disabilitare dal boot",
+    "servizio all'avvio"
+   ],
+   "cmd": "systemctl enable --now nginx\nsystemctl disable --now nginx",
+   "note": "`--now` agisce anche subito, non solo al prossimo boot: enable senza `--now` non avvia niente oggi.",
+   "related": [
+    "gestire-servizi-linux-con-systemctl"
+   ]
+  },
+  {
+   "id": "systemd_failed",
+   "group": "systemd-journal",
+   "q": "Come vedo i servizi falliti (e resetto lo stato)?",
+   "keywords": [
+    "servizi falliti",
+    "systemctl failed",
+    "unit in failed"
+   ],
+   "cmd": "systemctl list-units --failed\nsystemctl reset-failed nginx",
+   "note": "Il perché del fallimento sta in `journalctl -u <servizio> -e`; `reset-failed` pulisce lo stato, non la causa.",
+   "related": [
+    "gestire-servizi-linux-con-systemctl",
+    "dove-sono-i-log-su-linux"
+   ]
+  },
+  {
+   "id": "systemd_mask",
+   "group": "systemd-journal",
+   "q": "A cosa serve systemctl mask (e come lo tolgo)?",
+   "keywords": [
+    "systemctl mask",
+    "mascherare un servizio",
+    "unmask"
+   ],
+   "cmd": "systemctl mask bluetooth\nsystemctl unmask bluetooth",
+   "note": "`mask` rende il servizio non avviabile da NIENTE (nemmeno come dipendenza): più forte di disable.",
+   "related": [
+    "gestire-servizi-linux-con-systemctl"
+   ]
+  },
+  {
+   "id": "systemd_unit_create",
+   "group": "systemd-journal",
+   "q": "Come creo un servizio systemd per un mio script?",
+   "keywords": [
+    "creare un servizio systemd",
+    "unit personalizzata",
+    "servizio per il mio script",
+    "file service"
+   ],
+   "cmd": "# /etc/systemd/system/mio.service\n[Unit]\nDescription=Mio servizio\nAfter=network-online.target\n\n[Service]\nExecStart=/opt/mio/app\nUser=mio\nRestart=on-failure\n\n[Install]\nWantedBy=multi-user.target\n\n# poi: systemctl daemon-reload && systemctl enable --now mio",
+   "note": "Dopo OGNI modifica al file serve `systemctl daemon-reload`, o systemd continua a usare la versione vecchia.",
+   "related": [
+    "gestire-servizi-linux-con-systemctl",
+    "bash-scripting-le-basi-che-servono"
+   ]
+  },
+  {
+   "id": "systemd_override",
+   "group": "systemd-journal",
+   "q": "Come modifico un'unit di sistema senza toccare l'originale?",
+   "keywords": [
+    "systemctl edit",
+    "override di un'unit",
+    "drop-in systemd",
+    "modificare unit di sistema"
+   ],
+   "cmd": "systemctl edit nginx      # crea un drop-in in /etc/systemd/system/nginx.service.d/",
+   "note": "Gli override sopravvivono agli aggiornamenti del pacchetto; modificare il file originale no.",
+   "related": [
+    "gestire-servizi-linux-con-systemctl"
+   ]
+  },
+  {
+   "id": "systemd_timer",
+   "group": "systemd-journal",
+   "q": "Come creo un timer systemd al posto di cron?",
+   "keywords": [
+    "timer systemd",
+    "creare un timer",
+    "alternativa a cron systemd",
+    "systemctl list-timers",
+    "sostituire cron"
+   ],
+   "cmd": "# mio.timer: OnCalendar=daily + Persistent=true, poi:\nsystemctl enable --now mio.timer\nsystemctl list-timers",
+   "note": "`Persistent=true` recupera le esecuzioni perse a macchina spenta – il motivo vero per preferirlo a cron.",
+   "related": [
+    "cron-la-sintassi-spiegata",
+    "gestire-servizi-linux-con-systemctl"
+   ]
+  },
+  {
+   "id": "journal_service",
+   "group": "systemd-journal",
+   "q": "Come leggo i log di un servizio con journalctl?",
+   "keywords": [
+    "journalctl -u",
+    "log di un servizio",
+    "log del servizio in diretta"
+   ],
+   "cmd": "journalctl -u nginx -e     # -f per seguirli in diretta",
+   "note": "`-e` salta in fondo (i log recenti), `--since \"1 hour ago\"` restringe il periodo.",
+   "related": [
+    "dove-sono-i-log-su-linux",
+    "gestire-servizi-linux-con-systemctl"
+   ]
+  },
+  {
+   "id": "journal_boot",
+   "group": "systemd-journal",
+   "q": "Come vedo i log del boot (anche di quello precedente)?",
+   "keywords": [
+    "log del boot",
+    "journalctl -b",
+    "boot precedente",
+    "perche si e riavviato"
+   ],
+   "cmd": "journalctl -b          # boot corrente\njournalctl -b -1 -e    # il boot precedente, dalla fine",
+   "note": "`-b -1` è lo strumento per capire un riavvio inatteso; serve il journal persistente (scheda dopo).",
+   "related": [
+    "dove-sono-i-log-su-linux"
+   ]
+  },
+  {
+   "id": "journal_priority",
+   "group": "systemd-journal",
+   "q": "Come filtro il journal per soli errori?",
+   "keywords": [
+    "journalctl solo errori",
+    "filtrare per priorita",
+    "journalctl -p err"
+   ],
+   "cmd": "journalctl -p err -b\njournalctl -p warning --since today",
+   "note": "Priorità: emerg, alert, crit, err, warning, notice, info, debug – `-p err` include anche tutto il più grave.",
+   "related": [
+    "dove-sono-i-log-su-linux"
+   ]
+  },
+  {
+   "id": "journal_vacuum",
+   "group": "systemd-journal",
+   "q": "Il journal occupa gigabyte: come lo riduco?",
+   "keywords": [
+    "journal occupa troppo",
+    "pulire il journal",
+    "vacuum journal",
+    "journalctl dimensione"
+   ],
+   "cmd": "journalctl --disk-usage\njournalctl --vacuum-size=500M",
+   "note": "Per renderlo strutturale: `SystemMaxUse=500M` in `/etc/systemd/journald.conf` e restart di systemd-journald.",
+   "related": [
+    "dove-sono-i-log-su-linux",
+    "storage-pieno-liberare-spazio"
+   ]
+  },
+  {
+   "id": "journal_persistent",
+   "group": "systemd-journal",
+   "q": "Come rendo persistente il journal tra i riavvii?",
+   "keywords": [
+    "journal persistente",
+    "log spariscono al riavvio",
+    "storage persistent journald"
+   ],
+   "cmd": "mkdir -p /var/log/journal\nsystemctl restart systemd-journald",
+   "note": "Su alcune distro il journal vive in RAM e sparisce a ogni boot: senza questo, niente log del riavvio precedente.",
+   "related": [
+    "dove-sono-i-log-su-linux"
+   ]
+  },
+  {
+   "id": "kernel_dmesg",
+   "group": "systemd-journal",
+   "q": "Come leggo i messaggi del kernel (dmesg)?",
+   "keywords": [
+    "dmesg",
+    "messaggi del kernel",
+    "log del kernel"
+   ],
+   "cmd": "dmesg -T | tail -50    # o: journalctl -k -b",
+   "note": "`-T` traduce i timestamp; qui compaiono OOM killer, errori disco e device che spariscono.",
+   "related": [
+    "dove-sono-i-log-su-linux"
+   ]
+  },
+  {
+   "id": "disk_df",
+   "group": "dischi-filesystem",
+   "q": "Come vedo quanto spazio disco resta?",
+   "keywords": [
+    "df -h",
+    "spazio disco rimasto",
+    "quanto spazio ho",
+    "spazio libero sul disco",
+    "quanto spazio libero"
+   ],
+   "cmd": "df -h",
+   "note": "Guarda `Use%` e il mountpoint giusto: il 100% su `/` spegne i servizi in modi creativi.",
+   "related": [
+    "storage-pieno-liberare-spazio"
+   ]
+  },
+  {
+   "id": "disk_inode",
+   "group": "dischi-filesystem",
+   "q": "Spazio libero ma \"no space left on device\": perché?",
+   "keywords": [
+    "no space left on device",
+    "inode esauriti",
+    "df -i"
+   ],
+   "cmd": "df -i",
+   "note": "Con `IUse%` al 100% gli inode sono finiti (milioni di file piccoli): lo spazio c'è, i \"posti\" no.",
+   "related": [
+    "storage-pieno-liberare-spazio"
+   ]
+  },
+  {
+   "id": "disk_du",
+   "group": "dischi-filesystem",
+   "q": "Come trovo cosa occupa spazio sul disco?",
+   "keywords": [
+    "cosa occupa spazio",
+    "file piu grandi",
+    "du -sh",
+    "ncdu",
+    "occupa spazio sul disco"
+   ],
+   "cmd": "du -xhd1 / | sort -h | tail -20\n# interattivo: ncdu -x /",
+   "note": "`-x` non attraversa altri filesystem: eviti di contare due volte i mount.",
+   "related": [
+    "storage-pieno-liberare-spazio"
+   ]
+  },
+  {
+   "id": "disk_lsblk",
+   "group": "dischi-filesystem",
+   "q": "Come vedo dischi e partizioni?",
+   "keywords": [
+    "lsblk",
+    "dischi e partizioni",
+    "elenco dischi",
+    "vedere i dischi collegati"
+   ],
+   "cmd": "lsblk -f",
+   "note": "`-f` aggiunge filesystem, etichette e UUID: quelli che servono per fstab.",
+   "related": [
+    "storage-pieno-liberare-spazio"
+   ]
+  },
+  {
+   "id": "disk_mount",
+   "group": "dischi-filesystem",
+   "q": "Come monto un disco al volo?",
+   "keywords": [
+    "montare un disco",
+    "mount temporaneo",
+    "montare una partizione",
+    "come monto",
+    "partizione al volo"
+   ],
+   "cmd": "mount /dev/sdb1 /mnt/dati",
+   "note": "Montaggio temporaneo: sparisce al riavvio. Per quello stabile c'è fstab (scheda dopo).",
+   "related": [
+    "storage-pieno-liberare-spazio"
+   ]
+  },
+  {
+   "id": "disk_umount_busy",
+   "group": "dischi-filesystem",
+   "q": "\"Target is busy\" allo smontaggio: chi sta usando il disco?",
+   "keywords": [
+    "target is busy",
+    "umount device busy",
+    "chi usa il disco",
+    "non riesco a smontare"
+   ],
+   "cmd": "fuser -vm /mnt/dati    # o: lsof +f -- /mnt/dati",
+   "note": "Vedi i PID che tengono aperto il mount; anche una shell con la cwd lì dentro conta.",
+   "related": [
+    "storage-pieno-liberare-spazio"
+   ]
+  },
+  {
+   "id": "disk_fstab",
+   "group": "dischi-filesystem",
+   "q": "Come monto un disco in automatico al boot (fstab)?",
+   "keywords": [
+    "fstab",
+    "montare al boot",
+    "mount automatico",
+    "fstab uuid"
+   ],
+   "cmd": "blkid /dev/sdb1     # prendi l'UUID\n# /etc/fstab:\nUUID=xxxx-xxxx  /mnt/dati  ext4  defaults,nofail  0 2\nmount -a            # test SENZA riavviare",
+   "note": "Sempre per UUID (i nomi /dev/sdX ballano) e con `nofail`: un disco assente non deve bloccare il boot.",
+   "related": [
+    "storage-pieno-liberare-spazio"
+   ]
+  },
+  {
+   "id": "disk_fsck",
+   "group": "dischi-filesystem",
+   "q": "Come controllo e riparo un filesystem (fsck)?",
+   "keywords": [
+    "fsck",
+    "riparare filesystem",
+    "filesystem corrotto"
+   ],
+   "cmd": "umount /dev/sdb1\nfsck -f /dev/sdb1",
+   "note": "MAI su un filesystem montato in scrittura: peggiora le cose. Per la root: da initramfs o live USB.",
+   "related": [
+    "storage-pieno-liberare-spazio",
+    "monitorare-lo-stato-dei-dischi-smart"
+   ]
+  },
+  {
+   "id": "disk_smart",
+   "group": "dischi-filesystem",
+   "q": "Come controllo la salute SMART di un disco?",
+   "keywords": [
+    "smartctl",
+    "salute del disco",
+    "controllare smart",
+    "disco sta morendo",
+    "smart del disco"
+   ],
+   "cmd": "smartctl -a /dev/sda | grep -Ei 'reallocated|pending|health'",
+   "note": "`Reallocated` e `Current_Pending_Sector` sopra lo zero = pianifica la sostituzione, non sperarci.",
+   "related": [
+    "monitorare-lo-stato-dei-dischi-smart",
+    "raid-e-raidz-livelli-e-scelta"
+   ]
+  },
+  {
+   "id": "disk_bench",
+   "group": "dischi-filesystem",
+   "q": "Come misuro la velocità di un disco?",
+   "keywords": [
+    "benchmark del disco",
+    "velocita del disco",
+    "test velocita disco",
+    "fio"
+   ],
+   "cmd": "# lettura sequenziale rapida:\nhdparm -t /dev/sda\n# test serio (random 4k):\nfio --name=t --filename=/mnt/dati/t --size=1G --rw=randread --bs=4k --numjobs=4 --runtime=30 --group_reporting",
+   "note": "`dd` misura solo il sequenziale con cache di mezzo: per i numeri veri serve fio.",
+   "related": [
+    "io-delay-alto-proxmox"
+   ]
+  },
+  {
+   "id": "swap_create",
+   "group": "dischi-filesystem",
+   "q": "Come creo uno swapfile?",
+   "keywords": [
+    "creare swapfile",
+    "aggiungere swap",
+    "swap file",
+    "creo uno swapfile",
+    "swapfile"
+   ],
+   "cmd": "fallocate -l 2G /swapfile && chmod 600 /swapfile\nmkswap /swapfile && swapon /swapfile\n# persistente: /swapfile none swap sw 0 0  in /etc/fstab",
+   "note": "Su btrfs e ZFS lo swapfile richiede accorgimenti (o va evitato): lì meglio una partizione o zram.",
+   "related": [
+    "storage-pieno-liberare-spazio"
+   ]
+  },
+  {
+   "id": "swap_usage",
+   "group": "dischi-filesystem",
+   "q": "Come vedo quanta swap sto usando (e chi la usa)?",
+   "keywords": [
+    "quanta swap uso",
+    "uso della swap",
+    "swap piena",
+    "quanta swap"
+   ],
+   "cmd": "swapon --show && free -h\n# per processo: smem -s swap -r | head",
+   "note": "Swap usata con RAM libera = pagine fredde parcheggiate, non un problema; swap che CRESCE sotto pressione sì.",
+   "related": [
+    "storage-pieno-liberare-spazio"
+   ]
+  },
+  {
+   "id": "raid_mdadm",
+   "group": "dischi-filesystem",
+   "q": "Come controllo un RAID mdadm (e sostituisco un disco)?",
+   "keywords": [
+    "mdadm stato del raid",
+    "raid degradato",
+    "sostituire disco nel raid",
+    "cat proc mdstat"
+   ],
+   "cmd": "cat /proc/mdstat\nmdadm --detail /dev/md0\n# sostituzione:\nmdadm --manage /dev/md0 --fail /dev/sdb1 --remove /dev/sdb1\nmdadm --manage /dev/md0 --add /dev/sdc1",
+   "note": "Dopo l'add parte il rebuild (progresso in mdstat): è il momento più fragile dell'array – backup prima.",
+   "related": [
+    "raid-e-raidz-livelli-e-scelta",
+    "monitorare-lo-stato-dei-dischi-smart"
+   ]
+  },
+  {
+   "id": "zfs_status_scrub",
+   "group": "dischi-filesystem",
+   "q": "Come controllo un pool ZFS (e lancio uno scrub)?",
+   "keywords": [
+    "zpool status",
+    "stato del pool zfs",
+    "scrub zfs",
+    "scrub sul pool"
+   ],
+   "cmd": "zpool status -v\nzpool scrub tank",
+   "note": "Lo scrub mensile è il momento in cui i checksum fruttano: errori `CKSUM` su un disco = indiziato numero uno.",
+   "related": [
+    "perche-usare-zfs-su-proxmox",
+    "monitorare-lo-stato-dei-dischi-smart"
+   ]
+  },
+  {
+   "id": "zfs_snapshot",
+   "group": "dischi-filesystem",
+   "q": "Come creo (e ripristino) uno snapshot ZFS?",
+   "keywords": [
+    "snapshot zfs",
+    "zfs rollback",
+    "ripristinare snapshot zfs"
+   ],
+   "cmd": "zfs snapshot tank/dati@pre-upgrade\nzfs rollback tank/dati@pre-upgrade   # distrugge cio' che e' successo dopo!",
+   "note": "Il rollback butta tutto ciò che è successo dopo lo snapshot; per un singolo file: `.zfs/snapshot/` in sola lettura.",
+   "related": [
+    "perche-usare-zfs-su-proxmox",
+    "differenza-snapshot-e-backup",
+    "sanoid-syncoid-replica-snapshot-zfs"
+   ]
+  },
+  {
+   "id": "user_create",
+   "group": "utenti-permessi",
+   "q": "Come creo un utente con la sua home?",
+   "keywords": [
+    "creare un utente",
+    "useradd",
+    "nuovo utente linux",
+    "aggiungere un utente",
+    "nuovo utente",
+    "utente con la home"
+   ],
+   "cmd": "useradd -m -s /bin/bash mario\npasswd mario",
+   "note": "`-m` crea la home (non è il default di useradd); su Debian `adduser` fa tutto in modo interattivo.",
+   "related": [
+    "utenti-gruppi-e-sudo-su-linux"
+   ]
+  },
+  {
+   "id": "user_delete",
+   "group": "utenti-permessi",
+   "q": "Come elimino un utente (con o senza home)?",
+   "keywords": [
+    "eliminare un utente",
+    "userdel",
+    "cancellare utente e home",
+    "elimino un utente"
+   ],
+   "cmd": "userdel mario          # conserva la home\nuserdel -r mario       # elimina anche home e mail",
+   "note": "Prima controlla i suoi processi (`pgrep -u mario`) e i cron: un utente eliminato coi job attivi lascia orfani.",
+   "related": [
+    "utenti-gruppi-e-sudo-su-linux"
+   ]
+  },
+  {
+   "id": "user_groups",
+   "group": "utenti-permessi",
+   "q": "Come aggiungo un utente a un gruppo?",
+   "keywords": [
+    "aggiungere utente al gruppo",
+    "usermod -aG",
+    "gruppo docker utente",
+    "in che gruppi sono"
+   ],
+   "cmd": "usermod -aG docker mario\ngroups mario",
+   "note": "La `-a` è vitale: senza, SOSTITUISCI tutti i gruppi. Serve un nuovo login per vedere il gruppo attivo.",
+   "related": [
+    "utenti-gruppi-e-sudo-su-linux",
+    "permessi-linux-chmod-chown-umask"
+   ]
+  },
+  {
+   "id": "user_sudo",
+   "group": "utenti-permessi",
+   "q": "Come do i permessi sudo a un utente?",
+   "keywords": [
+    "dare sudo a un utente",
+    "abilitare sudo",
+    "aggiungere ai sudoers",
+    "sudo per un utente"
+   ],
+   "cmd": "usermod -aG sudo mario     # Debian/Ubuntu (wheel su RHEL)\n# regola mirata: echo 'mario ALL=(ALL) NOPASSWD: /usr/bin/systemctl restart nginx' > /etc/sudoers.d/mario\nvisudo -cf /etc/sudoers.d/mario",
+   "note": "I file in sudoers.d SEMPRE validati con `visudo -cf`: un errore di sintassi chiude fuori tutti.",
+   "related": [
+    "utenti-gruppi-e-sudo-su-linux",
+    "principio-del-minimo-privilegio"
+   ]
+  },
+  {
+   "id": "perm_chmod_symbolic",
+   "group": "utenti-permessi",
+   "q": "Come uso chmod in forma simbolica (u+x, g-w)?",
+   "keywords": [
+    "chmod simbolico",
+    "chmod u+x",
+    "togliere permessi al gruppo",
+    "rendere eseguibile uno script"
+   ],
+   "cmd": "chmod u+x script.sh     # eseguibile per il proprietario\nchmod g-w,o-rwx file    # via scrittura al gruppo, tutto agli altri",
+   "note": "La forma simbolica cambia SOLO i bit indicati: più sicura dell'ottale quando non conosci lo stato attuale.",
+   "related": [
+    "permessi-linux-chmod-chown-umask"
+   ]
+  },
+  {
+   "id": "perm_chown",
+   "group": "utenti-permessi",
+   "q": "Come cambio proprietario e gruppo (anche ricorsivo)?",
+   "keywords": [
+    "chown ricorsivo",
+    "cambiare proprietario",
+    "chown utente gruppo",
+    "chown",
+    "cambio proprietario"
+   ],
+   "cmd": "chown -R mario:www-data /var/www/app",
+   "note": "Su path grossi il `-R` è irreversibile in pratica: prima `ls -l` per sapere com'era, o non torni indietro.",
+   "related": [
+    "permessi-linux-chmod-chown-umask"
+   ]
+  },
+  {
+   "id": "perm_special_bits",
+   "group": "utenti-permessi",
+   "q": "Come imposto setgid e sticky bit su una directory condivisa?",
+   "keywords": [
+    "setgid su directory",
+    "sticky bit",
+    "directory condivisa permessi",
+    "cartella di gruppo",
+    "setgid",
+    "cartella condivisa"
+   ],
+   "cmd": "chmod 2775 /srv/condivisa   # setgid: i nuovi file ereditano il gruppo\nchmod +t /srv/tmp-comune    # sticky: cancella solo chi possiede",
+   "note": "Setgid sulla directory + umask di gruppo = la ricetta delle cartelle di team senza permission denied.",
+   "related": [
+    "permessi-linux-chmod-chown-umask",
+    "utenti-gruppi-e-sudo-su-linux"
+   ]
+  },
+  {
+   "id": "perm_acl",
+   "group": "utenti-permessi",
+   "q": "Come do permessi a un singolo utente extra (ACL)?",
+   "keywords": [
+    "acl setfacl",
+    "permessi a un solo utente",
+    "getfacl",
+    "permessi extra senza gruppo"
+   ],
+   "cmd": "setfacl -m u:anna:rwX /srv/progetto\ngetfacl /srv/progetto\nsetfacl -d -m u:anna:rwX /srv/progetto   # default per i nuovi file",
+   "note": "Le ACL risolvono il caso \"due utenti, permessi diversi\" senza inventare gruppi; il `+` in `ls -l` ne segnala la presenza.",
+   "related": [
+    "permessi-linux-chmod-chown-umask",
+    "principio-del-minimo-privilegio"
+   ]
+  },
+  {
+   "id": "perm_umask",
+   "group": "utenti-permessi",
+   "q": "Come cambio i permessi di default dei nuovi file (umask)?",
+   "keywords": [
+    "umask di default",
+    "permessi nuovi file",
+    "cambiare umask"
+   ],
+   "cmd": "umask           # mostra quella attuale\numask 027       # nuovi file 640, directory 750\n# persistente: in ~/.profile o /etc/login.defs",
+   "note": "022 è il default (file 644); 027 è il default paranoico sano per i server multiutente.",
+   "related": [
+    "permessi-linux-chmod-chown-umask"
+   ]
+  },
+  {
+   "id": "proc_find",
+   "group": "processi-performance",
+   "q": "Come trovo un processo per nome?",
+   "keywords": [
+    "trovare un processo",
+    "pgrep",
+    "processo per nome",
+    "pid di un processo"
+   ],
+   "cmd": "pgrep -a nginx      # PID + riga di comando\nps aux | grep [n]ginx",
+   "note": "Il trucco `[n]ginx` esclude il grep stesso dai risultati.",
+   "related": [
+    "gestire-servizi-linux-con-systemctl"
+   ]
+  },
+  {
+   "id": "proc_monitor",
+   "group": "processi-performance",
+   "q": "Come monitoro i processi in tempo reale?",
+   "keywords": [
+    "htop",
+    "monitorare processi",
+    "processi in tempo reale",
+    "btop"
+   ],
+   "cmd": "htop      # o btop, se installato",
+   "note": "In htop: F6 ordina per colonna, F5 vista ad albero, F9 kill – e la barra della RAM distingue cache e usata.",
+   "related": [
+    "il-sito-e-lento-come-si-diagnostica"
+   ]
+  },
+  {
+   "id": "proc_top_cpu",
+   "group": "processi-performance",
+   "q": "Quale processo sta mangiando la CPU?",
+   "keywords": [
+    "processo mangia cpu",
+    "cpu al 100 per cento",
+    "chi consuma cpu"
+   ],
+   "cmd": "ps aux --sort=-%cpu | head -10",
+   "note": "Una foto secca, script-friendly; per la dinamica nel tempo resta htop.",
+   "related": [
+    "il-sito-e-lento-come-si-diagnostica"
+   ]
+  },
+  {
+   "id": "proc_top_mem",
+   "group": "processi-performance",
+   "q": "Quale processo si sta mangiando la RAM?",
+   "keywords": [
+    "processo mangia ram",
+    "chi consuma memoria",
+    "ram esaurita colpevole",
+    "mangiando la ram"
+   ],
+   "cmd": "ps aux --sort=-%rss | head -10",
+   "note": "Guarda RSS (memoria reale), non VSZ (virtuale, bugiarda); il colpevole seriale sul lungo periodo è chi CRESCE.",
+   "related": [
+    "il-sito-e-lento-come-si-diagnostica"
+   ]
+  },
+  {
+   "id": "proc_kill",
+   "group": "processi-performance",
+   "q": "Come termino un processo (con grazia e senza)?",
+   "keywords": [
+    "killare un processo",
+    "terminare processo",
+    "kill -9",
+    "processo che non muore"
+   ],
+   "cmd": "kill <pid>          # SIGTERM: chiusura pulita\nkill -9 <pid>       # SIGKILL: ultima spiaggia\npkill -f 'python.*server'",
+   "note": "Prima TERM, poi KILL: il -9 non lascia salvare né pulire. Un processo che ignora anche il -9 è in stato D: guarda l'I/O.",
+   "related": [
+    "gestire-servizi-linux-con-systemctl"
+   ]
+  },
+  {
+   "id": "proc_nice",
+   "group": "processi-performance",
+   "q": "Come abbasso la priorità di un processo pesante?",
+   "keywords": [
+    "nice renice",
+    "priorita di un processo",
+    "processo rallenta tutto"
+   ],
+   "cmd": "nice -n 19 tar czf backup.tgz /dati     # parte già umile\nrenice 19 -p <pid>                       # a processo avviato\nionice -c3 -p <pid>                      # umile anche sull'I/O",
+   "note": "Per i backup notturni la coppia `nice`+`ionice` evita che il server \"rallenti misteriosamente\" alle 3.",
+   "related": [
+    "io-delay-alto-proxmox"
+   ]
+  },
+  {
+   "id": "perf_load",
+   "group": "processi-performance",
+   "q": "Come si legge il load average?",
+   "keywords": [
+    "load average",
+    "leggere il load",
+    "load alto significato"
+   ],
+   "cmd": "uptime\nnproc     # i tuoi core: il metro di paragone",
+   "note": "I tre numeri sono medie a 1/5/15 min di processi in attesa: load 4 su 4 core = pieno, su 16 = tranquillo. Load alto con CPU bassa = attesa di I/O.",
+   "related": [
+    "il-sito-e-lento-come-si-diagnostica",
+    "io-delay-alto-proxmox"
+   ]
+  },
+  {
+   "id": "perf_iowait",
+   "group": "processi-performance",
+   "q": "Il server è lento con iowait alto: come indago?",
+   "keywords": [
+    "iowait alto",
+    "server lento io",
+    "iostat",
+    "iotop chi scrive"
+   ],
+   "cmd": "iostat -x 2      # %util e await per disco\niotop -o         # chi sta leggendo/scrivendo ORA",
+   "note": "`%util` vicino a 100 con `await` alto = disco saturo: trova il processo con iotop prima di incolpare l'hardware.",
+   "related": [
+    "io-delay-alto-proxmox",
+    "il-sito-e-lento-come-si-diagnostica"
+   ]
+  },
+  {
+   "id": "perf_memcache",
+   "group": "processi-performance",
+   "q": "free dice poca RAM libera ma è tutta cache: devo preoccuparmi?",
+   "keywords": [
+    "ram tutta cache",
+    "free -h lettura",
+    "memoria disponibile available",
+    "poca ram libera",
+    "free mostra",
+    "free dice"
+   ],
+   "cmd": "free -h",
+   "note": "Guarda **available**, non free: la cache è RAM ben spesa che il kernel molla all'istante. Il problema esiste solo se available è basso e la swap cresce.",
+   "related": [
+    "il-sito-e-lento-come-si-diagnostica"
+   ]
+  },
+  {
+   "id": "sys_reboot",
+   "group": "processi-performance",
+   "q": "Come riavvio o spengo un server in modo pulito?",
+   "keywords": [
+    "riavviare il server",
+    "spegnere il server",
+    "reboot sicuro",
+    "shutdown",
+    "riavvio il server"
+   ],
+   "cmd": "shutdown -r now     # riavvio\nshutdown -h +5 'Manutenzione tra 5 minuti'   # avvisa gli utenti loggati",
+   "note": "Prima di un riavvio remoto: `systemctl list-units --failed` e conferma di poter raggiungere la console se non torna su.",
+   "related": [
+    "gestire-servizi-linux-con-systemctl",
+    "hardening-server-linux"
+   ]
+  },
+  {
+   "id": "net_ip",
+   "group": "rete",
+   "q": "Come vedo IP e interfacce di rete?",
+   "keywords": [
+    "ip addr",
+    "vedere il mio ip",
+    "interfacce di rete",
+    "che ip ho"
+   ],
+   "cmd": "ip -br a       # vista compatta\nip -br link    # stato dei link",
+   "note": "`-br` (brief) è la vista che si legge davvero; `ifconfig` è deprecato da anni.",
+   "related": [
+    "cos-e-il-subnetting-e-il-cidr"
+   ]
+  },
+  {
+   "id": "net_updown",
+   "group": "rete",
+   "q": "Come tiro su o giù un'interfaccia?",
+   "keywords": [
+    "interfaccia up down",
+    "ip link set",
+    "disattivare interfaccia",
+    "tiro giu"
+   ],
+   "cmd": "ip link set eth0 down\nip link set eth0 up",
+   "note": "Se sei in SSH su quell'interfaccia, il down ti saluta: fallo da console o con uno `sleep 60 && ... up` di scorta.",
+   "related": [
+    "cos-e-il-subnetting-e-il-cidr"
+   ]
+  },
+  {
+   "id": "net_static_netplan",
+   "group": "rete",
+   "q": "Come metto un IP statico con netplan (Ubuntu)?",
+   "keywords": [
+    "ip statico netplan",
+    "netplan configurazione",
+    "ip fisso ubuntu",
+    "statico con netplan"
+   ],
+   "cmd": "# /etc/netplan/01-lan.yaml\nnetwork:\n  version: 2\n  ethernets:\n    eth0:\n      addresses: [192.168.1.10/24]\n      routes: [{to: default, via: 192.168.1.1}]\n      nameservers: {addresses: [1.1.1.1, 9.9.9.9]}\n\nnetplan try    # rollback automatico se ti tagli fuori",
+   "note": "`netplan try` invece di `apply`: se la config ti isola, torna indietro da sola in 120 secondi.",
+   "related": [
+    "cos-e-il-subnetting-e-il-cidr",
+    "come-funziona-il-dhcp"
+   ]
+  },
+  {
+   "id": "net_static_nmcli",
+   "group": "rete",
+   "q": "Come metto un IP statico con NetworkManager (nmcli)?",
+   "keywords": [
+    "ip statico nmcli",
+    "networkmanager ip fisso",
+    "nmcli connection"
+   ],
+   "cmd": "nmcli con mod 'Wired connection 1' ipv4.addresses 192.168.1.10/24 ipv4.gateway 192.168.1.1 ipv4.dns '1.1.1.1 9.9.9.9' ipv4.method manual\nnmcli con up 'Wired connection 1'",
+   "note": "`nmcli con show` elenca i nomi esatti delle connessioni: è lì che si sbaglia di solito.",
+   "related": [
+    "cos-e-il-subnetting-e-il-cidr",
+    "come-funziona-il-dhcp"
+   ]
+  },
+  {
+   "id": "net_route",
+   "group": "rete",
+   "q": "Come vedo (e aggiungo) le rotte?",
+   "keywords": [
+    "tabella di routing",
+    "ip route",
+    "aggiungere una rotta",
+    "gateway di default"
+   ],
+   "cmd": "ip route\nip route add 10.10.0.0/16 via 192.168.1.254",
+   "note": "`ip route get 8.8.8.8` dice quale rotta e interfaccia userebbe un pacchetto: il debug in un comando.",
+   "related": [
+    "cos-e-il-subnetting-e-il-cidr"
+   ]
+  },
+  {
+   "id": "net_listening",
+   "group": "rete",
+   "q": "Come vedo le porte in ascolto sul server?",
+   "keywords": [
+    "porte in ascolto",
+    "ss -tlnp",
+    "cosa ascolta sul server",
+    "porte aperte localmente"
+   ],
+   "cmd": "ss -tlnp     # TCP\nss -ulnp     # UDP",
+   "note": "La colonna `0.0.0.0` = esposto su tutte le interfacce; `127.0.0.1` = solo locale. La differenza È la superficie d'attacco.",
+   "related": [
+    "porte-tcp-e-udp-quali-conoscere",
+    "configurare-firewall-host-default-deny-nftables-ufw"
+   ]
+  },
+  {
+   "id": "net_port_process",
+   "group": "rete",
+   "q": "Quale processo occupa una porta?",
+   "keywords": [
+    "chi occupa la porta",
+    "processo sulla porta",
+    "porta occupata da chi",
+    "lsof porta"
+   ],
+   "cmd": "ss -tlnp | grep :8080\n# oppure: fuser 8080/tcp",
+   "note": "Il PID è tra parentesi nell'output di ss; da lì `ps -fp <pid>` dice chi è davvero.",
+   "related": [
+    "porte-tcp-e-udp-quali-conoscere"
+   ]
+  },
+  {
+   "id": "net_test_port",
+   "group": "rete",
+   "q": "Come testo se una porta remota risponde?",
+   "keywords": [
+    "testare una porta",
+    "nc -zv",
+    "porta remota raggiungibile",
+    "telnet porta"
+   ],
+   "cmd": "nc -zv host.example.com 443\nnc -zvu host.example.com 51820    # UDP",
+   "note": "Per l'UDP il test è debole per natura (niente handshake): un timeout non prova che sia chiusa.",
+   "related": [
+    "porte-tcp-e-udp-quali-conoscere"
+   ]
+  },
+  {
+   "id": "net_ping_mtr",
+   "group": "rete",
+   "q": "Come diagnostico latenza e perdita pacchetti verso un host?",
+   "keywords": [
+    "mtr",
+    "perdita di pacchetti",
+    "latenza verso un host",
+    "traceroute moderno"
+   ],
+   "cmd": "ping -c 10 host.example.com\nmtr -rwbz host.example.com    # report: rotta + perdita per hop",
+   "note": "In mtr conta la perdita che PERSISTE fino all'ultimo hop: quella solo sugli hop intermedi è rate-limiting, non un guasto.",
+   "related": [
+    "il-sito-e-lento-come-si-diagnostica"
+   ]
+  },
+  {
+   "id": "net_dig",
+   "group": "rete",
+   "q": "Come interrogo il DNS con dig?",
+   "keywords": [
+    "dig",
+    "interrogare il dns",
+    "query dns manuale",
+    "risolvere un dominio a mano"
+   ],
+   "cmd": "dig +short example.com\ndig MX example.com\ndig @1.1.1.1 example.com    # chiedi a un resolver preciso",
+   "note": "Confrontare `@1.1.1.1` con il resolver di default è il test di propagazione più rapido che esista.",
+   "related": [
+    "come-funziona-la-risoluzione-dns"
+   ]
+  },
+  {
+   "id": "net_resolvectl",
+   "group": "rete",
+   "q": "Come vedo e svuoto la cache DNS di systemd-resolved?",
+   "keywords": [
+    "svuotare cache dns",
+    "resolvectl",
+    "flush dns linux",
+    "che dns sto usando",
+    "systemd-resolved"
+   ],
+   "cmd": "resolvectl status     # quali DNS usa ogni interfaccia\nresolvectl flush-caches",
+   "note": "`resolv.conf` spesso punta a 127.0.0.53 (lo stub locale): i DNS veri li vedi solo da qui.",
+   "related": [
+    "come-funziona-la-risoluzione-dns"
+   ]
+  },
+  {
+   "id": "net_tcpdump",
+   "group": "rete",
+   "q": "Come catturo pacchetti con tcpdump?",
+   "keywords": [
+    "tcpdump",
+    "catturare pacchetti",
+    "sniffare il traffico",
+    "cattura su porta",
+    "catturo il traffico"
+   ],
+   "cmd": "tcpdump -i any -nn port 443 -c 100\ntcpdump -i eth0 -w cattura.pcap host 10.0.0.5",
+   "note": "`-w` salva in pcap per Wireshark; `-nn` evita i DNS lookup che rallentano e sporcano la cattura.",
+   "related": [
+    "cattura-pacchetti-remota-pcap"
+   ]
+  },
+  {
+   "id": "ufw_status",
+   "group": "firewall-ssh",
+   "q": "Come vedo lo stato e le regole di UFW?",
+   "keywords": [
+    "ufw status",
+    "regole ufw",
+    "stato del firewall"
+   ],
+   "cmd": "ufw status verbose\nufw status numbered    # coi numeri, per cancellare",
+   "note": "`verbose` mostra anche le policy di default: quelle contano più delle singole regole.",
+   "related": [
+    "configurare-firewall-host-default-deny-nftables-ufw"
+   ]
+  },
+  {
+   "id": "ufw_enable",
+   "group": "firewall-ssh",
+   "q": "Come attivo UFW senza chiudermi fuori?",
+   "keywords": [
+    "attivare ufw",
+    "ufw enable",
+    "abilitare il firewall senza tagliarsi fuori",
+    "attivo ufw",
+    "tagliarmi fuori"
+   ],
+   "cmd": "ufw allow OpenSSH     # PRIMA di tutto\nufw default deny incoming\nufw default allow outgoing\nufw enable",
+   "note": "L'ordine è la differenza tra hardening e lockout: la regola SSH va messa PRIMA di enable.",
+   "related": [
+    "configurare-firewall-host-default-deny-nftables-ufw",
+    "mettere-in-sicurezza-ssh"
+   ]
+  },
+  {
+   "id": "ufw_allow",
+   "group": "firewall-ssh",
+   "q": "Come apro una porta con UFW (anche solo per un IP)?",
+   "keywords": [
+    "ufw allow porta",
+    "aprire porta ufw",
+    "aprire porta solo per un ip",
+    "ufw da ip specifico",
+    "apro la porta"
+   ],
+   "cmd": "ufw allow 443/tcp\nufw allow from 192.168.1.50 to any port 5432 proto tcp",
+   "note": "La forma `from ... to any port ...` è il minimo privilegio applicato al firewall: apri a CHI serve, non al mondo.",
+   "related": [
+    "configurare-firewall-host-default-deny-nftables-ufw",
+    "principio-del-minimo-privilegio"
+   ]
+  },
+  {
+   "id": "ufw_delete",
+   "group": "firewall-ssh",
+   "q": "Come cancello una regola UFW?",
+   "keywords": [
+    "cancellare regola ufw",
+    "ufw delete",
+    "togliere una regola dal firewall",
+    "regola di ufw"
+   ],
+   "cmd": "ufw status numbered\nufw delete 3",
+   "note": "I numeri si RICALCOLANO dopo ogni delete: cancella dal numero più alto verso il basso.",
+   "related": [
+    "configurare-firewall-host-default-deny-nftables-ufw"
+   ]
+  },
+  {
+   "id": "nft_list",
+   "group": "firewall-ssh",
+   "q": "Come vedo le regole nftables attive?",
+   "keywords": [
+    "nft list ruleset",
+    "regole nftables",
+    "vedere nftables",
+    "ruleset nftables"
+   ],
+   "cmd": "nft list ruleset",
+   "note": "Anche UFW e Docker scrivono qui: questa è la verità effettiva del firewall, qualunque frontend usi.",
+   "related": [
+    "configurare-firewall-host-default-deny-nftables-ufw"
+   ]
+  },
+  {
+   "id": "iptables_docker",
+   "group": "firewall-ssh",
+   "q": "Perché Docker ignora le regole UFW?",
+   "keywords": [
+    "docker ignora ufw",
+    "docker bypassa il firewall",
+    "porte docker esposte nonostante ufw",
+    "docker bypassa",
+    "bypassa le regole"
+   ],
+   "cmd": "# Docker scrive in una chain propria (DOCKER) che precede UFW.\n# La soluzione pulita: pubblica su localhost e metti un reverse proxy davanti\n#   ports: ['127.0.0.1:8080:80']",
+   "note": "È il gotcha di sicurezza Docker più comune in self-hosting: `-p 8080:80` apre la porta al mondo ANCHE con UFW attivo.",
+   "related": [
+    "configurare-firewall-host-default-deny-nftables-ufw",
+    "porte-tcp-e-udp-quali-conoscere"
+   ]
+  },
+  {
+   "id": "ssh_config",
+   "group": "firewall-ssh",
+   "q": "Come mi semplifico la vita con ~/.ssh/config?",
+   "keywords": [
+    "ssh config",
+    "alias ssh",
+    "accorciare comandi ssh",
+    "host nel config ssh"
+   ],
+   "cmd": "# ~/.ssh/config\nHost web\n  HostName 203.0.113.10\n  User mario\n  Port 2222\n  IdentityFile ~/.ssh/id_ed25519\n\n# poi basta: ssh web",
+   "note": "Vale anche per scp/rsync/git; con `ProxyJump bastione` attraversi il bastion host in trasparenza.",
+   "related": [
+    "come-funzionano-le-chiavi-ssh",
+    "mettere-in-sicurezza-ssh"
+   ]
+  },
+  {
+   "id": "ssh_debug",
+   "group": "firewall-ssh",
+   "q": "SSH non si connette: come lo debuggo?",
+   "keywords": [
+    "ssh non si connette",
+    "debug ssh",
+    "ssh -vvv",
+    "permission denied publickey"
+   ],
+   "cmd": "ssh -vvv mario@server\n# lato server: journalctl -u ssh -e",
+   "note": "In `-vvv` cerca quale chiave sta offrendo; `Permission denied (publickey)` = chiave non in authorized_keys o permessi sbagliati (600/700).",
+   "related": [
+    "mettere-in-sicurezza-ssh",
+    "come-funzionano-le-chiavi-ssh"
+   ]
+  },
+  {
+   "id": "sshd_reload_safe",
+   "group": "firewall-ssh",
+   "q": "Come modifico sshd_config senza chiudermi fuori?",
+   "keywords": [
+    "modificare sshd config",
+    "sshd senza chiudersi fuori",
+    "sshd -t",
+    "riavviare sshd in sicurezza",
+    "riavvio sshd"
+   ],
+   "cmd": "sshd -t                      # valida la sintassi\nsystemctl reload ssh         # reload, NON restart\n# e prova il login da un SECONDO terminale, tenendo aperto il primo",
+   "note": "La sessione aperta sopravvive al reload: è la tua rete di sicurezza. Chiudila solo dopo il login di prova riuscito.",
+   "related": [
+    "mettere-in-sicurezza-ssh"
+   ]
+  },
+  {
+   "id": "fail2ban_status",
+   "group": "firewall-ssh",
+   "q": "Come vedo chi ha bannato fail2ban?",
+   "keywords": [
+    "fail2ban status",
+    "ip bannati",
+    "vedere i ban attivi"
+   ],
+   "cmd": "fail2ban-client status\nfail2ban-client status sshd",
+   "note": "La jail `sshd` è quella di default; `Currently banned` sono gli IP fuori dalla porta in questo momento.",
+   "related": [
+    "fail2ban-e-alternative"
+   ]
+  },
+  {
+   "id": "fail2ban_unban",
+   "group": "firewall-ssh",
+   "q": "Come sbanno un IP da fail2ban?",
+   "keywords": [
+    "sbannare un ip",
+    "fail2ban unban",
+    "mi sono bannato da solo"
+   ],
+   "cmd": "fail2ban-client unban 203.0.113.7\n# preventivo: ignoreip = 192.168.1.0/24 in jail.local",
+   "note": "Il classico è bannarsi da soli sbagliando password: metti la tua rete in `ignoreip` PRIMA che succeda.",
+   "related": [
+    "fail2ban-e-alternative"
+   ]
+  },
+  {
+   "id": "pkg_update",
+   "group": "pacchetti",
+   "q": "Come aggiorno tutti i pacchetti?",
+   "keywords": [
+    "aggiornare i pacchetti",
+    "apt update upgrade",
+    "dnf upgrade",
+    "aggiornare il sistema"
+   ],
+   "cmd": "apt update && apt upgrade        # Debian/Ubuntu\ndnf upgrade                      # RHEL/Fedora",
+   "note": "`apt update` scarica solo gli INDICI: senza l'upgrade dopo, non hai aggiornato nulla.",
+   "related": [
+    "apt-dnf-pacman-package-manager"
+   ]
+  },
+  {
+   "id": "pkg_install_remove",
+   "group": "pacchetti",
+   "q": "Come installo o rimuovo un pacchetto?",
+   "keywords": [
+    "installare un pacchetto",
+    "rimuovere un pacchetto",
+    "apt install",
+    "apt purge"
+   ],
+   "cmd": "apt install nginx\napt remove nginx      # tiene le config\napt purge nginx       # via anche le config",
+   "note": "`remove` vs `purge`: se reinstallerai, remove; se vuoi ripartire pulito, purge.",
+   "related": [
+    "apt-dnf-pacman-package-manager"
+   ]
+  },
+  {
+   "id": "pkg_autoremove",
+   "group": "pacchetti",
+   "q": "Come pulisco dipendenze orfane e cache dei pacchetti?",
+   "keywords": [
+    "apt autoremove",
+    "dipendenze orfane",
+    "pulire la cache apt"
+   ],
+   "cmd": "apt autoremove --purge\napt clean",
+   "note": "Sicuro per definizione: rimuove solo ciò che nessun pacchetto installato richiede più.",
+   "related": [
+    "apt-dnf-pacman-package-manager",
+    "storage-pieno-liberare-spazio"
+   ]
+  },
+  {
+   "id": "pkg_provides",
+   "group": "pacchetti",
+   "q": "Quale pacchetto fornisce un certo file o comando?",
+   "keywords": [
+    "quale pacchetto fornisce",
+    "chi installa questo file",
+    "comando non trovato quale pacchetto",
+    "dnf provides"
+   ],
+   "cmd": "dnf provides '*/bin/dig'          # RHEL/Fedora\napt-file search bin/dig           # Debian (apt install apt-file; apt-file update)",
+   "note": "Il riflesso giusto per ogni `command not found`: si cerca il file, non si tira a indovinare il nome del pacchetto.",
+   "related": [
+    "apt-dnf-pacman-package-manager"
+   ]
+  },
+  {
+   "id": "pkg_hold",
+   "group": "pacchetti",
+   "q": "Come blocco l'aggiornamento di un singolo pacchetto?",
+   "keywords": [
+    "bloccare aggiornamento pacchetto",
+    "apt-mark hold",
+    "pacchetto da non aggiornare",
+    "versionlock"
+   ],
+   "cmd": "apt-mark hold nginx        # sblocco: apt-mark unhold\ndnf versionlock add nginx  # (plugin versionlock)",
+   "note": "Un hold è debito tecnico con la data di scadenza: annota PERCHÉ l'hai messo, o resterà lì per sempre.",
+   "related": [
+    "apt-dnf-pacman-package-manager"
+   ]
+  },
+  {
+   "id": "pkg_installed",
+   "group": "pacchetti",
+   "q": "Come vedo i pacchetti installati (e cerco tra loro)?",
+   "keywords": [
+    "pacchetti installati",
+    "apt list installed",
+    "cercare pacchetto installato"
+   ],
+   "cmd": "apt list --installed 2>/dev/null | grep nginx\ndnf list installed | grep nginx",
+   "note": "Per sapere se un pacchetto c'è e in che versione; la storia di chi ha installato cosa sta in `/var/log/apt/history.log`.",
+   "related": [
+    "apt-dnf-pacman-package-manager"
+   ]
+  },
+  {
+   "id": "pkg_fix_broken",
+   "group": "pacchetti",
+   "q": "apt ha dipendenze rotte: come sistemo?",
+   "keywords": [
+    "dipendenze rotte",
+    "apt fix broken",
+    "dpkg interrotto",
+    "errore dipendenze apt"
+   ],
+   "cmd": "apt --fix-broken install\ndpkg --configure -a      # se un'installazione si era interrotta",
+   "note": "Quasi sempre basta questa coppia; se il pasticcio nasce da un repo di terze parti, il problema è il repo.",
+   "related": [
+    "apt-dnf-pacman-package-manager"
+   ]
+  },
+  {
+   "id": "pkg_repo_key",
+   "group": "pacchetti",
+   "q": "Come aggiungo un repository di terze parti nel modo giusto?",
+   "keywords": [
+    "aggiungere un repository",
+    "chiave gpg repository",
+    "signed-by",
+    "repo terze parti"
+   ],
+   "cmd": "curl -fsSL https://esempio.com/key.gpg | gpg --dearmor -o /usr/share/keyrings/esempio.gpg\necho 'deb [signed-by=/usr/share/keyrings/esempio.gpg] https://repo.esempio.com stable main' > /etc/apt/sources.list.d/esempio.list\napt update",
+   "note": "`signed-by` lega la chiave al SOLO repo che firma: il vecchio apt-key autorizzava quella chiave per tutto.",
+   "related": [
+    "apt-dnf-pacman-package-manager"
+   ]
+  },
+  {
+   "id": "cron_edit",
+   "group": "cron-bash",
+   "q": "Come vedo e modifico i cron job?",
+   "keywords": [
+    "crontab -e",
+    "modificare il crontab",
+    "vedere i cron job",
+    "cron di un altro utente",
+    "modifico il crontab"
+   ],
+   "cmd": "crontab -l           # elenca i tuoi\ncrontab -e           # modifica\ncrontab -l -u mario  # di un altro utente (da root)",
+   "note": "I job di sistema stanno anche in `/etc/cron.d/` e `/etc/cron.{daily,weekly}`: `crontab -l` non li mostra.",
+   "related": [
+    "cron-la-sintassi-spiegata"
+   ]
+  },
+  {
+   "id": "cron_reboot",
+   "group": "cron-bash",
+   "q": "Come eseguo uno script a ogni avvio?",
+   "keywords": [
+    "cron reboot",
+    "eseguire al boot",
+    "script a ogni avvio",
+    "ogni avvio"
+   ],
+   "cmd": "@reboot sleep 30 && /opt/script/avvio.sh",
+   "note": "Lo `sleep` dà tempo alla rete di salire; per dipendenze serie (db pronto, mount presenti) meglio una unit systemd con `After=`.",
+   "related": [
+    "cron-la-sintassi-spiegata",
+    "gestire-servizi-linux-con-systemctl"
+   ]
+  },
+  {
+   "id": "cron_output",
+   "group": "cron-bash",
+   "q": "Come salvo l'output di un cron job in un log?",
+   "keywords": [
+    "output del cron nel log",
+    "cron redirect",
+    "log dei cron job"
+   ],
+   "cmd": "0 3 * * * /opt/backup.sh >> /var/log/backup.log 2>&1",
+   "note": "Senza redirect l'output svanisce (o prova a spedirsi via mail): un job senza log è un job di cui non sai nulla.",
+   "related": [
+    "cron-la-sintassi-spiegata",
+    "dove-sono-i-log-su-linux"
+   ]
+  },
+  {
+   "id": "cron_debug",
+   "group": "cron-bash",
+   "q": "Il cron job non parte (o fallisce in silenzio): come lo debuggo?",
+   "keywords": [
+    "cron non parte",
+    "cron fallisce in silenzio",
+    "debug del crontab",
+    "funziona a mano ma non in cron",
+    "cron job fallisce"
+   ],
+   "cmd": "grep CRON /var/log/syslog | tail    # e' partito?\n# nel dubbio, riproduci l'ambiente di cron:\nenv -i /bin/sh -c '/opt/backup.sh'",
+   "note": "\"A mano va, in cron no\" = quasi sempre PATH o variabili: cron ha un ambiente minimo, usa percorsi assoluti.",
+   "related": [
+    "cron-la-sintassi-spiegata",
+    "bash-scripting-le-basi-che-servono"
+   ]
+  },
+  {
+   "id": "bash_strict",
+   "group": "cron-bash",
+   "q": "Come inizio uno script Bash fatto bene (strict mode)?",
+   "keywords": [
+    "strict mode bash",
+    "set -euo pipefail",
+    "inizio dello script",
+    "boilerplate bash"
+   ],
+   "cmd": "#!/usr/bin/env bash\nset -euo pipefail\nIFS=$'\\n\\t'",
+   "note": "Esce al primo errore, sulle variabili non definite e sui fallimenti in pipe: i bug urlano subito invece di corrompere in silenzio.",
+   "related": [
+    "bash-scripting-le-basi-che-servono"
+   ]
+  },
+  {
+   "id": "bash_debug",
+   "group": "cron-bash",
+   "q": "Come debuggo uno script Bash riga per riga?",
+   "keywords": [
+    "debug script bash",
+    "bash -x",
+    "vedere cosa esegue lo script"
+   ],
+   "cmd": "bash -x script.sh\n# o solo un tratto: set -x ... set +x",
+   "note": "`-x` stampa ogni comando ESPANSO (variabili incluse): il 90% dei bug si vede lì. Il resto lo trova shellcheck.",
+   "related": [
+    "bash-scripting-le-basi-che-servono"
+   ]
+  },
+  {
+   "id": "bash_dos2unix",
+   "group": "cron-bash",
+   "q": "Lo script dà errori strani con ^M: che succede?",
+   "keywords": [
+    "errori con ^M",
+    "dos2unix",
+    "fine riga windows",
+    "bad interpreter"
+   ],
+   "cmd": "dos2unix script.sh\n# senza dos2unix: sed -i 's/\\r$//' script.sh",
+   "note": "Fine riga Windows (CRLF): il classico `bad interpreter: /bin/bash^M` dopo un copia-incolla o un editor Windows.",
+   "related": [
+    "bash-scripting-le-basi-che-servono"
+   ]
+  },
+  {
+   "id": "env_vars",
+   "group": "cron-bash",
+   "q": "Come imposto una variabile d'ambiente (temporanea o per sempre)?",
+   "keywords": [
+    "variabile d'ambiente",
+    "export variabile",
+    "variabile permanente",
+    "impostare env"
+   ],
+   "cmd": "export API_URL=https://api.esempio.com    # solo questa sessione\necho 'export API_URL=...' >> ~/.bashrc     # per il tuo utente\n# di sistema: /etc/environment",
+   "note": "Per i servizi systemd niente bashrc: si usa `Environment=` o `EnvironmentFile=` nella unit.",
+   "related": [
+    "bash-scripting-le-basi-che-servono",
+    "gestire-servizi-linux-con-systemctl"
    ]
   }
  ]

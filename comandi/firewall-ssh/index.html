@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Firewall e SSH – comandi – FabGPT-FAQ</title>
+<meta name="description" content="UFW, nftables, fail2ban e l&#x27;operatività SSH quotidiana senza chiudersi fuori.">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="canonical" href="https://fabriziosalmi.github.io/fabgpt-faq/comandi/firewall-ssh/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Firewall e SSH – comandi">
+<meta property="og:description" content="UFW, nftables, fail2ban e l&#x27;operatività SSH quotidiana senza chiudersi fuori.">
+<meta property="og:url" content="https://fabriziosalmi.github.io/fabgpt-faq/comandi/firewall-ssh/">
+<meta property="og:image" content="https://fabriziosalmi.github.io/fabgpt-faq/og.svg">
+<meta property="og:site_name" content="FabGPT-FAQ">
+<meta property="og:locale" content="it_IT">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://fabriziosalmi.github.io/fabgpt-faq/og.svg">
+<link rel="stylesheet" href="../../style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
+<script type="application/ld+json">[{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Come vedo lo stato e le regole di UFW?", "acceptedAnswer": {"@type": "Answer", "text": "ufw status verbose\nufw status numbered    # coi numeri, per cancellare\nverbose mostra anche le policy di default: quelle contano più delle singole regole."}}, {"@type": "Question", "name": "Come attivo UFW senza chiudermi fuori?", "acceptedAnswer": {"@type": "Answer", "text": "ufw allow OpenSSH     # PRIMA di tutto\nufw default deny incoming\nufw default allow outgoing\nufw enable\nL'ordine è la differenza tra hardening e lockout: la regola SSH va messa PRIMA di enable."}}, {"@type": "Question", "name": "Come apro una porta con UFW (anche solo per un IP)?", "acceptedAnswer": {"@type": "Answer", "text": "ufw allow 443/tcp\nufw allow from 192.168.1.50 to any port 5432 proto tcp\nLa forma from ... to any port ... è il minimo privilegio applicato al firewall: apri a CHI serve, non al mondo."}}, {"@type": "Question", "name": "Come cancello una regola UFW?", "acceptedAnswer": {"@type": "Answer", "text": "ufw status numbered\nufw delete 3\nI numeri si RICALCOLANO dopo ogni delete: cancella dal numero più alto verso il basso."}}, {"@type": "Question", "name": "Come vedo le regole nftables attive?", "acceptedAnswer": {"@type": "Answer", "text": "nft list ruleset\nAnche UFW e Docker scrivono qui: questa è la verità effettiva del firewall, qualunque frontend usi."}}, {"@type": "Question", "name": "Perché Docker ignora le regole UFW?", "acceptedAnswer": {"@type": "Answer", "text": "# Docker scrive in una chain propria (DOCKER) che precede UFW.\n# La soluzione pulita: pubblica su localhost e metti un reverse proxy davanti\n#   ports: ['127.0.0.1:8080:80']\nÈ il gotcha di sicurezza Docker più comune in self-hosting: -p 8080:80 apre la porta al mondo ANCHE con UFW attivo."}}, {"@type": "Question", "name": "Come mi semplifico la vita con ~/.ssh/config?", "acceptedAnswer": {"@type": "Answer", "text": "# ~/.ssh/config\nHost web\n  HostName 203.0.113.10\n  User mario\n  Port 2222\n  IdentityFile ~/.ssh/id_ed25519\n\n# poi basta: ssh web\nVale anche per scp/rsync/git; con ProxyJump bastione attraversi il bastion host in trasparenza."}}, {"@type": "Question", "name": "SSH non si connette: come lo debuggo?", "acceptedAnswer": {"@type": "Answer", "text": "ssh -vvv mario@server\n# lato server: journalctl -u ssh -e\nIn -vvv cerca quale chiave sta offrendo; Permission denied (publickey) = chiave non in authorized_keys o permessi sbagliati (600/700)."}}, {"@type": "Question", "name": "Come modifico sshd_config senza chiudermi fuori?", "acceptedAnswer": {"@type": "Answer", "text": "sshd -t                      # valida la sintassi\nsystemctl reload ssh         # reload, NON restart\n# e prova il login da un SECONDO terminale, tenendo aperto il primo\nLa sessione aperta sopravvive al reload: è la tua rete di sicurezza. Chiudila solo dopo il login di prova riuscito."}}, {"@type": "Question", "name": "Come vedo chi ha bannato fail2ban?", "acceptedAnswer": {"@type": "Answer", "text": "fail2ban-client status\nfail2ban-client status sshd\nLa jail sshd è quella di default; Currently banned sono gli IP fuori dalla porta in questo momento."}}, {"@type": "Question", "name": "Come sbanno un IP da fail2ban?", "acceptedAnswer": {"@type": "Answer", "text": "fail2ban-client unban 203.0.113.7\n# preventivo: ignoreip = 192.168.1.0/24 in jail.local\nIl classico è bannarsi da soli sbagliando password: metti la tua rete in ignoreip PRIMA che succeda."}}]}, {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "FabGPT-FAQ", "item": "https://fabriziosalmi.github.io/fabgpt-faq/"}, {"@type": "ListItem", "position": 2, "name": "Comandi", "item": "https://fabriziosalmi.github.io/fabgpt-faq/comandi/"}, {"@type": "ListItem", "position": 3, "name": "Firewall e SSH", "item": "https://fabriziosalmi.github.io/fabgpt-faq/comandi/firewall-ssh/"}]}]</script>
+<style>
+  .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
+  .page h1 { font-size: 26px; line-height: 1.3; margin: 6px 0 10px; }
+  .crumbs { font-size: 13px; color: var(--text-dim); margin-bottom: 6px; }
+  .crumbs a { color: var(--text-dim); text-decoration: none; }
+  .crumbs a:hover { color: var(--text); }
+  .page .intro { color: var(--text-dim); margin-bottom: 20px; }
+  .steps { list-style: none; counter-reset: step; padding: 0; margin: 0; }
+  .steps li { counter-increment: step; position: relative; padding: 14px 16px 14px 56px; border: 1px solid var(--border); border-radius: 12px; background: var(--bg-soft); margin: 10px 0; }
+  .steps li::before { content: counter(step); position: absolute; left: 16px; top: 16px; width: 26px; height: 26px; border-radius: 50%; background: var(--accent); color: var(--accent-text); font-weight: 700; font-size: 13px; display: flex; align-items: center; justify-content: center; }
+  .steps a { color: var(--link); text-decoration: none; font-weight: 600; }
+  .steps a:hover { text-decoration: underline; }
+  .steps p { margin: 4px 0 0; font-size: 14px; color: var(--text-dim); }
+  .path-card { display: block; border: 1px solid var(--border); border-radius: 12px; background: var(--bg-soft); padding: 16px 18px; margin: 12px 0; text-decoration: none; color: inherit; }
+  .path-card:hover { border-color: var(--accent); }
+  .path-card b { color: var(--link); font-size: 17px; }
+  .path-card p { margin: 6px 0 0; font-size: 14px; color: var(--text-dim); }
+  .path-card .n { font-size: 12px; color: var(--text-dim); text-transform: uppercase; letter-spacing: .05em; }
+  .page .ask { display: inline-block; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 8px 16px; text-decoration: none; font-weight: 600; font-size: 13px; margin-top: 20px; }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="../../" style="text-decoration:none;color:inherit">
+    <span class="brand-dot">F</span>
+    <span class="brand-name">FabGPT-FAQ</span>
+  </a>
+  <nav class="topnav"><a href="../../percorsi/">Percorsi</a> <a href="../../q/">Tutte le domande</a></nav>
+</header>
+<main class="page">
+<nav class="crumbs" aria-label="Percorso"><a href="../../">FabGPT-FAQ</a> › <a href="../">Comandi</a> › <span>Firewall e SSH</span></nav>
+<h1>Firewall e SSH</h1>
+<p class="intro">UFW, nftables, fail2ban e l&#x27;operatività SSH quotidiana senza chiudersi fuori. Ogni comando è verificato e copiabile; in <a href="../../">chat</a> basta descrivere cosa vuoi fare.</p>
+<details class="toc"><summary>11 comandi in questa pagina</summary><ul><li><a href="#ufw_status">Come vedo lo stato e le regole di UFW?</a></li><li><a href="#ufw_enable">Come attivo UFW senza chiudermi fuori?</a></li><li><a href="#ufw_allow">Come apro una porta con UFW (anche solo per un IP)?</a></li><li><a href="#ufw_delete">Come cancello una regola UFW?</a></li><li><a href="#nft_list">Come vedo le regole nftables attive?</a></li><li><a href="#iptables_docker">Perché Docker ignora le regole UFW?</a></li><li><a href="#ssh_config">Come mi semplifico la vita con ~/.ssh/config?</a></li><li><a href="#ssh_debug">SSH non si connette: come lo debuggo?</a></li><li><a href="#sshd_reload_safe">Come modifico sshd_config senza chiudermi fuori?</a></li><li><a href="#fail2ban_status">Come vedo chi ha bannato fail2ban?</a></li><li><a href="#fail2ban_unban">Come sbanno un IP da fail2ban?</a></li></ul></details>
+<section class="cmd-card" id="ufw_status">
+<h2><a class="anchor" href="#ufw_status">#</a> Come vedo lo stato e le regole di UFW?</h2>
+<pre><code>ufw status verbose
+ufw status numbered    # coi numeri, per cancellare</code></pre>
+<p class="cmd-note"><code>verbose</code> mostra anche le policy di default: quelle contano più delle singole regole.</p>
+<p class="cmd-rel">Approfondisci: <a href="../../q/configurare-firewall-host-default-deny-nftables-ufw/">Come si imposta il firewall dell&#x27;host (tramite ufw o regole native nftables) secondo il principio di default deny su tutto il traffico?</a></p>
+</section>
+<section class="cmd-card" id="ufw_enable">
+<h2><a class="anchor" href="#ufw_enable">#</a> Come attivo UFW senza chiudermi fuori?</h2>
+<pre><code>ufw allow OpenSSH     # PRIMA di tutto
+ufw default deny incoming
+ufw default allow outgoing
+ufw enable</code></pre>
+<p class="cmd-note">L&#x27;ordine è la differenza tra hardening e lockout: la regola SSH va messa PRIMA di enable.</p>
+<p class="cmd-rel">Approfondisci: <a href="../../q/configurare-firewall-host-default-deny-nftables-ufw/">Come si imposta il firewall dell&#x27;host (tramite ufw o regole native nftables) secondo il principio di default deny su tutto il traffico?</a><a href="../../q/mettere-in-sicurezza-ssh/">Come si mette in sicurezza SSH su un server esposto?</a></p>
+</section>
+<section class="cmd-card" id="ufw_allow">
+<h2><a class="anchor" href="#ufw_allow">#</a> Come apro una porta con UFW (anche solo per un IP)?</h2>
+<pre><code>ufw allow 443/tcp
+ufw allow from 192.168.1.50 to any port 5432 proto tcp</code></pre>
+<p class="cmd-note">La forma <code>from ... to any port ...</code> è il minimo privilegio applicato al firewall: apri a CHI serve, non al mondo.</p>
+<p class="cmd-rel">Approfondisci: <a href="../../q/configurare-firewall-host-default-deny-nftables-ufw/">Come si imposta il firewall dell&#x27;host (tramite ufw o regole native nftables) secondo il principio di default deny su tutto il traffico?</a><a href="../../q/principio-del-minimo-privilegio/">Cos&#x27;è il principio del minimo privilegio?</a></p>
+</section>
+<section class="cmd-card" id="ufw_delete">
+<h2><a class="anchor" href="#ufw_delete">#</a> Come cancello una regola UFW?</h2>
+<pre><code>ufw status numbered
+ufw delete 3</code></pre>
+<p class="cmd-note">I numeri si RICALCOLANO dopo ogni delete: cancella dal numero più alto verso il basso.</p>
+<p class="cmd-rel">Approfondisci: <a href="../../q/configurare-firewall-host-default-deny-nftables-ufw/">Come si imposta il firewall dell&#x27;host (tramite ufw o regole native nftables) secondo il principio di default deny su tutto il traffico?</a></p>
+</section>
+<section class="cmd-card" id="nft_list">
+<h2><a class="anchor" href="#nft_list">#</a> Come vedo le regole nftables attive?</h2>
+<pre><code>nft list ruleset</code></pre>
+<p class="cmd-note">Anche UFW e Docker scrivono qui: questa è la verità effettiva del firewall, qualunque frontend usi.</p>
+<p class="cmd-rel">Approfondisci: <a href="../../q/configurare-firewall-host-default-deny-nftables-ufw/">Come si imposta il firewall dell&#x27;host (tramite ufw o regole native nftables) secondo il principio di default deny su tutto il traffico?</a></p>
+</section>
+<section class="cmd-card" id="iptables_docker">
+<h2><a class="anchor" href="#iptables_docker">#</a> Perché Docker ignora le regole UFW?</h2>
+<pre><code># Docker scrive in una chain propria (DOCKER) che precede UFW.
+# La soluzione pulita: pubblica su localhost e metti un reverse proxy davanti
+#   ports: [&#x27;127.0.0.1:8080:80&#x27;]</code></pre>
+<p class="cmd-note">È il gotcha di sicurezza Docker più comune in self-hosting: <code>-p 8080:80</code> apre la porta al mondo ANCHE con UFW attivo.</p>
+<p class="cmd-rel">Approfondisci: <a href="../../q/configurare-firewall-host-default-deny-nftables-ufw/">Come si imposta il firewall dell&#x27;host (tramite ufw o regole native nftables) secondo il principio di default deny su tutto il traffico?</a><a href="../../q/porte-tcp-e-udp-quali-conoscere/">Cosa sono le porte TCP e UDP (e quali sapere a memoria)?</a></p>
+</section>
+<section class="cmd-card" id="ssh_config">
+<h2><a class="anchor" href="#ssh_config">#</a> Come mi semplifico la vita con ~/.ssh/config?</h2>
+<pre><code># ~/.ssh/config
+Host web
+  HostName 203.0.113.10
+  User mario
+  Port 2222
+  IdentityFile ~/.ssh/id_ed25519
+
+# poi basta: ssh web</code></pre>
+<p class="cmd-note">Vale anche per scp/rsync/git; con <code>ProxyJump bastione</code> attraversi il bastion host in trasparenza.</p>
+<p class="cmd-rel">Approfondisci: <a href="../../q/come-funzionano-le-chiavi-ssh/">Come funzionano le chiavi SSH (e perché abbandonare le password)?</a><a href="../../q/mettere-in-sicurezza-ssh/">Come si mette in sicurezza SSH su un server esposto?</a></p>
+</section>
+<section class="cmd-card" id="ssh_debug">
+<h2><a class="anchor" href="#ssh_debug">#</a> SSH non si connette: come lo debuggo?</h2>
+<pre><code>ssh -vvv mario@server
+# lato server: journalctl -u ssh -e</code></pre>
+<p class="cmd-note">In <code>-vvv</code> cerca quale chiave sta offrendo; <code>Permission denied (publickey)</code> = chiave non in authorized_keys o permessi sbagliati (600/700).</p>
+<p class="cmd-rel">Approfondisci: <a href="../../q/mettere-in-sicurezza-ssh/">Come si mette in sicurezza SSH su un server esposto?</a><a href="../../q/come-funzionano-le-chiavi-ssh/">Come funzionano le chiavi SSH (e perché abbandonare le password)?</a></p>
+</section>
+<section class="cmd-card" id="sshd_reload_safe">
+<h2><a class="anchor" href="#sshd_reload_safe">#</a> Come modifico sshd_config senza chiudermi fuori?</h2>
+<pre><code>sshd -t                      # valida la sintassi
+systemctl reload ssh         # reload, NON restart
+# e prova il login da un SECONDO terminale, tenendo aperto il primo</code></pre>
+<p class="cmd-note">La sessione aperta sopravvive al reload: è la tua rete di sicurezza. Chiudila solo dopo il login di prova riuscito.</p>
+<p class="cmd-rel">Approfondisci: <a href="../../q/mettere-in-sicurezza-ssh/">Come si mette in sicurezza SSH su un server esposto?</a></p>
+</section>
+<section class="cmd-card" id="fail2ban_status">
+<h2><a class="anchor" href="#fail2ban_status">#</a> Come vedo chi ha bannato fail2ban?</h2>
+<pre><code>fail2ban-client status
+fail2ban-client status sshd</code></pre>
+<p class="cmd-note">La jail <code>sshd</code> è quella di default; <code>Currently banned</code> sono gli IP fuori dalla porta in questo momento.</p>
+<p class="cmd-rel">Approfondisci: <a href="../../q/fail2ban-e-alternative/">Fail2ban: cos&#x27;è e quali alternative esistono?</a></p>
+</section>
+<section class="cmd-card" id="fail2ban_unban">
+<h2><a class="anchor" href="#fail2ban_unban">#</a> Come sbanno un IP da fail2ban?</h2>
+<pre><code>fail2ban-client unban 203.0.113.7
+# preventivo: ignoreip = 192.168.1.0/24 in jail.local</code></pre>
+<p class="cmd-note">Il classico è bannarsi da soli sbagliando password: metti la tua rete in <code>ignoreip</code> PRIMA che succeda.</p>
+<p class="cmd-rel">Approfondisci: <a href="../../q/fail2ban-e-alternative/">Fail2ban: cos&#x27;è e quali alternative esistono?</a></p>
+</section>
+
+<a class="ask" href="../../">Chiedi in chat 💬</a>
+<style>
+  .toc { border: 1px solid var(--border); border-radius: 10px; background: var(--bg-soft); padding: 10px 14px; margin-bottom: 8px; }
+  .toc summary { cursor: pointer; font-weight: 600; }
+  .toc a { color: var(--link); text-decoration: none; }
+  .cmd-card { border: 1px solid var(--border); border-radius: 12px; background: var(--bg-soft); padding: 14px 16px; margin: 12px 0; }
+  .cmd-card h2 { font-size: 16px; margin: 0 0 8px; }
+  .cmd-card .anchor { color: var(--text-dim); text-decoration: none; margin-right: 2px; }
+  .cmd-card pre { background: var(--code-bg); border-radius: 8px; padding: 10px 12px; overflow-x: auto; margin: 0 0 8px; cursor: pointer; }
+  .cmd-card code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 13px; }
+  .cmd-note { font-size: 14px; margin: 0 0 6px; }
+  .cmd-note code { background: var(--code-bg); border-radius: 5px; padding: 1px 5px; overflow-wrap: anywhere; }
+  .cmd-note { overflow-wrap: anywhere; }
+  .cmd-rel { font-size: 13px; color: var(--text-dim); margin: 0; }
+  .cmd-rel a { color: var(--link); text-decoration: none; margin-right: 10px; }
+  .cmd-card:target { border-color: var(--accent); }
+</style>
+<script>
+document.addEventListener('click', function (e) {
+  var pre = e.target.closest('.cmd-card pre');
+  if (!pre || !navigator.clipboard) return;
+  navigator.clipboard.writeText(pre.innerText).then(function () {
+    pre.style.borderLeft = '3px solid var(--accent)';
+    setTimeout(function () { pre.style.borderLeft = ''; }, 800);
+  });
+});
+</script>
+</main>
+</body>
+</html>
