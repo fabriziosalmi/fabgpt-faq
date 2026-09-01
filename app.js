@@ -585,6 +585,12 @@
       catch (_) { DIAGRAMS = {}; } // diagrams are optional
       try { PORTS = (await (await fetch('ports.json', { cache: 'no-cache' })).json()).ports; }
       catch (_) { PORTS = {}; } // port dataset is optional
+      // Self-heal a stale cached index.html that predates the tools.js tag.
+      if (typeof FabTools === 'undefined') {
+        const s = document.createElement('script');
+        s.src = 'tools.js';
+        document.head.appendChild(s);
+      }
     } catch (err) {
       const target = addBotRow();
       target.innerHTML = '<p>Non riesco a caricare <code>faq.json</code>. Se hai aperto il file in locale, servilo con un web server: <code>python3 -m http.server</code></p>';
