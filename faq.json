@@ -4,6 +4,7 @@
     "siteUrl": "https://fabriziosalmi.github.io/fabgpt-faq",
     "welcome": "**585 risposte tecniche verificate** su Cybersecurity, AI & LLM, Proxmox e Cloudflare. Zero allucinazioni, architetture e comandi operativi.",
     "placeholder": "Chiedimi qualcosa…",
+    "placeholders": ["Chiedimi qualcosa…", "Chiedimi di Proxmox, Docker o Cloudflare…", "Cerca tra {n} risposte verificate…", "Prova: porta 443, chmod 755, 25*4…", "Una domanda su AI, backup o sicurezza?"],
     "footerNote": "FabGPT-FAQ non è un'AI: ogni risposta è scritta e verificata da una persona. [Trasparenza](trasparenza/)",
     "matchThreshold": 0.75,
     "typing": {

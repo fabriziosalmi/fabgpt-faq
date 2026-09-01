@@ -54,6 +54,13 @@ body {
   font: 16px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+  /* R1 - risveglio organico: the page emerges with a soft diaphragm fade
+     (opacity only - scale would be motion) */
+  animation: page-in 0.35s ease;
+}
+
+@keyframes page-in {
+  from { opacity: 0; }
 }
 
 p { text-wrap: pretty; }
@@ -207,12 +214,18 @@ h1, h2, h3 { text-wrap: balance; }
   border-radius: 1px;
   vertical-align: -0.18em;
   background: var(--accent);
-  animation: blink 0.9s steps(2, start) infinite;
+  /* R2 - il respiro dell'AI: sinusoidal breathing, not a mechanical on/off blink */
+  animation: breathe 1.6s ease-in-out infinite;
 }
 
-@keyframes blink {
-  to { visibility: hidden; }
+@keyframes breathe {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.25; }
 }
+
+/* R13 - condensazione: the words just streamed materialize from transparency
+   (only the freshly appended tail fades; settled text stays opaque) */
+.msg-bot .content .cond { animation: chips-in 0.18s ease both; }
 
 /* suggested-question chips */
 .chips {

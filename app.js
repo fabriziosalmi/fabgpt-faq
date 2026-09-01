@@ -401,6 +401,25 @@
     return bar;
   }
 
+  // R13 - condensazione: wrap the tail of the freshest text node (the words
+  // appended this tick) in a fading span. The next tick's re-render dissolves
+  // the span back into plain, fully opaque text, so only the stream head
+  // condenses and settled words never flicker.
+  function condense(root, k) {
+    if (!k) return;
+    let node = root;
+    while (node && node.lastChild) node = node.lastChild;
+    if (!node || node.nodeType !== 3) return;
+    const t = node.nodeValue;
+    const tail = t.slice(Math.max(0, t.length - k));
+    if (!tail.trim()) return;
+    node.nodeValue = t.slice(0, t.length - tail.length);
+    const span = document.createElement('span');
+    span.className = 'cond';
+    span.textContent = tail;
+    node.parentNode.appendChild(span);
+  }
+
   function streamAnswer(text, onDone, suggest, diagramId, questionText) {
     streaming = true;
     updateSendState();
@@ -466,9 +485,11 @@
       // instead of crawling - the user returns to a finished answer.
       if (document.hidden) { i = words.length; buffer = text; }
       const n = 1 + Math.floor(Math.random() * perTick);
-      buffer += words.slice(i, i + n).join('');
+      const added = words.slice(i, i + n).join('');
+      buffer += added;
       i += n;
       target.innerHTML = renderMd(buffer);
+      if (!document.hidden) condense(target, added.length);
       scrollToBottom(false);
       if (i < words.length) {
         let delay = minD + Math.random() * (maxD - minD);
@@ -789,7 +810,12 @@
       return;
     }
     document.title = DB.config.botName;
-    inputEl.placeholder = DB.config.placeholder || '';
+    // R4bis - invito mutevole: rotate honest placeholders deterministically
+    // by day ({n} = live entry count); config.placeholder stays the fallback.
+    const phs = DB.config.placeholders;
+    inputEl.placeholder = (phs && phs.length)
+      ? phs[Math.floor(Date.now() / 86400000) % phs.length].replace('{n}', DB.entries.length)
+      : (DB.config.placeholder || '');
     noteEl.innerHTML = inlineMd(escapeHtml(DB.config.footerNote || ''));
     inputEl.focus();
     bySlug = Object.create(null);
