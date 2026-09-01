@@ -329,8 +329,9 @@
       if (se) return { kind: 'cron', answer: se, suggest: opts.cronSuggest || [], label: 'Cron ' + sc[0] };
     }
 
-    // well-known port ("porta 443")
-    var pm = t.match(/\bporta\s+(\d{1,5})\b/i);
+    // well-known port: entity-like query only (<=2 words before "porta N",
+    // nothing after) - "come apro la porta 443 con ufw?" belongs to the matcher
+    var pm = t.match(/^\s*(?:\S+\s+){0,2}porta\s+(\d{1,5})\s*[?!.]*\s*$/i);
     if (pm && opts.ports) {
       var pdata = opts.ports[pm[1]];
       if (pdata) return { kind: 'port', answer: portMd(pdata), suggest: pdata.suggest || [], label: 'Porta ' + pm[1] };

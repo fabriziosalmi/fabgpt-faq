@@ -1,0 +1,651 @@
+[
+ {
+  "name": "maratona-principiante",
+  "turns": [
+   {
+    "q": "ciao",
+    "expect": "st-saluto"
+   },
+   {
+    "q": "chi sei?",
+    "expect": "st-identita"
+   },
+   {
+    "q": "cos'è proxmox?",
+    "expect": "cos-e-proxmox"
+   },
+   {
+    "q": "e i backup?",
+    "expect": "pbs",
+    "ctx": true
+   },
+   {
+    "q": "e la cifratura?",
+    "expect": "backup-restic-borg",
+    "ctx": true
+   },
+   {
+    "q": "che differenza c'è tra snapshot e backup?",
+    "expect": "snapshot-vs-backup"
+   },
+   {
+    "q": "approfondisci",
+    "expect": "st-approfondisci"
+   },
+   {
+    "q": "un homelab a basso consumo che hardware vuole?",
+    "expect": "homelab-low-power"
+   },
+   {
+    "q": "192.168.1.0/24",
+    "expect": "fp/subnet"
+   },
+   {
+    "q": "e le vlan?",
+    "expect": "vlan-segmentazione"
+   },
+   {
+    "q": "cos'è docker compose?",
+    "expect": "docker-compose"
+   },
+   {
+    "q": "come aggiorno le immagini dello stack compose?",
+    "expect": "cmd/docker_compose_update"
+   },
+   {
+    "q": "docker compose down cancella i volumi?",
+    "expect": "cmd/docker_compose_up_down"
+   },
+   {
+    "q": "porta 8006",
+    "expect": "fp/port"
+   },
+   {
+    "q": "grazie",
+    "expect": "st-grazie"
+   },
+   {
+    "q": "cos'è un container breakout?",
+    "expect": "container-breakout"
+   },
+   {
+    "q": "come faccio il backup di un volume docker?",
+    "expect": "cmd/docker_volume_backup"
+   },
+   {
+    "q": "sai fare 15*4?",
+    "expect": "fp/arith"
+   },
+   {
+    "q": "e un firewall serve?",
+    "expect": "firewall-vs-waf"
+   },
+   {
+    "q": "come attivo ufw senza tagliarmi fuori?",
+    "expect": "cmd/ufw_enable"
+   },
+   {
+    "q": "perfetto, ottimo lavoro",
+    "expect": "st-ok"
+   },
+   {
+    "q": "cos'è proxmox?",
+    "expect": "cos-e-proxmox",
+    "variant": true
+   },
+   {
+    "q": "ciao ciao",
+    "expect": "st-congedo"
+   }
+  ]
+ },
+ {
+  "name": "maratona-incidente",
+  "turns": [
+   {
+    "q": "aiuto ho un ip bannato da fail2ban",
+    "expect": "fail2ban"
+   },
+   {
+    "q": "come vedo gli ip bannati?",
+    "expect": "cmd/fail2ban_status"
+   },
+   {
+    "q": "come mi sbanno?",
+    "expect": "cmd/fail2ban_unban",
+    "ctx": true
+   },
+   {
+    "q": "il container continua a riavviarsi",
+    "expect": "cmd/docker_debug_crashloop"
+   },
+   {
+    "q": "il container muore con exit 137",
+    "expect": "cmd/docker_debug_oom"
+   },
+   {
+    "q": "cosa significano gli exit code dei container?",
+    "expect": "cmd/docker_debug_exit_codes"
+   },
+   {
+    "q": "dove sono i log su linux?",
+    "expect": "log-linux"
+   },
+   {
+    "q": "journalctl solo errori come si fa?",
+    "expect": "cmd/journal_priority"
+   },
+   {
+    "q": "dmesg come lo leggo?",
+    "expect": "cmd/kernel_dmesg"
+   },
+   {
+    "q": "chi sta mangiando la cpu?",
+    "expect": "cmd/proc_top_cpu"
+   },
+   {
+    "q": "iowait alto, come indago?",
+    "expect": "cmd/perf_iowait"
+   },
+   {
+    "q": "free dice poca ram libera, devo preoccuparmi?",
+    "expect": "cmd/perf_memcache"
+   },
+   {
+    "q": "ok grazie mille",
+    "expect": "st-grazie"
+   },
+   {
+    "q": "come scrivo un piano di disaster recovery minimo?",
+    "expect": "disaster-recovery"
+   },
+   {
+    "q": "e i backup?",
+    "expect": "backup-321",
+    "ctx": true
+   },
+   {
+    "q": "approfondisci",
+    "expect": "backup-321",
+    "variant": true
+   },
+   {
+    "q": "che palle non funziona niente oggi",
+    "expect": "st-feedback-negativo"
+   },
+   {
+    "q": "va bene riformulo: il sito è lento, come diagnostico?",
+    "expect": "sito-lento"
+   }
+  ]
+ },
+ {
+  "name": "maratona-testardo",
+  "turns": [
+   {
+    "q": "1+1?",
+    "expect": "fp/arith"
+   },
+   {
+    "q": "2+2?",
+    "expect": "fp/arith"
+   },
+   {
+    "q": "quanto fa 99*99?",
+    "expect": "fp/arith"
+   },
+   {
+    "q": "rm -rf / ?",
+    "expect": "cmd/rm_rf_danger"
+   },
+   {
+    "q": "cos'è una fork bomb?",
+    "expect": "cmd/forkbomb"
+   },
+   {
+    "q": "dd senza distruggere il disco?",
+    "expect": "cmd/dd_danger"
+   },
+   {
+    "q": "sei una vera intelligenza artificiale?",
+    "expect": "sei-vera-ai"
+   },
+   {
+    "q": "ma quindi sei stupido",
+    "expect": "st-insulto"
+   },
+   {
+    "q": "vabbè dai, dimmi una barzelletta",
+    "expect": "st-barzelletta"
+   },
+   {
+    "q": "raccontami una storia",
+    "expect": "storia-free-tekno"
+   },
+   {
+    "q": "che ore sono?",
+    "expect": "st-meteo-ora"
+   },
+   {
+    "q": "boh xyzzy frull",
+    "expect": "fallback"
+   },
+   {
+    "q": "gnigni blorp",
+    "expect": "fallback",
+    "new_fallback": true
+   },
+   {
+    "q": "chi sei?",
+    "expect": "st-identita"
+   },
+   {
+    "q": "chi è fabrizio salmi?",
+    "expect": "chi-sei"
+   },
+   {
+    "q": "quali progetti open source sviluppa?",
+    "expect": "panoramica-repo"
+   },
+   {
+    "q": "contatti?",
+    "expect": "contatti"
+   },
+   {
+    "q": "grazie sei stato utile",
+    "expect": "st-grazie"
+   }
+  ]
+ },
+ {
+  "name": "maratona-docker-dev",
+  "turns": [
+   {
+    "q": "come vedo i container attivi?",
+    "expect": "cmd/docker_container_list_running"
+   },
+   {
+    "q": "e anche quelli fermi?",
+    "expect": "cmd/docker_container_list_all",
+    "ctx": true
+   },
+   {
+    "q": "come entro dentro un container?",
+    "expect": "cmd/docker_container_exec"
+   },
+   {
+    "q": "come copio un file fuori dal container?",
+    "expect": "cmd/docker_container_cp"
+   },
+   {
+    "q": "docker dice port is already allocated",
+    "expect": "cmd/docker_network_port_conflict"
+   },
+   {
+    "q": "i container non si vedono per nome",
+    "expect": "cmd/docker_network_debug_dns"
+   },
+   {
+    "q": "come creo una rete bridge personalizzata?",
+    "expect": "cmd/docker_network_create"
+   },
+   {
+    "q": "permission denied sul volume, uid gid?",
+    "expect": "cmd/docker_volume_permissions"
+   },
+   {
+    "q": "come faccio il backup di un volume?",
+    "expect": "cmd/docker_volume_backup"
+   },
+   {
+    "q": "come lo ripristino dal tar?",
+    "expect": "cmd/docker_volume_restore"
+   },
+   {
+    "q": "multistage per snellire l'immagine?",
+    "expect": "cmd/docker_dockerfile_multistage"
+   },
+   {
+    "q": "hadolint cos'è?",
+    "expect": "cmd/docker_dockerfile_lint"
+   },
+   {
+    "q": "trivy per le vulnerabilità?",
+    "expect": "cmd/docker_image_scan"
+   },
+   {
+    "q": "docker bypassa ufw?!",
+    "expect": "cmd/iptables_docker"
+   },
+   {
+    "q": "porta 2375",
+    "expect": "fp/port"
+   },
+   {
+    "q": "ok e watchtower in dry run?",
+    "expect": "cmd/watchtower_dryrun"
+   },
+   {
+    "q": "cos'è docker compose?",
+    "expect": "docker-compose"
+   },
+   {
+    "q": "approfondisci",
+    "expect": "docker-compose",
+    "variant": true
+   }
+  ]
+ },
+ {
+  "name": "maratona-sicurezza-zero",
+  "turns": [
+   {
+    "q": "soluzioni sicurezza",
+    "expect": "st-hub-sicurezza"
+   },
+   {
+    "q": "da dove comincio per mettere in sicurezza un server?",
+    "expect": "st-hub-sicurezza",
+    "variant": true
+   },
+   {
+    "q": "come si fa l'hardening di un server linux appena installato?",
+    "expect": "hardening-linux"
+   },
+   {
+    "q": "e ssh?",
+    "expect": "hardening-ssh",
+    "ctx": true
+   },
+   {
+    "q": "come funzionano le chiavi ssh?",
+    "expect": "chiavi-ssh"
+   },
+   {
+    "q": "approfondisci",
+    "expect": "st-approfondisci"
+   },
+   {
+    "q": "porta 22",
+    "expect": "fp/port"
+   },
+   {
+    "q": "chmod 600 sulla chiave giusto?",
+    "expect": "fp/chmod"
+   },
+   {
+    "q": "come apro la porta 443 con ufw?",
+    "expect": "cmd/ufw_allow"
+   },
+   {
+    "q": "fail2ban come funziona?",
+    "expect": "fail2ban"
+   },
+   {
+    "q": "e il security logging?",
+    "expect": "security-logging"
+   },
+   {
+    "q": "cos'è un waf?",
+    "expect": "cos-e-un-waf"
+   },
+   {
+    "q": "approfondisci",
+    "expect": "cos-e-un-waf",
+    "variant": true
+   },
+   {
+    "q": "cosa sono i security header?",
+    "expect": "security-headers"
+   },
+   {
+    "q": "serve la regola 3-2-1?",
+    "expect": "backup-321"
+   },
+   {
+    "q": "quali certificazioni servono per la sicurezza?",
+    "expect": "iso-27001"
+   },
+   {
+    "q": "grazie, chiarissimo",
+    "expect": "st-grazie"
+   }
+  ]
+ },
+ {
+  "name": "maratona-ai-llm",
+  "turns": [
+   {
+    "q": "cos'è un llm?",
+    "expect": "cos-e-un-llm"
+   },
+   {
+    "q": "cosa sono i token e la context window?",
+    "expect": "token-context"
+   },
+   {
+    "q": "approfondisci",
+    "expect": "token-context",
+    "variant": true
+   },
+   {
+    "q": "cos'è il rag?",
+    "expect": "cos-e-rag"
+   },
+   {
+    "q": "e la sicurezza del rag?",
+    "expect": "rag-security"
+   },
+   {
+    "q": "cos'è la prompt injection?",
+    "expect": "cos-e-prompt-injection"
+   },
+   {
+    "q": "come limito un agente ai?",
+    "expect": "limitare-agente"
+   },
+   {
+    "q": "e il sandboxing?",
+    "expect": "sandboxing-agenti"
+   },
+   {
+    "q": "cos'è mcp?",
+    "expect": "cos-e-mcp"
+   },
+   {
+    "q": "la sicurezza dei tool mcp?",
+    "expect": "mcp-tool-security"
+   },
+   {
+    "q": "come faccio girare un llm in locale?",
+    "expect": "llm-in-locale"
+   },
+   {
+    "q": "quanta ram serve per un 7b?",
+    "expect": "llm-in-locale",
+    "variant": true
+   },
+   {
+    "q": "ollama porta 11434?",
+    "expect": "fp/port"
+   },
+   {
+    "q": "cos'è la quantizzazione gguf?",
+    "expect": "quantizzazione"
+   },
+   {
+    "q": "uglyfeed cos'è?",
+    "expect": "uglyfeed"
+   },
+   {
+    "q": "e llmproxy?",
+    "expect": "llm-security",
+    "ctx": true
+   },
+   {
+    "q": "un agente puo fare scoring creditizio da solo?",
+    "expect": "agenti-settori-regolamentati"
+   },
+   {
+    "q": "grazie davvero",
+    "expect": "st-grazie"
+   }
+  ]
+ },
+ {
+  "name": "maratona-reti",
+  "turns": [
+   {
+    "q": "10.0.0.130/26",
+    "expect": "fp/subnet"
+   },
+   {
+    "q": "e il nat?",
+    "expect": "nat-pat"
+   },
+   {
+    "q": "come funziona la risoluzione dns?",
+    "expect": "dns-risoluzione"
+   },
+   {
+    "q": "dig come si usa?",
+    "expect": "cmd/net_dig"
+   },
+   {
+    "q": "come svuoto la cache dns di systemd-resolved?",
+    "expect": "cmd/net_resolvectl"
+   },
+   {
+    "q": "porta 53",
+    "expect": "fp/port"
+   },
+   {
+    "q": "e il dhcp?",
+    "expect": "dhcp"
+   },
+   {
+    "q": "come metto un ip statico con netplan?",
+    "expect": "cmd/net_static_netplan"
+   },
+   {
+    "q": "quali porte sono in ascolto?",
+    "expect": "cmd/net_listening"
+   },
+   {
+    "q": "chi occupa la porta 8080?",
+    "expect": "cmd/net_port_process"
+   },
+   {
+    "q": "come testo una porta remota con nc?",
+    "expect": "cmd/net_test_port"
+   },
+   {
+    "q": "mtr per la latenza?",
+    "expect": "cmd/net_ping_mtr"
+   },
+   {
+    "q": "tcpdump come catturo?",
+    "expect": "cmd/net_tcpdump"
+   },
+   {
+    "q": "*/10 * * * *",
+    "expect": "fp/cron"
+   },
+   {
+    "q": "cron non parte, come debuggo?",
+    "expect": "cmd/cron_debug"
+   },
+   {
+    "q": "grazie!",
+    "expect": "st-grazie"
+   }
+  ]
+ },
+ {
+  "name": "maratona-caotica",
+  "turns": [
+   {
+    "q": "CIAO",
+    "expect": "st-saluto"
+   },
+   {
+    "q": "mi aiuti??",
+    "expect": "st-capacita"
+   },
+   {
+    "q": "sicurezza",
+    "expect": "st-hub-sicurezza"
+   },
+   {
+    "q": "cos'è un wafff?",
+    "expect": "cos-e-un-waf"
+   },
+   {
+    "q": "intendevo waf",
+    "expect": "firewall-vs-waf"
+   },
+   {
+    "q": "porta 443",
+    "expect": "fp/port"
+   },
+   {
+    "q": "e la 80?",
+    "expect": "fallback"
+   },
+   {
+    "q": "chmod 777 va bene?",
+    "expect": "fp/chmod"
+   },
+   {
+    "q": "no vabbè scherzavo",
+    "expect": "fallback",
+    "new_fallback": true
+   },
+   {
+    "q": "quanto fa (100-36)/8?",
+    "expect": "fp/arith"
+   },
+   {
+    "q": "criptovalute consigli?",
+    "expect": "fallback",
+    "new_fallback": true
+   },
+   {
+    "q": "asdlkj qwpoiu",
+    "expect": "fallback",
+    "new_fallback": true
+   },
+   {
+    "q": "zxmnc vbnm",
+    "expect": "fallback",
+    "new_fallback": true
+   },
+   {
+    "q": "ok torniamo seri: backup 3-2-1?",
+    "expect": "backup-321"
+   },
+   {
+    "q": "approfondisci",
+    "expect": "backup-321",
+    "variant": true
+   },
+   {
+    "q": "le porte well known quali sono?",
+    "expect": "porte-tcp-udp"
+   },
+   {
+    "q": "teraiettorie sbagliate di nuovo",
+    "expect": "fallback",
+    "new_fallback": true
+   },
+   {
+    "q": "dai ci sei quasi, cos'è zion?",
+    "expect": "zion"
+   },
+   {
+    "q": "perfetto grazie",
+    "expect": "st-grazie"
+   }
+  ]
+ }
+]

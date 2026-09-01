@@ -288,7 +288,8 @@
     "comando dentro un container",
     "aprire una shell nel container",
     "entrare dentro un container",
-    "shell dentro container"
+    "shell dentro container",
+    "entro dentro"
    ],
    "cmd": "docker exec -it <nome> sh    # o bash, se c'è",
    "note": "Shell nel container in esecuzione; per un comando secco senza shell: `docker exec <nome> <comando>`.",
@@ -306,7 +307,8 @@
     "estrarre file dal container",
     "estrarre un file dal container",
     "copiare file dal container",
-    "file dentro il container"
+    "file dentro il container",
+    "copio un file"
    ],
    "cmd": "docker cp <nome>:/path/file ./file\ndocker cp ./file <nome>:/path/",
    "note": "Funziona anche a container fermo; controlla proprietario e permessi dopo la copia.",
@@ -447,7 +449,8 @@
     "restart loop container",
     "container in loop",
     "container in restart loop",
-    "si riavvia in continuazione"
+    "si riavvia in continuazione",
+    "continua a riavviarsi"
    ],
    "cmd": "docker logs --tail 50 <nome>\ndocker inspect --format 'restarts={{.RestartCount}} exit={{.State.ExitCode}}' <nome>",
    "note": "L'errore è quasi sempre nelle prime righe di log dopo l'avvio; exit code 1 = errore applicativo, non di Docker.",
@@ -638,7 +641,8 @@
     "trivy",
     "docker scout",
     "scansione vulnerabilita immagine trivy",
-    "cve nelle immagini"
+    "cve nelle immagini",
+    "trivy per le vulnerabilita"
    ],
    "cmd": "trivy image nginx:1.27\n# oppure: docker scout cves nginx:1.27",
    "note": "Da mettere in CI, non da lanciare una volta l'anno: le CVE arrivano dopo la build.",
@@ -673,7 +677,8 @@
     "multi-stage build",
     "snellire immagine docker",
     "multi-stage per snellire",
-    "dockerfile multistage"
+    "dockerfile multistage",
+    "snellire l'immagine"
    ],
    "cmd": "FROM golang:1.23 AS build\nWORKDIR /src\nCOPY . .\nRUN go build -o app\n\nFROM gcr.io/distroless/static\nCOPY --from=build /src/app /\nENTRYPOINT [\"/app\"]",
    "note": "Compili nel primo stage, spedisci solo il binario: immagini 10-100 volte più piccole e molta meno superficie d'attacco.",
@@ -860,7 +865,8 @@
     "salvare un volume",
     "tar del volume",
     "backup di un volume docker",
-    "salvare i dati del volume"
+    "salvare i dati del volume",
+    "backup di un volume"
    ],
    "cmd": "docker run --rm -v dati-app:/data -v $(pwd):/backup alpine tar czf /backup/dati-app.tgz -C /data .",
    "note": "A servizio fermo per i database – o meglio, usa il dump nativo del db.",
@@ -876,7 +882,8 @@
     "ripristinare volume",
     "restore volume docker",
     "ripristinare il volume dal tar",
-    "restore del volume"
+    "restore del volume",
+    "ripristino dal tar"
    ],
    "cmd": "docker run --rm -v dati-app:/data -v $(pwd):/backup alpine tar xzf /backup/dati-app.tgz -C /data",
    "note": "Il volume deve esistere già (`docker volume create`); il tar viene estratto sopra il contenuto attuale.",
@@ -929,12 +936,16 @@
     "docker compose down",
     "tirare su lo stack",
     "stack compose in background",
-    "su e giu lo stack"
+    "su e giu lo stack",
+    "down cancella i volumi",
+    "compose down"
    ],
    "cmd": "docker compose up -d\ndocker compose down",
    "note": "`down` NON tocca i volumi; `down -v` li **cancella** – differenza da sapere a memoria.",
    "related": [
-    "cos-e-docker-compose"
+    "cos-e-docker-compose",
+    "docker-named-volumes-vs-bind-mounts-differenze-prestazioni",
+    "aggiornare-automaticamente-i-container"
    ]
   },
   {
@@ -1264,7 +1275,9 @@
    "cmd": "journalctl -p err -b\njournalctl -p warning --since today",
    "note": "Priorità: emerg, alert, crit, err, warning, notice, info, debug – `-p err` include anche tutto il più grave.",
    "related": [
-    "dove-sono-i-log-su-linux"
+    "dove-sono-i-log-su-linux",
+    "security-logging-fatto-bene",
+    "gestire-servizi-linux-con-systemctl"
    ]
   },
   {
@@ -1306,12 +1319,15 @@
    "keywords": [
     "dmesg",
     "messaggi del kernel",
-    "log del kernel"
+    "log del kernel",
+    "leggo dmesg"
    ],
    "cmd": "dmesg -T | tail -50    # o: journalctl -k -b",
    "note": "`-T` traduce i timestamp; qui compaiono OOM killer, errori disco e device che spariscono.",
    "related": [
-    "dove-sono-i-log-su-linux"
+    "dove-sono-i-log-su-linux",
+    "monitorare-lo-stato-dei-dischi-smart",
+    "parametri-sysctl-hardening-kernel-linux"
    ]
   },
   {
@@ -1319,7 +1335,7 @@
    "group": "dischi-filesystem",
    "q": "Come vedo quanto spazio disco resta?",
    "keywords": [
-    "df -h",
+    "df",
     "spazio disco rimasto",
     "quanto spazio ho",
     "spazio libero sul disco",
@@ -1337,8 +1353,7 @@
    "q": "Spazio libero ma \"no space left on device\": perché?",
    "keywords": [
     "no space left on device",
-    "inode esauriti",
-    "df -i"
+    "inode esauriti"
    ],
    "cmd": "df -i",
    "note": "Con `IUse%` al 100% gli inode sono finiti (milioni di file piccoli): lo spazio c'è, i \"posti\" no.",
@@ -1753,7 +1768,8 @@
    "keywords": [
     "processo mangia cpu",
     "cpu al 100 per cento",
-    "chi consuma cpu"
+    "chi consuma cpu",
+    "mangiando la cpu"
    ],
    "cmd": "ps aux --sort=-%cpu | head -10",
    "note": "Una foto secca, script-friendly; per la dinamica nel tempo resta htop.",
@@ -1999,7 +2015,8 @@
     "testare una porta",
     "nc -zv",
     "porta remota raggiungibile",
-    "telnet porta"
+    "telnet porta",
+    "porta remota"
    ],
    "cmd": "nc -zv host.example.com 443\nnc -zvu host.example.com 51820    # UDP",
    "note": "Per l'UDP il test è debole per natura (niente handshake): un timeout non prova che sia chiusa.",
@@ -2015,7 +2032,8 @@
     "mtr",
     "perdita di pacchetti",
     "latenza verso un host",
-    "traceroute moderno"
+    "traceroute moderno",
+    "mtr per la latenza"
    ],
    "cmd": "ping -c 10 host.example.com\nmtr -rwbz host.example.com    # report: rotta + perdita per hop",
    "note": "In mtr conta la perdita che PERSISTE fino all'ultimo hop: quella solo sugli hop intermedi è rate-limiting, non un guasto.",
@@ -2031,12 +2049,15 @@
     "dig",
     "interrogare il dns",
     "query dns manuale",
-    "risolvere un dominio a mano"
+    "risolvere un dominio a mano",
+    "dig come si usa"
    ],
    "cmd": "dig +short example.com\ndig MX example.com\ndig @1.1.1.1 example.com    # chiedi a un resolver preciso",
    "note": "Confrontare `@1.1.1.1` con il resolver di default è il test di propagazione più rapido che esista.",
    "related": [
-    "come-funziona-la-risoluzione-dns"
+    "come-funziona-la-risoluzione-dns",
+    "tipi-di-record-dns",
+    "diagnosticare-la-propagazione-dns"
    ]
   },
   {
@@ -2053,7 +2074,9 @@
    "cmd": "resolvectl status     # quali DNS usa ogni interfaccia\nresolvectl flush-caches",
    "note": "`resolv.conf` spesso punta a 127.0.0.53 (lo stub locale): i DNS veri li vedi solo da qui.",
    "related": [
-    "come-funziona-la-risoluzione-dns"
+    "come-funziona-la-risoluzione-dns",
+    "resolver-dns-privato-e-sicuro",
+    "cos-e-doh-dns-over-https"
    ]
   },
   {
@@ -2065,7 +2088,8 @@
     "catturare pacchetti",
     "sniffare il traffico",
     "cattura su porta",
-    "catturo il traffico"
+    "catturo il traffico",
+    "come catturo"
    ],
    "cmd": "tcpdump -i any -nn port 443 -c 100\ntcpdump -i eth0 -w cattura.pcap host 10.0.0.5",
    "note": "`-w` salva in pcap per Wireshark; `-nn` evita i DNS lookup che rallentano e sporcano la cattura.",
@@ -2115,7 +2139,8 @@
     "aprire porta ufw",
     "aprire porta solo per un ip",
     "ufw da ip specifico",
-    "apro la porta"
+    "apro la porta",
+    "con ufw"
    ],
    "cmd": "ufw allow 443/tcp\nufw allow from 192.168.1.50 to any port 5432 proto tcp",
    "note": "La forma `from ... to any port ...` è il minimo privilegio applicato al firewall: apri a CHI serve, non al mondo.",
@@ -2237,7 +2262,9 @@
    "cmd": "fail2ban-client status\nfail2ban-client status sshd",
    "note": "La jail `sshd` è quella di default; `Currently banned` sono gli IP fuori dalla porta in questo momento.",
    "related": [
-    "fail2ban-e-alternative"
+    "fail2ban-e-alternative",
+    "security-logging-fatto-bene",
+    "cos-e-un-attacco-brute-force"
    ]
   },
   {
@@ -2248,12 +2275,15 @@
     "sbannare un ip",
     "fail2ban unban",
     "mi sono bannato da solo",
-    "sbanno un ip"
+    "sbanno un ip",
+    "come mi sbanno"
    ],
    "cmd": "fail2ban-client unban 203.0.113.7\n# preventivo: ignoreip = 192.168.1.0/24 in jail.local",
    "note": "Il classico è bannarsi da soli sbagliando password: metti la tua rete in `ignoreip` PRIMA che succeda.",
    "related": [
-    "fail2ban-e-alternative"
+    "fail2ban-e-alternative",
+    "configurare-firewall-host-default-deny-nftables-ufw",
+    "mettere-in-sicurezza-ssh"
    ]
   },
   {

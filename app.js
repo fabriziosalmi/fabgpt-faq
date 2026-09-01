@@ -103,9 +103,10 @@
       const kw = norm(raw);
       if (!kw) continue;
       if (kw.includes(' ')) {
-        // Multi-word keyword: exact substring wins; otherwise every unique
-        // content word must be present (any order, typo-tolerant).
-        if (inputNorm.includes(kw)) { score += 2; continue; }
+        // Multi-word keyword: exact substring wins (but only for phrases of
+        // at least 5 chars: "up d" must not match inside "backup di");
+        // otherwise every unique content word must be present.
+        if (kw.length >= 5 && inputNorm.includes(kw)) { score += 2; continue; }
         const words = [...new Set(kw.split(' ').filter(w => w.length > 1 && !STOPWORDS.has(w)))];
         if (words.length < 2) continue;
         let total = 0, all = true;
@@ -137,6 +138,20 @@
     return seen.slice(0, CTX_CAP);
   }
 
+  function cardEntry(bc) {
+    return {
+      id: 'cmd/' + bc.id,
+      question: bc.q,
+      keywords: bc.keywords,
+      answers: ['**' + bc.q + '**\n\n```bash\n' + bc.cmd + '\n```\n' + bc.note +
+                '\n\n[Scheda completa dei comandi →](comandi/' + bc.group + '/#' + bc.id + ')'],
+      suggest: bc.related || [],
+      kind: 'command',
+      group: bc.group,
+      cardId: bc.id,
+    };
+  }
+
   function match(text) {
     const inputNorm = norm(text);
     const inputTokens = tokens(text);
@@ -161,6 +176,13 @@
           if (comb <= s2 || comb < CTX_MIN) continue;
           if (comb > scoreEntry(entry, '', extra)) { b2 = entry; s2 = comb; }
         }
+        // command cards join the contextual rescue (entries win ties)
+        for (const card of COMMANDS) {
+          if (ctxEntry.id === 'cmd/' + card.id) continue;
+          const comb = scoreEntry(card, inputNorm, combined);
+          if (comb <= s2 || comb < CTX_MIN) continue;
+          if (comb > scoreEntry(card, '', extra)) { b2 = cardEntry(card); s2 = comb; }
+        }
         if (b2 && s2 > bestScore) return b2;
       }
     }
@@ -173,17 +195,11 @@
         const s = scoreEntry(card, inputNorm, inputTokens);
         if (s > sc) { sc = s; bc = card; }
       }
-      if (bc && sc >= CMD_MIN && sc > bestScore) {
-        return {
-          id: 'cmd/' + bc.id,
-          question: bc.q,
-          answers: ['**' + bc.q + '**\n\n```bash\n' + bc.cmd + '\n```\n' + bc.note +
-                    '\n\n[Scheda completa dei comandi →](comandi/' + bc.group + '/#' + bc.id + ')'],
-          suggest: bc.related || [],
-          kind: 'command',
-          group: bc.group,
-          cardId: bc.id,
-        };
+      // a card answers when it clearly wins, OR as a rescue when the KB has
+      // nothing at all (bare tool names: hadolint, composerize...)
+      if (bc && sc > bestScore &&
+          (sc >= CMD_MIN || (sc >= 1 && bestScore < DB.config.matchThreshold))) {
+        return cardEntry(bc);
       }
     }
     if (best && bestScore >= DB.config.matchThreshold) return best;
@@ -464,16 +480,19 @@
     timer = setTimeout(tick, 140 + Math.random() * 260);
   }
 
+  const servedCount = Object.create(null);        // entry id -> times served
+
   function pickAnswer(entry) {
     const n = entry.answers.length;
     const seen = entry.id in answerCursor;          // already answered in this session
     let idx = answerCursor[entry.id] ?? 0;
     if (seen && n > 1) idx = (idx + 1) % n;         // re-asked (anywhere) -> next variant
     answerCursor[entry.id] = idx;
+    servedCount[entry.id] = (servedCount[entry.id] || 0) + 1;
     lastEntryId = entry.id;
     let text = entry.answers[idx % n];
-    // single-answer KB entry asked again: acknowledge instead of parroting
-    if (seen && n === 1 && entry.slug) {
+    // variants exhausted (or single answer): acknowledge instead of parroting
+    if (seen && servedCount[entry.id] > n && (entry.slug || entry.kind === 'command')) {
       text = "*Te l'avevo già raccontata – eccola di nuovo:*\n\n" + text;
     }
     return text;
@@ -536,7 +555,10 @@
     // a fallback must never be a dead end: offer the starter hubs to restart
     const fallbackChips = entry ? null : (DB.config.suggest || []);
     const qLabel = entry ? (entry.question || text) : text;
-    if (entry && entry.slug) { askedSlugs.add(entry.slug); ctxEntry = entry; } // thread history + context
+    if (entry && (entry.slug || entry.kind === 'command')) {
+      if (entry.slug) askedSlugs.add(entry.slug);
+      ctxEntry = entry;                             // cards carry context too
+    }
     crumbForEntry(entry);
     streamAnswer(answer, null, entry ? entry.suggest : fallbackChips, entry && entry.id, qLabel);
   }

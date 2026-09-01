@@ -101,9 +101,10 @@ def score_entry(entry, input_norm, input_tokens, explain=None):
         if not kw:
             continue
         if " " in kw:
-            # Multi-word keyword: exact substring wins; otherwise every unique
-            # content word must be present (any order, typo-tolerant).
-            if kw in input_norm:
+            # Multi-word keyword: exact substring wins (but only for phrases of
+            # at least 5 chars: "up d" must not match inside "backup di");
+            # otherwise every unique content word must be present.
+            if len(kw) >= 5 and kw in input_norm:
                 score += 2
                 if explain is not None:
                     explain.append(f"  +2.00 phrase '{kw}'")
@@ -153,6 +154,143 @@ def ctx_tokens(entry, cap=CTX_CAP):
     return seen[:cap]
 
 
+# ---------------------------------------------------------------------------
+# Fast-path ROUTING mirror of tools.js detect(): same checks, same order.
+# Answers here are signatures (kind:payload), enough for trajectory gates;
+# the real rendered answers live in tools.js and are tested by T6 (node).
+# ---------------------------------------------------------------------------
+
+def _valid_cron_field(v, lo, hi):
+    for part in v.split(","):
+        m = re.match(r"^(\*|\d+|\d+-\d+)(?:/\d+)?$", part)
+        if not m:
+            return False
+        nums = [int(n) for n in re.findall(r"\d+", part)][:2]
+        if any(n < lo or n > hi for n in nums):
+            return False
+    return True
+
+
+def _valid_cron(expr):
+    expr = re.sub(r"\s+", " ", expr.strip())
+    f = expr.split(" ")
+    if len(f) != 5:
+        return False
+    limits = [(0, 59), (0, 23), (1, 31), (1, 12), (0, 7)]
+    return all(_valid_cron_field(v, lo, hi) for v, (lo, hi) in zip(f, limits))
+
+
+def _eval_arith(expr):
+    s = expr.replace(",", ".")
+    s = re.sub(r"\s+", "", s)
+    if not s or len(s) > 80 or not re.match(r"^[\d+\-*/().%^]+$", s):
+        return None
+    pos = [0]
+
+    def expr_():
+        v = term()
+        while pos[0] < len(s) and s[pos[0]] in "+-":
+            op = s[pos[0]]; pos[0] += 1
+            r = term()
+            if r is None or v is None:
+                return None
+            v = v + r if op == "+" else v - r
+        return v
+
+    def term():
+        v = factor()
+        while pos[0] < len(s) and s[pos[0]] in "*/%":
+            op = s[pos[0]]; pos[0] += 1
+            r = factor()
+            if r is None or v is None:
+                return None
+            if op == "*":
+                v = v * r
+            elif op == "%":
+                v = v % r if r else float("inf")
+            else:
+                v = v / r if r else float("inf")
+        return v
+
+    def factor():
+        v = unary()
+        if pos[0] < len(s) and s[pos[0]] == "^":
+            pos[0] += 1
+            r = factor()
+            if r is None or v is None:
+                return None
+            v = v ** r
+        return v
+
+    def unary():
+        if pos[0] < len(s) and s[pos[0]] == "-":
+            pos[0] += 1
+            u = unary()
+            return None if u is None else -u
+        if pos[0] < len(s) and s[pos[0]] == "+":
+            pos[0] += 1
+            return unary()
+        return atom()
+
+    def atom():
+        if pos[0] < len(s) and s[pos[0]] == "(":
+            pos[0] += 1
+            v = expr_()
+            if pos[0] >= len(s) or s[pos[0]] != ")":
+                return None
+            pos[0] += 1
+            return v
+        m = re.match(r"\d+(?:\.\d+)?", s[pos[0]:])
+        if not m:
+            return None
+        pos[0] += len(m.group(0))
+        return float(m.group(0))
+
+    out = expr_()
+    if out is None or pos[0] != len(s) or out in (float("inf"), float("-inf")) or out != out:
+        return None
+    return out
+
+
+def _valid_ip(ip):
+    parts = ip.split(".")
+    return len(parts) == 4 and all(p.isdigit() and 0 <= int(p) <= 255 for p in parts)
+
+
+def fastpath(text, ports=None):
+    """Mirror of tools.js detect() ROUTING: returns (kind, signature) or None."""
+    t = str(text).strip()
+    m = re.search(r"\beyJ[A-Za-z0-9_-]{4,}\.[A-Za-z0-9_-]{4,}\.[A-Za-z0-9_-]*", t)
+    if m:
+        return ("jwt", "jwt:" + m.group(0)[:24])
+    m = re.search(r"\b(\d{1,3}(?:\.\d{1,3}){3})/(\d{1,2})\b", t)
+    if m and _valid_ip(m.group(1)) and int(m.group(2)) <= 32:
+        return ("subnet", f"subnet:{m.group(1)}/{m.group(2)}")
+    m = re.search(r"\bchmod\s+([0-7]{3,4})\b", t, re.I) or \
+        re.search(r"(?:^|\s)((?:[r-][w-][xsS-]){2}[r-][w-][xtT-])(?:\s|$)", t)
+    if m:
+        return ("chmod", "chmod:" + m.group(1))
+    m = re.search(r"(?:^|\s)((?:[\d*/,-]+\s+){4}[\d*/,-]+)(?:\s|$)", t)
+    if m and (re.search(r"\bcron", t, re.I) or re.search(r"[*/]", m.group(1))) and _valid_cron(m.group(1)):
+        return ("cron", "cron:" + re.sub(r"\s+", " ", m.group(1).strip()))
+    m = re.search(r"@(?:reboot|yearly|annually|monthly|weekly|daily|midnight|hourly)\b", t)
+    if m:
+        return ("cron", "cron:" + m.group(0))
+    m = re.match(r"^\s*(?:\S+\s+){0,2}porta\s+(\d{1,5})\s*[?!.]*\s*$", t, re.I)
+    if m and ports and m.group(1) in ports:
+        return ("port", "port:" + m.group(1))
+    m = re.search(r"\b(1[4-9]\d{8}|2[0-2]\d{8})(\d{3})?\b", t)
+    if m and (re.search(r"\b(timestamp|epoch|unix)\b", t, re.I) or t == m.group(0)):
+        return ("epoch", "epoch:" + m.group(0))
+    at = re.sub(r"^(quanto\s+fa|quant'?\s*e'?|calcola(?:mi)?|sai\s+fare|sai\s+calcolare|dimmi\s+quanto\s+fa)\s*", "", t, flags=re.I)
+    at = re.sub(r"[?=\s]+$", "", at)
+    if re.match(r"^[\d\s+\-*/().,%^]+$", at) and re.search(r"\d", at) and re.search(r"(?!^)[+*/%^]|(?!^)-", at):
+        v = _eval_arith(at)
+        if v is not None:
+            return ("arith", f"arith:{at.strip()}={v:g}")
+    return None
+
+
 CMD_MIN = 2.0         # a command card must reach this score AND strictly beat the KB
 
 
@@ -168,6 +306,7 @@ def command_entry(card):
     return {
         "id": "cmd/" + card["id"],
         "question": card["q"],
+        "keywords": card["keywords"],
         "answers": [command_md(card)],
         "suggest": card.get("related", []),
         "kind": "command",
@@ -189,7 +328,8 @@ def match(db, text, ctx=None, commands=None):
         s = score_entry(entry, input_norm, input_tokens)
         if s > best_score:
             best_score, best = s, entry
-    if ctx is not None and best_score < CTX_CONFIDENT and len(input_tokens) <= CTX_MAX_TOKENS:
+    if (ctx is not None and best_score < CTX_CONFIDENT
+            and len(input_tokens) <= CTX_MAX_TOKENS):
         extra = [t for t in ctx_tokens(ctx) if t not in input_tokens]
         if extra:
             combined = input_tokens + extra
@@ -202,6 +342,15 @@ def match(db, text, ctx=None, commands=None):
                     continue
                 if comb > score_entry(entry, "", extra):  # new input contributed
                     b2, s2 = entry, comb
+            # command cards join the contextual rescue (entries win ties)
+            for card in (commands or []):
+                if ctx.get("id") == "cmd/" + card["id"]:
+                    continue
+                comb = score_entry(card, input_norm, combined)
+                if comb <= s2 or comb < CTX_MIN:
+                    continue
+                if comb > score_entry(card, "", extra):
+                    b2, s2 = command_entry(card), comb
             if b2 is not None and s2 > best_score:
                 return b2, s2
     if commands:
@@ -210,7 +359,10 @@ def match(db, text, ctx=None, commands=None):
             s = score_entry(card, input_norm, input_tokens)
             if s > sc:
                 sc, bc = s, card
-        if bc is not None and sc >= CMD_MIN and sc > best_score:
+        # a card answers when it clearly wins, OR as a rescue when the KB
+        # has nothing at all (bare tool names: hadolint, composerize...)
+        if bc is not None and sc > best_score and (
+                sc >= CMD_MIN or (sc >= 1.0 and best_score < db["config"]["matchThreshold"])):
             return command_entry(bc), sc
     if best and best_score >= db["config"]["matchThreshold"]:
         return best, best_score

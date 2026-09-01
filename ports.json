@@ -419,6 +419,30 @@
     "esporre-servizi-senza-aprire-porte",
     "differenza-vpn-e-proxy"
    ]
+  },
+  "2375": {
+   "port": 2375,
+   "proto": "tcp",
+   "service": "Docker API (senza TLS)",
+   "desc": "L'API del daemon Docker **in chiaro e senza autenticazione**: chi la raggiunge controlla i container e, di fatto, l'host.",
+   "risk": "MAI esporla: root remoto regalato, è tra le porte più scansionate di internet. Se serve accesso remoto: 2376 con TLS reciproco, o meglio un tunnel SSH.",
+   "suggest": [
+    "cos-e-un-container-breakout",
+    "configurare-firewall-host-default-deny-nftables-ufw",
+    "instradare-container-docker-vpn-gluetun-network-mode"
+   ]
+  },
+  "2376": {
+   "port": 2376,
+   "proto": "tcp",
+   "service": "Docker API (TLS)",
+   "desc": "La variante TLS dell'API del daemon Docker: stessa potenza, ma con autenticazione a certificati reciproci.",
+   "risk": "Anche con TLS resta il controllo totale dell'host: certificati client custoditi come chiavi SSH, e accesso solo da reti di management.",
+   "suggest": [
+    "cos-e-un-container-breakout",
+    "come-gestire-i-secrets",
+    "segmentare-la-rete-con-vlan"
+   ]
   }
  }
 }

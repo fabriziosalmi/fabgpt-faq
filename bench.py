@@ -108,6 +108,8 @@ def main():
             if nk in seen:
                 problems.append(f"{e['id']}: duplicate normalized keyword '{nk}'")
             seen.add(nk)
+            if " " in nk and len(nk) < 5:
+                problems.append(f"{e['id']}: degenerate short phrase '{nk}' (substring-matches inside words)")
             ws = frozenset(w for w in nk.split() if len(w) > 1 and w not in STOPWORDS)
             if len(ws) >= 2:
                 if ws in seen_sets:

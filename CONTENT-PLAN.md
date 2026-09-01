@@ -32,6 +32,13 @@ Quality loop (autonomous iteration):
 - `python3 cmdcheck.py` – gate T7: the command-card pool (commands.json).
   C1 integrity, C2 no-steal (canonicals), C3 per-card routing, C4 battery
   fidelity. 100% required whenever commands.json or the matcher changes.
+- `python3 convcheck.py` – gate T8, il DRACONIANO delle maratone (convos.json):
+  8+ conversazioni italiane fino a 23 turni (cap rigido) che esercitano
+  l'intero cervello. M1 struttura, M2 routing 100%, M3 il bot non serve MAI
+  due volte lo stesso testo in una sessione, M4 ogni fallback diverso dal
+  precedente, M5 ogni turno KB/card offre almeno un chip non visitato,
+  M6 copertura dei layer (fast-path>=4 su >=2 kind, card>=5, smalltalk>=5,
+  hub>=1, fallback>=4, varianti>=4, turni contestuali>=4). 100% richiesto.
 
 Conversational layer: `faq.json` has a `smalltalk` array (22 intents – greetings,
 thanks, capabilities, out-of-domain tasks, emotional turns…) grounded in the

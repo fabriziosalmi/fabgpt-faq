@@ -143,14 +143,14 @@ systemctl reload ssh         # reload, NON restart
 <pre><code>fail2ban-client status
 fail2ban-client status sshd</code></pre>
 <p class="cmd-note">La jail <code>sshd</code> è quella di default; <code>Currently banned</code> sono gli IP fuori dalla porta in questo momento.</p>
-<p class="cmd-rel">Approfondisci: <a href="../../q/fail2ban-e-alternative/">Fail2ban: cos&#x27;è e quali alternative esistono?</a></p>
+<p class="cmd-rel">Approfondisci: <a href="../../q/fail2ban-e-alternative/">Fail2ban: cos&#x27;è e quali alternative esistono?</a><a href="../../q/security-logging-fatto-bene/">Come si fa security logging fatto bene?</a><a href="../../q/cos-e-un-attacco-brute-force/">Cos&#x27;è un attacco brute force (e il credential stuffing)?</a></p>
 </section>
 <section class="cmd-card" id="fail2ban_unban">
 <h2><a class="anchor" href="#fail2ban_unban">#</a> Come sbanno un IP da fail2ban?</h2>
 <pre><code>fail2ban-client unban 203.0.113.7
 # preventivo: ignoreip = 192.168.1.0/24 in jail.local</code></pre>
 <p class="cmd-note">Il classico è bannarsi da soli sbagliando password: metti la tua rete in <code>ignoreip</code> PRIMA che succeda.</p>
-<p class="cmd-rel">Approfondisci: <a href="../../q/fail2ban-e-alternative/">Fail2ban: cos&#x27;è e quali alternative esistono?</a></p>
+<p class="cmd-rel">Approfondisci: <a href="../../q/fail2ban-e-alternative/">Fail2ban: cos&#x27;è e quali alternative esistono?</a><a href="../../q/configurare-firewall-host-default-deny-nftables-ufw/">Come si imposta il firewall dell&#x27;host (tramite ufw o regole native nftables) secondo il principio di default deny su tutto il traffico?</a><a href="../../q/mettere-in-sicurezza-ssh/">Come si mette in sicurezza SSH su un server esposto?</a></p>
 </section>
 
 <a class="ask" href="../../"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-2px"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg> Chiedi in chat</a>

@@ -658,6 +658,8 @@ Chat: https://fabriziosalmi.github.io/fabgpt-faq/  ·  Indice: https://fabrizios
 - [Porta 1194 – OpenVPN](https://fabriziosalmi.github.io/fabgpt-faq/porta/1194/): La porta di default di OpenVPN. UDP per prestazioni, TCP come ripiego nei network restrittivi (spesso su 443…
 - [Porta 1433 – Microsoft SQL Server](https://fabriziosalmi.github.io/fabgpt-faq/porta/1433/): Il database di casa Microsoft in ascolto per le applicazioni.
 - [Porta 2049 – NFS](https://fabriziosalmi.github.io/fabgpt-faq/porta/2049/): La condivisione file nativa Unix/Linux, tipica tra hypervisor e NAS.
+- [Porta 2375 – Docker API (senza TLS)](https://fabriziosalmi.github.io/fabgpt-faq/porta/2375/): L'API del daemon Docker in chiaro e senza autenticazione: chi la raggiunge controlla i container e, di…
+- [Porta 2376 – Docker API (TLS)](https://fabriziosalmi.github.io/fabgpt-faq/porta/2376/): La variante TLS dell'API del daemon Docker: stessa potenza, ma con autenticazione a certificati reciproci.
 - [Porta 3306 – MySQL / MariaDB](https://fabriziosalmi.github.io/fabgpt-faq/porta/3306/): Il database più diffuso del web in ascolto per le applicazioni.
 - [Porta 3389 – RDP](https://fabriziosalmi.github.io/fabgpt-faq/porta/3389/): Il desktop remoto di Windows.
 - [Porta 5432 – PostgreSQL](https://fabriziosalmi.github.io/fabgpt-faq/porta/5432/): Il database relazionale open source di riferimento.

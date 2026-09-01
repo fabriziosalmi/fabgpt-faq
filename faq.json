@@ -425,7 +425,8 @@
         "pve",
         "hypervisor",
         "virtualizzazione",
-        "alternativa vmware"
+        "alternativa vmware",
+        "cos'è proxmox"
       ],
       "answers": [
         "**Proxmox VE** è una piattaforma di virtualizzazione open source basata su Debian che gestisce **VM (KVM/QEMU) e container LXC** dalla stessa interfaccia web, con cluster, alta disponibilità, storage ZFS/Ceph e backup integrati (con il gemello Proxmox Backup Server). Dopo la stretta sulle licenze VMware è diventata la via di fuga preferita di homelab e PMI: niente costi di licenza, tutto self-hosted.\n\nIl portfolio di Fabrizio ci ha costruito sopra un piccolo ecosistema:\n\n- **autoscaling** – [proxmox-vm-autoscale](https://github.com/fabriziosalmi/proxmox-vm-autoscale) e [proxmox-lxc-autoscale](https://github.com/fabriziosalmi/proxmox-lxc-autoscale)\n- **terminale** – [proxxx](https://github.com/fabriziosalmi/proxxx), cockpit TUI/CLI per PVE e PBS\n- **bilanciamento** – [proxmox-cluster-balancer](https://github.com/fabriziosalmi/proxmox-cluster-balancer)",
@@ -1353,7 +1354,7 @@
         "vfio",
         "scheda video vm",
         "gpu vm",
-        "vt-d",
+        "intel vt-d",
         "pci passthrough",
         "gpu"
       ],
@@ -2074,7 +2075,8 @@
         "livello 7",
         "layer 7",
         "pacchetti",
-        "porte"
+        "porte",
+        "firewall"
       ],
       "answers": [
         "Operano a livelli diversi della pila:\n\n- il **firewall di rete** ragiona su IP, porte e protocolli (L3/L4): \"la porta 443 è aperta, la 22 solo da questi IP\". Non guarda *dentro* il traffico – per lui una SQL injection su HTTPS è solo un pacchetto legittimo verso la 443.\n- il **[WAF](q/cos-e-un-waf-web-application-firewall/)** ragiona sul contenuto delle richieste HTTP (L7): riconosce injection, XSS, bot e abusi applicativi. Non sa nulla, invece, del traffico non-web.\n\nNon sono alternativi: servono **entrambi**, in fila. Il firewall chiude tutto tranne il necessario; il WAF ispeziona il necessario. Sul primo fronte bastano nftables/pf o il firewall del cloud; sul secondo ci sono [caddy-waf](https://github.com/fabriziosalmi/caddy-waf), [patterns](https://github.com/fabriziosalmi/patterns) per Nginx/Apache/Traefik/HAProxy, o [zion](https://github.com/fabriziosalmi/zion) che unisce proxy e WAF in un binario."
@@ -4158,7 +4160,9 @@
         "gate approvazione",
         "tool execution",
         "api aperte",
-        "agente concatena strumenti"
+        "agente concatena strumenti",
+        "limito un agente",
+        "come limito"
       ],
       "answers": [
         "Il principio: l'autonomia si concede **per categoria di azione**, non in blocco.\n\n- **azioni libere**: leggere, cercare, calcolare – reversibili e innocue\n- **azioni loggate**: scritture locali, modifiche in ambienti di prova – l'agente procede, tu puoi ricostruire\n- **azioni con approvazione (HITL, human-in-the-loop)**: tutto ciò che è **irreversibile o esce dal recinto** – deploy, cancellazioni, denaro, messaggi a persone vere, comandi su sistemi di produzione. L'agente prepara, l'umano firma\n\nLe regole d'ingegneria: i permessi si applicano **a livello di strumento** (un tool tipizzato che *non può* cancellare batte mille istruzioni nel prompt – [MCP](q/cos-e-mcp-model-context-protocol/) aiuta proprio qui), le richieste di approvazione devono mostrare *esattamente* cosa verrà eseguito, e il replay va impedito. Implementazione da manuale nel portfolio: il **gate HITL via Telegram di [proxxx](https://github.com/fabriziosalmi/proxxx)** – le operazioni rischiose sul cluster Proxmox aspettano un sì umano, con protezione anti-replay e [audit log firmato](q/security-logging-fatto-bene/)."
@@ -5603,7 +5607,6 @@
         "compose",
         "container docker",
         "docker-compose.yml",
-        "up -d",
         "stack docker",
         "avviare piu container"
       ],
@@ -6509,7 +6512,6 @@
         "de-googled",
         "grapheneos",
         "calyxos",
-        "e os",
         "android senza google",
         "smartphone privato",
         "lineageos",
@@ -9233,7 +9235,6 @@
         "raspberry pi",
         "sbc",
         "single board computer",
-        "pi 5",
         "rok3",
         "orange pi",
         "raspberry homelab",
@@ -10039,7 +10040,8 @@
         "fips",
         "rust",
         "reverse proxy rust",
-        "zion reverse"
+        "zion reverse",
+        "cos'è zion"
       ],
       "answers": [
         "[Zion](https://github.com/fabriziosalmi/zion) è un **reverse proxy TLS a binario singolo con WAF integrato, cache RAM ad altissima efficienza e toolkit edge, scritto in Rust**. Progettato per sostituire stack complessi con un unico eseguibile snello da pochi megabyte.\n\nInstallazione ed esecuzione:\n```bash\n# 1. Download binario precompilato o compilazione Cargo\ncargo install --git https://github.com/fabriziosalmi/zion\n\n# 2. Esecuzione reverse proxy con certificato automatico e cache attiva\nzion serve --domain app.tuodominio.it --upstream http://127.0.0.1:3000 --cache-ram 512MB --waf\n```\n\nIdeale per servire siti statici, API microservizi e dashboard interne a zero latenza con protezione DoS e rate limiting nativo a livello kernel."
@@ -14156,7 +14158,9 @@
         "che delusione",
         "non funzioni",
         "tempo perso",
-        "non mi servi"
+        "non mi servi",
+        "non funziona niente",
+        "che palle"
       ],
       "answers": [
         "Può succedere: sono un **matcher di parole chiave**, non un genio. Prova a riformulare coi termini centrali (es. *certificati*, *WAF*, *autoscaling*) – oppure, se la risposta è proprio sbagliata nel merito, segnalala su [GitHub](https://github.com/fabriziosalmi/fabgpt-faq): qui gli errori si correggono per tutti con un commit.",
@@ -14394,7 +14398,6 @@
       "keywords": [
         "quanto fa",
         "calcola",
-        "2+2",
         "risolvimi",
         "equazione",
         "derivata",
@@ -14703,7 +14706,8 @@
         "sicurezza da dove comincio"
       ],
       "answers": [
-        "**Sicurezza** è il territorio più grande del labirinto: ~250 risposte. Le porte d'ingresso migliori:\n\n- il percorso guidato [Mettere in sicurezza un server esposto](percorsi/mettere-in-sicurezza-un-server/) – 12 tappe operative in ordine di impatto\n- le basi: [hardening](q/hardening-server-linux/), [chiavi SSH](q/come-funzionano-le-chiavi-ssh/), [backup 3-2-1](q/backup-3-2-1/), [firewall default-deny](q/configurare-firewall-host-default-deny-nftables-ufw/)\n- le normative: [NIS2](q/nis2-chi-deve-adeguarsi-italia/), GDPR, AI Act\n- i tool: [check password compromessa](tools/password-compromessa/), [le porte una per una](porta/)\n\nOppure dimmi il problema concreto – \"devo esporre un servizio\", \"ho un IP bannato\", \"il certificato è scaduto\" – e parto da lì."
+        "**Sicurezza** è il territorio più grande del labirinto: ~250 risposte. Le porte d'ingresso migliori:\n\n- il percorso guidato [Mettere in sicurezza un server esposto](percorsi/mettere-in-sicurezza-un-server/) – 12 tappe operative in ordine di impatto\n- le basi: [hardening](q/hardening-server-linux/), [chiavi SSH](q/come-funzionano-le-chiavi-ssh/), [backup 3-2-1](q/backup-3-2-1/), [firewall default-deny](q/configurare-firewall-host-default-deny-nftables-ufw/)\n- le normative: [NIS2](q/nis2-chi-deve-adeguarsi-italia/), GDPR, AI Act\n- i tool: [check password compromessa](tools/password-compromessa/), [le porte una per una](porta/)\n\nOppure dimmi il problema concreto – \"devo esporre un servizio\", \"ho un IP bannato\", \"il certificato è scaduto\" – e parto da lì.",
+        "Ripartiamo dal concreto: il modo più rapido di orientarsi è il percorso [Mettere in sicurezza un server esposto](percorsi/mettere-in-sicurezza-un-server/) – dodici tappe in ordine di impatto, dal primo login al piano di disastro. Se invece hai già un fronte aperto, dimmi quale: accessi ([SSH](q/mettere-in-sicurezza-ssh/), [firewall](q/configurare-firewall-host-default-deny-nftables-ufw/)), dati ([backup](q/backup-3-2-1/), [cifratura](q/backup-cifrati-restic-borg/)), conformità ([NIS2](q/nis2-chi-deve-adeguarsi-italia/), GDPR) o applicazioni ([WAF](q/cos-e-un-waf-web-application-firewall/), [security header](q/quali-security-header-servono/))."
       ],
       "suggest": [
         "hardening-server-linux",

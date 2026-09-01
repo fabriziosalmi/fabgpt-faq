@@ -3,14 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Porta 3306 (MySQL / MariaDB): a cosa serve e come si protegge – FabGPT-FAQ</title>
-<meta name="description" content="Il database più diffuso del web in ascolto per le applicazioni.">
+<title>Porta 2376 (Docker API (TLS)): a cosa serve e come si protegge – FabGPT-FAQ</title>
+<meta name="description" content="La variante TLS dell&#x27;API del daemon Docker: stessa potenza, ma con autenticazione a certificati reciproci.">
 <meta name="robots" content="index,follow,max-image-preview:large">
-<link rel="canonical" href="https://fabriziosalmi.github.io/fabgpt-faq/porta/3306/">
+<link rel="canonical" href="https://fabriziosalmi.github.io/fabgpt-faq/porta/2376/">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Porta 3306 (MySQL / MariaDB): a cosa serve e come si protegge">
-<meta property="og:description" content="Il database più diffuso del web in ascolto per le applicazioni.">
-<meta property="og:url" content="https://fabriziosalmi.github.io/fabgpt-faq/porta/3306/">
+<meta property="og:title" content="Porta 2376 (Docker API (TLS)): a cosa serve e come si protegge">
+<meta property="og:description" content="La variante TLS dell&#x27;API del daemon Docker: stessa potenza, ma con autenticazione a certificati reciproci.">
+<meta property="og:url" content="https://fabriziosalmi.github.io/fabgpt-faq/porta/2376/">
 <meta property="og:image" content="https://fabriziosalmi.github.io/fabgpt-faq/og.svg">
 <meta property="og:site_name" content="FabGPT-FAQ">
 <meta property="og:locale" content="it_IT">
@@ -20,7 +20,7 @@
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
 <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#212121" media="(prefers-color-scheme: dark)">
-<script type="application/ld+json">[{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Porta 3306 (MySQL / MariaDB): a cosa serve e come si protegge", "inLanguage": "it", "url": "https://fabriziosalmi.github.io/fabgpt-faq/porta/3306/", "description": "Il database più diffuso del web in ascolto per le applicazioni."}, {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "FabGPT-FAQ", "item": "https://fabriziosalmi.github.io/fabgpt-faq/"}, {"@type": "ListItem", "position": 2, "name": "Porte", "item": "https://fabriziosalmi.github.io/fabgpt-faq/porta/"}, {"@type": "ListItem", "position": 3, "name": "Porta 3306", "item": "https://fabriziosalmi.github.io/fabgpt-faq/porta/3306/"}]}]</script>
+<script type="application/ld+json">[{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Porta 2376 (Docker API (TLS)): a cosa serve e come si protegge", "inLanguage": "it", "url": "https://fabriziosalmi.github.io/fabgpt-faq/porta/2376/", "description": "La variante TLS dell'API del daemon Docker: stessa potenza, ma con autenticazione a certificati reciproci."}, {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "FabGPT-FAQ", "item": "https://fabriziosalmi.github.io/fabgpt-faq/"}, {"@type": "ListItem", "position": 2, "name": "Porte", "item": "https://fabriziosalmi.github.io/fabgpt-faq/porta/"}, {"@type": "ListItem", "position": 3, "name": "Porta 2376", "item": "https://fabriziosalmi.github.io/fabgpt-faq/porta/2376/"}]}]</script>
 <style>
   .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
   .page h1 { font-size: 26px; line-height: 1.3; margin: 6px 0 10px; }
@@ -62,20 +62,20 @@
 </header>
 <div class="statbar"><nav class="statnav" aria-label="Sezioni"><a href="../../percorsi/" title="Percorsi" aria-label="Percorsi"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-2px"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg></a><a href="../../comandi/" title="Comandi" aria-label="Comandi"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-2px"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg></a><a href="../../tools/" title="Tools" aria-label="Tools"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-2px"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></a><a href="../../porta/" title="Porte" aria-label="Porte" class="on" aria-current="page"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-2px"><path d="M12 22v-5"/><path d="M9 8V2"/><path d="M15 8V2"/><path d="M18 8v5a4 4 0 0 1-4 4h-4a4 4 0 0 1-4-4V8Z"/></svg></a><a href="../../q/" title="Tutte le domande" aria-label="Tutte le domande"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-2px"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></a></nav></div>
 <main class="page">
-<nav class="crumbs" aria-label="Percorso"><a href="../../">FabGPT-FAQ</a> › <a href="../">Porte</a> › <span>Porta 3306</span></nav>
-<h1>Porta 3306/tcp – MySQL / MariaDB</h1>
+<nav class="crumbs" aria-label="Percorso"><a href="../../">FabGPT-FAQ</a> › <a href="../">Porte</a> › <span>Porta 2376</span></nav>
+<h1>Porta 2376/tcp – Docker API (TLS)</h1>
 <p class="intro">Protocollo: <b>TCP</b></p>
-<div class="answer"><p>Il database più diffuso del web in ascolto per le applicazioni.</p>
-<h2 style="font-size:17px;margin:20px 0 8px">Nota di sicurezza</h2><p>bind-address su localhost o subnet interna: l&#x27;app si collega dalla sua rete, internet no. Utenti con permessi minimi per schema, mai root applicativo.</p>
+<div class="answer"><p>La variante TLS dell&#x27;API del daemon Docker: stessa potenza, ma con autenticazione a certificati reciproci.</p>
+<h2 style="font-size:17px;margin:20px 0 8px">Nota di sicurezza</h2><p>Anche con TLS resta il controllo totale dell&#x27;host: certificati client custoditi come chiavi SSH, e accesso solo da reti di management.</p>
 <h2 style="font-size:17px;margin:20px 0 8px">Verifica al volo</h2>
 <p>È in ascolto sul tuo server?</p>
-<pre><code>ss -tlnp | grep :3306</code></pre>
+<pre><code>ss -tlnp | grep :2376</code></pre>
 <p>È raggiungibile da fuori? (dal tuo client)</p>
-<pre><code>nc -zv tuo-host 3306</code></pre>
+<pre><code>nc -zv tuo-host 2376</code></pre>
 </div>
-<div class="related"><h2>Guide correlate</h2><ul><li><a href="../../q/configurare-firewall-host-default-deny-nftables-ufw/">Come si imposta il firewall dell&#x27;host (tramite ufw o regole native nftables) secondo il principio di default deny su tutto il traffico?</a></li><li><a href="../../q/segmentare-la-rete-con-vlan/">Come si segmenta una rete con le VLAN?</a></li><li><a href="../../q/come-gestire-i-secrets/">Come si gestiscono i secrets (e perché mai in git)?</a></li></ul></div>
-<div class="crumbs" style="margin-top:24px;overflow:hidden"><a href="../2376/">← Porta 2376 (Docker API (TLS))</a><a href="../3389/" style="float:right">Porta 3389 (RDP) →</a></div>
-<a class="ask" href="../../?q=porta 3306"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-2px"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg> Chiedi in chat</a>
+<div class="related"><h2>Guide correlate</h2><ul><li><a href="../../q/cos-e-un-container-breakout/">Cos&#x27;è un container breakout (evasione verso l&#x27;host)?</a></li><li><a href="../../q/come-gestire-i-secrets/">Come si gestiscono i secrets (e perché mai in git)?</a></li><li><a href="../../q/segmentare-la-rete-con-vlan/">Come si segmenta una rete con le VLAN?</a></li></ul></div>
+<div class="crumbs" style="margin-top:24px;overflow:hidden"><a href="../2375/">← Porta 2375 (Docker API (senza TLS))</a><a href="../3306/" style="float:right">Porta 3306 (MySQL / MariaDB) →</a></div>
+<a class="ask" href="../../?q=porta 2376"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-2px"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg> Chiedi in chat</a>
 <style>
   .answer { line-height: 1.6; }
   .answer code { background: var(--code-bg); border-radius: 5px; padding: 1px 5px; font-family: ui-monospace, Menlo, monospace; font-size: .9em; }

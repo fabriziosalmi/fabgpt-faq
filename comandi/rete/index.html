@@ -143,14 +143,14 @@ mtr -rwbz host.example.com    # report: rotta + perdita per hop</code></pre>
 dig MX example.com
 dig @1.1.1.1 example.com    # chiedi a un resolver preciso</code></pre>
 <p class="cmd-note">Confrontare <code>@1.1.1.1</code> con il resolver di default è il test di propagazione più rapido che esista.</p>
-<p class="cmd-rel">Approfondisci: <a href="../../q/come-funziona-la-risoluzione-dns/">Come funziona la risoluzione DNS (dal click alla risposta)?</a></p>
+<p class="cmd-rel">Approfondisci: <a href="../../q/come-funziona-la-risoluzione-dns/">Come funziona la risoluzione DNS (dal click alla risposta)?</a><a href="../../q/tipi-di-record-dns/">Quali sono i tipi di record DNS (A, CNAME, MX, TXT)?</a><a href="../../q/diagnosticare-la-propagazione-dns/">Come si diagnostica la propagazione DNS?</a></p>
 </section>
 <section class="cmd-card" id="net_resolvectl">
 <h2><a class="anchor" href="#net_resolvectl">#</a> Come vedo e svuoto la cache DNS di systemd-resolved?</h2>
 <pre><code>resolvectl status     # quali DNS usa ogni interfaccia
 resolvectl flush-caches</code></pre>
 <p class="cmd-note"><code>resolv.conf</code> spesso punta a 127.0.0.53 (lo stub locale): i DNS veri li vedi solo da qui.</p>
-<p class="cmd-rel">Approfondisci: <a href="../../q/come-funziona-la-risoluzione-dns/">Come funziona la risoluzione DNS (dal click alla risposta)?</a></p>
+<p class="cmd-rel">Approfondisci: <a href="../../q/come-funziona-la-risoluzione-dns/">Come funziona la risoluzione DNS (dal click alla risposta)?</a><a href="../../q/resolver-dns-privato-e-sicuro/">Come si sceglie un resolver DNS privato e sicuro?</a><a href="../../q/cos-e-doh-dns-over-https/">Cosa sono DNS-over-HTTPS (DoH) e DNS-over-TLS (DoT)?</a></p>
 </section>
 <section class="cmd-card" id="net_tcpdump">
 <h2><a class="anchor" href="#net_tcpdump">#</a> Come catturo pacchetti con tcpdump?</h2>
