@@ -2794,5 +2794,13 @@
  {
   "q": "cos'è l0-git?",
   "expect": "l0-git"
+ },
+ {
+  "q": "bash",
+  "expect": "bash-scripting-base"
+ },
+ {
+  "q": "shell",
+  "expect": "bash-scripting-base"
  }
 ]

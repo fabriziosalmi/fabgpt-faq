@@ -99,6 +99,12 @@ def main():
     raw = json.dumps(db, ensure_ascii=False)
     if "—" in raw:
         problems.append("em-dash found in faq.json")
+    # homoglyph guard: Cyrillic/Greek codepoints have no business in an Italian
+    # KB and are invisible to the eye (the 2026-09-01 'seguе' incident)
+    for ch in set(raw):
+        cp = ord(ch)
+        if 0x0370 <= cp <= 0x03FF or 0x0400 <= cp <= 0x04FF:
+            problems.append(f"homoglyph U+{cp:04X} ({ch!r}) found in faq.json")
     from qa import STOPWORDS
     for e in pool(db):
         seen = set()

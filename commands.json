@@ -2489,7 +2489,8 @@
     "strict mode bash",
     "set -euo pipefail",
     "inizio dello script",
-    "boilerplate bash"
+    "boilerplate bash",
+    "script bash strict"
    ],
    "cmd": "#!/usr/bin/env bash\nset -euo pipefail\nIFS=$'\\n\\t'",
    "note": "Esce al primo errore, sulle variabili non definite e sui fallimenti in pipe: i bug urlano subito invece di corrompere in silenzio.",
@@ -2504,7 +2505,8 @@
    "keywords": [
     "debug script bash",
     "bash -x",
-    "vedere cosa esegue lo script"
+    "vedere cosa esegue lo script",
+    "debug bash"
    ],
    "cmd": "bash -x script.sh\n# o solo un tratto: set -x ... set +x",
    "note": "`-x` stampa ogni comando ESPANSO (variabili incluse): il 90% dei bug si vede lì. Il resto lo trova shellcheck.",
