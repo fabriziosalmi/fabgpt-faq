@@ -1005,5 +1005,20 @@
     "expect": "lxc-vs-vm"
    }
   ]
+ },
+ {
+  "name": "ctx-approfondisci-ssh",
+  "context": true,
+  "turns": [
+   {
+    "q": "Come si mette in sicurezza SSH su un server esposto?",
+    "expect": "hardening-ssh"
+   },
+   {
+    "q": "approfondisci",
+    "expect": "hardening-ssh",
+    "variant": true
+   }
+  ]
  }
 ]
