@@ -35,7 +35,7 @@
   @media (prefers-reduced-motion: no-preference) { .glyph { animation: glyph-in .5s ease both; } }
   @keyframes glyph-in { from { opacity: 0; } to { opacity: 1; } }
   .paths-strip { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px; margin: 4px 0 20px; }
-  .path-card { display: block; border: 1px solid var(--border); border-radius: 12px; background: var(--bg-soft); padding: 12px 14px; text-decoration: none; color: inherit; }
+  .path-card { display: block; border: 1px solid var(--border); border-radius: var(--r-md); background: var(--bg-raised); box-shadow: var(--elev); padding: 12px 14px; text-decoration: none; color: inherit; transition: border-color var(--t); }
   .path-card:hover { border-color: var(--accent); text-decoration: none; }
   .path-card b { color: var(--link); }
   .path-card p { margin: 4px 0 0; font-size: 13px; color: var(--text-dim); }
