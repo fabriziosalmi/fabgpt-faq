@@ -3034,5 +3034,81 @@
  {
   "q": "meglio un compose unico o uno per stack",
   "expect": "compose-organizzazione"
+ },
+ {
+  "q": "mi è arrivato un sms dalle poste che dice conto bloccato cosa faccio",
+  "expect": "smishing"
+ },
+ {
+  "q": "mi chiamano numeri strani dall'estero e riattaccano subito",
+  "expect": "wangiri"
+ },
+ {
+  "q": "mi hanno hackerato la mail cosa faccio",
+  "expect": "mail-hackerata"
+ },
+ {
+  "q": "mi è arrivata una mail che dice che hanno la mia password e un video",
+  "expect": "sextortion-email"
+ },
+ {
+  "q": "come capisco se un sito è affidabile prima di comprare",
+  "expect": "comprare-online"
+ },
+ {
+  "q": "vedo pubblicità di nordvpn ovunque è davvero utile",
+  "expect": "vpn-commerciali"
+ },
+ {
+  "q": "la navigazione in incognito è davvero privata",
+  "expect": "incognito"
+ },
+ {
+  "q": "l'antivirus gratis basta o devo pagare",
+  "expect": "antivirus-gratis"
+ },
+ {
+  "q": "gli aggiornamenti di windows sono davvero necessari",
+  "expect": "aggiornamenti-subito"
+ },
+ {
+  "q": "il telefono non riceve più aggiornamenti è un problema",
+  "expect": "telefono-eol"
+ },
+ {
+  "q": "come faccio a limitare youtube a mio figlio",
+  "expect": "parental-control"
+ },
+ {
+  "q": "come faccio a rendere privato il profilo instagram",
+  "expect": "instagram-privato"
+ },
+ {
+  "q": "come tolgo le mie foto da google quando cerco il mio nome",
+  "expect": "rimozione-google"
+ },
+ {
+  "q": "telecamere wifi per casa quali prendere senza farsi spiare",
+  "expect": "telecamere-casa"
+ },
+ {
+  "q": "alexa ci ascolta sempre anche quando non la chiamo",
+  "expect": "alexa-ascolta"
+ },
+ {
+  "q": "ho cancellato delle foto per sbaglio si possono recuperare",
+  "expect": "recupero-file"
+ },
+ {
+  "q": "come faccio lo spid gratis",
+  "expect": "spid-cie"
+ },
+ {
+  "q": "il pc è diventato lentissimo all'improvviso può essere un virus",
+  "expect": "pc-lento-virus"
+ },
+ {
+  "q": "come vedo se qualcuno si è attaccato al mio wifi",
+  "expect": "wifi-intrusi"
  }
 ]
