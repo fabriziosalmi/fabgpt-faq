@@ -3110,5 +3110,89 @@
  {
   "q": "come vedo se qualcuno si è attaccato al mio wifi",
   "expect": "wifi-intrusi"
+ },
+ {
+  "q": "il server non pinga da dove parto",
+  "expect": "server-non-pinga"
+ },
+ {
+  "q": "curl could not resolve host ma il ping all'ip funziona",
+  "expect": "dns-non-risolve"
+ },
+ {
+  "q": "dopo modifica a iptables mi sono tagliato fuori ho solo la console",
+  "expect": "iptables-lockout"
+ },
+ {
+  "q": "firewalld o iptables sul server ci sono tutti e due",
+  "expect": "firewalld-iptables"
+ },
+ {
+  "q": "df dice 100% ma du trova solo metà dello spazio",
+  "expect": "df-du-differenza"
+ },
+ {
+  "q": "root filesystem in read-only all'improvviso che faccio",
+  "expect": "root-readonly"
+ },
+ {
+  "q": "come allargo un lv ho aggiunto un disco nuovo",
+  "expect": "lvm-allargare"
+ },
+ {
+  "q": "fstab sbagliato e il server non fa boot sono in emergency mode",
+  "expect": "fstab-emergency"
+ },
+ {
+  "q": "mount nfs appeso ls si blocca e non riesco a smontare",
+  "expect": "nfs-appeso"
+ },
+ {
+  "q": "systemd unit failed come debuggo",
+  "expect": "systemd-unit-failed"
+ },
+ {
+  "q": "il journal ha mangiato 4 giga di disco posso pulirlo",
+  "expect": "journal-logrotate"
+ },
+ {
+  "q": "dove guardo per capire perché il server si è riavviato da solo",
+  "expect": "server-riavviato"
+ },
+ {
+  "q": "load average a 40 su 4 core ma top non mostra processi",
+  "expect": "load-average-alto"
+ },
+ {
+  "q": "oom killer ha ammazzato il db come evito che ricapiti",
+  "expect": "oom-killer"
+ },
+ {
+  "q": "dopo update il kernel nuovo non fa boot come torno al vecchio",
+  "expect": "kernel-non-boota"
+ },
+ {
+  "q": "apt si è interrotto e ora dpkg è lockato",
+  "expect": "apt-dpkg-triage"
+ },
+ {
+  "q": "permission denied su un file che ha 777 come è possibile",
+  "expect": "permission-denied-777"
+ },
+ {
+  "q": "www-data non riesce a scrivere negli upload che permessi metto",
+  "expect": "www-data-permessi"
+ },
+ {
+  "q": "cron non gira ma lo script a mano funziona perfettamente",
+  "expect": "cron-non-gira"
+ },
+ {
+  "q": "apache non parte address already in use sulla 443 ma chi la occupa",
+  "expect": "porta-occupata"
+ },
+ {
+  "q": "ssh connection refused dopo riavvio",
+  "expect": "ssh-refused"
  }
 ]

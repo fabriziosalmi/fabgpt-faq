@@ -5641,7 +5641,8 @@
         "container docker",
         "docker-compose.yml",
         "stack docker",
-        "avviare piu container"
+        "avviare piu container",
+        "gruppo docker"
       ],
       "answers": [
         "**Docker Compose** descrive un'applicazione multi-container in **un file YAML**: i servizi (app, database, proxy), le loro immagini, porte, volumi e reti – e `docker compose up -d` tira su tutto, nell'ordine giusto. È il formato in cui il mondo self-hosted **distribuisce il software**: metà dei progetti seri si installa incollando un compose ([NASO](https://github.com/fabriziosalmi/naso), [secure-proxy-manager](https://github.com/fabriziosalmi/secure-proxy-manager), [pdf-ocr](https://github.com/fabriziosalmi/pdf-ocr) inclusi).\n\nLe pratiche che distinguono lo stack sano:\n\n- **volumi nominati** per i dati (i container sono usa-e-getta, [i dati no](q/backup-3-2-1/)), reti separate per isolare ciò che non deve parlarsi\n- versioni **pinnate** delle immagini (`:1.2.3`, mai `:latest` in produzione – [supply chain](q/cos-e-la-supply-chain-security/) docet), segreti via env file [fuori da git](q/come-gestire-i-secrets/)\n- `docker compose logs -f servizio` e `docker compose pull && up -d` per aggiornare: il ciclo di vita completo in tre comandi\n\nNel mondo [Proxmox](q/cos-e-proxmox-ve/), il pattern classico: una VM o [un LXC](q/differenza-container-lxc-e-vm/) \"docker host\" con gli stack compose dentro – [gestibile anche via lws](https://github.com/fabriziosalmi/lws), che parla Proxmox e Docker con la stessa sintassi.",
@@ -9882,7 +9883,9 @@
         "local-lvm pieno",
         "thin pool",
         "100 per cento disco",
-        "spazio su disco"
+        "spazio su disco",
+        "inode",
+        "inode esauriti"
       ],
       "answers": [
         "Prima la caccia, poi la pulizia – `df -h`, `zfs list -o space` o `lvs` dicono *dove* è finito lo spazio. I colpevoli abituali, in ordine:\n\n- **snapshot dimenticati**: [snapshot](q/differenza-snapshot-e-backup/) di mesi fa che trattengono gigabyte di blocchi – `qm listsnapshot`/`pct listsnapshot` e potatura\n- **backup locali**: dump accumulati su local senza retention → sposta i backup [su PBS o storage dedicato](q/backup-automatici-verso-pbs/) con prune vero\n- **log e journal**: `journalctl --vacuum-size=200M`, log applicativi nei container\n- dischi di VM **cancellate a metà** o ISO/template mai più usati: `pvesm list <storage>` e confronto con le VM esistenti – si elimina *dal pannello*, mai con `rm` alla cieca in `/var/lib/vz`\n\nL'avvertenza seria: un **thin pool LVM o uno ZFS oltre il ~90%** non è un fastidio estetico – le scritture delle VM cominciano a fallire e [ZFS rallenta vistosamente](q/io-delay-alto-proxmox/). Se sei già al muro: prima la potatura degli snapshot (libera subito), poi `fstrim` dentro le VM con discard attivo, e [monitoraggio con soglie](q/cos-e-proxmox-backup-server/) perché la prossima volta l'allarme arrivi all'80%, non al 100%."
@@ -13429,7 +13432,9 @@
         "ip statico",
         "assegnazione ip automatica",
         "dhcp reservation",
-        "dora dhcp"
+        "dora dhcp",
+        "niente ip",
+        "dhcp non risponde"
       ],
       "answers": [
         "Il **DHCP** assegna automaticamente ai dispositivi indirizzo IP, gateway e [DNS](q/come-funziona-la-risoluzione-dns/). Il dialogo è in quattro passi (**DORA**): il client fa broadcast *Discover*, il server risponde *Offer*, il client sceglie con *Request*, il server conferma con *Ack*. L'indirizzo è un **lease** a tempo: a metà durata il client prova a rinnovarlo.\n\nLa regola pratica: PC e telefoni in DHCP; server, stampanti e NAS vogliono un indirizzo stabile. Meglio la **reservation** (IP legato al MAC, deciso sul server DHCP) dell'IP statico configurato a mano sul dispositivo: resta documentato in un posto solo e non crea conflitti.\n\nTrappola classica: due server DHCP sulla stessa rete (il router dell'operatore più il tuo) – i client pescano a caso e metà rete finisce nella [subnet](q/cos-e-il-subnetting-e-il-cidr/) sbagliata."
@@ -13551,7 +13556,8 @@
         "chmod 755",
         "chmod 777",
         "rwx",
-        "proprietario file"
+        "proprietario file",
+        "chown ricorsivo"
       ],
       "answers": [
         "Ogni file Linux ha un **proprietario**, un **gruppo** e tre terne di permessi **rwx** (lettura, scrittura, esecuzione) per proprietario, gruppo e altri. `ls -l` le mostra; in numeri r=4, w=2, x=1, quindi `755` = `rwxr-xr-x` e `644` = `rw-r--r--`.\n\nI comandi: `chmod 644 file` cambia i permessi, `chown utente:gruppo file` il proprietario, `umask` decide i default alla creazione (022 → file 644, directory 755). Sulle directory la `x` significa \"puoi entrarci\".\n\nLe regole che contano: le [chiavi SSH](q/come-funzionano-le-chiavi-ssh/) private vogliono `600` (SSH le rifiuta altrimenti), gli script eseguibili `755`, e `chmod 777` non è mai la soluzione – è il sintomo che il problema vero è [l'utente o il gruppo sbagliato](q/utenti-gruppi-e-sudo-su-linux/)."
@@ -13601,7 +13607,8 @@
         "daemon-reload",
         "systemd timer",
         "gestire servizi",
-        "servizio muore"
+        "servizio muore",
+        "restart e reload"
       ],
       "answers": [
         "systemd avvia e sorveglia i servizi Linux tramite *unit*. Il vocabolario quotidiano: `systemctl status nginx` (stato più ultime righe di log), `start`/`stop`/`restart`, `enable --now` (parte subito *e* a ogni boot), `disable`. Per vedere cosa è morto: `systemctl list-units --failed`.\n\nUn servizio tuo è un file in `/etc/systemd/system/mio.service` con tre sezioni: `[Unit]` (descrizione, dipendenze), `[Service]` (`ExecStart`, `User`, `Restart=on-failure`), `[Install]` (`WantedBy=multi-user.target`). Dopo ogni modifica: `systemctl daemon-reload`.\n\nI log dei servizi vivono nel [journal](q/dove-sono-i-log-su-linux/): `journalctl -u mio.service -f`. E per le esecuzioni pianificate i **timer** systemd con `Persistent=true` recuperano ciò che [cron](q/cron-la-sintassi-spiegata/) perde a macchina spenta."
@@ -15185,6 +15192,7 @@
       "suggest": [
         "sqlite-quando-basta",
         "redis-cache-valkey",
+        "podman-vs-docker-rootless",
         "postgresql-vs-mysql-mariadb",
         "cos-e-un-waf-web-application-firewall"
       ]
@@ -15263,8 +15271,8 @@
       "suggest": [
         "clickhouse-database-colonnare",
         "sqlite-quando-basta",
-        "recuperare-file-e-foto-cancellati",
-        "redis-cache-valkey"
+        "redis-cache-valkey",
+        "cos-e-un-waf-web-application-firewall"
       ]
     },
     {
@@ -16194,7 +16202,7 @@
       "suggest": [
         "backup-3-2-1",
         "sostituire-google-foto-immich-photoprism",
-        "podman-vs-docker-rootless"
+        "il-server-non-pinga-triage-rete"
       ]
     },
     {
@@ -16259,6 +16267,460 @@
         "perche-usare-un-password-manager",
         "segmentare-la-rete-con-vlan",
         "cosa-sono-i-router-mikrotik"
+      ]
+    },
+    {
+      "id": "server-non-pinga",
+      "slug": "il-server-non-pinga-triage-rete",
+      "question": "Il server non pinga: la scaletta di triage della rete",
+      "vertical": "tools",
+      "keywords": [
+        "non pinga",
+        "server non raggiungibile",
+        "no route to host",
+        "packet loss",
+        "non risponde al ping"
+      ],
+      "answers": [
+        "Dal basso verso l'alto, un livello alla volta: 1) **link fisico**: `ip link` – l'interfaccia è `UP` e con `LOWER_UP`? Un cavo o una porta dello switch morti si smascherano qui; 2) **indirizzo**: `ip addr` – ha l'IP che ti aspetti? 3) **rotta**: `ip route get <destinazione>` dice da che interfaccia e gateway passerebbe – `no route to host` verso la stessa subnet spesso è una **netmask sbagliata** o una voce ARP che non si popola (`ip neigh`); 4) **il gateway pinga?** Se sì ma la destinazione no, il problema è oltre (e un packet loss alto verso il gateway urla cablaggio, duplex o switch saturo – `mtr` lo mostra meglio di dieci ping); 5) **firewall**: ping bloccato non significa host morto – prova la porta vera con `nc -zv`. E ricorda il triage bidirezionale: [magari è il DNS, non la rete](q/dns-non-risolve-triage/) – pinga l'IP nudo per separare i due mondi."
+      ],
+      "suggest": [
+        "dns-non-risolve-triage",
+        "iptables-tagliato-fuori-dal-server",
+        "recuperare-file-e-foto-cancellati",
+        "firewalld-o-iptables-chi-comanda"
+      ]
+    },
+    {
+      "id": "dns-non-risolve",
+      "slug": "dns-non-risolve-triage",
+      "question": "curl non risolve ma il ping all'IP funziona: triage DNS (e resolv.conf che si sovrascrive)",
+      "vertical": "tools",
+      "keywords": [
+        "could not resolve host",
+        "resolv.conf",
+        "dns non risolve",
+        "resolv.conf si sovrascrive",
+        "systemd-resolved"
+      ],
+      "answers": [
+        "Se l'IP risponde e il nome no, è **DNS al 100%**: `resolvectl status` (o `cat /etc/resolv.conf`) dice chi dovrebbe rispondere, `dig @1.1.1.1 example.com` scavalca la configurazione e separa \"il resolver è rotto\" da \"la rete è rotta\". Il classico moderno: `resolv.conf` è un **symlink gestito da systemd-resolved** con lo stub `127.0.0.53` – e se un container o una VPN lo bypassano, i sintomi diventano creativi. L'altro grande classico: **lo modifichi a mano e al riavvio si sovrascrive** – perché non è tuo: lo riscrivono NetworkManager, il client DHCP o resolved. La correzione va fatta **nel padrone giusto**: i DNS si dichiarano nella connessione di NetworkManager (`nmcli con mod`), in netplan, o in `resolved.conf` – non nel file generato. Il lucchetto `chattr +i` su resolv.conf è la resa, non la soluzione. Per scegliere *che* DNS usare, [il discorso resolver privati è a parte](q/resolver-dns-privato-e-sicuro/)."
+      ],
+      "suggest": [
+        "resolver-dns-privato-e-sicuro",
+        "il-server-non-pinga-triage-rete",
+        "iptables-tagliato-fuori-dal-server"
+      ]
+    },
+    {
+      "id": "iptables-lockout",
+      "slug": "iptables-tagliato-fuori-dal-server",
+      "question": "Ti sei tagliato fuori dal server con iptables? Come rientrare (e non rifarlo mai più)",
+      "vertical": "tools",
+      "keywords": [
+        "tagliato fuori",
+        "lockout firewall",
+        "regola firewall sbagliata",
+        "bloccato fuori dal server"
+      ],
+      "answers": [
+        "Per rientrare adesso: serve una via **fuori banda** – la console fisica, l'IPMI/iLO, o la console web/VNC del provider (c'è quasi sempre: cerca \"console\" nel pannello). Da lì `iptables -F` toglie il chiavistello (temporaneamente! flush = tutto aperto) e ripristini con calma. Se proprio non c'è console, il reboot aiuta *solo* se le regole non erano persistenti. La vera lezione è non rifarlo: prima di ogni modifica remota al firewall, **programma il ritorno automatico** – la manovra del paracadute:\n\n```bash\nsudo sh -c 'iptables-save > /root/fw.ok; (sleep 120 && iptables-restore < /root/fw.ok) &'\n```\n\nse la nuova regola ti taglia fuori, dopo due minuti torna tutto com'era; se funziona, uccidi il processo e salvi. Gli strumenti moderni ce l'hanno di serie: `nmcli` no, ma **firewalld** ha `--timeout` sulle regole ricche – [e se sul server convivono entrambi, è un problema a parte](q/firewalld-o-iptables-chi-comanda/)."
+      ],
+      "suggest": [
+        "firewalld-o-iptables-chi-comanda",
+        "dns-non-risolve-triage",
+        "il-server-non-pinga-triage-rete"
+      ]
+    },
+    {
+      "id": "firewalld-iptables",
+      "slug": "firewalld-o-iptables-chi-comanda",
+      "question": "firewalld o iptables? Sul server ci sono tutti e due e non si capisce chi comanda",
+      "vertical": "tools",
+      "keywords": [
+        "firewalld",
+        "firewalld o iptables",
+        "nftables",
+        "chi comanda il firewall",
+        "due firewall"
+      ],
+      "answers": [
+        "La gerarchia: oggi il motore vero nel kernel è **nftables**; `iptables` è quasi sempre un *wrapper di compatibilità* che scrive regole nftables (`iptables -V` te lo dice: `nf_tables`), e **firewalld** è un gestore di livello superiore che parla a nftables per conto suo. Il guaio nasce mescolando: regole scritte a mano con `iptables` e zone di firewalld **convivono senza vedersi**, e l'ordine di valutazione produce effetti da poltergeist – la porta \"aperta\" in firewalld che resta chiusa, o viceversa. La regola d'oro: **un solo padrone**. Distribuzione RHEL/Rocky/Fedora → usa firewalld e basta (`firewall-cmd --list-all`); Debian/Ubuntu minimale → nftables nativo (`nft list ruleset`) o ufw se vuoi la semplicità. Per capire chi sta bloccando ORA: `nft list ruleset` mostra la verità del kernel, qualunque strumento l'abbia scritta. E qualunque strada scegli, [le modifiche remote si fanno col paracadute](q/iptables-tagliato-fuori-dal-server/)."
+      ],
+      "suggest": [
+        "iptables-tagliato-fuori-dal-server",
+        "df-dice-pieno-du-trova-meta",
+        "dns-non-risolve-triage"
+      ]
+    },
+    {
+      "id": "df-du-differenza",
+      "slug": "df-dice-pieno-du-trova-meta",
+      "question": "df dice disco pieno ma du trova metà dello spazio: dov'è finito?",
+      "vertical": "tools",
+      "keywords": [
+        "df e du",
+        "spazio non si libera",
+        "file cancellato spazio",
+        "deleted ma aperto",
+        "dov'è finito lo spazio",
+        "du trova metà"
+      ],
+      "answers": [
+        "Il colpevole quasi certo: **file cancellati ma ancora aperti**. `du` conta i file che vede nel filesystem; `df` conta i blocchi occupati – e un file *unlinked* ma tenuto aperto da un processo occupa spazio invisibile a `du`. Il caso da manuale: cancelli un log gigante mentre il servizio ci scrive dentro, e **lo spazio non si libera**. La prova:\n\n```bash\nsudo lsof +L1\n```\n\nelenca i file aperti con zero link: trova il processo, e un **restart (o reload) del servizio** libera i giga. La prevenzione: i log non si cancellano, si **troncano** (`truncate -s 0 file.log`) o meglio [si ruotano con logrotate](q/journal-e-logrotate-fuori-controllo/). Le altre cause della stessa scena: qualcosa montato *sopra* una cartella piena (i file sotto il mount esistono ma du non li vede: smonta e guarda), riserva root del 5% su ext4, e [gli inode esauriti – che sono l'inganno opposto](q/storage-pieno-liberare-spazio/): spazio libero ma impossibile scrivere."
+      ],
+      "suggest": [
+        "journal-e-logrotate-fuori-controllo",
+        "storage-pieno-liberare-spazio",
+        "firewalld-o-iptables-chi-comanda"
+      ]
+    },
+    {
+      "id": "root-readonly",
+      "slug": "filesystem-read-only-improvviso",
+      "question": "Root filesystem in read-only all'improvviso: che sta succedendo?",
+      "vertical": "tools",
+      "keywords": [
+        "read-only",
+        "filesystem read only",
+        "remount ro",
+        "errors=remount-ro",
+        "disco in sola lettura"
+      ],
+      "answers": [
+        "Non è un capriccio: è **una difesa**. Le opzioni di mount di ext4 includono `errors=remount-ro` – al primo errore di I/O o incoerenza del filesystem, il kernel rimonta in sola lettura per **non peggiorare il danno**. Quindi la domanda vera non è \"come torno in scrittura\" ma \"**cosa si sta rompendo**\": `dmesg | grep -iE 'error|ext4|i/o'` racconta la storia (settori illeggibili, controller che resetta, [SMART che piange](q/monitorare-lo-stato-dei-dischi-smart/)). Se è il disco che muore: **backup subito, finché legge** – è la priorità assoluta, prima di ogni riparazione. Poi la sequenza pulita: riavvia su initramfs/recovery (o live USB), `fsck -f` sulla partizione *smontata*, e osserva: un fsck che ripara e non ricapita può essere stato un incidente (blackout); se ricapita, il disco va sostituito, non perdonato. Un `mount -o remount,rw /` senza fsck è mettere lo scotch sulla spia dell'olio – [e senza backup testati](q/backup-su-nas-basta-o-serve-il-cloud/) è roulette."
+      ],
+      "suggest": [
+        "monitorare-lo-stato-dei-dischi-smart",
+        "backup-su-nas-basta-o-serve-il-cloud",
+        "df-dice-pieno-du-trova-meta"
+      ]
+    },
+    {
+      "id": "lvm-allargare",
+      "slug": "allargare-un-lv-con-un-disco-nuovo",
+      "question": "Come si allarga un volume LVM con un disco nuovo (senza perdere niente)?",
+      "vertical": "tools",
+      "keywords": [
+        "allargare un lv",
+        "lvextend",
+        "vgextend",
+        "aggiungere un disco lvm",
+        "estendere il volume",
+        "allarga un volume lvm",
+        "allargo un lv"
+      ],
+      "answers": [
+        "È la sequenza a tre piani di LVM, dal disco al filesystem:\n\n```bash\npvcreate /dev/sdb                # 1. il disco diventa Physical Volume\nvgextend vg0 /dev/sdb            # 2. lo aggiungi al Volume Group\nlvextend -r -l +100%FREE vg0/root  # 3. allarghi il LV e (-r) il filesystem\n```\n\nIl flag **`-r`** è il dettaglio che salva: ridimensiona anche il filesystem nello stesso colpo (chiama `resize2fs` per ext4 o `xfs_growfs` per XFS) – senza, il volume cresce ma `df` resta uguale ed è la confusione classica. Prima di iniziare: `lsblk` e `vgs` per capire la mappa (il disco nuovo è davvero `sdb`? il VG si chiama davvero `vg0`?), e sappi che stai facendo un **RAID-0 de facto**: più dischi in un VG senza ridondanza = se uno muore, muore tutto il volume – [la ridondanza è un'altra cosa](q/raid-e-raidz-livelli-e-scelta/). L'operazione è online e sicura in crescita; è il *restringere* che vuole riti e backup – [che hai comunque, giusto?](q/backup-3-2-1/)"
+      ],
+      "suggest": [
+        "raid-e-raidz-livelli-e-scelta",
+        "backup-3-2-1",
+        "filesystem-read-only-improvviso"
+      ]
+    },
+    {
+      "id": "fstab-emergency",
+      "slug": "fstab-sbagliato-emergency-mode",
+      "question": "fstab sbagliato e il server è in emergency mode: come se ne esce?",
+      "vertical": "tools",
+      "keywords": [
+        "fstab",
+        "emergency mode",
+        "non fa boot",
+        "fstab sbagliato",
+        "nofail"
+      ],
+      "answers": [
+        "Niente panico: l'emergency mode con la password di root **è** la via d'uscita. Il filesystem root a quel punto è montato in sola lettura, quindi prima:\n\n```bash\nmount -o remount,rw /\nnano /etc/fstab   # commenta o correggi la riga incriminata\nreboot\n```\n\nPer capire *quale* riga: `journalctl -xb` nomina il mount fallito. La prevenzione, in due mosse che valgono oro: 1) **`nofail`** nelle opzioni di ogni mount *non vitale* (dischi dati, NAS, USB) – il boot prosegue anche se quel disco non c'è, invece di fermare tutto per un disco di backup staccato; per le condivisioni di rete aggiungi `_netdev`; 2) **testa prima di riavviare**: `sudo mount -a` (o `findmnt --verify`) prova le righe di fstab *adesso*, a sistema acceso – se sbraita, hai appena evitato questo articolo. E usa gli **UUID** al posto di `/dev/sdb1`: i nomi dei dischi cambiano ordine, gli UUID no – [su NFS il discorso appeso è un'altra storia](q/mount-nfs-appeso-ls-bloccato/)."
+      ],
+      "suggest": [
+        "mount-nfs-appeso-ls-bloccato",
+        "allargare-un-lv-con-un-disco-nuovo",
+        "filesystem-read-only-improvviso"
+      ]
+    },
+    {
+      "id": "nfs-appeso",
+      "slug": "mount-nfs-appeso-ls-bloccato",
+      "question": "Mount NFS appeso: ls si blocca e non si riesce nemmeno a smontare",
+      "vertical": "tools",
+      "keywords": [
+        "nfs appeso",
+        "mount appeso",
+        "umount -l",
+        "ls si blocca",
+        "nfs non risponde",
+        "hard e soft nfs"
+      ],
+      "answers": [
+        "È il comportamento *progettato* di NFS montato `hard` (il default): se il server sparisce, ogni processo che tocca il mount finisce in **stato D** (uninterruptible sleep) ad aspettare che torni – per questo `ls` si pianta e nemmeno `kill -9` lo schioda. Per liberarti adesso:\n\n```bash\numount -f /mnt/nas    # forzato: spesso non basta\numount -l /mnt/nas    # lazy: stacca il mount dall'albero, si pulisce quando i processi mollano\n```\n\nIl lazy umount è il grimaldello che funziona quasi sempre. E d'ora in poi, monta con giudizio: **`soft,timeo=100,retrans=3`** per share di sola lettura o non critiche (dopo i tentativi, I/O error invece del limbo – attenzione: `soft` in scrittura può corrompere, lì meglio `hard,intr`), più **`_netdev,nofail`** in fstab così [un NAS spento non ti blocca il boot](q/fstab-sbagliato-emergency-mode/). Quei processi in D, tra l'altro, [gonfiano il load average senza consumare nulla](q/load-average-alto-cpu-scarica/) – ora sai perché."
+      ],
+      "suggest": [
+        "fstab-sbagliato-emergency-mode",
+        "load-average-alto-cpu-scarica",
+        "systemd-unit-failed-come-si-debugga"
+      ]
+    },
+    {
+      "id": "systemd-unit-failed",
+      "slug": "systemd-unit-failed-come-si-debugga",
+      "question": "systemd: una unit è failed (o riparte all'infinito). Come si debugga?",
+      "vertical": "tools",
+      "keywords": [
+        "systemd failed",
+        "auto-restart",
+        "activating auto restart",
+        "servizio non parte",
+        "debuggare systemd",
+        "script al boot"
+      ],
+      "answers": [
+        "La coppia che risolve l'80% dei casi:\n\n```bash\nsystemctl status nome.service   # stato, ultimo exit code, ultime righe\njournalctl -xeu nome.service    # il log completo della unit, spiegato\n```\n\nLeggi il **motivo vero**: `exit code`, `Main PID exited`, permessi, file mancanti, porta occupata. Il loop `activating (auto-restart)` è la unit con `Restart=always` che muore e riparte all'infinito: fermala con `systemctl stop`, debugga da ferma, e se serve respiro c'è `systemctl reset-failed` (azzera il contatore di StartLimit). Se il servizio parte a mano ma non da systemd, il sospetto è **l'ambiente**: PATH ridotto, working directory, variabili che nel tuo shell ci sono e nella unit no – si dichiarano nella unit (`Environment=`, `WorkingDirectory=`). Per lo script tuo da far partire al boot: una unit minima con `[Install] WantedBy=multi-user.target` e `systemctl enable --now` – [le basi dei servizi systemd](q/gestire-servizi-linux-con-systemctl/) coprono il resto, e ricorda che `restart` riavvia il processo mentre `reload` gli chiede solo di rileggere la config: il secondo non butta giù niente."
+      ],
+      "suggest": [
+        "gestire-servizi-linux-con-systemctl",
+        "mount-nfs-appeso-ls-bloccato",
+        "journal-e-logrotate-fuori-controllo"
+      ]
+    },
+    {
+      "id": "journal-logrotate",
+      "slug": "journal-e-logrotate-fuori-controllo",
+      "question": "Il journal si è mangiato 4 GB e logrotate non ruota: log fuori controllo",
+      "vertical": "tools",
+      "keywords": [
+        "journal pieno",
+        "vacuum",
+        "logrotate non ruota",
+        "log da 20gb",
+        "pulire i log",
+        "solo gli errori",
+        "journal",
+        "journal ha mangiato"
+      ],
+      "answers": [
+        "Due mondi, due cure. **Il journal di systemd**: si pulisce in sicurezza con `journalctl --vacuum-size=500M` (o `--vacuum-time=30d`), e si mette a dieta per sempre con `SystemMaxUse=500M` in `/etc/systemd/journald.conf` – niente `rm` a mano nella cartella, il vacuum mantiene gli indici coerenti. Per leggerlo senza annegare: `journalctl -p err -b` (solo errori dall'ultimo boot), `-u nome` per una unit, `-f` per seguirlo. **Logrotate**: se un log cresce a 20 GB, o nessuna regola lo copre (aggiungi un file in `/etc/logrotate.d/` con `size 100M`, `rotate 7`, `compress`) o la regola c'è ma fallisce – il debug è `logrotate -d /etc/logrotate.conf` (dry-run che spiega) e occhio al classico: l'app **tiene aperto il file ruotato** e serve `copytruncate` o il segnale di reload nel `postrotate` – [è lo stesso inganno dello spazio che non si libera](q/df-dice-pieno-du-trova-meta/). E i log che *devi* tenere per legge [vanno da un'altra parte, non sul disco che scoppia](q/conservazione-log-gdpr/)."
+      ],
+      "suggest": [
+        "df-dice-pieno-du-trova-meta",
+        "conservazione-log-gdpr",
+        "systemd-unit-failed-come-si-debugga"
+      ]
+    },
+    {
+      "id": "server-riavviato",
+      "slug": "perche-il-server-si-e-riavviato-da-solo",
+      "question": "Il server si è riavviato da solo: dove si guarda per capire perché?",
+      "vertical": "tools",
+      "keywords": [
+        "riavviato da solo",
+        "reboot inaspettato",
+        "journalctl -b -1",
+        "va a scatti",
+        "si riavvia",
+        "capire perché si è riavviato"
+      ],
+      "answers": [
+        "La prima distinzione da fare: **riavvio pulito o morte improvvisa?** `last -x | head` mostra la sequenza: uno `shutdown` prima del `reboot` = qualcuno o qualcosa l'ha chiesto (utente, [unattended-upgrades](q/apt-bloccato-e-aggiornamenti-automatici/), watchdog); un `crash` o il buco senza shutdown = alimentazione, kernel panic o hardware. Poi il log del boot *precedente*: `journalctl -b -1 -e` – le ultime righe prima del silenzio sono la scena del crimine: un OOM ([che è un'altra indagine](q/oom-killer-ha-ucciso-un-processo/)), un panic, errori disco, o... niente: il log che si interrompe di colpo è la firma di **alimentazione o hardware** (PSU, RAM – un `memtest` non è mai sprecato, e `sensors` per le temperature). Per il server che invece *va a scatti* senza riavviarsi: serve una scatola nera continua – `atop` col suo demone di registrazione, o [il monitoring fatto apposta](q/stack-di-monitoraggio-prometheus-grafana/): quando ricapita, riavvolgi il nastro invece di indovinare."
+      ],
+      "suggest": [
+        "apt-bloccato-e-aggiornamenti-automatici",
+        "oom-killer-ha-ucciso-un-processo",
+        "stack-di-monitoraggio-prometheus-grafana"
+      ]
+    },
+    {
+      "id": "load-average-alto",
+      "slug": "load-average-alto-cpu-scarica",
+      "question": "Load average altissimo ma la CPU è scarica: chi è il colpevole?",
+      "vertical": "tools",
+      "keywords": [
+        "load average",
+        "processi in stato d",
+        "swap piena",
+        "cpu scarica",
+        "swap usata"
+      ],
+      "answers": [
+        "Il malinteso è nella definizione: su Linux il load average **non conta solo la CPU** – conta i processi *runnable* più quelli in **stato D** (uninterruptible sleep), che tipicamente aspettano I/O. Load a 40 su 4 core con CPU al 5% = una folla di processi in coda **sul disco o su un mount di rete**, non un calcolo pesante. La caccia: `ps -eo state,pid,cmd | grep '^D'` elenca i bloccati; `iostat -x 1` mostra se un disco è al 100% di utilizzo (o sta morendo: [guarda anche SMART](q/monitorare-lo-stato-dei-dischi-smart/)); [un NFS appeso produce esattamente questo quadro](q/mount-nfs-appeso-ls-bloccato/). Parente stretto, stesso equivoco: **swap piena con RAM libera** non è un'emergenza – il kernel ci ha parcheggiato pagine fredde e non le richiama per principio; conta lo **swapping attivo** (`vmstat 1`, colonne si/so: se sono a zero, dormi sereno). I numeri che sembrano allarmi e non lo sono: metà del mestiere è saperli leggere."
+      ],
+      "suggest": [
+        "monitorare-lo-stato-dei-dischi-smart",
+        "mount-nfs-appeso-ls-bloccato",
+        "perche-il-server-si-e-riavviato-da-solo"
+      ]
+    },
+    {
+      "id": "oom-killer",
+      "slug": "oom-killer-ha-ucciso-un-processo",
+      "question": "L'OOM killer ha ammazzato il database: perché, e come si evita?",
+      "vertical": "tools",
+      "keywords": [
+        "oom killer",
+        "out of memory",
+        "oom-kill",
+        "ammazzato il processo",
+        "memoria esaurita",
+        "earlyoom"
+      ],
+      "answers": [
+        "Quando la memoria finisce davvero, il kernel deve scegliere chi sacrificare, e sceglie con un punteggio (`oom_score`) che premia... i processi più grossi: **il database è la vittima designata** per definizione. La conferma: `dmesg -T | grep -i oom` o `journalctl -k` raccontano chi è morto e quanto consumava. Le difese, in ordine: 1) **capisci chi mangia** – spesso non è il DB ma un vicino (backup, applicazione che perde memoria) che spinge tutti nel burrone; 2) **proteggi le vittime pregiate**: `OOMScoreAdjust=-800` nella unit systemd del DB dice al kernel \"lui no\"; 3) **limita i sospetti**: `MemoryMax=` nelle unit (o i limiti [dei container](q/cos-e-docker-compose/)) fa morire il colpevole invece dell'innocente; 4) una **swap piccola** come ammortizzatore [(swap usata non è un male)](q/load-average-alto-cpu-scarica/) e `earlyoom` per uccidere *prima* che il sistema si pianti. E se l'OOM arriva a orari regolari, [il riavvio misterioso di stanotte](q/perche-il-server-si-e-riavviato-da-solo/) ha appena trovato il suo movente."
+      ],
+      "suggest": [
+        "cos-e-docker-compose",
+        "load-average-alto-cpu-scarica",
+        "perche-il-server-si-e-riavviato-da-solo"
+      ]
+    },
+    {
+      "id": "kernel-non-boota",
+      "slug": "kernel-nuovo-non-boota-tornare-al-vecchio",
+      "question": "Dopo l'update il kernel nuovo non fa boot: come si torna al vecchio?",
+      "vertical": "tools",
+      "keywords": [
+        "kernel non boota",
+        "grub",
+        "kernel precedente",
+        "tornare al kernel vecchio",
+        "advanced options",
+        "kernel nuovo"
+      ],
+      "answers": [
+        "Il vecchio kernel **è ancora lì**: al boot, nel menu GRUB, entra in **Advanced options** e scegli la versione precedente – se il menu non appare, tieni premuto `Shift` (BIOS) o batti `Esc` (UEFI) durante l'avvio. Sistema su e funzionante: ora rendilo stabile. Su Debian/Ubuntu il default di GRUB si blocca sul kernel buono impostando `GRUB_DEFAULT` (o con `grub-set-default`) e poi `update-grub`; su RHEL/Rocky `grubby --set-default` fa lo stesso. Poi indaga il perché con calma: quasi sempre è un **modulo fuori sincrono** – il driver proprietario (NVIDIA, ZFS) che DKMS non ha ricompilato per il kernel nuovo: `dkms status` lo confessa, e la cura è reinstallare gli header e rilanciare la build. Regola igienica: **non rimuovere mai l'ultimo kernel funzionante** (i pacchetti `linux-image` vecchi si tengono finché il nuovo non ha dimostrato di reggere un boot) – è il [piano di rollback](q/apt-bloccato-e-aggiornamenti-automatici/) che non costa nulla."
+      ],
+      "suggest": [
+        "apt-bloccato-e-aggiornamenti-automatici",
+        "oom-killer-ha-ucciso-un-processo",
+        "load-average-alto-cpu-scarica"
+      ]
+    },
+    {
+      "id": "apt-dpkg-triage",
+      "slug": "apt-bloccato-e-aggiornamenti-automatici",
+      "question": "apt interrotto, dpkg lockato, unattended-upgrades che riavvia: il triage dei pacchetti",
+      "vertical": "tools",
+      "keywords": [
+        "dpkg lock",
+        "apt bloccato",
+        "dpkg interrotto",
+        "unattended-upgrades",
+        "downgrade pacchetto",
+        "configure -a"
+      ],
+      "answers": [
+        "I tre incidenti classici, in ordine di frequenza. **1) apt interrotto a metà** (Ctrl+C, ssh caduto): il rimedio che il messaggio stesso suggerisce è quasi sempre giusto – `sudo dpkg --configure -a` completa le configurazioni sospese; se il lock resta (`/var/lib/dpkg/lock-frontend`), verifica con `lsof` che nessun apt giri davvero prima di rimuoverlo. **2) unattended-upgrades che riavvia servizi in orario di ufficio**: gli aggiornamenti automatici di sicurezza sono sacrosanti – [è il *quando* che si governa](q/aggiornamenti-meglio-subito-o-aspettare/): in `/etc/apt/apt.conf.d/50unattended-upgrades` si impostano `Automatic-Reboot \"false\"` (o l'orario notturno) e la blacklist dei pacchetti delicati, e il timer si sposta con systemd. **3) il downgrade** (\"posso tornare alla versione di prima di PHP?\"): tecnicamente `apt install pacchetto=versione` se la versione è ancora nei repo, ma è terreno minato con le dipendenze – per i casi seri la strada adulta è il **pinning** preventivo delle versioni critiche e [uno snapshot prima degli update grossi](q/differenza-snapshot-e-backup/)."
+      ],
+      "suggest": [
+        "aggiornamenti-meglio-subito-o-aspettare",
+        "differenza-snapshot-e-backup",
+        "kernel-nuovo-non-boota-tornare-al-vecchio"
+      ]
+    },
+    {
+      "id": "permission-denied-777",
+      "slug": "permission-denied-anche-con-777",
+      "question": "Permission denied su un file con permessi 777: com'è possibile?",
+      "vertical": "tools",
+      "keywords": [
+        "permission denied",
+        "permessi 777",
+        "attributo immutabile",
+        "chattr",
+        "selinux",
+        "acl"
+      ],
+      "answers": [
+        "Se i [permessi classici](q/permessi-linux-chmod-chown-umask/) dicono sì ma il sistema dice no, c'è **un altro strato** che comanda. I sospetti, in ordine: 1) **attributo immutabile**: `lsattr file` – una `i` significa che nemmeno root scrive finché qualcuno non fa `chattr -i` (e qualcuno l'aveva messa per un motivo: scoprilo); 2) **SELinux/AppArmor**: su RHEL e derivate `ls -Z` mostra il contesto, e un file spostato (non copiato) in una cartella servita da un demone ha il contesto sbagliato – `restorecon -v file` lo ripara; il verdetto sta in `/var/log/audit/audit.log`; 3) **ACL**: quel `+` in fondo a `ls -l` (`-rwxrwxrwx+`) dice che le vere regole le leggi con `getfacl`; 4) la **catena delle directory**: per aprire un file serve la `x` su *ogni* cartella del percorso – il 777 sul file non salva se `/opt/app` è 700 di un altro; 5) il filesystem stesso: montato `ro` [(magari da solo, per protezione)](q/filesystem-read-only-improvviso/) o `noexec`. Il 777, intanto, resta una pessima risposta anche quando funziona."
+      ],
+      "suggest": [
+        "permessi-linux-chmod-chown-umask",
+        "filesystem-read-only-improvviso",
+        "apt-bloccato-e-aggiornamenti-automatici"
+      ]
+    },
+    {
+      "id": "www-data-permessi",
+      "slug": "permessi-giusti-per-www-data-upload",
+      "question": "www-data non scrive negli upload: quali sono i permessi giusti (senza 777)?",
+      "vertical": "tools",
+      "keywords": [
+        "www-data",
+        "permessi upload",
+        "gruppo www-data",
+        "cartella upload",
+        "setgid"
+      ],
+      "answers": [
+        "La risposta pigra è `chmod -R 777` ed è sbagliata: chiunque sul sistema (e ogni script compromesso) potrebbe scrivere ovunque. La risposta giusta sta in **proprietario e gruppo**, non nell'aprire tutto:\n\n```bash\nsudo chown -R www-data:www-data /var/www/app/uploads\nsudo chmod -R u=rwX,g=rX,o= /var/www/app/uploads\n```\n\nLa `X` maiuscola mette la `x` solo sulle directory (serve per attraversarle), non sui file. Se a scrivere sono *due* attori (il deploy con il tuo utente, il web server con www-data), il pattern pulito è il **gruppo condiviso col bit setgid**: `chgrp -R www-data uploads && chmod g+ws uploads` – ogni nuovo file eredita il gruppo, e tu e il server convivete senza 777. Verifica dal punto di vista giusto: `sudo -u www-data touch /var/www/app/uploads/test` – simula *lui*, non te. E se il touch fallisce con permessi a posto, [c'è uno strato in più che dice no](q/permission-denied-anche-con-777/) – su RHEL, SELinux vuole il contesto `httpd_sys_rw_content_t`."
+      ],
+      "suggest": [
+        "permission-denied-anche-con-777",
+        "cron-non-gira-ma-a-mano-funziona",
+        "apt-bloccato-e-aggiornamenti-automatici"
+      ]
+    },
+    {
+      "id": "cron-non-gira",
+      "slug": "cron-non-gira-ma-a-mano-funziona",
+      "question": "Il cron non gira ma lo script a mano funziona: il triangolo delle Bermuda di crontab",
+      "vertical": "tools",
+      "keywords": [
+        "cron non gira",
+        "crontab non funziona",
+        "script a mano funziona",
+        "log del cron"
+      ],
+      "answers": [
+        "Il 90% dei casi è **l'ambiente**: cron esegue con un PATH scheletrico (`/usr/bin:/bin`), senza il tuo `.bashrc`, senza le tue variabili. Lo script che a mano vola, sotto cron non trova `docker`, `node` o la variabile d'ambiente che dava per scontata. Le regole: **percorsi assoluti** per tutto (comandi e file), le variabili dichiarate nel crontab stesso o nello script, e il carattere **`%`** che in crontab va escapato (`\\%`) – il classico che tronca i comandi con `date +\\%F`. Per *vedere* cosa succede, cattura l'output che cron altrimenti disperde:\n\n```\n*/5 * * * * /opt/script.sh >> /var/log/mio-script.log 2>&1\n```\n\nE per sapere se è **partito**: `journalctl -u cron -b` (o `grep CRON /var/log/syslog`) elenca ogni esecuzione lanciata – se lì c'è e il tuo log è vuoto, muore subito d'ambiente; se non c'è nemmeno lì, [controlla la sintassi della riga](q/cron-la-sintassi-spiegata/). Ah: l'ultima riga del crontab vuole il newline finale, altrimenti viene ignorata in silenzio."
+      ],
+      "suggest": [
+        "cron-la-sintassi-spiegata",
+        "permessi-giusti-per-www-data-upload",
+        "address-already-in-use-chi-occupa-la-porta"
+      ]
+    },
+    {
+      "id": "porta-occupata",
+      "slug": "address-already-in-use-chi-occupa-la-porta",
+      "question": "\"Address already in use\" sulla 443: chi sta occupando la porta?",
+      "vertical": "tools",
+      "keywords": [
+        "address already in use",
+        "porta occupata",
+        "chi usa la porta",
+        "ss -tlnp",
+        "bind failed",
+        "occupando la porta"
+      ],
+      "answers": [
+        "Il giudice è uno:\n\n```bash\nsudo ss -tlnp | grep :443\n```\n\n`ss` mostra chi è in ascolto **con PID e nome del processo** (`-t` TCP, `-l` listening, `-n` porte numeriche, `-p` processo). Da lì decidi: è un vecchio processo zombie del tuo stesso servizio rimasto appeso dopo un crash? `systemctl stop` (o `kill` del PID) e riparti. È **un altro** web server? Il classico: Apache e nginx installati entrambi, o [Caddy](q/caddyfile-minimo-per-servizi-docker/) che con HTTPS automatico prende 80 e 443 mentre provi ad avviare nginx – lì non è un bug, è un duello: [un solo reverse proxy deve possedere le porte](q/nginx-caddy-o-traefik/), gli altri servizi gli passano dietro. Terzo sospetto: un **container Docker** con la porta pubblicata (`docker ps` la mostra nella colonna PORTS; in `ss` appare come `docker-proxy`). E se il processo è morto ma la porta risulta occupata ancora per qualche secondo, è il TIME_WAIT del TCP: passa da solo – ripartire troppo in fretta dopo un kill è impazienza, non guasto."
+      ],
+      "suggest": [
+        "caddyfile-minimo-per-servizi-docker",
+        "nginx-caddy-o-traefik",
+        "ssh-connection-refused-dopo-riavvio",
+        "cron-non-gira-ma-a-mano-funziona"
+      ]
+    },
+    {
+      "id": "ssh-refused",
+      "slug": "ssh-connection-refused-dopo-riavvio",
+      "question": "SSH connection refused dopo un riavvio: la checklist",
+      "vertical": "tools",
+      "keywords": [
+        "connection refused",
+        "ssh non risponde",
+        "ssh dopo riavvio",
+        "sshd non parte"
+      ],
+      "answers": [
+        "**Refused** è un indizio prezioso: la macchina c'è e risponde, ma su quella porta **non ascolta nessuno** (il contrario di *timeout*, che di solito è rete o firewall che scarta). Dopo un riavvio i sospetti sono tre: 1) **sshd non è partito**: dalla console (fisica, IPMI o quella del provider) `systemctl status sshd` – config rotta da un edit recente? `sshd -t` valida la sintassi e nomina la riga; il servizio era `enabled`? 2) **ascolta altrove**: `ss -tlnp | grep sshd` – una `Port` cambiata in `sshd_config` (magari [durante l'hardening](q/mettere-in-sicurezza-ssh/)) o un `ListenAddress` su un IP che dopo il riavvio non esiste più; 3) **il firewall è tornato al default**: regole non persistenti sparite o, al contrario, [il firewall ripristinato che ora blocca](q/firewalld-o-iptables-chi-comanda/). Se anche la console non ti fa entrare, il riavvio ha rivelato un problema più profondo – [il boot in emergency mode ha la sua guida](q/fstab-sbagliato-emergency-mode/). La morale per la prossima volta: mai riavviare *dopo* aver toccato sshd senza `sshd -t` prima."
+      ],
+      "suggest": [
+        "mettere-in-sicurezza-ssh",
+        "firewalld-o-iptables-chi-comanda",
+        "fstab-sbagliato-emergency-mode"
       ]
     }
   ],
