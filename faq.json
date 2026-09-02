@@ -2869,6 +2869,7 @@
       "keywords": [
         "incident response",
         "incidente",
+        "incidente di sicurezza",
         "risposta incidente",
         "siamo stati hackerati",
         "compromissione",
@@ -15111,6 +15112,7 @@
         "litestream",
         "wal mode",
         "sqlite quando usarlo",
+        "quando basta e avanza",
         "sqlite vs postgres",
         "database su file",
         "vacuum into",
