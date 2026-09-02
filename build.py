@@ -267,6 +267,13 @@ PAGE = """<!DOCTYPE html>
   .page .answer ul {{ padding-left: 22px; }}
   .page .answer code {{ background: var(--code-bg); border-radius: 5px; padding: 1px 5px; font-size: 0.9em; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }}
   .qa-actions {{ display: flex; align-items: center; gap: 12px; margin-top: 24px; flex-wrap: wrap; }}
+  .sol-box {{ display: block; margin-top: 22px; padding: 14px 16px; border: 1px solid var(--border); border-left: 3px solid var(--accent); border-radius: var(--r-md); background: var(--bg-raised); box-shadow: var(--elev); }}
+  .sol-kicker {{ display: block; font-size: 11.5px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--accent); margin-bottom: 6px; }}
+  .sol-box p {{ margin: 2px 0 10px; font-size: 14px; color: var(--text-dim); }}
+  .sol-box strong {{ font-size: 15px; }}
+  .sol-links {{ display: flex; gap: 16px; flex-wrap: wrap; }}
+  .sol-links a {{ color: var(--link); text-decoration: none; font-weight: 600; font-size: 13.5px; }}
+  .sol-links a:hover {{ text-decoration: underline; }}
   .copy-qa-btn {{ display: inline-flex; align-items: center; gap: 6px; background: var(--bg-soft); color: var(--text-dim); border: 1px solid var(--border); border-radius: 6px; padding: 6px 12px; font-size: 13px; font-family: inherit; font-weight: 500; cursor: pointer; transition: all .15s ease; }}
   .copy-qa-btn:hover {{ background: var(--border); color: var(--text); }}
   .copy-qa-btn.copied {{ background: rgba(16, 163, 127, 0.15); color: var(--accent); border-color: var(--accent); }}
@@ -311,6 +318,7 @@ PAGE = """<!DOCTYPE html>
       </button>
       <a class="ask" href="{base}?q={id}">{ic_chat} Apri nella chat interattiva</a>
     </div>
+    {solution}
     {page_nav}
     <section class="ask-box">
       <div class="ask-box-header">
@@ -1117,6 +1125,7 @@ def build_ports(db, entries, site) -> list:
         return []
     ports = json.loads(pfile.read_text(encoding="utf-8"))["ports"]
     by_slug = {e["slug"]: e for e in entries}
+    by_id_entry = {e["id"]: e for e in entries}
     for p in ports.values():
         for s in p["suggest"]:
             assert s in by_slug, f"ports.json: unknown slug {s}"
@@ -1359,6 +1368,7 @@ def build_commands(db, entries, site) -> list:
     data = json.loads(cfile.read_text(encoding="utf-8"))
     groups, cards = data["groups"], data["cards"]
     by_slug = {e["slug"]: e for e in entries}
+    by_id_entry = {e["id"]: e for e in entries}
     urls = [f"{site}/comandi/"]
     for g in groups:
         gcards = [c for c in cards if c["group"] == g["slug"]]
@@ -1551,6 +1561,37 @@ def stamp_assets() -> str:
     return "/".join(ver[n] for n in ("style.css", "app.js", "tools.js"))
 
 
+REPO_LINK = re.compile(r"github\.com/fabriziosalmi/([A-Za-z0-9_.-]+)")
+
+
+def solution_box(e, answer_md: str, by_id: dict) -> str:
+    """Refined funnel card: when the answer links one of Fabrizio's repos,
+    promote it to a small 'ready-made solution' card below the answer.
+    Skipped on the repo's own portfolio page (it would be self-referential)."""
+    for repo in REPO_LINK.findall(answer_md):
+        repo = repo.removesuffix(".git").rstrip(".")
+        if repo == e["id"]:
+            continue
+        pe = by_id.get(repo)
+        gh = f"https://github.com/fabriziosalmi/{repo}"
+        if pe is not None:
+            desc = html.escape(pe["question"])
+            scheda = f'<a href="../{pe["slug"]}/">La scheda completa →</a>'
+        else:
+            desc = "Progetto open source di Fabrizio Salmi, citato in questa risposta."
+            scheda = ""
+        return (
+            '<aside class="sol-box">'
+            '<span class="sol-kicker">La soluzione pronta</span>'
+            f"<strong>{html.escape(repo)}</strong>"
+            f"<p>{desc}</p>"
+            f'<div class="sol-links">{scheda}'
+            f'<a href="{gh}" target="_blank" rel="noopener">GitHub ↗</a></div>'
+            "</aside>"
+        )
+    return ""
+
+
 def build() -> None:
     db = json.loads((ROOT / "faq.json").read_text(encoding="utf-8"))
     site = db["config"]["siteUrl"].rstrip("/")
@@ -1569,6 +1610,7 @@ def build() -> None:
 
     # --- one page per question ---
     by_slug = {e["slug"]: e for e in entries}
+    by_id_entry = {e["id"]: e for e in entries}
     for e in entries:
         answer_md = e["answers"][0]
         words = len(md_to_plain(answer_md).split())
@@ -1709,6 +1751,7 @@ def build() -> None:
             question=html.escape(e["question"]),
             answer=render_md(answer_md).replace('href="q/', 'href="../') + figure,
             id=e["id"],
+            solution=solution_box(e, answer_md, by_id_entry),
             page_nav=page_nav,
             related=related,
         )

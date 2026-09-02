@@ -22,6 +22,9 @@
   let lastEntryId = null;
   let bySlug = null;                         // slug -> entry (built at boot)
   const askedSlugs = new Set();              // thread history: entries already asked
+  let vertStreak = { v: null, n: 0 };        // consecutive KB answers in one vertical
+  const offeredPaths = new Set();            // percorso invites already shown this session
+  let PATHS = null;                          // lazy: paths.json, each with dominant vertical
 
   /* ---------- text normalization & fuzzy matching ---------- */
 
@@ -418,7 +421,39 @@
       wrap.appendChild(chip);
     }
     contentEl.appendChild(wrap);
+    maybeOfferPath(wrap);
     scrollToBottom(false);
+  }
+
+  // After 3 answers in the same vertical, offer the matching guided path once
+  // per session: a refined nudge from browsing to a structured journey.
+  async function maybeOfferPath(wrap) {
+    if (vertStreak.n < 3 || !vertStreak.v) return;
+    if (!PATHS) {
+      try {
+        const raw = (await (await fetch('paths.json', { cache: 'no-cache' })).json()).paths;
+        const byId = {};
+        for (const e of DB.entries) byId[e.id] = e;
+        for (const pt of raw) {
+          const counts = {};
+          for (const st of pt.steps) {
+            const en = byId[st.entry];
+            if (en && en.vertical) counts[en.vertical] = (counts[en.vertical] || 0) + 1;
+          }
+          pt.vert = (Object.entries(counts).sort((a, b) => b[1] - a[1])[0] || [null])[0];
+        }
+        PATHS = raw;
+      } catch (_) { PATHS = []; }
+    }
+    if (!wrap.isConnected) return;
+    const p = PATHS.find(x => x.vert === vertStreak.v && !offeredPaths.has(x.slug));
+    if (!p) return;
+    offeredPaths.add(p.slug);
+    const a = document.createElement('a');
+    a.className = 'chip chip-path';
+    a.href = 'percorsi/' + p.slug + '/';
+    a.textContent = 'Percorso guidato: ' + p.title + ' (' + p.steps.length + ' tappe) →';
+    wrap.appendChild(a);
   }
 
   // Type `text` into a fresh bot row, re-rendering partial markdown each tick.
@@ -674,6 +709,14 @@
       ctxEntry = entry;                             // cards and ground carry context too
     }
     crumbForEntry(entry);
+    // retention: track how long the user stays inside one vertical
+    if (entry && entry.vertical) {
+      vertStreak = (vertStreak.v === entry.vertical)
+        ? { v: entry.vertical, n: vertStreak.n + 1 }
+        : { v: entry.vertical, n: 1 };
+    } else if (!entry) {
+      vertStreak = { v: null, n: 0 };
+    }
     // a ground answer with no suggestions of its own bridges back to the hubs
     const chips = entry
       ? ((entry.suggest && entry.suggest.length) ? entry.suggest
