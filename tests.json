@@ -2930,5 +2930,69 @@
  {
   "q": "podman",
   "expect": "podman"
+ },
+ {
+  "q": "nis2 scadenze cosa devo fare entro quando",
+  "expect": "nis2-scadenze-acn"
+ },
+ {
+  "q": "il responsabile nis2 può essere l'it manager o serve altro",
+  "expect": "nis2-responsabile"
+ },
+ {
+  "q": "assicurazione cyber per pmi conviene e cosa copre",
+  "expect": "assicurazione-cyber"
+ },
+ {
+  "q": "truffa del ceo bonifico falso come proteggersi",
+  "expect": "truffa-del-ceo"
+ },
+ {
+  "q": "ci hanno cambiato l'iban su una fattura via mail come tutelarsi",
+  "expect": "frode-iban"
+ },
+ {
+  "q": "la pec può essere hackerata ci fidiamo per le fatture",
+  "expect": "pec-sicurezza"
+ },
+ {
+  "q": "dipendenti in smart working col pc personale che rischi corro",
+  "expect": "byod"
+ },
+ {
+  "q": "posso controllare cosa fanno i dipendenti sul pc aziendale privacy",
+  "expect": "controllo-dipendenti"
+ },
+ {
+  "q": "quanto costa un dpo esterno all'anno",
+  "expect": "dpo-esterno"
+ },
+ {
+  "q": "sanzioni gdpr per piccole aziende esempi reali italia",
+  "expect": "sanzioni-gdpr-pmi"
+ },
+ {
+  "q": "questionario sicurezza fornitori modello per pmi",
+  "expect": "questionario-fornitori"
+ },
+ {
+  "q": "devo denunciare un attacco informatico alla polizia postale conviene",
+  "expect": "polizia-csirt"
+ },
+ {
+  "q": "backup su nas basta o serve anche cloud",
+  "expect": "backup-nas-cloud"
+ },
+ {
+  "q": "meglio spendere in formazione o in tecnologia con un budget piccolo",
+  "expect": "budget-sicurezza-pmi"
+ },
+ {
+  "q": "la formazione sicurezza è obbligatoria per legge per i dipendenti",
+  "expect": "formazione-obbligatoria"
+ },
+ {
+  "q": "i dipendenti si scambiano le password dei gestionali come lo fermo",
+  "expect": "password-condivise"
  }
 ]

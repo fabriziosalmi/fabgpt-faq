@@ -2,7 +2,7 @@
   "config": {
     "botName": "FabGPT-FAQ",
     "siteUrl": "https://fabriziosalmi.github.io/fabgpt-faq",
-    "welcome": "**{n} risposte tecniche verificate** su Cybersecurity, AI & LLM, Proxmox e Cloudflare. Zero allucinazioni, architetture e comandi operativi.",
+    "welcome": "**{n} risposte tecniche verificate** su Cybersecurity, AI & LLM, Proxmox e Cloudflare.",
     "placeholder": "Chiedimi qualcosa…",
     "placeholders": [
       "Chiedimi qualcosa…",
@@ -134,7 +134,8 @@
       "suggest": [
         "cos-e-un-reverse-proxy",
         "come-funziona-lets-encrypt-acme",
-        "certificato-tls-scaduto-cosa-fare"
+        "certificato-tls-scaduto-cosa-fare",
+        "cosa-prevede-ai-act"
       ]
     },
     {
@@ -157,7 +158,8 @@
       "suggest": [
         "cos-e-un-waf-web-application-firewall",
         "come-funziona-lets-encrypt-acme",
-        "certificato-tls-scaduto-cosa-fare"
+        "certificato-tls-scaduto-cosa-fare",
+        "cosa-prevede-ai-act"
       ]
     },
     {
@@ -185,7 +187,8 @@
       "suggest": [
         "cos-e-certmate-gestione-certificati-tls",
         "cos-e-un-reverse-proxy",
-        "certificato-tls-scaduto-cosa-fare"
+        "certificato-tls-scaduto-cosa-fare",
+        "cos-e-un-waf-web-application-firewall"
       ]
     },
     {
@@ -210,7 +213,8 @@
       "suggest": [
         "come-funziona-lets-encrypt-acme",
         "cos-e-un-siem-e-un-soar",
-        "cos-e-un-reverse-proxy"
+        "cos-e-un-reverse-proxy",
+        "cos-e-un-waf-web-application-firewall"
       ]
     },
     {
@@ -233,7 +237,8 @@
       "suggest": [
         "certificato-tls-scaduto-cosa-fare",
         "nis2-chi-deve-adeguarsi-italia",
-        "come-funziona-lets-encrypt-acme"
+        "come-funziona-lets-encrypt-acme",
+        "cos-e-un-waf-web-application-firewall"
       ]
     },
     {
@@ -251,7 +256,8 @@
         "perimetro",
         "decreto",
         "recepimento",
-        "cybersicurezza aziende"
+        "cybersicurezza aziende",
+        "rientra nella nis2"
       ],
       "answers": [
         "La **direttiva NIS2** (EU 2022/2555, recepita in Italia dal **D.lgs. 138/2024**) impone obblighi di gestione del rischio cyber e di notifica degli incidenti a una platea molto più ampia della vecchia NIS: energia, trasporti, sanità, digitale, ma anche fornitori e PMI sopra certe soglie, divisi in **soggetti essenziali** e **soggetti importanti** registrati presso l'ACN. Le sanzioni arrivano a **10 milioni di euro o al 2% del fatturato mondiale**, e c'è la responsabilità diretta degli organi di gestione.\n\nIl punto dolente: la conformità non è un documento, è una **postura continua**. Due strumenti open source a tema:\n\n- [nis2-public](https://github.com/fabriziosalmi/nis2-public) – piattaforma di posture management continuo: governance Art. 21, incidenti Art. 23, fornitori Art. 18, playbook di remediation\n- [rainlogs](https://github.com/fabriziosalmi/rainlogs) – conservazione dei log Cloudflare a prova di manomissione, su storage europeo"
@@ -259,7 +265,8 @@
       "suggest": [
         "cos-e-un-siem-e-un-soar",
         "cos-e-la-supply-chain-security",
-        "certificato-tls-scaduto-cosa-fare"
+        "certificato-tls-scaduto-cosa-fare",
+        "cos-e-un-waf-web-application-firewall"
       ]
     },
     {
@@ -288,7 +295,8 @@
       "suggest": [
         "nis2-chi-deve-adeguarsi-italia",
         "cos-e-un-siem-e-un-soar",
-        "certificato-tls-scaduto-cosa-fare"
+        "certificato-tls-scaduto-cosa-fare",
+        "cos-e-un-waf-web-application-firewall"
       ]
     },
     {
@@ -683,7 +691,8 @@
         "totp",
         "authenticator",
         "fido2",
-        "mfa dipendenti"
+        "mfa dipendenti",
+        "mfa via sms"
       ],
       "answers": [
         "L'**MFA** aggiunge alla password un secondo fattore di natura diversa: qualcosa che **hai** (telefono, chiave hardware) o che **sei** (impronta). Così una password rubata, da sola, non basta – e le password rubate sono il vettore d'ingresso numero uno.\n\nNon tutti i fattori valgono uguale: gli **SMS** sono il minimo sindacale (vulnerabili al SIM swapping), i codici **TOTP** delle app authenticator sono buoni, le **passkey/FIDO2** sono lo stato dell'arte perché resistono anche al phishing: il browser firma una challenge legata al dominio vero, e su un sito clone semplicemente non funzionano. Regola pratica: MFA ovunque sia disponibile, passkey dove possibile, e un password manager per tutto il resto.",
@@ -1871,7 +1880,10 @@
         "cryptolocker",
         "lockbit",
         "doppia estorsione",
-        "pagare il riscatto"
+        "pagare il riscatto",
+        "server criptati",
+        "costo di un attacco ransomware",
+        "criptato"
       ],
       "answers": [
         "Un **ransomware** cifra i tuoi dati e chiede un riscatto per la chiave; le gang moderne fanno **doppia estorsione** – prima esfiltrano, poi cifrano, così pagare non chiude comunque la partita. L'ingresso tipico: phishing, RDP esposto, VPN senza patch, o una [supply chain compromessa](q/cos-e-la-supply-chain-security/).\n\nLa preparazione vale più della reazione:\n\n- **backup [3-2-1](q/backup-3-2-1/)** con almeno una copia offline o immutabile – su Proxmox, [PBS](q/cos-e-proxmox-backup-server/) con retention e verify\n- patch veloci sul perimetro, [MFA](q/cos-e-autenticazione-due-fattori-mfa/) ovunque, [minimo privilegio](q/principio-del-minimo-privilegio/) e segmentazione per limitare il movimento laterale\n- log centralizzati per accorgersene presto ([Wildbox](https://github.com/fabriziosalmi/wildbox))\n\nPagare? Sconsigliato da tutte le autorità: finanzia il prossimo attacco e la chiave non è garantita."
@@ -9965,7 +9977,8 @@
       "suggest": [
         "come-aggiungere-un-waf-a-caddy",
         "bloccare-bad-bot-nginx-apache-traefik-haproxy",
-        "cos-e-wildbox-siem-soar-open-source"
+        "cos-e-wildbox-siem-soar-open-source",
+        "cos-e-un-waf-web-application-firewall"
       ]
     },
     {
@@ -9987,7 +10000,8 @@
       "suggest": [
         "caddy-feeds-blacklist-aggiornate",
         "cos-e-certmate-gestione-certificati-tls",
-        "bloccare-bad-bot-nginx-apache-traefik-haproxy"
+        "bloccare-bad-bot-nginx-apache-traefik-haproxy",
+        "cos-e-un-waf-web-application-firewall"
       ]
     },
     {
@@ -10021,7 +10035,8 @@
       "suggest": [
         "come-aggiungere-un-waf-a-caddy",
         "cos-e-wildbox-siem-soar-open-source",
-        "cos-e-certmate-gestione-certificati-tls"
+        "cos-e-certmate-gestione-certificati-tls",
+        "cos-e-un-waf-web-application-firewall"
       ]
     },
     {
@@ -10044,7 +10059,8 @@
       "suggest": [
         "bloccare-bad-bot-nginx-apache-traefik-haproxy",
         "cos-e-zion-reverse-proxy-rust",
-        "come-aggiungere-un-waf-a-caddy"
+        "come-aggiungere-un-waf-a-caddy",
+        "cos-e-un-waf-web-application-firewall"
       ]
     },
     {
@@ -10076,7 +10092,8 @@
       "suggest": [
         "cos-e-wildbox-siem-soar-open-source",
         "reverse-proxy-con-waf-integrato",
-        "bloccare-bad-bot-nginx-apache-traefik-haproxy"
+        "bloccare-bad-bot-nginx-apache-traefik-haproxy",
+        "cos-e-un-waf-web-application-firewall"
       ]
     },
     {
@@ -10097,7 +10114,8 @@
       "suggest": [
         "cos-e-zion-reverse-proxy-rust",
         "come-bloccare-domini-malevoli",
-        "cos-e-wildbox-siem-soar-open-source"
+        "cos-e-wildbox-siem-soar-open-source",
+        "cos-e-un-waf-web-application-firewall"
       ]
     },
     {
@@ -10129,7 +10147,8 @@
       "suggest": [
         "reverse-proxy-con-waf-integrato",
         "cos-e-agssh-hardening-siti-statici",
-        "cos-e-zion-reverse-proxy-rust"
+        "cos-e-zion-reverse-proxy-rust",
+        "cos-e-un-waf-web-application-firewall"
       ]
     },
     {
@@ -10160,7 +10179,8 @@
       "suggest": [
         "come-bloccare-domini-malevoli",
         "come-si-monitora-la-conformita-nis2",
-        "reverse-proxy-con-waf-integrato"
+        "reverse-proxy-con-waf-integrato",
+        "cos-e-un-waf-web-application-firewall"
       ]
     },
     {
@@ -10189,7 +10209,8 @@
       "suggest": [
         "cos-e-agssh-hardening-siti-statici",
         "monitorare-siti-web-con-github-actions",
-        "come-bloccare-domini-malevoli"
+        "come-bloccare-domini-malevoli",
+        "cos-e-un-waf-web-application-firewall"
       ]
     },
     {
@@ -10215,7 +10236,8 @@
       "suggest": [
         "come-si-monitora-la-conformita-nis2",
         "cos-e-agssh-hardening-siti-statici",
-        "come-bloccare-domini-malevoli"
+        "come-bloccare-domini-malevoli",
+        "cos-e-un-waf-web-application-firewall"
       ]
     },
     {
@@ -12742,7 +12764,8 @@
         "configura il network egress control per impedire",
         "network egress control impedire agente compromesso",
         "network egress control per isolare un agente",
-        "bloccare chiamate endpoint interni agente ai"
+        "bloccare chiamate endpoint interni agente ai",
+        "network egress"
       ],
       "answers": [
         "Gli agenti dotati di tool di rete (interpreti Python, scraper, client API) devono operare all'interno di un perimetro di rete rigidamente confinato. La configurazione di Network Egress prevede: policy firewall host (nftables/iptables) o NetworkPolicy Kubernetes con regola di default deny; blocco esplicito di tutti i range IP privati RFC 1918 (10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16) e dell'indirizzo di metadata cloud (169.254.169.254); instradamento del traffico consentito tramite un forward proxy trasparente con autenticazione mTLS, ispezione Layer 7 e blocco dei domini non in allowlist tramite [caddy-waf](q/come-aggiungere-un-waf-a-caddy/). In questo modo, anche se l'agente subisce un prompt injection, non può scansionare la intranet aziendale né raggiungere server C2."
@@ -13884,8 +13907,8 @@
       "suggest": [
         "permessi-linux-chmod-chown-umask",
         "backup-cifrati-restic-borg",
-        "dpa-data-processing-agreement",
-        "registro-dei-trattamenti"
+        "registro-dei-trattamenti",
+        "far-girare-un-llm-in-locale"
       ]
     },
     {
@@ -14249,8 +14272,8 @@
       "suggest": [
         "come-aggiungere-un-waf-a-caddy",
         "bloccare-bad-bot-nginx-apache-traefik-haproxy",
-        "nis2-model-compliance-assistant",
-        "cos-e-un-waf-web-application-firewall"
+        "cos-e-un-waf-web-application-firewall",
+        "cosa-prevede-ai-act"
       ]
     },
     {
@@ -15240,6 +15263,358 @@
         "sqlite-quando-basta",
         "redis-cache-valkey",
         "cos-e-un-waf-web-application-firewall"
+      ]
+    },
+    {
+      "id": "nis2-scadenze-acn",
+      "slug": "nis2-scadenze-e-portale-acn",
+      "question": "NIS2 in pratica: quali sono le scadenze e come funziona il portale ACN?",
+      "vertical": "security",
+      "keywords": [
+        "acn",
+        "portale acn",
+        "scadenze nis2",
+        "registrazione nis2",
+        "notifica incidenti nis2",
+        "obblighi nis2",
+        "piattaforma acn"
+      ],
+      "answers": [
+        "In Italia la NIS2 è il D.lgs. 138/2024 e la macchina operativa la gestisce **ACN** tramite il suo portale. Le tappe: **registrazione** sulla piattaforma digitale ACN (finestra annuale a inizio anno per i nuovi soggetti), poi ACN comunica se sei nell'elenco dei soggetti essenziali o importanti – [chi rientra e cosa rischia](q/nis2-chi-deve-adeguarsi-italia/). Gli obblighi arrivano a ondate: dal 2026 la **notifica degli incidenti** significativi al CSIRT Italia (pre-notifica entro 24 ore, notifica entro 72), e entro ottobre 2026 le **misure di sicurezza di base** definite dalla determinazione ACN – poi quelle a lungo termine. Il lavoro vero è mappare gli obblighi sulle proprie misure: per tenerne traccia c'è [nis2-public](https://github.com/fabriziosalmi/nis2-public), e per navigare il testo [nis2-model](q/nis2-model-compliance-assistant/). La responsabilità resta [degli organi di gestione](q/principio-accountability-responsabilita-organi-amministrazione-board-nis2/)."
+      ],
+      "suggest": [
+        "nis2-chi-deve-adeguarsi-italia",
+        "nis2-model-compliance-assistant",
+        "responsabile-nis2-chi-puo-essere",
+        "principio-accountability-responsabilita-organi-amministrazione-board-nis2"
+      ]
+    },
+    {
+      "id": "nis2-responsabile",
+      "slug": "responsabile-nis2-chi-puo-essere",
+      "question": "Chi può essere il responsabile NIS2 in azienda: basta l'IT manager?",
+      "vertical": "security",
+      "keywords": [
+        "responsabile nis2",
+        "referente nis2",
+        "punto di contatto nis2"
+      ],
+      "answers": [
+        "La NIS2 distingue due ruoli che spesso si confondono. Il **punto di contatto** verso ACN è operativo: riceve le comunicazioni, gestisce registrazione e notifiche – può benissimo essere l'IT manager o un consulente delegato. La **responsabilità legale**, invece, è degli **organi di gestione** (CdA, amministratore unico): approvano le misure, si formano sul rischio cyber e rispondono personalmente delle violazioni, con sanzioni e nei casi gravi la sospensione dai ruoli dirigenziali – [il principio di accountability](q/principio-accountability-responsabilita-organi-amministrazione-board-nis2/). Quindi: l'IT manager può fare il referente tecnico, ma non può assorbire la responsabilità del vertice. La combinazione sana: delega operativa scritta, budget dedicato, e la sicurezza che entra stabilmente nell'ordine del giorno del board – [le scadenze da rispettare](q/nis2-scadenze-e-portale-acn/)."
+      ],
+      "suggest": [
+        "principio-accountability-responsabilita-organi-amministrazione-board-nis2",
+        "nis2-scadenze-e-portale-acn",
+        "assicurazione-cyber-pmi-cosa-copre"
+      ]
+    },
+    {
+      "id": "assicurazione-cyber",
+      "slug": "assicurazione-cyber-pmi-cosa-copre",
+      "question": "L'assicurazione cyber conviene a una PMI? Cosa copre e cosa chiede",
+      "vertical": "security",
+      "keywords": [
+        "assicurazione",
+        "polizza",
+        "assicurazione cyber",
+        "polizza cyber",
+        "requisiti minimi",
+        "cyber insurance"
+      ],
+      "answers": [
+        "Una **polizza cyber** tipica copre ripristino di dati e sistemi, interruzione dell'attività, responsabilità verso terzi per violazioni di dati, spese legali e di notifica – e a volte il riscatto ransomware, con sotto-massimali e condizioni strette – [conviene mai pagarlo?](q/cos-e-un-ransomware/). Il punto che molti scoprono tardi: l'assicuratore chiede **requisiti minimi** prima di firmare – [MFA ovunque](q/cos-e-autenticazione-due-fattori-mfa/), [backup separati e testati](q/backup-3-2-1/), [EDR](q/differenza-edr-xdr-antivirus/), patch regolari, formazione – e il questionario che compili è parte del contratto: dichiarare misure che non hai è il modo più rapido per vedersi negare l'indennizzo. Il premio dipende da fatturato, settore e postura. Conviene? Sì come trasferimento del rischio residuo, mai come sostituto delle misure: la polizza paga i danni, non ti evita il fermo."
+      ],
+      "suggest": [
+        "cos-e-un-ransomware",
+        "cos-e-autenticazione-due-fattori-mfa",
+        "backup-3-2-1",
+        "differenza-edr-xdr-antivirus"
+      ]
+    },
+    {
+      "id": "truffa-del-ceo",
+      "slug": "truffa-del-ceo-bec",
+      "question": "Cos'è la truffa del CEO (BEC) e come si blocca un bonifico falso?",
+      "vertical": "security",
+      "keywords": [
+        "bec",
+        "bonifico",
+        "truffa del ceo",
+        "business email compromise",
+        "bonifico falso",
+        "ceo fraud",
+        "bonifico urgente"
+      ],
+      "answers": [
+        "La **Business Email Compromise** (BEC), in italiano truffa del CEO: un'email che sembra del titolare – account compromesso o dominio quasi identico – chiede all'amministrazione un **bonifico urgente e riservato**. Niente malware: solo pressione psicologica e tempismo, spesso dopo settimane di lettura silenziosa della casella compromessa. Le difese che funzionano sono procedurali: **doppio canale obbligatorio** per ogni pagamento fuori routine (conferma telefonica su un numero già noto, mai quello nell'email), doppia firma sopra una soglia, [SPF, DKIM e DMARC](q/spf-dkim-dmarc/) sul dominio, [MFA sulle caselle](q/cos-e-autenticazione-due-fattori-mfa/) e formazione mirata proprio all'amministrazione. Se il bonifico è partito: chiama **subito la banca** per il richiamo – le prime ore contano – e poi [denuncia alla Polizia Postale](q/attacco-informatico-chi-chiamare/). Variante frequente: [l'IBAN cambiato su una fattura vera](q/iban-cambiato-su-fattura-frode/)."
+      ],
+      "suggest": [
+        "spf-dkim-dmarc",
+        "cos-e-autenticazione-due-fattori-mfa",
+        "attacco-informatico-chi-chiamare",
+        "iban-cambiato-su-fattura-frode"
+      ]
+    },
+    {
+      "id": "frode-iban",
+      "slug": "iban-cambiato-su-fattura-frode",
+      "question": "Fattura con l'IBAN cambiato: come funziona la frode e come ci si tutela?",
+      "vertical": "security",
+      "keywords": [
+        "iban",
+        "iban cambiato",
+        "fattura modificata",
+        "pagamento dirottato",
+        "coordinate bancarie",
+        "man in the email"
+      ],
+      "answers": [
+        "È la **man-in-the-email**: l'attaccante compromette una casella – tua o del fornitore – legge in silenzio, e quando parte una fattura vera la intercetta e cambia **solo l'IBAN**. Tutto il resto è autentico: mittente, importi, riferimenti d'ordine, persino il thread. Per questo i controlli sul contenuto non bastano. Tutele che reggono: ogni **variazione di coordinate bancarie** si verifica su un secondo canale (telefonata al numero storico del fornitore, mai ai recapiti scritti nella mail), l'anagrafica IBAN nel gestionale la cambia una persona sola con doppia conferma, [MFA sulle caselle di posta](q/cos-e-autenticazione-due-fattori-mfa/) – e attenzione: [nemmeno la PEC garantisce il contenuto](q/la-pec-puo-essere-hackerata/). Se hai già pagato: banca immediatamente per tentare il richiamo, poi [denuncia](q/attacco-informatico-chi-chiamare/). Il parente stretto: [la truffa del CEO](q/truffa-del-ceo-bec/)."
+      ],
+      "suggest": [
+        "cos-e-autenticazione-due-fattori-mfa",
+        "la-pec-puo-essere-hackerata",
+        "attacco-informatico-chi-chiamare",
+        "truffa-del-ceo-bec"
+      ]
+    },
+    {
+      "id": "pec-sicurezza",
+      "slug": "la-pec-puo-essere-hackerata",
+      "question": "La PEC può essere hackerata? Cosa garantisce davvero (e cosa no)",
+      "vertical": "security",
+      "keywords": [
+        "pec",
+        "posta certificata",
+        "pec hackerata",
+        "pec sicura",
+        "malware via pec",
+        "pec compromessa"
+      ],
+      "answers": [
+        "La **PEC** certifica la trasmissione: chi ha spedito, quando, e che il messaggio è arrivato integro. Ha valore legale di raccomandata. Quello che **non** garantisce: che la casella mittente non sia stata **compromessa**, né che l'allegato sia pulito. Le campagne di malware via PEC sono ormai routine documentata: credenziali rubate, e da caselle certificate vere partono false fatture e falsi F24 – che la vittima apre proprio perché \"è PEC, è sicura\". Regole pratiche: un allegato PEC si tratta con la stessa diffidenza di qualunque email – [come riconoscere i segnali](q/cos-e-il-phishing/) – la password della PEC vive in un [password manager](q/perche-usare-un-password-manager/) ed è unica, MFA attiva se il gestore la offre, e [una variazione IBAN arrivata via PEC si verifica comunque a voce](q/iban-cambiato-su-fattura-frode/)."
+      ],
+      "suggest": [
+        "cos-e-il-phishing",
+        "perche-usare-un-password-manager",
+        "byod-pc-personali-rischi",
+        "iban-cambiato-su-fattura-frode"
+      ]
+    },
+    {
+      "id": "byod",
+      "slug": "byod-pc-personali-rischi",
+      "question": "Dipendenti che lavorano dal PC personale (BYOD): quali rischi per l'azienda?",
+      "vertical": "security",
+      "keywords": [
+        "byod",
+        "pc personale",
+        "dispositivi personali",
+        "bring your own device",
+        "accessi aziendali da casa"
+      ],
+      "answers": [
+        "Un PC personale che entra nei sistemi aziendali porta con sé tutto quello che l'azienda non vede: niente patch gestite, niente [EDR](q/differenza-edr-xdr-antivirus/), il malware preso la sera, il disco non cifrato con dentro i file dei clienti, e nessun modo di revocare o cancellare all'offboarding. Il rischio non è teorico: le credenziali salvate nel browser di casa sono un canale d'ingresso classico. Approccio pragmatico per una PMI: accesso da dispositivi non gestiti **solo via browser** a servizi protetti da [MFA](q/cos-e-autenticazione-due-fattori-mfa/), niente VPN completa verso la rete interna – [differenza tra VPN e accesso puntuale](q/differenza-vpn-e-proxy/) – una **policy scritta** che dica cosa è permesso, e per i ruoli che trattano dati sensibili il device lo fornisce l'azienda. Il tema gemello: [si possono controllare quei dispositivi?](q/controllare-pc-dipendenti-privacy/)"
+      ],
+      "suggest": [
+        "differenza-edr-xdr-antivirus",
+        "cos-e-autenticazione-due-fattori-mfa",
+        "differenza-vpn-e-proxy",
+        "controllare-pc-dipendenti-privacy"
+      ]
+    },
+    {
+      "id": "controllo-dipendenti",
+      "slug": "controllare-pc-dipendenti-privacy",
+      "question": "Si può controllare cosa fanno i dipendenti sul PC aziendale? Cosa dice la legge",
+      "vertical": "security",
+      "keywords": [
+        "controllare i dipendenti",
+        "monitoraggio dipendenti",
+        "statuto dei lavoratori",
+        "controllo a distanza",
+        "metadati email",
+        "sorveglianza dipendenti"
+      ],
+      "answers": [
+        "In Italia la cornice è l'**articolo 4 dello Statuto dei lavoratori**: strumenti da cui derivi controllo a distanza si installano solo per esigenze organizzative, di sicurezza o tutela del patrimonio, con **accordo sindacale o autorizzazione dell'Ispettorato**. Gli strumenti di lavoro (PC, email) sono esentati dall'accordo, ma restano due paletti: **informativa preventiva** chiara ai dipendenti e rispetto del GDPR – minimizzazione, niente controllo massivo o occulto. Il Garante sanziona regolarmente chi conserva a lungo i **metadati della posta** o ripesca i log per fini disciplinari mai dichiarati – [quanto si possono tenere i log](q/conservazione-log-gdpr/). La via sana: log raccolti per **sicurezza** con retention corta e accessi tracciati – [logging fatto bene](q/security-logging-fatto-bene/) – policy scritta e trasparente, e il [registro dei trattamenti](q/registro-dei-trattamenti/) che racconta la stessa storia."
+      ],
+      "suggest": [
+        "conservazione-log-gdpr",
+        "security-logging-fatto-bene",
+        "dpo-esterno-quando-conviene",
+        "registro-dei-trattamenti"
+      ]
+    },
+    {
+      "id": "dpo-esterno",
+      "slug": "dpo-esterno-quando-conviene",
+      "question": "DPO esterno: quando conviene e come si sceglie?",
+      "vertical": "security",
+      "keywords": [
+        "dpo esterno",
+        "quanto costa un dpo",
+        "nominare un dpo",
+        "scegliere il dpo"
+      ],
+      "answers": [
+        "Prima domanda: [ti serve davvero un DPO?](q/quando-serve-un-dpo/) Per la maggior parte delle PMI non è obbligatorio – lo diventa con monitoraggio sistematico su larga scala, dati particolari su larga scala o per gli enti pubblici. Quando serve (o lo si vuole comunque), per una PMI il **DPO esterno a canone** è quasi sempre la scelta giusta: indipendenza più facile da dimostrare, competenza già formata, costo annuale nell'ordine di un servizio professionale ricorrente – molto meno di una persona dedicata. A cosa stare attenti: il DPO **non può essere chi decide le misure** (l'IT manager che controlla sé stesso è un conflitto di interessi), diffida dei canoni irrisori con centinaia di clienti in portafoglio – il Garante guarda l'effettività, non la nomina sulla carta – e pretendi ore minime garantite, reperibilità per [i data breach](q/notifica-data-breach-garante/) e verbali delle verifiche. Il [registro dei trattamenti](q/registro-dei-trattamenti/) resta comunque compito tuo."
+      ],
+      "suggest": [
+        "quando-serve-un-dpo",
+        "notifica-data-breach-garante",
+        "registro-dei-trattamenti"
+      ]
+    },
+    {
+      "id": "sanzioni-gdpr-pmi",
+      "slug": "sanzioni-gdpr-piccole-aziende-casi-reali",
+      "question": "Il Garante multa anche le piccole aziende? Le sanzioni GDPR reali",
+      "vertical": "security",
+      "keywords": [
+        "sanzioni gdpr",
+        "multe garante",
+        "multa gdpr",
+        "sanzioni privacy"
+      ],
+      "answers": [
+        "Sì, e anzi: la gran parte dei provvedimenti del **Garante** colpisce piccole realtà. Casi ricorrenti: lo studio medico che manda il referto al paziente sbagliato, l'azienda che legge la posta dell'ex dipendente dopo l'uscita, le telecamere puntate sulle postazioni di lavoro, il sito senza informativa con i moduli che raccolgono di tutto – [cosa serve davvero a un sito](q/gdpr-cosa-serve-a-un-sito-web/). Gli importi per una PMI vanno tipicamente dalle migliaia alle decine di migliaia di euro – i massimi edittali (20 milioni o il 4% del fatturato mondiale) restano per i casi gravi – ma il conto vero include reputazione e tempo. Le aggravanti classiche: nessuna misura documentata, [registro dei trattamenti](q/registro-dei-trattamenti/) inesistente, mancata collaborazione all'istruttoria, [notifica del breach](q/notifica-data-breach-garante/) omessa o tardiva. La difesa migliore è la carta che dimostra che ci hai pensato prima."
+      ],
+      "suggest": [
+        "gdpr-cosa-serve-a-un-sito-web",
+        "registro-dei-trattamenti",
+        "valutare-sicurezza-fornitore-prima-di-firmare",
+        "notifica-data-breach-garante"
+      ]
+    },
+    {
+      "id": "questionario-fornitori",
+      "slug": "valutare-sicurezza-fornitore-prima-di-firmare",
+      "question": "Come si valuta la sicurezza di un fornitore software prima di firmare?",
+      "vertical": "security",
+      "keywords": [
+        "fornitori",
+        "questionario fornitori",
+        "sicurezza fornitori",
+        "gestionale in cloud",
+        "garanzie dal fornitore"
+      ],
+      "answers": [
+        "Le domande giuste stanno su una pagina: **dove sono i dati** (UE? sub-fornitori?), c'è un [DPA ex articolo 28](q/dpa-data-processing-agreement/) serio, certificazioni verificabili ([ISO 27001](q/cos-e-iso-27001/), SOC 2 – chiedi il certificato, non la dicitura sul sito), **backup e tempi di ripristino dichiarati**, MFA e cifratura di default, e un impegno contrattuale sui **tempi di notifica** se il fornitore subisce un breach – perché verso il Garante il titolare resti tu. Per il gestionale in cloud del piccolo fornitore locale: fatti dare referenze, **testa l'export dei dati** prima di firmare (è la tua exit strategy), e diffida di chi non mette le risposte per iscritto. Un questionario di dieci domande inviato ogni anno vale più di cento clausole mai verificate. La versione strutturata per chi cresce: [il TPRM](q/third-party-risk-management-tprm-sicurezza-fornitori-software/)."
+      ],
+      "suggest": [
+        "dpa-data-processing-agreement",
+        "cos-e-iso-27001",
+        "third-party-risk-management-tprm-sicurezza-fornitori-software"
+      ]
+    },
+    {
+      "id": "polizia-csirt",
+      "slug": "attacco-informatico-chi-chiamare",
+      "question": "Attacco informatico: chi si chiama? Polizia Postale, CSIRT e Garante",
+      "vertical": "security",
+      "keywords": [
+        "polizia postale",
+        "csirt",
+        "denuncia",
+        "denunciare un attacco",
+        "subito un attacco chi chiamo"
+      ],
+      "answers": [
+        "Tre canali, tre scopi. La **denuncia alla Polizia Postale** serve alla giustizia – e a te: la chiedono l'assicurazione e la banca, e si può fare anche online sul portale della Polizia di Stato. Nessuna sanzione per la vittima: denunciare conviene sempre. La **segnalazione al CSIRT Italia** (in ACN) è tecnica: supporto e coordinamento – e per i soggetti nel perimetro NIS2 la notifica è un obbligo con tempi stretti – [scadenze e portale](q/nis2-scadenze-e-portale-acn/). Il **Garante** va notificato entro 72 ore se il breach coinvolge dati personali – [come e quando](q/notifica-data-breach-garante/). Prima di tutti e tre, però, viene il contenimento: [le prime ore decidono](q/incident-response-le-prime-ore/). Se non hai un SOC interno, il primo numero in rubrica è il tuo fornitore IT o un incident responder professionale – meglio sceglierlo **prima** di averne bisogno, [con un'esercitazione](q/tabletop-exercise-simulazione-crisi/)."
+      ],
+      "suggest": [
+        "nis2-scadenze-e-portale-acn",
+        "notifica-data-breach-garante",
+        "incident-response-le-prime-ore",
+        "tabletop-exercise-simulazione-crisi"
+      ]
+    },
+    {
+      "id": "backup-nas-cloud",
+      "slug": "backup-su-nas-basta-o-serve-il-cloud",
+      "question": "Backup su NAS: basta o serve anche il cloud? E ogni quanto testare il ripristino?",
+      "vertical": "security",
+      "keywords": [
+        "backup su nas",
+        "backup cloud",
+        "testare il ripristino",
+        "copia offsite",
+        "backup fuori sede"
+      ],
+      "answers": [
+        "Il NAS da solo è **una copia sola nello stesso posto**: un ransomware che gira in rete lo cifra insieme ai server, un furto o un incendio se lo porta via. La [regola 3-2-1](q/backup-3-2-1/) chiede almeno una copia **fuori sede**: per una PMI oggi significa cloud a oggetti con [cifratura lato client](q/backup-cifrati-restic-borg/) – o un secondo NAS in un'altra sede, se la banda lo regge. Contro il ransomware conta il **versioning immutabile**: copie che nemmeno un amministratore compromesso può cancellare. E poi la parte che tutti saltano: il **test di ripristino a calendario** – non \"quando serve\". Ripristina davvero un file, una cartella e una VM intera, misura quanto ci metti, scrivi il risultato: quel tempo è il tuo vero RTO – [che fine fa nel piano di disaster recovery](q/piano-di-disaster-recovery-minimo/). Un backup mai ripristinato è una speranza, non un backup – [e non è uno snapshot](q/differenza-snapshot-e-backup/)."
+      ],
+      "suggest": [
+        "backup-3-2-1",
+        "backup-cifrati-restic-borg",
+        "budget-sicurezza-pmi-da-dove-partire",
+        "piano-di-disaster-recovery-minimo"
+      ]
+    },
+    {
+      "id": "budget-sicurezza-pmi",
+      "slug": "budget-sicurezza-pmi-da-dove-partire",
+      "question": "Quanto budget per la sicurezza in una PMI? E meglio formazione o tecnologia?",
+      "vertical": "security",
+      "keywords": [
+        "budget",
+        "budget sicurezza",
+        "formazione o tecnologia",
+        "quanto spendere in sicurezza",
+        "sicurezza per primo"
+      ],
+      "answers": [
+        "Più della cifra conta l'**ordine di spesa**. Primo scalino, quasi gratis: [MFA ovunque](q/cos-e-autenticazione-due-fattori-mfa/), aggiornamenti automatici, [backup 3-2-1 testati](q/backup-su-nas-basta-o-serve-il-cloud/), [password manager](q/perche-usare-un-password-manager/) per tutti. Secondo scalino: le **persone** – poche ore di formazione l'anno, mirate su [phishing](q/cos-e-il-phishing/) e [truffe sui pagamenti](q/truffa-del-ceo-bec/), perché è da lì che entrano i danni veri di una PMI. Solo terzo scalino, la tecnologia a canone: [EDR gestito](q/differenza-edr-xdr-antivirus/), protezione della posta. \"Formazione o tecnologia\" è un falso dilemma: sotto un certo budget la tecnologia comprata senza nessuno che la guardi diventa **shelfware** – spende e non protegge. Come quota, una **percentuale a una cifra del budget IT** è il punto di partenza tipico; se il budget IT non esiste, parti dal primo scalino: costa più disciplina che denaro – [una checklist per cominciare](q/checklist-sicurezza-periodica-server/)."
+      ],
+      "suggest": [
+        "cos-e-autenticazione-due-fattori-mfa",
+        "backup-su-nas-basta-o-serve-il-cloud",
+        "formazione-sicurezza-obbligatoria-dipendenti",
+        "perche-usare-un-password-manager"
+      ]
+    },
+    {
+      "id": "formazione-obbligatoria",
+      "slug": "formazione-sicurezza-obbligatoria-dipendenti",
+      "question": "La formazione sulla sicurezza informatica è obbligatoria per i dipendenti?",
+      "vertical": "security",
+      "keywords": [
+        "formazione",
+        "formazione obbligatoria",
+        "corso sicurezza dipendenti",
+        "security awareness",
+        "formazione dipendenti"
+      ],
+      "answers": [
+        "Dipende da quale cappello normativo indossi. Il **GDPR** non usa la parola \"obbligatoria\", ma impone istruzioni a chiunque tratti dati (articolo 29) e misure adeguate (articolo 32): nelle istruttorie il Garante chiede regolarmente **prova della formazione**, e la sua assenza pesa come aggravante – [le sanzioni vere](q/sanzioni-gdpr-piccole-aziende-casi-reali/). La **NIS2** è esplicita: gli organi di gestione **devono** formarsi e promuovere formazione periodica al personale – [chi rientra](q/nis2-chi-deve-adeguarsi-italia/). I settori regolati (la finanza con [DORA](q/cos-e-dora-regolamento/)) hanno obblighi propri. In pratica: per quasi ogni azienda con dipendenti la risposta operativa è sì. Falla bene: breve, ricorrente, su casi veri – [phishing](q/cos-e-il-phishing/) e pagamenti – e le simulazioni come allenamento dichiarato, mai come trappola punitiva: l'obiettivo è che l'errore venga **segnalato**, non nascosto – [è anche la spesa più efficiente](q/budget-sicurezza-pmi-da-dove-partire/)."
+      ],
+      "suggest": [
+        "sanzioni-gdpr-piccole-aziende-casi-reali",
+        "nis2-chi-deve-adeguarsi-italia",
+        "dipendenti-si-scambiano-le-password",
+        "cos-e-dora-regolamento"
+      ]
+    },
+    {
+      "id": "password-condivise",
+      "slug": "dipendenti-si-scambiano-le-password",
+      "question": "I dipendenti si scambiano le password dei gestionali: come si ferma?",
+      "vertical": "security",
+      "keywords": [
+        "password condivise",
+        "si scambiano le password",
+        "account condiviso",
+        "utenze condivise"
+      ],
+      "answers": [
+        "Prima capisci **perché** lo fanno: quasi sempre licenze per utente costose, o login così scomodi che la scorciatoia vince. Vietare senza rimuovere la causa produce solo condivisioni più nascoste. Perché è grave: con un account condiviso **non sai mai chi ha fatto cosa** – niente [audit trail](q/security-logging-fatto-bene/), niente non ripudio – l'offboarding diventa impossibile (la password la conosce anche chi se n'è andato), la [MFA](q/cos-e-autenticazione-due-fattori-mfa/) smette di funzionare e spesso violi il contratto di licenza. La cura: **account nominativi** ovunque, SSO dove il gestionale lo supporta, e per i casi in cui una credenziale condivisa è inevitabile (l'utenza tecnica, il profilo social) una **cassaforte condivisa** in un [password manager aziendale](q/perche-usare-un-password-manager/) – accessi tracciati, revoca in un click, rotazione all'uscita di chiunque – [e controlla se quelle password sono già in giro](q/verificare-password-compromessa/)."
+      ],
+      "suggest": [
+        "security-logging-fatto-bene",
+        "cos-e-autenticazione-due-fattori-mfa",
+        "perche-usare-un-password-manager",
+        "verificare-password-compromessa"
       ]
     }
   ],

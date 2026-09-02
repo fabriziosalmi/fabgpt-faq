@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-VmLqLNWVUMgT0zs5ctab0yya4soAXyN33E5lR6Xwmw8='; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; base-uri 'none'; form-action 'self'; object-src 'none'; upgrade-insecure-requests">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Come si valuta la sicurezza di un fornitore software prima di firmare? – FabGPT-FAQ</title>
+<meta name="description" content="Le domande giuste stanno su una pagina: dove sono i dati (UE? sub-fornitori?), c&#x27;è un [DPA ex articolo 28](q/dpa-data-processing-agreement/) serio,…">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="canonical" href="https://fabriziosalmi.github.io/fabgpt-faq/q/valutare-sicurezza-fornitore-prima-di-firmare/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Come si valuta la sicurezza di un fornitore software prima di firmare?">
+<meta property="og:description" content="Le domande giuste stanno su una pagina: dove sono i dati (UE? sub-fornitori?), c&#x27;è un [DPA ex articolo 28](q/dpa-data-processing-agreement/) serio,…">
+<meta property="og:url" content="https://fabriziosalmi.github.io/fabgpt-faq/q/valutare-sicurezza-fornitore-prima-di-firmare/">
+<meta property="og:image" content="https://fabriziosalmi.github.io/fabgpt-faq/og.svg">
+<meta property="og:site_name" content="FabGPT-FAQ">
+<meta property="og:locale" content="it_IT">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Come si valuta la sicurezza di un fornitore software prima di firmare?">
+<meta name="twitter:description" content="Le domande giuste stanno su una pagina: dove sono i dati (UE? sub-fornitori?), c&#x27;è un [DPA ex articolo 28](q/dpa-data-processing-agreement/) serio,…">
+<meta name="twitter:image" content="https://fabriziosalmi.github.io/fabgpt-faq/og.svg">
+<link rel="stylesheet" href="../../style.css?v=e6ebfd66">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#212121" media="(prefers-color-scheme: dark)">
+<script type="application/ld+json">[{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Come si valuta la sicurezza di un fornitore software prima di firmare?", "description": "Le domande giuste stanno su una pagina: dove sono i dati (UE? sub-fornitori?), c'è un [DPA ex articolo 28](q/dpa-data-processing-agreement/) serio,…", "author": {"@type": "Person", "name": "Fabrizio Salmi", "url": "https://github.com/fabriziosalmi"}, "publisher": {"@type": "Organization", "name": "FabGPT-FAQ", "url": "https://fabriziosalmi.github.io/fabgpt-faq/"}, "inLanguage": "it", "articleSection": "Cybersecurity"}, {"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Come si valuta la sicurezza di un fornitore software prima di firmare?", "acceptedAnswer": {"@type": "Answer", "text": "Le domande giuste stanno su una pagina: dove sono i dati (UE? sub-fornitori?), c'è un [DPA ex articolo 28](q/dpa-data-processing-agreement/) serio, certificazioni verificabili ([ISO 27001](q/cos-e-iso-27001/), SOC 2 – chiedi il certificato, non la dicitura sul sito), backup e tempi di ripristino dichiarati, MFA e cifratura di default, e un impegno contrattuale sui tempi di notifica se il fornitore subisce un breach – perché verso il Garante il titolare resti tu. Per il gestionale in cloud del piccolo fornitore locale: fatti dare referenze, testa l'export dei dati prima di firmare (è la tua exit strategy), e diffida di chi non mette le risposte per iscritto. Un questionario di dieci domande inviato ogni anno vale più di cento clausole mai verificate. La versione strutturata per chi cresce: [il TPRM](q/third-party-risk-management-tprm-sicurezza-fornitori-software/)."}}]}, {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "FabGPT-FAQ", "item": "https://fabriziosalmi.github.io/fabgpt-faq/"}, {"@type": "ListItem", "position": 2, "name": "Tutte le domande", "item": "https://fabriziosalmi.github.io/fabgpt-faq/q/"}, {"@type": "ListItem", "position": 3, "name": "Cybersecurity", "item": "https://fabriziosalmi.github.io/fabgpt-faq/q/valutare-sicurezza-fornitore-prima-di-firmare/"}]}]</script>
+<style>
+  .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
+  .page h1 { font-size: clamp(22px, 4.5vw, 27px); line-height: 1.25; letter-spacing: -0.01em; margin: 6px 0 10px; }
+  .crumbs { font-size: 13px; color: var(--text-dim); margin-bottom: 6px; }
+  .crumbs a { color: var(--text-dim); text-decoration: none; }
+  .crumbs a:hover { color: var(--text); }
+  .page .answer a { color: var(--link); }
+  .page .answer ul { padding-left: 22px; }
+  .page .answer code { background: var(--code-bg); border-radius: 5px; padding: 1px 5px; font-size: 0.9em; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+  .qa-actions { display: flex; align-items: center; gap: 12px; margin-top: 24px; flex-wrap: wrap; }
+  .copy-qa-btn { display: inline-flex; align-items: center; gap: 6px; background: var(--bg-soft); color: var(--text-dim); border: 1px solid var(--border); border-radius: 6px; padding: 6px 12px; font-size: 13px; font-family: inherit; font-weight: 500; cursor: pointer; transition: all .15s ease; }
+  .copy-qa-btn:hover { background: var(--border); color: var(--text); }
+  .copy-qa-btn.copied { background: rgba(16, 163, 127, 0.15); color: var(--accent); border-color: var(--accent); }
+  .page .ask { display: inline-block; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 8px 16px; text-decoration: none; font-weight: 600; font-size: 13px; transition: background var(--t); }
+  .page .ask:hover { background: var(--link); }
+  .page .related { margin-top: 36px; border-top: 1px solid var(--border); padding-top: 20px; }
+  .page .related h2 { font-size: 16px; margin-bottom: 12px; }
+  .page .related a { color: var(--link); text-decoration: none; }
+  .page .related a:hover { text-decoration: underline; }
+  .page .related li { margin: 8px 0; }
+  .diagram { margin: 24px 0 8px; padding: 14px; border: 1px solid var(--border); border-radius: 12px; background: var(--bg-soft); }
+  .diagram svg { display: block; max-width: 100%; height: auto; }
+  .answer code { cursor: pointer; }
+  .answer code:hover { outline: 1px solid var(--border); }
+  .answer code.copied { outline: 1px solid var(--accent); color: var(--accent); }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="../../" style="text-decoration:none;color:inherit">
+    <span class="brand-dot">F</span>
+    <span class="brand-name">FabGPT-FAQ</span>
+  </a>
+  <nav class="topnav"><a href="../../" title="Chat interattiva" aria-label="Chat interattiva"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></a></nav>
+</header>
+<div class="statbar"><nav class="statnav" aria-label="Sezioni"><a href="../../percorsi/" title="Percorsi" aria-label="Percorsi"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-2px"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg></a><a href="../../comandi/" title="Comandi" aria-label="Comandi"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-2px"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg></a><a href="../../tools/" title="Tools" aria-label="Tools"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-2px"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></a><a href="../../porta/" title="Porte" aria-label="Porte"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-2px"><path d="M12 22v-5"/><path d="M9 8V2"/><path d="M15 8V2"/><path d="M18 8v5a4 4 0 0 1-4 4h-4a4 4 0 0 1-4-4V8Z"/></svg></a><a href="../../q/" title="Tutte le domande" aria-label="Tutte le domande" class="on" aria-current="page"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-2px"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></a></nav></div>
+<main class="page">
+  <article itemscope itemtype="https://schema.org/TechArticle">
+    <nav class="crumbs" aria-label="Percorso"><a href="../../">FabGPT-FAQ</a> › <a href="../../q/">Tutte le domande</a> › <span itemprop="articleSection">Cybersecurity</span></nav>
+    <h1 id="page-question" itemprop="headline">Come si valuta la sicurezza di un fornitore software prima di firmare?</h1>
+    <div class="page-meta">
+      <span class="page-meta-badge vert"><svg class='glyph' viewBox='0 0 24 24' width='22' height='22' aria-hidden='true' fill='none' stroke='var(--accent)' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'><path d='M12 3l7 3v5c0 4-3 7-7 8-4-1-7-4-7-8V6z'/></svg> <span>Cybersecurity</span></span>
+      <span class="page-meta-badge"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-2px"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> 1 min lettura</span>
+      <span class="page-meta-badge"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-2px"><polyline points="20 6 9 17 4 12"/></svg> Runbook verificato</span>
+    </div>
+    
+    <div class="answer" id="page-answer" itemprop="articleBody"><p>Le domande giuste stanno su una pagina: <strong>dove sono i dati</strong> (UE? sub-fornitori?), c&#x27;è un <a href="../dpa-data-processing-agreement/">DPA ex articolo 28</a> serio, certificazioni verificabili (<a href="../cos-e-iso-27001/">ISO 27001</a>, SOC 2 – chiedi il certificato, non la dicitura sul sito), <strong>backup e tempi di ripristino dichiarati</strong>, MFA e cifratura di default, e un impegno contrattuale sui <strong>tempi di notifica</strong> se il fornitore subisce un breach – perché verso il Garante il titolare resti tu. Per il gestionale in cloud del piccolo fornitore locale: fatti dare referenze, <strong>testa l&#x27;export dei dati</strong> prima di firmare (è la tua exit strategy), e diffida di chi non mette le risposte per iscritto. Un questionario di dieci domande inviato ogni anno vale più di cento clausole mai verificate. La versione strutturata per chi cresce: <a href="../third-party-risk-management-tprm-sicurezza-fornitori-software/">il TPRM</a>.</p></div>
+    <div class="qa-actions">
+      <button type="button" class="copy-qa-btn" id="copy-page-btn" aria-label="Copia domanda e risposta">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+        <span>Copia Q&A</span>
+      </button>
+      <a class="ask" href="../../?q=questionario-fornitori"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-2px"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg> Apri nella chat interattiva</a>
+    </div>
+    <nav class="page-nav" aria-label="Navigazione tra domande"><a class="page-nav-card prev" href="../sanzioni-gdpr-piccole-aziende-casi-reali/"><span class="nav-dir">← Precedente</span><span class="nav-title">Il Garante multa anche le piccole aziende? Le sanzioni GDPR reali</span></a><a class="page-nav-card next" href="../attacco-informatico-chi-chiamare/"><span class="nav-dir">Successiva →</span><span class="nav-title">Attacco informatico: chi si chiama? Polizia Postale, CSIRT e Garante</span></a></nav>
+    <section class="ask-box">
+      <div class="ask-box-header">
+        <span class="ask-box-icon" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></span>
+        <div>
+          <h3>Hai una domanda specifica su questo tema?</h3>
+          <p>Interroga direttamente il motore FabGPT-FAQ con risposta in tempo reale.</p>
+        </div>
+      </div>
+      <form class="ask-box-form" action="../../" method="get">
+        <input type="text" name="q" value="Come si valuta la sicurezza di un fornitore software prima di firmare?" placeholder="Chiedi qualcosa a FabGPT-FAQ…" aria-label="Chiedi qualcosa" autocomplete="off">
+        <button type="submit">Chiedi in chat →</button>
+      </form>
+    </section>
+    <div class="related">
+      <h2>Domande correlate</h2>
+      <ul><li><a href="../dpa-data-processing-agreement/">Cos&#x27;è il DPA (Data Processing Agreement) e cosa deve contenere?</a></li><li><a href="../cos-e-iso-27001/">Cos&#x27;è la ISO 27001 (e come si lega a NIS2)?</a></li><li><a href="../third-party-risk-management-tprm-sicurezza-fornitori-software/">Come si strutturano le verifiche di Third-Party Risk Management (TPRM) per valutare la postura di sicurezza dei fornitori?</a></li><li><a href="../cos-e-un-waf-web-application-firewall/">Cos&#x27;è un WAF (Web Application Firewall) e a cosa serve?</a></li><li><a href="../cos-e-un-reverse-proxy/">Cos&#x27;è un reverse proxy e a cosa serve?</a></li><li><a href="../come-funziona-lets-encrypt-acme/">Come funziona Let&#x27;s Encrypt e il protocollo ACME?</a></li></ul>
+    </div>
+  </article>
+</main>
+<footer class="sitefoot"><div class="sitefoot-in"><span class="sitefoot-brand"><span class="foot-dot">F</span>FabGPT-FAQ <span class="sitefoot-dim">· risposte verificate, zero allucinazioni</span></span><nav class="sitefoot-nav" aria-label="Mappa del sito"><a href="../../">Chat</a><a href="../../percorsi/">Percorsi</a><a href="../../comandi/">Comandi</a><a href="../../tools/">Tools</a><a href="../../porta/">Porte</a><a href="../../q/">Tutte le domande</a><a href="../../trasparenza/">Trasparenza</a><a href="https://github.com/fabriziosalmi" target="_blank" rel="noopener">GitHub</a></nav></div></footer>
+<script>
+document.addEventListener('click',function(e){
+  var copyCodeBtn = e.target.closest('.copy-code-btn');
+  if (copyCodeBtn) {
+    var block = copyCodeBtn.closest('.code-block');
+    var code = block ? block.querySelector('code')?.textContent : '';
+    if (code && navigator.clipboard) {
+      navigator.clipboard.writeText(code).then(function(){
+        copyCodeBtn.classList.add('copied');
+        copyCodeBtn.querySelector('span').textContent = 'Copiato!';
+        setTimeout(function(){
+          copyCodeBtn.classList.remove('copied');
+          copyCodeBtn.querySelector('span').textContent = 'Copia';
+        }, 1500);
+      });
+    }
+    return;
+  }
+  var c=e.target.closest('code:not(pre code)'); if(!c)return;
+  navigator.clipboard&&navigator.clipboard.writeText(c.textContent).then(function(){
+    c.classList.add('copied'); setTimeout(function(){c.classList.remove('copied')},900);
+  });
+});
+document.getElementById('copy-page-btn')?.addEventListener('click', function(){
+  var btn = this;
+  var q = document.getElementById('page-question')?.innerText.trim() || '';
+  var a = document.getElementById('page-answer')?.innerText.trim() || '';
+  var formatted = "Q: " + q + "\n\nA:\n" + a;
+  if(navigator.clipboard){
+    navigator.clipboard.writeText(formatted).then(function(){
+      btn.classList.add('copied');
+      btn.querySelector('span').textContent = 'Copiato!';
+      setTimeout(function(){
+        btn.classList.remove('copied');
+        btn.querySelector('span').textContent = 'Copia Q&A';
+      }, 1500);
+    });
+  }
+});
+document.querySelectorAll('.copy-diagram-btn').forEach(function(btn){
+  btn.addEventListener('click', function(e){
+    e.stopPropagation();
+    var fig = btn.closest('.diagram');
+    var svg = fig ? fig.querySelector('svg:not(.copy-diagram-btn svg)') : null;
+    if(!svg) return;
+    if(navigator.clipboard){
+      navigator.clipboard.writeText(svg.outerHTML).then(function(){
+        btn.classList.add('copied');
+        btn.querySelector('span').textContent = 'Copiato!';
+        setTimeout(function(){
+          btn.classList.remove('copied');
+          btn.querySelector('span').textContent = 'SVG';
+        }, 1500);
+      });
+    }
+  });
+});
+</script>
+</body>
+</html>
