@@ -236,6 +236,7 @@ PAGE = """<!DOCTYPE html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="no-referrer">
 <title>{title}</title>
 <meta name="description" content="{description}">
 <meta name="robots" content="index,follow,max-image-preview:large">
@@ -398,6 +399,7 @@ INDEX = """<!DOCTYPE html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="no-referrer">
 <title>Tutte le domande – FabGPT-FAQ</title>
 <meta name="description" content="{description}">
 <meta name="robots" content="index,follow,max-image-preview:large">
@@ -529,6 +531,7 @@ PATH_HEAD = """<!DOCTYPE html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="no-referrer">
 <title>{title} – FabGPT-FAQ</title>
 <meta name="description" content="{description}">
 <meta name="robots" content="index,follow,max-image-preview:large">
@@ -1306,6 +1309,14 @@ server, che possono registrare gli indirizzi IP nei log tecnici: vale la
 <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement"
 target="_blank" rel="noopener">privacy policy di GitHub</a>. Il titolare di questo sito non riceve
 né conserva alcun dato dei visitatori.</li>
+<li><b>Google Search Console, senza tracciamento.</b> Il sito è registrato su Search Console per
+sapere se e come Google lo indicizza. La registrazione è un file statico di verifica della
+proprietà: non aggiunge script, cookie o raccolta dati – Google scansiona le pagine pubbliche come
+farebbe comunque, e le statistiche che fornisce riguardano le ricerche su Google, non i visitatori
+di questo sito.</li>
+<li><b>Referrer: niente.</b> Ogni pagina dichiara <code>Referrer-Policy: no-referrer</code>: quando
+segui un link verso un sito esterno (o usi i due tool qui sotto), il tuo browser non comunica da
+quale pagina arrivi.</li>
 </ul>
 <h2>I due tool che parlano con l'esterno</h2>
 <p>Cinque <a href="../tools/">tools</a> su sette calcolano tutto in locale. Due interrogano servizi
@@ -1862,6 +1873,7 @@ def build() -> None:
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="no-referrer">
 <title>Pagina non trovata – FabGPT-FAQ</title>
 <meta name="robots" content="noindex">
 <link rel="stylesheet" href="/style.css">
