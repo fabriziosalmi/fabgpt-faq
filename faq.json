@@ -2119,8 +2119,7 @@
         "vpn anonimo",
         "rende anonimo",
         "vpn smart working",
-        "basta la vpn",
-        "wireguard"
+        "basta la vpn"
       ],
       "answers": [
         "Entrambi mettono un intermediario tra te e la destinazione, ma a profondità diverse:\n\n- un **proxy** lavora per applicazione (di solito il browser): inoltra le richieste HTTP/SOCKS e cambia l'IP visto dal sito. Configurabile per-app, niente cifratura aggiuntiva di suo.\n- una **VPN** incapsula e cifra **tutto il traffico del dispositivo** a livello di rete (WireGuard, OpenVPN): ogni app ci passa, il provider locale vede solo un tunnel cifrato.\n\nMiti da sfatare: la VPN commerciale non ti rende \"anonimo\" – sposta la fiducia dal tuo ISP al fornitore VPN, che il traffico lo vede eccome. E per l'accesso aziendale la VPN classica che apre l'intera rete interna è il modello che [Zero Trust](q/cos-e-il-modello-zero-trust/) sta mandando in pensione. Curiosità di portfolio: su Mac, [Proxymate](https://github.com/fabriziosalmi/proxymate) porta il modello proxy al livello successivo, con WAF e controlli integrati."
@@ -2354,7 +2353,6 @@
         "password",
         "bitwarden",
         "keepass",
-        "vaultwarden",
         "password uniche",
         "riuso password",
         "password su chrome",
@@ -2658,7 +2656,6 @@
       "keywords": [
         "https su caddy",
         "caddy automatico",
-        "caddyfile",
         "caddy certificati",
         "https automatico",
         "configura https su caddy"
@@ -2813,8 +2810,7 @@
         "esporre servizio",
         "accesso remoto casa",
         "senza aprire porte",
-        "sotto cgnat",
-        "wireguard"
+        "sotto cgnat"
       ],
       "answers": [
         "Aprire porte sul router di casa significa esporre il servizio agli scanner di tutto il pianeta (e col CGNAT di molti provider non puoi comunque). Le alternative moderne:\n\n- **tunnel in uscita** (Cloudflare Tunnel e simili): un connettore sul tuo server apre una connessione *verso* l'edge, e il traffico pubblico arriva da lì – niente porte in ingresso, IP di casa nascosto. Contropartita: il fornitore del tunnel vede/termina il tuo traffico – [scegliere consapevolmente](q/cos-e-la-sovranita-digitale/).\n- **overlay network private** (Tailscale/WireGuard, Netbird): i *tuoi* dispositivi si raggiungono su una rete cifrata peer-to-peer; il servizio non è pubblico affatto – per il 90% dei casi self-hosted è la risposta giusta: il NAS non ha bisogno di essere su internet, ha bisogno di essere raggiungibile *da te*\n- via di mezzo: un **VPS economico** che fa da frontend pubblico e inoltra via WireGuard verso casa, con [reverse proxy + WAF](q/cos-e-un-reverse-proxy/) tuoi ([zion](https://github.com/fabriziosalmi/zion) o Caddy) – massimo controllo, zero dipendenze"
@@ -7109,8 +7105,8 @@
       "suggest": [
         "cos-e-docker-compose",
         "cos-e-proxmox-ve",
-        "sostituire-google-drive-con-nextcloud",
-        "quanta-ram-vram-serve-per-un-llm"
+        "quanta-ram-vram-serve-per-un-llm",
+        "backup-3-2-1"
       ]
     },
     {
@@ -7129,7 +7125,9 @@
         "netflix personale",
         "libreria multimediale",
         "netflix in casa",
-        "jellyfin vs plex"
+        "jellyfin vs plex",
+        "plex",
+        "plex pass"
       ],
       "answers": [
         "**Jellyfin** è il tuo Netflix personale: organizza film, serie, musica e li trasmette in streaming a ogni schermo di casa (e fuori) con app per TV, telefoni e browser. A differenza di Plex è **completamente libero e senza account cloud** – nessun login a un servizio terzo per vedere i *tuoi* file.\n\nI due dettagli che fanno la differenza:\n\n- **transcoding**: se un client non supporta un formato, Jellyfin lo riconverte al volo – operazione pesante che vive di **accelerazione hardware** (QuickSync Intel, NVENC): su [Proxmox](q/cos-e-proxmox-ve/) significa passare la GPU/iGPU, spesso a [un LXC](q/differenza-container-lxc-e-vm/) via [device passthrough](q/passare-un-disco-usb-a-una-vm/) – un [mini PC con iGPU Intel](q/homelab-a-basso-consumo/) transcodifica più flussi consumando pochi watt\n- **storage**: la libreria vive su [NAS/ZFS](q/storage-proxmox-lvm-zfs-nfs-ceph/), montata nel container\n\nL'accesso da fuori: [mesh VPN](q/wireguard-e-mesh-vpn/) per la famiglia, o [reverse proxy](q/cos-e-un-reverse-proxy/) con attenzione (Jellyfin esposto va tenuto aggiornato). Nell'orbita: gli \"-arr\" per l'automazione della libreria, e per gli audiolibri Audiobookshelf – o, se cerchi solo ascolto, [audiolibri.org](q/audiolibri-gratis-in-italiano/)."
@@ -7154,7 +7152,8 @@
         "gestore password proprio",
         "bitwarden_rs",
         "self host password",
-        "self hosta un password manager"
+        "self hosta un password manager",
+        "esporre vaultwarden"
       ],
       "answers": [
         "[Vaultwarden](q/password-manager-self-hosted-vaultwarden/) è l'implementazione leggera in Rust del server Bitwarden, ideale per homelab e piccoli team per gestire password e passkey in totale sovranità.\n\nDeploy rapido e sicuro con Docker Compose (`docker-compose.yml`):\n```yaml\nservices:\n  vaultwarden:\n    image: vaultwarden/server:latest\n    container_name: vaultwarden\n    environment:\n      - SIGNUPS_ALLOWED=false # Disabilita registrazioni aperte dopo aver creato il tuo account\n      - INVITATIONS_ALLOWED=true\n    volumes:\n      - ./vw-data:/data\n    restart: unless-stopped\n```\n\nRequisiti obbligatori:\n- **HTTPS obbligatorio**: il client Bitwarden rifiuta la sincronizzazione HTTP. Usa [CertMate](q/cos-e-certmate-gestione-certificati-tls/) o Caddy per il certificato TLS.\n- **Backup database**: script crontab giornaliero `sqlite3 /data/db.sqlite3 \".backup '/backup/db-$(date +%F).sqlite3'\"`."
@@ -7206,7 +7205,9 @@
         "alert push",
         "notifiche server",
         "avvisi telegram alternativa",
-        "push casa"
+        "push casa",
+        "telegram",
+        "notifica su telegram"
       ],
       "answers": [
         "Quando self-hosti, ti serve un modo per farti avvisare – backup fallito, servizio giù, [porta aperta](q/mettere-in-sicurezza-ssh/) – **senza legarti a un servizio push commerciale**. Gli strumenti:\n\n- **ntfy** – il più semplice e amato: pubblichi una notifica con una `curl` a un *topic*, e l'app (o il browser) la riceve. `curl -d \"backup ok\" ntfy.sh/mio-topic` e sei operativo; self-hostabile in un container minuscolo per tenere anche i topic in casa\n- **Gotify** – server + app con token e gestione utenti, un filo più strutturato\n- **Apprise** – non un server ma una **libreria/CLI ponte**: un'unica sintassi che spedisce verso 80+ servizi (ntfy, Telegram, email, Slack…) – utile per non riscrivere l'integrazione a ogni cambio\n\nIl valore: ogni tuo script, job [cron](q/cron-la-sintassi-spiegata/) o [container](q/cos-e-docker-compose/) può notificarti con una riga, e le notifiche restano dentro la *tua* infrastruttura. È il collante che rende il [monitoraggio dell'homelab](q/backup-automatici-verso-pbs/) qualcosa che *sai* quando si rompe, invece di scoprirlo tardi – lo stesso principio del [monitoraggio esterno di un sito](q/monitorare-siti-web-con-github-actions/), applicato in casa."
@@ -7340,7 +7341,8 @@
         "conbee",
         "controllare zigbee",
         "gestire zigbee",
-        "dongle usb zigbee"
+        "dongle usb zigbee",
+        "zha"
       ],
       "answers": [
         "**Zigbee2MQTT** (Z2M) è il ponte che rende [Zigbee](q/protocolli-smart-home-locali-zigbee-matter/) **libero dal cloud e indipendente dalla marca dell'hub**: un **dongle USB coordinatore** (SONOFF, ConBee) collegato al tuo server crea la rete Zigbee, e Z2M espone ogni dispositivo su **MQTT** – il protocollo di messaggistica che [Home Assistant](q/home-assistant-su-proxmox/), [Node-RED](q/automazioni-casa-node-red-mqtt/) e qualsiasi altro sistema possono ascoltare e comandare.\n\nIl valore: **un** coordinatore per *tutte* le marche Zigbee (basta con un hub proprietario per ecosistema), controllo locale totale, e il supporto di un database enorme di dispositivi. Setup: dongle in passthrough alla [VM/LXC](q/passare-un-disco-usb-a-una-vm/) (via *by-id* per un nome stabile), un broker MQTT (Mosquitto) e Z2M in [container](q/cos-e-docker-compose/).\n\nLe accortezze che evitano frustrazione: **posiziona bene il coordinatore** (lontano da fonti di interferenza USB 3, con prolunga se serve – è la causa n°1 di reti instabili), aggiungi qualche dispositivo alimentato a rete come **router mesh** per estendere la copertura, e tieni un backup della configurazione. L'alternativa nativa Home Assistant è ZHA; Z2M vince per compatibilità e indipendenza."
@@ -9317,8 +9319,8 @@
       "suggest": [
         "cos-e-openzfs-snapshot-copy-on-write",
         "backup-consistenti-di-database",
-        "single-board-computer-nel-homelab",
-        "perche-usare-zfs-su-proxmox"
+        "perche-usare-zfs-su-proxmox",
+        "cos-e-proxmox-ve"
       ]
     },
     {
@@ -13265,7 +13267,7 @@
       "suggest": [
         "dnscontrol-actions-dns-gitops",
         "backup-zone-cloudflare-github-actions",
-        "conservare-log-cloudflare-nis2-gdpr"
+        "caddyfile-minimo-per-servizi-docker"
       ]
     },
     {
@@ -14459,7 +14461,9 @@
         "k3s installazione",
         "rancher k3s",
         "k3s edge",
-        "kubernetes lightweight"
+        "kubernetes lightweight",
+        "k3s su raspberry",
+        "k0s"
       ],
       "answers": [
         "**k3s** è una distribuzione Kubernetes leggera e certificata CNCF, nata in casa Rancher (oggi SUSE): un singolo binario sotto i 100 MB con tutto incluso e SQLite al posto di etcd come datastore di default. Ha senso in homelab, su edge e su hardware modesto, Raspberry Pi compreso: si installa con `curl -sfL https://get.k3s.io | sh -`, consuma molta meno RAM del k8s pieno e resta compatibile con manifest, Helm e kubectl standard. Rispetto al Kubernetes completo toglie componenti legacy e driver cloud, sostituiti da equivalenti minimi: Traefik come ingress, ServiceLB, local-path provisioner per i volumi; per l'alta disponibilità può usare etcd embedded. La trappola: è comunque Kubernetes, con la stessa curva di apprendimento; se dovevi solo far girare tre container, docker compose resta più semplice."
@@ -14855,10 +14859,11 @@
         "derp",
         "accesso remoto homelab",
         "tailscale funnel",
-        "vpn zero config"
+        "vpn zero config",
+        "tailscale gratis"
       ],
       "answers": [
-        "**Tailscale** è una mesh VPN costruita su WireGuard: installi il client sui dispositivi, fai login e ogni nodo vede gli altri su indirizzi `100.x.y.z`, ovunque siano. Ha vinto perché azzera la fatica: NAT traversal automatico (con relay DERP quando il collegamento diretto fallisce), niente port forwarding, niente gestione manuale di chiavi, MagicDNS per i nomi. Perfetta per raggiungere il homelab da fuori, anche dietro CGNAT. Il compromesso: il coordination server che distribuisce chiavi e ACL è chiuso e gira sui loro sistemi, e l'account si appoggia a un identity provider esterno – se vuoi tutto in casa c'è Headscale, coordinatore open source di cui parliamo in una voce dedicata. Trappola: esporre un servizio con `tailscale funnel` e dimenticare che da quel momento è pubblico davvero."
+        "**Tailscale** è una mesh VPN costruita su WireGuard: installi il client sui dispositivi, fai login e ogni nodo vede gli altri su indirizzi `100.x.y.z`, ovunque siano. Ha vinto perché azzera la fatica: NAT traversal automatico (con relay DERP quando il collegamento diretto fallisce), niente port forwarding, niente gestione manuale di chiavi, MagicDNS per i nomi. Perfetta per raggiungere il homelab da fuori, anche dietro CGNAT – e per uso personale il piano gratuito basta e avanza (il modello: paga chi la usa in azienda). Il compromesso: il coordination server che distribuisce chiavi e ACL è chiuso e gira sui loro sistemi, e l'account si appoggia a un identity provider esterno – se vuoi tutto in casa c'è Headscale, coordinatore open source di cui parliamo in una voce dedicata. Trappola: esporre un servizio con `tailscale funnel` e dimenticare che da quel momento è pubblico davvero."
       ],
       "suggest": [
         "cos-e-il-cgnat-e-come-uscirne",
@@ -15613,8 +15618,232 @@
       "suggest": [
         "security-logging-fatto-bene",
         "cos-e-autenticazione-due-fattori-mfa",
-        "perche-usare-un-password-manager",
-        "verificare-password-compromessa"
+        "backup-di-vaultwarden-cosa-salvare",
+        "perche-usare-un-password-manager"
+      ]
+    },
+    {
+      "id": "synology-vs-diy",
+      "slug": "synology-o-nas-fai-da-te",
+      "question": "Meglio un NAS pronto (Synology, QNAP) o un NAS fai da te?",
+      "vertical": "proxmox",
+      "keywords": [
+        "synology",
+        "qnap",
+        "nas fai da te",
+        "nas pronto",
+        "nas commerciale"
+      ],
+      "answers": [
+        "Un NAS commerciale compri **un elettrodomestico**: Synology e QNAP offrono setup guidato, app mobili, consumi bassi e aggiornamenti che arrivano da soli. Il prezzo vero non è solo il listino: hardware modesto per quello che costa, espansioni care, e un lock-in crescente – sulle serie recenti Synology spinge verso dischi certificati propri. Il fai da te (un case con 4-6 baie, hardware x86 usato o [un mini PC](q/mini-pc-intel-n100-per-homelab/) con case esterno) con [TrueNAS](q/truenas-dentro-proxmox/) o [Unraid](q/cos-e-unraid-nas-os/) dà molta più potenza per euro, ZFS vero, upgrade liberi – in cambio di tempo tuo e responsabilità tua. La regola onesta: se il NAS deve solo *funzionare* per la famiglia, il commerciale vince; se è il cuore di un homelab che vuoi capire ed espandere, il fai da te ripaga – [dimensionalo bene](q/dimensionare-un-nodo-proxmox/) e considera [i dischi ricondizionati](q/hdd-ricondizionati-per-il-nas/)."
+      ],
+      "suggest": [
+        "mini-pc-intel-n100-per-homelab",
+        "truenas-dentro-proxmox",
+        "hdd-ricondizionati-per-il-nas",
+        "cos-e-unraid-nas-os"
+      ]
+    },
+    {
+      "id": "hdd-ricondizionati",
+      "slug": "hdd-ricondizionati-per-il-nas",
+      "question": "Conviene comprare hard disk ricondizionati per il NAS?",
+      "vertical": "proxmox",
+      "keywords": [
+        "hdd ricondizionati",
+        "dischi ricondizionati",
+        "dischi usati",
+        "refurbished",
+        "hdd recertified",
+        "hard disk ricondizionati"
+      ],
+      "answers": [
+        "Sì, a patto di sapere cosa stai comprando. I dischi **recertified** vengono in gran parte da datacenter dismessi: enterprise di qualità (elio, CMR, MTBF alto) a una frazione del prezzo per terabyte del nuovo. I rischi: **ore di volo già accumulate**, garanzia del venditore corta al posto di quella pluriennale del produttore, e qualche esemplare sfortunato. Le regole che rendono l'affare sicuro: compra da venditori specializzati **con garanzia scritta**, alla consegna leggi subito [i dati SMART](q/monitorare-lo-stato-dei-dischi-smart/) (Power_On_Hours, settori riallocati) e fai un test lungo (`smartctl -t long`, o un giro di `badblocks`), e soprattutto usali **solo in ridondanza** – [RAID o RAIDZ](q/raid-e-raidz-livelli-e-scelta/) più [backup 3-2-1](q/backup-3-2-1/) – mai come unica copia di qualcosa che ami. In un array ridondato un ricondizionato che muore è un fastidio, non una tragedia: è esattamente il rischio che stai comprando a sconto."
+      ],
+      "suggest": [
+        "monitorare-lo-stato-dei-dischi-smart",
+        "raid-e-raidz-livelli-e-scelta",
+        "synology-o-nas-fai-da-te",
+        "backup-3-2-1"
+      ]
+    },
+    {
+      "id": "transcoding-igpu",
+      "slug": "transcoding-hardware-igpu-docker",
+      "question": "Come si usa la iGPU per il transcoding nei container (Jellyfin, Immich)?",
+      "vertical": "proxmox",
+      "keywords": [
+        "igpu",
+        "hardware transcoding",
+        "quick sync",
+        "vaapi",
+        "dev dri",
+        "non vede la igpu",
+        "accelerazione hardware",
+        "igpu per il transcoding"
+      ],
+      "answers": [
+        "Il transcoding software divora CPU; la **iGPU Intel** (Quick Sync) lo fa quasi gratis – è il motivo per cui [un N100 basta come media server](q/mini-pc-intel-n100-per-homelab/). Per farla vedere a un container servono tre cose: 1) i **driver sull'host** (`intel-media-driver` per le generazioni recenti; verifica con `vainfo`); 2) il **device nel container**: in compose `devices: [\"/dev/dri:/dev/dri\"]`; 3) i **permessi**: l'utente del container deve stare nel gruppo `render` – `group_add` con il *GID numerico* del gruppo host (il nome non esiste dentro l'immagine, ed è l'errore classico dietro \"non vede la iGPU\"). Poi si abilita nell'app: in [Jellyfin](q/media-server-self-hosted-jellyfin/) Riproduzione → accelerazione QSV/VA-API. Dentro una VM serve prima il passthrough della GPU dall'hypervisor; in un LXC bastano le stesse regole sul device – [come per i dongle USB](q/passare-un-disco-usb-a-una-vm/)."
+      ],
+      "suggest": [
+        "mini-pc-intel-n100-per-homelab",
+        "media-server-self-hosted-jellyfin",
+        "arr-stack-sonarr-radarr-prowlarr",
+        "passare-un-disco-usb-a-una-vm"
+      ]
+    },
+    {
+      "id": "arr-stack",
+      "slug": "arr-stack-sonarr-radarr-prowlarr",
+      "question": "Cos'è l'arr stack (Sonarr, Radarr, Prowlarr) e come si collega al client torrent?",
+      "vertical": "proxmox",
+      "keywords": [
+        "sonarr",
+        "radarr",
+        "prowlarr",
+        "jackett",
+        "qbittorrent",
+        "arr stack",
+        "collegare sonarr"
+      ],
+      "answers": [
+        "L'**arr stack** automatizza la libreria multimediale: **Sonarr** segue le serie, **Radarr** i film, e **Prowlarr** gestisce gli indexer in un posto solo e li sincronizza sugli altri due – è il motivo per cui ha di fatto pensionato Jackett, dove ogni indexer andava incollato a mano. Il collegamento al client: in Sonarr/Radarr → Impostazioni → Download Client → aggiungi **qBittorrent** con host, porta e credenziali, e assegna una **categoria** per app (sonarr, radarr): è così che ognuno riconosce i propri download. Il dettaglio che separa un setup sano da uno che copia file all'infinito: **un'unica cartella radice** condivisa (es. `/data` con dentro `torrents/` e `media/`) montata uguale in tutti i container, così gli hardlink funzionano e importare non duplica nulla. Il tutto vive bene [in compose](q/un-compose-per-stack-o-uno-unico/), spesso [dietro una VPN con gluetun](q/instradare-container-docker-vpn-gluetun-network-mode/); la liceità dipende, ovviamente, da cosa scarichi."
+      ],
+      "suggest": [
+        "un-compose-per-stack-o-uno-unico",
+        "instradare-container-docker-vpn-gluetun-network-mode",
+        "transcoding-hardware-igpu-docker"
+      ]
+    },
+    {
+      "id": "thin-client-usato",
+      "slug": "thin-client-usato-per-homelab",
+      "question": "Un thin client usato come server homelab: conviene rispetto a un mini PC nuovo?",
+      "vertical": "proxmox",
+      "keywords": [
+        "thin client",
+        "dell wyse",
+        "mini pc usato",
+        "futro"
+      ],
+      "answers": [
+        "I **thin client** aziendali dismessi (Dell Wyse, HP T630, Fujitsu Futro) costano pochissimo sull'usato, consumano 5-15 W e sono silenziosi: perfetti per DNS, Home Assistant, un nodo di test o qualunque servizio leggero sempre acceso. I limiti da conoscere prima: RAM a volte saldata o limitata, storage espandibile poco (M.2 SATA corti, niente NVMe), e CPU di qualche generazione fa **senza Quick Sync moderno** – per un media server con [transcoding hardware](q/transcoding-hardware-igpu-docker/) perdono secco. Il confronto onesto: [un N100 nuovo](q/mini-pc-intel-n100-per-homelab/) vince su media server, virtualizzazione leggera ed efficienza per watt; il thin client vince sul **costo puro** e come nodo sacrificabile – tre Futro usati fanno un cluster di laboratorio con quello che costa una cena. Regola pratica: primo server \"serio\" → N100; servizi singoli, esperimenti e [basso consumo](q/homelab-a-basso-consumo/) → il thin client usato è l'affare del homelab."
+      ],
+      "suggest": [
+        "transcoding-hardware-igpu-docker",
+        "mini-pc-intel-n100-per-homelab",
+        "raspberry-sd-si-corrompe-boot-ssd",
+        "homelab-a-basso-consumo"
+      ]
+    },
+    {
+      "id": "raspberry-sd",
+      "slug": "raspberry-sd-si-corrompe-boot-ssd",
+      "question": "La microSD del Raspberry si corrompe sempre: come si risolve?",
+      "vertical": "proxmox",
+      "keywords": [
+        "sd si corrompe",
+        "microsd corrotta",
+        "boot da ssd",
+        "log2ram",
+        "raspberry senza sd",
+        "overlayfs",
+        "microsd del raspberry"
+      ],
+      "answers": [
+        "Non sei sfortunato: le microSD **non sono fatte** per un sistema operativo che scrive log in continuazione, e le alimentazioni scadenti danno il colpo di grazia durante le scritture. I rimedi, in ordine di efficacia: 1) **boot da SSD USB** – i Raspberry recenti avviano nativamente da USB (si abilita dal bootloader con `raspi-config`); un SSD SATA con adattatore UASP costa poco e cambia vita a durata e velocità; 2) se la SD deve restare, **log2ram** o journald in RAM spostano le scritture continue in memoria con flush periodico; 3) per le appliance da non toccare mai, filesystem **read-only con overlayfs**: la SD diventa quasi immortale; 4) scheda di classe *High Endurance* (quelle per dashcam) e alimentatore ufficiale. E qualunque strada scegli: un'immagine di backup della scheda ogni tanto – [il ruolo giusto di un SBC](q/single-board-computer-nel-homelab/) è fare il muletto, non custodire dati unici – [quelli vanno nel backup](q/backup-cifrati-restic-borg/)."
+      ],
+      "suggest": [
+        "single-board-computer-nel-homelab",
+        "backup-cifrati-restic-borg",
+        "thin-client-usato-per-homelab"
+      ]
+    },
+    {
+      "id": "caddyfile-minimo",
+      "slug": "caddyfile-minimo-per-servizi-docker",
+      "question": "Com'è fatto un Caddyfile minimo per esporre due servizi Docker?",
+      "vertical": "cloudflare",
+      "keywords": [
+        "caddyfile",
+        "config caddy",
+        "caddy e docker",
+        "reverse proxy minimo",
+        "caddyfile minimo"
+      ],
+      "answers": [
+        "Tutto qui:\n\n```\nfoto.example.com {\n    reverse_proxy immich:2283\n}\nnote.example.com {\n    reverse_proxy joplin:22300\n}\n```\n\n[Caddy](q/nginx-caddy-o-traefik/) ottiene e rinnova [i certificati HTTPS da solo](q/configurare-https-su-caddy/): niente certbot, niente cron. I tre dettagli che fanno funzionare la magia in Docker: 1) Caddy e i servizi devono stare sulla **stessa network** di compose, così `immich:2283` si risolve col nome del servizio; 2) le porte **80 e 443 le pubblica solo Caddy** – gli altri container non espongono nulla sull'host, il proxy li raggiunge internamente; 3) i DNS dei due host devono puntare al tuo IP *prima* del primo avvio, o la richiesta dei certificati fallisce. Da lì si cresce: [un WAF davanti](q/come-aggiungere-un-waf-a-caddy/), [ban automatici](q/bannare-ip-brute-force-caddy/), header di sicurezza. Ma il cuore resta questo: quattro righe leggibili al posto di quaranta."
+      ],
+      "suggest": [
+        "nginx-caddy-o-traefik",
+        "configurare-https-su-caddy",
+        "come-aggiungere-un-waf-a-caddy",
+        "bannare-ip-brute-force-caddy"
+      ]
+    },
+    {
+      "id": "nextcloud-aio",
+      "slug": "nextcloud-aio-o-docker-compose",
+      "question": "Nextcloud AIO o Docker Compose classico: quale installazione scegliere?",
+      "vertical": "proxmox",
+      "keywords": [
+        "nextcloud aio",
+        "aio",
+        "mastercontainer",
+        "all in one",
+        "aio o docker compose"
+      ],
+      "answers": [
+        "**Nextcloud AIO** (All-in-One) è l'installazione ufficiale \"chiavi in mano\": un *mastercontainer* che orchestra lui tutti i pezzi – database, Redis, Office, Talk, perfino i backup integrati con Borg – e si amministra da un pannello web, aggiornamenti compresi. Il **compose classico** invece lo scrivi tu: [Postgres e Redis espliciti](q/nextcloud-ottimizzazione-redis-caching-postgresql/), versioni che decidi tu, tutto ispezionabile. La scelta è filosofica prima che tecnica: AIO tratta [Nextcloud](q/sostituire-google-drive-con-nextcloud/) come un **prodotto** – meno scelte, meno modi di sbagliare, ma un livello di orchestrazione in più che decide per te e vuole la sua configurazione del reverse proxy (un container che gestisce container spiazza, la prima volta). Il compose lo tratta come **infrastruttura tua** – più controllo e più responsabilità. Regola pratica: primo Nextcloud o famiglia da servire senza sorprese → AIO; homelab dove vuoi capire ogni pezzo e integrarlo [col tuo proxy](q/caddyfile-minimo-per-servizi-docker/) → compose classico."
+      ],
+      "suggest": [
+        "nextcloud-ottimizzazione-redis-caching-postgresql",
+        "sostituire-google-drive-con-nextcloud",
+        "caddyfile-minimo-per-servizi-docker"
+      ]
+    },
+    {
+      "id": "vaultwarden-backup",
+      "slug": "backup-di-vaultwarden-cosa-salvare",
+      "question": "Backup di Vaultwarden: cosa bisogna salvare esattamente?",
+      "vertical": "security",
+      "keywords": [
+        "backup di vaultwarden",
+        "salvare vaultwarden",
+        "ripristinare vaultwarden"
+      ],
+      "answers": [
+        "Dentro la cartella dati di [Vaultwarden](q/password-manager-self-hosted-vaultwarden/) le cose che contano sono quattro: **`db.sqlite3`** (tutto il vault cifrato), **`attachments/`** e **`sends/`** (allegati e invii), e **`rsa_key*`** – le chiavi con cui il server firma le sessioni: se le perdi, al ripristino tutti i client vengono buttati fuori e devono rifare login. Più la configurazione (variabili d'ambiente o `config.json`). L'errore classico: copiare `db.sqlite3` con `cp` mentre il server scrive – [SQLite va copiato con `.backup` o `VACUUM INTO`](q/sqlite-quando-basta/) per avere una copia consistente (o fermi il container per i secondi che servono). Da lì, trattalo come ogni backup serio: [cifrato, versionato e fuori sede](q/backup-cifrati-restic-borg/), e **provato**: tira su un'istanza pulita dal backup e fai login davvero – è l'unico test che conta, [come per tutti i backup](q/backup-su-nas-basta-o-serve-il-cloud/). Sono i tuoi segreti: il backup del password manager è il backup più importante che hai."
+      ],
+      "suggest": [
+        "password-manager-self-hosted-vaultwarden",
+        "sqlite-quando-basta",
+        "backup-cifrati-restic-borg",
+        "backup-su-nas-basta-o-serve-il-cloud"
+      ]
+    },
+    {
+      "id": "compose-organizzazione",
+      "slug": "un-compose-per-stack-o-uno-unico",
+      "question": "Meglio un docker-compose unico o uno per stack? Come organizzare i servizi",
+      "vertical": "proxmox",
+      "keywords": [
+        "compose unico",
+        "uno per stack",
+        "organizzare i compose",
+        "restart unless stopped",
+        "container non ripartiti",
+        "stack separati",
+        "unico o uno per stack",
+        "come organizzare i servizi"
+      ],
+      "answers": [
+        "**Uno stack logico per file**: l'app col *suo* database e i *suoi* worker stanno insieme (si aggiornano e riavviano come unità), servizi indipendenti stanno in compose separati, ognuno nella sua cartella con il suo `.env`. Il file unico da trenta servizi sembra ordine ma è una trappola: ogni `down` tocca tutto, i log si mescolano, e un errore di sintassi blocca l'intero homelab. I collanti tra stack: una **network esterna condivisa** (`docker network create proxy`) a cui si agganciano [il reverse proxy](q/caddyfile-minimo-per-servizi-docker/) e i servizi da esporre, e nomi di progetto espliciti. E il dettaglio che scopri al primo riavvio del server: la restart policy di default è `no` – senza **`restart: unless-stopped`** sui servizi, dopo un reboot non riparte niente e sembra tutto rotto. Completano il quadro: versioni pinnate (niente `latest` sulle cose che ami), segreti nel `.env` fuori dal file – [le basi di Compose](q/cos-e-docker-compose/) restano quelle."
+      ],
+      "suggest": [
+        "caddyfile-minimo-per-servizi-docker",
+        "cos-e-docker-compose",
+        "nextcloud-aio-o-docker-compose"
       ]
     }
   ],

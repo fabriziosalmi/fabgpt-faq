@@ -2994,5 +2994,45 @@
  {
   "q": "i dipendenti si scambiano le password dei gestionali come lo fermo",
   "expect": "password-condivise"
+ },
+ {
+  "q": "synology o nas fai da te",
+  "expect": "synology-vs-diy"
+ },
+ {
+  "q": "conviene comprare hdd ricondizionati per il nas",
+  "expect": "hdd-ricondizionati"
+ },
+ {
+  "q": "jellyfin in docker non vede la igpu",
+  "expect": "transcoding-igpu"
+ },
+ {
+  "q": "come collego sonarr a qbittorrent",
+  "expect": "arr-stack"
+ },
+ {
+  "q": "meglio n100 nuovo o thin client usato",
+  "expect": "thin-client-usato"
+ },
+ {
+  "q": "la sd del raspberry si corrompe sempre che alternativa uso",
+  "expect": "raspberry-sd"
+ },
+ {
+  "q": "config caddy minima per due servizi docker",
+  "expect": "caddyfile-minimo"
+ },
+ {
+  "q": "nextcloud aio o compose classico",
+  "expect": "nextcloud-aio"
+ },
+ {
+  "q": "backup di vaultwarden cosa devo salvare",
+  "expect": "vaultwarden-backup"
+ },
+ {
+  "q": "meglio un compose unico o uno per stack",
+  "expect": "compose-organizzazione"
  }
 ]
