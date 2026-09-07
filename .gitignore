@@ -1,0 +1,7 @@
+# Local editor and agent configuration. .claude/launch.json was committed and
+# carried an absolute home path (/Users/fab/...) into a public repository: it
+# only ever worked on one machine, and it published the directory layout of that
+# machine to anyone reading the repo.
+.claude/
+.vscode/
+.DS_Store
