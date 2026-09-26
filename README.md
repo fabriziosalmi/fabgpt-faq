@@ -86,7 +86,7 @@ Nothing ships on a red gate. The suite mirrors the full JS pipeline in Python:
 | T8 | `python3 convcheck.py` | conversation marathons up to 23 turns: routing 100%, the bot never repeats itself, every fallback fresh, always a live chip |
 | T9 | `python3 groundcheck.py` | ground-truth layer: integrity + canonical routing through the full pipeline |
 | T10 | `python3 dialogcheck.py` | dialogue acts: integrity, no-steal over every known question, scripted sessions, derived-only (verbatim) answers, JS/Python parity under node |
-| T11 | `python3 guardcheck.py` | refusal layer: multi-word phrases only, no legitimate question refused; optional external battery (`GUARD_PROMPTS=file.tsv`, labels R refuse / A answer / H help) |
+| T11 | `python3 guardcheck.py` | refusal layer: multi-word phrases only, no legitimate question refused, built-in defence/victim battery; optional external battery (`GUARD_PROMPTS=file.tsv`, labels R refuse / A answer / H help) |
 
 Every gate loads every dataset, so a layer stealing queries from another turns
 some gate red by construction.

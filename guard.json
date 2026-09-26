@@ -1,5 +1,5 @@
 {
-  "_doc": "Refusal layer: one refusal text for everything the bot must not answer. A phrase here wins over every other layer (KB, cards, ground, context) as soon as it scores GUARD_MIN, i.e. at least one multi-word phrase is present in the input. Phrases only (no single words): single words would refuse legitimate security questions. Self-harm is NOT handled here: it needs help, not a refusal (st-emotivo). Gated by guardcheck.py (T11).",
+  "_doc": "Refusal layer: one refusal text for everything the bot must not answer. A phrase here wins over every other layer (KB, cards, ground, context) as soon as one phrase appears WHOLE and word-aligned in the normalized input (no fuzzy matching, no summing of near-misses). Phrases only (no single words): single words would refuse legitimate security questions. Self-harm is NOT handled here: it needs help, not a refusal (st-emotivo). Gated by guardcheck.py (T11).",
   "refusal": "Su questo non rispondo. Sono un archivio di risposte scritte e verificate a mano su sicurezza informatica, AI, Proxmox e Cloudflare, e questa richiesta resta fuori per scelta, non per un limite tecnico. Se ti serve qualcosa sul versante difensivo, chiedi pure: lì sono di casa.",
   "phrases": [
     "come costruire una bomba",

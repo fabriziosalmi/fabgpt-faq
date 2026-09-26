@@ -318,7 +318,6 @@ def command_entry(card):
     }
 
 
-GUARD_MIN = 2.0      # refusal layer: one multi-word phrase present (guard.json)
 
 
 def load_guard(root=None):
@@ -350,14 +349,18 @@ _GUARD = []
 
 
 def guard_hit(text, guard=False):
-    """The refusal pseudo-entry if the input carries a guard phrase, else None."""
+    """The refusal pseudo-entry if the input contains a guard phrase WHOLE,
+    word-aligned, else None. Deliberately not the fuzzy scorer: summing
+    near-misses of two different phrases ("mi spia il telefono") would refuse
+    a victim's question. Mirrors app.js guardHit()."""
     if guard is False:
         if not _GUARD:
             _GUARD.append(load_guard())
         guard = _GUARD[0]
     if not guard or not guard["keywords"]:
         return None
-    return guard if score_entry(guard, norm(text), tokens(text)) >= GUARD_MIN else None
+    padded = " " + norm(text) + " "
+    return guard if any(" " + p + " " in padded for p in guard["keywords"]) else None
 
 
 def match(db, text, ctx=None, commands=None, ground=None, guard=False):
@@ -371,7 +374,7 @@ def match(db, text, ctx=None, commands=None, ground=None, guard=False):
     # Refusal layer first: a guard phrase beats every other layer (mirrors app.js).
     g = guard_hit(text, guard)
     if g is not None:
-        return g, GUARD_MIN
+        return g, 2.0
     input_norm = norm(text)
     input_tokens = tokens(text)
     best, best_score = None, 0.0
