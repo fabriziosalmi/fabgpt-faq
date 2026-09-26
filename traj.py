@@ -29,7 +29,8 @@ Gates:
 import json
 import sys
 
-from qa import match, pool, fastpath, load_ground
+from dialog import load_dialog, detect_act, first_sentence, first_code, ext_links, fill, act_entry
+from qa import match, pool, fastpath, load_ground, command_md
 
 ROOT = __file__.rsplit("/", 1)[0]
 VERBOSE = "-v" in sys.argv
@@ -47,8 +48,10 @@ def gate(name, passed, total, required, unit="%"):
 # ---- app.js runtime mirror (variant + fallback rotation, chip history) ----
 
 class Runtime:
-    def __init__(self, db, commands=None, ports=None, ground=None):
+    def __init__(self, db, commands=None, ports=None, ground=None, dialog=False):
         self.db = db
+        self.dialog = load_dialog() if dialog is False else dialog
+        self.stack = []   # thread history (entry ids) for the "indietro" act
         self.commands = commands or []
         self.ports = ports or {}
         self.ground = ground or []
@@ -66,6 +69,12 @@ class Runtime:
             kind, signature = fp
             return {"id": "fp/" + kind, "question": text, "answers": [signature],
                     "suggest": [], "kind": "fastpath"}, signature
+        # dialogue acts on the active thread (dialog.json), exactly like app.js
+        act = detect_act(self.dialog, text) if self.ctx is not None else None
+        if act:
+            hit = self.run_act(act)
+            if hit is not None:
+                return hit
         entry, _ = match(self.db, text, self.ctx, self.commands, self.ground)
         # "approfondisci" on an active thread serves the next variant of the
         # last KB entry instead of the generic smalltalk reply (mirrors app.js).
@@ -97,12 +106,88 @@ class Runtime:
         if entry.get("slug") or entry.get("kind") in ("command", "ground"):
             if entry.get("slug"):
                 self.asked.add(entry["slug"])
-            self.ctx = entry                        # cards and ground carry context too
+            self.set_ctx(entry)                     # cards and ground carry context too
         ans = entry["answers"][idx % n]
         # variants exhausted (or single answer): acknowledge instead of parroting
         if seen and self.served[entry["id"]] > n and (entry.get("slug") or entry.get("kind") in ("command", "ground")):
             ans = "*Te l'avevo già raccontata – eccola di nuovo:*\n\n" + ans
         return entry, ans
+
+    # ---- thread bookkeeping + dialogue acts (mirrors app.js) -------------
+    def set_ctx(self, entry):
+        self.ctx = entry
+        if not self.stack or self.stack[-1]["id"] != entry["id"]:
+            self.stack.append(entry)
+
+    def live_suggest(self, entry):
+        sug = entry.get("suggest") or []
+        by_slug = {e["slug"]: e for e in self.db["entries"]}
+        alive = [s for s in sug if s in by_slug and s not in self.asked]
+        return alive or (self.db["config"].get("suggest") or [])
+
+    def run_act(self, act):
+        """Serve a dialogue act on self.ctx; None = fall through to match()."""
+        T = self.dialog["templates"]
+        ctx = self.ctx
+        q = ctx["question"]
+        idx = self.cursor.get(ctx["id"], 0)
+        slug = ctx.get("slug")
+        if act == "breve":
+            s = first_sentence(ctx["answers"][idx % len(ctx["answers"])])
+            ans = fill(T["breve"] if s else T["breveNone"], s=s or "") + (fill(T["breveLink"], slug=slug) if slug else "")
+        elif act == "esempio":
+            code = first_code(ctx, idx)
+            card = None
+            if code is None and slug:
+                card = next((c for c in self.commands if slug in (c.get("related") or [])), None)
+            if code is not None:
+                ans = fill(T["esempioCode"], q=q, code=code)
+            elif card is not None:
+                ans = fill(T["esempioCard"], q=q) + command_md(card)
+            else:
+                ans = fill(T["esempioNone"], q=q)
+        elif act == "dopo":
+            by_slug = {e["slug"]: e for e in self.db["entries"]}
+            nxt = next((by_slug[s] for s in (ctx.get("suggest") or [])
+                        if s in by_slug and s not in self.asked), None)
+            if nxt is None:
+                ans = fill(T["dopoNone"], q=q)
+                return act_entry(act, ans, self.db["config"].get("suggest") or []), ans
+            self.cursor.setdefault(nxt["id"], 0)
+            self.served[nxt["id"]] = self.served.get(nxt["id"], 0) + 1
+            self.last = nxt["id"]
+            self.asked.add(nxt["slug"])
+            self.set_ctx(nxt)
+            ans = fill(T["dopo"], prev=q) + nxt["answers"][0]
+            return nxt, ans
+        elif act == "fonte":
+            if slug:
+                ans = fill(T["fontePage"], q=q, slug=slug)
+            elif ctx.get("kind") == "command":
+                ans = fill(T["fonteCard"], group=ctx["group"], id=ctx["cardId"])
+            else:
+                ans = T["fonteGround"]
+            links = ext_links(ctx)
+            if links:
+                ans += T["fonteLinks"] + "\n".join(links)
+        elif act == "indietro":
+            if len(self.stack) < 2:
+                ans = fill(T["indietroNone"], q=q)
+            else:
+                self.stack.pop()
+                self.ctx = ctx = self.stack[-1]
+                ans = fill(T["indietro"], q=ctx["question"])
+        elif act == "perche":
+            n = len(ctx["answers"])
+            if n < 2:
+                return None
+            idx = (idx + 1) % n
+            self.cursor[ctx["id"]] = idx
+            ans = T["perche"] + ctx["answers"][idx]
+        else:
+            return None
+        self.last = "act/" + act
+        return act_entry(act, ans, self.live_suggest(ctx)), ans
 
 
 def main():

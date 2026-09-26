@@ -1,0 +1,47 @@
+{
+  "_doc": "Dialogue acts: short follow-ups that operate on the CURRENT thread (the last KB/card/ground entry served). A trigger matches only when the WHOLE normalized input equals it (optionally preceded by a filler like 'e', 'ok', 'ma'), so an act can never steal a real question. Every act answer is derived from verified content already in the KB: nothing is generated. Mirrored in traj.py (Runtime.ask); gated by dialogcheck.py (T10).",
+  "fillers": ["e", "ok", "ma", "allora", "quindi", "senti", "ora", "adesso", "dai"],
+  "acts": [
+    {
+      "id": "breve",
+      "triggers": ["riassumi", "riassumimi", "riassunto", "in breve", "in sintesi", "sintetizza", "tldr", "tl dr", "in una riga", "in una frase", "fammela breve", "fammela corta", "versione breve", "versione corta", "riassumilo", "riassumila", "in poche parole", "detto in breve", "il succo", "qual e il succo"]
+    },
+    {
+      "id": "esempio",
+      "triggers": ["fammi un esempio", "un esempio", "esempio", "esempio pratico", "un esempio pratico", "in pratica", "in pratica come", "mostrami il comando", "il comando", "qual e il comando", "che comando uso", "fammi vedere", "fammi vedere come", "mostrami come", "come lo faccio in pratica", "codice", "fammi vedere il codice"]
+    },
+    {
+      "id": "dopo",
+      "triggers": ["e poi", "poi", "e dopo", "dopo", "prossimo passo", "passo successivo", "cosa viene dopo", "cosa leggo dopo", "cosa faccio dopo", "e adesso cosa faccio", "cosa mi consigli dopo", "next", "avanti il prossimo", "altro argomento collegato"]
+    },
+    {
+      "id": "fonte",
+      "triggers": ["fonte", "fonti", "la fonte", "le fonti", "qual e la fonte", "quali sono le fonti", "da dove lo sai", "come lo sai", "dove lo leggo", "hai un link", "link", "mandami il link", "dammi il link", "sei sicuro", "ne sei sicuro", "e vero", "verificato", "source", "sources"]
+    },
+    {
+      "id": "indietro",
+      "triggers": ["torna indietro", "indietro", "torniamo indietro", "torniamo a prima", "di cosa parlavamo", "di cosa stavamo parlando", "argomento precedente", "tema precedente", "riprendiamo il discorso", "dove eravamo", "dove eravamo rimasti", "back"]
+    },
+    {
+      "id": "perche",
+      "triggers": ["perche", "e perche", "come mai", "per quale motivo", "motivo", "perche mai", "why"]
+    }
+  ],
+  "templates": {
+    "breve": "**In una riga:** {s}",
+    "breveNone": "Questa risposta è già in forma essenziale – un elenco o un comando, non c'è una riga da togliere senza perdere il senso.",
+    "breveLink": "\n\n[La pagina completa →](q/{slug}/)",
+    "esempioCode": "**Un esempio concreto** su *{q}*:\n\n{code}",
+    "esempioCard": "**Un esempio concreto** su *{q}* – il comando verificato:\n\n",
+    "esempioNone": "Su *{q}* non ho un esempio pratico verificato da mostrarti, e preferisco non inventarlo: un comando sbagliato fa più danni di nessun comando. Da qui però puoi proseguire con uno di questi temi vicini.",
+    "dopo": "**Passo successivo** dopo *{prev}*:\n\n",
+    "dopoNone": "Su *{q}* hai già esplorato tutto quello che avevo collegato. Da qui puoi ripartire da uno dei temi principali.",
+    "fontePage": "Questa risposta viene dalla pagina verificata [{q}](q/{slug}/): scritta e controllata a mano, non generata. Niente modello dietro, quindi niente allucinazioni.",
+    "fonteCard": "Questo comando viene dalla [scheda verificata dei comandi](comandi/{group}/#{id}): ogni riga è stata provata prima di finire qui.",
+    "fonteGround": "Questa risposta fa parte del livello di cultura generale di FabGPT-FAQ: scritta e controllata a mano, senza pagina dedicata. Se trovi un errore, segnalalo: si corregge alla fonte, non si \"ri-addestra\".",
+    "fonteLinks": "\n\nRiferimenti esterni citati nella risposta:\n",
+    "indietro": "Torniamo a *{q}*. Riprendi da qui, oppure chiedimi di riassumerlo o di farti un esempio.",
+    "indietroNone": "Siamo ancora sul primo argomento della conversazione, *{q}*: non c'è un tema precedente a cui tornare.",
+    "perche": "*Il perché, visto da un'altra angolazione:*\n\n"
+  }
+}

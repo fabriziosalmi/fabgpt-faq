@@ -13,8 +13,9 @@
   let DB = null;
   let DIAGRAMS = {};                         // entry id -> inline SVG
   let PORTS = {};                            // well-known ports dataset (ports.json)
-  let COMMANDS = [];
-  let GROUND = [];                           // ground-truth layer (ground.json)                         // command cards (commands.json)
+  let COMMANDS = [];                         // command cards (commands.json)
+  let GROUND = [];                           // ground-truth layer (ground.json)
+  let DIALOG = null;                         // dialogue acts (dialog.json)
   const CMD_MIN = 2.0;                       // a card must reach this AND strictly beat the KB
   const GROUND_MIN = 2.0;                    // same contract for the ground-truth layer
   let streaming = false;
@@ -228,6 +229,136 @@
           (sg >= 1 && !kb)) return bg;
     }
     return kb;
+  }
+
+  /* ---------- dialogue acts (dialog.json; Python mirror: dialog.py + traj.py) ---------- */
+
+  const threadStack = [];                   // thread history for the "indietro" act
+
+  function setCtx(entry) {
+    ctxEntry = entry;
+    if (!threadStack.length || threadStack[threadStack.length - 1].id !== entry.id) threadStack.push(entry);
+  }
+
+  // Whole-input match, one leading filler allowed: an act never steals a real question.
+  function detectAct(text) {
+    if (!DIALOG) return null;
+    const n = norm(text);
+    const cands = [n];
+    const sp = n.indexOf(' ');
+    if (sp > 0 && DIALOG.fillers.includes(n.slice(0, sp))) cands.push(n.slice(sp + 1));
+    for (const a of DIALOG.acts) {
+      for (const c of cands) if (a.triggers.includes(c)) return a.id;
+    }
+    return null;
+  }
+
+  const ACT_SKIP = ['```', '- ', '|', '#', '*Te l', '1. ', '['];
+  const ACT_CODE = /```[a-z0-9]*\n[\s\S]*?\n```/;
+  const ACT_TITLE = /^\*\*[^*]+\*\*$/;
+  const ACT_EXT = /\[([^\]]+)\]\((https?:\/\/[^)\s]+)\)/g;
+
+  function countOf(s, sub) { return s.split(sub).length - 1; }
+
+  function firstSentence(md) {
+    for (const para of md.replace(new RegExp(ACT_CODE.source, 'g'), '\n\n').split('\n\n')) {
+      let p = para.trim();
+      if (!p || ACT_SKIP.some(k => p.startsWith(k)) || ACT_TITLE.test(p)) continue;
+      p = p.split(/\s+/).join(' ');
+      let out = '';
+      for (const s of p.split(/(?<=[.!?])\s+/)) {
+        out = (out + ' ' + s).trim();
+        if (countOf(out, '**') % 2 === 0 && countOf(out, '`') % 2 === 0 && out.length >= 40) break;
+      }
+      if (out.endsWith(':')) continue;   // lead-in: look further
+      return out;
+    }
+    return null;   // only a lead-in (list or code follows): nothing to condense
+  }
+
+  function firstCode(entry, idx) {
+    const ans = entry.answers;
+    for (const a of [ans[idx % ans.length]].concat(ans)) {
+      const m = a.match(ACT_CODE);
+      if (m) return m[0];
+    }
+    return null;
+  }
+
+  function extLinks(entry) {
+    const seen = new Set(), out = [];
+    for (const a of entry.answers) {
+      for (const m of a.matchAll(ACT_EXT)) {
+        if (!seen.has(m[2])) { seen.add(m[2]); out.push('- [' + m[1] + '](' + m[2] + ')'); }
+      }
+    }
+    return out.slice(0, 4);
+  }
+
+  function fill(tpl, kw) {
+    for (const k in kw) tpl = tpl.split('{' + k + '}').join(String(kw[k]));
+    return tpl;
+  }
+
+  function liveSuggest(entry) {
+    const alive = (entry.suggest || []).filter(s => bySlug[s] && !askedSlugs.has(s));
+    return alive.length ? alive : (DB.config.suggest || []);
+  }
+
+  // Serve an act on ctxEntry -> { entry, answer, suggest } or null (fall through to match()).
+  function runAct(act) {
+    const T = DIALOG.templates;
+    let ctx = ctxEntry;
+    const q = ctx.question;
+    let idx = answerCursor[ctx.id] ?? 0;
+    const slug = ctx.slug;
+    let ans;
+    if (act === 'breve') {
+      const s = firstSentence(ctx.answers[idx % ctx.answers.length]);
+      ans = fill(s ? T.breve : T.breveNone, { s: s || '' }) + (slug ? fill(T.breveLink, { slug }) : '');
+    } else if (act === 'esempio') {
+      const code = firstCode(ctx, idx);
+      const card = (!code && slug) ? COMMANDS.find(c => (c.related || []).includes(slug)) : null;
+      if (code) ans = fill(T.esempioCode, { q, code });
+      else if (card) ans = fill(T.esempioCard, { q }) + cardEntry(card).answers[0];
+      else ans = fill(T.esempioNone, { q });
+    } else if (act === 'dopo') {
+      const nxtSlug = (ctx.suggest || []).find(s => bySlug[s] && !askedSlugs.has(s));
+      if (!nxtSlug) {
+        lastEntryId = 'act/dopo';
+        return { entry: { id: 'act/dopo' }, answer: fill(T.dopoNone, { q }), suggest: DB.config.suggest || [] };
+      }
+      const nxt = bySlug[nxtSlug];
+      if (!(nxt.id in answerCursor)) answerCursor[nxt.id] = 0;
+      servedCount[nxt.id] = (servedCount[nxt.id] || 0) + 1;
+      lastEntryId = nxt.id;
+      askedSlugs.add(nxt.slug);
+      setCtx(nxt);
+      return { entry: nxt, answer: fill(T.dopo, { prev: q }) + nxt.answers[0], suggest: nxt.suggest };
+    } else if (act === 'fonte') {
+      if (slug) ans = fill(T.fontePage, { q, slug });
+      else if (ctx.kind === 'command') ans = fill(T.fonteCard, { group: ctx.group, id: ctx.cardId });
+      else ans = T.fonteGround;
+      const links = extLinks(ctx);
+      if (links.length) ans += T.fonteLinks + links.join('\n');
+    } else if (act === 'indietro') {
+      if (threadStack.length < 2) ans = fill(T.indietroNone, { q });
+      else {
+        threadStack.pop();
+        ctx = ctxEntry = threadStack[threadStack.length - 1];
+        ans = fill(T.indietro, { q: ctx.question });
+      }
+    } else if (act === 'perche') {
+      const n = ctx.answers.length;
+      if (n < 2) return null;
+      idx = (idx + 1) % n;
+      answerCursor[ctx.id] = idx;
+      ans = T.perche + ctx.answers[idx];
+    } else {
+      return null;
+    }
+    lastEntryId = 'act/' + act;
+    return { entry: { id: 'act/' + act }, answer: ans, suggest: liveSuggest(ctx) };
   }
 
   /* ---------- minimal markdown rendering (escape first, then decorate) ---------- */
@@ -686,6 +817,16 @@
       streamAnswer(fp.answer, null, fp.suggest, null, text);
       return;
     }
+    // Dialogue acts on the active thread (dialog.json, mirrored in dialog.py/traj.py)
+    const act = ctxEntry ? detectAct(text) : null;
+    if (act) {
+      const hit = runAct(act);
+      if (hit) {
+        if (hit.entry.slug) crumbForEntry(hit.entry);
+        streamAnswer(hit.answer, null, hit.suggest, hit.entry.slug ? hit.entry.id : null, text);
+        return;
+      }
+    }
     let entry = match(text);
     // "approfondisci" on an active thread: serve the next answer variant of
     // the last KB entry instead of the generic smalltalk reply (qa.py mirrors).
@@ -706,7 +847,7 @@
     const qLabel = entry ? (entry.question || text) : text;
     if (entry && (entry.slug || entry.kind === 'command' || entry.kind === 'ground')) {
       if (entry.slug) askedSlugs.add(entry.slug);
-      ctxEntry = entry;                             // cards and ground carry context too
+      setCtx(entry);                                // cards and ground carry context too
     }
     crumbForEntry(entry);
     // retention: track how long the user stays inside one vertical
@@ -940,6 +1081,8 @@
       catch (_) { COMMANDS = []; } // command cards are optional
       try { GROUND = (await (await fetch('ground.json', { cache: 'no-cache' })).json()).entries; }
       catch (_) { GROUND = []; } // ground-truth layer is optional
+      try { DIALOG = await (await fetch('dialog.json', { cache: 'no-cache' })).json(); }
+      catch (_) { DIALOG = null; } // dialogue acts are optional
       // Self-heal a stale cached index.html that predates the tools.js tag.
       if (typeof FabTools === 'undefined') {
         const s = document.createElement('script');

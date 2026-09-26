@@ -39,6 +39,15 @@ in Python so it can be gated without a browser:
 
 Below all four, curated fallbacks rotate, always offering a way back in.
 
+On top of the pipeline sits a **dialogue-act layer** (`dialog.json`): bare
+follow-ups that work on the current thread instead of opening a new one –
+"riassumi", "fammi un esempio", "e poi?", "fonte?", "torna indietro",
+"perché?". An act fires only while a thread is active and only when the whole
+input is one of its triggers, so it can never steal a real question. Its
+answers are derived, never generated: the opening sentence of the served
+answer, its first code block or linked command card, the next unvisited node
+of the suggestion graph, the cited links, the previous thread.
+
 ## Surfaces
 
 | Surface | Path | Source |
@@ -69,6 +78,7 @@ Nothing ships on a red gate. The suite mirrors the full JS pipeline in Python:
 | T7 | `python3 cmdcheck.py` | command cards: integrity, no-steal, routing, battery fidelity |
 | T8 | `python3 convcheck.py` | conversation marathons up to 23 turns: routing 100%, the bot never repeats itself, every fallback fresh, always a live chip |
 | T9 | `python3 groundcheck.py` | ground-truth layer: integrity + canonical routing through the full pipeline |
+| T10 | `python3 dialogcheck.py` | dialogue acts: integrity, no-steal over every known question, scripted sessions, derived-only (verbatim) answers, JS/Python parity under node |
 
 Every gate loads every dataset, so a layer stealing queries from another turns
 some gate red by construction.
@@ -150,7 +160,7 @@ file is required so Pages serves the tree as-is.
 ## Reuse it
 
 The engine is generic: swap `faq.json` (and optionally `commands.json`,
-`ports.json`, `paths.json`, `ground.json`) and you have a verified-answers
+`ports.json`, `paths.json`, `ground.json`, `dialog.json`) and you have a verified-answers
 fake-AI FAQ for anything else, with the whole gate suite ready to keep it
 honest.
 

@@ -313,6 +313,8 @@ def command_entry(card):
         "answers": [command_md(card)],
         "suggest": card.get("related", []),
         "kind": "command",
+        "group": card["group"],
+        "cardId": card["id"],
     }
 
 
