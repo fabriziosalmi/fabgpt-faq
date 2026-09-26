@@ -663,8 +663,12 @@
   "q": "ricetta della carbonara",
   "expect": "st-consigli-vita"
  },
- {
+  {
   "q": "sono triste oggi",
+  "expect": "st-emotivo"
+ },
+ {
+  "q": "mi voglio suicidare",
   "expect": "st-emotivo"
  },
  {
