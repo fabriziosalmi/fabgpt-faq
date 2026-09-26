@@ -29,6 +29,7 @@
   ],
   "templates": {
     "breve": "**In una riga:** {s}",
+    "breveNone": "Questa risposta è già in forma essenziale – un elenco o un comando, non c'è una riga da togliere senza perdere il senso.",
     "breveLink": "\n\n[La pagina completa →](q/{slug}/)",
     "esempioCode": "**Un esempio concreto** su *{q}*:\n\n{code}",
     "esempioCard": "**Un esempio concreto** su *{q}* – il comando verificato:\n\n",

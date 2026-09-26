@@ -134,9 +134,7 @@ class Runtime:
         slug = ctx.get("slug")
         if act == "breve":
             s = first_sentence(ctx["answers"][idx % len(ctx["answers"])])
-            if not s:
-                return None
-            ans = fill(T["breve"], s=s) + (fill(T["breveLink"], slug=slug) if slug else "")
+            ans = fill(T["breve"] if s else T["breveNone"], s=s or "") + (fill(T["breveLink"], slug=slug) if slug else "")
         elif act == "esempio":
             code = first_code(ctx, idx)
             card = None

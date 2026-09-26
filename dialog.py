@@ -47,7 +47,9 @@ _TITLE = re.compile(r"^\*\*[^*]+\*\*$")
 
 def first_sentence(md):
     """The opening sentence of an answer, markdown kept, never splitting **bold**.
-    Code blocks, lists, links-only and title-only paragraphs are skipped."""
+    Code blocks, lists, links-only and title-only paragraphs are skipped, and so
+    are lead-ins ending in ':' ("Due famiglie, due compiti:"). Always a verbatim
+    slice of the answer; None when the answer is only a lead-in plus list/code."""
     for para in _CODE.sub("\n\n", md).split("\n\n"):
         p = para.strip()
         if not p or p.startswith(_SKIP) or _TITLE.match(p):
@@ -60,9 +62,9 @@ def first_sentence(md):
             if out.count("**") % 2 == 0 and out.count("`") % 2 == 0 and len(out) >= 40:
                 break
         if out.endswith(":"):
-            out = out[:-1] + "."
+            continue
         return out
-    return None
+    return None   # only a lead-in (list or code follows): nothing to condense
 
 
 _EXT = re.compile(r"\[([^\]]+)\]\((https?://[^)\s]+)\)")
