@@ -318,7 +318,49 @@ def command_entry(card):
     }
 
 
-def match(db, text, ctx=None, commands=None, ground=None):
+GUARD_MIN = 2.0      # refusal layer: one multi-word phrase present (guard.json)
+
+
+def load_guard(root=None):
+    """The optional refusal layer (guard.json) as a pseudo-entry; None when absent."""
+    try:
+        g = json.load(open(f"{root or ROOT}/guard.json"))
+    except FileNotFoundError:
+        return None
+    return {"id": "guard/rifiuto", "question": "rifiuto", "keywords": g["phrases"],
+            "answers": [g["refusal"]], "suggest": [], "kind": "guard"}
+
+
+def known_questions(root=None):
+    """Every question the gates know as legitimate: KB, ground and card
+    canonicals, tests.json, convos and trajectories. Used by no-steal gates."""
+    root = root or ROOT
+    db = json.load(open(f"{root}/faq.json"))
+    qs = [e["question"] for e in db["entries"]] + [g["question"] for g in load_ground(root)]
+    qs += [c["q"] for c in json.load(open(f"{root}/commands.json"))["cards"]]
+    qs += [t["q"] for t in json.load(open(f"{root}/tests.json"))]
+    for sess in json.load(open(f"{root}/convos.json")):
+        qs += [t["q"] for t in sess["turns"]]
+    for tr in json.load(open(f"{root}/trajectories.json")):
+        qs += [t["q"] for t in tr.get("turns", tr.get("steps", [])) if isinstance(t, dict) and "q" in t]
+    return qs
+
+
+_GUARD = []
+
+
+def guard_hit(text, guard=False):
+    """The refusal pseudo-entry if the input carries a guard phrase, else None."""
+    if guard is False:
+        if not _GUARD:
+            _GUARD.append(load_guard())
+        guard = _GUARD[0]
+    if not guard or not guard["keywords"]:
+        return None
+    return guard if score_entry(guard, norm(text), tokens(text)) >= GUARD_MIN else None
+
+
+def match(db, text, ctx=None, commands=None, ground=None, guard=False):
     """ctx = the previously matched KB entry (or None). Mirrors app.js:
     a weak direct match is retried with the previous entry's tokens added,
     but a contextual candidate counts only if the NEW input contributed
@@ -326,6 +368,10 @@ def match(db, text, ctx=None, commands=None, ground=None):
     command-card pool (commands.json): consulted after the KB, and a card
     wins only if it reaches CMD_MIN and STRICTLY beats the KB score, so
     every KB canonical keeps routing to its entry (ties favor the KB)."""
+    # Refusal layer first: a guard phrase beats every other layer (mirrors app.js).
+    g = guard_hit(text, guard)
+    if g is not None:
+        return g, GUARD_MIN
     input_norm = norm(text)
     input_tokens = tokens(text)
     best, best_score = None, 0.0
