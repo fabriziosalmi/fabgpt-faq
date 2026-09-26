@@ -17,7 +17,6 @@
   let GROUND = [];                           // ground-truth layer (ground.json)
   let DIALOG = null;                         // dialogue acts (dialog.json)
   let GUARD = null;                          // refusal layer (guard.json) as a pseudo-entry
-  const GUARD_MIN = 2.0;                     // one multi-word guard phrase present
   const CMD_MIN = 2.0;                       // a card must reach this AND strictly beat the KB
   const GROUND_MIN = 2.0;                    // same contract for the ground-truth layer
   let streaming = false;
@@ -164,7 +163,9 @@
     const inputNorm = norm(text);
     const inputTokens = tokens(text);
     // Refusal layer first: a guard phrase beats every other layer (mirrored in qa.py).
-    if (GUARD && GUARD.keywords.length && scoreEntry(GUARD, inputNorm, inputTokens) >= GUARD_MIN) return GUARD;
+    // A phrase must be present WHOLE and word-aligned: never the fuzzy scorer,
+    // whose near-misses on two phrases would add up and refuse a victim's question.
+    if (GUARD && GUARD.keywords.some(p => (' ' + inputNorm + ' ').includes(' ' + p + ' '))) return GUARD;
     // Smalltalk goes last so knowledge-base entries win ties.
     const pool = DB.entries.concat(DB.smalltalk || []);
     let best = null, bestScore = 0;
