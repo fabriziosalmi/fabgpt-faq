@@ -23,7 +23,7 @@ import subprocess
 import sys
 
 from dialog import load_dialog, detect_act, first_sentence, first_code, ext_links
-from qa import norm, load_ground, command_entry
+from qa import norm, load_ground, command_entry, known_questions
 from traj import Runtime
 
 ROOT = __file__.rsplit("/", 1)[0]
@@ -106,13 +106,7 @@ def main():
     all_ok &= gate("D1 integrita", len(TEMPLATES) + len(owner) - len(bad), len(TEMPLATES) + len(owner))
 
     # ---- D2 no-steal ----------------------------------------------------
-    qs = [e["question"] for e in db["entries"]] + [g["question"] for g in ground]
-    qs += [c["q"] for c in cards]
-    qs += [t["q"] for t in json.load(open(f"{ROOT}/tests.json"))]
-    for sess in json.load(open(f"{ROOT}/convos.json")):
-        qs += [t["q"] for t in sess["turns"]]
-    for tr in json.load(open(f"{ROOT}/trajectories.json")):
-        qs += [t["q"] for t in tr.get("turns", tr.get("steps", [])) if isinstance(t, dict) and "q" in t]
+    qs = known_questions(ROOT)
     steals = [q for q in qs if detect_act(dialog, q)]
     for q in steals[:10]:
         print(f"  D2: {q!r} -> act/{detect_act(dialog, q)}")

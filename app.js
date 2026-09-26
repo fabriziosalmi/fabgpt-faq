@@ -16,6 +16,8 @@
   let COMMANDS = [];                         // command cards (commands.json)
   let GROUND = [];                           // ground-truth layer (ground.json)
   let DIALOG = null;                         // dialogue acts (dialog.json)
+  let GUARD = null;                          // refusal layer (guard.json) as a pseudo-entry
+  const GUARD_MIN = 2.0;                     // one multi-word guard phrase present
   const CMD_MIN = 2.0;                       // a card must reach this AND strictly beat the KB
   const GROUND_MIN = 2.0;                    // same contract for the ground-truth layer
   let streaming = false;
@@ -161,6 +163,8 @@
   function match(text) {
     const inputNorm = norm(text);
     const inputTokens = tokens(text);
+    // Refusal layer first: a guard phrase beats every other layer (mirrored in qa.py).
+    if (GUARD && GUARD.keywords.length && scoreEntry(GUARD, inputNorm, inputTokens) >= GUARD_MIN) return GUARD;
     // Smalltalk goes last so knowledge-base entries win ties.
     const pool = DB.entries.concat(DB.smalltalk || []);
     let best = null, bestScore = 0;
@@ -1083,6 +1087,11 @@
       catch (_) { GROUND = []; } // ground-truth layer is optional
       try { DIALOG = await (await fetch('dialog.json', { cache: 'no-cache' })).json(); }
       catch (_) { DIALOG = null; } // dialogue acts are optional
+      try {
+        const g = await (await fetch('guard.json', { cache: 'no-cache' })).json();
+        GUARD = { id: 'guard/rifiuto', question: 'rifiuto', keywords: g.phrases,
+                  answers: [g.refusal], suggest: [], kind: 'guard' };
+      } catch (_) { GUARD = null; } // refusal layer is optional
       // Self-heal a stale cached index.html that predates the tools.js tag.
       if (typeof FabTools === 'undefined') {
         const s = document.createElement('script');

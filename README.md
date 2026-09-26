@@ -39,6 +39,13 @@ in Python so it can be gated without a browser:
 
 Below all four, curated fallbacks rotate, always offering a way back in.
 
+Before everything else sits a **refusal layer** (`guard.json`): one refusal
+text for whatever the bot must not answer. A guard phrase wins over every
+other layer, so a harmful request that shares words with a legitimate entry
+("... di phishing") is refused instead of routed to it. Phrases only, never
+single words, so defensive security questions keep their answers. Self-harm
+is deliberately not a refusal: it routes to the help message (`st-emotivo`).
+
 On top of the pipeline sits a **dialogue-act layer** (`dialog.json`): bare
 follow-ups that work on the current thread instead of opening a new one –
 "riassumi", "fammi un esempio", "e poi?", "fonte?", "torna indietro",
@@ -79,6 +86,7 @@ Nothing ships on a red gate. The suite mirrors the full JS pipeline in Python:
 | T8 | `python3 convcheck.py` | conversation marathons up to 23 turns: routing 100%, the bot never repeats itself, every fallback fresh, always a live chip |
 | T9 | `python3 groundcheck.py` | ground-truth layer: integrity + canonical routing through the full pipeline |
 | T10 | `python3 dialogcheck.py` | dialogue acts: integrity, no-steal over every known question, scripted sessions, derived-only (verbatim) answers, JS/Python parity under node |
+| T11 | `python3 guardcheck.py` | refusal layer: multi-word phrases only, no legitimate question refused; optional external battery (`GUARD_PROMPTS=file.tsv`, labels R refuse / A answer / H help) |
 
 Every gate loads every dataset, so a layer stealing queries from another turns
 some gate red by construction.
@@ -160,7 +168,7 @@ file is required so Pages serves the tree as-is.
 ## Reuse it
 
 The engine is generic: swap `faq.json` (and optionally `commands.json`,
-`ports.json`, `paths.json`, `ground.json`, `dialog.json`) and you have a verified-answers
+`ports.json`, `paths.json`, `ground.json`, `dialog.json`, `guard.json`) and you have a verified-answers
 fake-AI FAQ for anything else, with the whole gate suite ready to keep it
 honest.
 
