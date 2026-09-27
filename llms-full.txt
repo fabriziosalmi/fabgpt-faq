@@ -179,6 +179,11 @@ https://fabriziosalmi.github.io/fabgpt-faq/q/differenza-firewall-e-waf/
 
 Operano a livelli diversi della pila: il firewall di rete ragiona su IP, porte e protocolli (L3/L4): "la porta 443 è aperta, la 22 solo da questi IP". Non guarda dentro il traffico – per lui una SQL injection su HTTPS è solo un pacchetto legittimo verso la 443. il [WAF](q/cos-e-un-waf-web-application-firewall/) ragiona sul contenuto delle richieste HTTP (L7): riconosce injection, XSS, bot e abusi applicativi. Non sa nulla, invece, del traffico non-web. Non sono alternativi: servono entrambi, in fila. Il firewall chiude tutto tranne il necessario; il WAF ispeziona il necessario. Sul primo fronte bastano nftables/pf o il firewall del cloud; sul secondo ci sono caddy-waf, patterns per Nginx/Apache/Traefik/HAProxy, o zion che unisce proxy e WAF in un binario.
 
+## Authelia vs authentik per l'SSO: quale scegliere?
+https://fabriziosalmi.github.io/fabgpt-faq/q/authelia-vs-authentik-sso-homelab/
+
+Stesso obiettivo – un login unico con 2FA davanti ai servizi – pesi diversi: Authelia è leggero e si configura in YAML, ideale per proteggere una manciata di app dietro forwardAuth; authentik è una piattaforma IAM completa (SAML, OIDC, LDAP, policy visive) che regge decine di servizi e utenti ma vuole database e più risorse. Poche app e un file di config: Authelia; ecosistema in crescita con esigenze enterprise: authentik. Dettagli in [Authelia](q/cos-e-authelia/) e [Keycloak o authentik](q/keycloak-o-authentik-sso-self-hosted/); per una singola app legacy c'è [oauth2-proxy](q/oauth2-proxy-autenticazione-davanti-ai-servizi/).
+
 ## Cos'è Pi-hole e a cosa serve?
 https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-pi-hole/
 
@@ -2278,6 +2283,16 @@ https://fabriziosalmi.github.io/fabgpt-faq/q/migrare-da-vmware-a-proxmox/
 
 Dopo la cura Broadcom ai listini VMware, è la migrazione del momento. Proxmox ha reso la strada semplice: dal PVE 8.2 c'è l'import diretto da ESXi – aggiungi l'host ESXi come storage di import dalla web UI, selezioni le VM e le importi, dischi e configurazione inclusi. La checklist che evita sorprese: prima della migrazione: rimuovi i VMware Tools dalle guest, annota MAC address (le licenze Windows ci tengono) e schede di rete le VM Windows vogliono i driver VirtIO: installali prima o al primo avvio, e parti con il disco in modalità compatibile (SATA) per poi passare a VirtIO per gli host che non puoi collegare: export OVF/OVA o copia dei .vmdk e qm importdisk migra a ondate: prima le VM di test, poi le stateless, per ultime le pesanti Sul dopo-migrazione: [autoscaling](q/autoscaling-vm-lxc-proxmox/), [backup con PBS](q/cos-e-proxmox-backup-server/) e [gestione da terminale](q/cos-e-proxxx-cockpit-terminale-proxmox/) coprono ciò che vCenter faceva pagare.
 
+## Plex vs Jellyfin per il media server: quale scegliere?
+https://fabriziosalmi.github.io/fabgpt-faq/q/plex-vs-jellyfin-quale-media-server/
+
+Jellyfin è gratis e open-source al cento percento: nessuna funzione dietro paywall, nessuna telemetria, server tuo e basta. Plex ha app più rifinite ovunque, utenti gestiti eleganti e condivisione esterna semplice, al prezzo di account obbligatorio e funzioni premium. Per la libreria di casa su hardware modesto, Jellyfin basta e avanza; se condividi con parenti non tecnici o vuoi il client su ogni TV esistente, Plex fa meno assistenza. Dettagli in [Plex](q/cos-e-plex/) e [Jellyfin](q/media-server-self-hosted-jellyfin/), alimentazione via [arr stack](q/arr-stack-sonarr-radarr-prowlarr/) per entrambi (solo libreria propria e fonti legittime).
+
+## CasaOS, Umbrel o Cosmos Server: quale sistema per l'homelab?
+https://fabriziosalmi.github.io/fabgpt-faq/q/casaos-umbrel-cosmos-quale-sistema-homelab/
+
+Tre strade per non assemblare tutto a mano: CasaOS è un layer sopra il tuo Debian/Ubuntu con app store one-click; Umbrel è un sistema operativo dedicato da flashare (non si installa sopra Linux esistente); Cosmos Server aggiunge reverse proxy con HTTPS automatico e VPN integrata. Hai già Debian e vuoi restare libero: CasaOS. Vuoi un appliance chiavi in mano: Umbrel. Vuoi esporre servizi in modo ordinato: Cosmos. Dettagli in [CasaOS](q/cos-e-casaos/), [Umbrel](q/cos-e-umbrel/) e [Cosmos Server](q/cos-e-cosmos-server/).
+
 ## Cos'è Paperless-ngx e a cosa serve?
 https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-paperless-ngx/
 
@@ -2966,6 +2981,36 @@ La sitemap.xml è l'elenco machine-readable degli URL che vuoi far scoprire ai m
 https://fabriziosalmi.github.io/fabgpt-faq/q/quali-favicon-servono/
 
 La confusione storica (decine di PNG per ogni device) si è ridotta a un set minimo civile: favicon.ico (32×32) nella root – il fallback che tutto capisce, browser vecchi inclusi SVG (rel="icon" type="image/svg+xml") – scala ovunque, supporta il dark mode via media query interna apple-touch-icon.png (180×180) – per iOS quando salvi in home 192×192 e 512×512 dichiarate nel web manifest – per Android/PWA Quattro file, fine. Da evitare: icone diverse per ogni pagina (i browser le cachano aggressivamente) e i generatori che sputano trenta varianti del 2012. Per produrre tutti i formati da un'immagine sola – favicon, social, banner – BrandKit fa il lavoro in un colpo, in casa tua.
+
+## Nginx Proxy Manager (NPM), Caddy o Traefik: meglio con UI o con file?
+https://fabriziosalmi.github.io/fabgpt-faq/q/npm-caddy-traefik-quale-reverse-proxy-con-ui/
+
+Tutti e tre espongono servizi con HTTPS, cambia il modo di configurarli: Nginx Proxy Manager ha una UI web (pannello sulla 81) ed è il più veloce da usare per pochi host statici; Caddy si configura in un file di poche righe con HTTPS automatico ed è l'equilibrio migliore per homelab medi; Traefik si guida da solo via label Docker ed è il più potente sopra una certa complessità, ma la curva è ripida. Dettagli nelle voci [Nginx Proxy Manager](q/cos-e-nginx-proxy-manager/), [Caddy](q/cos-e-caddy/) e [Traefik](q/cos-e-traefik/); il confronto con Nginx puro è [qui](q/nginx-caddy-o-traefik/).
+
+## K3s o MicroK8s per Kubernetes leggero?
+https://fabriziosalmi.github.io/fabgpt-faq/q/k3s-vs-microk8s-kubernetes-leggero/
+
+Due Kubernetes dietetici con filosofie opposte: K3s è un singolo binario pensato per edge e ARM, senza snap né dipendenze da ecosistema; MicroK8s è il packaging Canonical via snap con addon attivabili al volo (dns, storage, registry). Su Raspberry e dispositivi piccoli vince K3s; su Ubuntu dove vuoi enable e via, MicroK8s è più comodo. Dettagli in [K3s](q/cos-e-k3s/) e [MicroK8s](q/cos-e-microk8s/); il Kubernetes completo resta [qui](q/cos-e-kubernetes/).
+
+## Zabbix, Netdata, Beszel o Glances: quale monitoraggio per l'homelab?
+https://fabriziosalmi.github.io/fabgpt-faq/q/quale-monitoraggio-homelab-zabbix-netdata/
+
+Dipende da quante macchine hai: Glances per dare un'occhiata a un host solo, Beszel per poche macchine con storico e alert senza sbatti, Netdata per il dettaglio al secondo quando debugghi, Zabbix sopra la decina di host con rete e servizi da sorvegliare sul serio. La scala è quella: occhio umano, poi hub leggero, poi realtime, poi enterprise. Voci dedicate: [Glances](q/cos-e-glances/), [Beszel](q/cos-e-beszel/), [Netdata](q/cos-e-netdata/), [Zabbix](q/cos-e-zabbix/); per dashboard costruite a mano [lo stack Prometheus](q/stack-di-monitoraggio-prometheus-grafana/).
+
+## Plausible o Google Analytics per le statistiche?
+https://fabriziosalmi.github.io/fabgpt-faq/q/plausible-vs-google-analytics-privacy/
+
+Google Analytics vede tutto e si integra con l'ads, al prezzo di cookie, banner e un trattamento dati tutto da configurare a norma. Plausible misura visite, sorgenti e pagine senza profilare, con script leggero e niente banner nella maggior parte dei casi. Sito editoriale o aziendale che vuole dormire tranquillo: Plausible; campagne ads e funnel avanzati: Analytics resta insostituibile. Dettagli in [Plausible](q/cos-e-plausible/); per gli obblighi resta [la checklist GDPR](q/gdpr-cosa-serve-a-un-sito-web/).
+
+## n8n, Zapier o Node-RED per le automazioni?
+https://fabriziosalmi.github.io/fabgpt-faq/q/n8n-vs-zapier-node-red-automazione/
+
+Tre mondi: n8n è automazione visuale self-hosted a nodi, gratis e con i dati in casa; Zapier è SaaS a pagamento che non devi mantenere, ideale se il tempo vale più del canone; Node-RED nasce per hardware e domotica con flussi a eventi. Integrazioni tra app cloud senza sbatti: Zapier. Workflow complessi con dati sensibili: n8n. Sensori, MQTT e casa: Node-RED. Vedi [n8n](q/cos-e-n8n/) e [Node-RED per la casa](q/automazioni-casa-node-red-mqtt/).
+
+## Appwrite, Supabase o PocketBase come backend?
+https://fabriziosalmi.github.io/fabgpt-faq/q/appwrite-vs-supabase-pocketbase-backend/
+
+Tre backend open per non scrivere il server da zero: Appwrite è il tuttofare containerizzato (database, auth, storage, funzioni) con console curata; Supabase è Postgres con superpoteri (realtime, auth, edge functions) e il cloud ufficiale più maturo; PocketBase è un singolo eseguibile Go con SQLite, perfetto per progetti piccoli e prototipi. App completa da self-hostare: Appwrite; Postgres al centro: Supabase; qualcosa di minuscolo subito: PocketBase. Dettagli su [Appwrite](q/cos-e-appwrite/).
 
 ## Cos'è Glances e a cosa serve?
 https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-glances/
