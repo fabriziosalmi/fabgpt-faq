@@ -3633,6 +3633,37 @@
     "cos-e-netdata",
     "cos-e-glances"
    ]
+  },
+  {
+   "id": "btop_proc",
+   "group": "processi-performance",
+   "q": "Come vedo i processi con btop?",
+   "keywords": [
+    "vedo processi con btop",
+    "btop al posto di top",
+    "installare btop"
+   ],
+   "cmd": "sudo apt install -y btop\nbtop",
+   "note": "btop mostra CPU, RAM, dischi, rete e processi con mouse e temi. Nei repo Debian/Ubuntu recenti.",
+   "related": [
+    "cos-e-glances",
+    "oom-killer-ha-ucciso-un-processo"
+   ]
+  },
+  {
+   "id": "nmap_scan",
+   "group": "rete",
+   "q": "Come scansiono le porte aperte di un host?",
+   "keywords": [
+    "scansiono porte con nmap",
+    "nmap scansione porte",
+    "nmap -sV host"
+   ],
+   "cmd": "nmap -sV 192.168.1.10",
+   "note": "Solo su reti e host tuoi o autorizzati. -sV indovina i servizi dalle banner.",
+   "related": [
+    "checklist-sicurezza-periodica-server"
+   ]
   }
  ]
 }

@@ -3706,5 +3706,285 @@
  {
   "q": "apache kafka",
   "expect": null
+ },
+ {
+  "q": "Cos'è XCP-ng e a cosa serve?",
+  "expect": "xcp-ng"
+ },
+ {
+  "q": "cos'è xcp-ng",
+  "expect": "xcp-ng"
+ },
+ {
+  "q": "a cosa serve xcp-ng",
+  "expect": "xcp-ng"
+ },
+ {
+  "q": "Cos'è Incus e a cosa serve?",
+  "expect": "incus"
+ },
+ {
+  "q": "cos'è incus",
+  "expect": "incus"
+ },
+ {
+  "q": "incus o lxd, che cambia",
+  "expect": "incus"
+ },
+ {
+  "q": "Cos'è OpenMediaVault e a cosa serve?",
+  "expect": "openmediavault"
+ },
+ {
+  "q": "cos'è openmediavault",
+  "expect": "openmediavault"
+ },
+ {
+  "q": "nas su debian con openmediavault",
+  "expect": "openmediavault"
+ },
+ {
+  "q": "Cos'è OpenWrt e a cosa serve?",
+  "expect": "openwrt"
+ },
+ {
+  "q": "cos'è openwrt",
+  "expect": "openwrt"
+ },
+ {
+  "q": "firmware router open source openwrt",
+  "expect": "openwrt"
+ },
+ {
+  "q": "Cos'è Unbound e a cosa serve?",
+  "expect": "unbound"
+ },
+ {
+  "q": "cos'è unbound",
+  "expect": "unbound"
+ },
+ {
+  "q": "unbound con pihole per dns ricorsivo",
+  "expect": "unbound"
+ },
+ {
+  "q": "Cos'è wg-easy e a cosa serve?",
+  "expect": "wg-easy"
+ },
+ {
+  "q": "cos'è wg-easy",
+  "expect": "wg-easy"
+ },
+ {
+  "q": "wireguard con interfaccia web wg-easy",
+  "expect": "wg-easy"
+ },
+ {
+  "q": "Cos'è strongSwan e quando ha senso?",
+  "expect": "strongswan"
+ },
+ {
+  "q": "cos'è strongswan",
+  "expect": "strongswan"
+ },
+ {
+  "q": "server vpn ipsec con strongswan",
+  "expect": "strongswan"
+ },
+ {
+  "q": "frp o Rathole per esporre servizi senza IP pubblico?",
+  "expect": "frp-rathole"
+ },
+ {
+  "q": "meglio frp o rathole per esporre un server?",
+  "expect": "frp-rathole"
+ },
+ {
+  "q": "rathole vs frp: quale scelgo?",
+  "expect": "frp-rathole"
+ },
+ {
+  "q": "Cos'è Coolify e a cosa serve?",
+  "expect": "coolify"
+ },
+ {
+  "q": "cos'è coolify",
+  "expect": "coolify"
+ },
+ {
+  "q": "deploy app con docker coolify",
+  "expect": "coolify"
+ },
+ {
+  "q": "Cos'è Dokploy e a cosa serve?",
+  "expect": "dokploy"
+ },
+ {
+  "q": "cos'è dokploy",
+  "expect": "dokploy"
+ },
+ {
+  "q": "alternativa heroku self hosted dokploy",
+  "expect": "dokploy"
+ },
+ {
+  "q": "Cos'è ZITADEL e a cosa serve?",
+  "expect": "zitadel"
+ },
+ {
+  "q": "cos'è zitadel",
+  "expect": "zitadel"
+ },
+ {
+  "q": "identity provider open source zitadel",
+  "expect": "zitadel"
+ },
+ {
+  "q": "Cos'è Nagios e a cosa serve?",
+  "expect": "nagios"
+ },
+ {
+  "q": "cos'è nagios",
+  "expect": "nagios"
+ },
+ {
+  "q": "monitoraggio classico host servizi nagios",
+  "expect": "nagios"
+ },
+ {
+  "q": "Cos'è SigNoz e a cosa serve?",
+  "expect": "signoz"
+ },
+ {
+  "q": "cos'è signoz",
+  "expect": "signoz"
+ },
+ {
+  "q": "apm opentelemetry con signoz",
+  "expect": "signoz"
+ },
+ {
+  "q": "Cos'è OpenObserve e a cosa serve?",
+  "expect": "openobserve"
+ },
+ {
+  "q": "cos'è openobserve",
+  "expect": "openobserve"
+ },
+ {
+  "q": "log metriche tracce unificati openobserve",
+  "expect": "openobserve"
+ },
+ {
+  "q": "Cos'è changedetection.io e a cosa serve?",
+  "expect": "changedetection"
+ },
+ {
+  "q": "cos'è changedetection",
+  "expect": "changedetection"
+ },
+ {
+  "q": "monitorare modifiche pagine web changedetection",
+  "expect": "changedetection"
+ },
+ {
+  "q": "Cos'è Cockpit e a cosa serve?",
+  "expect": "cockpit"
+ },
+ {
+  "q": "cos'è cockpit",
+  "expect": "cockpit"
+ },
+ {
+  "q": "amministrazione server web con cockpit",
+  "expect": "cockpit"
+ },
+ {
+  "q": "Cos'è Webmin e a cosa serve?",
+  "expect": "webmin"
+ },
+ {
+  "q": "cos'è webmin",
+  "expect": "webmin"
+ },
+ {
+  "q": "pannello amministrazione linux webmin",
+  "expect": "webmin"
+ },
+ {
+  "q": "Cos'è phpMyAdmin e come usarlo in sicurezza?",
+  "expect": "phpmyadmin"
+ },
+ {
+  "q": "cos'è phpmyadmin",
+  "expect": "phpmyadmin"
+ },
+ {
+  "q": "amministrare mysql da web phpmyadmin",
+  "expect": "phpmyadmin"
+ },
+ {
+  "q": "Cos'è Jenkins e a cosa serve?",
+  "expect": "jenkins"
+ },
+ {
+  "q": "cos'è jenkins",
+  "expect": "jenkins"
+ },
+ {
+  "q": "ci con jenkins pipeline",
+  "expect": "jenkins"
+ },
+ {
+  "q": "Puppet o Ansible per la gestione dei server?",
+  "expect": "puppet-vs-ansible"
+ },
+ {
+  "q": "puppet vs ansible",
+  "expect": "puppet-vs-ansible"
+ },
+ {
+  "q": "meglio puppet o ansible",
+  "expect": "puppet-vs-ansible"
+ },
+ {
+  "q": "puppet show orari",
+  "expect": null
+ },
+ {
+  "q": "Cos'è Semaphore UI e a cosa serve?",
+  "expect": "semaphore"
+ },
+ {
+  "q": "cos'è semaphore",
+  "expect": "semaphore"
+ },
+ {
+  "q": "interfaccia web ansible con semaphore",
+  "expect": "semaphore"
+ },
+ {
+  "q": "Alternative a MinIO: SeaweedFS e RustFS?",
+  "expect": "minio-alternatives"
+ },
+ {
+  "q": "seaweedfs vs minio",
+  "expect": "minio-alternatives"
+ },
+ {
+  "q": "object storage alternativo rustfs",
+  "expect": "minio-alternatives"
+ },
+ {
+  "q": "cos'è openbao?",
+  "expect": "hashicorp-vault"
+ },
+ {
+  "q": "cos'è btop?",
+  "expect": "glances"
+ },
+ {
+  "q": "cos'è zenmap?",
+  "expect": "checklist-sicurezza-server"
  }
 ]

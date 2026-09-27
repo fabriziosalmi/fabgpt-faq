@@ -179,6 +179,31 @@ https://fabriziosalmi.github.io/fabgpt-faq/q/differenza-firewall-e-waf/
 
 Operano a livelli diversi della pila: il firewall di rete ragiona su IP, porte e protocolli (L3/L4): "la porta 443 è aperta, la 22 solo da questi IP". Non guarda dentro il traffico – per lui una SQL injection su HTTPS è solo un pacchetto legittimo verso la 443. il [WAF](q/cos-e-un-waf-web-application-firewall/) ragiona sul contenuto delle richieste HTTP (L7): riconosce injection, XSS, bot e abusi applicativi. Non sa nulla, invece, del traffico non-web. Non sono alternativi: servono entrambi, in fila. Il firewall chiude tutto tranne il necessario; il WAF ispeziona il necessario. Sul primo fronte bastano nftables/pf o il firewall del cloud; sul secondo ci sono caddy-waf, patterns per Nginx/Apache/Traefik/HAProxy, o zion che unisce proxy e WAF in un binario.
 
+## Cos'è OpenWrt e a cosa serve?
+https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-openwrt/
+
+OpenWrt è un firmware Linux open per router: sostituisce il software di fabbrica con un sistema completo di interfaccia web LuCI, pacchetti installabili e aggiornamenti di sicurezza che i vendor abbandonano dopo un anno. Serve per resuscitare router vecchi, avere VPN, VLAN e QoS serie, e sapere cosa gira sulla propria rete. Prima di flashare, controlla la tabella hardware supportato: non tutti i modelli vanno bene. Vicino di banco: [i router MikroTik](q/cosa-sono-i-router-mikrotik/).
+
+## Cos'è Unbound e a cosa serve?
+https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-unbound/
+
+Unbound è un resolver DNS ricorsivo open-source: invece di chiedere a Google o Cloudflare, risale dai root ai server autoritativi da solo, con validazione DNSSEC. L'accoppiata classica è dietro Pi-hole (Pi-hole filtra, Unbound risolve su 127.0.0.1#5335), così elimini il resolver di terzi dal percorso. Dettagli sul filtraggio in [Pi-hole](q/cos-e-pi-hole/).
+
+## Cos'è wg-easy e a cosa serve?
+https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-wg-easy/
+
+wg-easy è un'interfaccia web per WireGuard: crea, mostra e revoca peer con QR code e file di configurazione scaricabili, senza toccare wg a mano. Gira in Docker con tag major versionato (mai latest, che punta alla major precedente), porte 51820/UDP per il tunnel e 51821/TCP per la UI; al primo avvio chiede host e credenziali, oppure tutto via variabili INIT_. Contesto in [WireGuard e mesh VPN](q/wireguard-e-mesh-vpn/).
+
+## Cos'è strongSwan e quando ha senso?
+https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-strongswan/
+
+strongSwan è la suite open-source per VPN IPsec con IKEv2: il demone moderno si configura via swanctl, i vecchi ipsec.conf sono deprecati, e l'autenticazione EAP copre i client mobili senza certificati per tutti. Ha senso dove IPsec è obbligatorio (apparati, policy aziendali, interoperabilità) o dove serve l'integrazione con RADIUS. Per collegare due sedi o un telefono al volo, [WireGuard](q/wireguard-o-openvpn/) resta più semplice. Fondamenti del protocollo in [IPsec transport e tunnel](q/ipsec-transport-e-tunnel/).
+
+## Cos'è ZITADEL e a cosa serve?
+https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-zitadel/
+
+ZITADEL è una piattaforma di identità open-source: login con MFA, single sign-on via OIDC/SAML/OAuth2 e integrazione di directory esterne, con console di gestione web. Self-host con compose (serve PostgreSQL), login iniziale sulla 8080. Si posiziona tra [Authelia](q/cos-e-authelia/) (leggero, solo forward-auth) e [authentik/Keycloak](q/keycloak-o-authentik-sso-self-hosted/) (IAM completo): scegli in base a quanti protocolli ti servono davvero.
+
 ## Authelia vs authentik per l'SSO: quale scegliere?
 https://fabriziosalmi.github.io/fabgpt-faq/q/authelia-vs-authentik-sso-homelab/
 
@@ -2288,6 +2313,36 @@ https://fabriziosalmi.github.io/fabgpt-faq/q/migrare-da-vmware-a-proxmox/
 
 Dopo la cura Broadcom ai listini VMware, è la migrazione del momento. Proxmox ha reso la strada semplice: dal PVE 8.2 c'è l'import diretto da ESXi – aggiungi l'host ESXi come storage di import dalla web UI, selezioni le VM e le importi, dischi e configurazione inclusi. La checklist che evita sorprese: prima della migrazione: rimuovi i VMware Tools dalle guest, annota MAC address (le licenze Windows ci tengono) e schede di rete le VM Windows vogliono i driver VirtIO: installali prima o al primo avvio, e parti con il disco in modalità compatibile (SATA) per poi passare a VirtIO per gli host che non puoi collegare: export OVF/OVA o copia dei .vmdk e qm importdisk migra a ondate: prima le VM di test, poi le stateless, per ultime le pesanti Sul dopo-migrazione: [autoscaling](q/autoscaling-vm-lxc-proxmox/), [backup con PBS](q/cos-e-proxmox-backup-server/) e [gestione da terminale](q/cos-e-proxxx-cockpit-terminale-proxmox/) coprono ciò che vCenter faceva pagare.
 
+## Cos'è XCP-ng e a cosa serve?
+https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-xcp-ng/
+
+XCP-ng è una piattaforma di virtualizzazione enterprise open-source costruita sullo hypervisor Xen: type-1, installazione bare-metal da ISO, gestione centralizzata via Xen Orchestra (anche backup agentless via XAPI). È la strada di chi vuole VMware senza Broadcom o un'alternativa a Proxmox con radici Xen. La documentazione dedica una guida alla migrazione da VMware. Alternative: [Proxmox VE](q/cos-e-proxmox-ve/), VMware dove resta obbligatorio.
+
+## Cos'è Incus e a cosa serve?
+https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-incus/
+
+Incus è un gestore di system container e macchine virtuali con un'unica API REST: lancia sistemi Linux completi nei container (kernel condiviso) o VM vere quando serve un altro kernel, con comandi tipo incus launch images:debian/12 nome e incus list. È il fork community di LXD nato quando Canonical lo ha riportato sotto il suo controllo, portato avanti dallo stesso team storico. Alternative: LXC di Proxmox per i container, [MicroK8s](q/cos-e-microk8s/) per l'orchestrazione.
+
+## Cos'è OpenMediaVault e a cosa serve?
+https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-openmediavault/
+
+OpenMediaVault è un NAS open su base Debian: installazione da ISO dedicata o sopra una Debian esistente, amministrazione da web UI, condivisioni SMB/NFS/FTP e plugin per tutto il resto (backup USB, antivirus, monitoraggio). Pensato per casa e piccoli uffici che vogliono un NAS senza comprare hardware dedicato. Alternative: [TrueNAS](q/cos-e-truenas/) per ZFS serio, [Unraid](q/cos-e-unraid-nas-os/) per dischi misti.
+
+## Cos'è Coolify e a cosa serve?
+https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-coolify/
+
+Coolify è una piattaforma open per deployare applicazioni e database sul tuo server: colleghi il repo git e lui costruisce con Docker, espone con reverse proxy e certificati, con catalogo di servizi one-click. Si installa con lo script ufficiale su Linux (2 CPU e 2 GB bastano per iniziare), dashboard sulla 8000. Per chi vuole Vercelli privati senza reimplementarli. Alternativa simile: [Dokploy](q/cos-e-dokploy/).
+
+## Cos'è Dokploy e a cosa serve?
+https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-dokploy/
+
+Dokploy è un'alternativa open a Heroku, Vercel e Netlify da self-hostare: sopra Docker e Traefik (incluso nel setup) offre deploy da git, database one-click e UI sulla 3000, con installazione via script. Stesso spazio di [Coolify](q/cos-e-coolify/): Dokploy punta sull'integrazione Traefik nativa, Coolify sul catalogo servizi.
+
+## Alternative a MinIO: SeaweedFS e RustFS?
+https://fabriziosalmi.github.io/fabgpt-faq/q/alternative-a-minio-seaweedfs-rustfs/
+
+Due S3-compatibili con filosofie diverse da MinIO: SeaweedFS archivia su volumi con master/filer (weed master, weed volume, weed filer, S3 sulla 8333) e scala a miliardi di file con poco overhead; RustFS, scritto in Rust, punta su semplicità e performance con console sulla 9001. MinIO resta il più documentato e integrato; SeaweedFS vince su scala e costi, RustFS è la scommessa giovane. Base in [MinIO](q/cos-e-minio-object-storage-s3/).
+
 ## Plex vs Jellyfin per il media server: quale scegliere?
 https://fabriziosalmi.github.io/fabgpt-faq/q/plex-vs-jellyfin-quale-media-server/
 
@@ -3006,6 +3061,61 @@ La sitemap.xml è l'elenco machine-readable degli URL che vuoi far scoprire ai m
 https://fabriziosalmi.github.io/fabgpt-faq/q/quali-favicon-servono/
 
 La confusione storica (decine di PNG per ogni device) si è ridotta a un set minimo civile: favicon.ico (32×32) nella root – il fallback che tutto capisce, browser vecchi inclusi SVG (rel="icon" type="image/svg+xml") – scala ovunque, supporta il dark mode via media query interna apple-touch-icon.png (180×180) – per iOS quando salvi in home 192×192 e 512×512 dichiarate nel web manifest – per Android/PWA Quattro file, fine. Da evitare: icone diverse per ogni pagina (i browser le cachano aggressivamente) e i generatori che sputano trenta varianti del 2012. Per produrre tutti i formati da un'immagine sola – favicon, social, banner – BrandKit fa il lavoro in un colpo, in casa tua.
+
+## frp o Rathole per esporre servizi senza IP pubblico?
+https://fabriziosalmi.github.io/fabgpt-faq/q/frp-rathole-esporre-servizi-senza-ip/
+
+frp (server frps + client frpc, config TOML – gli INI sono deprecati) e Rathole (scritto in Rust, token obbligatori per servizio, transport anche Noise) fanno la stessa cosa: un server con IP pubblico inoltra il traffico al tuo homelab dietro NAT. Servono quando Cloudflare Tunnel non va bene (protocolli arbitrari, niente vendor lock-in) e Tailscale Funnel non basta. Confronto con le alternative in [esporre senza aprire porte](q/esporre-servizi-senza-aprire-porte/) e [Cloudflare Tunnel](q/cos-e-cloudflare-tunnel/).
+
+## Cos'è Nagios e a cosa serve?
+https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-nagios/
+
+Nagios è il nonno del monitoraggio infrastrutturale: controlla host e servizi con plugin (anche via agent NRPE), apre stati ok/warning/critical e notifica. Core open-source gratuito, interfacce commerciali a parte. Ha senso dove servono check esotici e decenni di plugin già pronti; per homelab moderni è verboso rispetto alle alternative. Confronti in [quale monitoraggio per l'homelab](q/quale-monitoraggio-homelab-zabbix-netdata/).
+
+## Cos'è SigNoz e a cosa serve?
+https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-signoz/
+
+SigNoz è osservabilità open-source nativa OpenTelemetry: trace, metriche e log nello stesso posto con query builder visuale, sopra ClickHouse. Si installa con lo script foundry ufficiale (il vecchio install.sh è deprecato), UI sulla 8080, e le app spediscono via OTLP sulle 4317/4318. È la risposta self-hosted agli APM commerciali per chi sviluppa. Alternative più leggere in [quale monitoraggio per l'homelab](q/quale-monitoraggio-homelab-zabbix-netdata/).
+
+## Cos'è OpenObserve e a cosa serve?
+https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-openobserve/
+
+OpenObserve unifica log, metriche e tracce in un unico backend scritto in Rust, interrogabile in SQL e PromQL, con object storage (S3 e compatibili) per i dati: l'idea è sostituire Elasticsearch/Loki/Tempo con un solo pezzo. Single-node gira con SQLite e disco locale, UI sulla 5080. Per flotte piccole resta più semplice [lo stack Prometheus](q/stack-di-monitoraggio-prometheus-grafana/).
+
+## Cos'è changedetection.io e a cosa serve?
+https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-changedetection-io/
+
+changedetection.io sorveglia pagine web e avvisa quando cambiano: prezzi, disponibilità, bandi, changelog. Si self-hosta in Docker (immagine dgtlmoon/changedetection.io, porta 5000) e notifica via email, Telegram, Discord, Slack o webhook. Perfetto per quelle pagine che controlli a mano ogni settimana. Niente a che vedere con il monitoraggio server: per quello vedi [quale monitoraggio per l'homelab](q/quale-monitoraggio-homelab-zabbix-netdata/).
+
+## Cos'è Cockpit e a cosa serve?
+https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-cockpit-server/
+
+Cockpit è l'amministrazione web dei server Linux: servizi, log, storage, rete, utenti e terminale nel browser sulla 9090, con le credenziali di sistema e senza agent. Installazione dai repo della distro, ideale per quei server che tocchi di rado e non vuoi reimparare ogni volta. Alternativa storica più estesa: [Webmin](q/cos-e-webmin/). Da non confondere con proxxx, che è un terminale AI per Proxmox.
+
+## Cos'è Webmin e a cosa serve?
+https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-webmin/
+
+Webmin è il pannello storico di amministrazione Linux: moduli per utenti, Apache, DNS, firewall, backup e decine di servizi, tutto da web UI sulla 10000 editando i file di config veri. Potentissimo su server tradizionali, meno a suo agio con container e GitOps. Alternativa più moderna e leggera: [Cockpit](q/cos-e-cockpit-server/).
+
+## Cos'è phpMyAdmin e come usarlo in sicurezza?
+https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-phpmyadmin-sicurezza/
+
+phpMyAdmin amministra MySQL/MariaDB dal browser: query, utenti, import/export senza client. Comodissimo e attaccatissimo: la regola è non esporlo mai su internet così com'è. Dietro VPN o IP allowlist, con auth aggiuntiva davanti (basic auth del web server o SSO), aggiornato sempre – le versioni vecchie sono tra i bersagli preferiti dei bot. Alternative senza web: client desktop via tunnel SSH.
+
+## Cos'è Jenkins e a cosa serve?
+https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-jenkins/
+
+Jenkins è il server di automazione e CI più longevo: controller che orchestra e agent che eseguono, pipeline descritte in Jenkinsfile versionati, e un ecosistema di plugin per ogni tool esistente. Compila, testa e rilascia a ogni commit. UI sulla 8080 al primo avvio con wizard. Per automazioni senza pipeline di build vedi [Semaphore](q/cos-e-semaphore-ui/); per deploy semplici [Coolify](q/cos-e-coolify/).
+
+## Puppet o Ansible per la gestione dei server?
+https://fabriziosalmi.github.io/fabgpt-faq/q/puppet-vs-ansible-confronto/
+
+Ansible è agentless (SSH + YAML) e si impara in un pomeriggio: ideale per flotte piccole-medie e homelab. Puppet è agent-based con desired-state continuo: l'agent sul nodo riconverge da solo, meglio per parchi grandi e compliance stretta, al prezzo di un'infrastruttura dedicata. Pochi server e playbook leggibili: Ansible; centinaia di nodi da tenere allineati sempre: Puppet. Dettagli su [Ansible](q/cos-e-ansible/); per eseguirlo con una UI c'è [Semaphore](q/cos-e-semaphore-ui/).
+
+## Cos'è Semaphore UI e a cosa serve?
+https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-semaphore-ui/
+
+Semaphore UI è un'interfaccia web moderna (scritta in Go) per eseguire automazioni: nato per Ansible, copre anche Terraform e script, con inventory, scheduling e log visibili al team senza dare shell a tutti. Gira in Docker sulla 3000 con SQLite di default (MySQL/Postgres per installazioni serie). Alternativa pesante: AWX; per CI vere e proprie [Jenkins](q/cos-e-jenkins/). Dettagli sul motore in [Ansible](q/cos-e-ansible/).
 
 ## Cos'è Nginx e a cosa serve?
 https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-nginx/
