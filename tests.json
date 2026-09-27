@@ -3706,5 +3706,25 @@
  {
   "q": "apache kafka",
   "expect": null
+ },
+ {
+  "q": "come uccido un processo linux",
+  "expect": "terminare-processo"
+ },
+ {
+  "q": "kill del processo zombie",
+  "expect": "terminare-processo"
+ },
+ {
+  "q": "come termino un processo che non risponde",
+  "expect": "terminare-processo"
+ },
+ {
+  "q": "cos'è una botnet zombie",
+  "expect": "botnet"
+ },
+ {
+  "q": "il servizio systemd non si ferma",
+  "expect": "terminare-processo"
  }
 ]
