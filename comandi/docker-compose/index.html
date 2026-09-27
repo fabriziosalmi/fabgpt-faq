@@ -22,7 +22,7 @@
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
 <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#212121" media="(prefers-color-scheme: dark)">
-<script type="application/ld+json">[{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Come tiro su e giù uno stack Compose?", "acceptedAnswer": {"@type": "Answer", "text": "docker compose up -d\ndocker compose down\ndown NON tocca i volumi; down -v li cancella – differenza da sapere a memoria."}}, {"@type": "Question", "name": "Come forzo la ricreazione (e la rebuild) dei servizi?", "acceptedAnswer": {"@type": "Answer", "text": "docker compose up -d --force-recreate --build\n--build ricompila le immagini locali; --force-recreate ricrea anche senza modifiche."}}, {"@type": "Question", "name": "Come riavvio un solo servizio dello stack?", "acceptedAnswer": {"@type": "Answer", "text": "docker compose restart <servizio>\n# con nuova immagine o config: docker compose up -d <servizio>\nrestart non ricarica immagini né variabili: per quelle serve up -d sul servizio."}}, {"@type": "Question", "name": "Come aggiorno le immagini di uno stack Compose?", "acceptedAnswer": {"@type": "Answer", "text": "docker compose pull && docker compose up -d\nRicrea solo i servizi con immagine nuova; per l'automatico c'è Watchtower – conoscendone i rischi."}}, {"@type": "Question", "name": "Come vedo i log di uno stack (o di un servizio)?", "acceptedAnswer": {"@type": "Answer", "text": "docker compose logs -f --tail 100 [servizio]\nSenza nome del servizio aggrega tutto lo stack, con i prefissi colorati."}}, {"@type": "Question", "name": "Come vedo lo stato dei servizi dello stack?", "acceptedAnswer": {"@type": "Answer", "text": "docker compose ps\nMostra anche health e porte pubblicate: la fotografia dello stack in una riga per servizio."}}, {"@type": "Question", "name": "Come valido un compose file (ed env risolte)?", "acceptedAnswer": {"@type": "Answer", "text": "docker compose config\nStampa il file finale: variabili interpolate e override applicati – il debug di .env parte da qui."}}, {"@type": "Question", "name": "Come tengo modifiche locali senza toccare il compose principale?", "acceptedAnswer": {"@type": "Answer", "text": "# compose.override.yml viene fuso in automatico con compose.yml\ndocker compose config   # verifica il risultato della fusione\nL'override è il posto per porte di debug e bind mount locali: il file principale resta pulito e committabile."}}, {"@type": "Question", "name": "Come trasformo un docker run in un compose?", "acceptedAnswer": {"@type": "Answer", "text": "# ogni flag ha il suo campo YAML: -p->ports, -v->volumes, -e->environment, --restart->restart\n# scorciatoia: https://composerize.com (incolli il docker run, esce il compose)\nVale sempre la pena: il compose è documentazione eseguibile, il docker run lungo un rigo no."}}]}, {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "FabGPT-FAQ", "item": "https://fabriziosalmi.github.io/fabgpt-faq/"}, {"@type": "ListItem", "position": 2, "name": "Comandi", "item": "https://fabriziosalmi.github.io/fabgpt-faq/comandi/"}, {"@type": "ListItem", "position": 3, "name": "Docker Compose", "item": "https://fabriziosalmi.github.io/fabgpt-faq/comandi/docker-compose/"}]}]</script>
+<script type="application/ld+json">[{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Come tiro su e giù uno stack Compose?", "acceptedAnswer": {"@type": "Answer", "text": "docker compose up -d\ndocker compose down\ndown NON tocca i volumi; down -v li cancella – differenza da sapere a memoria."}}, {"@type": "Question", "name": "Come forzo la ricreazione (e la rebuild) dei servizi?", "acceptedAnswer": {"@type": "Answer", "text": "docker compose up -d --force-recreate --build\n--build ricompila le immagini locali; --force-recreate ricrea anche senza modifiche."}}, {"@type": "Question", "name": "Come riavvio un solo servizio dello stack?", "acceptedAnswer": {"@type": "Answer", "text": "docker compose restart <servizio>\n# con nuova immagine o config: docker compose up -d <servizio>\nrestart non ricarica immagini né variabili: per quelle serve up -d sul servizio."}}, {"@type": "Question", "name": "Come aggiorno le immagini di uno stack Compose?", "acceptedAnswer": {"@type": "Answer", "text": "docker compose pull && docker compose up -d\nRicrea solo i servizi con immagine nuova; per l'automatico c'è Watchtower – conoscendone i rischi."}}, {"@type": "Question", "name": "Come vedo i log di uno stack (o di un servizio)?", "acceptedAnswer": {"@type": "Answer", "text": "docker compose logs -f --tail 100 [servizio]\nSenza nome del servizio aggrega tutto lo stack, con i prefissi colorati."}}, {"@type": "Question", "name": "Come vedo lo stato dei servizi dello stack?", "acceptedAnswer": {"@type": "Answer", "text": "docker compose ps\nMostra anche health e porte pubblicate: la fotografia dello stack in una riga per servizio."}}, {"@type": "Question", "name": "Come valido un compose file (ed env risolte)?", "acceptedAnswer": {"@type": "Answer", "text": "docker compose config\nStampa il file finale: variabili interpolate e override applicati – il debug di .env parte da qui."}}, {"@type": "Question", "name": "Come tengo modifiche locali senza toccare il compose principale?", "acceptedAnswer": {"@type": "Answer", "text": "# compose.override.yml viene fuso in automatico con compose.yml\ndocker compose config   # verifica il risultato della fusione\nL'override è il posto per porte di debug e bind mount locali: il file principale resta pulito e committabile."}}, {"@type": "Question", "name": "Come trasformo un docker run in un compose?", "acceptedAnswer": {"@type": "Answer", "text": "# ogni flag ha il suo campo YAML: -p->ports, -v->volumes, -e->environment, --restart->restart\n# scorciatoia: https://composerize.com (incolli il docker run, esce il compose)\nVale sempre la pena: il compose è documentazione eseguibile, il docker run lungo un rigo no."}}, {"@type": "Question", "name": "Come installo Paperless-ngx?", "acceptedAnswer": {"@type": "Answer", "text": "bash -c \"$(curl --location --silent --show-error https://raw.githubusercontent.com/paperless-ngx/paperless-ngx/main/install-paperless-ngx.sh)\"\nLo script ufficiale chiede backend DB e cartelle, poi docker compose up -d. La UI è sulla 8000."}}, {"@type": "Question", "name": "Come avvio Zabbix con Docker Compose?", "acceptedAnswer": {"@type": "Answer", "text": "git clone https://github.com/zabbix/zabbix-docker.git && cd zabbix-docker\ndocker compose -f ./compose.yaml up -d\nRepo ufficiale: compose.yaml per MySQL, compose_pgsql.yaml per PostgreSQL. Fai checkout del tag della versione prima dell'up."}}, {"@type": "Question", "name": "Come installo Appwrite in self-hosting?", "acceptedAnswer": {"@type": "Answer", "text": "docker run -it --rm -p 20080:20080 -v /var/run/docker.sock:/var/run/docker.sock -v \"$(pwd)\"/appwrite:/usr/src/code/appwrite:rw --entrypoint=\"install\" appwrite/appwrite:<versione>\nSostituisci <versione> col tag dalla doc (mai latest in prod). Il wizard su :20080 genera compose + .env."}}, {"@type": "Question", "name": "Come installo Plausible self-hosted?", "acceptedAnswer": {"@type": "Answer", "text": "git clone https://github.com/plausible/community-edition plausible-ce && cd plausible-ce\ndocker compose up -d\nPrima dell'up scrivi .env con BASE_URL e SECRET_KEY_BASE (64+ byte). UI sulla 8000."}}, {"@type": "Question", "name": "Come avvio l'hub Beszel?", "acceptedAnswer": {"@type": "Answer", "text": "services:\n  beszel:\n    image: henrygd/beszel\n    container_name: beszel\n    restart: unless-stopped\n    environment:\n      - APP_URL=http://localhost:8090\n    ports:\n      - \"8090:8090\"\n    volumes:\n      - ./beszel_data:/beszel_data\n# poi: docker compose up -d\nHub minimo ufficiale: UI sulla 8090. Gli agent si aggiungono dalla UI con chiave e token."}}, {"@type": "Question", "name": "Come installo Cosmos Server?", "acceptedAnswer": {"@type": "Answer", "text": "curl -fsSL https://cosmos-cloud.io/get.sh | sudo -E bash -s\nVuole 80/443 libere e il socket Docker. Config in /config: includila nel backup."}}, {"@type": "Question", "name": "Come installo Nginx Proxy Manager?", "acceptedAnswer": {"@type": "Answer", "text": "services:\n  npm:\n    image: jc21/nginx-proxy-manager:latest  # la doc usa latest: pinna una versione in prod\n    restart: unless-stopped\n    ports:\n      - \"80:80\"\n      - \"81:81\"\n      - \"443:443\"\n    volumes:\n      - ./data:/data\n      - ./letsencrypt:/etc/letsencrypt\n# poi: docker compose up -d\nPannello sulla 81, al primo accesso crei l'admin. SQLite integrato di default."}}, {"@type": "Question", "name": "Come avvio Traefik con Docker?", "acceptedAnswer": {"@type": "Answer", "text": "services:\n  traefik:\n    image: traefik  # la doc usa traefik:vX: pinna la major in prod\n    command:\n      - --providers.docker=true\n      - --entrypoints.web.address=:80\n    ports:\n      - \"80:80\"\n    volumes:\n      - /var/run/docker.sock:/var/run/docker.sock\n# poi: docker compose up -d\nProvider Docker via socket. La dashboard 8080 con --api.insecure solo in laboratorio."}}]}, {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "FabGPT-FAQ", "item": "https://fabriziosalmi.github.io/fabgpt-faq/"}, {"@type": "ListItem", "position": 2, "name": "Comandi", "item": "https://fabriziosalmi.github.io/fabgpt-faq/comandi/"}, {"@type": "ListItem", "position": 3, "name": "Docker Compose", "item": "https://fabriziosalmi.github.io/fabgpt-faq/comandi/docker-compose/"}]}]</script>
 <style>
   .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
   .page h1 { font-size: clamp(22px, 4.5vw, 27px); line-height: 1.25; letter-spacing: -0.01em; margin: 6px 0 10px; }
@@ -68,7 +68,7 @@
 <nav class="crumbs" aria-label="Percorso"><a href="../../">FabGPT-FAQ</a> › <a href="../">Comandi</a> › <span>Docker Compose</span></nav>
 <h1>Docker Compose</h1>
 <p class="intro">Gestire stack multi-container: up/down, aggiornamenti, log, override e debug. Ogni comando è verificato e copiabile; in <a href="../../">chat</a> basta descrivere cosa vuoi fare.</p>
-<details class="toc"><summary>9 comandi in questa pagina</summary><ul><li><a href="#docker_compose_up_down">Come tiro su e giù uno stack Compose?</a></li><li><a href="#docker_compose_recreate">Come forzo la ricreazione (e la rebuild) dei servizi?</a></li><li><a href="#docker_compose_single_service">Come riavvio un solo servizio dello stack?</a></li><li><a href="#docker_compose_update">Come aggiorno le immagini di uno stack Compose?</a></li><li><a href="#docker_compose_logs">Come vedo i log di uno stack (o di un servizio)?</a></li><li><a href="#docker_compose_ps">Come vedo lo stato dei servizi dello stack?</a></li><li><a href="#docker_compose_validate">Come valido un compose file (ed env risolte)?</a></li><li><a href="#docker_compose_override">Come tengo modifiche locali senza toccare il compose principale?</a></li><li><a href="#docker_compose_from_run">Come trasformo un docker run in un compose?</a></li></ul></details>
+<details class="toc"><summary>17 comandi in questa pagina</summary><ul><li><a href="#docker_compose_up_down">Come tiro su e giù uno stack Compose?</a></li><li><a href="#docker_compose_recreate">Come forzo la ricreazione (e la rebuild) dei servizi?</a></li><li><a href="#docker_compose_single_service">Come riavvio un solo servizio dello stack?</a></li><li><a href="#docker_compose_update">Come aggiorno le immagini di uno stack Compose?</a></li><li><a href="#docker_compose_logs">Come vedo i log di uno stack (o di un servizio)?</a></li><li><a href="#docker_compose_ps">Come vedo lo stato dei servizi dello stack?</a></li><li><a href="#docker_compose_validate">Come valido un compose file (ed env risolte)?</a></li><li><a href="#docker_compose_override">Come tengo modifiche locali senza toccare il compose principale?</a></li><li><a href="#docker_compose_from_run">Come trasformo un docker run in un compose?</a></li><li><a href="#paperless_install">Come installo Paperless-ngx?</a></li><li><a href="#zabbix_compose">Come avvio Zabbix con Docker Compose?</a></li><li><a href="#appwrite_install">Come installo Appwrite in self-hosting?</a></li><li><a href="#plausible_install">Come installo Plausible self-hosted?</a></li><li><a href="#beszel_hub">Come avvio l&#x27;hub Beszel?</a></li><li><a href="#cosmos_install">Come installo Cosmos Server?</a></li><li><a href="#npm_install">Come installo Nginx Proxy Manager?</a></li><li><a href="#traefik_compose">Come avvio Traefik con Docker?</a></li></ul></details>
 <section class="cmd-card" id="docker_compose_up_down">
 <h2><a class="anchor" href="#docker_compose_up_down">#</a> Come tiro su e giù uno stack Compose?</h2>
 <pre><code>docker compose up -d
@@ -126,6 +126,88 @@ docker compose config   # verifica il risultato della fusione</code></pre>
 # scorciatoia: https://composerize.com (incolli il docker run, esce il compose)</code></pre>
 <p class="cmd-note">Vale sempre la pena: il compose è documentazione eseguibile, il <code>docker run</code> lungo un rigo no.</p>
 <p class="cmd-rel">Approfondisci: <a href="../../q/cos-e-docker-compose/">Cos&#x27;è Docker Compose?</a></p>
+</section>
+<section class="cmd-card" id="paperless_install">
+<h2><a class="anchor" href="#paperless_install">#</a> Come installo Paperless-ngx?</h2>
+<pre><code>bash -c &quot;$(curl --location --silent --show-error https://raw.githubusercontent.com/paperless-ngx/paperless-ngx/main/install-paperless-ngx.sh)&quot;</code></pre>
+<p class="cmd-note">Lo script ufficiale chiede backend DB e cartelle, poi <code>docker compose up -d</code>. La UI è sulla 8000.</p>
+<p class="cmd-rel">Approfondisci: <a href="../../q/cos-e-paperless-ngx/">Cos&#x27;è Paperless-ngx e a cosa serve?</a><a href="../../q/backup-3-2-1/">Come si fa un backup con la regola 3-2-1?</a></p>
+</section>
+<section class="cmd-card" id="zabbix_compose">
+<h2><a class="anchor" href="#zabbix_compose">#</a> Come avvio Zabbix con Docker Compose?</h2>
+<pre><code>git clone https://github.com/zabbix/zabbix-docker.git &amp;&amp; cd zabbix-docker
+docker compose -f ./compose.yaml up -d</code></pre>
+<p class="cmd-note">Repo ufficiale: <code>compose.yaml</code> per MySQL, <code>compose_pgsql.yaml</code> per PostgreSQL. Fai checkout del tag della versione prima dell&#x27;up.</p>
+<p class="cmd-rel">Approfondisci: <a href="../../q/cos-e-zabbix/">Cos&#x27;è Zabbix e quando ha senso?</a><a href="../../q/stack-di-monitoraggio-prometheus-grafana/">Come si monitora l&#x27;hardware del homelab (Prometheus, Grafana)?</a></p>
+</section>
+<section class="cmd-card" id="appwrite_install">
+<h2><a class="anchor" href="#appwrite_install">#</a> Come installo Appwrite in self-hosting?</h2>
+<pre><code>docker run -it --rm -p 20080:20080 -v /var/run/docker.sock:/var/run/docker.sock -v &quot;$(pwd)&quot;/appwrite:/usr/src/code/appwrite:rw --entrypoint=&quot;install&quot; appwrite/appwrite:&lt;versione&gt;</code></pre>
+<p class="cmd-note">Sostituisci <code>&lt;versione&gt;</code> col tag dalla doc (mai latest in prod). Il wizard su :20080 genera compose + .env.</p>
+<p class="cmd-rel">Approfondisci: <a href="../../q/cos-e-appwrite/">Cos&#x27;è Appwrite e a cosa serve?</a><a href="../../q/cos-e-docker-compose/">Cos&#x27;è Docker Compose?</a></p>
+</section>
+<section class="cmd-card" id="plausible_install">
+<h2><a class="anchor" href="#plausible_install">#</a> Come installo Plausible self-hosted?</h2>
+<pre><code>git clone https://github.com/plausible/community-edition plausible-ce &amp;&amp; cd plausible-ce
+docker compose up -d</code></pre>
+<p class="cmd-note">Prima dell&#x27;up scrivi <code>.env</code> con <code>BASE_URL</code> e <code>SECRET_KEY_BASE</code> (64+ byte). UI sulla 8000.</p>
+<p class="cmd-rel">Approfondisci: <a href="../../q/cos-e-plausible/">Cos&#x27;è Plausible e a cosa serve?</a><a href="../../q/gdpr-cosa-serve-a-un-sito-web/">GDPR: cosa serve davvero a un sito web (cookie e privacy policy)?</a></p>
+</section>
+<section class="cmd-card" id="beszel_hub">
+<h2><a class="anchor" href="#beszel_hub">#</a> Come avvio l&#x27;hub Beszel?</h2>
+<pre><code>services:
+  beszel:
+    image: henrygd/beszel
+    container_name: beszel
+    restart: unless-stopped
+    environment:
+      - APP_URL=http://localhost:8090
+    ports:
+      - &quot;8090:8090&quot;
+    volumes:
+      - ./beszel_data:/beszel_data
+# poi: docker compose up -d</code></pre>
+<p class="cmd-note">Hub minimo ufficiale: UI sulla 8090. Gli agent si aggiungono dalla UI con chiave e token.</p>
+<p class="cmd-rel">Approfondisci: <a href="../../q/cos-e-beszel/">Cos&#x27;è Beszel e a cosa serve?</a><a href="../../q/cos-e-glances/">Cos&#x27;è Glances e a cosa serve?</a></p>
+</section>
+<section class="cmd-card" id="cosmos_install">
+<h2><a class="anchor" href="#cosmos_install">#</a> Come installo Cosmos Server?</h2>
+<pre><code>curl -fsSL https://cosmos-cloud.io/get.sh | sudo -E bash -s</code></pre>
+<p class="cmd-note">Vuole 80/443 libere e il socket Docker. Config in /config: includila nel backup.</p>
+<p class="cmd-rel">Approfondisci: <a href="../../q/cos-e-cosmos-server/">Cos&#x27;è Cosmos Server e a cosa serve?</a><a href="../../q/cos-e-casaos/">Cos&#x27;è CasaOS e a cosa serve?</a></p>
+</section>
+<section class="cmd-card" id="npm_install">
+<h2><a class="anchor" href="#npm_install">#</a> Come installo Nginx Proxy Manager?</h2>
+<pre><code>services:
+  npm:
+    image: jc21/nginx-proxy-manager:latest  # la doc usa latest: pinna una versione in prod
+    restart: unless-stopped
+    ports:
+      - &quot;80:80&quot;
+      - &quot;81:81&quot;
+      - &quot;443:443&quot;
+    volumes:
+      - ./data:/data
+      - ./letsencrypt:/etc/letsencrypt
+# poi: docker compose up -d</code></pre>
+<p class="cmd-note">Pannello sulla 81, al primo accesso crei l&#x27;admin. SQLite integrato di default.</p>
+<p class="cmd-rel">Approfondisci: <a href="../../q/cos-e-nginx-proxy-manager/">Cos&#x27;è Nginx Proxy Manager e a cosa serve?</a><a href="../../q/nginx-caddy-o-traefik/">Nginx, Caddy o Traefik: quale scegliere?</a></p>
+</section>
+<section class="cmd-card" id="traefik_compose">
+<h2><a class="anchor" href="#traefik_compose">#</a> Come avvio Traefik con Docker?</h2>
+<pre><code>services:
+  traefik:
+    image: traefik  # la doc usa traefik:vX: pinna la major in prod
+    command:
+      - --providers.docker=true
+      - --entrypoints.web.address=:80
+    ports:
+      - &quot;80:80&quot;
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+# poi: docker compose up -d</code></pre>
+<p class="cmd-note">Provider Docker via socket. La dashboard 8080 con --api.insecure solo in laboratorio.</p>
+<p class="cmd-rel">Approfondisci: <a href="../../q/cos-e-traefik/">Cos&#x27;è Traefik e a cosa serve?</a><a href="../../q/nginx-caddy-o-traefik/">Nginx, Caddy o Traefik: quale scegliere?</a></p>
 </section>
 
 <a class="ask" href="../../"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-2px"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg> Chiedi in chat</a>

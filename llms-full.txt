@@ -179,6 +179,21 @@ https://fabriziosalmi.github.io/fabgpt-faq/q/differenza-firewall-e-waf/
 
 Operano a livelli diversi della pila: il firewall di rete ragiona su IP, porte e protocolli (L3/L4): "la porta 443 è aperta, la 22 solo da questi IP". Non guarda dentro il traffico – per lui una SQL injection su HTTPS è solo un pacchetto legittimo verso la 443. il [WAF](q/cos-e-un-waf-web-application-firewall/) ragiona sul contenuto delle richieste HTTP (L7): riconosce injection, XSS, bot e abusi applicativi. Non sa nulla, invece, del traffico non-web. Non sono alternativi: servono entrambi, in fila. Il firewall chiude tutto tranne il necessario; il WAF ispeziona il necessario. Sul primo fronte bastano nftables/pf o il firewall del cloud; sul secondo ci sono caddy-waf, patterns per Nginx/Apache/Traefik/HAProxy, o zion che unisce proxy e WAF in un binario.
 
+## Cos'è Pi-hole e a cosa serve?
+https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-pi-hole/
+
+Pi-hole è un DNS filtrante per tutta la rete: lo imposti come DNS del DHCP o del router e blocca pubblicità, tracker e domini malevoli prima che arrivino ai dispositivi, con query log per capire chi chiama cosa. Gira in Docker (immagine pihole/pihole, porte 53 DNS più 80/443 per la web UI); dalla v6 la password admin si imposta con FTLCONF_webserver_api_password, altrimenti ne genera una casuale visibile nei log. Alternativa con più funzioni integrate: [AdGuard Home](q/pi-hole-vs-adguard-home/). Per i soli domini malevoli vedi [il blocco via DNS](q/come-bloccare-domini-malevoli/).
+
+## Cos'è OpenVPN e quando ha ancora senso?
+https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-openvpn/
+
+OpenVPN è la VPN open-source veterana: tunnel TLS su 1194/UDP di default, con la carta speciale del TCP sulla 443 dove le reti filtrano tutto il resto. Client per ogni sistema e configurazioni .ovpn portabili; per chi vuole una UI c'è Access Server self-hosted. Oggi la scelta di default è [WireGuard](q/wireguard-o-openvpn/), più semplice e veloce; OpenVPN resta dove serve TCP, client legacy o reti ostili. Per capire se ti serve una VPN o basta un proxy vedi [il confronto](q/differenza-vpn-e-proxy/).
+
+## Cos'è Authelia e a cosa serve?
+https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-authelia/
+
+Authelia mette login unico e 2FA davanti ai servizi che non ce l'hanno: il reverse proxy (Traefik, Caddy, Nginx o NPM, tutti con guide ufficiali) chiede ad Authelia se far passare, e l'utente fa un solo login con secondo fattore. Gira in Docker (immagine authelia/authelia, porta 9091), si configura da configuration.yml più database utenti, e pretende HTTPS ovunque. Alternative più complete: [authentik](q/keycloak-o-authentik-sso-self-hosted/); per proteggere una singola app legacy c'è [oauth2-proxy](q/oauth2-proxy-autenticazione-davanti-ai-servizi/).
+
 ## VPN e proxy: cosa cambia?
 https://fabriziosalmi.github.io/fabgpt-faq/q/differenza-vpn-e-proxy/
 
@@ -2263,6 +2278,36 @@ https://fabriziosalmi.github.io/fabgpt-faq/q/migrare-da-vmware-a-proxmox/
 
 Dopo la cura Broadcom ai listini VMware, è la migrazione del momento. Proxmox ha reso la strada semplice: dal PVE 8.2 c'è l'import diretto da ESXi – aggiungi l'host ESXi come storage di import dalla web UI, selezioni le VM e le importi, dischi e configurazione inclusi. La checklist che evita sorprese: prima della migrazione: rimuovi i VMware Tools dalle guest, annota MAC address (le licenze Windows ci tengono) e schede di rete le VM Windows vogliono i driver VirtIO: installali prima o al primo avvio, e parti con il disco in modalità compatibile (SATA) per poi passare a VirtIO per gli host che non puoi collegare: export OVF/OVA o copia dei .vmdk e qm importdisk migra a ondate: prima le VM di test, poi le stateless, per ultime le pesanti Sul dopo-migrazione: [autoscaling](q/autoscaling-vm-lxc-proxmox/), [backup con PBS](q/cos-e-proxmox-backup-server/) e [gestione da terminale](q/cos-e-proxxx-cockpit-terminale-proxmox/) coprono ciò che vCenter faceva pagare.
 
+## Cos'è Paperless-ngx e a cosa serve?
+https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-paperless-ngx/
+
+Paperless-ngx è un archivio documentale self-hosted: butti dentro scansioni e PDF e lui fa OCR, li rende ricercabili e li organizza con tag, corrispondenti e tipi di documento. Pensato per fatture, contratti e manuali – la carta che oggi vive in scatoloni. Si installa con lo script ufficiale o con i file compose del repo (servizi broker, database e webserver), la UI gira sulla porta 8000 e con PAPERLESS_URL lo metti dietro reverse proxy. Rispetto a cartelle condivise [su Nextcloud](q/sostituire-google-drive-con-nextcloud/) vince su ricerca e metadati; per le foto invece c'è [Immich](q/sostituire-google-foto-immich-photoprism/). Come ogni archivio, vale solo se hai [backup dei volumi e del database](q/backup-3-2-1/).
+
+## Cos'è CasaOS e a cosa serve?
+https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-casaos/
+
+CasaOS è una dashboard per trasformare un mini PC o un Raspberry in homelab senza imparare Docker: si installa sopra Debian, Ubuntu o Raspberry Pi OS con uno script, e da casaos.local installi app con un click dall'app store (sotto sono container Docker standard). Gira su amd64, arm64 e armv7, quindi anche hardware piccolo. Alternative con la stessa idea: [Umbrel](q/cos-e-umbrel/) e [Cosmos Server](q/cos-e-cosmos-server/).
+
+## Cos'è Umbrel (umbrelOS) e a cosa serve?
+https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-umbrel/
+
+umbrelOS è un sistema operativo standalone per homelab: scarichi l'immagine per Raspberry Pi (4 o meglio 5) o x86, la scrivi su disco, e al primo avvio un wizard su umbrel.local configura tutto. Non si installa sopra un Linux esistente. App store con media server, backup, password manager e nodi Bitcoin/Lightning, storage su disco esterno (la microSD da sola è sconsigliata). Alternative: [CasaOS](q/cos-e-casaos/) se hai già Debian, [Cosmos Server](q/cos-e-cosmos-server/) se vuoi anche reverse proxy integrato.
+
+## Cos'è Cosmos Server e a cosa serve?
+https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-cosmos-server/
+
+Cosmos Server è una piattaforma homelab all-in-one: si installa con uno script o come container (azukaar/cosmos-server), e da un'unica UI gestisci app containerizzate dal marketplace, reverse proxy con HTTPS automatico su 80/443 e una VPN integrata (Constellation). Pensato per esporre servizi in modo ordinato senza assemblare proxy, DNS e certificati a mano. Alternative: [CasaOS](q/cos-e-casaos/) per la semplicità pura, [Nginx Proxy Manager più Docker](q/cos-e-nginx-proxy-manager/) per il controllo totale.
+
+## Cos'è Plex e a cosa serve?
+https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-plex/
+
+Plex è un media server con app su ogni schermo: indicizza la tua libreria di film, serie e musica con locandine e trame, e la guardi da TV, telefono o browser dentro e fuori casa. Il server ascolta sulla 32400; al primo avvio si lega all'account con un claim token (da plex.tv/claim, valido solo al setup), poi IP:32400/web per configurarlo. Installazione da pacchetto, NAS o Docker con l'immagine ufficiale plexinc/pms-docker (volumi /config, /transcode, /data). Vale per la tua libreria e fonti legittime, come [l'arr stack](q/arr-stack-sonarr-radarr-prowlarr/). Alternativa open: [Jellyfin](q/media-server-self-hosted-jellyfin/).
+
+## Cos'è TrueNAS e a cosa serve?
+https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-truenas/
+
+TrueNAS è il sistema operativo per trasformare un PC in NAS serio, con ZFS sotto: snapshot istantanei, checksum con self-healing, condivisioni SMB/NFS e app containerizzate. Due edizioni: SCALE su base Debian Linux (quella da scegliere oggi, con catalogo app su Docker dalla 24.10) e CORE su FreeBSD per gli impianti esistenti. Alternative: [Unraid](q/cos-e-unraid-nas-os/) più semplice con dischi misti, o Proxmox con ZFS se vuoi anche virtualizzare – [TrueNAS dentro Proxmox](q/truenas-dentro-proxmox/) si può fare ma con accortezze.
+
 ## Cos'è Ceph (e quando ha senso su Proxmox)?
 https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-ceph-e-quando-ha-senso/
 
@@ -2770,6 +2815,11 @@ https://fabriziosalmi.github.io/fabgpt-faq/q/perche-email-in-spam/
 
 Quasi sempre è una di queste, in ordine di frequenza: autenticazione mancante o rotta: [SPF, DKIM e DMARC](q/spf-dkim-dmarc/) sono il biglietto d'ingresso – Gmail e Outlook li richiedono, e un SPF che supera i 10 lookup DNS fallisce in silenzio reputazione dell'IP o del dominio: IP condiviso finito in blacklist (DomainMate controlla le RBL), dominio giovane che spedisce troppo e troppo presto infrastruttura sciatta: manca il reverse DNS (PTR) coerente, HELO sbagliato contenuto e comportamento: link accorciati, liste comprate, utenti che segnano spam – il segnale più tossico di tutti Diagnosi rapida: manda una mail a un tester tipo mail-tester.com e leggi i report DMARC. E per la posta transazionale critica, un servizio dedicato con IP a reputazione gestita resta la scelta pragmatica.
 
+## Cos'è Cloudflare Tunnel e a cosa serve?
+https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-cloudflare-tunnel/
+
+Cloudflare Tunnel espone un servizio locale su internet senza aprire porte: cloudflared apre solo connessioni in uscita verso Cloudflare, che poi instrada il traffico del tuo dominio al servizio. Niente IP pubblico, niente port forwarding, funziona anche dietro CGNAT. Flusso: tunnel login, tunnel create, tunnel route dns per il CNAME, tunnel run – la configurazione vive in config.yml. Per il confronto con le alternative vedi [come esporsi senza aprire porte](q/esporre-servizi-senza-aprire-porte/).
+
 ## Cloudflare o self-hosted: il confronto onesto
 https://fabriziosalmi.github.io/fabgpt-faq/q/cloudflare-o-self-hosted/
 
@@ -2916,6 +2966,66 @@ La sitemap.xml è l'elenco machine-readable degli URL che vuoi far scoprire ai m
 https://fabriziosalmi.github.io/fabgpt-faq/q/quali-favicon-servono/
 
 La confusione storica (decine di PNG per ogni device) si è ridotta a un set minimo civile: favicon.ico (32×32) nella root – il fallback che tutto capisce, browser vecchi inclusi SVG (rel="icon" type="image/svg+xml") – scala ovunque, supporta il dark mode via media query interna apple-touch-icon.png (180×180) – per iOS quando salvi in home 192×192 e 512×512 dichiarate nel web manifest – per Android/PWA Quattro file, fine. Da evitare: icone diverse per ogni pagina (i browser le cachano aggressivamente) e i generatori che sputano trenta varianti del 2012. Per produrre tutti i formati da un'immagine sola – favicon, social, banner – BrandKit fa il lavoro in un colpo, in casa tua.
+
+## Cos'è Glances e a cosa serve?
+https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-glances/
+
+Glances è il top con gli steroidi e una pagina web: in una schermata vedi CPU, RAM, swap, dischi, rete, sensori, processi e persino i container, con i valori critici evidenziati a colori. Si installa con pip install 'glances[web]': glances apre la TUI nel terminale, glances -w serve la web UI sulla porta 61208. In Docker usa l'immagine nicolargo/glances con --pid host così vede l'host vero e non il container. Perfetto per dare un'occhiata al volo a un server; quando servono più macchine e storico c'è [Beszel](q/cos-e-beszel/), per il tempo reale spinto [Netdata](q/cos-e-netdata/).
+
+## Cos'è Zabbix e quando ha senso?
+https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-zabbix/
+
+Zabbix è il monitoraggio enterprise open-source: un server centrale raccoglie metriche da agent installati su host, switch e VM, e decide con trigger (soglie) quando aprire un problema e avvisarti. I pezzi sono server (porta 10051), agent sugli host (10050), database e frontend web (80/443). Ha senso sopra una certa soglia – una flotta di server, VM e apparati di rete – mentre per uno o due host è un cannone costoso da mantenere. Installazione pulita via pacchetti della distro oppure docker compose dal repo ufficiale zabbix-docker (file compose.yaml o compose_pgsql.yaml). Per metriche da buttare su dashboard c'è [lo stack Prometheus e Grafana](q/stack-di-monitoraggio-prometheus-grafana/), per il realtime [Netdata](q/cos-e-netdata/).
+
+## Cos'è MicroK8s e a cosa serve?
+https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-microk8s/
+
+MicroK8s è Kubernetes impacchettato da Canonical per stare su una macchina sola: un snap install microk8s --classic, l'utente nel gruppo microk8s, e hai API server, scheduler e kubelet pronti con microk8s status --wait-ready. I comandi passano da microk8s kubectl (o un alias) e le funzioni extra si accendono come addon: microk8s enable dns hostpath-storage copre il laboratorio base. Serve per imparare K8s o far girare qualche workload orchestrato senza un cluster vero. Alternative più leggere: [K3s](q/cos-e-k3s/); il Kubernetes completo resta [qui](q/cos-e-kubernetes/).
+
+## Cos'è Appwrite e a cosa serve?
+https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-appwrite/
+
+Appwrite è un backend-as-a-service open-source da self-hostare: ti dà database, autenticazione utenti, storage file, funzioni serverless e realtime senza scrivere il backend da zero, con console web e SDK per ogni linguaggio. Installazione ufficiale con un installer Docker (entrypoint install sull'immagine appwrite/appwrite con tag versionato) e un wizard su porta 20080 che chiede dominio e chiavi; in produzione gira dietro 80/443 con _APP_DOMAIN impostato. Alternative con la stessa idea: Supabase e PocketBase (progetti esterni, senza voce qui).
+
+## Cos'è Plausible e a cosa serve?
+https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-plausible/
+
+Plausible è web analytics leggera e privacy-friendly: uno script minuscolo sulle pagine, niente cookie, niente banner da gestire, e una dashboard che mostra visite, sorgenti e pagine senza profilare nessuno. Self-host con il repo ufficiale plausible/community-edition: .env con BASE_URL e SECRET_KEY_BASE, poi docker compose up -d (postgres e clickhouse sono inclusi, la UI ascolta sulla 8000). Per il lato legale resta [la checklist GDPR per i siti](q/gdpr-cosa-serve-a-un-sito-web/): lo strumento aiuta, non certifica da solo.
+
+## Cos'è n8n e a cosa serve?
+https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-n8n/
+
+n8n è automazione visuale self-hosted: trascini nodi (trigger, app, logica, codice) e colleghi servizi tra loro – webhook in ingresso, chiamata API, scrittura su database – senza passare dal cloud di nessuno. Gira in Docker con un volume per i dati (n8n_data:/home/node/.n8n) e UI sulla 5678; le credenziali dei servizi vivono nel vault interno cifrato. Alternative: Node-RED per l'hardware e la domotica, Zapier se preferisci il SaaS e non vuoi mantenere nulla.
+
+## Cos'è Beszel e a cosa serve?
+https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-beszel/
+
+Beszel è monitoraggio leggero per l'homelab: un hub con UI sulla porta 8090 e un agent minuscolo su ogni macchina (container o binario) che spedisce CPU, RAM, dischi, rete e container via websocket in uscita. Aggiungi un sistema dalla UI incollando chiave e token, e hai storico, grafici e alert senza l'overhead di uno stack enterprise. Quando basta un host solo c'è [Glances](q/cos-e-glances/), per il realtime al secondo [Netdata](q/cos-e-netdata/), per il semplice up/down [Uptime Kuma](q/cos-e-uptime-kuma/).
+
+## Cos'è Nginx Proxy Manager e a cosa serve?
+https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-nginx-proxy-manager/
+
+Nginx Proxy Manager è un'interfaccia web sopra Nginx per esporre servizi: aggiungi un proxy host con dominio e backend, spunti Let's Encrypt, e hai HTTPS senza scrivere una riga di config. Gira in Docker (immagine jc21/nginx-proxy-manager con tag versionato, porte 80/443 più 81 per il pannello, volumi data e letsencrypt), al primo accesso crei l'account admin. Alternative con filosofie diverse: [Caddy](q/cos-e-caddy/) per la configurazione in un file, [Traefik](q/cos-e-traefik/) per la scoperta automatica via Docker.
+
+## Cos'è Traefik e a cosa serve?
+https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-traefik/
+
+Traefik è un reverse proxy che si configura da solo guardando Docker: monti il socket, attivi il provider e ogni container con le label giuste (Host, porta del servizio) ottiene routing e certificati senza toccare file. Gli entrypoint standard sono 80 e 443; la dashboard interna sta sulla 8080 ma --api.insecure è solo per il laboratorio, in produzione va servita con auth su router dedicato. Alternative più semplici: [Nginx Proxy Manager](q/cos-e-nginx-proxy-manager/) con UI, [Caddy](q/cos-e-caddy/) con un file. Il confronto ragionato è [qui](q/nginx-caddy-o-traefik/).
+
+## Cos'è Caddy e a cosa serve?
+https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-caddy/
+
+Caddy è un web server che fa HTTPS da solo: scrivi il dominio nel Caddyfile con il backend e lui ottiene e rinnova i certificati, con redirect 80-443 automatico. Un reverse proxy minimo è due righe (dominio + reverse_proxy :9000); per i test locali basta caddy reverse-proxy --from :2080 --to :9000. In Docker usa l'immagine ufficiale con tag versionato, porte 80/443 e volumi per config, dati e certificati. Alternative: [Nginx Proxy Manager](q/cos-e-nginx-proxy-manager/) con UI, [Traefik](q/cos-e-traefik/) per Docker dinamico. Il confronto è [qui](q/nginx-caddy-o-traefik/).
+
+## Cos'è Docker e a cosa serve?
+https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-docker/
+
+Docker impacchetta un'app con tutto ciò che le serve e la fa girare uguale ovunque: l'immagine è lo stampo immutabile a layer, il container è l'istanza in esecuzione isolata, i volumi tengono i dati fuori dal ciclo di vita del container (sotto /var/lib/docker/volumes/), la rete collega i container tra loro con DNS per nome sulle bridge dedicate. Installazione ufficiale su Ubuntu dal repo Docker (pacchetti docker-ce, docker-ce-cli, containerd.io più i plugin compose e buildx), verifica con docker run --rm hello-world. Alternative: [Podman](q/podman-vs-docker-rootless/) per il rootless senza demone.
+
+## Cos'è Netdata e a cosa serve?
+https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-netdata/
+
+Netdata è monitoraggio in tempo reale con dettaglio al secondo: un agent autonomo su ogni macchina raccoglie migliaia di metriche (sistema, servizi, container) e le mostra su dashboard locale alla porta 19999, con anomalie evidenziate senza configurare nulla. Installazione con lo script kickstart ufficiale, disinstallazione con lo stesso script e flag apposito. Netdata Cloud è opzionale per viste aggregate e login centralizzato – i dati restano sulla tua infrastruttura. Per il singolo host va bene anche [Glances](q/cos-e-glances/), per flotte con storico [Beszel](q/cos-e-beszel/) o [lo stack Prometheus](q/stack-di-monitoraggio-prometheus-grafana/).
 
 ## Il sito è lento: come si diagnostica (davvero)?
 https://fabriziosalmi.github.io/fabgpt-faq/q/il-sito-e-lento-come-si-diagnostica/
