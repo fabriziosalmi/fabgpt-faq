@@ -716,7 +716,7 @@
   "expect": "cos-e-fabgpt"
  },
  {
-  "q": "vibe-check la github action anti slop",
+  "q": "come controllo lo slop nel codice generato",
   "expect": "ai-code-quality"
  },
  {

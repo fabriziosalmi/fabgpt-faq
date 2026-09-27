@@ -360,7 +360,7 @@
         "karpathy"
       ],
       "answers": [
-        "**Vibe coding**: descrivi quello che vuoi a un LLM, accetti il codice che propone, ripeti finché funziona – senza necessariamente leggere cosa è stato scritto. Per prototipi è una superpotenza; il rischio è mettere in produzione codice che *sembra* giusto ma nasconde bug, vulnerabilità e dipendenze inventate. Quel sedimento ha un nome: **slop**.\n\nLa risposta non è rinunciare all'AI, è **verificare a valle con strumenti deterministici**:\n\n- [vibe-check](https://github.com/fabriziosalmi/vibe-check) – GitHub Action anti-slop che fa da gatekeeper in CI\n- [brutal-coding-tool](https://github.com/fabriziosalmi/brutal-coding-tool) – audit brutale del vibecode\n- [ai-dependency-guard](https://github.com/fabriziosalmi/ai-dependency-guard) – blocca le dipendenze allucinate prima del merge"
+        "**Vibe coding**: descrivi quello che vuoi a un LLM, accetti il codice che propone, ripeti finché funziona – senza necessariamente leggere cosa è stato scritto. Per prototipi è una superpotenza; il rischio è mettere in produzione codice che *sembra* giusto ma nasconde bug, vulnerabilità e dipendenze inventate. Quel sedimento ha un nome: **slop**.\n\nLa risposta non è rinunciare all'AI, è **verificare a valle con strumenti deterministici**:\n\n- [slopless](q/slopless-analisi-statica-vibecoding/): analisi statica anti-slop con regole deterministiche (espressioni regolari e AST), da riga di comando, in CI come GitHub Action o nell'editor\n- [ai-dependency-guard](https://github.com/fabriziosalmi/ai-dependency-guard) – blocca le dipendenze allucinate prima del merge"
       ],
       "suggest": [
         "cos-e-mcp-model-context-protocol",
@@ -8367,7 +8367,7 @@
         "devsecops pipeline"
       ],
       "answers": [
-        "**DevSecOps** significa spostare i controlli di sicurezza *dentro* la pipeline, il più a sinistra possibile (\"shift left\") – trovare i problemi al commit costa cento volte meno che in produzione. I gate che una pipeline matura mette in fila:\n\n- **secret scanning** (gitleaks): blocca [le credenziali](q/come-gestire-i-secrets/) prima che entrino in git\n- **SAST** (analisi statica del codice: Semgrep, CodeQL): vulnerabilità nel *tuo* codice\n- **SCA** (Software Composition Analysis): CVE nelle **dipendenze** – più [SBOM](q/cos-e-la-supply-chain-security/) e blocco delle [dipendenze allucinate](https://github.com/fabriziosalmi/ai-dependency-guard)\n- **scansione immagini** e [IaC](q/cos-e-gitops/) (Trivy, Checkov): [container](q/sicurezza-delle-immagini-container/) e infrastruttura\n- **DAST** (test dinamico sull'app in esecuzione): l'attacco simulato prima del rilascio\n- **firma degli artefatti** ([sigstore](q/come-si-firma-il-codice/), provenance SLSA) all'uscita\n\nLe due regole che rendono DevSecOps praticabile invece che odiato: i gate devono **fallire la build** quando serve (un warning ignorato non è un controllo), ma con **soglie tarate** – se blocca su ogni CVE informativa, gli sviluppatori lo aggirano, e hai perso. È lo stesso principio del [gate draconiano di questo progetto](q/come-si-testano-le-applicazioni-llm/): rigido su ciò che conta, silenzioso sul rumore. Nel portfolio, [vibe-check](https://github.com/fabriziosalmi/vibe-check) è un gate anti-slop in questo spirito."
+        "**DevSecOps** significa spostare i controlli di sicurezza *dentro* la pipeline, il più a sinistra possibile (\"shift left\") – trovare i problemi al commit costa cento volte meno che in produzione. I gate che una pipeline matura mette in fila:\n\n- **secret scanning** (gitleaks): blocca [le credenziali](q/come-gestire-i-secrets/) prima che entrino in git\n- **SAST** (analisi statica del codice: Semgrep, CodeQL): vulnerabilità nel *tuo* codice\n- **SCA** (Software Composition Analysis): CVE nelle **dipendenze** – più [SBOM](q/cos-e-la-supply-chain-security/) e blocco delle [dipendenze allucinate](https://github.com/fabriziosalmi/ai-dependency-guard)\n- **scansione immagini** e [IaC](q/cos-e-gitops/) (Trivy, Checkov): [container](q/sicurezza-delle-immagini-container/) e infrastruttura\n- **DAST** (test dinamico sull'app in esecuzione): l'attacco simulato prima del rilascio\n- **firma degli artefatti** ([sigstore](q/come-si-firma-il-codice/), provenance SLSA) all'uscita\n\nLe due regole che rendono DevSecOps praticabile invece che odiato: i gate devono **fallire la build** quando serve (un warning ignorato non è un controllo), ma con **soglie tarate** – se blocca su ogni CVE informativa, gli sviluppatori lo aggirano, e hai perso. È lo stesso principio del [gate draconiano di questo progetto](q/come-si-testano-le-applicazioni-llm/): rigido su ciò che conta, silenzioso sul rumore. Nel portfolio, [slopless](q/slopless-analisi-statica-vibecoding/) è un gate anti-slop in questo spirito: regole deterministiche, eccezioni motivate riga per riga."
       ],
       "suggest": [
         "come-gestire-i-secrets",
@@ -12049,9 +12049,6 @@
       "question": "Come si controlla la qualità del codice generato dall'AI?",
       "vertical": "ai",
       "keywords": [
-        "vibe check",
-        "brutal-coding-tool",
-        "brutal",
         "vibecode",
         "slop",
         "anti-slop",
@@ -12061,15 +12058,16 @@
         "devgpt",
         "codice generato",
         "ai coding",
-        "validazione sanificazione payload webhook n8n"
+        "validazione sanificazione payload webhook n8n",
+        "linter anti slop"
       ],
       "answers": [
-        "Il \"vibe coding\" produce in fretta, ma produce anche **slop**: codice che sembra giusto e non lo è. Due strumenti per difendersi:\n\n- [vibe-check](https://github.com/fabriziosalmi/vibe-check) – una **GitHub Action anti-slop**: fa da gatekeeper in CI/CD e blocca le pull request che non superano i controlli di qualità.\n- [brutal-coding-tool](https://github.com/fabriziosalmi/brutal-coding-tool) – fa l'audit del tuo vibecode e lo rende *brutalmente* solido, in TypeScript.\n\nSul fronte generativo ci sono anche [iamnotacoder](https://github.com/fabriziosalmi/iamnotacoder) (generazione e improvement automatico di codice) e [DevGPT](https://github.com/fabriziosalmi/DevGPT), uno dei primi esperimenti di assistente di coding GPT."
+        "Il \"vibe coding\" produce in fretta, ma produce anche **slop**: codice che sembra giusto e non lo è. La difesa è un controllo **deterministico**, non un altro modello che giudica il primo: [slopless](q/slopless-analisi-statica-vibecoding/) è un analizzatore statico anti-slop. Combina espressioni regolari, ispezione dell'AST e euristiche strutturali per trovare i pattern tipici del vibecoding: segreti e chiamate insicure, complessità eccessiva, blocchi vuoti, `TODO` lasciati lì, assunzioni non documentate. Ogni regola ha esempi eseguibili di cosa deve segnalare e cosa no, e distingue codice, stringhe e commenti, così una regola su `eval()` non scatta dentro un commento. Gira da riga di comando (con `--fix` per le correzioni sicure), in CI come **GitHub Action** e nell'editor, anche come server MCP per far controllare il codice a un agente *prima* che lo scriva su disco.\n\nSul fronte generativo ci sono anche [iamnotacoder](https://github.com/fabriziosalmi/iamnotacoder) (generazione e improvement automatico di codice) e [DevGPT](https://github.com/fabriziosalmi/DevGPT), uno dei primi esperimenti di assistente di coding GPT."
       ],
       "suggest": [
+        "slopless-analisi-statica-vibecoding",
         "mettere-in-sicurezza-endpoint-llm",
-        "riscrivere-feed-rss-con-llm",
-        "fine-tuning-llm-apple-silicon"
+        "riscrivere-feed-rss-con-llm"
       ]
     },
     {
@@ -12477,7 +12475,7 @@
         "etica di un llm"
       ],
       "answers": [
-        "Si può – con la dovuta umiltà metodologica. [ethical-ai](https://github.com/fabriziosalmi/ethical-ai) automatizza l'assessment: sottopone ai modelli (OpenAI, Anthropic, Gemini, LM Studio e qualsiasi endpoint compatibile) un set fisso di domande etiche, raccoglie **auto-valutazioni 0–100** con multi-sampling a temperature casuali e aggregazione per mediana, e genera report comparativi in Markdown, HTML e PDF.\n\nLa storia dietro è raccontata in [You-Know-What-AI-Mean](https://github.com/fabriziosalmi/You-Know-What-AI-Mean): tutto è partito nell'ottobre 2023 da contenuti espliciti ricevuti **senza chiederli** da ChatGPT con un plugin – da lì una guida pratica all'etica AI e, negli anni, una serie di strumenti che applicano nel codice ciò che la guida argomenta in prosa: [aidlp](https://github.com/fabriziosalmi/aidlp), [ai-dependency-guard](https://github.com/fabriziosalmi/ai-dependency-guard), [vibe-check](https://github.com/fabriziosalmi/vibe-check)."
+        "Si può – con la dovuta umiltà metodologica. [ethical-ai](https://github.com/fabriziosalmi/ethical-ai) automatizza l'assessment: sottopone ai modelli (OpenAI, Anthropic, Gemini, LM Studio e qualsiasi endpoint compatibile) un set fisso di domande etiche, raccoglie **auto-valutazioni 0–100** con multi-sampling a temperature casuali e aggregazione per mediana, e genera report comparativi in Markdown, HTML e PDF.\n\nLa storia dietro è raccontata in [You-Know-What-AI-Mean](https://github.com/fabriziosalmi/You-Know-What-AI-Mean): tutto è partito nell'ottobre 2023 da contenuti espliciti ricevuti **senza chiederli** da ChatGPT con un plugin – da lì una guida pratica all'etica AI e, negli anni, una serie di strumenti che applicano nel codice ciò che la guida argomenta in prosa: [aidlp](https://github.com/fabriziosalmi/aidlp), [ai-dependency-guard](https://github.com/fabriziosalmi/ai-dependency-guard), [slopless](q/slopless-analisi-statica-vibecoding/)."
       ],
       "suggest": [
         "ridurre-token-agenti-ai",
