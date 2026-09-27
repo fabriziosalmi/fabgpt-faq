@@ -204,6 +204,11 @@ https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-zitadel/
 
 ZITADEL è una piattaforma di identità open-source: login con MFA, single sign-on via OIDC/SAML/OAuth2 e integrazione di directory esterne, con console di gestione web. Self-host con compose (serve PostgreSQL), login iniziale sulla 8080. Si posiziona tra [Authelia](q/cos-e-authelia/) (leggero, solo forward-auth) e [authentik/Keycloak](q/keycloak-o-authentik-sso-self-hosted/) (IAM completo): scegli in base a quanti protocolli ti servono davvero.
 
+## Unbound, PowerDNS o Technitium come server DNS self-hosted?
+https://fabriziosalmi.github.io/fabgpt-faq/q/server-dns-unbound-powerdns-technitium/
+
+Tre ruoli diversi: Unbound è un resolver ricorsivo (risale ai root da solo, ideale dietro Pi-hole); PowerDNS è una suite per DNS autoritativo e ricorsivo, la scelta da operatori e domini propri; Technitium è un server tuttofare self-hosted con adblock integrato, a metà tra i due. Per filtrare pubblicità in casa restano [Pi-hole](q/cos-e-pi-hole/) e [AdGuard Home](q/pi-hole-vs-adguard-home/); Unbound sta dietro di loro, non al posto. Dettagli su [Unbound](q/cos-e-unbound/).
+
 ## Authelia vs authentik per l'SSO: quale scegliere?
 https://fabriziosalmi.github.io/fabgpt-faq/q/authelia-vs-authentik-sso-homelab/
 
@@ -1636,6 +1641,11 @@ https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-la-shadow-ai/
 
 Shadow AI: l'uso di strumenti AI da parte dei dipendenti fuori da ogni policy e visibilità aziendale – il contratto incollato in ChatGPT per riassumerlo, il codice proprietario dato in pasto a un assistente gratuito. È il seguito naturale della shadow IT, con un aggravante: i dati escono verso servizi che potrebbero usarli, e nessuno lo sa. La risposta che funziona non è il divieto (aggirato in un pomeriggio) ma il canale ufficiale più comodo dell'alternativa: strumenti approvati, un endpoint aziendale con [guardrail](q/cosa-sono-i-guardrail-llm/) e DLP (llmproxy + aidlp fanno esattamente questo davanti a qualsiasi modello), modelli [locali](q/far-girare-un-llm-in-locale/) per i dati davvero sensibili, e una policy scritta che dica cosa si può. L'[AI Act](q/cosa-prevede-ai-act/) rende il censimento non più rimandabile.
 
+## Cos'è Khoj e a cosa serve?
+https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-khoj/
+
+Khoj è un assistente AI sui tuoi documenti: indicizza note, PDF e appunti e risponde con fonti, come un second brain interrogabile. Self-hosted con modelli locali oppure via cloud, integrazioni con Obsidian ed Emacs. Per le note in sé vedi [le alternative a Notion](q/alternative-notion-obsidian-selfhosted/).
+
 ## Cos'è l'inferenza (e perché costa)?
 https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-l-inferenza-e-perche-costa/
 
@@ -2343,6 +2353,16 @@ https://fabriziosalmi.github.io/fabgpt-faq/q/alternative-a-minio-seaweedfs-rustf
 
 Due S3-compatibili con filosofie diverse da MinIO: SeaweedFS archivia su volumi con master/filer (weed master, weed volume, weed filer, S3 sulla 8333) e scala a miliardi di file con poco overhead; RustFS, scritto in Rust, punta su semplicità e performance con console sulla 9001. MinIO resta il più documentato e integrato; SeaweedFS vince su scala e costi, RustFS è la scommessa giovane. Base in [MinIO](q/cos-e-minio-object-storage-s3/).
 
+## ZeroTier, Nebula o Netmaker oltre Tailscale per la mesh VPN?
+https://fabriziosalmi.github.io/fabgpt-faq/q/vpn-mesh-confronto-zerotier-nebula/
+
+Oltre Tailscale (e Headscale self-hosted) ci sono tre mesh serie: ZeroTier – overlay P2P maturo con controller centralizzato, facilissimo su NAT ostili; Nebula – mesh open-source scalabile con certificati e lighthouse, più manuale ma senza vendor; Netmaker – mesh basata su WireGuard con controller proprio. Tutte bucano NAT e cifrano tutto; la differenza è chi coordina e quanto configuri a mano. Base in [Tailscale](q/cos-e-tailscale-mesh-vpn/) e [WireGuard](q/wireguard-e-mesh-vpn/).
+
+## Seafile, ownCloud Infinite Scale o Filebrowser invece di Nextcloud?
+https://fabriziosalmi.github.io/fabgpt-faq/q/seafile-ocis-filebrowser-vs-nextcloud/
+
+Quando Nextcloud è troppo: Seafile – sync e share veloci con client ovunque, senza l'ecosistema app; ownCloud Infinite Scale (oCIS) – la riscrittura in Go di ownCloud, enterprise e più leggera del PHP storico; Filebrowser – un file manager web minimale per sfogliare e condividere, niente sync. E per la sincronizzazione pura resta [Syncthing](q/sincronizzare-cartelle-p2p-syncthing/); il riferimento completo è [Nextcloud](q/sostituire-google-drive-con-nextcloud/).
+
 ## Plex vs Jellyfin per il media server: quale scegliere?
 https://fabriziosalmi.github.io/fabgpt-faq/q/plex-vs-jellyfin-quale-media-server/
 
@@ -2546,7 +2566,7 @@ Quando self-hosti, ti serve un modo per farti avvisare – backup fallito, servi
 ## Come si centralizza l'accesso ai servizi self-hosted (dashboard)?
 https://fabriziosalmi.github.io/fabgpt-faq/q/dashboard-per-servizi-self-hosted/
 
-Quando i servizi self-hosted diventano dieci, ricordarne porte e URL è un incubo. Una dashboard fa da portale unico: i link a tutti i servizi in una pagina, spesso con lo stato in tempo reale (su/giù) e widget che mostrano metriche (spazio disco, container attivi, download in corso). Le opzioni: Homepage – la più amata oggi: configurazione a file YAML (versionabile in [git](q/git-i-comandi-che-usi-davvero/)), si integra con decine di servizi via API per mostrarne lo stato, e legge le etichette dei [container Docker](q/cos-e-docker-compose/) per auto-scoprirli Dashy / Homarr – più orientate all'interfaccia grafica, configurabili dal browser Heimdall – il classico semplice, solo link È zucchero, non sicurezza – ma zucchero che cambia l'esperienza quotidiana dell'homelab. Il pattern completo: la dashboard come homepage, dietro lo stesso [reverse proxy](q/cos-e-un-reverse-proxy/) dei servizi, raggiungibile via [mesh VPN](q/wireguard-e-mesh-vpn/). Piccola nota di igiene: se mostra stato e link di tutto, trattala come [area riservata](q/proteggere-area-admin/) – non è la pagina che vuoi indicizzata o pubblica.
+Quando i servizi self-hosted diventano dieci, ricordarne porte e URL è un incubo. Una dashboard fa da portale unico: i link a tutti i servizi in una pagina, spesso con lo stato in tempo reale (su/giù) e widget che mostrano metriche (spazio disco, container attivi, download in corso). Le opzioni: Homepage – la più amata oggi: configurazione a file YAML (versionabile in [git](q/git-i-comandi-che-usi-davvero/)), si integra con decine di servizi via API per mostrarne lo stato, e legge le etichette dei [container Docker](q/cos-e-docker-compose/) per auto-scoprirli Dashy / Homarr – più orientate all'interfaccia grafica, configurabili dal browser Heimdall – il classico semplice, solo link Homer / Flame / Organizr – startpage minimali e portali HTPC per chi vuole poco ma curato È zucchero, non sicurezza – ma zucchero che cambia l'esperienza quotidiana dell'homelab. Il pattern completo: la dashboard come homepage, dietro lo stesso [reverse proxy](q/cos-e-un-reverse-proxy/) dei servizi, raggiungibile via [mesh VPN](q/wireguard-e-mesh-vpn/). Piccola nota di igiene: se mostra stato e link di tutto, trattala come [area riservata](q/proteggere-area-admin/) – non è la pagina che vuoi indicizzata o pubblica.
 
 ## Come si aggiornano automaticamente i container (Watchtower e alternative)?
 https://fabriziosalmi.github.io/fabgpt-faq/q/aggiornare-automaticamente-i-container/
@@ -3117,6 +3137,31 @@ https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-semaphore-ui/
 
 Semaphore UI è un'interfaccia web moderna (scritta in Go) per eseguire automazioni: nato per Ansible, copre anche Terraform e script, con inventory, scheduling e log visibili al team senza dare shell a tutti. Gira in Docker sulla 3000 con SQLite di default (MySQL/Postgres per installazioni serie). Alternativa pesante: AWX; per CI vere e proprie [Jenkins](q/cos-e-jenkins/). Dettagli sul motore in [Ansible](q/cos-e-ansible/).
 
+## K3s, MicroK8s, RKE2 o Talos per Kubernetes in homelab?
+https://fabriziosalmi.github.io/fabgpt-faq/q/kubernetes-homelab-k3s-rke2-talos/
+
+Quattro pesi diversi: K3s – binario unico leggero, il preferito su ARM e edge; MicroK8s – packaging Canonical con addon al volo, comodo su Ubuntu; RKE2 – distribuzione Rancher hardened e conforme, per chi vuole il cluster serio; Talos Linux – sistema operativo minimale immutabile guidato via API, niente shell sui nodi. Dettagli in [K3s](q/cos-e-k3s/) e [MicroK8s](q/cos-e-microk8s/); il Kubernetes completo è [qui](q/cos-e-kubernetes/).
+
+## Alternative self-hosted a Notion e Obsidian?
+https://fabriziosalmi.github.io/fabgpt-faq/q/alternative-notion-obsidian-selfhosted/
+
+Cinque strade diverse: AppFlowy – workspace open stile Notion; AFFiNE – documenti, whiteboard e database insieme; SiYuan – note Markdown offline con riferimenti a blocchi, per PKM serio; Memos – micro-note leggere tipo memo; Excalidraw – lavagna per diagrammi collaborativi. Per la ricerca AI sui propri documenti c'è [Khoj](q/cos-e-khoj/).
+
+## NocoDB, Appsmith, ToolJet o Activepieces per il low-code?
+https://fabriziosalmi.github.io/fabgpt-faq/q/low-code-nocode-nocodb-appsmith/
+
+Tre famiglie: NocoDB trasforma un database in foglio collaborativo stile Airtable; Appsmith e ToolJet costruiscono pannelli admin e app interne sopra API e DB; Activepieces automatizza workflow come Zapier in salsa open. Per il CRM open c'è Twenty. Per automazioni complesse resta [n8n](q/cos-e-n8n/).
+
+## cPanel, CyberPanel o Webmin per gestire un server web?
+https://fabriziosalmi.github.io/fabgpt-faq/q/pannelli-hosting-cpanel-cyberpanel-webmin/
+
+cPanel è lo standard commerciale dell'hosting condiviso (a pagamento, con WHM per i reseller); CyberPanel è open con OpenLiteSpeed integrato, gratis per molti usi; Webmin amministra l'intero server Linux via moduli, non solo i siti. Dettagli su [Webmin](q/cos-e-webmin/). Per app moderne in container spesso basta [Coolify o Dokploy](q/cos-e-coolify/).
+
+## Mealie, Tandoor, Grocy o Homebox per gestire casa?
+https://fabriziosalmi.github.io/fabgpt-faq/q/app-casa-mealie-tandoor-grocy/
+
+Quattro app domestiche self-hosted: Mealie e Tandoor – ricettari con meal planner e lista della spesa; Grocy – gestionale di dispensa, scadenze e compiti (l'ERP di casa); Homebox – inventario di oggetti e scatoloni. Tutte in Docker con volumi per i dati. Per la casa smart vera vedi [Home Assistant](q/home-assistant-su-proxmox/).
+
 ## Cos'è Nginx e a cosa serve?
 https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-nginx/
 
@@ -3465,7 +3510,7 @@ CI/CD (Continuous Integration / Continuous Delivery) è l'automazione che a ogni
 ## Meglio GitLab o Gitea per un git self-hosted?
 https://fabriziosalmi.github.io/fabgpt-faq/q/gitlab-o-gitea-git-self-hosted/
 
-GitLab e Gitea risolvono lo stesso problema, ospitare in casa i propri repository git, con pesi opposti. GitLab è la piattaforma completa: merge request, CI/CD integrata con i runner, registry container, issue board; in cambio i requisiti ufficiali partono da 4 GB di RAM e gli aggiornamenti mensili vanno seguiti con disciplina. Gitea, e il suo fork community Forgejo (quello dietro Codeberg), è un singolo binario in Go che gira con poche centinaia di MB anche su un Raspberry Pi, con interfaccia in stile GitHub e Actions compatibili con la sintassi di GitHub. Regola pratica: team aziendale con pipeline pesanti, GitLab; homelab o gruppo piccolo, Gitea o Forgejo bastano e avanzano. La trappola: installare GitLab 'perché completo' e passare i weekend a dargli RAM e update.
+GitLab e Gitea risolvono lo stesso problema, ospitare in casa i propri repository git, con pesi opposti. GitLab è la piattaforma completa: merge request, CI/CD integrata con i runner, registry container, issue board; in cambio i requisiti ufficiali partono da 4 GB di RAM e gli aggiornamenti mensili vanno seguiti con disciplina. Gitea, e il suo fork community Forgejo (quello dietro Codeberg), è un singolo binario in Go che gira con poche centinaia di MB anche su un Raspberry Pi, con interfaccia in stile GitHub e Actions compatibili con la sintassi di GitHub. Regola pratica: team aziendale con pipeline pesanti, GitLab; homelab o gruppo piccolo, Gitea o Forgejo bastano e avanzano. La trappola: installare GitLab 'perché completo' e passare i weekend a dargli RAM e update. Nota storica: Gitea stesso è nato come fork di Gogs, il server git minimalista in Go – ancora valido se vuoi il minimo indispensabile.
 
 ## Cos'è un webhook e come si usa in pratica?
 https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-un-webhook/
@@ -3633,6 +3678,11 @@ VST (Virtual Studio Technology, di Steinberg) è lo standard che permette a stru
 https://fabriziosalmi.github.io/fabgpt-faq/q/come-funziona-vinile-timecode-dvs/
 
 Il DVS (Digital Vinyl System) permette di controllare musica digitale con veri giradischi: sul piatto gira un vinile timecode che non contiene musica ma un segnale di posizione; il software lo legge e applica al file digitale esattamente ciò che le tue mani fanno sul piatto – velocità, direzione, scratch. Il tatto del vinile, la libreria infinita del digitale. Catena tipica: giradischi → interfaccia audio multicanale → software DVS (Serato, Traktor, Mixxx per l'open source). La latenza va tenuta a bada, ma il feeling è quello vero. Chicca dal portfolio: mixi-cut genera il segnale timecode da incidere – per chi si taglia i control vinyl in proprio al tornio (protocollo MIXI-CUT, open source), da usare poi con MIXI o qualsiasi DVS.
+
+## Navidrome, Komga o Lychee oltre Plex e Jellyfin?
+https://fabriziosalmi.github.io/fabgpt-faq/q/musica-libri-foto-navidrome-komga/
+
+Per le nicchie che Plex e Jellyfin coprono male: Navidrome – musica leggera compatibile Subsonic; Funkwhale – audio federato via ActivityPub; Komga e Kavita – fumetti, manga e libri con progressi di lettura; Lychee – galleria fotografica web semplice. Per film e serie restano [Plex](q/cos-e-plex/) e [Jellyfin](q/media-server-self-hosted-jellyfin/); per foto AI e backup [Immich](q/sostituire-google-foto-immich-photoprism/); per audiolibri ed ebook [la guida dedicata](q/audiolibri-ebook-podcast-self-hosted/).
 
 ## Cos'è il BPM (e come si fa il beatmatching)?
 https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-il-bpm-e-il-beatmatching/
