@@ -3664,6 +3664,50 @@
   "expect": "truenas-disco"
  },
  {
+  "q": "Cos'è Nginx e a cosa serve?",
+  "expect": "nginx"
+ },
+ {
+  "q": "cos'è nginx?",
+  "expect": "nginx"
+ },
+ {
+  "q": "a cosa serve nginx",
+  "expect": "nginx"
+ },
+ {
+  "q": "Apache o Nginx: quale web server scegliere?",
+  "expect": "apache-vs-nginx"
+ },
+ {
+  "q": "apache vs nginx",
+  "expect": "apache-vs-nginx"
+ },
+ {
+  "q": "meglio apache o nginx",
+  "expect": "apache-vs-nginx"
+ },
+ {
+  "q": "Cos'è HAProxy e a cosa serve?",
+  "expect": "haproxy"
+ },
+ {
+  "q": "cos'è haproxy?",
+  "expect": "haproxy"
+ },
+ {
+  "q": "haproxy davanti a chi?",
+  "expect": "haproxy"
+ },
+ {
+  "q": "cos'è apache?",
+  "expect": null
+ },
+ {
+  "q": "apache kafka",
+  "expect": null
+ },
+ {
   "q": "come uccido un processo linux",
   "expect": "terminare-processo"
  },

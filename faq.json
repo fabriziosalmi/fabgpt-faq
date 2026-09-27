@@ -2102,6 +2102,69 @@
       ]
     },
     {
+      "id": "nginx",
+      "slug": "cos-e-nginx",
+      "question": "Cos'è Nginx e a cosa serve?",
+      "vertical": "tools",
+      "keywords": [
+        "nginx",
+        "nginx reverse proxy",
+        "configurare nginx"
+      ],
+      "answers": [
+        "Nginx è un web server open-source ad alte prestazioni: serve file statici, fa da reverse proxy e bilancia il carico, con un'architettura event-driven che regge moltissime connessioni con poca RAM. Lo trovi davanti a quasi tutto – siti statici, app, API – e si configura in `nginx.conf` a blocchi (`server`, `location`). Per HTTPS vedi [come configurarlo](q/configurare-https-su-nginx/); il confronto con Apache è [qui](q/apache-vs-nginx-quale-web-server/).",
+        "I tre comandi che contano: `nginx -t` valida la sintassi prima di toccare nulla, `nginx -s reload` ricarica senza buttare le connessioni, `nginx -s quit` spegne con grazia. La regola d'oro: un `location` con `proxy_pass` per le app dinamiche, `root` + `try_files` per gli statici, e mai editare in produzione senza `nginx -t` prima. Se preferisci non scrivere config a mano, [Nginx Proxy Manager](q/cos-e-nginx-proxy-manager/) gli mette una UI sopra."
+      ],
+      "suggest": [
+        "configurare-https-su-nginx",
+        "apache-vs-nginx-quale-web-server",
+        "cos-e-haproxy"
+      ]
+    },
+    {
+      "id": "apache-vs-nginx",
+      "slug": "apache-vs-nginx-quale-web-server",
+      "question": "Apache o Nginx: quale web server scegliere?",
+      "vertical": "tools",
+      "keywords": [
+        "apache o nginx quale web server scegliere",
+        "apache vs nginx",
+        "meglio apache o nginx",
+        "differenza apache nginx"
+      ],
+      "answers": [
+        "La differenza è nel modello: **Apache** assegna processi o thread alle connessioni e legge `.htaccess` per cartella, comodo su hosting condivisi e con app storiche; **Nginx** è event-driven e vince su statici, reverse proxy e container. Sito dinamico classico con pannello? Apache. Moderno, statici o proxy davanti alle app? Nginx. Dettagli su [Nginx](q/cos-e-nginx/) e [HTTPS su Nginx](q/configurare-https-su-nginx/).",
+        "L'ibrido esiste ed è comune: Nginx davanti per statici e TLS, Apache dietro per l'app che vuole i suoi `.htaccess`. In migrazione, ogni regola `.htaccess` va tradotta in `location` – non esiste conversione automatica affidabile. E nota onesta: per progetti nuovi su VPS o Docker, Nginx (o Caddy, vedi [il confronto a tre](q/nginx-caddy-o-traefik/)) è quasi sempre la strada più semplice."
+      ],
+      "suggest": [
+        "cos-e-nginx",
+        "configurare-https-su-nginx",
+        "cos-e-haproxy"
+      ]
+    },
+    {
+      "id": "haproxy",
+      "slug": "cos-e-haproxy",
+      "question": "Cos'è HAProxy e a cosa serve?",
+      "vertical": "tools",
+      "keywords": [
+        "cos e haproxy e a cosa serve",
+        "haproxy",
+        "haproxy load balancer",
+        "bilanciatore haproxy",
+        "haproxy tcp http"
+      ],
+      "answers": [
+        "HAProxy è un load balancer e reverse proxy open-source ad altissime prestazioni: distribuisce connessioni TCP (decisione per connessione) e richieste HTTP (decisione per richiesta) tra backend, con health check, terminazione TLS e rate limiting. Config in `haproxy.cfg` a sezioni `frontend`/`backend`, algoritmi come round-robin e least connections. Quello che NON è, per sua stessa documentazione: né web server statico né forward proxy. Contesto in [Cos'è un load balancer](q/cos-e-un-load-balancer/).",
+        "Lo schema minimo: un frontend in ascolto, un backend con due server e `balance roundrobin`, più `option httpchk` per togliere di mezzo i server morti. Dietro ci metti qualsiasi cosa – Apache, Nginx o app – e davanti spesso sta lui a fare TLS e routing. Per bloccare bot e abusi a questo livello vedi [i pattern su HAProxy](q/bloccare-bad-bot-nginx-apache-traefik-haproxy/); per la scelta del proxy in homelab [il confronto a tre](q/nginx-caddy-o-traefik/)."
+      ],
+      "suggest": [
+        "cos-e-un-load-balancer",
+        "apache-vs-nginx-quale-web-server",
+        "npm-caddy-traefik-quale-reverse-proxy-con-ui"
+      ]
+    },
+    {
       "id": "npm-caddy-traefik",
       "slug": "npm-caddy-traefik-quale-reverse-proxy-con-ui",
       "question": "Nginx Proxy Manager (NPM), Caddy o Traefik: meglio con UI o con file?",
@@ -2185,7 +2248,7 @@
         "cos-e-k3s",
         "cos-e-microk8s",
         "quale-monitoraggio-homelab-zabbix-netdata",
-        "npm-caddy-traefik-quale-reverse-proxy-con-ui"
+        "cos-e-kubernetes"
       ]
     },
     {
@@ -10861,14 +10924,12 @@
         "core rule set",
         "modsecurity",
         "waf",
-        "nginx",
-        "apache",
         "traefik",
-        "haproxy",
         "regole",
         "rules",
         "sqli",
-        "xss"
+        "xss",
+        "blocco i bot"
       ],
       "answers": [
         "Con [patterns](https://github.com/fabriziosalmi/patterns): regole **OWASP Core Rule Set e bad-bot detection** convertite automaticamente nella sintassi **nativa** di Nginx, Apache, Traefik e HAProxy – non un adattatore generico.\n\nLa pipeline è automatica: preleva le regole CRS aggiornate dall'upstream, le converte per ciascun server (`map`/`if` per Nginx, `SecRule` per Apache, middleware TOML per Traefik, ACL per HAProxy) e pubblica ogni giorno **archivi pronti da scaricare** (`nginx_waf.zip`, `apache_waf.zip`, ecc.) via GitHub Actions.\n\nCopertura: SQL injection, XSS, RCE, LFI/RFI, violazioni di protocollo e bad bot – con default sicuri che **non** bloccano i motori di ricerca. Se usi Caddy, il progetto dedicato è [caddy-waf](https://github.com/fabriziosalmi/caddy-waf)."
