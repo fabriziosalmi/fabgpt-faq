@@ -87,6 +87,7 @@ Nothing ships on a red gate. The suite mirrors the full JS pipeline in Python:
 | T9 | `python3 groundcheck.py` | ground-truth layer: integrity + canonical routing through the full pipeline |
 | T10 | `python3 dialogcheck.py` | dialogue acts: integrity, no-steal over every known question, scripted sessions, derived-only (verbatim) answers, JS/Python parity under node |
 | T11 | `python3 guardcheck.py` | refusal layer: multi-word phrases only, no legitimate question refused, built-in defence/victim battery; optional external battery (`GUARD_PROMPTS=file.tsv`, labels R refuse / A answer / H help) |
+| T12 | `python3 dashcheck.py` | no long dashes in any user-visible text (chat, pages, titles, tools, llms.txt); U+2013 admitted only between digits without spaces |
 
 Every gate loads every dataset, so a layer stealing queries from another turns
 some gate red by construction.
@@ -96,7 +97,10 @@ run the gates → `python3 build.py` → commit. The build content-hashes
 `style.css` / `app.js` / `tools.js` into every URL (`?v=<hash>`), so deploys
 are cache-safe with no manual versioning.
 
-Content rules: en dash only (no em dash), no emoji, no hardcoded counts –
+Content rules: no long dashes in user-visible text (no em dash, no spaced
+en dash: use `:`, `,`, `(...)` or `.` per context; `|` in `<title>`/og:title;
+bare U+2013 only for digit ranges without spaces, e.g. 2020–2024), no emoji,
+no hardcoded counts:
 live numbers use the `{n}` template, resolved at render time in both chat and
 build. External metrics (stars, provider counts) are stated qualitatively.
 
