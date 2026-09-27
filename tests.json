@@ -3988,6 +3988,170 @@
   "expect": "checklist-sicurezza-server"
  },
  {
+  "q": "ZeroTier, Nebula o Netmaker oltre Tailscale per la mesh VPN?",
+  "expect": "mesh-vpn-confronto"
+ },
+ {
+  "q": "zerotier o tailscale",
+  "expect": "mesh-vpn-confronto"
+ },
+ {
+  "q": "nebula vpn mesh",
+  "expect": "mesh-vpn-confronto"
+ },
+ {
+  "q": "Unbound, PowerDNS o Technitium come server DNS self-hosted?",
+  "expect": "dns-server-confronto"
+ },
+ {
+  "q": "powerdns vs pi-hole",
+  "expect": "dns-server-confronto"
+ },
+ {
+  "q": "technitium dns con adblock",
+  "expect": "dns-server-confronto"
+ },
+ {
+  "q": "K3s, MicroK8s, RKE2 o Talos per Kubernetes in homelab?",
+  "expect": "k8s-homelab-confronto"
+ },
+ {
+  "q": "rke2 o k3s",
+  "expect": "k8s-homelab-confronto"
+ },
+ {
+  "q": "talos per kubernetes",
+  "expect": "k8s-homelab-confronto"
+ },
+ {
+  "q": "Seafile, ownCloud Infinite Scale o Filebrowser invece di Nextcloud?",
+  "expect": "file-sync-confronto"
+ },
+ {
+  "q": "seafile o nextcloud",
+  "expect": "file-sync-confronto"
+ },
+ {
+  "q": "file manager web leggero",
+  "expect": "file-sync-confronto"
+ },
+ {
+  "q": "Alternative self-hosted a Notion e Obsidian?",
+  "expect": "notion-alternatives"
+ },
+ {
+  "q": "appflowy o notion?",
+  "expect": "notion-alternatives"
+ },
+ {
+  "q": "memos note self hosted",
+  "expect": "notion-alternatives"
+ },
+ {
+  "q": "Cos'è Khoj e a cosa serve?",
+  "expect": "khoj"
+ },
+ {
+  "q": "cos'è khoj",
+  "expect": "khoj"
+ },
+ {
+  "q": "assistente ai sui documenti khoj",
+  "expect": "khoj"
+ },
+ {
+  "q": "NocoDB, Appsmith, ToolJet o Activepieces per il low-code?",
+  "expect": "lowcode-confronto"
+ },
+ {
+  "q": "twenty crm",
+  "expect": "lowcode-confronto"
+ },
+ {
+  "q": "nocodb o airtable?",
+  "expect": "lowcode-confronto"
+ },
+ {
+  "q": "cPanel, CyberPanel o Webmin per gestire un server web?",
+  "expect": "hosting-panel"
+ },
+ {
+  "q": "cyberpanel o cpanel",
+  "expect": "hosting-panel"
+ },
+ {
+  "q": "cyberpanel per gestire siti web",
+  "expect": "hosting-panel"
+ },
+ {
+  "q": "Mealie, Tandoor, Grocy o Homebox per gestire casa?",
+  "expect": "casa-hobby"
+ },
+ {
+  "q": "grocy dispensa",
+  "expect": "casa-hobby"
+ },
+ {
+  "q": "grocy per ricette e dispensa",
+  "expect": "casa-hobby"
+ },
+ {
+  "q": "Navidrome, Komga o Lychee oltre Plex e Jellyfin?",
+  "expect": "media-server-nicchia"
+ },
+ {
+  "q": "komga o kavita?",
+  "expect": "media-server-nicchia"
+ },
+ {
+  "q": "navidrome server musicale",
+  "expect": "media-server-nicchia"
+ },
+ {
+  "q": "heimdall dashboard",
+  "expect": "dashboard-selfhost"
+ },
+ {
+  "q": "homer dashboard",
+  "expect": "dashboard-selfhost"
+ },
+ {
+  "q": "flame startpage",
+  "expect": "dashboard-selfhost"
+ },
+ {
+  "q": "organizr o homer homepage per i servizi",
+  "expect": "dashboard-selfhost"
+ },
+ {
+  "q": "gogs alternativa leggera a gitea",
+  "expect": "gitlab-gitea"
+ },
+ {
+  "q": "truenas core",
+  "expect": "truenas"
+ },
+ {
+  "q": "twenty",
+  "expect": null
+ },
+ {
+  "q": "memos",
+  "expect": null
+ },
+ {
+  "q": "homer simpson",
+  "expect": null
+ },
+ {
+  "q": "affine transformation",
+  "expect": null
+ },
+ {
+  "q": "nebula",
+  "expect": null
+ },
+ {
   "q": "come uccido un processo linux",
   "expect": "terminare-processo"
  },
