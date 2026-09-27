@@ -17401,7 +17401,41 @@
       "suggest": [
         "mettere-in-sicurezza-ssh",
         "firewalld-o-iptables-chi-comanda",
+        "terminare-un-processo-linux",
         "fstab-sbagliato-emergency-mode"
+      ]
+    },
+    {
+      "id": "terminare-processo",
+      "slug": "terminare-un-processo-linux",
+      "question": "Come si termina un processo Linux (kill, pkill e processi zombie)?",
+      "vertical": "tools",
+      "keywords": [
+        "come si termina un processo linux kill pkill e processi zombie",
+        "uccidere un processo",
+        "uccido un processo",
+        "terminare un processo",
+        "termino un processo",
+        "kill -9",
+        "pkill",
+        "killall",
+        "processo zombie",
+        "processo bloccato",
+        "processo che non si chiude",
+        "sigterm",
+        "sigkill",
+        "segnali linux",
+        "servizio systemd non si ferma"
+      ],
+      "answers": [
+        "La scala giusta è: **trovare il PID, chiedere la chiusura pulita, forzare solo alla fine**. Trova il processo con `ps aux | grep nome`, `pgrep -a nome` (mostra PID e comando completo) o `pidof nome`; `top` o `htop` se vuoi vederlo dal vivo. Poi `kill <PID>`: manda `SIGTERM` (15), il segnale di chiusura pulita che lascia al programma il tempo di salvare e pulire. Solo se ignora il TERM, `kill -9 <PID>`: `SIGKILL` non si può intercettare né ignorare, ma non fa cleanup – file temporanei e lock restano lì. Per nome invece che per PID: `pkill -f 'parte-del-comando'` o `killall nome-esatto`. Se è un servizio gestito da systemd, non usare `kill`: `systemctl stop nome` (o `restart`), altrimenti systemd lo rilancia – [gestire i servizi con systemctl](q/gestire-servizi-linux-con-systemctl/). Due casi speciali: lo **zombie** (stato `Z` in `ps`) è già morto e `kill` non gli fa niente – va raccolto dal padre: trovalo con `ps -o ppid= -p <PID>` e riavvia o termina il padre. Il processo in stato `D` (I/O non interrompibile, tipico [NFS appeso](q/mount-nfs-appeso-ls-bloccato/)) non lo schioda nemmeno il -9: riparte solo quando l'I/O si sblocca, e intanto [gonfia il load average senza consumare nulla](q/load-average-alto-cpu-scarica/). E se è il kernel a uccidere per fame di RAM, quello è [l'OOM killer](q/oom-killer-ha-ucciso-un-processo/), un'altra storia.",
+        "Perché il TERM prima del KILL: `SIGTERM` (15) è il default di `kill` e dice al processo «chiuditi da solo» – handler e cleanup girano, i dati si salvano. `SIGKILL` (9) è l'ultima risorsa: il kernel ammazza senza preavviso, niente handler, niente flush, e i lock possono restare appesi. La tabella minima: `kill -TERM <PID>` equivale a `kill <PID>`, `kill -KILL <PID>` equivale a `kill -9 <PID>`; per nome, `pkill` accetta pattern (`-f` cerca nella riga di comando intera, occhio a non matchare il tuo stesso `grep`) mentre `killall` vuole il nome esatto. Se il PID da terminare tiene occupata una porta, [trova prima chi la occupa](q/address-already-in-use-chi-occupa-la-porta/) con `ss -ltnp` o `lsof -i :443`, così non ammazzi il processo sbagliato. E la regola d'oro al contrario: se dopo il tuo `kill` il processo ricompare identico, non è immortale – è [un servizio systemd con Restart attivo](q/gestire-servizi-linux-con-systemctl/)."
+      ],
+      "suggest": [
+        "gestire-servizi-linux-con-systemctl",
+        "mount-nfs-appeso-ls-bloccato",
+        "load-average-alto-cpu-scarica",
+        "oom-killer-ha-ucciso-un-processo"
       ]
     }
   ],
