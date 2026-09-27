@@ -3578,5 +3578,89 @@
  {
   "q": "appwrite vs pocketbase",
   "expect": "appwrite-vs"
+ },
+ {
+  "q": "Nginx Proxy Manager: Internal Error sul certificato Let's Encrypt",
+  "expect": "npm-internal-error"
+ },
+ {
+  "q": "internal error certificato npm",
+  "expect": "npm-internal-error"
+ },
+ {
+  "q": "npm non emette il certificato, che controllo?",
+  "expect": "npm-internal-error"
+ },
+ {
+  "q": "Pi-hole non blocca la pubblicità su alcuni dispositivi",
+  "expect": "pihole-non-blocca"
+ },
+ {
+  "q": "pubblicita passa nonostante pihole",
+  "expect": "pihole-non-blocca"
+ },
+ {
+  "q": "alcuni dispositivi ignorano pihole",
+  "expect": "pihole-non-blocca"
+ },
+ {
+  "q": "Docker: permission denied sul socket, come sistemare i permessi",
+  "expect": "docker-permission-denied"
+ },
+ {
+  "q": "docker permission denied",
+  "expect": "docker-permission-denied"
+ },
+ {
+  "q": "cannot connect to the docker daemon socket permessi",
+  "expect": "docker-permission-denied"
+ },
+ {
+  "q": "Nextcloud: dominio non attendibile, come impostare trusted_domains",
+  "expect": "nextcloud-trusted-domains"
+ },
+ {
+  "q": "trusted domains nextcloud",
+  "expect": "nextcloud-trusted-domains"
+ },
+ {
+  "q": "aggiungere dominio nextcloud config",
+  "expect": "nextcloud-trusted-domains"
+ },
+ {
+  "q": "Home Assistant dietro reverse proxy: richieste bloccate",
+  "expect": "ha-reverse-proxy"
+ },
+ {
+  "q": "home assistant trusted proxies",
+  "expect": "ha-reverse-proxy"
+ },
+ {
+  "q": "homeassistant non raggiungibile da proxy",
+  "expect": "ha-reverse-proxy"
+ },
+ {
+  "q": "Immich: backup e ripristino di foto e database",
+  "expect": "immich-backup"
+ },
+ {
+  "q": "backup immich foto",
+  "expect": "immich-backup"
+ },
+ {
+  "q": "dump database immich come si fa",
+  "expect": "immich-backup"
+ },
+ {
+  "q": "TrueNAS: pool degradato, come sostituire un disco",
+  "expect": "truenas-disco"
+ },
+ {
+  "q": "pool degradato resilver",
+  "expect": "truenas-disco"
+ },
+ {
+  "q": "disco fallito nas cosa fare",
+  "expect": "truenas-disco"
  }
 ]

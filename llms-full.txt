@@ -184,6 +184,11 @@ https://fabriziosalmi.github.io/fabgpt-faq/q/authelia-vs-authentik-sso-homelab/
 
 Stesso obiettivo – un login unico con 2FA davanti ai servizi – pesi diversi: Authelia è leggero e si configura in YAML, ideale per proteggere una manciata di app dietro forwardAuth; authentik è una piattaforma IAM completa (SAML, OIDC, LDAP, policy visive) che regge decine di servizi e utenti ma vuole database e più risorse. Poche app e un file di config: Authelia; ecosistema in crescita con esigenze enterprise: authentik. Dettagli in [Authelia](q/cos-e-authelia/) e [Keycloak o authentik](q/keycloak-o-authentik-sso-self-hosted/); per una singola app legacy c'è [oauth2-proxy](q/oauth2-proxy-autenticazione-davanti-ai-servizi/).
 
+## Pi-hole non blocca la pubblicità su alcuni dispositivi
+https://fabriziosalmi.github.io/fabgpt-faq/q/pi-hole-non-blocca-pubblicita-alcuni-dispositivi/
+
+Se funziona su alcuni dispositivi e su altri no, il Pi-hole non è rotto: quei dispositivi non lo usano. I colpevoli classici: DNS secondario impostato (il secondario non è un backup, viene usato davvero), IPv6 del router che distribuisce un altro DNS, DNS-over-HTTPS del browser che scavalca tutto, e dispositivi con DNS hardcoded (Chromecast e smart TV sono famosi). Diagnosi: dal dispositivo sospetto risolvi un dominio e guarda nel query log se la richiesta arriva. Dettagli in [Pi-hole](q/cos-e-pi-hole/).
+
 ## Cos'è Pi-hole e a cosa serve?
 https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-pi-hole/
 
@@ -2293,6 +2298,26 @@ https://fabriziosalmi.github.io/fabgpt-faq/q/casaos-umbrel-cosmos-quale-sistema-
 
 Tre strade per non assemblare tutto a mano: CasaOS è un layer sopra il tuo Debian/Ubuntu con app store one-click; Umbrel è un sistema operativo dedicato da flashare (non si installa sopra Linux esistente); Cosmos Server aggiunge reverse proxy con HTTPS automatico e VPN integrata. Hai già Debian e vuoi restare libero: CasaOS. Vuoi un appliance chiavi in mano: Umbrel. Vuoi esporre servizi in modo ordinato: Cosmos. Dettagli in [CasaOS](q/cos-e-casaos/), [Umbrel](q/cos-e-umbrel/) e [Cosmos Server](q/cos-e-cosmos-server/).
 
+## Nextcloud: dominio non attendibile, come impostare trusted_domains
+https://fabriziosalmi.github.io/fabgpt-faq/q/nextcloud-dominio-non-attendibile-trusted-domains/
+
+Nextcloud mostra la pagina di dominio non attendibile quando lo raggiungi da un nome che non è in whitelist: va aggiunto in config/config.php nell'array trusted_domains (nomi esatti, con porta se serve, o wildcard tipo .example.com), poi ricarica. localhost e loopback sono sempre ammessi; dietro reverse proxy serve anche l'header forwarded corretto. Dettagli sul servizio in [Nextcloud al posto di Drive](q/sostituire-google-drive-con-nextcloud/).
+
+## Home Assistant dietro reverse proxy: richieste bloccate
+https://fabriziosalmi.github.io/fabgpt-faq/q/home-assistant-dietro-reverse-proxy-richieste-bloccate/
+
+Home Assistant blocca di default le richieste che arrivano da un reverse proxy non dichiarato: in Impostazioni, Sistema, Rete, sezione server HTTP, attiva la fiducia per X-Forwarded-For e inserisci l'IP o la rete del proxy nei proxy fidati (in notazione rete, non host singolo con maschera). Senza queste due impostazioni il login da fuori non passa. Contesto in [Home Assistant su Proxmox](q/home-assistant-su-proxmox/).
+
+## Immich: backup e ripristino di foto e database
+https://fabriziosalmi.github.io/fabgpt-faq/q/immich-backup-e-ripristino/
+
+Il backup di Immich ha due gambe inseparabili: il database (metadati e path, senza di lui la cartella foto è muta) e i file. Il database si salva da solo ogni notte in automatico con retention configurabile, oppure on demand, e via CLI con pg_dump dal container postgres; i file stanno in UPLOAD_LOCATION (originali, profili, più il resto rigenerabile). Ferma il server prima del backup completo, database prima e filesystem poi. Dettagli sul servizio in [Immich al posto di Google Foto](q/sostituire-google-foto-immich-photoprism/).
+
+## TrueNAS: pool degradato, come sostituire un disco
+https://fabriziosalmi.github.io/fabgpt-faq/q/truenas-pool-degradato-sostituire-disco/
+
+Pool degradato significa un disco andato (o andante) con ridondanza ancora in piedi: niente panico, ma non rimandare. Identifica il disco giusto per seriale (mai fidarti solo di sda), mettilo offline dalla UI, sostituiscilo fisicamente e avvia il resilver, che ricostruisce i dati dagli altri dischi. Durante il resilver il NAS resta usable ma lento: non riavviare e non staccare altro. Contesto in [Cos'è TrueNAS](q/cos-e-truenas/) e [TrueNAS dentro Proxmox](q/truenas-dentro-proxmox/).
+
 ## Cos'è Paperless-ngx e a cosa serve?
 https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-paperless-ngx/
 
@@ -3011,6 +3036,16 @@ Tre mondi: n8n è automazione visuale self-hosted a nodi, gratis e con i dati in
 https://fabriziosalmi.github.io/fabgpt-faq/q/appwrite-vs-supabase-pocketbase-backend/
 
 Tre backend open per non scrivere il server da zero: Appwrite è il tuttofare containerizzato (database, auth, storage, funzioni) con console curata; Supabase è Postgres con superpoteri (realtime, auth, edge functions) e il cloud ufficiale più maturo; PocketBase è un singolo eseguibile Go con SQLite, perfetto per progetti piccoli e prototipi. App completa da self-hostare: Appwrite; Postgres al centro: Supabase; qualcosa di minuscolo subito: PocketBase. Dettagli su [Appwrite](q/cos-e-appwrite/).
+
+## Nginx Proxy Manager: Internal Error sul certificato Let's Encrypt
+https://fabriziosalmi.github.io/fabgpt-faq/q/nginx-proxy-manager-internal-error-certificato/
+
+Quell'Internal Error generico quasi sempre significa che la sfida ACME non arriva a buon fine, e le cause sono tre: il DNS non punta al tuo server, la porta 80 non è raggiungibile da internet, oppure hai chiesto troppi certificati in poco tempo (rate limit). Controlla in ordine: il record A del dominio con dig, che la 80 risponda da fuori, e i log del container per l'errore vero. Se la 80 è bloccata dall'ISP, passa alla sfida DNS dal pannello. Dettagli sul proxy in [Nginx Proxy Manager](q/cos-e-nginx-proxy-manager/).
+
+## Docker: permission denied sul socket, come sistemare i permessi
+https://fabriziosalmi.github.io/fabgpt-faq/q/docker-permission-denied-socket-permessi/
+
+Quel permission denied sul socket significa solo che il tuo utente non è nel gruppo docker: sudo usermod -aG docker $USER e poi logout/login (o newgrp docker per la shell corrente). Niente chmod 777 sul socket e niente sudo davanti a ogni comando come abitudine. Verifica con docker run --rm hello-world. Contesto in [Cos'è Docker](q/cos-e-docker/).
 
 ## Cos'è Glances e a cosa serve?
 https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-glances/

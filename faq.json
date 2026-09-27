@@ -1635,7 +1635,6 @@
       "suggest": [
         "spf-dkim-dmarc",
         "cos-e-cloudflare-turnstile",
-        "cos-e-cloudflare-tunnel",
         "cosa-sono-i-cloudflare-workers"
       ]
     },
@@ -2099,7 +2098,6 @@
       "suggest": [
         "cos-e-un-waf-web-application-firewall",
         "cos-e-l-osint",
-        "authelia-vs-authentik-sso-homelab",
         "cos-e-un-bug-bounty"
       ]
     },
@@ -2165,6 +2163,7 @@
       "suggest": [
         "cos-e-authelia",
         "keycloak-o-authentik-sso-self-hosted",
+        "pi-hole-non-blocca-pubblicita-alcuni-dispositivi",
         "oauth2-proxy-autenticazione-davanti-ai-servizi"
       ]
     },
@@ -2227,8 +2226,8 @@
       "suggest": [
         "cos-e-casaos",
         "cos-e-umbrel",
-        "cos-e-paperless-ngx",
-        "plex-vs-jellyfin-quale-media-server"
+        "plex-vs-jellyfin-quale-media-server",
+        "cos-e-cosmos-server"
       ]
     },
     {
@@ -2269,7 +2268,6 @@
       "suggest": [
         "cos-e-n8n",
         "automazioni-casa-node-red-mqtt",
-        "appwrite-vs-supabase-pocketbase-backend",
         "plausible-vs-google-analytics-privacy"
       ]
     },
@@ -2290,7 +2288,166 @@
       "suggest": [
         "cos-e-appwrite",
         "n8n-vs-zapier-node-red-automazione",
-        "plausible-vs-google-analytics-privacy"
+        "nginx-proxy-manager-internal-error-certificato"
+      ]
+    },
+    {
+      "id": "npm-internal-error",
+      "slug": "nginx-proxy-manager-internal-error-certificato",
+      "question": "Nginx Proxy Manager: Internal Error sul certificato Let's Encrypt",
+      "vertical": "tools",
+      "keywords": [
+        "nginx proxy manager internal error sul certificato let s encrypt",
+        "internal error certificato",
+        "internal error let s encrypt",
+        "certificato let s encrypt fallito",
+        "npm non emette certificato",
+        "internal error certificato npm"
+      ],
+      "answers": [
+        "Quell'Internal Error generico quasi sempre significa che la sfida ACME non arriva a buon fine, e le cause sono tre: il DNS non punta al tuo server, la porta 80 non è raggiungibile da internet, oppure hai chiesto troppi certificati in poco tempo (rate limit). Controlla in ordine: il record A del dominio con `dig`, che la 80 risponda da fuori, e i log del container per l'errore vero. Se la 80 è bloccata dall'ISP, passa alla sfida DNS dal pannello. Dettagli sul proxy in [Nginx Proxy Manager](q/cos-e-nginx-proxy-manager/).",
+        "Altri due colpevoli frequenti: il container con orologio sballato (i certificati odiano gli skew) e un reverse proxy o CDN davanti che intercetta la sfida. Mai cliccare riprova a raffica: ogni tentativo fallito consuma quota Let's Encrypt e il blocco dura ore. Quando il certificato è emesso, il rinnovo è automatico – se poi scade lo stesso, il problema è quasi sempre la raggiungibilità cambiata nel frattempo, non il rinnovo in sé."
+      ],
+      "suggest": [
+        "cos-e-nginx-proxy-manager",
+        "appwrite-vs-supabase-pocketbase-backend",
+        "docker-permission-denied-socket-permessi",
+        "n8n-vs-zapier-node-red-automazione"
+      ]
+    },
+    {
+      "id": "pihole-non-blocca",
+      "slug": "pi-hole-non-blocca-pubblicita-alcuni-dispositivi",
+      "question": "Pi-hole non blocca la pubblicità su alcuni dispositivi",
+      "vertical": "security",
+      "keywords": [
+        "pi hole non blocca la pubblicita su alcuni dispositivi",
+        "pihole non blocca tutto",
+        "pubblicita passa nonostante pihole",
+        "alcuni dispositivi ignorano pihole",
+        "dns secondario che bypassa pihole",
+        "non blocca la pubblicita"
+      ],
+      "answers": [
+        "Se funziona su alcuni dispositivi e su altri no, il Pi-hole non è rotto: quei dispositivi non lo usano. I colpevoli classici: DNS secondario impostato (il secondario non è un backup, viene usato davvero), IPv6 del router che distribuisce un altro DNS, DNS-over-HTTPS del browser che scavalca tutto, e dispositivi con DNS hardcoded (Chromecast e smart TV sono famosi). Diagnosi: dal dispositivo sospetto risolvi un dominio e guarda nel query log se la richiesta arriva. Dettagli in [Pi-hole](q/cos-e-pi-hole/).",
+        "Le contromisure in ordine: un solo DNS distribuito via DHCP (il Pi-hole), disattiva il DNS sicuro del browser dove vuoi filtrarlo, e se serve blocca la porta 53 in uscita verso tutto tranne il Pi-hole così i furbetti non scappano. Attenzione a non rompere VPN aziendali e app bancarie con blocchi troppo aggressivi: whitelist mirate, non eccezioni globali."
+      ],
+      "suggest": [
+        "cos-e-pi-hole",
+        "authelia-vs-authentik-sso-homelab",
+        "differenza-firewall-e-waf"
+      ]
+    },
+    {
+      "id": "docker-permission-denied",
+      "slug": "docker-permission-denied-socket-permessi",
+      "question": "Docker: permission denied sul socket, come sistemare i permessi",
+      "vertical": "tools",
+      "keywords": [
+        "docker permission denied sul socket come sistemare i permessi",
+        "docker permission denied",
+        "permission denied sul socket docker",
+        "docker socket permessi utente",
+        "cannot connect to the docker daemon socket"
+      ],
+      "answers": [
+        "Quel `permission denied` sul socket significa solo che il tuo utente non è nel gruppo `docker`: `sudo usermod -aG docker $USER` e poi logout/login (o `newgrp docker` per la shell corrente). Niente `chmod 777` sul socket e niente sudo davanti a ogni comando come abitudine. Verifica con `docker run --rm hello-world`. Contesto in [Cos'è Docker](q/cos-e-docker/).",
+        "Due avvertenze da adulti: il gruppo `docker` equivale a root (chi controlla il demone monta qualsiasi path), quindi aggiungi solo utenti fidati; e se l'errore persiste dopo il relogin, controlla che il demone giri davvero (`systemctl status docker`) e che `DOCKER_HOST` non punti altrove. Su rootless o Podman la storia cambia – lì vedi [Podman](q/podman-vs-docker-rootless/)."
+      ],
+      "suggest": [
+        "cos-e-docker",
+        "nginx-proxy-manager-internal-error-certificato",
+        "appwrite-vs-supabase-pocketbase-backend"
+      ]
+    },
+    {
+      "id": "nextcloud-trusted-domains",
+      "slug": "nextcloud-dominio-non-attendibile-trusted-domains",
+      "question": "Nextcloud: dominio non attendibile, come impostare trusted_domains",
+      "vertical": "proxmox",
+      "keywords": [
+        "nextcloud dominio non attendibile come impostare trusted domains",
+        "access through untrusted domain nextcloud",
+        "trusted domains nextcloud",
+        "aggiungere dominio nextcloud config"
+      ],
+      "answers": [
+        "Nextcloud mostra la pagina di dominio non attendibile quando lo raggiungi da un nome che non è in whitelist: va aggiunto in `config/config.php` nell'array `trusted_domains` (nomi esatti, con porta se serve, o wildcard tipo `*.example.com`), poi ricarica. `localhost` e loopback sono sempre ammessi; dietro reverse proxy serve anche l'header forwarded corretto. Dettagli sul servizio in [Nextcloud al posto di Drive](q/sostituire-google-drive-con-nextcloud/).",
+        "Vedi la lista effettiva con `occ config:list system` e modifica via editor o via `occ config:system`. Ricorda che i file `*.config.php` nella stessa cartella hanno precedenza sul principale: se la modifica non ha effetto, probabilmente stai editando il file sbagliato. E dopo cambi di dominio, aggiorna anche overwritehost/overwriteprotocol se usi reverse proxy, altrimenti i link interni puntano al nome vecchio."
+      ],
+      "suggest": [
+        "sostituire-google-drive-con-nextcloud",
+        "home-assistant-dietro-reverse-proxy-richieste-bloccate",
+        "immich-backup-e-ripristino"
+      ]
+    },
+    {
+      "id": "ha-reverse-proxy",
+      "slug": "home-assistant-dietro-reverse-proxy-richieste-bloccate",
+      "question": "Home Assistant dietro reverse proxy: richieste bloccate",
+      "vertical": "proxmox",
+      "keywords": [
+        "home assistant dietro reverse proxy richieste bloccate",
+        "home assistant reverse proxy",
+        "trusted proxies home assistant",
+        "trust x forwarded for home assistant",
+        "home assistant non raggiungibile da proxy",
+        "homeassistant",
+        "homeassistant proxy"
+      ],
+      "answers": [
+        "Home Assistant blocca di default le richieste che arrivano da un reverse proxy non dichiarato: in Impostazioni, Sistema, Rete, sezione server HTTP, attiva la fiducia per `X-Forwarded-For` e inserisci l'IP o la rete del proxy nei proxy fidati (in notazione rete, non host singolo con maschera). Senza queste due impostazioni il login da fuori non passa. Contesto in [Home Assistant su Proxmox](q/home-assistant-su-proxmox/).",
+        "Sul proxy servono gli header giusti (host e forwarding) e HTTPS fino al browser; se usi Docker, l'IP da fidare è quello del container o della rete del proxy, non `localhost`. Dopo ogni cambio, un riavvio di Home Assistant scioglie i dubbi. E mai esporre l'istanza senza autenticazione forte più 2FA: un'automazione domestica raggiungibile da internet con password debole è un regalo."
+      ],
+      "suggest": [
+        "home-assistant-su-proxmox",
+        "nextcloud-dominio-non-attendibile-trusted-domains",
+        "immich-backup-e-ripristino"
+      ]
+    },
+    {
+      "id": "immich-backup",
+      "slug": "immich-backup-e-ripristino",
+      "question": "Immich: backup e ripristino di foto e database",
+      "vertical": "proxmox",
+      "keywords": [
+        "immich backup e ripristino di foto e database",
+        "backup immich",
+        "ripristinare immich",
+        "dump database immich"
+      ],
+      "answers": [
+        "Il backup di Immich ha due gambe inseparabili: il database (metadati e path, senza di lui la cartella foto è muta) e i file. Il database si salva da solo ogni notte in automatico con retention configurabile, oppure on demand, e via CLI con `pg_dump` dal container postgres; i file stanno in `UPLOAD_LOCATION` (originali, profili, più il resto rigenerabile). Ferma il server prima del backup completo, database prima e filesystem poi. Dettagli sul servizio in [Immich al posto di Google Foto](q/sostituire-google-foto-immich-photoprism/).",
+        "Ripristino: database prima (import del dump o restore da UI), poi i file al loro posto, poi su. La regola che salva matrimoni: il backup su un altro disco o un'altra macchina, e una prova di restore su un Immich di test almeno una volta – scoprire che il dump è vuoto il giorno del disastro non è un'esperienza formativa che consiglio. Per la strategia generale vale [la 3-2-1](q/backup-3-2-1/)."
+      ],
+      "suggest": [
+        "sostituire-google-foto-immich-photoprism",
+        "home-assistant-dietro-reverse-proxy-richieste-bloccate",
+        "truenas-pool-degradato-sostituire-disco"
+      ]
+    },
+    {
+      "id": "truenas-disco",
+      "slug": "truenas-pool-degradato-sostituire-disco",
+      "question": "TrueNAS: pool degradato, come sostituire un disco",
+      "vertical": "proxmox",
+      "keywords": [
+        "truenas pool degradato come sostituire un disco",
+        "pool degradato truenas",
+        "sostituire disco zfs",
+        "resilver truenas",
+        "disco fallito nas",
+        "pool degradato"
+      ],
+      "answers": [
+        "Pool degradato significa un disco andato (o andante) con ridondanza ancora in piedi: niente panico, ma non rimandare. Identifica il disco giusto per seriale (mai fidarti solo di `sda`), mettilo offline dalla UI, sostituiscilo fisicamente e avvia il resilver, che ricostruisce i dati dagli altri dischi. Durante il resilver il NAS resta usable ma lento: non riavviare e non staccare altro. Contesto in [Cos'è TrueNAS](q/cos-e-truenas/) e [TrueNAS dentro Proxmox](q/truenas-dentro-proxmox/).",
+        "Tre cose che separano i vivi dai morti: uno spare a scaffale (o hot spare configurato) prima che serva, alert email/SMART attivi così lo sai subito, e scrub regolari che trovano i settori marci quando c'è ancora ridondanza. Se i dischi che muoiono sono due in fretta o dello stesso lotto, sospetta alimentatore o vibrazioni, non sfortuna. E ricorda: RAID o mirror non sono backup."
+      ],
+      "suggest": [
+        "cos-e-truenas",
+        "truenas-dentro-proxmox",
+        "cos-e-paperless-ngx",
+        "immich-backup-e-ripristino"
       ]
     },
     {
@@ -2621,7 +2778,6 @@
       "suggest": [
         "arr-stack-sonarr-radarr-prowlarr",
         "media-server-self-hosted-jellyfin",
-        "cos-e-truenas",
         "cos-e-cosmos-server"
       ]
     },
@@ -2645,7 +2801,6 @@
       "suggest": [
         "cos-e-nginx-proxy-manager",
         "cos-e-traefik",
-        "cos-e-docker",
         "nginx-caddy-o-traefik"
       ]
     },
@@ -2668,7 +2823,6 @@
       "suggest": [
         "wireguard-o-openvpn",
         "differenza-vpn-e-proxy",
-        "cos-e-pi-hole",
         "cos-e-authelia"
       ]
     },
@@ -2734,8 +2888,8 @@
       ],
       "suggest": [
         "esporre-servizi-senza-aprire-porte",
-        "perche-email-in-spam",
-        "spf-dkim-dmarc"
+        "cloudflare-o-self-hosted",
+        "perche-email-in-spam"
       ]
     },
     {
@@ -3981,8 +4135,8 @@
       "suggest": [
         "cos-e-un-attacco-ddos",
         "cos-e-la-sovranita-digitale",
-        "trasferimento-dati-extra-ue-schrems",
-        "cosa-sono-i-cloudflare-workers"
+        "cos-e-cloudflare-tunnel",
+        "trasferimento-dati-extra-ue-schrems"
       ]
     },
     {
