@@ -3472,6 +3472,114 @@
   "expect": "simplex-chat-privacy"
  },
  {
+  "q": "Nginx Proxy Manager (NPM), Caddy o Traefik: meglio con UI o con file?",
+  "expect": "npm-caddy-traefik"
+ },
+ {
+  "q": "meglio npm caddy o traefik",
+  "expect": "npm-caddy-traefik"
+ },
+ {
+  "q": "npm vs caddy vs traefik",
+  "expect": "npm-caddy-traefik"
+ },
+ {
+  "q": "Plex vs Jellyfin per il media server: quale scegliere?",
+  "expect": "plex-vs-jellyfin"
+ },
+ {
+  "q": "plex vs jellyfin",
+  "expect": "plex-vs-jellyfin"
+ },
+ {
+  "q": "meglio jellyfin o plex",
+  "expect": "plex-vs-jellyfin"
+ },
+ {
+  "q": "Authelia vs authentik per l'SSO: quale scegliere?",
+  "expect": "authelia-vs-authentik"
+ },
+ {
+  "q": "authelia o authentik",
+  "expect": "authelia-vs-authentik"
+ },
+ {
+  "q": "meglio authelia o authentik",
+  "expect": "authelia-vs-authentik"
+ },
+ {
+  "q": "K3s o MicroK8s per Kubernetes leggero?",
+  "expect": "k3s-vs-microk8s"
+ },
+ {
+  "q": "k3s o microk8s",
+  "expect": "k3s-vs-microk8s"
+ },
+ {
+  "q": "meglio k3s o microk8s",
+  "expect": "k3s-vs-microk8s"
+ },
+ {
+  "q": "Zabbix, Netdata, Beszel o Glances: quale monitoraggio per l'homelab?",
+  "expect": "monitoraggio-homelab"
+ },
+ {
+  "q": "zabbix o netdata per l'homelab: quale monitoraggio scegliere",
+  "expect": "monitoraggio-homelab"
+ },
+ {
+  "q": "per l'homelab quale monitoraggio scegliere, zabbix o netdata?",
+  "expect": "monitoraggio-homelab"
+ },
+ {
+  "q": "CasaOS, Umbrel o Cosmos Server: quale sistema per l'homelab?",
+  "expect": "os-homelab"
+ },
+ {
+  "q": "casaos o umbrel o cosmos per l'homelab, quale sistema scelgo?",
+  "expect": "os-homelab"
+ },
+ {
+  "q": "meglio casaos umbrel o cosmos per iniziare?",
+  "expect": "os-homelab"
+ },
+ {
+  "q": "Plausible o Google Analytics per le statistiche?",
+  "expect": "plausible-vs-ga"
+ },
+ {
+  "q": "plausible vs google analytics",
+  "expect": "plausible-vs-ga"
+ },
+ {
+  "q": "plausible o google analytics",
+  "expect": "plausible-vs-ga"
+ },
+ {
+  "q": "n8n, Zapier o Node-RED per le automazioni?",
+  "expect": "n8n-vs"
+ },
+ {
+  "q": "n8n o node red",
+  "expect": "n8n-vs"
+ },
+ {
+  "q": "meglio n8n o zapier",
+  "expect": "n8n-vs"
+ },
+ {
+  "q": "Appwrite, Supabase o PocketBase come backend?",
+  "expect": "appwrite-vs"
+ },
+ {
+  "q": "appwrite o supabase",
+  "expect": "appwrite-vs"
+ },
+ {
+  "q": "appwrite vs pocketbase",
+  "expect": "appwrite-vs"
+ },
+ {
   "q": "come uccido un processo linux",
   "expect": "terminare-processo"
  },
