@@ -3374,6 +3374,265 @@
     "hardening-server-linux",
     "gestire-servizi-linux-con-systemctl"
    ]
+  },
+  {
+   "id": "paperless_install",
+   "group": "docker-compose",
+   "q": "Come installo Paperless-ngx?",
+   "keywords": [
+    "installo paperless-ngx",
+    "installare paperless",
+    "script installazione paperless"
+   ],
+   "cmd": "bash -c \"$(curl --location --silent --show-error https://raw.githubusercontent.com/paperless-ngx/paperless-ngx/main/install-paperless-ngx.sh)\"",
+   "note": "Lo script ufficiale chiede backend DB e cartelle, poi `docker compose up -d`. La UI è sulla 8000.",
+   "related": [
+    "cos-e-paperless-ngx",
+    "backup-3-2-1"
+   ]
+  },
+  {
+   "id": "glances_docker_web",
+   "group": "docker-container",
+   "q": "Come avvio Glances con la web UI in Docker?",
+   "keywords": [
+    "avvio glances web",
+    "glances in docker",
+    "glances porta 61208"
+   ],
+   "cmd": "docker run -d --restart=always -p 61208-61209:61208-61209 -v /var/run/docker.sock:/var/run/docker.sock --pid host -e GLANCES_OPT=\"-w\" nicolargo/glances:latest-full",
+   "note": "`--pid host` serve per vedere l'host vero e non il container. Senza auth, solo su rete fidata.",
+   "related": [
+    "cos-e-glances",
+    "cos-e-beszel"
+   ]
+  },
+  {
+   "id": "zabbix_compose",
+   "group": "docker-compose",
+   "q": "Come avvio Zabbix con Docker Compose?",
+   "keywords": [
+    "avvio zabbix compose",
+    "installare zabbix docker",
+    "zabbix-docker repo ufficiale"
+   ],
+   "cmd": "git clone https://github.com/zabbix/zabbix-docker.git && cd zabbix-docker\ndocker compose -f ./compose.yaml up -d",
+   "note": "Repo ufficiale: `compose.yaml` per MySQL, `compose_pgsql.yaml` per PostgreSQL. Fai checkout del tag della versione prima dell'up.",
+   "related": [
+    "cos-e-zabbix",
+    "stack-di-monitoraggio-prometheus-grafana"
+   ]
+  },
+  {
+   "id": "appwrite_install",
+   "group": "docker-compose",
+   "q": "Come installo Appwrite in self-hosting?",
+   "keywords": [
+    "installo appwrite",
+    "installare appwrite",
+    "wizard installazione appwrite"
+   ],
+   "cmd": "docker run -it --rm -p 20080:20080 -v /var/run/docker.sock:/var/run/docker.sock -v \"$(pwd)\"/appwrite:/usr/src/code/appwrite:rw --entrypoint=\"install\" appwrite/appwrite:<versione>",
+   "note": "Sostituisci `<versione>` col tag dalla doc (mai latest in prod). Il wizard su :20080 genera compose + .env.",
+   "related": [
+    "cos-e-appwrite",
+    "cos-e-docker-compose"
+   ]
+  },
+  {
+   "id": "plausible_install",
+   "group": "docker-compose",
+   "q": "Come installo Plausible self-hosted?",
+   "keywords": [
+    "installo plausible",
+    "installare plausible",
+    "plausible community edition compose"
+   ],
+   "cmd": "git clone https://github.com/plausible/community-edition plausible-ce && cd plausible-ce\ndocker compose up -d",
+   "note": "Prima dell'up scrivi `.env` con `BASE_URL` e `SECRET_KEY_BASE` (64+ byte). UI sulla 8000.",
+   "related": [
+    "cos-e-plausible",
+    "gdpr-cosa-serve-a-un-sito-web"
+   ]
+  },
+  {
+   "id": "n8n_docker",
+   "group": "docker-container",
+   "q": "Come avvio n8n con Docker?",
+   "keywords": [
+    "avvio n8n docker",
+    "installare n8n",
+    "n8n volume dati",
+    "n8n volume dedicato"
+   ],
+   "cmd": "docker volume create n8n_data\ndocker run -d --name n8n -p 5678:5678 -v n8n_data:/home/node/.n8n n8nio/n8n",
+   "note": "UI sulla 5678. Salva `N8N_ENCRYPTION_KEY` col backup del volume o non riapri le credenziali.",
+   "related": [
+    "cos-e-n8n",
+    "automazioni-casa-node-red-mqtt"
+   ]
+  },
+  {
+   "id": "beszel_hub",
+   "group": "docker-compose",
+   "q": "Come avvio l'hub Beszel?",
+   "keywords": [
+    "avvio beszel hub",
+    "installare beszel",
+    "beszel compose hub"
+   ],
+   "cmd": "services:\n  beszel:\n    image: henrygd/beszel\n    container_name: beszel\n    restart: unless-stopped\n    environment:\n      - APP_URL=http://localhost:8090\n    ports:\n      - \"8090:8090\"\n    volumes:\n      - ./beszel_data:/beszel_data\n# poi: docker compose up -d",
+   "note": "Hub minimo ufficiale: UI sulla 8090. Gli agent si aggiungono dalla UI con chiave e token.",
+   "related": [
+    "cos-e-beszel",
+    "cos-e-glances"
+   ]
+  },
+  {
+   "id": "cosmos_install",
+   "group": "docker-compose",
+   "q": "Come installo Cosmos Server?",
+   "keywords": [
+    "installo cosmos server",
+    "installare cosmos",
+    "script installazione cosmos",
+    "cosmos get.sh"
+   ],
+   "cmd": "curl -fsSL https://cosmos-cloud.io/get.sh | sudo -E bash -s",
+   "note": "Vuole 80/443 libere e il socket Docker. Config in /config: includila nel backup.",
+   "related": [
+    "cos-e-cosmos-server",
+    "cos-e-casaos"
+   ]
+  },
+  {
+   "id": "npm_install",
+   "group": "docker-compose",
+   "q": "Come installo Nginx Proxy Manager?",
+   "keywords": [
+    "installo nginx proxy manager",
+    "installare npm proxy",
+    "compose nginx proxy manager"
+   ],
+   "cmd": "services:\n  npm:\n    image: jc21/nginx-proxy-manager:latest  # la doc usa latest: pinna una versione in prod\n    restart: unless-stopped\n    ports:\n      - \"80:80\"\n      - \"81:81\"\n      - \"443:443\"\n    volumes:\n      - ./data:/data\n      - ./letsencrypt:/etc/letsencrypt\n# poi: docker compose up -d",
+   "note": "Pannello sulla 81, al primo accesso crei l'admin. SQLite integrato di default.",
+   "related": [
+    "cos-e-nginx-proxy-manager",
+    "nginx-caddy-o-traefik"
+   ]
+  },
+  {
+   "id": "traefik_compose",
+   "group": "docker-compose",
+   "q": "Come avvio Traefik con Docker?",
+   "keywords": [
+    "avvio traefik docker",
+    "installare traefik",
+    "compose traefik minimo",
+    "traefik con compose"
+   ],
+   "cmd": "services:\n  traefik:\n    image: traefik  # la doc usa traefik:vX: pinna la major in prod\n    command:\n      - --providers.docker=true\n      - --entrypoints.web.address=:80\n    ports:\n      - \"80:80\"\n    volumes:\n      - /var/run/docker.sock:/var/run/docker.sock\n# poi: docker compose up -d",
+   "note": "Provider Docker via socket. La dashboard 8080 con --api.insecure solo in laboratorio.",
+   "related": [
+    "cos-e-traefik",
+    "nginx-caddy-o-traefik"
+   ]
+  },
+  {
+   "id": "pihole_password",
+   "group": "vpn-dns",
+   "q": "Come imposto la password admin di Pi-hole?",
+   "keywords": [
+    "password admin pihole",
+    "pihole setpassword",
+    "cambiare password pihole"
+   ],
+   "cmd": "docker exec -it pihole pihole setpassword",
+   "note": "Dalla v6 la password si gestisce così o con `FTLCONF_webserver_api_password` nel compose.",
+   "related": [
+    "cos-e-pi-hole",
+    "pi-hole-vs-adguard-home"
+   ]
+  },
+  {
+   "id": "plex_claim_headless",
+   "group": "docker-container",
+   "q": "Come faccio il primo setup di Plex su server headless?",
+   "keywords": [
+    "setup plex headless",
+    "plex claim token",
+    "plex tunnel ssh primo avvio"
+   ],
+   "cmd": "ssh -L 8888:127.0.0.1:32400 utente@server",
+   "note": "Poi apri http://127.0.0.1:8888/web e fai il claim. Il token da plex.tv/claim vale solo al primo avvio.",
+   "related": [
+    "cos-e-plex",
+    "media-server-self-hosted-jellyfin"
+   ]
+  },
+  {
+   "id": "caddy_reverseproxy_test",
+   "group": "reverse-proxy-ssl",
+   "q": "Come testo un reverse proxy al volo con Caddy?",
+   "keywords": [
+    "reverse proxy al volo",
+    "caddy reverse-proxy from",
+    "provare backend con caddy"
+   ],
+   "cmd": "caddy reverse-proxy --from :2080 --to :9000\ncaddy reload",
+   "note": "Il sottocomando reverse-proxy genera una config temporanea. Mai stop/start in produzione.",
+   "related": [
+    "cos-e-caddy",
+    "caddyfile-minimo-per-servizi-docker"
+   ]
+  },
+  {
+   "id": "openvpn_connect",
+   "group": "vpn-dns",
+   "q": "Come mi collego a una VPN OpenVPN da terminale?",
+   "keywords": [
+    "collego openvpn terminale",
+    "openvpn config ovpn",
+    "openvpn connect linux"
+   ],
+   "cmd": "sudo openvpn --config ufficio.ovpn",
+   "note": "Serve il file .ovpn con certificati. Dietro NAT/filtered prova un profilo su TCP 443.",
+   "related": [
+    "cos-e-openvpn",
+    "wireguard-o-openvpn"
+   ]
+  },
+  {
+   "id": "docker_hello",
+   "group": "docker-container",
+   "q": "Come verifico che Docker funzioni?",
+   "keywords": [
+    "verifico docker funziona",
+    "docker hello world",
+    "test installazione docker"
+   ],
+   "cmd": "docker run --rm hello-world\ndocker compose version",
+   "note": "Il primo comando testa il demone, il secondo il plugin Compose v2.",
+   "related": [
+    "cos-e-docker",
+    "cos-e-docker-compose"
+   ]
+  },
+  {
+   "id": "netdata_install",
+   "group": "monitoraggio-notifiche",
+   "q": "Come installo Netdata?",
+   "keywords": [
+    "installo netdata",
+    "installare netdata",
+    "script netdata kickstart"
+   ],
+   "cmd": "wget -O /tmp/netdata-kickstart.sh https://get.netdata.cloud/kickstart.sh && sh /tmp/netdata-kickstart.sh",
+   "note": "Kickstart ufficiale: rileva l'OS e sceglie il metodo. Dashboard sulla 19999.",
+   "related": [
+    "cos-e-netdata",
+    "cos-e-glances"
+   ]
   }
  ]
 }

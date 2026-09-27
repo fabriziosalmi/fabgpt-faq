@@ -3198,5 +3198,277 @@
  {
   "q": "ssh connection refused dopo riavvio",
   "expect": "ssh-refused"
+ },
+ {
+  "q": "Cos'è Paperless-ngx e a cosa serve?",
+  "expect": "paperless-ngx"
+ },
+ {
+  "q": "cos'è paperless",
+  "expect": "paperless-ngx"
+ },
+ {
+  "q": "a cosa serve paperless-ngx",
+  "expect": "paperless-ngx"
+ },
+ {
+  "q": "Cos'è Glances e a cosa serve?",
+  "expect": "glances"
+ },
+ {
+  "q": "cos'è glances",
+  "expect": "glances"
+ },
+ {
+  "q": "a cosa serve glances",
+  "expect": "glances"
+ },
+ {
+  "q": "Cos'è Zabbix e quando ha senso?",
+  "expect": "zabbix"
+ },
+ {
+  "q": "cos'è zabbix",
+  "expect": "zabbix"
+ },
+ {
+  "q": "a cosa serve zabbix",
+  "expect": "zabbix"
+ },
+ {
+  "q": "Cos'è MicroK8s e a cosa serve?",
+  "expect": "microk8s"
+ },
+ {
+  "q": "cos'è microk8s",
+  "expect": "microk8s"
+ },
+ {
+  "q": "a cosa serve microk8s",
+  "expect": "microk8s"
+ },
+ {
+  "q": "Cos'è Appwrite e a cosa serve?",
+  "expect": "appwrite"
+ },
+ {
+  "q": "cos'è appwrite",
+  "expect": "appwrite"
+ },
+ {
+  "q": "a cosa serve appwrite",
+  "expect": "appwrite"
+ },
+ {
+  "q": "Cos'è Plausible e a cosa serve?",
+  "expect": "plausible"
+ },
+ {
+  "q": "cos'è plausible",
+  "expect": "plausible"
+ },
+ {
+  "q": "a cosa serve plausible",
+  "expect": "plausible"
+ },
+ {
+  "q": "Cos'è n8n e a cosa serve?",
+  "expect": "n8n"
+ },
+ {
+  "q": "cos'è n8n",
+  "expect": "n8n"
+ },
+ {
+  "q": "a cosa serve n8n",
+  "expect": "n8n"
+ },
+ {
+  "q": "Cos'è Beszel e a cosa serve?",
+  "expect": "beszel"
+ },
+ {
+  "q": "cos'è beszel",
+  "expect": "beszel"
+ },
+ {
+  "q": "a cosa serve beszel",
+  "expect": "beszel"
+ },
+ {
+  "q": "Cos'è CasaOS e a cosa serve?",
+  "expect": "casaos"
+ },
+ {
+  "q": "cos'è casaos",
+  "expect": "casaos"
+ },
+ {
+  "q": "a cosa serve casaos",
+  "expect": "casaos"
+ },
+ {
+  "q": "Cos'è Umbrel (umbrelOS) e a cosa serve?",
+  "expect": "umbrel"
+ },
+ {
+  "q": "cos'è umbrel",
+  "expect": "umbrel"
+ },
+ {
+  "q": "a cosa serve umbrel",
+  "expect": "umbrel"
+ },
+ {
+  "q": "Cos'è Cosmos Server e a cosa serve?",
+  "expect": "cosmos-server"
+ },
+ {
+  "q": "cos'è cosmos server",
+  "expect": "cosmos-server"
+ },
+ {
+  "q": "a cosa serve cosmos server",
+  "expect": "cosmos-server"
+ },
+ {
+  "q": "Cos'è Nginx Proxy Manager e a cosa serve?",
+  "expect": "nginx-proxy-manager"
+ },
+ {
+  "q": "cos'è nginx proxy manager",
+  "expect": "nginx-proxy-manager"
+ },
+ {
+  "q": "a cosa serve nginx proxy manager",
+  "expect": "nginx-proxy-manager"
+ },
+ {
+  "q": "Cos'è Traefik e a cosa serve?",
+  "expect": "traefik"
+ },
+ {
+  "q": "cos'è traefik",
+  "expect": "traefik"
+ },
+ {
+  "q": "a cosa serve traefik",
+  "expect": "traefik"
+ },
+ {
+  "q": "Cos'è Pi-hole e a cosa serve?",
+  "expect": "pihole"
+ },
+ {
+  "q": "cos'è pi-hole",
+  "expect": "pihole"
+ },
+ {
+  "q": "a cosa serve pi-hole",
+  "expect": "pihole"
+ },
+ {
+  "q": "Cos'è Plex e a cosa serve?",
+  "expect": "plex"
+ },
+ {
+  "q": "cos'è plex",
+  "expect": "plex"
+ },
+ {
+  "q": "a cosa serve plex media server",
+  "expect": "plex"
+ },
+ {
+  "q": "Cos'è Caddy e a cosa serve?",
+  "expect": "caddy"
+ },
+ {
+  "q": "cos'è caddy",
+  "expect": "caddy"
+ },
+ {
+  "q": "a cosa serve caddy",
+  "expect": "caddy"
+ },
+ {
+  "q": "Cos'è OpenVPN e quando ha ancora senso?",
+  "expect": "openvpn"
+ },
+ {
+  "q": "cos'è openvpn",
+  "expect": "openvpn"
+ },
+ {
+  "q": "a cosa serve openvpn",
+  "expect": "openvpn"
+ },
+ {
+  "q": "Cos'è Authelia e a cosa serve?",
+  "expect": "authelia"
+ },
+ {
+  "q": "cos'è authelia",
+  "expect": "authelia"
+ },
+ {
+  "q": "a cosa serve authelia",
+  "expect": "authelia"
+ },
+ {
+  "q": "Cos'è Docker e a cosa serve?",
+  "expect": "docker"
+ },
+ {
+  "q": "cos'è docker",
+  "expect": "docker"
+ },
+ {
+  "q": "a cosa serve docker",
+  "expect": "docker"
+ },
+ {
+  "q": "Cos'è Cloudflare Tunnel e a cosa serve?",
+  "expect": "cloudflare-tunnel"
+ },
+ {
+  "q": "a cosa serve cloudflare tunnel",
+  "expect": "cloudflare-tunnel"
+ },
+ {
+  "q": "cloudflare tunnel a cosa serve e quando usarlo",
+  "expect": "cloudflare-tunnel"
+ },
+ {
+  "q": "Cos'è TrueNAS e a cosa serve?",
+  "expect": "truenas"
+ },
+ {
+  "q": "cos'è truenas",
+  "expect": "truenas"
+ },
+ {
+  "q": "a cosa serve truenas",
+  "expect": "truenas"
+ },
+ {
+  "q": "Cos'è Netdata e a cosa serve?",
+  "expect": "netdata"
+ },
+ {
+  "q": "cos'è netdata",
+  "expect": "netdata"
+ },
+ {
+  "q": "a cosa serve netdata",
+  "expect": "netdata"
+ },
+ {
+  "q": "npm install non funziona",
+  "expect": "st-test"
+ },
+ {
+  "q": "simplex chat",
+  "expect": "simplex-chat-privacy"
  }
 ]

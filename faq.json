@@ -1635,6 +1635,7 @@
       "suggest": [
         "spf-dkim-dmarc",
         "cos-e-cloudflare-turnstile",
+        "cos-e-cloudflare-tunnel",
         "cosa-sono-i-cloudflare-workers"
       ]
     },
@@ -1768,7 +1769,6 @@
       "suggest": [
         "a-cosa-serve-la-sitemap",
         "json-ld-schema-org-seo",
-        "il-sito-e-lento-come-si-diagnostica",
         "cos-e-il-file-llms-txt"
       ]
     },
@@ -2099,7 +2099,500 @@
       "suggest": [
         "cos-e-un-waf-web-application-firewall",
         "cos-e-l-osint",
-        "differenza-vpn-e-proxy"
+        "cos-e-un-bug-bounty"
+      ]
+    },
+    {
+      "id": "paperless-ngx",
+      "slug": "cos-e-paperless-ngx",
+      "question": "Cos'è Paperless-ngx e a cosa serve?",
+      "vertical": "proxmox",
+      "keywords": [
+        "cos e paperless ngx e a cosa serve",
+        "paperless-ngx",
+        "paperless",
+        "gestione documentale",
+        "archivio documenti",
+        "documenti con ocr"
+      ],
+      "answers": [
+        "Paperless-ngx è un archivio documentale self-hosted: butti dentro scansioni e PDF e lui fa OCR, li rende ricercabili e li organizza con tag, corrispondenti e tipi di documento. Pensato per fatture, contratti e manuali – la carta che oggi vive in scatoloni. Si installa con lo script ufficiale o con i file compose del repo (servizi broker, database e webserver), la UI gira sulla porta 8000 e con `PAPERLESS_URL` lo metti dietro reverse proxy. Rispetto a cartelle condivise [su Nextcloud](q/sostituire-google-drive-con-nextcloud/) vince su ricerca e metadati; per le foto invece c'è [Immich](q/sostituire-google-foto-immich-photoprism/). Come ogni archivio, vale solo se hai [backup dei volumi e del database](q/backup-3-2-1/).",
+        "Nella pratica: i documenti entrano dalla cartella di consumo, via upload o via email, e l'OCR riconosce anche l'italiano (`PAPERLESS_OCR_LANGUAGE`). Le variabili che contano in `docker-compose.env` sono `PAPERLESS_SECRET_KEY`, `PAPERLESS_URL` (l'indirizzo pubblico, obbligatorio dietro proxy), `PAPERLESS_DBHOST`/`PAPERLESS_DBUSER`/`PAPERLESS_DBPASS` se usi PostgreSQL invece di SQLite, e `PAPERLESS_REDIS` per la coda. Aggiornamenti con `docker compose pull` + `up -d`; il backup sono i volumi Docker più il dump del database, mai solo i file."
+      ],
+      "suggest": [
+        "sostituire-google-drive-con-nextcloud",
+        "sostituire-google-foto-immich-photoprism",
+        "backup-3-2-1"
+      ]
+    },
+    {
+      "id": "glances",
+      "slug": "cos-e-glances",
+      "question": "Cos'è Glances e a cosa serve?",
+      "vertical": "tools",
+      "keywords": [
+        "cos e glances e a cosa serve",
+        "glances",
+        "glances web",
+        "monitoraggio sistema leggero",
+        "alternativa htop con interfaccia web"
+      ],
+      "answers": [
+        "Glances è il `top` con gli steroidi e una pagina web: in una schermata vedi CPU, RAM, swap, dischi, rete, sensori, processi e persino i container, con i valori critici evidenziati a colori. Si installa con `pip install 'glances[web]'`: `glances` apre la TUI nel terminale, `glances -w` serve la web UI sulla porta 61208. In Docker usa l'immagine `nicolargo/glances` con `--pid host` così vede l'host vero e non il container. Perfetto per dare un'occhiata al volo a un server; quando servono più macchine e storico c'è [Beszel](q/cos-e-beszel/), per il tempo reale spinto [Netdata](q/cos-e-netdata/).",
+        "Due modalità utili oltre la TUI: `glances -s` fa da server e `glances -c indirizzo` da client remoto, così controlli un host senza esporre la web UI. Le soglie di allarme (quando un valore diventa rosso) si regolano in `glances.conf`, e con `GLANCES_OPT` passi flag extra al container. Regola d'oro: la web UI senza autenticazione va tenuta su rete fidata o dietro reverse proxy con auth, mai esposta così com'è."
+      ],
+      "suggest": [
+        "cos-e-beszel",
+        "cos-e-netdata",
+        "cos-e-zabbix"
+      ]
+    },
+    {
+      "id": "zabbix",
+      "slug": "cos-e-zabbix",
+      "question": "Cos'è Zabbix e quando ha senso?",
+      "vertical": "tools",
+      "keywords": [
+        "cos e zabbix e quando ha senso",
+        "zabbix",
+        "zabbix agent",
+        "monitoraggio server e rete",
+        "template trigger e alert"
+      ],
+      "answers": [
+        "Zabbix è il monitoraggio enterprise open-source: un server centrale raccoglie metriche da agent installati su host, switch e VM, e decide con trigger (soglie) quando aprire un problema e avvisarti. I pezzi sono server (porta 10051), agent sugli host (10050), database e frontend web (80/443). Ha senso sopra una certa soglia – una flotta di server, VM e apparati di rete – mentre per uno o due host è un cannone costoso da mantenere. Installazione pulita via pacchetti della distro oppure `docker compose` dal repo ufficiale `zabbix-docker` (file `compose.yaml` o `compose_pgsql.yaml`). Per metriche da buttare su dashboard c'è [lo stack Prometheus e Grafana](q/stack-di-monitoraggio-prometheus-grafana/), per il realtime [Netdata](q/cos-e-netdata/).",
+        "Il flusso tipico: installi lo agent, lo punti al server, applichi un template (Linux, MySQL, HTTP…) e i trigger cominciano a lavorare – uptime, spazio disco, carico, servizi. Lo agent 2 in Go copre i casi moderni con plugin. Tre abitudini che pagano: nomi host coerenti tra agent e server, un proxy Zabbix per le sedi remote invece di aprire porte ovunque, e il backup del database (lì vive tutto: configurazione e storico). Per sapere solo se un sito risponde basta [Uptime Kuma](q/cos-e-uptime-kuma/)."
+      ],
+      "suggest": [
+        "stack-di-monitoraggio-prometheus-grafana",
+        "cos-e-netdata",
+        "cos-e-glances"
+      ]
+    },
+    {
+      "id": "microk8s",
+      "slug": "cos-e-microk8s",
+      "question": "Cos'è MicroK8s e a cosa serve?",
+      "vertical": "tools",
+      "keywords": [
+        "cos e microk8s e a cosa serve",
+        "microk8s",
+        "micro k8s",
+        "kubernetes leggero",
+        "cluster su un nodo solo"
+      ],
+      "answers": [
+        "MicroK8s è Kubernetes impacchettato da Canonical per stare su una macchina sola: un `snap install microk8s --classic`, l'utente nel gruppo `microk8s`, e hai API server, scheduler e kubelet pronti con `microk8s status --wait-ready`. I comandi passano da `microk8s kubectl` (o un alias) e le funzioni extra si accendono come addon: `microk8s enable dns hostpath-storage` copre il laboratorio base. Serve per imparare K8s o far girare qualche workload orchestrato senza un cluster vero. Alternative più leggere: [K3s](q/cos-e-k3s/); il Kubernetes completo resta [qui](q/cos-e-kubernetes/).",
+        "Gli addon sono il vero trucco: `microk8s enable` lista registry, ingress, metallb, observability e altro, e `microk8s stop`/`start` spengono tutto quando non serve. Per più nodi c'è il clustering integrato (`add-node`), ma se l'obiettivo è produzione multi-nodo valuta K3s o un cluster serio. E ricorda che sotto resta snap: gli aggiornamenti arrivano dal canale snap, non da apt."
+      ],
+      "suggest": [
+        "cos-e-k3s",
+        "cos-e-kubernetes",
+        "cos-e-zabbix"
+      ]
+    },
+    {
+      "id": "appwrite",
+      "slug": "cos-e-appwrite",
+      "question": "Cos'è Appwrite e a cosa serve?",
+      "vertical": "tools",
+      "keywords": [
+        "cos e appwrite e a cosa serve",
+        "appwrite",
+        "backend as a service",
+        "database auth e storage",
+        "baas open source self hosted"
+      ],
+      "answers": [
+        "Appwrite è un backend-as-a-service open-source da self-hostare: ti dà database, autenticazione utenti, storage file, funzioni serverless e realtime senza scrivere il backend da zero, con console web e SDK per ogni linguaggio. Installazione ufficiale con un installer Docker (`entrypoint install` sull'immagine `appwrite/appwrite` con tag versionato) e un wizard su porta 20080 che chiede dominio e chiavi; in produzione gira dietro 80/443 con `_APP_DOMAIN` impostato. Alternative con la stessa idea: Supabase e PocketBase (progetti esterni, senza voce qui).",
+        "In produzione contano tre cose: `_APP_ENV=production`, `_APP_OPENSSL_KEY_V1` e le altre chiavi custodite fuori da git, e l'SMTP (`_APP_SMTP_*`) configurato altrimenti login e inviti non partono. I dati vivono nei volumi generati dall'installer più il database: il backup sono quelli, e l'aggiornamento passa dal compose generato (`docker compose up -d`). Se ti serve solo storage S3-compatibile, [MinIO](q/cos-e-minio-object-storage-s3/) è più semplice; per esporlo in HTTPS vedi [il Caddyfile minimo](q/caddyfile-minimo-per-servizi-docker/)."
+      ],
+      "suggest": [
+        "cos-e-microk8s",
+        "cos-e-plausible",
+        "cos-e-zabbix"
+      ]
+    },
+    {
+      "id": "plausible",
+      "slug": "cos-e-plausible",
+      "question": "Cos'è Plausible e a cosa serve?",
+      "vertical": "tools",
+      "keywords": [
+        "cos e plausible e a cosa serve",
+        "plausible",
+        "plausible analytics",
+        "analytics senza cookie",
+        "statistiche sito privacy"
+      ],
+      "answers": [
+        "Plausible è web analytics leggera e privacy-friendly: uno script minuscolo sulle pagine, niente cookie, niente banner da gestire, e una dashboard che mostra visite, sorgenti e pagine senza profilare nessuno. Self-host con il repo ufficiale `plausible/community-edition`: `.env` con `BASE_URL` e `SECRET_KEY_BASE`, poi `docker compose up -d` (postgres e clickhouse sono inclusi, la UI ascolta sulla 8000). Per il lato legale resta [la checklist GDPR per i siti](q/gdpr-cosa-serve-a-un-sito-web/): lo strumento aiuta, non certifica da solo.",
+        "In produzione mettilo dietro reverse proxy con HTTPS e `BASE_URL` https, altrimenti login e tracking si lamentano. Il primo utente creato dalla UI è admin; gli aggiornamenti sono `git pull` + `compose up -d`, e il backup sono i volumi dei due database. Se cerchi funnel avanzati e integrazione ads, il cloud di Google resta un altro pianeta – Plausible vince su semplicità e privacy, non su profondità."
+      ],
+      "suggest": [
+        "gdpr-cosa-serve-a-un-sito-web",
+        "cos-e-appwrite",
+        "cos-e-n8n"
+      ]
+    },
+    {
+      "id": "n8n",
+      "slug": "cos-e-n8n",
+      "question": "Cos'è n8n e a cosa serve?",
+      "vertical": "tools",
+      "keywords": [
+        "cos e n8n e a cosa serve",
+        "n8n",
+        "automazione workflow",
+        "workflow con nodi",
+        "alternativa zapier self hosted"
+      ],
+      "answers": [
+        "n8n è automazione visuale self-hosted: trascini nodi (trigger, app, logica, codice) e colleghi servizi tra loro – webhook in ingresso, chiamata API, scrittura su database – senza passare dal cloud di nessuno. Gira in Docker con un volume per i dati (`n8n_data:/home/node/.n8n`) e UI sulla 5678; le credenziali dei servizi vivono nel vault interno cifrato. Alternative: Node-RED per l'hardware e la domotica, Zapier se preferisci il SaaS e non vuoi mantenere nulla.",
+        "Dietro reverse proxy servono `N8N_HOST` e `N8N_WEBHOOK_URL` con l'URL pubblico, altrimenti i webhook non ricevono niente, e con HTTPS attivo `N8N_SECURE_COOKIE` resta com'è. Per carichi seri passa a PostgreSQL (`DB_TYPE=postgresdb`) invece di SQLite, e custodisci `N8N_ENCRYPTION_KEY`: senza quella chiave i backup sono illeggibili. Per i webhook in sviluppo da rete locale il tunnel è comodo, ma [mai in produzione](q/esporre-servizi-senza-aprire-porte/). Vedi anche [Node-RED per la casa](q/automazioni-casa-node-red-mqtt/)."
+      ],
+      "suggest": [
+        "cos-e-plausible",
+        "cos-e-beszel",
+        "cos-e-appwrite"
+      ]
+    },
+    {
+      "id": "beszel",
+      "slug": "cos-e-beszel",
+      "question": "Cos'è Beszel e a cosa serve?",
+      "vertical": "tools",
+      "keywords": [
+        "cos e beszel e a cosa serve",
+        "beszel",
+        "monitoraggio server homelab",
+        "agent leggero docker",
+        "hub e agent monitoraggio"
+      ],
+      "answers": [
+        "Beszel è monitoraggio leggero per l'homelab: un hub con UI sulla porta 8090 e un agent minuscolo su ogni macchina (container o binario) che spedisce CPU, RAM, dischi, rete e container via websocket in uscita. Aggiungi un sistema dalla UI incollando chiave e token, e hai storico, grafici e alert senza l'overhead di uno stack enterprise. Quando basta un host solo c'è [Glances](q/cos-e-glances/), per il realtime al secondo [Netdata](q/cos-e-netdata/), per il semplice up/down [Uptime Kuma](q/cos-e-uptime-kuma/).",
+        "Il compose minimo dell'hub è poche righe (immagine `henrygd/beszel`, `APP_URL`, porta 8090, volume `beszel_data`); l'agent vuole `KEY`, `TOKEN`, `HUB_URL` e `LISTEN`. Essendo la connessione in uscita dall'agent, non apri porte sui monitorati – comodo dietro NAT. Backup: il volume `beszel_data` dell'hub contiene tutto."
+      ],
+      "suggest": [
+        "cos-e-glances",
+        "cos-e-netdata",
+        "cos-e-uptime-kuma"
+      ]
+    },
+    {
+      "id": "casaos",
+      "slug": "cos-e-casaos",
+      "question": "Cos'è CasaOS e a cosa serve?",
+      "vertical": "proxmox",
+      "keywords": [
+        "cos e casaos e a cosa serve",
+        "casaos",
+        "casa os",
+        "dashboard app homelab",
+        "app store docker casalingo"
+      ],
+      "answers": [
+        "CasaOS è una dashboard per trasformare un mini PC o un Raspberry in homelab senza imparare Docker: si installa sopra Debian, Ubuntu o Raspberry Pi OS con uno script, e da `casaos.local` installi app con un click dall'app store (sotto sono container Docker standard). Gira su amd64, arm64 e armv7, quindi anche hardware piccolo. Alternative con la stessa idea: [Umbrel](q/cos-e-umbrel/) e [Cosmos Server](q/cos-e-cosmos-server/).",
+        "Il rovescio onesto: la semplicità costa flessibilità – quando un'app vuole variabili o volumi particolari, torni a [Docker Compose a mano](q/cos-e-docker-compose/). Sotto il cofano resta un Linux normale, quindi backup dei volumi e aggiornamenti restano compito tuo. Se invece vuoi un sistema operativo dedicato e non un layer sopra Debian, guarda Umbrel."
+      ],
+      "suggest": [
+        "cos-e-umbrel",
+        "cos-e-cosmos-server",
+        "cos-e-paperless-ngx",
+        "cos-e-plex"
+      ]
+    },
+    {
+      "id": "umbrel",
+      "slug": "cos-e-umbrel",
+      "question": "Cos'è Umbrel (umbrelOS) e a cosa serve?",
+      "vertical": "proxmox",
+      "keywords": [
+        "cos e umbrel e a cosa serve",
+        "umbrel",
+        "umbrelos",
+        "umbrel os",
+        "sistema operativo homelab"
+      ],
+      "answers": [
+        "umbrelOS è un sistema operativo standalone per homelab: scarichi l'immagine per Raspberry Pi (4 o meglio 5) o x86, la scrivi su disco, e al primo avvio un wizard su `umbrel.local` configura tutto. Non si installa sopra un Linux esistente. App store con media server, backup, password manager e nodi Bitcoin/Lightning, storage su disco esterno (la microSD da sola è sconsigliata). Alternative: [CasaOS](q/cos-e-casaos/) se hai già Debian, [Cosmos Server](q/cos-e-cosmos-server/) se vuoi anche reverse proxy integrato.",
+        "Tre accortezze hardware: disco dedicato da almeno qualche decina di GB per OS più lo storage vero, alimentazione adeguata (i Pi si riavviano con alimentatori deboli), ethernet meglio del Wi-Fi. Il backup sono i dati delle app più la configurazione: come ogni NAS casalingo, [vale la regola 3-2-1](q/backup-3-2-1/)."
+      ],
+      "suggest": [
+        "cos-e-casaos",
+        "cos-e-cosmos-server",
+        "cos-e-plex"
+      ]
+    },
+    {
+      "id": "cosmos-server",
+      "slug": "cos-e-cosmos-server",
+      "question": "Cos'è Cosmos Server e a cosa serve?",
+      "vertical": "proxmox",
+      "keywords": [
+        "cos e cosmos server e a cosa serve",
+        "cosmos server",
+        "cosmos cloud",
+        "homelab con reverse proxy integrato",
+        "marketplace app self hosted"
+      ],
+      "answers": [
+        "Cosmos Server è una piattaforma homelab all-in-one: si installa con uno script o come container (`azukaar/cosmos-server`), e da un'unica UI gestisci app containerizzate dal marketplace, reverse proxy con HTTPS automatico su 80/443 e una VPN integrata (Constellation). Pensato per esporre servizi in modo ordinato senza assemblare proxy, DNS e certificati a mano. Alternative: [CasaOS](q/cos-e-casaos/) per la semplicità pura, [Nginx Proxy Manager più Docker](q/cos-e-nginx-proxy-manager/) per il controllo totale.",
+        "Dietro le quinte vuole le porte 80 e 443 libere e il socket Docker; la configurazione vive in `/config`, ed è quello che si salva nel backup. I certificati wildcard passano dal DNS challenge del tuo provider. Se invece preferisci comporre lo stack pezzo per pezzo, il confronto onesto tra proxy è [qui](q/nginx-caddy-o-traefik/)."
+      ],
+      "suggest": [
+        "cos-e-casaos",
+        "cos-e-nginx-proxy-manager",
+        "cos-e-umbrel"
+      ]
+    },
+    {
+      "id": "nginx-proxy-manager",
+      "slug": "cos-e-nginx-proxy-manager",
+      "question": "Cos'è Nginx Proxy Manager e a cosa serve?",
+      "vertical": "tools",
+      "keywords": [
+        "cos e nginx proxy manager e a cosa serve",
+        "nginx proxy manager",
+        "npm proxy manager",
+        "nginx",
+        "interfaccia web per nginx"
+      ],
+      "answers": [
+        "Nginx Proxy Manager è un'interfaccia web sopra Nginx per esporre servizi: aggiungi un proxy host con dominio e backend, spunti Let's Encrypt, e hai HTTPS senza scrivere una riga di config. Gira in Docker (immagine `jc21/nginx-proxy-manager` con tag versionato, porte 80/443 più 81 per il pannello, volumi `data` e `letsencrypt`), al primo accesso crei l'account admin. Alternative con filosofie diverse: [Caddy](q/cos-e-caddy/) per la configurazione in un file, [Traefik](q/cos-e-traefik/) per la scoperta automatica via Docker.",
+        "Due funzioni che si scoprono tardi: le access list (proteggi un servizio con login prima ancora di raggiungerlo) e gli stream TCP/UDP per database e giochi. La scheda Advanced accetta snippet Nginx grezzi per i casi strani. Backup: la cartella `data` contiene tutto, certificati compresi. Se i certificati danno errori, il confronto tra i tre proxy è [qui](q/nginx-caddy-o-traefik/)."
+      ],
+      "suggest": [
+        "cos-e-caddy",
+        "cos-e-traefik",
+        "cos-e-beszel"
+      ]
+    },
+    {
+      "id": "traefik",
+      "slug": "cos-e-traefik",
+      "question": "Cos'è Traefik e a cosa serve?",
+      "vertical": "tools",
+      "keywords": [
+        "cos e traefik e a cosa serve",
+        "traefik",
+        "traefik reverse proxy",
+        "traefik docker",
+        "traefik dashboard"
+      ],
+      "answers": [
+        "Traefik è un reverse proxy che si configura da solo guardando Docker: monti il socket, attivi il provider e ogni container con le label giuste (`Host`, porta del servizio) ottiene routing e certificati senza toccare file. Gli entrypoint standard sono 80 e 443; la dashboard interna sta sulla 8080 ma `--api.insecure` è solo per il laboratorio, in produzione va servita con auth su router dedicato. Alternative più semplici: [Nginx Proxy Manager](q/cos-e-nginx-proxy-manager/) con UI, [Caddy](q/cos-e-caddy/) con un file. Il confronto ragionato è [qui](q/nginx-caddy-o-traefik/).",
+        "Le due trappole classiche: `exposedByDefault` espone tutto ciò che gira (mettilo a false e abilita solo con `traefik.enable=true`), e con più porte esposte devi dichiarare `loadbalancer.server.port` altrimenti indovina quella sbagliata. I middleware fanno redirect, auth e rate limiting dichiarativi. Per i certificati usa un certresolver ACME e conserva il file `acme.json` come un segreto."
+      ],
+      "suggest": [
+        "cos-e-nginx-proxy-manager",
+        "cos-e-caddy",
+        "nginx-caddy-o-traefik"
+      ]
+    },
+    {
+      "id": "pihole",
+      "slug": "cos-e-pi-hole",
+      "question": "Cos'è Pi-hole e a cosa serve?",
+      "vertical": "security",
+      "keywords": [
+        "cos e pi hole e a cosa serve",
+        "pihole",
+        "pi hole",
+        "dns filtrante",
+        "pubblicita bloccata in rete"
+      ],
+      "answers": [
+        "Pi-hole è un DNS filtrante per tutta la rete: lo imposti come DNS del DHCP o del router e blocca pubblicità, tracker e domini malevoli prima che arrivino ai dispositivi, con query log per capire chi chiama cosa. Gira in Docker (immagine `pihole/pihole`, porte 53 DNS più 80/443 per la web UI); dalla v6 la password admin si imposta con `FTLCONF_webserver_api_password`, altrimenti ne genera una casuale visibile nei log. Alternativa con più funzioni integrate: [AdGuard Home](q/pi-hole-vs-adguard-home/). Per i soli domini malevoli vedi [il blocco via DNS](q/come-bloccare-domini-malevoli/).",
+        "Tre regolazioni che contano: su Docker in bridge imposta il listening su tutte le interfacce, usa un upstream di fiducia, e con gruppi e client dai policy diverse (bambini, ospiti, server). Il DHCP integrato (porta 67) serve solo se il tuo router non ti fa cambiare DNS. Backup: la cartella di configurazione contiene liste e database, basta quella."
+      ],
+      "suggest": [
+        "pi-hole-vs-adguard-home",
+        "come-bloccare-domini-malevoli",
+        "cos-e-openvpn"
+      ]
+    },
+    {
+      "id": "plex",
+      "slug": "cos-e-plex",
+      "question": "Cos'è Plex e a cosa serve?",
+      "vertical": "proxmox",
+      "keywords": [
+        "cos e plex e a cosa serve",
+        "plex",
+        "plex media server",
+        "server plex",
+        "libreria film e serie",
+        "plex su nas"
+      ],
+      "answers": [
+        "Plex è un media server con app su ogni schermo: indicizza la tua libreria di film, serie e musica con locandine e trame, e la guardi da TV, telefono o browser dentro e fuori casa. Il server ascolta sulla 32400; al primo avvio si lega all'account con un claim token (da plex.tv/claim, valido solo al setup), poi `IP:32400/web` per configurarlo. Installazione da pacchetto, NAS o Docker con l'immagine ufficiale `plexinc/pms-docker` (volumi `/config`, `/transcode`, `/data`). Vale per la tua libreria e fonti legittime, come [l'arr stack](q/arr-stack-sonarr-radarr-prowlarr/). Alternativa open: [Jellyfin](q/media-server-self-hosted-jellyfin/).",
+        "I tre volumi contano: `/config` cresce con database e miniature, `/transcode` vuole disco veloce (RAM o SSD), `/data` i media in sola lettura. La transcodifica hardware (QuickSync o NVIDIA) decide se uno o dieci stream reggono. Da remoto serve port-forwarding della 32400 o il relay (più lento); headless, il tunnel SSH verso `127.0.0.1:32400` risolve il primo setup. Backup: `/config`, il resto si riscarica o si reimporta."
+      ],
+      "suggest": [
+        "arr-stack-sonarr-radarr-prowlarr",
+        "media-server-self-hosted-jellyfin",
+        "cos-e-truenas",
+        "cos-e-cosmos-server"
+      ]
+    },
+    {
+      "id": "caddy",
+      "slug": "cos-e-caddy",
+      "question": "Cos'è Caddy e a cosa serve?",
+      "vertical": "tools",
+      "keywords": [
+        "cos e caddy e a cosa serve",
+        "caddy",
+        "caddy server",
+        "caddy https automatico",
+        "caddy reverse proxy",
+        "caddyfile"
+      ],
+      "answers": [
+        "Caddy è un web server che fa HTTPS da solo: scrivi il dominio nel Caddyfile con il backend e lui ottiene e rinnova i certificati, con redirect 80-443 automatico. Un reverse proxy minimo è due righe (`dominio` + `reverse_proxy :9000`); per i test locali basta `caddy reverse-proxy --from :2080 --to :9000`. In Docker usa l'immagine ufficiale con tag versionato, porte 80/443 e volumi per config, dati e certificati. Alternative: [Nginx Proxy Manager](q/cos-e-nginx-proxy-manager/) con UI, [Traefik](q/cos-e-traefik/) per Docker dinamico. Il confronto è [qui](q/nginx-caddy-o-traefik/).",
+        "Sotto il cofano: `caddy run` per stare in foreground, `caddy reload` per ricaricare senza downtime (mai stop/start in produzione). HTTPS automatico vuole DNS puntato, 80/443 raggiungibili e data dir persistente, altrimenti i certificati non sopravvivono ai riavvii. Per due servizi Docker c'è [il Caddyfile minimo commentato](q/caddyfile-minimo-per-servizi-docker/)."
+      ],
+      "suggest": [
+        "cos-e-nginx-proxy-manager",
+        "cos-e-traefik",
+        "cos-e-docker",
+        "nginx-caddy-o-traefik"
+      ]
+    },
+    {
+      "id": "openvpn",
+      "slug": "cos-e-openvpn",
+      "question": "Cos'è OpenVPN e quando ha ancora senso?",
+      "vertical": "security",
+      "keywords": [
+        "cos e openvpn e quando ha senso",
+        "openvpn",
+        "open vpn",
+        "vpn su tcp 443",
+        "server openvpn"
+      ],
+      "answers": [
+        "OpenVPN è la VPN open-source veterana: tunnel TLS su 1194/UDP di default, con la carta speciale del TCP sulla 443 dove le reti filtrano tutto il resto. Client per ogni sistema e configurazioni `.ovpn` portabili; per chi vuole una UI c'è Access Server self-hosted. Oggi la scelta di default è [WireGuard](q/wireguard-o-openvpn/), più semplice e veloce; OpenVPN resta dove serve TCP, client legacy o reti ostili. Per capire se ti serve una VPN o basta un proxy vedi [il confronto](q/differenza-vpn-e-proxy/).",
+        "Sul campo: UDP va quasi sempre preferito (il TCP-su-TCP soffre su linee sporche), il fallback TCP 443 serve in hotel, aziende e paesi con filtri. Lato server conta poco la potenza, conta la banda; lato client, un `.ovpn` più certificati e sei dentro con `openvpn --config ufficio.ovpn`. Per collegare sedi e dispositivi senza aprire porte, [Tailscale](q/cos-e-tailscale-mesh-vpn/) è la via pigra."
+      ],
+      "suggest": [
+        "wireguard-o-openvpn",
+        "differenza-vpn-e-proxy",
+        "cos-e-pi-hole",
+        "cos-e-authelia"
+      ]
+    },
+    {
+      "id": "authelia",
+      "slug": "cos-e-authelia",
+      "question": "Cos'è Authelia e a cosa serve?",
+      "vertical": "security",
+      "keywords": [
+        "cos e authelia e a cosa serve",
+        "authelia",
+        "authelia sso",
+        "sso per homelab",
+        "forward auth reverse proxy"
+      ],
+      "answers": [
+        "Authelia mette login unico e 2FA davanti ai servizi che non ce l'hanno: il reverse proxy (Traefik, Caddy, Nginx o NPM, tutti con guide ufficiali) chiede ad Authelia se far passare, e l'utente fa un solo login con secondo fattore. Gira in Docker (immagine `authelia/authelia`, porta 9091), si configura da `configuration.yml` più database utenti, e pretende HTTPS ovunque. Alternative più complete: [authentik](q/keycloak-o-authentik-sso-self-hosted/); per proteggere una singola app legacy c'è [oauth2-proxy](q/oauth2-proxy-autenticazione-davanti-ai-servizi/).",
+        "Il modello mentale: policy per dominio (un fattore per le cose banali, due per quelle serie), segreti fuori dal file di config (le variabili `AUTHELIA_*_FILE`), e backup della cartella `/config` con database utenti e chiavi. Le app dietro devono accettare gli header inoltrati: se un servizio si lamenta del login, quasi sempre è lì il problema, non nella password."
+      ],
+      "suggest": [
+        "keycloak-o-authentik-sso-self-hosted",
+        "oauth2-proxy-autenticazione-davanti-ai-servizi",
+        "cos-e-openvpn"
+      ]
+    },
+    {
+      "id": "docker",
+      "slug": "cos-e-docker",
+      "question": "Cos'è Docker e a cosa serve?",
+      "vertical": "tools",
+      "keywords": [
+        "docker",
+        "container docker",
+        "immagine docker",
+        "volumi e reti docker"
+      ],
+      "answers": [
+        "Docker impacchetta un'app con tutto ciò che le serve e la fa girare uguale ovunque: l'**immagine** è lo stampo immutabile a layer, il **container** è l'istanza in esecuzione isolata, i **volumi** tengono i dati fuori dal ciclo di vita del container (sotto `/var/lib/docker/volumes/`), la **rete** collega i container tra loro con DNS per nome sulle bridge dedicate. Installazione ufficiale su Ubuntu dal repo Docker (pacchetti `docker-ce`, `docker-ce-cli`, `containerd.io` più i plugin compose e buildx), verifica con `docker run --rm hello-world`. Alternative: [Podman](q/podman-vs-docker-rootless/) per il rootless senza demone.",
+        "Tre comandi coprono il novanta percento: `docker run`, `docker ps` e `docker logs`, e per gli stack multi-container c'è [Docker Compose](q/cos-e-docker-compose/) (`docker compose`, plugin v2 – il vecchio `docker-compose` con `version:` nel file è legacy). Regole di sopravvivenza: mai dati importanti nel layer scrivibile del container, tag espliciti invece di `latest` in produzione, e una rete dedicata per stack invece della bridge di default."
+      ],
+      "suggest": [
+        "podman-vs-docker-rootless",
+        "cos-e-caddy",
+        "cos-e-netdata"
+      ]
+    },
+    {
+      "id": "cloudflare-tunnel",
+      "slug": "cos-e-cloudflare-tunnel",
+      "question": "Cos'è Cloudflare Tunnel e a cosa serve?",
+      "vertical": "cloudflare",
+      "keywords": [
+        "cos e cloudflare tunnel e a cosa serve",
+        "cloudflare",
+        "tunnel",
+        "cloudflare tunnel",
+        "tunnel cloudflare gratis",
+        "accesso remoto senza ip pubblico"
+      ],
+      "answers": [
+        "Cloudflare Tunnel espone un servizio locale su internet senza aprire porte: `cloudflared` apre solo connessioni in uscita verso Cloudflare, che poi instrada il traffico del tuo dominio al servizio. Niente IP pubblico, niente port forwarding, funziona anche dietro CGNAT. Flusso: `tunnel login`, `tunnel create`, `tunnel route dns` per il CNAME, `tunnel run` – la configurazione vive in `config.yml`. Per il confronto con le alternative vedi [come esporsi senza aprire porte](q/esporre-servizi-senza-aprire-porte/).",
+        "In produzione il tunnel gira come servizio con più repliche per ridondanza (stesso tunnel da host diversi), e l'accesso si chiude con Cloudflare Access davanti. Attenzione al modello mentale: il traffico passa per Cloudflare, quindi non è la scelta per protocolli strani o latenze critiche – lì meglio [WireGuard o Tailscale](q/wireguard-o-openvpn/). I comandi essenziali sono nella scheda `cloudflared_tunnel` dei comandi VPN e DNS."
+      ],
+      "suggest": [
+        "esporre-servizi-senza-aprire-porte",
+        "perche-email-in-spam",
+        "spf-dkim-dmarc"
+      ]
+    },
+    {
+      "id": "truenas",
+      "slug": "cos-e-truenas",
+      "question": "Cos'è TrueNAS e a cosa serve?",
+      "vertical": "proxmox",
+      "keywords": [
+        "cos e truenas e a cosa serve",
+        "truenas",
+        "true nas",
+        "truenas scale",
+        "truenas core",
+        "nas con zfs"
+      ],
+      "answers": [
+        "TrueNAS è il sistema operativo per trasformare un PC in NAS serio, con ZFS sotto: snapshot istantanei, checksum con self-healing, condivisioni SMB/NFS e app containerizzate. Due edizioni: SCALE su base Debian Linux (quella da scegliere oggi, con catalogo app su Docker dalla 24.10) e CORE su FreeBSD per gli impianti esistenti. Alternative: [Unraid](q/cos-e-unraid-nas-os/) più semplice con dischi misti, o Proxmox con ZFS se vuoi anche virtualizzare – [TrueNAS dentro Proxmox](q/truenas-dentro-proxmox/) si può fare ma con accortezze.",
+        "Le tre regole non negoziabili: RAM adeguata (ZFS ama la cache, ECC se tieni ai dati), mai dischi SMR per i pool importanti, e UPS davanti perché un blackout a scrittura in corso è il nemico numero uno. Le app girano su dataset dedicati, i dati veri mai nel sistema. E il backup del NAS stesso resta obbligatorio: RAID non è backup."
+      ],
+      "suggest": [
+        "cos-e-unraid-nas-os",
+        "truenas-dentro-proxmox",
+        "cos-e-plex"
+      ]
+    },
+    {
+      "id": "netdata",
+      "slug": "cos-e-netdata",
+      "question": "Cos'è Netdata e a cosa serve?",
+      "vertical": "tools",
+      "keywords": [
+        "cos e netdata e a cosa serve",
+        "netdata",
+        "agent netdata",
+        "dashboard netdata",
+        "metriche al secondo"
+      ],
+      "answers": [
+        "Netdata è monitoraggio in tempo reale con dettaglio al secondo: un agent autonomo su ogni macchina raccoglie migliaia di metriche (sistema, servizi, container) e le mostra su dashboard locale alla porta 19999, con anomalie evidenziate senza configurare nulla. Installazione con lo script kickstart ufficiale, disinstallazione con lo stesso script e flag apposito. Netdata Cloud è opzionale per viste aggregate e login centralizzato – i dati restano sulla tua infrastruttura. Per il singolo host va bene anche [Glances](q/cos-e-glances/), per flotte con storico [Beszel](q/cos-e-beszel/) o [lo stack Prometheus](q/stack-di-monitoraggio-prometheus-grafana/).",
+        "Usalo così: dashboard locale per il debug dal vivo, alert integrati per disco pieno e servizi giù, streaming verso un parent per centralizzare senza cloud. Occhio al costo: il dettaglio al secondo su molte macchine mangia CPU e retention – regola la conservazione per host, non tutto alla massima risoluzione per sempre. Per sapere solo se un sito risponde, [Uptime Kuma](q/cos-e-uptime-kuma/) basta e avanza."
+      ],
+      "suggest": [
+        "cos-e-glances",
+        "cos-e-beszel",
+        "il-sito-e-lento-come-si-diagnostica",
+        "stack-di-monitoraggio-prometheus-grafana"
       ]
     },
     {
@@ -2125,8 +2618,8 @@
       ],
       "suggest": [
         "cos-e-il-modello-zero-trust",
-        "differenza-firewall-e-waf",
-        "principio-del-minimo-privilegio"
+        "principio-del-minimo-privilegio",
+        "cosa-sono-ids-e-ips"
       ]
     },
     {
@@ -4841,7 +5334,8 @@
         "nas dentro proxmox",
         "virtualizzare nas",
         "truenas vm",
-        "truenas dentro proxmox"
+        "truenas dentro proxmox",
+        "virtualizzare truenas"
       ],
       "answers": [
         "Si può fare bene, a **una condizione non negoziabile**: TrueNAS deve vedere i **dischi veri**, attraverso il passthrough di un intero controller **HBA in IT mode** (un LSI 9207/9300 da poche decine di euro) – parente del [passthrough GPU](q/passthrough-gpu-proxmox/), con IOMMU e vfio. ZFS vuole parlare con i dischi senza intermediari: TrueNAS sopra dischi *virtuali* è ZFS sopra ZFS con SMART invisibile – la ricetta del dolore silenzioso.\n\nCon l'HBA passato, la VM TrueNAS è un NAS legittimo: 8+ GB di RAM prenotati (niente ballooning), CPU `host`, e i servizi di condivisione che [tornano a Proxmox via NFS/SMB](q/montare-nfs-smb-proxmox/).\n\nIl contro strutturale: hai creato una **dipendenza circolare** – se la VM NAS ospita dischi di altre VM, l'avvio del cluster dipende da lei ([e il quorum ringrazia](q/nodo-x-rossa-quorum-perso/)). L'alternativa da considerare seriamente: **niente TrueNAS** – [ZFS nativo di Proxmox](q/perche-usare-zfs-su-proxmox/) più un container leggero per SMB fa lo stesso mestiere con un livello in meno. TrueNAS vince quando vuoi la sua UI, i suoi snapshot gestiti e le sue app – o quando il NAS deve sopravvivere concettualmente all'hypervisor."
@@ -5065,7 +5559,8 @@
         "bucket",
         "costi egress",
         "uscita dati",
-        "alternativa s3"
+        "alternativa s3",
+        "r2 cloudflare"
       ],
       "answers": [
         "**R2** è l'object storage di Cloudflare, **S3-compatibile** (stessi SDK e tool) con la differenza che ha rotto il mercato: **zero costi di egress** – paghi lo spazio e le operazioni, non i gigabyte che escono. Su S3 classico l'egress è la voce che esplode: servire 10 TB al mese di file costa più del loro stoccaggio annuale; su R2, zero.\n\nQuando brilla: asset pubblici e download, backup che *speri di non scaricare mai ma potresti dover scaricare tutto* (il restore da S3 è una fattura, da R2 no), dati letti dai [Workers](q/cosa-sono-i-cloudflare-workers/) sull'edge. Il free tier (10 GB) copre progetti veri.\n\nI contro da adulti: qualche primitiva S3 avanzata manca, e – [il tema di sempre](q/cos-e-la-sovranita-digitale/) – i dati vivono nella giurisdizione di un fornitore USA: per i log a norma o i dati vincolati, [uno storage S3 europeo](https://github.com/fabriziosalmi/rainlogs) (Garage, Hetzner, Scaleway) resta la scelta coerente, egress economico incluso."
@@ -11955,6 +12450,7 @@
       "question": "In che modo l'architettura di SimpleX Chat garantisce la privacy eliminando identificatori utente persistenti?",
       "vertical": "security",
       "keywords": [
+        "simplex",
         "simplex chat privacy",
         "simplex chat senza identificatori",
         "architettura decentralizzata simplex",
@@ -15191,7 +15687,6 @@
       "suggest": [
         "sqlite-quando-basta",
         "redis-cache-valkey",
-        "podman-vs-docker-rootless",
         "postgresql-vs-mysql-mariadb",
         "cos-e-un-waf-web-application-firewall"
       ]
@@ -15692,7 +16187,6 @@
       "suggest": [
         "mini-pc-intel-n100-per-homelab",
         "media-server-self-hosted-jellyfin",
-        "arr-stack-sonarr-radarr-prowlarr",
         "passare-un-disco-usb-a-una-vm"
       ]
     },

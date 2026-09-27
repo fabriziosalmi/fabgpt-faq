@@ -782,5 +782,69 @@
  {
   "q": "cos'e' una fork bomb?",
   "expect": "cmd/forkbomb"
+ },
+ {
+  "q": "come installo paperless-ngx con lo script ufficiale?",
+  "expect": "cmd/paperless_install"
+ },
+ {
+  "q": "come avvio glances in docker con pid host?",
+  "expect": "cmd/glances_docker_web"
+ },
+ {
+  "q": "avvio zabbix compose da repo ufficiale",
+  "expect": "cmd/zabbix_compose"
+ },
+ {
+  "q": "come installo appwrite in self hosting con il wizard?",
+  "expect": "cmd/appwrite_install"
+ },
+ {
+  "q": "come installo plausible community edition con compose?",
+  "expect": "cmd/plausible_install"
+ },
+ {
+  "q": "avvio n8n docker con volume dedicato",
+  "expect": "cmd/n8n_docker"
+ },
+ {
+  "q": "come avvio beszel hub con compose?",
+  "expect": "cmd/beszel_hub"
+ },
+ {
+  "q": "come installo cosmos server, get.sh o docker?",
+  "expect": "cmd/cosmos_install"
+ },
+ {
+  "q": "come installo nginx proxy manager con compose?",
+  "expect": "cmd/npm_install"
+ },
+ {
+  "q": "avvio traefik docker con compose minimo",
+  "expect": "cmd/traefik_compose"
+ },
+ {
+  "q": "come imposto la password admin di pihole in docker?",
+  "expect": "cmd/pihole_password"
+ },
+ {
+  "q": "primo setup plex headless con ssh tunnel, come si fa?",
+  "expect": "cmd/plex_claim_headless"
+ },
+ {
+  "q": "reverse proxy al volo con caddy per provare un backend",
+  "expect": "cmd/caddy_reverseproxy_test"
+ },
+ {
+  "q": "come mi collego a openvpn da terminale con ovpn?",
+  "expect": "cmd/openvpn_connect"
+ },
+ {
+  "q": "come verifico che docker funziona con hello world?",
+  "expect": "cmd/docker_hello"
+ },
+ {
+  "q": "come installo netdata con kickstart?",
+  "expect": "cmd/netdata_install"
  }
 ]
