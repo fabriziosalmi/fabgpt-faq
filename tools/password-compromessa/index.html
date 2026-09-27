@@ -2,10 +2,10 @@
 <html lang="it">
 <head>
 <meta charset="UTF-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-0KAvRl/JU0KtaQ4JpDXlvPnSz2hp+QVnyZ1rjASyyBc='; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self' https://api.pwnedpasswords.com; base-uri 'none'; form-action 'self'; object-src 'none'; upgrade-insecure-requests">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-v3cbkUNFDlJcmZ7/S2iQM8nBUsnDcR8Dzly+8Uf/6GQ='; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self' https://api.pwnedpasswords.com; base-uri 'none'; form-action 'self'; object-src 'none'; upgrade-insecure-requests">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="referrer" content="no-referrer">
-<title>Check password compromessa – FabGPT-FAQ</title>
+<title>Check password compromessa | FabGPT-FAQ</title>
 <meta name="description" content="Verifica se una password è nei data breach noti (Have I Been Pwned) con k-anonymity: la password non lascia mai il browser.">
 <meta name="robots" content="index,follow,max-image-preview:large">
 <link rel="canonical" href="https://fabriziosalmi.github.io/fabgpt-faq/tools/password-compromessa/">
@@ -131,7 +131,7 @@
       });
       if (count > 0) {
         out.innerHTML = '<p class="dns-diff"><b>Compromessa</b>: questa password compare <b>' + count.toLocaleString('it-IT') +
-          '</b> volte nei data breach noti. Va cambiata OVUNQUE tu la usi, subito – e mai più riusata.</p>' +
+          '</b> volte nei data breach noti. Va cambiata OVUNQUE tu la usi, subito; e mai più riusata.</p>' +
           '<p>Il passo giusto: una password unica per servizio dentro un password manager, e MFA dove possibile.</p>';
       } else {
         out.innerHTML = '<p class="dns-ok">Non presente nei breach noti a Have I Been Pwned.</p>' +

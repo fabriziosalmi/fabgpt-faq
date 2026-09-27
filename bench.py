@@ -100,6 +100,11 @@ def main():
     raw = json.dumps(db, ensure_ascii=False)
     if "—" in raw:
         problems.append("em-dash found in faq.json")
+    # long-dash control (same as gate T12): no long dash in any data text,
+    # U+2013 admitted only between digits without spaces
+    from dashcheck import scan_data_files
+    for f, field, form, n in scan_data_files(ROOT):
+        problems.append(f"{f} {field}: {form} x{n}")
     # homoglyph guard: Cyrillic/Greek codepoints have no business in an Italian
     # KB and are invisible to the eye (the 2026-09-01 'seguе' incident)
     for ch in set(raw):

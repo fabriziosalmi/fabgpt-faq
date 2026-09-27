@@ -50,7 +50,7 @@
   }
 
   function subnetMd(i) {
-    let md = '**' + i.input + '** – calcolo deterministico:\n\n';
+    let md = '**' + i.input + '**: calcolo deterministico:\n\n';
     md += '- **Rete**: `' + i.network + '` · **Broadcast**: `' + i.broadcast + '`\n';
     md += '- **Maschera**: `' + i.mask + '` (wildcard `' + i.wildcard + '`)\n';
     md += '- **Host usabili**: **' + i.usableHosts.toLocaleString('it-IT') + '**';
@@ -104,7 +104,7 @@
     if (f.length !== 5) return null;
     var limits = [[0, 59], [0, 23], [1, 31], [1, 12], [0, 7]];
     for (var i = 0; i < 5; i++) if (!validCronField(f[i], limits[i][0], limits[i][1])) return null;
-    var md = '`' + expr + '` – lettura campo per campo:\n\n';
+    var md = '`' + expr + '`: lettura campo per campo:\n\n';
     md += '- **Minuto**: ' + fieldDesc(f[0], 'minuto') + '\n';
     md += '- **Ora**: ' + fieldDesc(f[1], 'ora') + '\n';
     md += '- **Giorno del mese**: ' + fieldDesc(f[2], 'giorno') + '\n';
@@ -189,7 +189,7 @@
     if (!h || !p) return null;
     var header, payload;
     try { header = JSON.parse(h); payload = JSON.parse(p); } catch (e) { return null; }
-    var md = '**JWT decodificato** (solo lettura – la firma NON è verificata qui):\n\n';
+    var md = '**JWT decodificato** (solo lettura; la firma NON è verificata qui):\n\n';
     md += '**Header**:\n```json\n' + JSON.stringify(header, null, 2) + '\n```\n';
     md += '**Payload**:\n```json\n' + JSON.stringify(payload, null, 2) + '\n```\n';
     var now = payload && payload.exp ? payload.exp : null;
@@ -198,7 +198,7 @@
       md += '\n- **Scadenza (`exp`)**: ' + d.toISOString().replace('T', ' ').slice(0, 19) + ' UTC';
     }
     if (header && String(header.alg).toLowerCase() === 'none') {
-      md += '\n\n⚠️ `alg: none` – un token senza firma: qualunque backend che lo accetti è vulnerabile.';
+      md += '\n\n⚠️ `alg: none`: un token senza firma: qualunque backend che lo accetti è vulnerabile.';
     }
     md += '\n\nUn JWT è **codificato, non cifrato**: chiunque lo intercetti legge tutto il payload. Mai metterci segreti.';
     return md;
@@ -277,13 +277,13 @@
   function arithMd(expr, result) {
     var shown = Math.abs(result) >= 1e15 ? result.toExponential(6)
       : (Math.round(result * 1e9) / 1e9).toLocaleString('it-IT', { maximumFractionDigits: 9 });
-    return '`' + expr.trim() + '` = **' + shown + '**\n\nCalcolo esatto, eseguito in locale – niente modello, niente allucinazioni.';
+    return '`' + expr.trim() + '` = **' + shown + '**\n\nCalcolo esatto, eseguito in locale. Niente modello, niente allucinazioni.';
   }
 
   /* ---------- well-known port lookup (dataset injected) ---------- */
 
   function portMd(p) {
-    var md = '**Porta ' + p.port + '/' + p.proto + ' – ' + p.service + '**\n\n' + p.desc;
+    var md = '**Porta ' + p.port + '/' + p.proto + ': ' + p.service + '**\n\n' + p.desc;
     if (p.risk) md += '\n\n**Nota di sicurezza**: ' + p.risk;
     md += '\n\nVerifica se è in ascolto: `ss -' + (p.proto === 'udp' ? 'u' : 't') + 'lnp | grep :' + p.port + '`';
     return md;
@@ -298,7 +298,7 @@
     var epoch = Math.floor(now.getTime() / 1000);
     return 'Sono le **' + ora + '** di **' + giorno + '** (fuso del tuo dispositivo).\n\n' +
       'Timestamp Unix corrente: `' + epoch + '`\n\n' +
-      "L'orologio è quello del tuo browser: non lo sto indovinando, lo sto leggendo – è la differenza tra me e un LLM.";
+      "L'orologio è quello del tuo browser: non lo sto indovinando, lo sto leggendo: è la differenza tra me e un LLM.";
   }
 
   function detect(text, opts) {
