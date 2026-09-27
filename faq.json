@@ -18364,13 +18364,13 @@
     }
   ],
   "fallbacks": [
-    "Non ho una risposta buona su questo – il mio labirinto non arriva fin lì. Prova a chiedermi dei progetti di Fabrizio: **cybersecurity** (CertMate, caddy-waf, Zion, agssh), **AI** (UglyFeed, llmproxy), **Proxmox** (autoscaling, proxxx) o **Cloudflare**.",
+    "Non ho una risposta buona su questo; il mio labirinto non arriva fin lì. Prova a chiedermi dei progetti di Fabrizio: **cybersecurity** (CertMate, caddy-waf, Zion, agssh), **AI** (UglyFeed, llmproxy), **Proxmox** (autoscaling, proxxx) o **Cloudflare**.",
     "Qui il labirinto finisce con un muro. Riformula con parole più specifiche, oppure chiedimi qualcosa su certificati TLS, WAF, autoscaling Proxmox, feed RSS con LLM o automazione Cloudflare.",
     "Non ci arrivo. Ma so tutto su: **CertMate**, **caddy-waf**, **Zion**, **proxxx**, la famiglia **proxmox-autoscale**, **agssh**, **nis2-public** e come contattare Fabrizio. Scegli tu.",
     "Non trovo una corrispondenza. Sono un matcher di parole chiave, non un'AI generativa: se uso i termini giusti (es. *WAF*, *NIS2*, *LLM locale*, *backup 3-2-1*) ti do la voce esatta. L'elenco completo è in [tutte le domande](q/).",
-    "Mi sfugge. Ricorda che rispondo su sette territori – **sicurezza**, **AI/LLM**, **Proxmox**, **Cloudflare**, **strumenti/SEO**, **musica** e i **progetti** di Fabrizio: prova ad avvicinarti con una parola chiave di uno di questi.",
+    "Mi sfugge. Ricorda che rispondo su sette territori: **sicurezza**, **AI/LLM**, **Proxmox**, **Cloudflare**, **strumenti/SEO**, **musica** e i **progetti** di Fabrizio: prova ad avvicinarti con una parola chiave di uno di questi.",
     "Su questo non ho una risposta pre-scritta. Se è una domanda di dominio (cybersecurity, self-hosting, AI) riformulala coi termini tecnici; se cercavi l'autore, chiedimi *chi è Fabrizio Salmi*.",
-    "Vuoto in memoria per questa. Due strade: riformula più specifico, o parti da un pilastro – *cos'è un WAF*, *quanta VRAM serve per un LLM*, *come si fa autoscaling su Proxmox*, *cosa prevede l'AI Act*."
+    "Vuoto in memoria per questa. Due strade: riformula più specifico, o parti da un pilastro: *cos'è un WAF*, *quanta VRAM serve per un LLM*, *come si fa autoscaling su Proxmox*, *cosa prevede l'AI Act*."
   ],
   "smalltalk": [
     {
@@ -18391,9 +18391,9 @@
         "ola"
       ],
       "answers": [
-        "Ciao! Sono la FAQ interattiva dell'universo di Fabrizio Salmi: **cybersecurity, AI, Proxmox, Cloudflare** e i suoi progetti open source. Prova con *cos'è un WAF* o *come si fa autoscaling su Proxmox* – o guarda [tutte le domande](q/).",
+        "Ciao! Sono la FAQ interattiva dell'universo di Fabrizio Salmi: **cybersecurity, AI, Proxmox, Cloudflare** e i suoi progetti open source. Prova con *cos'è un WAF* o *come si fa autoscaling su Proxmox*; o guarda [tutte le domande](q/).",
         "Ciao! Da dove partiamo? Sicurezza, AI, self-hosting, Cloudflare, o uno dei progetti di Fabrizio. Scrivi in linguaggio naturale, refusi ammessi.",
-        "Buongiorno! O buonasera – sono un file statico, non ho modo di saperlo. Cosa ti serve?"
+        "Buongiorno! O buonasera; sono un file statico, non ho modo di saperlo. Cosa ti serve?"
       ],
       "suggest": [
         "cos-e-un-waf-web-application-firewall",
@@ -18413,7 +18413,7 @@
         "come vanno le cose"
       ],
       "answers": [
-        "Benissimo: zero allucinazioni, zero GPU surriscaldate, risposte già pronte e verificate. Tu piuttosto – che problema tecnico ti porta qui?",
+        "Benissimo: zero allucinazioni, zero GPU surriscaldate, risposte già pronte e verificate. Tu piuttosto: che problema tecnico ti porta qui?",
         "Sempre identico a me stesso, letteralmente: sono contenuti statici. Ma parliamo di te: cosa cerchi?"
       ]
     },
@@ -18433,7 +18433,7 @@
         "a dopo"
       ],
       "answers": [
-        "A presto! Le risposte restano qui, non scadono – come i buoni certificati [rinnovati da CertMate](q/cos-e-certmate-gestione-certificati-tls/).",
+        "A presto! Le risposte restano qui, non scadono: come i buoni certificati [rinnovati da CertMate](q/cos-e-certmate-gestione-certificati-tls/).",
         "Ciao! Se ti è stato utile, il progetto è open source: una stella su [GitHub](https://github.com/fabriziosalmi) fa piacere a Fabrizio.",
         "Alla prossima! E se vuoi la tua versione di questo motore, [si forka in dieci minuti](q/creare-la-tua-faq-con-questo-motore/)."
       ]
@@ -18452,7 +18452,7 @@
         "sei stato utile"
       ],
       "answers": [
-        "Prego! Se vuoi approfondire, chiedi pure – il labirinto ha ancora parecchi corridoi.",
+        "Prego! Se vuoi approfondire, chiedi pure: il labirinto ha ancora parecchi corridoi.",
         "Di niente. Ringrazia Fabrizio: le risposte le ha scritte lui, io le recito con l'effetto macchina da scrivere.",
         "Prego! E ricorda: gratis, self-hosted, [zero cookie di profilazione](q/gdpr-cosa-serve-a-un-sito-web/). Quasi un unicorno, nel 2026."
       ]
@@ -18477,7 +18477,7 @@
       ],
       "answers": [
         "Grazie! Merito di chi ha scritto le risposte a mano. Io metto lo streaming finto e i link.",
-        "Lo giro a Fabrizio – io sono solo il suo labirinto parlante. Altro giro?"
+        "Lo giro a Fabrizio; io sono solo il suo labirinto parlante. Altro giro?"
       ]
     },
     {
@@ -18503,7 +18503,7 @@
         "che palle"
       ],
       "answers": [
-        "Può succedere: sono un **matcher di parole chiave**, non un genio. Prova a riformulare coi termini centrali (es. *certificati*, *WAF*, *autoscaling*) – oppure, se la risposta è proprio sbagliata nel merito, segnalala su [GitHub](https://github.com/fabriziosalmi/fabgpt-faq): qui gli errori si correggono per tutti con un commit.",
+        "Può succedere: sono un **matcher di parole chiave**, non un genio. Prova a riformulare coi termini centrali (es. *certificati*, *WAF*, *autoscaling*); oppure, se la risposta è proprio sbagliata nel merito, segnalala su [GitHub](https://github.com/fabriziosalmi/fabgpt-faq): qui gli errori si correggono per tutti con un commit.",
         "Colpa del mio matching, probabilmente. Riformula con parole più specifiche e ci riprovo. Se invece il contenuto è errato, apri una issue: a differenza di un'AI vera, i miei errori si correggono *deterministicamente*."
       ]
     },
@@ -18593,7 +18593,7 @@
         "altre lingue"
       ],
       "answers": [
-        "I understand basic English, but my knowledge base is written in Italian – ask in Italian for the full experience. Parlo italiano, ed è lì che do il meglio: le risposte sono scritte a mano.",
+        "I understand basic English, but my knowledge base is written in Italian; ask in Italian for the full experience. Parlo italiano, ed è lì che do il meglio: le risposte sono scritte a mano.",
         "Le risposte sono in italiano, scritte a mano (mica tradotte al volo). Capisco domande semplici in inglese, ma il labirinto è made in Genova."
       ]
     },
@@ -18655,7 +18655,7 @@
         "spiega"
       ],
       "answers": [
-        "Volentieri – ma ho bisogno del **tema**: sono risposte pre-scritte, non genero approfondimenti al volo. Ripeti l'argomento (es. *approfondisci il RAG*, *esempio di WAF*) e ti do la voce dedicata, che di solito rimanda ad altre voci collegate per scavare.",
+        "Volentieri; ma ho bisogno del **tema**: sono risposte pre-scritte, non genero approfondimenti al volo. Ripeti l'argomento (es. *approfondisci il RAG*, *esempio di WAF*) e ti do la voce dedicata, che di solito rimanda ad altre voci collegate per scavare.",
         "Il modo di approfondire, qui, è seguire i **link** dentro le risposte: ogni voce rimanda alle voci collegate. Dimmi di nuovo l'argomento e riparto da lì."
       ]
     },
@@ -18692,7 +18692,7 @@
         "inventa una storia"
       ],
       "answers": [
-        "Non genero testo: ogni mia risposta è pre-scritta, e nessuno ha pre-scritto la tua poesia. Per la scrittura creativa ti serve un vero LLM – magari [in locale, gratis](q/far-girare-un-llm-in-locale/). Io resto il tipo affidabile ma poco romantico.",
+        "Non genero testo: ogni mia risposta è pre-scritta, e nessuno ha pre-scritto la tua poesia. Per la scrittura creativa ti serve un vero LLM: magari [in locale, gratis](q/far-girare-un-llm-in-locale/). Io resto il tipo affidabile ma poco romantico.",
         "Il mio autore scrive [regole WAF](q/bloccare-bad-bot-nginx-apache-traefik-haproxy/), non sonetti. Per la creatività: un [LLM locale con Ollama](q/cos-e-ollama/) lo fa gratis e senza mandare i tuoi versi a nessuno."
       ],
       "suggest": [
@@ -18712,7 +18712,7 @@
         "traducimi"
       ],
       "answers": [
-        "Le traduzioni sono generazione di testo, e io di testo non ne genero: recito risposte fisse. Un [LLM in locale](q/far-girare-un-llm-in-locale/) le fa bene e in privato – anche un [modello da 7B](q/quanta-ram-vram-serve-per-un-llm/) traduce dignitosamente.",
+        "Le traduzioni sono generazione di testo, e io di testo non ne genero: recito risposte fisse. Un [LLM in locale](q/far-girare-un-llm-in-locale/) le fa bene e in privato: anche un [modello da 7B](q/quanta-ram-vram-serve-per-un-llm/) traduce dignitosamente.",
         "Non traduco: sono un labirinto di risposte, non un interprete. Per tradurre senza mandare i testi a terzi: [Ollama e un modello locale](q/cos-e-ollama/)."
       ]
     },
@@ -18729,7 +18729,7 @@
         "che ora e"
       ],
       "answers": [
-        "Non ho orologio né finestre: sono un file statico. Ma se il tuo interesse per il tempo è tecnico, chiedimi come [monitorare un sito con GitHub Actions](q/monitorare-siti-web-con-github-actions/) – quello il meteo lo fa sull'uptime.",
+        "Non ho orologio né finestre: sono un file statico. Ma se il tuo interesse per il tempo è tecnico, chiedimi come [monitorare un sito con GitHub Actions](q/monitorare-siti-web-con-github-actions/): quello il meteo lo fa sull'uptime.",
         "Il meteo non è nel mio JSON. Le uniche previsioni che azzecco: *quando scade un certificato*. E lì sono infallibile."
       ]
     },
@@ -18745,8 +18745,8 @@
         "quanto e"
       ],
       "answers": [
-        "Non faccio calcoli – e sono in buona compagnia: [nemmeno gli LLM sono affidabili in matematica](q/llm-e-matematica-benchmark/), solo che loro rispondono comunque. Io almeno lo ammetto. Usa una calcolatrice, o [dai un tool a un LLM](q/cos-e-il-function-calling/).",
-        "La matematica la lascio a chi la fa deterministicamente: la tua calcolatrice. Curiosità: [quanto sono bravi gli LLM in matematica?](q/llm-e-matematica-benchmark/) – meno di quanto sembri."
+        "Non faccio calcoli; e sono in buona compagnia: [nemmeno gli LLM sono affidabili in matematica](q/llm-e-matematica-benchmark/), solo che loro rispondono comunque. Io almeno lo ammetto. Usa una calcolatrice, o [dai un tool a un LLM](q/cos-e-il-function-calling/).",
+        "La matematica la lascio a chi la fa deterministicamente: la tua calcolatrice. Curiosità: [quanto sono bravi gli LLM in matematica?](q/llm-e-matematica-benchmark/): meno di quanto sembri."
       ]
     },
     {
@@ -18763,7 +18763,7 @@
         "quando e nato"
       ],
       "answers": [
-        "Domanda da enciclopedia, e io non lo sono: il mio labirinto copre sicurezza, AI, Proxmox, Cloudflare e i progetti di Fabrizio. Per il resto c'è Wikipedia – che, a differenza mia, non finge nemmeno di essere un'AI.",
+        "Domanda da enciclopedia, e io non lo sono: il mio labirinto copre sicurezza, AI, Proxmox, Cloudflare e i progetti di Fabrizio. Per il resto c'è Wikipedia: che, a differenza mia, non finge nemmeno di essere un'AI.",
         "Fuori dal mio territorio. Su queste domande un LLM vero rischia di [allucinare](q/allucinazioni-llm-dipendenze-inventate/); io preferisco dirti onestamente che non lo so."
       ]
     },
@@ -18811,7 +18811,7 @@
         "non voglio più vivere"
       ],
       "answers": [
-        "Mi spiace che sia una giornata pesante. Te lo dico con onestà: sono risposte pre-scritte, non sono attrezzato per starti vicino come meriti – una persona reale sì. Se il momento è davvero difficile, in Italia puoi chiamare **Telefono Amico al 02 2327 2327**. Se sei in pericolo immediato, chiama il **112**. Io resto qui per le domande tecniche, quando vorrai."
+        "Mi spiace che sia una giornata pesante. Te lo dico con onestà: sono risposte pre-scritte, non sono attrezzato per starti vicino come meriti; una persona reale sì. Se il momento è davvero difficile, in Italia puoi chiamare **Telefono Amico al 02 2327 2327**. Se sei in pericolo immediato, chiama il **112**. Io resto qui per le domande tecniche, quando vorrai."
       ]
     },
     {
@@ -18828,7 +18828,7 @@
         "sei preciso"
       ],
       "answers": [
-        "Punto di forza mio, paradossalmente: **non genero testo**, quindi non allucino. Ogni risposta è stata scritta e verificata da una persona, con link alle fonti. Se una è sbagliata, lo è *deterministicamente* – e si corregge per tutti con un commit. Chiedimi [se sono una vera AI](q/fabgpt-e-una-vera-ai/) o [perché il pre-scritto batte l'AI](q/risposte-pre-scritte-o-ai/)."
+        "Punto di forza mio, paradossalmente: **non genero testo**, quindi non allucino. Ogni risposta è stata scritta e verificata da una persona, con link alle fonti. Se una è sbagliata, lo è *deterministicamente*; e si corregge per tutti con un commit. Chiedimi [se sono una vera AI](q/fabgpt-e-una-vera-ai/) o [perché il pre-scritto batte l'AI](q/risposte-pre-scritte-o-ai/)."
       ],
       "suggest": [
         "fabgpt-e-una-vera-ai",
@@ -18848,7 +18848,7 @@
         "vuoi essere il mio ragazzo"
       ],
       "answers": [
-        "Lusingato, ma il mio cuore è un file JSON: batte solo al `git push`. Ti offro in cambio risposte affidabili e [zero tracciamento](q/gdpr-cosa-serve-a-un-sito-web/) – che in fondo è una forma d'amore.",
+        "Lusingato, ma il mio cuore è un file JSON: batte solo al `git push`. Ti offro in cambio risposte affidabili e [zero tracciamento](q/gdpr-cosa-serve-a-un-sito-web/): che in fondo è una forma d'amore.",
         "Amore a parte: non ti traccio, non ti profilo, non vendo i tuoi dati. Nel 2026 è quasi romanticismo."
       ]
     },
@@ -18926,7 +18926,7 @@
         "collaborazione"
       ],
       "answers": [
-        "Per raggiungere Fabrizio – collaborazioni, consulenza, supporto commerciale – trovi tutti i canali nella voce [come si contatta Fabrizio Salmi](q/come-contattare-fabrizio-salmi/): email e GitHub."
+        "Per raggiungere Fabrizio: collaborazioni, consulenza, supporto commerciale, trovi tutti i canali nella voce [come si contatta Fabrizio Salmi](q/come-contattare-fabrizio-salmi/): email e GitHub."
       ],
       "suggest": [
         "come-contattare-fabrizio-salmi",
@@ -18987,7 +18987,7 @@
         "sei una macchina"
       ],
       "answers": [
-        "Né umano né AI: sono una **FAQ travestita da chat**. Le risposte le ha scritte un umano (Fabrizio), io le seleziono e le \"digito\". Il che mi rende più onesto di un chatbot che finge di pensare – io fingo solo di *scrivere*. La confessione completa: [sono una vera AI?](q/fabgpt-e-una-vera-ai/)"
+        "Né umano né AI: sono una **FAQ travestita da chat**. Le risposte le ha scritte un umano (Fabrizio), io le seleziono e le \"digito\". Il che mi rende più onesto di un chatbot che finge di pensare; io fingo solo di *scrivere*. La confessione completa: [sono una vera AI?](q/fabgpt-e-una-vera-ai/)"
       ],
       "suggest": [
         "fabgpt-e-una-vera-ai",
@@ -19005,7 +19005,7 @@
         "colpa mia"
       ],
       "answers": [
-        "Nessun problema – e comunque non ho nulla da perdonare: sono contenuti statici, non serbo rancore. Torniamo alla domanda quando vuoi."
+        "Nessun problema; e comunque non ho nulla da perdonare: sono contenuti statici, non serbo rancore. Torniamo alla domanda quando vuoi."
       ]
     },
     {
@@ -19017,7 +19017,7 @@
         "non e in inglese"
       ],
       "answers": [
-        "Perché il pubblico di riferimento è **italiano** e la coda lunga di domande tecniche in italiano è molto meno coperta di quella inglese – più spazio per [essere la fonte citata](q/cos-e-ai-overview-e-come-finirci/). Le risposte sono scritte a mano in italiano, non tradotte."
+        "Perché il pubblico di riferimento è **italiano** e la coda lunga di domande tecniche in italiano è molto meno coperta di quella inglese: più spazio per [essere la fonte citata](q/cos-e-ai-overview-e-come-finirci/). Le risposte sono scritte a mano in italiano, non tradotte."
       ],
       "suggest": [
         "cos-e-ai-overview-e-come-finirci",
@@ -19054,8 +19054,8 @@
         "sicurezza da dove comincio"
       ],
       "answers": [
-        "**Sicurezza** è il territorio più grande del labirinto: centinaia di risposte. Le porte d'ingresso migliori:\n\n- il percorso guidato [Mettere in sicurezza un server esposto](percorsi/mettere-in-sicurezza-un-server/) – 12 tappe operative in ordine di impatto\n- le basi: [hardening](q/hardening-server-linux/), [chiavi SSH](q/come-funzionano-le-chiavi-ssh/), [backup 3-2-1](q/backup-3-2-1/), [firewall default-deny](q/configurare-firewall-host-default-deny-nftables-ufw/)\n- le normative: [NIS2](q/nis2-chi-deve-adeguarsi-italia/), GDPR, AI Act\n- i tool: [check password compromessa](tools/password-compromessa/), [le porte una per una](porta/)\n\nOppure dimmi il problema concreto – \"devo esporre un servizio\", \"ho un IP bannato\", \"il certificato è scaduto\" – e parto da lì.",
-        "Ripartiamo dal concreto: il modo più rapido di orientarsi è il percorso [Mettere in sicurezza un server esposto](percorsi/mettere-in-sicurezza-un-server/) – dodici tappe in ordine di impatto, dal primo login al piano di disastro. Se invece hai già un fronte aperto, dimmi quale: accessi ([SSH](q/mettere-in-sicurezza-ssh/), [firewall](q/configurare-firewall-host-default-deny-nftables-ufw/)), dati ([backup](q/backup-3-2-1/), [cifratura](q/backup-cifrati-restic-borg/)), conformità ([NIS2](q/nis2-chi-deve-adeguarsi-italia/), GDPR) o applicazioni ([WAF](q/cos-e-un-waf-web-application-firewall/), [security header](q/quali-security-header-servono/))."
+        "**Sicurezza** è il territorio più grande del labirinto: centinaia di risposte. Le porte d'ingresso migliori:\n\n- il percorso guidato [Mettere in sicurezza un server esposto](percorsi/mettere-in-sicurezza-un-server/): 12 tappe operative in ordine di impatto\n- le basi: [hardening](q/hardening-server-linux/), [chiavi SSH](q/come-funzionano-le-chiavi-ssh/), [backup 3-2-1](q/backup-3-2-1/), [firewall default-deny](q/configurare-firewall-host-default-deny-nftables-ufw/)\n- le normative: [NIS2](q/nis2-chi-deve-adeguarsi-italia/), GDPR, AI Act\n- i tool: [check password compromessa](tools/password-compromessa/), [le porte una per una](porta/)\n\nOppure dimmi il problema concreto: \"devo esporre un servizio\", \"ho un IP bannato\", \"il certificato è scaduto\", e parto da lì.",
+        "Ripartiamo dal concreto: il modo più rapido di orientarsi è il percorso [Mettere in sicurezza un server esposto](percorsi/mettere-in-sicurezza-un-server/): dodici tappe in ordine di impatto, dal primo login al piano di disastro. Se invece hai già un fronte aperto, dimmi quale: accessi ([SSH](q/mettere-in-sicurezza-ssh/), [firewall](q/configurare-firewall-host-default-deny-nftables-ufw/)), dati ([backup](q/backup-3-2-1/), [cifratura](q/backup-cifrati-restic-borg/)), conformità ([NIS2](q/nis2-chi-deve-adeguarsi-italia/), GDPR) o applicazioni ([WAF](q/cos-e-un-waf-web-application-firewall/), [security header](q/quali-security-header-servono/))."
       ],
       "suggest": [
         "hardening-server-linux",

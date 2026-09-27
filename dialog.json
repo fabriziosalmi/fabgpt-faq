@@ -29,10 +29,10 @@
   ],
   "templates": {
     "breve": "**In una riga:** {s}",
-    "breveNone": "Questa risposta è già in forma essenziale – un elenco o un comando, non c'è una riga da togliere senza perdere il senso.",
+    "breveNone": "Questa risposta è già in forma essenziale: un elenco o un comando, non c'è una riga da togliere senza perdere il senso.",
     "breveLink": "\n\n[La pagina completa →](q/{slug}/)",
     "esempioCode": "**Un esempio concreto** su *{q}*:\n\n{code}",
-    "esempioCard": "**Un esempio concreto** su *{q}* – il comando verificato:\n\n",
+    "esempioCard": "**Un esempio concreto** su *{q}*: il comando verificato:\n\n",
     "esempioNone": "Su *{q}* non ho un esempio pratico verificato da mostrarti, e preferisco non inventarlo: un comando sbagliato fa più danni di nessun comando. Da qui però puoi proseguire con uno di questi temi vicini.",
     "dopo": "**Passo successivo** dopo *{prev}*:\n\n",
     "dopoNone": "Su *{q}* hai già esplorato tutto quello che avevo collegato. Da qui puoi ripartire da uno dei temi principali.",

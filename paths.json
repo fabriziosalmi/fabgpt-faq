@@ -4,7 +4,7 @@
    "slug": "diventare-sysadmin",
    "title": "Diventare sysadmin partendo da zero",
    "tagline": "Il percorso in 17 tappe: reti, Linux, homelab, automazione, backup, cloud e il primo lavoro IT.",
-   "intro": "Le tappe sono in ordine deliberato: prima le fondamenta di rete, poi Linux sul serio, poi un homelab dove rompere le cose senza conseguenze. Ogni tappa è una guida autonoma – ma la sequenza è il punto.",
+   "intro": "Le tappe sono in ordine deliberato: prima le fondamenta di rete, poi Linux sul serio, poi un homelab dove rompere le cose senza conseguenze. Ogni tappa è una guida autonoma; ma la sequenza è il punto.",
    "steps": [
     {
      "entry": "subnetting-cidr",
