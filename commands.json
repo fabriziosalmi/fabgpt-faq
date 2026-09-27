@@ -364,7 +364,7 @@
     "container gia avviato"
    ],
    "cmd": "docker update --memory 512m --memory-swap 512m --cpus 1.5 <nome>",
-   "note": "Al volo, senza riavvio – ma se usi Compose riportalo nel file, o il prossimo `up` lo dimentica.",
+   "note": "Al volo, senza riavvio; ma se usi Compose riportalo nel file, o il prossimo `up` lo dimentica.",
    "related": [
     "cos-e-docker-compose"
    ]
@@ -851,7 +851,7 @@
     "dove sta il volume"
    ],
    "cmd": "docker volume inspect --format '{{.Mountpoint}}' dati-app",
-   "note": "Di norma `/var/lib/docker/volumes/<nome>/_data` – ma passa dai comandi docker, non modificarli a mano.",
+   "note": "Di norma `/var/lib/docker/volumes/<nome>/_data`: ma passa dai comandi docker, non modificarli a mano.",
    "related": [
     "docker-named-volumes-vs-bind-mounts-differenze-prestazioni"
    ]
@@ -869,7 +869,7 @@
     "backup di un volume"
    ],
    "cmd": "docker run --rm -v dati-app:/data -v $(pwd):/backup alpine tar czf /backup/dati-app.tgz -C /data .",
-   "note": "A servizio fermo per i database – o meglio, usa il dump nativo del db.",
+   "note": "A servizio fermo per i database: o meglio, usa il dump nativo del db.",
    "related": [
     "docker-named-volumes-vs-bind-mounts-differenze-prestazioni"
    ]
@@ -941,7 +941,7 @@
     "compose down"
    ],
    "cmd": "docker compose up -d\ndocker compose down",
-   "note": "`down` NON tocca i volumi; `down -v` li **cancella** – differenza da sapere a memoria.",
+   "note": "`down` NON tocca i volumi; `down -v` li **cancella**: differenza da sapere a memoria.",
    "related": [
     "cos-e-docker-compose",
     "docker-named-volumes-vs-bind-mounts-differenze-prestazioni",
@@ -994,7 +994,7 @@
     "stack compose aggiornamento"
    ],
    "cmd": "docker compose pull && docker compose up -d",
-   "note": "Ricrea solo i servizi con immagine nuova; per l'automatico c'è Watchtower – conoscendone i rischi.",
+   "note": "Ricrea solo i servizi con immagine nuova; per l'automatico c'è Watchtower; conoscendone i rischi.",
    "related": [
     "aggiornare-automaticamente-i-container",
     "cos-e-docker-compose"
@@ -1047,7 +1047,7 @@
     "verificare compose file"
    ],
    "cmd": "docker compose config",
-   "note": "Stampa il file **finale**: variabili interpolate e override applicati – il debug di `.env` parte da qui.",
+   "note": "Stampa il file **finale**: variabili interpolate e override applicati: il debug di `.env` parte da qui.",
    "related": [
     "cos-e-docker-compose"
    ]
@@ -1225,7 +1225,7 @@
     "sostituire cron"
    ],
    "cmd": "# mio.timer: OnCalendar=daily + Persistent=true, poi:\nsystemctl enable --now mio.timer\nsystemctl list-timers",
-   "note": "`Persistent=true` recupera le esecuzioni perse a macchina spenta – il motivo vero per preferirlo a cron.",
+   "note": "`Persistent=true` recupera le esecuzioni perse a macchina spenta: il motivo vero per preferirlo a cron.",
    "related": [
     "cron-la-sintassi-spiegata",
     "gestire-servizi-linux-con-systemctl"
@@ -1273,7 +1273,7 @@
     "journalctl -p err"
    ],
    "cmd": "journalctl -p err -b\njournalctl -p warning --since today",
-   "note": "Priorità: emerg, alert, crit, err, warning, notice, info, debug – `-p err` include anche tutto il più grave.",
+   "note": "Priorità: emerg, alert, crit, err, warning, notice, info, debug: `-p err` include anche tutto il più grave.",
    "related": [
     "dove-sono-i-log-su-linux",
     "security-logging-fatto-bene",
@@ -1537,7 +1537,7 @@
     "cat proc mdstat"
    ],
    "cmd": "cat /proc/mdstat\nmdadm --detail /dev/md0\n# sostituzione:\nmdadm --manage /dev/md0 --fail /dev/sdb1 --remove /dev/sdb1\nmdadm --manage /dev/md0 --add /dev/sdc1",
-   "note": "Dopo l'add parte il rebuild (progresso in mdstat): è il momento più fragile dell'array – backup prima.",
+   "note": "Dopo l'add parte il rebuild (progresso in mdstat): è il momento più fragile dell'array: backup prima.",
    "related": [
     "raid-e-raidz-livelli-e-scelta",
     "monitorare-lo-stato-dei-dischi-smart"
@@ -1756,7 +1756,7 @@
     "btop"
    ],
    "cmd": "htop      # o btop, se installato",
-   "note": "In htop: F6 ordina per colonna, F5 vista ad albero, F9 kill – e la barra della RAM distingue cache e usata.",
+   "note": "In htop: F6 ordina per colonna, F5 vista ad albero, F9 kill; e la barra della RAM distingue cache e usata.",
    "related": [
     "il-sito-e-lento-come-si-diagnostica"
    ]
@@ -2933,7 +2933,7 @@
     "sbloccare un dominio pihole"
    ],
    "cmd": "pihole -w dominio-da-sbloccare.com\npihole -b dominio-da-bloccare.com\npihole -g    # aggiorna le blocklist (gravity)",
-   "note": "Quando \"il sito non funziona col Pi-hole\": query log, trova il dominio bloccato, `-w` mirato – non spegnere tutto.",
+   "note": "Quando \"il sito non funziona col Pi-hole\": query log, trova il dominio bloccato, `-w` mirato: non spegnere tutto.",
    "related": [
     "pi-hole-vs-adguard-home"
    ]
@@ -3330,7 +3330,7 @@
     "rm ricorsivo forzato"
    ],
    "cmd": "# NON eseguirlo. Per capirlo:\n#   -r  ricorsivo (scende in ogni directory)\n#   -f  forzato (niente conferme, ignora gli errori)\n#   /   la radice: TUTTO il sistema\n# GNU rm rifiuta '/' nudo (--preserve-root), ma 'rm -rf /*' o un path\n# sbagliato in uno script non hanno rete di protezione.",
-   "note": "Il disastro reale è la variabile vuota: `rm -rf \"$DIR/\"*` con `$DIR` non definita diventa `/*`. Antidoti: `set -u` negli script, path assoluti quotati, e [backup testati](q/backup-3-2-1/) – perché prima o poi succede.",
+   "note": "Il disastro reale è la variabile vuota: `rm -rf \"$DIR/\"*` con `$DIR` non definita diventa `/*`. Antidoti: `set -u` negli script, path assoluti quotati, e [backup testati](q/backup-3-2-1/): perché prima o poi succede.",
    "related": [
     "backup-3-2-1",
     "bash-scripting-le-basi-che-servono",

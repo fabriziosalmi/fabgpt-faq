@@ -80,7 +80,7 @@
       "cat": "eco-corpo",
       "kind": "ground",
       "answers": [
-        "**Charles-Louis de Montesquieu, nello Spirito delle leggi (`1748`)**, formulò la versione classica della separazione tra potere legislativo, esecutivo e giudiziario. L'intuizione era già in John Locke, che però distingueva legislativo, esecutivo e “federativo”: è Montesquieu, osservando il modello inglese, a dare al giudiziario il rango di potere autonomo. Il principio – ogni potere limita gli altri – è oggi alla base di quasi tutte le costituzioni democratiche, inclusa quella italiana."
+        "**Charles-Louis de Montesquieu, nello Spirito delle leggi (`1748`)**, formulò la versione classica della separazione tra potere legislativo, esecutivo e giudiziario. L'intuizione era già in John Locke, che però distingueva legislativo, esecutivo e “federativo”: è Montesquieu, osservando il modello inglese, a dare al giudiziario il rango di potere autonomo. Il principio (ogni potere limita gli altri) è oggi alla base di quasi tutte le costituzioni democratiche, inclusa quella italiana."
       ],
       "suggest": []
     },
@@ -143,7 +143,7 @@
       "cat": "eco-corpo",
       "kind": "ground",
       "answers": [
-        "**L'obiettivo primario della BCE è la stabilità dei prezzi: inflazione al `2%` nel medio termine, con target simmetrico.** “Simmetrico” – formula adottata nel 2021 – significa che scostamenti sotto il 2% sono indesiderati quanto quelli sopra; la vecchia dicitura “inferiore ma prossima al 2%” non è più in vigore. Solo in subordine la BCE sostiene le politiche economiche generali dell'Unione. Lo strumento principale resta la manovra dei tassi d'interesse, decisa dal Consiglio direttivo."
+        "**L'obiettivo primario della BCE è la stabilità dei prezzi: inflazione al `2%` nel medio termine, con target simmetrico.** “Simmetrico” (formula adottata nel 2021) significa che scostamenti sotto il 2% sono indesiderati quanto quelli sopra; la vecchia dicitura “inferiore ma prossima al 2%” non è più in vigore. Solo in subordine la BCE sostiene le politiche economiche generali dell'Unione. Lo strumento principale resta la manovra dei tassi d'interesse, decisa dal Consiglio direttivo."
       ],
       "suggest": []
     },
@@ -207,7 +207,7 @@
       "cat": "eco-corpo",
       "kind": "ground",
       "answers": [
-        "**L'indice di Gini misura la disuguaglianza dei redditi: `0` è l'uguaglianza perfetta, `1` (o `100`) la massima concentrazione.** A 0 tutti guadagnano lo stesso; a 1 una sola persona incassa tutto. Deriva dalla curva di Lorenz e porta il nome dello statistico italiano Corrado Gini, che lo propose nel `1912`. Per orientarsi: i Paesi nordici stanno intorno a `0,27`, l'Italia intorno a `0,33`, il Sudafrica – il caso più estremo – oltre `0,60`."
+        "**L'indice di Gini misura la disuguaglianza dei redditi: `0` è l'uguaglianza perfetta, `1` (o `100`) la massima concentrazione.** A 0 tutti guadagnano lo stesso; a 1 una sola persona incassa tutto. Deriva dalla curva di Lorenz e porta il nome dello statistico italiano Corrado Gini, che lo propose nel `1912`. Per orientarsi: i Paesi nordici stanno intorno a `0,27`, l'Italia intorno a `0,33`, il Sudafrica (il caso più estremo) oltre `0,60`."
       ],
       "suggest": []
     },
@@ -247,7 +247,7 @@
       "cat": "eco-corpo",
       "kind": "ground",
       "answers": [
-        "**La piramide di Maslow ordina i bisogni umani in cinque livelli: fisiologici, sicurezza, appartenenza, stima e autorealizzazione.** L'idea è che i bisogni superiori emergano quando quelli di base sono ragionevolmente soddisfatti. Curiosità: nell'articolo originale del `1943` Maslow non disegnò mai una piramide – l'immagine fu resa popolare in seguito da consulenti e manuali di management – e lui stesso ammetteva che la gerarchia non è rigida: si può creare arte anche a stomaco vuoto."
+        "**La piramide di Maslow ordina i bisogni umani in cinque livelli: fisiologici, sicurezza, appartenenza, stima e autorealizzazione.** L'idea è che i bisogni superiori emergano quando quelli di base sono ragionevolmente soddisfatti. Curiosità: nell'articolo originale del `1943` Maslow non disegnò mai una piramide; l'immagine fu resa popolare in seguito da consulenti e manuali di management; e lui stesso ammetteva che la gerarchia non è rigida: si può creare arte anche a stomaco vuoto."
       ],
       "suggest": []
     },
@@ -289,7 +289,7 @@
       "cat": "eco-corpo",
       "kind": "ground",
       "answers": [
-        "**Irretroattività significa che la legge dispone solo per l'avvenire: si applica ai fatti successivi alla sua entrata in vigore.** Attenzione però: in Italia è garanzia costituzionale assoluta solo per la legge penale sfavorevole (art. `25` Cost.); per le altre leggi la prevede l'art. `11` delle preleggi, che una legge ordinaria può derogare – accade, per esempio, con alcune norme fiscali. In campo penale vale anzi il principio opposto per il reo: la legge più favorevole è retroattiva."
+        "**Irretroattività significa che la legge dispone solo per l'avvenire: si applica ai fatti successivi alla sua entrata in vigore.** Attenzione però: in Italia è garanzia costituzionale assoluta solo per la legge penale sfavorevole (art. `25` Cost.); per le altre leggi la prevede l'art. `11` delle preleggi, che una legge ordinaria può derogare: accade, per esempio, con alcune norme fiscali. In campo penale vale anzi il principio opposto per il reo: la legge più favorevole è retroattiva."
       ],
       "suggest": []
     },
@@ -309,7 +309,7 @@
       "cat": "eco-corpo",
       "kind": "ground",
       "answers": [
-        "**La tragedia dei beni comuni: una risorsa condivisa e non regolata tende a essere sovrasfruttata fino all'esaurimento.** Ogni pastore ha interesse ad aggiungere una pecora al pascolo comune – il beneficio è tutto suo, il danno diviso fra tutti – finché il pascolo muore. L'espressione è di Garrett Hardin (`1968`). Ma non è un destino: Elinor Ostrom, Nobel per l'economia `2009`, documentò comunità reali che gestiscono con successo acque e foreste grazie a regole condivise."
+        "**La tragedia dei beni comuni: una risorsa condivisa e non regolata tende a essere sovrasfruttata fino all'esaurimento.** Ogni pastore ha interesse ad aggiungere una pecora al pascolo comune: il beneficio è tutto suo, il danno diviso fra tutti; finché il pascolo muore. L'espressione è di Garrett Hardin (`1968`). Ma non è un destino: Elinor Ostrom, Nobel per l'economia `2009`, documentò comunità reali che gestiscono con successo acque e foreste grazie a regole condivise."
       ],
       "suggest": []
     },
@@ -414,7 +414,7 @@
       "cat": "eco-corpo",
       "kind": "ground",
       "answers": [
-        "**È il cranio a proteggere il cervello** – più precisamente il neurocranio, la scatola cranica formata da `8` ossa (frontale, due parietali, due temporali, occipitale, sfenoide ed etmoide) saldate tra loro da suture immobili. Nei neonati le suture sono ancora aperte, con le fontanelle, per consentire il parto e la crescita del cervello. Alla protezione meccanica si aggiungono le meningi e il liquido cerebrospinale, che ammortizza gli urti come un cuscinetto."
+        "**È il cranio a proteggere il cervello**: più precisamente il neurocranio, la scatola cranica formata da `8` ossa (frontale, due parietali, due temporali, occipitale, sfenoide ed etmoide) saldate tra loro da suture immobili. Nei neonati le suture sono ancora aperte, con le fontanelle, per consentire il parto e la crescita del cervello. Alla protezione meccanica si aggiungono le meningi e il liquido cerebrospinale, che ammortizza gli urti come un cuscinetto."
       ],
       "suggest": []
     },
@@ -497,7 +497,7 @@
       "cat": "eco-corpo",
       "kind": "ground",
       "answers": [
-        "**I globuli bianchi (leucociti) difendono l'organismo da infezioni e agenti estranei**: sono l'esercito del sistema immunitario. E non sono tutti uguali: i neutrofili inglobano i batteri, i linfociti B producono anticorpi, i linfociti T eliminano le cellule infette e conservano la memoria immunitaria – la stessa su cui si basano i vaccini. In un microlitro di sangue ce ne sono circa `4.000–10.000`, contro i cinque milioni di globuli rossi."
+        "**I globuli bianchi (leucociti) difendono l'organismo da infezioni e agenti estranei**: sono l'esercito del sistema immunitario. E non sono tutti uguali: i neutrofili inglobano i batteri, i linfociti B producono anticorpi, i linfociti T eliminano le cellule infette e conservano la memoria immunitaria; la stessa su cui si basano i vaccini. In un microlitro di sangue ce ne sono circa `4.000–10.000`, contro i cinque milioni di globuli rossi."
       ],
       "suggest": []
     },
@@ -518,7 +518,7 @@
       "cat": "eco-corpo",
       "kind": "ground",
       "answers": [
-        "**Sono le arterie a portare il sangue in uscita dal cuore – ma non trasportano sempre sangue ossigenato.** La definizione corretta è direzionale: arterie via dal cuore, vene verso il cuore. L'eccezione che smonta la versione da quiz: l'arteria polmonare porta sangue povero di ossigeno verso i polmoni, mentre le vene polmonari riportano al cuore sangue ossigenato. Per il resto del corpo la regola vale: l'aorta e le sue diramazioni distribuiscono sangue ricco di ossigeno."
+        "**Sono le arterie a portare il sangue in uscita dal cuore. Ma non trasportano sempre sangue ossigenato.** La definizione corretta è direzionale: arterie via dal cuore, vene verso il cuore. L'eccezione che smonta la versione da quiz: l'arteria polmonare porta sangue povero di ossigeno verso i polmoni, mentre le vene polmonari riportano al cuore sangue ossigenato. Per il resto del corpo la regola vale: l'aorta e le sue diramazioni distribuiscono sangue ricco di ossigeno."
       ],
       "suggest": []
     },
@@ -581,7 +581,7 @@
       "cat": "eco-corpo",
       "kind": "ground",
       "answers": [
-        "**È lo stomaco a produrre i succhi gastrici**: un mix di acido cloridrico ed enzimi come la pepsina, che demolisce le proteine. L'ambiente è ferocemente acido – pH intorno a `1,5–3,5`, abbastanza da intaccare i metalli – e uccide gran parte dei microbi ingeriti col cibo. Perché lo stomaco non digerisce sé stesso? Si protegge con uno strato di muco che rinnova di continuo: quando questa barriera cede, nascono gastriti e ulcere."
+        "**È lo stomaco a produrre i succhi gastrici**: un mix di acido cloridrico ed enzimi come la pepsina, che demolisce le proteine. L'ambiente è ferocemente acido: pH intorno a `1,5–3,5`, abbastanza da intaccare i metalli; e uccide gran parte dei microbi ingeriti col cibo. Perché lo stomaco non digerisce sé stesso? Si protegge con uno strato di muco che rinnova di continuo: quando questa barriera cede, nascono gastriti e ulcere."
       ],
       "suggest": []
     },
@@ -602,7 +602,7 @@
       "cat": "eco-corpo",
       "kind": "ground",
       "answers": [
-        "**Il muscolo che fa battere il cuore è il miocardio**, un tessuto unico nel suo genere: striato come i muscoli volontari, ma involontario come quelli lisci. E non riceve ordini dal cervello per contrarsi: il ritmo nasce dentro il cuore stesso, dal nodo senoatriale, il pacemaker naturale – per questo un cuore trapiantato batte anche senza connessioni nervose. Il sistema nervoso si limita ad accelerarlo o rallentarlo secondo le necessità del corpo."
+        "**Il muscolo che fa battere il cuore è il miocardio**, un tessuto unico nel suo genere: striato come i muscoli volontari, ma involontario come quelli lisci. E non riceve ordini dal cervello per contrarsi: il ritmo nasce dentro il cuore stesso, dal nodo senoatriale, il pacemaker naturale: per questo un cuore trapiantato batte anche senza connessioni nervose. Il sistema nervoso si limita ad accelerarlo o rallentarlo secondo le necessità del corpo."
       ],
       "suggest": []
     },
@@ -707,7 +707,7 @@
       "cat": "eco-corpo",
       "kind": "ground",
       "answers": [
-        "**I colori della bandiera italiana sono verde, bianco e rosso**, a tre bande verticali di uguali dimensioni, con il verde al lato dell'asta (art. `12` della Costituzione). Il tricolore nasce a Reggio Emilia nel `1797` come vessillo della Repubblica Cispadana, sul modello della bandiera francese. Sull'origine dei colori le letture romantiche abbondano – prati, nevi, sangue dei caduti – ma la spiegazione storica è più prosaica: erano i colori delle uniformi e delle coccarde milanesi."
+        "**I colori della bandiera italiana sono verde, bianco e rosso**, a tre bande verticali di uguali dimensioni, con il verde al lato dell'asta (art. `12` della Costituzione). Il tricolore nasce a Reggio Emilia nel `1797` come vessillo della Repubblica Cispadana, sul modello della bandiera francese. Sull'origine dei colori le letture romantiche abbondano: prati, nevi, sangue dei caduti; ma la spiegazione storica è più prosaica: erano i colori delle uniformi e delle coccarde milanesi."
       ],
       "suggest": []
     },
@@ -749,7 +749,7 @@
       "cat": "eco-corpo",
       "kind": "ground",
       "answers": [
-        "**Le stagioni sono `4`: primavera, estate, autunno e inverno**, generate dall'inclinazione dell'asse terrestre (circa `23,5°`), non dalla distanza dal Sole – anzi, la Terra è più vicina al Sole proprio a gennaio. Esistono due calendari: quello astronomico, scandito da equinozi e solstizi, e quello meteorologico, a mesi interi (l'estate va dal 1° giugno al 31 agosto). Ai tropici il gioco cambia: là si parla piuttosto di stagione secca e stagione delle piogge."
+        "**Le stagioni sono `4`: primavera, estate, autunno e inverno**, generate dall'inclinazione dell'asse terrestre (circa `23,5°`), non dalla distanza dal Sole; anzi, la Terra è più vicina al Sole proprio a gennaio. Esistono due calendari: quello astronomico, scandito da equinozi e solstizi, e quello meteorologico, a mesi interi (l'estate va dal 1° giugno al 31 agosto). Ai tropici il gioco cambia: là si parla piuttosto di stagione secca e stagione delle piogge."
       ],
       "suggest": []
     },
@@ -811,7 +811,7 @@
       "cat": "eco-corpo",
       "kind": "ground",
       "answers": [
-        "**Per germinare un seme ha bisogno di acqua, ossigeno e una temperatura adeguata – la luce, in genere, no.** È la correzione al luogo comune: la maggior parte dei semi germina benissimo al buio, sottoterra, consumando le riserve nutritive interne; solo alcune specie, come la lattuga, richiedono luce, e altre germinano meglio senza. La luce diventa indispensabile subito dopo, quando la piantina emerge dal terreno e deve avviare la fotosintesi per nutrirsi da sola."
+        "**Per germinare un seme ha bisogno di acqua, ossigeno e una temperatura adeguata. La luce, in genere, no.** È la correzione al luogo comune: la maggior parte dei semi germina benissimo al buio, sottoterra, consumando le riserve nutritive interne; solo alcune specie, come la lattuga, richiedono luce, e altre germinano meglio senza. La luce diventa indispensabile subito dopo, quando la piantina emerge dal terreno e deve avviare la fotosintesi per nutrirsi da sola."
       ],
       "suggest": []
     },
@@ -832,7 +832,7 @@
       "cat": "eco-corpo",
       "kind": "ground",
       "answers": [
-        "**Il Sole sorge a est** – ma esattamente a est solo due volte l'anno, agli equinozi. Negli altri giorni il punto si sposta: d'estate sorge verso nord-est, d'inverno verso sud-est (nell'emisfero nord), per via dell'inclinazione dell'asse terrestre. Il moto apparente nasce dalla rotazione della Terra verso est: per questo in Italia l'alba arriva prima a oriente – a Trieste il sole sorge una ventina di minuti prima che a Torino."
+        "**Il Sole sorge a est**; ma esattamente a est solo due volte l'anno, agli equinozi. Negli altri giorni il punto si sposta: d'estate sorge verso nord-est, d'inverno verso sud-est (nell'emisfero nord), per via dell'inclinazione dell'asse terrestre. Il moto apparente nasce dalla rotazione della Terra verso est: per questo in Italia l'alba arriva prima a oriente: a Trieste il sole sorge una ventina di minuti prima che a Torino."
       ],
       "suggest": []
     },
@@ -895,7 +895,7 @@
       "cat": "eco-corpo",
       "kind": "ground",
       "answers": [
-        "**Le foglie cadono in autunno** – ma solo per le specie decidue come quercia, faggio e acero. Con meno luce e il freddo in arrivo, l'albero ritira dalle foglie le sostanze utili, smonta la clorofilla (ecco svelati i gialli e i rossi autunnali) e sigilla il picciolo con uno strato di distacco: la foglia cade “per progetto”, non per sfinimento. Le sempreverdi, come pini e lecci, rinnovano invece le foglie gradualmente durante tutto l'anno."
+        "**Le foglie cadono in autunno**; ma solo per le specie decidue come quercia, faggio e acero. Con meno luce e il freddo in arrivo, l'albero ritira dalle foglie le sostanze utili, smonta la clorofilla (ecco svelati i gialli e i rossi autunnali) e sigilla il picciolo con uno strato di distacco: la foglia cade “per progetto”, non per sfinimento. Le sempreverdi, come pini e lecci, rinnovano invece le foglie gradualmente durante tutto l'anno."
       ],
       "suggest": []
     },
@@ -937,7 +937,7 @@
       "cat": "eco-corpo",
       "kind": "ground",
       "answers": [
-        "**Il Sole raggiunge il punto più alto a mezzogiorno solare – che quasi mai coincide con le `12:00` dell'orologio.** L'ora civile è la stessa per tutto il fuso, mentre il mezzogiorno solare dipende dalla longitudine e dall'equazione del tempo; con l'ora legale lo scarto cresce di un'ora intera: a Roma d'estate il Sole culmina verso le `13:15`. In quel momento le ombre sono le più corte della giornata e, nell'emisfero nord, puntano verso nord."
+        "**Il Sole raggiunge il punto più alto a mezzogiorno solare: che quasi mai coincide con le `12:00` dell'orologio.** L'ora civile è la stessa per tutto il fuso, mentre il mezzogiorno solare dipende dalla longitudine e dall'equazione del tempo; con l'ora legale lo scarto cresce di un'ora intera: a Roma d'estate il Sole culmina verso le `13:15`. In quel momento le ombre sono le più corte della giornata e, nell'emisfero nord, puntano verso nord."
       ],
       "suggest": []
     },
@@ -979,7 +979,7 @@
       "cat": "eco-corpo",
       "kind": "ground",
       "answers": [
-        "**Un cubetto di ghiaccio al caldo fonde, trasformandosi in acqua liquida.** Il termine corretto è fusione: “sciogliersi” descrive semmai il sale o lo zucchero nell'acqua. A pressione ambiente avviene a `0` °C e, finché dura, la temperatura del ghiaccio non sale: tutto il calore assorbito – `334` joule per grammo, il calore latente di fusione – serve a rompere il reticolo cristallino, non a scaldare. Ecco perché il ghiaccio raffredda così bene le bibite."
+        "**Un cubetto di ghiaccio al caldo fonde, trasformandosi in acqua liquida.** Il termine corretto è fusione: “sciogliersi” descrive semmai il sale o lo zucchero nell'acqua. A pressione ambiente avviene a `0` °C e, finché dura, la temperatura del ghiaccio non sale: tutto il calore assorbito: `334` joule per grammo, il calore latente di fusione, serve a rompere il reticolo cristallino, non a scaldare. Ecco perché il ghiaccio raffredda così bene le bibite."
       ],
       "suggest": []
     },
@@ -1000,7 +1000,7 @@
       "cat": "eco-corpo",
       "kind": "ground",
       "answers": [
-        "**Una nave d'acciaio galleggia perché la sua densità media – scafo più aria interna – è inferiore a quella dell'acqua.** Il materiale è più denso dell'acqua, ma la forma cava distribuisce il peso su un grande volume. Vale il principio di Archimede: un corpo immerso riceve una spinta pari al peso dell'acqua spostata; se lo scafo sposta più acqua di quanto pesa la nave, si galleggia. Riempi lo scafo d'acqua e la densità media risale: la nave affonda."
+        "**Una nave d'acciaio galleggia perché la sua densità media (scafo più aria interna) è inferiore a quella dell'acqua.** Il materiale è più denso dell'acqua, ma la forma cava distribuisce il peso su un grande volume. Vale il principio di Archimede: un corpo immerso riceve una spinta pari al peso dell'acqua spostata; se lo scafo sposta più acqua di quanto pesa la nave, si galleggia. Riempi lo scafo d'acqua e la densità media risale: la nave affonda."
       ],
       "suggest": []
     },
@@ -1021,7 +1021,7 @@
       "cat": "eco-corpo",
       "kind": "ground",
       "answers": [
-        "**Una candela sotto un barattolo chiuso si spegne – ma non perché l'ossigeno “finisca” del tutto.** La fiamma si estingue quando la concentrazione di ossigeno scende sotto la soglia di combustione, intorno al `15–16%` (nell'aria è il 21%): nel barattolo resta quindi parecchio ossigeno, solo troppo poco per sostenere la fiamma. Contribuiscono anche anidride carbonica e vapore acqueo prodotti dalla combustione, che si accumulano. È lo stesso principio dello spegnere un incendio “soffocandolo”."
+        "**Una candela sotto un barattolo chiuso si spegne; ma non perché l'ossigeno “finisca” del tutto.** La fiamma si estingue quando la concentrazione di ossigeno scende sotto la soglia di combustione, intorno al `15–16%` (nell'aria è il 21%): nel barattolo resta quindi parecchio ossigeno, solo troppo poco per sostenere la fiamma. Contribuiscono anche anidride carbonica e vapore acqueo prodotti dalla combustione, che si accumulano. È lo stesso principio dello spegnere un incendio “soffocandolo”."
       ],
       "suggest": []
     },
@@ -2047,7 +2047,7 @@
       "cat": "logica-lingua",
       "kind": "ground",
       "answers": [
-        "**La fallacia ad hominem consiste nell'attaccare la persona invece del suo argomento.** Anziché confutare la tesi, si screditano il carattere, gli interessi o le circostanze di chi la sostiene. È un errore logico perché la validità di un'affermazione non dipende da chi la pronuncia. Esempio: \"non ascoltare i suoi consigli sul fumo, è un fumatore\" – il consiglio resta valido o invalido nel merito. Diversa è la critica legittima all'attendibilità di un testimone, dove la persona è davvero rilevante."
+        "**La fallacia ad hominem consiste nell'attaccare la persona invece del suo argomento.** Anziché confutare la tesi, si screditano il carattere, gli interessi o le circostanze di chi la sostiene. È un errore logico perché la validità di un'affermazione non dipende da chi la pronuncia. Esempio: \"non ascoltare i suoi consigli sul fumo, è un fumatore\"; il consiglio resta valido o invalido nel merito. Diversa è la critica legittima all'attendibilità di un testimone, dove la persona è davvero rilevante."
       ],
       "suggest": []
     },
@@ -2289,7 +2289,7 @@
       "cat": "logica-lingua",
       "kind": "ground",
       "answers": [
-        "**Il principio del terzo escluso (tertium non datur) afferma che, per ogni proposizione P, è vera P oppure la sua negazione non-P: non esiste una terza possibilità.** \"Il numero 7 è primo o non è primo\" – una delle due, necessariamente. È uno dei pilastri della logica classica, insieme ai principi di identità e di non contraddizione. La logica intuizionista lo rifiuta per gli enunciati non dimostrati, e le logiche a più valori ammettono valori intermedi di verità."
+        "**Il principio del terzo escluso (tertium non datur) afferma che, per ogni proposizione P, è vera P oppure la sua negazione non-P: non esiste una terza possibilità.** \"Il numero 7 è primo o non è primo\"; una delle due, necessariamente. È uno dei pilastri della logica classica, insieme ai principi di identità e di non contraddizione. La logica intuizionista lo rifiuta per gli enunciati non dimostrati, e le logiche a più valori ammettono valori intermedi di verità."
       ],
       "suggest": []
     },
@@ -2426,7 +2426,7 @@
       "cat": "logica-lingua",
       "kind": "ground",
       "answers": [
-        "**Il contrario di effimero è durevole – vanno bene anche duraturo, perenne, permanente.** Effimero significa \"che dura pochissimo\": viene dal greco ephemeros, \"che dura un giorno\", riferito in origine a insetti come le effimere, che da adulte vivono poche ore. Un successo effimero svanisce presto; un successo durevole resiste nel tempo. Sfumature: perenne indica ciò che dura per sempre o si rinnova (le piante perenni), permanente ciò che è stabile e non provvisorio."
+        "**Il contrario di effimero è durevole: vanno bene anche duraturo, perenne, permanente.** Effimero significa \"che dura pochissimo\": viene dal greco ephemeros, \"che dura un giorno\", riferito in origine a insetti come le effimere, che da adulte vivono poche ore. Un successo effimero svanisce presto; un successo durevole resiste nel tempo. Sfumature: perenne indica ciò che dura per sempre o si rinnova (le piante perenni), permanente ciò che è stabile e non provvisorio."
       ],
       "suggest": []
     },
@@ -2952,7 +2952,7 @@
       "cat": "mate-info",
       "kind": "ground",
       "answers": [
-        "Un **deadlock è la situazione in cui due o più processi restano bloccati per sempre, ciascuno in attesa di una risorsa detenuta da un altro**, formando un'attesa circolare. Esempio classico: il processo A tiene la risorsa 1 e aspetta la 2, mentre B tiene la 2 e aspetta la 1. Si verifica solo se valgono insieme quattro condizioni (Coffman): mutua esclusione, possesso e attesa, nessuna prelazione, attesa circolare – impedirne una lo previene."
+        "Un **deadlock è la situazione in cui due o più processi restano bloccati per sempre, ciascuno in attesa di una risorsa detenuta da un altro**, formando un'attesa circolare. Esempio classico: il processo A tiene la risorsa 1 e aspetta la 2, mentre B tiene la 2 e aspetta la 1. Si verifica solo se valgono insieme quattro condizioni (Coffman): mutua esclusione, possesso e attesa, nessuna prelazione, attesa circolare. Impedirne una lo previene."
       ],
       "suggest": []
     },
@@ -3094,7 +3094,7 @@
       "cat": "mate-info",
       "kind": "ground",
       "answers": [
-        "L'unico numero primo pari è **2**. Ogni altro numero pari è per definizione divisibile per 2, quindi possiede almeno tre divisori – 1, 2 e sé stesso – e risulta composto. Il 2 invece ha esattamente due divisori (1 e 2) e soddisfa in pieno la definizione di primo. È anche il più piccolo di tutti i numeri primi, oltre che l'unico pari dell'intera famiglia."
+        "L'unico numero primo pari è **2**. Ogni altro numero pari è per definizione divisibile per 2, quindi possiede almeno tre divisori: 1, 2 e sé stesso, e risulta composto. Il 2 invece ha esattamente due divisori (1 e 2) e soddisfa in pieno la definizione di primo. È anche il più piccolo di tutti i numeri primi, oltre che l'unico pari dell'intera famiglia."
       ],
       "suggest": []
     },
@@ -3257,7 +3257,7 @@
       "cat": "mate-info",
       "kind": "ground",
       "answers": [
-        "**Qualsiasi numero moltiplicato per 0 dà 0**, senza eccezioni. Non è una regola arbitraria: discende dalla proprietà distributiva, per esempio `n × 0 = n × (1 − 1) = n − n = 0`. Vale anche il viceversa, detto legge di annullamento del prodotto: se un prodotto è 0, almeno uno dei fattori è 0 – principio usato di continuo per risolvere le equazioni scomposte in fattori."
+        "**Qualsiasi numero moltiplicato per 0 dà 0**, senza eccezioni. Non è una regola arbitraria: discende dalla proprietà distributiva, per esempio `n × 0 = n × (1 − 1) = n − n = 0`. Vale anche il viceversa, detto legge di annullamento del prodotto: se un prodotto è 0, almeno uno dei fattori è 0: principio usato di continuo per risolvere le equazioni scomposte in fattori."
       ],
       "suggest": []
     },
@@ -3298,7 +3298,7 @@
       "cat": "mate-info",
       "kind": "ground",
       "answers": [
-        "Un anno bisestile ha **366 giorni**: uno in più del normale, il 29 febbraio. Serve a compensare la durata reale dell'anno solare, circa 365 giorni e 6 ore. La regola gregoriana: è bisestile ogni anno divisibile per 4, ma gli anni secolari solo se divisibili per 400 – il 2000 lo è stato, il 1900 no. Il nome viene dal latino bis sextus, il giorno raddoppiato del calendario romano."
+        "Un anno bisestile ha **366 giorni**: uno in più del normale, il 29 febbraio. Serve a compensare la durata reale dell'anno solare, circa 365 giorni e 6 ore. La regola gregoriana: è bisestile ogni anno divisibile per 4, ma gli anni secolari solo se divisibili per 400. Il 2000 lo è stato, il 1900 no. Il nome viene dal latino bis sextus, il giorno raddoppiato del calendario romano."
       ],
       "suggest": []
     },
@@ -3461,7 +3461,7 @@
       "cat": "mate-info",
       "kind": "ground",
       "answers": [
-        "La probabilità di due croci è **`1/4`, cioè il 25%**. I due lanci sono indipendenti, quindi le probabilità si moltiplicano: `1/2 × 1/2 = 1/4`. In alternativa si elencano i quattro esiti equiprobabili – testa-testa, testa-croce, croce-testa, croce-croce – e solo uno contiene due croci. Attenzione all'errore di contare tre soli esiti («due teste, due croci, una e una»): non sono equiprobabili, perché «una e una» vale doppio."
+        "La probabilità di due croci è **`1/4`, cioè il 25%**. I due lanci sono indipendenti, quindi le probabilità si moltiplicano: `1/2 × 1/2 = 1/4`. In alternativa si elencano i quattro esiti equiprobabili: testa-testa, testa-croce, croce-testa, croce-croce; e solo uno contiene due croci. Attenzione all'errore di contare tre soli esiti («due teste, due croci, una e una»): non sono equiprobabili, perché «una e una» vale doppio."
       ],
       "suggest": []
     },
@@ -3561,7 +3561,7 @@
       "cat": "miti",
       "kind": "ground",
       "answers": [
-        "**No, è un mito.** La Muraglia è lunga migliaia di chilometri ma larga solo `5–8 metri`: dall'orbita bassa è come cercare di distinguere un capello a `3 km` di distanza. Gli astronauti, compresi quelli cinesi, hanno confermato di non riuscire a vederla a occhio nudo, mentre si notano benissimo autostrade, aeroporti e città illuminate. Il mito circolava già prima che l'uomo andasse nello spazio – e ha resistito perfino alle smentite di chi dallo spazio c'è stato davvero."
+        "**No, è un mito.** La Muraglia è lunga migliaia di chilometri ma larga solo `5–8 metri`: dall'orbita bassa è come cercare di distinguere un capello a `3 km` di distanza. Gli astronauti, compresi quelli cinesi, hanno confermato di non riuscire a vederla a occhio nudo, mentre si notano benissimo autostrade, aeroporti e città illuminate. Il mito circolava già prima che l'uomo andasse nello spazio; e ha resistito perfino alle smentite di chi dallo spazio c'è stato davvero."
       ],
       "suggest": []
     },
@@ -3580,7 +3580,7 @@
       "cat": "miti",
       "kind": "ground",
       "answers": [
-        "**No, è un mito.** I tori hanno una vista dicromatica e non distinguono il rosso dal verde: a farli caricare è il movimento della cappa, non il suo colore. Gli esperimenti mostrano che il toro carica qualunque drappo agitato, di qualsiasi colore, e ignora quello fermo – anche se rosso fiammante. La muleta è rossa per tradizione e, prosaicamente, perché maschera meglio le macchie di sangue della corrida."
+        "**No, è un mito.** I tori hanno una vista dicromatica e non distinguono il rosso dal verde: a farli caricare è il movimento della cappa, non il suo colore. Gli esperimenti mostrano che il toro carica qualunque drappo agitato, di qualsiasi colore, e ignora quello fermo; anche se rosso fiammante. La muleta è rossa per tradizione e, prosaicamente, perché maschera meglio le macchie di sangue della corrida."
       ],
       "suggest": []
     },
@@ -3618,7 +3618,7 @@
       "cat": "miti",
       "kind": "ground",
       "answers": [
-        "**No, è un mito.** La maggior parte degli uccelli ha un olfatto poco sviluppato e non riconosce l'odore umano sul piccolo: i genitori quasi mai abbandonano un nidiaceo toccato. La leggenda è nata probabilmente per scoraggiare i bambini dal disturbare i nidi – scopo nobile, biologia sbagliata. Se trovi un piccolo implume caduto, rimetterlo nel nido è la cosa giusta; se è già impiumato, spesso sta solo imparando a volare e i genitori sono nei paraggi."
+        "**No, è un mito.** La maggior parte degli uccelli ha un olfatto poco sviluppato e non riconosce l'odore umano sul piccolo: i genitori quasi mai abbandonano un nidiaceo toccato. La leggenda è nata probabilmente per scoraggiare i bambini dal disturbare i nidi; scopo nobile, biologia sbagliata. Se trovi un piccolo implume caduto, rimetterlo nel nido è la cosa giusta; se è già impiumato, spesso sta solo imparando a volare e i genitori sono nei paraggi."
       ],
       "suggest": []
     },
@@ -3637,7 +3637,7 @@
       "cat": "miti",
       "kind": "ground",
       "answers": [
-        "**No, è un mito.** La rasatura taglia il pelo in superficie e non tocca il follicolo, l'unico che decide spessore, colore e velocità di crescita. Il pelo rasato ricresce con la punta tronca invece che affusolata, quindi al tatto sembra più ruvido e alla vista più scuro – ma è un'illusione geometrica. Studi clinici lo smentiscono fin dal `1928`. Ormoni ed età, quelli sì, cambiano davvero la peluria; il rasoio no."
+        "**No, è un mito.** La rasatura taglia il pelo in superficie e non tocca il follicolo, l'unico che decide spessore, colore e velocità di crescita. Il pelo rasato ricresce con la punta tronca invece che affusolata, quindi al tatto sembra più ruvido e alla vista più scuro; ma è un'illusione geometrica. Studi clinici lo smentiscono fin dal `1928`. Ormoni ed età, quelli sì, cambiano davvero la peluria; il rasoio no."
       ],
       "suggest": []
     },
@@ -3675,7 +3675,7 @@
       "cat": "miti",
       "kind": "ground",
       "answers": [
-        "**No, è un mito.** Svegliare un sonnambulo non gli provoca infarti, shock né danni: al massimo si ritrova confuso, disorientato e magari un po' brusco per qualche minuto. Il vero pericolo è lasciarlo vagare: può cadere dalle scale, uscire di casa o farsi male con gli oggetti. I medici del sonno consigliano di riaccompagnarlo dolcemente a letto senza svegliarlo, se possibile – ma se serve svegliarlo, fallo senza paura."
+        "**No, è un mito.** Svegliare un sonnambulo non gli provoca infarti, shock né danni: al massimo si ritrova confuso, disorientato e magari un po' brusco per qualche minuto. Il vero pericolo è lasciarlo vagare: può cadere dalle scale, uscire di casa o farsi male con gli oggetti. I medici del sonno consigliano di riaccompagnarlo dolcemente a letto senza svegliarlo, se possibile; ma se serve svegliarlo, fallo senza paura."
       ],
       "suggest": []
     },
@@ -3731,7 +3731,7 @@
       "cat": "miti",
       "kind": "ground",
       "answers": [
-        "**No, è un mito.** Il \"crack\" è il collasso di bolle di gas nel liquido sinoviale delle articolazioni, non un danno a ossa o cartilagine. Gli studi non trovano alcuna associazione con l'artrite: il medico Donald Unger si scrocchiò le dita di una sola mano per oltre `60 anni`, tenendo l'altra come controllo, e non sviluppò artrite da nessuna parte – esperimento premiato con l'Ig Nobel nel `2009`. Al massimo puoi irritare chi ti sta accanto."
+        "**No, è un mito.** Il \"crack\" è il collasso di bolle di gas nel liquido sinoviale delle articolazioni, non un danno a ossa o cartilagine. Gli studi non trovano alcuna associazione con l'artrite: il medico Donald Unger si scrocchiò le dita di una sola mano per oltre `60 anni`, tenendo l'altra come controllo, e non sviluppò artrite da nessuna parte: esperimento premiato con l'Ig Nobel nel `2009`. Al massimo puoi irritare chi ti sta accanto."
       ],
       "suggest": []
     },
@@ -3788,7 +3788,7 @@
       "cat": "miti",
       "kind": "ground",
       "answers": [
-        "**No, è un mito.** I pesci rossi ricordano per mesi: in laboratorio imparano ad associare suoni, colori e orari al cibo, a percorrere labirinti e ad azionare leve, conservando l'apprendimento anche dopo lunghi intervalli. In un esperimento hanno risposto a un segnale acustico ricordato mesi dopo l'addestramento. Il mito probabilmente consola chi li tiene in bocce minuscole – ma il pesce, la sua vasca triste, se la ricorda benissimo."
+        "**No, è un mito.** I pesci rossi ricordano per mesi: in laboratorio imparano ad associare suoni, colori e orari al cibo, a percorrere labirinti e ad azionare leve, conservando l'apprendimento anche dopo lunghi intervalli. In un esperimento hanno risposto a un segnale acustico ricordato mesi dopo l'addestramento. Il mito probabilmente consola chi li tiene in bocce minuscole; ma il pesce, la sua vasca triste, se la ricorda benissimo."
       ],
       "suggest": []
     },
@@ -3807,7 +3807,7 @@
       "cat": "miti",
       "kind": "ground",
       "answers": [
-        "**È un fenomeno reale e ha un nome: pareidolia.** Il cervello umano è specializzato nel riconoscere volti – esiste un'area dedicata, nel giro fusiforme – ed è tarato per la massima sensibilità: meglio vedere un volto in più che perderne uno vero. Così due punti e una linea diventano occhi e bocca ovunque: nuvole, macchie, carrozzerie, prese elettriche. Non è un difetto né un sintomo, ma l'effetto collaterale di un sistema di riconoscimento evolutivamente prezioso."
+        "**È un fenomeno reale e ha un nome: pareidolia.** Il cervello umano è specializzato nel riconoscere volti: esiste un'area dedicata, nel giro fusiforme; ed è tarato per la massima sensibilità: meglio vedere un volto in più che perderne uno vero. Così due punti e una linea diventano occhi e bocca ovunque: nuvole, macchie, carrozzerie, prese elettriche. Non è un difetto né un sintomo, ma l'effetto collaterale di un sistema di riconoscimento evolutivamente prezioso."
       ],
       "suggest": []
     },
@@ -3826,7 +3826,7 @@
       "cat": "miti",
       "kind": "ground",
       "answers": [
-        "**No, è un mito.** I lemming non si suicidano: durante le migrazioni di massa alcuni annegano tentando attraversamenti azzardati, ma è un incidente, non un istinto. La leggenda esplose con il documentario Disney \"White Wilderness\" (`1958`), in cui la troupe spinse letteralmente i lemming giù da una scogliera per filmare il \"suicidio\" – una messinscena documentata anni dopo da un'inchiesta della CBC. Da allora il povero lemming è il simbolo del conformismo cieco, per colpe non sue."
+        "**No, è un mito.** I lemming non si suicidano: durante le migrazioni di massa alcuni annegano tentando attraversamenti azzardati, ma è un incidente, non un istinto. La leggenda esplose con il documentario Disney \"White Wilderness\" (`1958`), in cui la troupe spinse letteralmente i lemming giù da una scogliera per filmare il \"suicidio\": una messinscena documentata anni dopo da un'inchiesta della CBC. Da allora il povero lemming è il simbolo del conformismo cieco, per colpe non sue."
       ],
       "suggest": []
     },
@@ -3845,7 +3845,7 @@
       "cat": "miti",
       "kind": "ground",
       "answers": [
-        "**No, è un mito – e anche un nome sbagliato.** La Luna ha una faccia nascosta, che non vediamo mai perché la sua rotazione è sincrona con l'orbita, ma quella faccia riceve esattamente la stessa luce solare dell'altra: quando da noi c'è luna nuova, lì è pieno giorno. \"Oscuro\" andrebbe inteso come \"sconosciuto\", non \"buio\". I Pink Floyd hanno fatto molto per il rock e poco per la selenografia."
+        "**No, è un mito; e anche un nome sbagliato.** La Luna ha una faccia nascosta, che non vediamo mai perché la sua rotazione è sincrona con l'orbita, ma quella faccia riceve esattamente la stessa luce solare dell'altra: quando da noi c'è luna nuova, lì è pieno giorno. \"Oscuro\" andrebbe inteso come \"sconosciuto\", non \"buio\". I Pink Floyd hanno fatto molto per il rock e poco per la selenografia."
       ],
       "suggest": []
     },
@@ -3864,7 +3864,7 @@
       "cat": "miti",
       "kind": "ground",
       "answers": [
-        "**Sì, sorprendentemente è vero.** Gli studi sul placebo \"open-label\" – in cui il paziente sa di assumere una pillola senza principio attivo – mostrano benefici misurabili su colon irritabile, dolore cronico, emicrania e affaticamento. Il rituale della cura (prendere una pillola, essere seguiti da un medico) attiva aspettative e meccanismi neurobiologici reali anche senza inganno. Non sostituisce le terapie, ma dimostra che l'effetto placebo non richiede la bugia: basta il contesto."
+        "**Sì, sorprendentemente è vero.** Gli studi sul placebo \"open-label\": in cui il paziente sa di assumere una pillola senza principio attivo: mostrano benefici misurabili su colon irritabile, dolore cronico, emicrania e affaticamento. Il rituale della cura (prendere una pillola, essere seguiti da un medico) attiva aspettative e meccanismi neurobiologici reali anche senza inganno. Non sostituisce le terapie, ma dimostra che l'effetto placebo non richiede la bugia: basta il contesto."
       ],
       "suggest": []
     },
@@ -3883,7 +3883,7 @@
       "cat": "miti",
       "kind": "ground",
       "answers": [
-        "**No, è un mito – anzi, una frode documentata.** L'unica \"prova\" era uno studio di Andrew Wakefield del `1998` su `12` bambini, poi rivelatosi manipolato per interessi economici: la rivista lo ha ritrattato e Wakefield è stato radiato dall'ordine dei medici. Studi su milioni di individui, in più Paesi, non trovano alcuna associazione tra vaccini (o loro componenti) e autismo. I segni dell'autismo emergono all'età delle vaccinazioni: coincidenza temporale, non causa."
+        "**No, è un mito; anzi, una frode documentata.** L'unica \"prova\" era uno studio di Andrew Wakefield del `1998` su `12` bambini, poi rivelatosi manipolato per interessi economici: la rivista lo ha ritrattato e Wakefield è stato radiato dall'ordine dei medici. Studi su milioni di individui, in più Paesi, non trovano alcuna associazione tra vaccini (o loro componenti) e autismo. I segni dell'autismo emergono all'età delle vaccinazioni: coincidenza temporale, non causa."
       ],
       "suggest": []
     },
@@ -3902,7 +3902,7 @@
       "cat": "miti",
       "kind": "ground",
       "answers": [
-        "**No, è un mito – nato da una bugia di guerra.** La vitamina A serve alla vista e una carenza grave la peggiora, ma nessuna quantità di carote dona la visione notturna. La leggenda fu alimentata dalla propaganda britannica nella Seconda guerra mondiale: per nascondere ai tedeschi il nuovo radar di bordo, si raccontò che i piloti della RAF abbattevano bombardieri di notte grazie a diete a base di carote. Il radar funzionava; le carote, al massimo, erano il contorno."
+        "**No, è un mito; nato da una bugia di guerra.** La vitamina A serve alla vista e una carenza grave la peggiora, ma nessuna quantità di carote dona la visione notturna. La leggenda fu alimentata dalla propaganda britannica nella Seconda guerra mondiale: per nascondere ai tedeschi il nuovo radar di bordo, si raccontò che i piloti della RAF abbattevano bombardieri di notte grazie a diete a base di carote. Il radar funzionava; le carote, al massimo, erano il contorno."
       ],
       "suggest": []
     },
@@ -3959,7 +3959,7 @@
       "cat": "miti",
       "kind": "ground",
       "answers": [
-        "**No, ma non perché affonderesti: al contrario.** Il mercurio è circa `13,6` volte più denso dell'acqua: un corpo umano galleggerebbe altissimo, immerso solo per pochi centimetri, come un tappo di sughero. Impossibile \"nuotare\" nel senso di immergersi e avanzare: le bracciate non troverebbero presa e per affondare servirebbero zavorre enormi. In ogni caso il mercurio è tossico – i suoi vapori sono un veleno serio – quindi l'esperimento resta rigorosamente mentale."
+        "**No, ma non perché affonderesti: al contrario.** Il mercurio è circa `13,6` volte più denso dell'acqua: un corpo umano galleggerebbe altissimo, immerso solo per pochi centimetri, come un tappo di sughero. Impossibile \"nuotare\" nel senso di immergersi e avanzare: le bracciate non troverebbero presa e per affondare servirebbero zavorre enormi. In ogni caso il mercurio è tossico; i suoi vapori sono un veleno serio, quindi l'esperimento resta rigorosamente mentale."
       ],
       "suggest": []
     },
@@ -3978,7 +3978,7 @@
       "cat": "miti",
       "kind": "ground",
       "answers": [
-        "**Sì, d'estate.** Oltre il Circolo Polare Artico, nelle settimane intorno al solstizio di giugno, il sole non tramonta mai: è il sole di mezzanotte. Con luce disponibile `24 ore` su `24` le piante fotosintetizzano anche a mezzanotte – e infatti alcune colture nordiche, come i cavoli giganti dell'Alaska, raggiungono dimensioni record proprio grazie alle giornate infinite. D'inverno vale l'opposto: la notte polare ferma la fotosintesi per settimane o mesi."
+        "**Sì, d'estate.** Oltre il Circolo Polare Artico, nelle settimane intorno al solstizio di giugno, il sole non tramonta mai: è il sole di mezzanotte. Con luce disponibile `24 ore` su `24` le piante fotosintetizzano anche a mezzanotte; e infatti alcune colture nordiche, come i cavoli giganti dell'Alaska, raggiungono dimensioni record proprio grazie alle giornate infinite. D'inverno vale l'opposto: la notte polare ferma la fotosintesi per settimane o mesi."
       ],
       "suggest": []
     },
@@ -3999,7 +3999,7 @@
       "cat": "miti",
       "kind": "ground",
       "answers": [
-        "**Fisicamente sì, d'inverno – legalmente no.** Nello stretto di Bering, la Grande Diomede (Russia) e la Piccola Diomede (USA) distano solo `3,8 km`: quando il mare gela, il tratto è tecnicamente percorribile a piedi, e tra le due isole passa anche la linea del cambio di data. L'attraversamento però è vietato da entrambi i Paesi, e chi ci ha provato è stato arrestato. Curiosità: da un'isola all'altra si guarda letteralmente \"domani\"."
+        "**Fisicamente sì, d'inverno; legalmente no.** Nello stretto di Bering, la Grande Diomede (Russia) e la Piccola Diomede (USA) distano solo `3,8 km`: quando il mare gela, il tratto è tecnicamente percorribile a piedi, e tra le due isole passa anche la linea del cambio di data. L'attraversamento però è vietato da entrambi i Paesi, e chi ci ha provato è stato arrestato. Curiosità: da un'isola all'altra si guarda letteralmente \"domani\"."
       ],
       "suggest": []
     },
@@ -4037,7 +4037,7 @@
       "cat": "miti",
       "kind": "ground",
       "answers": [
-        "**No.** Il cheddar nasce nell'omonimo villaggio del Somerset, in Inghilterra, intorno al `XII secolo` – oltre mille anni dopo la morte di Cesare (`44 a.C.`). I Romani erano ottimi caseari e anche in Britannia si produceva formaggio, ma nessuno che si possa chiamare cheddar: la tecnica specifica del \"cheddaring\", impilare e rivoltare la cagliata, è medievale. La domanda è un classico test per le AI, che a volte confondono \"formaggio antico\" con \"qualunque formaggio in qualunque epoca\"."
+        "**No.** Il cheddar nasce nell'omonimo villaggio del Somerset, in Inghilterra, intorno al `XII secolo`: oltre mille anni dopo la morte di Cesare (`44 a.C.`). I Romani erano ottimi caseari e anche in Britannia si produceva formaggio, ma nessuno che si possa chiamare cheddar: la tecnica specifica del \"cheddaring\", impilare e rivoltare la cagliata, è medievale. La domanda è un classico test per le AI, che a volte confondono \"formaggio antico\" con \"qualunque formaggio in qualunque epoca\"."
       ],
       "suggest": []
     },
@@ -4056,7 +4056,7 @@
       "cat": "miti",
       "kind": "ground",
       "answers": [
-        "**No, affonda – e di parecchio.** Il piombo ha una densità di `11,3 g/cm³`, l'olio di circa `0,92 g/cm³`: un rapporto di oltre `12` a `1`. Per il principio di Archimede un oggetto galleggia solo se è meno denso del liquido che lo ospita, quindi il piombo va a fondo nell'olio esattamente come nell'acqua. Per far galleggiare un metallo serve un liquido più denso di lui: il piombo, per esempio, galleggerebbe sul mercurio (`13,6 g/cm³`)."
+        "**No, affonda; e di parecchio.** Il piombo ha una densità di `11,3 g/cm³`, l'olio di circa `0,92 g/cm³`: un rapporto di oltre `12` a `1`. Per il principio di Archimede un oggetto galleggia solo se è meno denso del liquido che lo ospita, quindi il piombo va a fondo nell'olio esattamente come nell'acqua. Per far galleggiare un metallo serve un liquido più denso di lui: il piombo, per esempio, galleggerebbe sul mercurio (`13,6 g/cm³`)."
       ],
       "suggest": []
     },
@@ -4075,7 +4075,7 @@
       "cat": "miti",
       "kind": "ground",
       "answers": [
-        "**Fisicamente sì, percettivamente no – la fisica ha una risposta netta.** L'albero che cade genera comunque onde di pressione nell'aria: esistono e sono misurabili con un microfono, con o senza pubblico. Il \"suono\" come esperienza, invece, richiede un orecchio e un cervello che trasformino quelle onde in sensazione: senza ascoltatori non c'è percezione. Il celebre rompicapo filosofico è quindi una questione di definizioni – onde o esperienza? – non un mistero della natura."
+        "**Fisicamente sì, percettivamente no; la fisica ha una risposta netta.** L'albero che cade genera comunque onde di pressione nell'aria: esistono e sono misurabili con un microfono, con o senza pubblico. Il \"suono\" come esperienza, invece, richiede un orecchio e un cervello che trasformino quelle onde in sensazione: senza ascoltatori non c'è percezione. Il celebre rompicapo filosofico è quindi una questione di definizioni: onde o esperienza?, non un mistero della natura."
       ],
       "suggest": []
     },
@@ -4094,7 +4094,7 @@
       "cat": "miti",
       "kind": "ground",
       "answers": [
-        "**Su Marte, con largo anticipo.** Marte orbita a circa `228 milioni di km` dal Sole e la luce lo raggiunge in circa `13 minuti`. Nettuno è trenta volte più lontano della Terra, a circa `4,5 miliardi di km`, e la stessa luce impiega circa `4 ore`. È la conseguenza diretta della velocità finita della luce, `299.792 km/s`: quando guardiamo Nettuno lo vediamo com'era quattro ore fa. Il Sistema Solare è soprattutto spazio vuoto – tantissimo."
+        "**Su Marte, con largo anticipo.** Marte orbita a circa `228 milioni di km` dal Sole e la luce lo raggiunge in circa `13 minuti`. Nettuno è trenta volte più lontano della Terra, a circa `4,5 miliardi di km`, e la stessa luce impiega circa `4 ore`. È la conseguenza diretta della velocità finita della luce, `299.792 km/s`: quando guardiamo Nettuno lo vediamo com'era quattro ore fa. Il Sistema Solare è soprattutto spazio vuoto. Tantissimo."
       ],
       "suggest": []
     },
@@ -4151,7 +4151,7 @@
       "cat": "miti",
       "kind": "ground",
       "answers": [
-        "**Sì, è successo davvero.** Il `14 maggio 2005` il pilota collaudatore francese Didier Delsalle posò un Eurocopter AS350 B3 (Écureuil) sulla vetta dell'Everest, a `8.848 metri`, restando in contatto con la cima oltre i due minuti richiesti dal record FAI – e ripeté l'impresa il giorno seguente. A quella quota l'aria rarefatta riduce drasticamente la portanza del rotore: servirono un elicottero alleggerito e condizioni meteo perfette. Resta un record, non un'operazione di routine."
+        "**Sì, è successo davvero.** Il `14 maggio 2005` il pilota collaudatore francese Didier Delsalle posò un Eurocopter AS350 B3 (Écureuil) sulla vetta dell'Everest, a `8.848 metri`, restando in contatto con la cima oltre i due minuti richiesti dal record FAI; e ripeté l'impresa il giorno seguente. A quella quota l'aria rarefatta riduce drasticamente la portanza del rotore: servirono un elicottero alleggerito e condizioni meteo perfette. Resta un record, non un'operazione di routine."
       ],
       "suggest": []
     },
@@ -4189,7 +4189,7 @@
       "cat": "miti",
       "kind": "ground",
       "answers": [
-        "**No, e la risposta è controintuitiva: inverte avanti e dietro.** Lo specchio riflette ogni punto lungo l'asse perpendicolare alla sua superficie: l'alto resta alto, la destra resta a destra – è la direzione avanti-dietro a capovolgersi. Siamo noi a \"vedere\" un'inversione sinistra-destra perché immaginiamo la nostra copia come una persona che ci ha girato intorno per venirci incontro. La scritta rovesciata sulle ambulanze è pensata proprio per quel ribaltamento assiale."
+        "**No, e la risposta è controintuitiva: inverte avanti e dietro.** Lo specchio riflette ogni punto lungo l'asse perpendicolare alla sua superficie: l'alto resta alto, la destra resta a destra: è la direzione avanti-dietro a capovolgersi. Siamo noi a \"vedere\" un'inversione sinistra-destra perché immaginiamo la nostra copia come una persona che ci ha girato intorno per venirci incontro. La scritta rovesciata sulle ambulanze è pensata proprio per quel ribaltamento assiale."
       ],
       "suggest": []
     },
@@ -4231,7 +4231,7 @@
       "cat": "storia-geo",
       "kind": "ground",
       "answers": [
-        "L'Etica Nicomachea è opera di **Aristotele**, che la compose nel IV secolo a.C.; il titolo deriva probabilmente dal figlio Nicomaco, che ne curò l'edizione. È il trattato fondativo dell'etica occidentale: sostiene che il fine della vita umana è la felicità (eudaimonia), raggiunta esercitando la virtù come giusto mezzo tra due eccessi – il coraggio, per esempio, sta tra la viltà e la temerarietà."
+        "L'Etica Nicomachea è opera di **Aristotele**, che la compose nel IV secolo a.C.; il titolo deriva probabilmente dal figlio Nicomaco, che ne curò l'edizione. È il trattato fondativo dell'etica occidentale: sostiene che il fine della vita umana è la felicità (eudaimonia), raggiunta esercitando la virtù come giusto mezzo tra due eccessi: il coraggio, per esempio, sta tra la viltà e la temerarietà."
       ],
       "suggest": []
     },
@@ -4273,7 +4273,7 @@
       "cat": "storia-geo",
       "kind": "ground",
       "answers": [
-        "**«Cogito ergo sum» («penso, dunque sono») significa che l'atto stesso di pensare prova l'esistenza di chi pensa**. Cartesio applica il dubbio metodico a ogni conoscenza – i sensi, la matematica, il mondo esterno – ma scopre che non può dubitare di stare dubitando: il soggetto pensante esiste con certezza. Su questa prima verità indubitabile, formulata in francese nel Discorso sul metodo (`1637`) e poi in latino, fonda la ricostruzione di tutto il sapere."
+        "**«Cogito ergo sum» («penso, dunque sono») significa che l'atto stesso di pensare prova l'esistenza di chi pensa**. Cartesio applica il dubbio metodico a ogni conoscenza: i sensi, la matematica, il mondo esterno; ma scopre che non può dubitare di stare dubitando: il soggetto pensante esiste con certezza. Su questa prima verità indubitabile, formulata in francese nel Discorso sul metodo (`1637`) e poi in latino, fonda la ricostruzione di tutto il sapere."
       ],
       "suggest": []
     },
@@ -4420,7 +4420,7 @@
       "cat": "storia-geo",
       "kind": "ground",
       "answers": [
-        "Il mito della caverna rappresenta **il cammino dalla semplice opinione alla vera conoscenza delle Idee**. Nel racconto, esposto nel libro VII della Repubblica, prigionieri incatenati scambiano per realtà le ombre proiettate su una parete; il prigioniero liberato che risale alla luce scopre il mondo vero, fino al sole – simbolo dell'Idea del Bene. Per Platone è l'immagine dell'educazione filosofica: dolorosa, graduale, e con il dovere di ridiscendere nella caverna a liberare gli altri."
+        "Il mito della caverna rappresenta **il cammino dalla semplice opinione alla vera conoscenza delle Idee**. Nel racconto, esposto nel libro VII della Repubblica, prigionieri incatenati scambiano per realtà le ombre proiettate su una parete; il prigioniero liberato che risale alla luce scopre il mondo vero, fino al sole: simbolo dell'Idea del Bene. Per Platone è l'immagine dell'educazione filosofica: dolorosa, graduale, e con il dovere di ridiscendere nella caverna a liberare gli altri."
       ],
       "suggest": []
     },
@@ -4483,7 +4483,7 @@
       "cat": "storia-geo",
       "kind": "ground",
       "answers": [
-        "L'Übermensch di Nietzsche è **chi supera il nichilismo creando da sé i propri valori**. Annunciato in Così parlò Zarathustra (`1883–1885`) dopo la «morte di Dio» – il crollo dei fondamenti assoluti della morale tradizionale – l'oltreuomo non cerca tavole di valori già date: dice sì alla vita e alla terra, accetta l'eterno ritorno e trasforma il caos in creazione. Va tradotto «oltreuomo» più che «superuomo»: non è un dominatore biologico, lettura distorta poi sfruttata dal nazismo."
+        "L'Übermensch di Nietzsche è **chi supera il nichilismo creando da sé i propri valori**. Annunciato in Così parlò Zarathustra (`1883–1885`) dopo la «morte di Dio»: il crollo dei fondamenti assoluti della morale tradizionale; l'oltreuomo non cerca tavole di valori già date: dice sì alla vita e alla terra, accetta l'eterno ritorno e trasforma il caos in creazione. Va tradotto «oltreuomo» più che «superuomo»: non è un dominatore biologico, lettura distorta poi sfruttata dal nazismo."
       ],
       "suggest": []
     },
@@ -4567,7 +4567,7 @@
       "cat": "storia-geo",
       "kind": "ground",
       "answers": [
-        "Il deserto non polare più grande del mondo è il **Sahara**, con circa `9 milioni di km²`: quasi trenta volte l'Italia. In senso strettamente climatico i deserti più estesi in assoluto sono quelli polari, Antartide in testa, perché ricevono pochissime precipitazioni. Il Sahara resta comunque il re dei deserti caldi: attraversa una decina di Stati africani e non è solo sabbia – le dune coprono circa un quarto della superficie, il resto è roccia e ghiaia."
+        "Il deserto non polare più grande del mondo è il **Sahara**, con circa `9 milioni di km²`: quasi trenta volte l'Italia. In senso strettamente climatico i deserti più estesi in assoluto sono quelli polari, Antartide in testa, perché ricevono pochissime precipitazioni. Il Sahara resta comunque il re dei deserti caldi: attraversa una decina di Stati africani e non è solo sabbia: le dune coprono circa un quarto della superficie, il resto è roccia e ghiaia."
       ],
       "suggest": []
     },
@@ -4588,7 +4588,7 @@
       "cat": "storia-geo",
       "kind": "ground",
       "answers": [
-        "Lo **stretto di Bering** separa l'Asia (Siberia russa) dal Nord America (Alaska), mettendo in comunicazione il Mar Glaciale Artico con l'Oceano Pacifico. Nel punto più stretto misura circa `82–85 km`. Al centro si trovano le isole Diomede: la Grande Diomede è russa, la Piccola Diomede americana, distanti meno di `4 km` ma separate dalla linea del cambio di data – per questo sono soprannominate isola di Domani e isola di Ieri."
+        "Lo **stretto di Bering** separa l'Asia (Siberia russa) dal Nord America (Alaska), mettendo in comunicazione il Mar Glaciale Artico con l'Oceano Pacifico. Nel punto più stretto misura circa `82–85 km`. Al centro si trovano le isole Diomede: la Grande Diomede è russa, la Piccola Diomede americana, distanti meno di `4 km` ma separate dalla linea del cambio di data: per questo sono soprannominate isola di Domani e isola di Ieri."
       ],
       "suggest": []
     },
@@ -4651,7 +4651,7 @@
       "cat": "storia-geo",
       "kind": "ground",
       "answers": [
-        "Il lago **Bajkal**, in Siberia, contiene più acqua dolce liquida di qualunque altro lago: circa `23.600 km³`, pari a circa il `20%` delle riserve superficiali non congelate del pianeta – più di tutti i Grandi Laghi americani messi insieme. È anche il lago più profondo del mondo (`1.642 m`) e tra i più antichi, con `25–30 milioni` di anni. Ospita specie uniche come la nerpa, l'unica foca esclusivamente d'acqua dolce."
+        "Il lago **Bajkal**, in Siberia, contiene più acqua dolce liquida di qualunque altro lago: circa `23.600 km³`, pari a circa il `20%` delle riserve superficiali non congelate del pianeta; più di tutti i Grandi Laghi americani messi insieme. È anche il lago più profondo del mondo (`1.642 m`) e tra i più antichi, con `25–30 milioni` di anni. Ospita specie uniche come la nerpa, l'unica foca esclusivamente d'acqua dolce."
       ],
       "suggest": []
     },
@@ -4692,7 +4692,7 @@
       "cat": "storia-geo",
       "kind": "ground",
       "answers": [
-        "È il **canale di Suez**, in Egitto: circa `193 km` di via d'acqua artificiale che dal `1869` collegano il Mar Mediterraneo al Mar Rosso, risparmiando alle navi la circumnavigazione dell'Africa. Vi transita oggi oltre il `10%` del commercio marittimo mondiale. A differenza di Panama è privo di chiuse, perché i due mari sono quasi allo stesso livello. Il blocco causato dalla portacontainer Ever Given nel `2021` mostrò quanto sia vitale – e vulnerabile."
+        "È il **canale di Suez**, in Egitto: circa `193 km` di via d'acqua artificiale che dal `1869` collegano il Mar Mediterraneo al Mar Rosso, risparmiando alle navi la circumnavigazione dell'Africa. Vi transita oggi oltre il `10%` del commercio marittimo mondiale. A differenza di Panama è privo di chiuse, perché i due mari sono quasi allo stesso livello. Il blocco causato dalla portacontainer Ever Given nel `2021` mostrò quanto sia vitale; e vulnerabile."
       ],
       "suggest": []
     },
@@ -4734,7 +4734,7 @@
       "cat": "storia-geo",
       "kind": "ground",
       "answers": [
-        "Dalla base alla vetta la montagna più alta è il **Mauna Kea**, vulcano delle Hawaii: circa `10.200 m` totali, di cui però solo `4.207 m` emergono dall'oceano – il resto è sommerso nel Pacifico. L'Everest resta il punto più alto sul livello del mare (`8.849 m`). Curiosità: misurando invece la distanza dal centro della Terra vince il Chimborazo, in Ecuador, grazie al rigonfiamento equatoriale del pianeta."
+        "Dalla base alla vetta la montagna più alta è il **Mauna Kea**, vulcano delle Hawaii: circa `10.200 m` totali, di cui però solo `4.207 m` emergono dall'oceano; il resto è sommerso nel Pacifico. L'Everest resta il punto più alto sul livello del mare (`8.849 m`). Curiosità: misurando invece la distanza dal centro della Terra vince il Chimborazo, in Ecuador, grazie al rigonfiamento equatoriale del pianeta."
       ],
       "suggest": []
     },
@@ -4859,7 +4859,7 @@
       "cat": "storia-geo",
       "kind": "ground",
       "answers": [
-        "Cristoforo Colombo raggiunse le Americhe il **12 ottobre 1492**, toccando terra a Guanahani, un'isola delle Bahamas che battezzò San Salvador. Salpato da Palos con tre navi – Niña, Pinta e Santa María – cercava una rotta occidentale per le Indie, e morì nel `1506` convinto di averla trovata: non seppe mai di aver aperto agli europei la via verso un continente che prenderà il nome da Amerigo Vespucci."
+        "Cristoforo Colombo raggiunse le Americhe il **12 ottobre 1492**, toccando terra a Guanahani, un'isola delle Bahamas che battezzò San Salvador. Salpato da Palos con tre navi: Niña, Pinta e Santa María, cercava una rotta occidentale per le Indie, e morì nel `1506` convinto di averla trovata: non seppe mai di aver aperto agli europei la via verso un continente che prenderà il nome da Amerigo Vespucci."
       ],
       "suggest": []
     },
@@ -4879,7 +4879,7 @@
       "cat": "storia-geo",
       "kind": "ground",
       "answers": [
-        "Il primo presidente degli Stati Uniti fu **George Washington**, in carica dal `1789` al `1797`. Comandante dell'esercito continentale nella guerra d'indipendenza, fu eletto all'unanimità dal collegio elettorale – unico presidente nella storia americana. Rifiutò un terzo mandato, fissando una prassi durata fino a Franklin D. Roosevelt e poi trasformata in legge dal XXII emendamento. La capitale federale, Washington D.C., porta il suo nome."
+        "Il primo presidente degli Stati Uniti fu **George Washington**, in carica dal `1789` al `1797`. Comandante dell'esercito continentale nella guerra d'indipendenza, fu eletto all'unanimità dal collegio elettorale: unico presidente nella storia americana. Rifiutò un terzo mandato, fissando una prassi durata fino a Franklin D. Roosevelt e poi trasformata in legge dal XXII emendamento. La capitale federale, Washington D.C., porta il suo nome."
       ],
       "suggest": []
     },
@@ -4963,7 +4963,7 @@
       "cat": "storia-geo",
       "kind": "ground",
       "answers": [
-        "I sovrani dell'antico Egitto erano i **faraoni**. Il termine deriva dall'egizio per-aa, «grande casa», che indicava in origine il palazzo reale e passò poi a designare chi lo abitava. Il faraone era insieme re, capo religioso e dio vivente, incarnazione del dio Horus. La lista è lunghissima – oltre trenta dinastie in circa tre millenni – e comprende anche regine regnanti come Hatshepsut e Cleopatra VII, l'ultima della serie."
+        "I sovrani dell'antico Egitto erano i **faraoni**. Il termine deriva dall'egizio per-aa, «grande casa», che indicava in origine il palazzo reale e passò poi a designare chi lo abitava. Il faraone era insieme re, capo religioso e dio vivente, incarnazione del dio Horus. La lista è lunghissima: oltre trenta dinastie in circa tre millenni; e comprende anche regine regnanti come Hatshepsut e Cleopatra VII, l'ultima della serie."
       ],
       "suggest": []
     },
@@ -5047,7 +5047,7 @@
       "cat": "storia-geo",
       "kind": "ground",
       "answers": [
-        "La formula `E=mc²` è di **Albert Einstein**, che la ricavò nel `1905` – il suo «anno miracoloso» – come conseguenza della relatività ristretta. Afferma che massa ed energia sono equivalenti: l'energia è pari alla massa moltiplicata per la velocità della luce al quadrato, un fattore enorme, per cui una massa minuscola corrisponde a un'energia immensa. È il principio alla base dell'energia liberata dalle reazioni nucleari e dal Sole."
+        "La formula `E=mc²` è di **Albert Einstein**, che la ricavò nel `1905`: il suo «anno miracoloso», come conseguenza della relatività ristretta. Afferma che massa ed energia sono equivalenti: l'energia è pari alla massa moltiplicata per la velocità della luce al quadrato, un fattore enorme, per cui una massa minuscola corrisponde a un'energia immensa. È il principio alla base dell'energia liberata dalle reazioni nucleari e dal Sole."
       ],
       "suggest": []
     },
@@ -5150,7 +5150,7 @@
       "cat": "storia-geo",
       "kind": "ground",
       "answers": [
-        "La capitale della Francia è **Parigi**, sulle rive della Senna. Lo è, con brevi interruzioni, da oltre otto secoli e concentra istituzioni, economia e cultura del Paese: il Louvre è il museo più visitato del mondo. L'area metropolitana parigina supera i `12 milioni` di abitanti – quasi un francese su cinque vive attorno alla capitale."
+        "La capitale della Francia è **Parigi**, sulle rive della Senna. Lo è, con brevi interruzioni, da oltre otto secoli e concentra istituzioni, economia e cultura del Paese: il Louvre è il museo più visitato del mondo. L'area metropolitana parigina supera i `12 milioni` di abitanti: quasi un francese su cinque vive attorno alla capitale."
       ],
       "suggest": []
     },
@@ -5252,7 +5252,7 @@
       "cat": "storia-geo",
       "kind": "ground",
       "answers": [
-        "La capitale degli Stati Uniti è **Washington D.C.**, non New York. È una città costruita apposta per fare da capitale, su un territorio federale – il District of Columbia – che non appartiene ad alcuno Stato, così da non favorirne nessuno. È capitale dal `1800`; New York lo fu brevemente prima di lei, e proprio lì giurò il primo presidente, George Washington, da cui la città prende il nome."
+        "La capitale degli Stati Uniti è **Washington D.C.**, non New York. È una città costruita apposta per fare da capitale, su un territorio federale: il District of Columbia, che non appartiene ad alcuno Stato, così da non favorirne nessuno. È capitale dal `1800`; New York lo fu brevemente prima di lei, e proprio lì giurò il primo presidente, George Washington, da cui la città prende il nome."
       ],
       "suggest": []
     },
@@ -5273,7 +5273,7 @@
       "cat": "storia-geo",
       "kind": "ground",
       "answers": [
-        "L'oceano più esteso è il **Pacifico**, con circa `165 milioni di km²`: copre quasi un terzo della superficie terrestre, più di tutte le terre emerse messe insieme. Contiene anche il punto più profondo del pianeta, la Fossa delle Marianne. Il nome glielo diede Magellano, che lo attraversò trovando acque insolitamente calme: «pacifiche», per l'appunto – un'impressione che i tifoni del Pacifico occidentale smentiscono regolarmente."
+        "L'oceano più esteso è il **Pacifico**, con circa `165 milioni di km²`: copre quasi un terzo della superficie terrestre, più di tutte le terre emerse messe insieme. Contiene anche il punto più profondo del pianeta, la Fossa delle Marianne. Il nome glielo diede Magellano, che lo attraversò trovando acque insolitamente calme: «pacifiche», per l'appunto; un'impressione che i tifoni del Pacifico occidentale smentiscono regolarmente."
       ],
       "suggest": []
     },
@@ -5294,7 +5294,7 @@
       "cat": "storia-geo",
       "kind": "ground",
       "answers": [
-        "L'isola più grande del mondo è la **Groenlandia**, con circa `2,17 milioni di km²` – sette volte l'Italia. L'Australia è più estesa, ma è classificata come continente e non come isola. La Groenlandia è un territorio autonomo della Danimarca, coperto per circa l'`80%` da una calotta di ghiaccio spessa fino a `3 km`; i suoi `56.000` abitanti la rendono una delle terre meno densamente popolate del pianeta."
+        "L'isola più grande del mondo è la **Groenlandia**, con circa `2,17 milioni di km²`: sette volte l'Italia. L'Australia è più estesa, ma è classificata come continente e non come isola. La Groenlandia è un territorio autonomo della Danimarca, coperto per circa l'`80%` da una calotta di ghiaccio spessa fino a `3 km`; i suoi `56.000` abitanti la rendono una delle terre meno densamente popolate del pianeta."
       ],
       "suggest": []
     },
@@ -5339,7 +5339,7 @@
       "cat": "eco-corpo",
       "kind": "ground",
       "answers": [
-        "**I cinque sensi classici sono vista, udito, olfatto, gusto e tatto.** La lista risale ad Aristotele, ma per la scienza moderna è incompleta: abbiamo almeno anche l'equilibrio (sistema vestibolare), la propriocezione – la percezione della posizione del corpo, quella che ti permette di toccarti il naso a occhi chiusi – e la percezione di dolore e temperatura. I sistemi sensoriali distinti, insomma, sono ben più di cinque: “cinque sensi” è una semplificazione scolastica."
+        "**I cinque sensi classici sono vista, udito, olfatto, gusto e tatto.** La lista risale ad Aristotele, ma per la scienza moderna è incompleta: abbiamo almeno anche l'equilibrio (sistema vestibolare), la propriocezione: la percezione della posizione del corpo, quella che ti permette di toccarti il naso a occhi chiusi; e la percezione di dolore e temperatura. I sistemi sensoriali distinti, insomma, sono ben più di cinque: “cinque sensi” è una semplificazione scolastica."
       ],
       "suggest": []
     },
