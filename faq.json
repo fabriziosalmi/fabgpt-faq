@@ -2102,6 +2102,478 @@
       ]
     },
     {
+      "id": "xcp-ng",
+      "slug": "cos-e-xcp-ng",
+      "question": "Cos'è XCP-ng e a cosa serve?",
+      "vertical": "proxmox",
+      "keywords": [
+        "cos e xcp ng e a cosa serve",
+        "xcp-ng",
+        "hypervisor xen",
+        "alternativa proxmox vmware"
+      ],
+      "answers": [
+        "XCP-ng è una piattaforma di virtualizzazione enterprise open-source costruita sullo hypervisor Xen: type-1, installazione bare-metal da ISO, gestione centralizzata via Xen Orchestra (anche backup agentless via XAPI). È la strada di chi vuole VMware senza Broadcom o un'alternativa a Proxmox con radici Xen. La documentazione dedica una guida alla migrazione da VMware. Alternative: [Proxmox VE](q/cos-e-proxmox-ve/), VMware dove resta obbligatorio.",
+        "Nella pratica: pool di host, storage condiviso per la migrazione live, e Xen Orchestra come piano di gestione (community o appliance a pagamento). Come ogni hypervisor, vuole hardware con virtualizzazione abilitata e dischi separati per sistema e VM. Se invece bastano container leggeri su un host solo, [Incus](q/cos-e-incus/) o Docker sono più semplici."
+      ],
+      "suggest": [
+        "cos-e-proxmox-ve",
+        "cos-e-incus",
+        "cos-e-openmediavault"
+      ]
+    },
+    {
+      "id": "incus",
+      "slug": "cos-e-incus",
+      "question": "Cos'è Incus e a cosa serve?",
+      "vertical": "proxmox",
+      "keywords": [
+        "cos e incus e a cosa serve",
+        "incus",
+        "incus lxd",
+        "system container e vm",
+        "fork lxd community"
+      ],
+      "answers": [
+        "Incus è un gestore di system container e macchine virtuali con un'unica API REST: lancia sistemi Linux completi nei container (kernel condiviso) o VM vere quando serve un altro kernel, con comandi tipo `incus launch images:debian/12 nome` e `incus list`. È il fork community di LXD nato quando Canonical lo ha riportato sotto il suo controllo, portato avanti dallo stesso team storico. Alternative: LXC di Proxmox per i container, [MicroK8s](q/cos-e-microk8s/) per l'orchestrazione.",
+        "Due comandi coprono il laboratorio: `incus launch` con `--vm` per le macchine virtuali e i profili per rete e storage condivisi. Chi arriva da LXC trova `lxc-to-incus` per importare i container esistenti. Regola pratica: container per i servizi Linux stateless, VM per il resto – e backup dei volumi in entrambi i casi."
+      ],
+      "suggest": [
+        "cos-e-microk8s",
+        "cos-e-xcp-ng",
+        "cos-e-openmediavault"
+      ]
+    },
+    {
+      "id": "openmediavault",
+      "slug": "cos-e-openmediavault",
+      "question": "Cos'è OpenMediaVault e a cosa serve?",
+      "vertical": "proxmox",
+      "keywords": [
+        "cos e openmediavault e a cosa serve",
+        "openmediavault",
+        "open media vault",
+        "nas su debian",
+        "nas casalingo semplice"
+      ],
+      "answers": [
+        "OpenMediaVault è un NAS open su base Debian: installazione da ISO dedicata o sopra una Debian esistente, amministrazione da web UI, condivisioni SMB/NFS/FTP e plugin per tutto il resto (backup USB, antivirus, monitoraggio). Pensato per casa e piccoli uffici che vogliono un NAS senza comprare hardware dedicato. Alternative: [TrueNAS](q/cos-e-truenas/) per ZFS serio, [Unraid](q/cos-e-unraid-nas-os/) per dischi misti.",
+        "Nella pratica: disco di sistema separato dai dati, filesystem EXT4/XFS per i principianti (niente RAID via USB), e plugin solo dove servono. Non si installa nei container LXC. E come ogni NAS: RAID non è backup, [la 3-2-1 vale sempre](q/backup-3-2-1/)."
+      ],
+      "suggest": [
+        "cos-e-truenas",
+        "cos-e-unraid-nas-os",
+        "cos-e-incus"
+      ]
+    },
+    {
+      "id": "openwrt",
+      "slug": "cos-e-openwrt",
+      "question": "Cos'è OpenWrt e a cosa serve?",
+      "vertical": "security",
+      "keywords": [
+        "cos e openwrt e a cosa serve",
+        "openwrt",
+        "open wrt",
+        "firmware router open source",
+        "router con openwrt"
+      ],
+      "answers": [
+        "OpenWrt è un firmware Linux open per router: sostituisce il software di fabbrica con un sistema completo di interfaccia web LuCI, pacchetti installabili e aggiornamenti di sicurezza che i vendor abbandonano dopo un anno. Serve per resuscitare router vecchi, avere VPN, VLAN e QoS serie, e sapere cosa gira sulla propria rete. Prima di flashare, controlla la tabella hardware supportato: non tutti i modelli vanno bene. Vicino di banco: [i router MikroTik](q/cosa-sono-i-router-mikrotik/).",
+        "Tre usi tipici in homelab: access point con roaming decente, router con shaping del bufferbloat, e client VPN sempre attivo per tutta la casa. Regole di sopravvivenza: backup della configurazione prima di ogni upgrade, mai flashare da Wi-Fi instabile, e tenere un cavo seriale o il firmware originale per i modelli ostici."
+      ],
+      "suggest": [
+        "cosa-sono-i-router-mikrotik",
+        "cos-e-unbound",
+        "cos-e-wg-easy"
+      ]
+    },
+    {
+      "id": "unbound",
+      "slug": "cos-e-unbound",
+      "question": "Cos'è Unbound e a cosa serve?",
+      "vertical": "security",
+      "keywords": [
+        "cos e unbound e a cosa serve",
+        "unbound",
+        "dns ricorsivo",
+        "unbound con pihole",
+        "risolutore dns locale"
+      ],
+      "answers": [
+        "Unbound è un resolver DNS ricorsivo open-source: invece di chiedere a Google o Cloudflare, risale dai root ai server autoritativi da solo, con validazione DNSSEC. L'accoppiata classica è dietro Pi-hole (Pi-hole filtra, Unbound risolve su `127.0.0.1#5335`), così elimini il resolver di terzi dal percorso. Dettagli sul filtraggio in [Pi-hole](q/cos-e-pi-hole/).",
+        "Configurazione tipica da guida Pi-hole: `interface: 127.0.0.1`, porta 5335, file dedicato in `unbound.conf.d`, e test con query DNSSEC volontariamente rotte (devono fallire). Ricorsione propria significa qualche millisecondo in più al primo colpo e cache locale dopo: privacy contro latenza, con la privacy che vince quasi sempre in casa."
+      ],
+      "suggest": [
+        "cos-e-pi-hole",
+        "cos-e-openwrt",
+        "cos-e-wg-easy"
+      ]
+    },
+    {
+      "id": "wg-easy",
+      "slug": "cos-e-wg-easy",
+      "question": "Cos'è wg-easy e a cosa serve?",
+      "vertical": "security",
+      "keywords": [
+        "cos e wg easy e a cosa serve",
+        "wg-easy",
+        "wireguard con interfaccia web",
+        "gestire peer wireguard"
+      ],
+      "answers": [
+        "wg-easy è un'interfaccia web per WireGuard: crea, mostra e revoca peer con QR code e file di configurazione scaricabili, senza toccare `wg` a mano. Gira in Docker con tag major versionato (mai `latest`, che punta alla major precedente), porte 51820/UDP per il tunnel e 51821/TCP per la UI; al primo avvio chiede host e credenziali, oppure tutto via variabili `INIT_*`. Contesto in [WireGuard e mesh VPN](q/wireguard-e-mesh-vpn/).",
+        "Per l'homelab è il modo più veloce di dare VPN a telefoni e parenti: un peer per dispositivo, nomi sensati, e revoca immediata se perdi il telefono. La UI va protetta (password + non esposta) e la porta UDP inoltrata dal router. Se serve integrazione con SSO o mesh automatiche, guarda [Tailscale](q/cos-e-tailscale-mesh-vpn/) o Headscale."
+      ],
+      "suggest": [
+        "wireguard-e-mesh-vpn",
+        "cos-e-unbound",
+        "cos-e-strongswan"
+      ]
+    },
+    {
+      "id": "strongswan",
+      "slug": "cos-e-strongswan",
+      "question": "Cos'è strongSwan e quando ha senso?",
+      "vertical": "security",
+      "keywords": [
+        "cos e strongswan e quando ha senso",
+        "strongswan",
+        "strong swan",
+        "vpn ipsec ikev2",
+        "server vpn ipsec"
+      ],
+      "answers": [
+        "strongSwan è la suite open-source per VPN IPsec con IKEv2: il demone moderno si configura via `swanctl`, i vecchi `ipsec.conf` sono deprecati, e l'autenticazione EAP copre i client mobili senza certificati per tutti. Ha senso dove IPsec è obbligatorio (apparati, policy aziendali, interoperabilità) o dove serve l'integrazione con RADIUS. Per collegare due sedi o un telefono al volo, [WireGuard](q/wireguard-o-openvpn/) resta più semplice. Fondamenti del protocollo in [IPsec transport e tunnel](q/ipsec-transport-e-tunnel/).",
+        "Il caso tipico è il road-warrior con EAP-MSCHAPv2 o EAP-TLS: gateway con certificato, utenti con credenziali, e split tunneling per non buttare Netflix nel tunnel aziendale. Occhio a NAT e firewall (UDP 500/4500) e agli MTU: IPsec dentro IPsec dei provider fa frammentazione esotica."
+      ],
+      "suggest": [
+        "wireguard-o-openvpn",
+        "ipsec-transport-e-tunnel",
+        "cos-e-zitadel",
+        "cos-e-wg-easy"
+      ]
+    },
+    {
+      "id": "frp-rathole",
+      "slug": "frp-rathole-esporre-servizi-senza-ip",
+      "question": "frp o Rathole per esporre servizi senza IP pubblico?",
+      "vertical": "tools",
+      "keywords": [
+        "frp o rathole per esporre servizi senza ip pubblico",
+        "frp o rathole",
+        "rathole vs frp",
+        "esporre servizi dietro nat",
+        "reverse proxy per nat"
+      ],
+      "answers": [
+        "**frp** (server `frps` + client `frpc`, config TOML – gli INI sono deprecati) e **Rathole** (scritto in Rust, token obbligatori per servizio, transport anche Noise) fanno la stessa cosa: un server con IP pubblico inoltra il traffico al tuo homelab dietro NAT. Servono quando Cloudflare Tunnel non va bene (protocolli arbitrari, niente vendor lock-in) e Tailscale Funnel non basta. Confronto con le alternative in [esporre senza aprire porte](q/esporre-servizi-senza-aprire-porte/) e [Cloudflare Tunnel](q/cos-e-cloudflare-tunnel/).",
+        "Lo schema è identico in entrambi: demone sul VPS con una porta di controllo, agent in casa che apre connessioni in uscita, e porte remote mappate sui servizi locali. Differenze pratiche: Rathole dichiara più throughput e meno memoria, frp ha più esempi e proxy P2P. In tutti i casi autentica tutto e cifra tutto: una porta remota aperta senza auth è un invito."
+      ],
+      "suggest": [
+        "esporre-servizi-senza-aprire-porte",
+        "cos-e-cloudflare-tunnel",
+        "cos-e-nagios"
+      ]
+    },
+    {
+      "id": "coolify",
+      "slug": "cos-e-coolify",
+      "question": "Cos'è Coolify e a cosa serve?",
+      "vertical": "proxmox",
+      "keywords": [
+        "cos e coolify e a cosa serve",
+        "coolify",
+        "deploy app con docker",
+        "piattaforma deploy self hosted"
+      ],
+      "answers": [
+        "Coolify è una piattaforma open per deployare applicazioni e database sul tuo server: colleghi il repo git e lui costruisce con Docker, espone con reverse proxy e certificati, con catalogo di servizi one-click. Si installa con lo script ufficiale su Linux (2 CPU e 2 GB bastano per iniziare), dashboard sulla 8000. Per chi vuole Vercelli privati senza reimplementarli. Alternativa simile: [Dokploy](q/cos-e-dokploy/).",
+        "Nella pratica: un server per Coolify più volumi per i dati, backup dei volumi e del database interno, e deploy da branch con preview dove serve. Non è magia: sotto sono container Docker standard, quindi tutto ciò che sai di [Compose](q/cos-e-docker-compose/) resta valido quando qualcosa non parte."
+      ],
+      "suggest": [
+        "cos-e-dokploy",
+        "cos-e-openmediavault",
+        "cos-e-incus"
+      ]
+    },
+    {
+      "id": "dokploy",
+      "slug": "cos-e-dokploy",
+      "question": "Cos'è Dokploy e a cosa serve?",
+      "vertical": "proxmox",
+      "keywords": [
+        "cos e dokploy e a cosa serve",
+        "dokploy",
+        "alternativa heroku self hosted",
+        "deploy con traefik integrato"
+      ],
+      "answers": [
+        "Dokploy è un'alternativa open a Heroku, Vercel e Netlify da self-hostare: sopra Docker e Traefik (incluso nel setup) offre deploy da git, database one-click e UI sulla 3000, con installazione via script. Stesso spazio di [Coolify](q/cos-e-coolify/): Dokploy punta sull'integrazione Traefik nativa, Coolify sul catalogo servizi.",
+        "Sotto il cofano restano container e volumi Docker: il backup sono i volumi dei dati più il database interno, e gli aggiornamenti passano dalla UI. Per progetti statici puri valuta anche le Pages dei CDN prima di mantenere un intero PaaS."
+      ],
+      "suggest": [
+        "cos-e-coolify",
+        "cos-e-openmediavault",
+        "cos-e-incus"
+      ]
+    },
+    {
+      "id": "zitadel",
+      "slug": "cos-e-zitadel",
+      "question": "Cos'è ZITADEL e a cosa serve?",
+      "vertical": "security",
+      "keywords": [
+        "cos e zitadel e a cosa serve",
+        "zitadel",
+        "identity provider open source",
+        "sso oidc saml self hosted"
+      ],
+      "answers": [
+        "ZITADEL è una piattaforma di identità open-source: login con MFA, single sign-on via OIDC/SAML/OAuth2 e integrazione di directory esterne, con console di gestione web. Self-host con compose (serve PostgreSQL), login iniziale sulla 8080. Si posiziona tra [Authelia](q/cos-e-authelia/) (leggero, solo forward-auth) e [authentik/Keycloak](q/keycloak-o-authentik-sso-self-hosted/) (IAM completo): scegli in base a quanti protocolli ti servono davvero.",
+        "Come ogni IdP, il backup del database è il backup dell'accesso a tutto: senza, resti fuori da ogni servizio. In produzione vuole HTTPS vero, segreti fuori da git e una policy di sessioni e token ragionata, non i default del laboratorio."
+      ],
+      "suggest": [
+        "cos-e-authelia",
+        "keycloak-o-authentik-sso-self-hosted",
+        "cos-e-strongswan"
+      ]
+    },
+    {
+      "id": "nagios",
+      "slug": "cos-e-nagios",
+      "question": "Cos'è Nagios e a cosa serve?",
+      "vertical": "tools",
+      "keywords": [
+        "cos e nagios e a cosa serve",
+        "nagios",
+        "nagios core",
+        "monitoraggio classico host servizi"
+      ],
+      "answers": [
+        "Nagios è il nonno del monitoraggio infrastrutturale: controlla host e servizi con plugin (anche via agent NRPE), apre stati ok/warning/critical e notifica. Core open-source gratuito, interfacce commerciali a parte. Ha senso dove servono check esotici e decenni di plugin già pronti; per homelab moderni è verboso rispetto alle alternative. Confronti in [quale monitoraggio per l'homelab](q/quale-monitoraggio-homelab-zabbix-netdata/).",
+        "Il flusso è sempre quello: definisci host, attacchi servizi con soglie, colleghi contatti e finestre di notifica. Il grosso del lavoro è curare i check: troppi alert generici e smetti di leggerli, troppo pochi e scopri i down dagli utenti. Per il solo uptime, [Uptime Kuma](q/cos-e-uptime-kuma/) basta."
+      ],
+      "suggest": [
+        "quale-monitoraggio-homelab-zabbix-netdata",
+        "cos-e-signoz",
+        "frp-rathole-esporre-servizi-senza-ip",
+        "cos-e-openobserve"
+      ]
+    },
+    {
+      "id": "signoz",
+      "slug": "cos-e-signoz",
+      "question": "Cos'è SigNoz e a cosa serve?",
+      "vertical": "tools",
+      "keywords": [
+        "cos e signoz e a cosa serve",
+        "signoz",
+        "apm opentelemetry",
+        "tracce metriche log insieme"
+      ],
+      "answers": [
+        "SigNoz è osservabilità open-source nativa OpenTelemetry: trace, metriche e log nello stesso posto con query builder visuale, sopra ClickHouse. Si installa con lo script foundry ufficiale (il vecchio install.sh è deprecato), UI sulla 8080, e le app spediscono via OTLP sulle 4317/4318. È la risposta self-hosted agli APM commerciali per chi sviluppa. Alternative più leggere in [quale monitoraggio per l'homelab](q/quale-monitoraggio-homelab-zabbix-netdata/).",
+        "Il costo vero è la retention: trace e log crescono in fretta, dimensiona ClickHouse e le policy di scadenza prima di strumentare tutto. Inizia da un servizio solo con sampling, poi allarga. E separa l'ambiente di osservabilità da quello osservato, altrimenti il down ti porta via anche gli occhi."
+      ],
+      "suggest": [
+        "quale-monitoraggio-homelab-zabbix-netdata",
+        "cos-e-nagios",
+        "cos-e-openobserve"
+      ]
+    },
+    {
+      "id": "openobserve",
+      "slug": "cos-e-openobserve",
+      "question": "Cos'è OpenObserve e a cosa serve?",
+      "vertical": "tools",
+      "keywords": [
+        "openobserve",
+        "log metriche tracce unificati",
+        "alternativa elasticsearch loki"
+      ],
+      "answers": [
+        "OpenObserve unifica log, metriche e tracce in un unico backend scritto in Rust, interrogabile in SQL e PromQL, con object storage (S3 e compatibili) per i dati: l'idea è sostituire Elasticsearch/Loki/Tempo con un solo pezzo. Single-node gira con SQLite e disco locale, UI sulla 5080. Per flotte piccole resta più semplice [lo stack Prometheus](q/stack-di-monitoraggio-prometheus-grafana/).",
+        "Il trucco economico è lo storage a oggetti con formato colonnare: i log vecchi costano poco e restano interrogabili. Dimensiona RAM per le query calde e lascia il freddo su S3. Come ogni sistema di log, la prima regola è non loggare segreti: una volta indicizzati, toglierli è un'impresa."
+      ],
+      "suggest": [
+        "stack-di-monitoraggio-prometheus-grafana",
+        "cos-e-signoz",
+        "cos-e-changedetection-io"
+      ]
+    },
+    {
+      "id": "changedetection",
+      "slug": "cos-e-changedetection-io",
+      "question": "Cos'è changedetection.io e a cosa serve?",
+      "vertical": "tools",
+      "keywords": [
+        "cos e changedetection io e a cosa serve",
+        "changedetection",
+        "monitorare modifiche pagine web",
+        "avvisi cambio prezzo sito"
+      ],
+      "answers": [
+        "changedetection.io sorveglia pagine web e avvisa quando cambiano: prezzi, disponibilità, bandi, changelog. Si self-hosta in Docker (immagine `dgtlmoon/changedetection.io`, porta 5000) e notifica via email, Telegram, Discord, Slack o webhook. Perfetto per quelle pagine che controlli a mano ogni settimana. Niente a che vedere con il monitoraggio server: per quello vedi [quale monitoraggio per l'homelab](q/quale-monitoraggio-homelab-zabbix-netdata/).",
+        "Due accortezze: intervalli rispettosi (non fare scraping aggressivo: user-agent onesto e pause sensate) e filtri CSS/XPath per guardare solo la parte che interessa, altrimenti ogni banner ti sveglia. I login dietro paywall restano fuori portata: lì servono altri strumenti."
+      ],
+      "suggest": [
+        "quale-monitoraggio-homelab-zabbix-netdata",
+        "cos-e-openobserve",
+        "cos-e-cockpit-server"
+      ]
+    },
+    {
+      "id": "cockpit",
+      "slug": "cos-e-cockpit-server",
+      "question": "Cos'è Cockpit e a cosa serve?",
+      "vertical": "tools",
+      "keywords": [
+        "cos e cockpit e a cosa serve",
+        "cockpit",
+        "cockpit server linux",
+        "amministrazione server web"
+      ],
+      "answers": [
+        "Cockpit è l'amministrazione web dei server Linux: servizi, log, storage, rete, utenti e terminale nel browser sulla 9090, con le credenziali di sistema e senza agent. Installazione dai repo della distro, ideale per quei server che tocchi di rado e non vuoi reimparare ogni volta. Alternativa storica più estesa: [Webmin](q/cos-e-webmin/). Da non confondere con proxxx, che è un terminale AI per Proxmox.",
+        "Va esposto con giudizio: HTTPS, rete fidata o VPN, e aggiornamenti regolari – una console di root sul web è il bersaglio perfetto. Per flotte con configurazioni da applicare in massa serve altro ([Ansible](q/cos-e-ansible/)): Cockpit amministra singole macchine, non applica desired-state su flotte."
+      ],
+      "suggest": [
+        "cos-e-webmin",
+        "cos-e-changedetection-io",
+        "cos-e-openobserve"
+      ]
+    },
+    {
+      "id": "webmin",
+      "slug": "cos-e-webmin",
+      "question": "Cos'è Webmin e a cosa serve?",
+      "vertical": "tools",
+      "keywords": [
+        "cos e webmin e a cosa serve",
+        "webmin",
+        "webmin moduli",
+        "pannello amministrazione linux"
+      ],
+      "answers": [
+        "Webmin è il pannello storico di amministrazione Linux: moduli per utenti, Apache, DNS, firewall, backup e decine di servizi, tutto da web UI sulla 10000 editando i file di config veri. Potentissimo su server tradizionali, meno a suo agio con container e GitOps. Alternativa più moderna e leggera: [Cockpit](q/cos-e-cockpit-server/).",
+        "Le stesse regole di Cockpit, raddoppiate: mai esposto su internet senza VPN o IP allowlist, password lunga e unica, aggiornamenti tempestivi – i bot conoscono la 10000 a memoria. E documenta cosa cambi dalla UI: tra sei mesi ringrazierai te stesso."
+      ],
+      "suggest": [
+        "cos-e-cockpit-server",
+        "cos-e-phpmyadmin-sicurezza",
+        "cos-e-changedetection-io"
+      ]
+    },
+    {
+      "id": "phpmyadmin",
+      "slug": "cos-e-phpmyadmin-sicurezza",
+      "question": "Cos'è phpMyAdmin e come usarlo in sicurezza?",
+      "vertical": "tools",
+      "keywords": [
+        "cos e phpmyadmin e come usarlo in sicurezza",
+        "phpmyadmin",
+        "phpmyadmin sicuro",
+        "amministrare mysql da web"
+      ],
+      "answers": [
+        "phpMyAdmin amministra MySQL/MariaDB dal browser: query, utenti, import/export senza client. Comodissimo e attaccatissimo: la regola è non esporlo mai su internet così com'è. Dietro VPN o IP allowlist, con auth aggiuntiva davanti (basic auth del web server o SSO), aggiornato sempre – le versioni vecchie sono tra i bersagli preferiti dei bot. Alternative senza web: client desktop via tunnel SSH.",
+        "Tre mosse concrete: URL non standard invece di `/phpmyadmin`, login con utenza dedicata dai permessi minimi (mai root da remoto), e 2FA dove possibile. Se serve solo ogni tanto, tienilo spento e accendilo al bisogno: la superficie d'attacco migliore è quella che non esiste."
+      ],
+      "suggest": [
+        "cos-e-webmin",
+        "cos-e-jenkins",
+        "cos-e-cockpit-server"
+      ]
+    },
+    {
+      "id": "jenkins",
+      "slug": "cos-e-jenkins",
+      "question": "Cos'è Jenkins e a cosa serve?",
+      "vertical": "tools",
+      "keywords": [
+        "cos e jenkins e a cosa serve",
+        "jenkins",
+        "jenkins pipeline",
+        "ci con jenkins",
+        "controller e agent jenkins"
+      ],
+      "answers": [
+        "Jenkins è il server di automazione e CI più longevo: controller che orchestra e agent che eseguono, pipeline descritte in Jenkinsfile versionati, e un ecosistema di plugin per ogni tool esistente. Compila, testa e rilascia a ogni commit. UI sulla 8080 al primo avvio con wizard. Per automazioni senza pipeline di build vedi [Semaphore](q/cos-e-semaphore-ui/); per deploy semplici [Coolify](q/cos-e-coolify/).",
+        "In produzione contano tre cose: backup della home del controller (lì vive tutto), agent separati dal controller (mai build sul controller), e plugin aggiornati con parsimonia – l'ecosistema enorme è anche la superficie d'attacco. Credenziali sempre nel credential store, mai negli script."
+      ],
+      "suggest": [
+        "cos-e-semaphore-ui",
+        "cos-e-coolify",
+        "cos-e-phpmyadmin-sicurezza"
+      ]
+    },
+    {
+      "id": "puppet-vs-ansible",
+      "slug": "puppet-vs-ansible-confronto",
+      "question": "Puppet o Ansible per la gestione dei server?",
+      "vertical": "tools",
+      "keywords": [
+        "puppet o ansible per la gestione dei server",
+        "puppet vs ansible",
+        "meglio puppet o ansible",
+        "confronto puppet ansible"
+      ],
+      "answers": [
+        "**Ansible** è agentless (SSH + YAML) e si impara in un pomeriggio: ideale per flotte piccole-medie e homelab. **Puppet** è agent-based con desired-state continuo: l'agent sul nodo riconverge da solo, meglio per parchi grandi e compliance stretta, al prezzo di un'infrastruttura dedicata. Pochi server e playbook leggibili: Ansible; centinaia di nodi da tenere allineati sempre: Puppet. Dettagli su [Ansible](q/cos-e-ansible/); per eseguirlo con una UI c'è [Semaphore](q/cos-e-semaphore-ui/).",
+        "Nella pratica molti usano Ansible anche dove Puppet eccellerebbe, perché il costo d'ingresso decide tutto. Se scegli Puppet, pianifica subito PuppetDB e il controllo dei report; se scegli Ansible, inventory versionato e vault per i segreti dal giorno uno."
+      ],
+      "suggest": [
+        "cos-e-ansible",
+        "cos-e-semaphore-ui",
+        "cos-e-jenkins"
+      ]
+    },
+    {
+      "id": "semaphore",
+      "slug": "cos-e-semaphore-ui",
+      "question": "Cos'è Semaphore UI e a cosa serve?",
+      "vertical": "tools",
+      "keywords": [
+        "cos e semaphore ui e a cosa serve",
+        "semaphore",
+        "semaphore ui",
+        "semaphore ansible",
+        "interfaccia web ansible"
+      ],
+      "answers": [
+        "Semaphore UI è un'interfaccia web moderna (scritta in Go) per eseguire automazioni: nato per Ansible, copre anche Terraform e script, con inventory, scheduling e log visibili al team senza dare shell a tutti. Gira in Docker sulla 3000 con SQLite di default (MySQL/Postgres per installazioni serie). Alternativa pesante: AWX; per CI vere e proprie [Jenkins](q/cos-e-jenkins/). Dettagli sul motore in [Ansible](q/cos-e-ansible/).",
+        "Il valore è tutto nel controllo accessi: chi può lanciare cosa, con audit di ogni run. Backup del database interno e segreti nel vault dedicato, non nei playbook. E come ogni pannello operativo: dietro VPN o auth forte, mai nudo su internet."
+      ],
+      "suggest": [
+        "cos-e-jenkins",
+        "cos-e-ansible",
+        "puppet-vs-ansible-confronto"
+      ]
+    },
+    {
+      "id": "minio-alternatives",
+      "slug": "alternative-a-minio-seaweedfs-rustfs",
+      "question": "Alternative a MinIO: SeaweedFS e RustFS?",
+      "vertical": "proxmox",
+      "keywords": [
+        "alternative a minio seaweedfs e rustfs",
+        "seaweedfs",
+        "rustfs",
+        "seaweedfs vs minio",
+        "object storage alternativo"
+      ],
+      "answers": [
+        "Due S3-compatibili con filosofie diverse da MinIO: **SeaweedFS** archivia su volumi con master/filer (`weed master`, `weed volume`, `weed filer`, S3 sulla 8333) e scala a miliardi di file con poco overhead; **RustFS**, scritto in Rust, punta su semplicità e performance con console sulla 9001. MinIO resta il più documentato e integrato; SeaweedFS vince su scala e costi, RustFS è la scommessa giovane. Base in [MinIO](q/cos-e-minio-object-storage-s3/).",
+        "La compatibilità S3 è quasi totale ma mai totale: prima di migrare, testa le API che usi davvero (versioning, lifecycle, lock) con le tue app. E come ogni storage: replica o erasure coding configurati, monitoraggio dello spazio, e backup separato – la ridondanza non è il backup."
+      ],
+      "suggest": [
+        "cos-e-minio-object-storage-s3",
+        "plex-vs-jellyfin-quale-media-server",
+        "casaos-umbrel-cosmos-quale-sistema-homelab"
+      ]
+    },
+    {
       "id": "nginx",
       "slug": "cos-e-nginx",
       "question": "Cos'è Nginx e a cosa serve?",
@@ -2118,7 +2590,7 @@
       "suggest": [
         "configurare-https-su-nginx",
         "apache-vs-nginx-quale-web-server",
-        "cos-e-haproxy"
+        "cos-e-semaphore-ui"
       ]
     },
     {
@@ -2205,7 +2677,7 @@
       "suggest": [
         "cos-e-plex",
         "media-server-self-hosted-jellyfin",
-        "casaos-umbrel-cosmos-quale-sistema-homelab",
+        "alternative-a-minio-seaweedfs-rustfs",
         "arr-stack-sonarr-radarr-prowlarr"
       ]
     },
@@ -2247,7 +2719,6 @@
       "suggest": [
         "cos-e-k3s",
         "cos-e-microk8s",
-        "quale-monitoraggio-homelab-zabbix-netdata",
         "cos-e-kubernetes"
       ]
     },
@@ -2289,7 +2760,6 @@
       "suggest": [
         "cos-e-casaos",
         "cos-e-umbrel",
-        "plex-vs-jellyfin-quale-media-server",
         "cos-e-cosmos-server"
       ]
     },
@@ -2398,7 +2868,7 @@
       "suggest": [
         "cos-e-pi-hole",
         "authelia-vs-authentik-sso-homelab",
-        "differenza-firewall-e-waf"
+        "cos-e-openvpn"
       ]
     },
     {
@@ -2546,7 +3016,8 @@
         "glances",
         "glances web",
         "monitoraggio sistema leggero",
-        "alternativa htop con interfaccia web"
+        "alternativa htop con interfaccia web",
+        "btop"
       ],
       "answers": [
         "Glances è il `top` con gli steroidi e una pagina web: in una schermata vedi CPU, RAM, swap, dischi, rete, sensori, processi e persino i container, con i valori critici evidenziati a colori. Si installa con `pip install 'glances[web]'`: `glances` apre la TUI nel terminale, `glances -w` serve la web UI sulla porta 61208. In Docker usa l'immagine `nicolargo/glances` con `--pid host` così vede l'host vero e non il container. Perfetto per dare un'occhiata al volo a un server; quando servono più macchine e storico c'è [Beszel](q/cos-e-beszel/), per il tempo reale spinto [Netdata](q/cos-e-netdata/).",
@@ -4198,8 +4669,8 @@
       "suggest": [
         "cos-e-un-attacco-ddos",
         "cos-e-la-sovranita-digitale",
-        "cos-e-cloudflare-tunnel",
-        "trasferimento-dati-extra-ue-schrems"
+        "trasferimento-dati-extra-ue-schrems",
+        "cosa-sono-i-cloudflare-workers"
       ]
     },
     {
@@ -14729,7 +15200,8 @@
         "manutenzione server",
         "igiene di sicurezza",
         "controlli periodici",
-        "audit di sicurezza"
+        "audit di sicurezza",
+        "zenmap"
       ],
       "answers": [
         "Una volta al mese, mezz'ora, sempre la stessa scaletta:\n\n1. **Porte esposte**: `nmap` dall'esterno contro il tuo IP e confronto con [ciò che dovrebbe ascoltare](q/porte-tcp-e-udp-quali-conoscere/) – ogni porta non prevista è una domanda da chiudere\n2. **Log di autenticazione**: accessi riusciti da IP mai visti, orari anomali, [ban scattati](q/fail2ban-e-alternative/)\n3. **Certificati**: scadenze sotto i 30 giorni ([qui il perché](q/certificato-tls-scaduto-cosa-fare/)); meglio ancora [monitorarli](q/monitorare-dominio-ssl-reputazione/)\n4. **Aggiornamenti pendenti** e riavvio se il kernel lo chiede\n5. **Un restore di prova** dal backup: un [backup mai ripristinato](q/backup-3-2-1/) è una speranza, non un backup\n\nLa parte difficile non è la lista: è la cadenza. Metti un promemoria ricorrente e [automatizza ciò che si può](q/security-logging-fatto-bene/) – i punti 1 e 3 sono scriptabili in un pomeriggio."

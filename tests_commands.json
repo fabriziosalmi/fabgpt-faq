@@ -846,5 +846,13 @@
  {
   "q": "come installo netdata con kickstart?",
   "expect": "cmd/netdata_install"
+ },
+ {
+  "q": "come vedo i processi con btop?",
+  "expect": "cmd/btop_proc"
+ },
+ {
+  "q": "come scansiono le porte aperte con nmap?",
+  "expect": "cmd/nmap_scan"
  }
 ]
