@@ -3007,6 +3007,21 @@ https://fabriziosalmi.github.io/fabgpt-faq/q/quali-favicon-servono/
 
 La confusione storica (decine di PNG per ogni device) si è ridotta a un set minimo civile: favicon.ico (32×32) nella root – il fallback che tutto capisce, browser vecchi inclusi SVG (rel="icon" type="image/svg+xml") – scala ovunque, supporta il dark mode via media query interna apple-touch-icon.png (180×180) – per iOS quando salvi in home 192×192 e 512×512 dichiarate nel web manifest – per Android/PWA Quattro file, fine. Da evitare: icone diverse per ogni pagina (i browser le cachano aggressivamente) e i generatori che sputano trenta varianti del 2012. Per produrre tutti i formati da un'immagine sola – favicon, social, banner – BrandKit fa il lavoro in un colpo, in casa tua.
 
+## Cos'è Nginx e a cosa serve?
+https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-nginx/
+
+Nginx è un web server open-source ad alte prestazioni: serve file statici, fa da reverse proxy e bilancia il carico, con un'architettura event-driven che regge moltissime connessioni con poca RAM. Lo trovi davanti a quasi tutto – siti statici, app, API – e si configura in nginx.conf a blocchi (server, location). Per HTTPS vedi [come configurarlo](q/configurare-https-su-nginx/); il confronto con Apache è [qui](q/apache-vs-nginx-quale-web-server/).
+
+## Apache o Nginx: quale web server scegliere?
+https://fabriziosalmi.github.io/fabgpt-faq/q/apache-vs-nginx-quale-web-server/
+
+La differenza è nel modello: Apache assegna processi o thread alle connessioni e legge .htaccess per cartella, comodo su hosting condivisi e con app storiche; Nginx è event-driven e vince su statici, reverse proxy e container. Sito dinamico classico con pannello? Apache. Moderno, statici o proxy davanti alle app? Nginx. Dettagli su [Nginx](q/cos-e-nginx/) e [HTTPS su Nginx](q/configurare-https-su-nginx/).
+
+## Cos'è HAProxy e a cosa serve?
+https://fabriziosalmi.github.io/fabgpt-faq/q/cos-e-haproxy/
+
+HAProxy è un load balancer e reverse proxy open-source ad altissime prestazioni: distribuisce connessioni TCP (decisione per connessione) e richieste HTTP (decisione per richiesta) tra backend, con health check, terminazione TLS e rate limiting. Config in haproxy.cfg a sezioni frontend/backend, algoritmi come round-robin e least connections. Quello che NON è, per sua stessa documentazione: né web server statico né forward proxy. Contesto in [Cos'è un load balancer](q/cos-e-un-load-balancer/).
+
 ## Nginx Proxy Manager (NPM), Caddy o Traefik: meglio con UI o con file?
 https://fabriziosalmi.github.io/fabgpt-faq/q/npm-caddy-traefik-quale-reverse-proxy-con-ui/
 
