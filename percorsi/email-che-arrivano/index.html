@@ -2,10 +2,10 @@
 <html lang="it">
 <head>
 <meta charset="UTF-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-R4l3MISo0yPuGBgHEc0RnvOiCgZXBATlKg86bw+03a0='; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; base-uri 'none'; form-action 'self'; object-src 'none'; upgrade-insecure-requests">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-0DwNUNXyGvCASp+FNqEkkOBmjdrbBIQWJsEy03dF6hY='; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; base-uri 'none'; form-action 'self'; object-src 'none'; upgrade-insecure-requests">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="referrer" content="no-referrer">
-<title>Email che arrivano (e restano tue) – FabGPT-FAQ</title>
+<title>Email che arrivano (e restano tue) | FabGPT-FAQ</title>
 <meta name="description" content="Sei tappe sulla posta: autenticazione SPF/DKIM/DMARC, reputazione, relay cifrato, cifratura a riposo e migrazione.">
 <meta name="robots" content="index,follow,max-image-preview:large">
 <link rel="canonical" href="https://fabriziosalmi.github.io/fabgpt-faq/percorsi/email-che-arrivano/">
@@ -97,7 +97,7 @@
     });
     var n = items.filter(function (li) { return done.has(li.getAttribute('data-slug')); }).length;
     document.getElementById('prog-fill').style.width = (100 * n / items.length) + '%';
-    document.getElementById('prog-txt').textContent = n + '/' + items.length + ' tappe' + (n === items.length ? ' – percorso completato!' : ' completate');
+    document.getElementById('prog-txt').textContent = n + '/' + items.length + ' tappe' + (n === items.length ? ': percorso completato!' : ' completate');
   }
   items.forEach(function (li) {
     li.querySelector('.step-check').addEventListener('change', function () {

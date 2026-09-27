@@ -408,12 +408,12 @@ INDEX = """<!DOCTYPE html>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="referrer" content="no-referrer">
-<title>Tutte le domande – FabGPT-FAQ</title>
+<title>Tutte le domande | FabGPT-FAQ</title>
 <meta name="description" content="{description}">
 <meta name="robots" content="index,follow,max-image-preview:large">
 <link rel="canonical" href="{canonical}">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Tutte le domande – FabGPT-FAQ">
+<meta property="og:title" content="Tutte le domande | FabGPT-FAQ">
 <meta property="og:description" content="{description}">
 <meta property="og:url" content="{canonical}">
 <meta property="og:image" content="{site}/og.svg">
@@ -540,7 +540,7 @@ PATH_HEAD = """<!DOCTYPE html>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="referrer" content="no-referrer">
-<title>{title} – FabGPT-FAQ</title>
+<title>{title} | FabGPT-FAQ</title>
 <meta name="description" content="{description}">
 <meta name="robots" content="index,follow,max-image-preview:large">
 <link rel="canonical" href="{canonical}">
@@ -696,7 +696,7 @@ def build_paths(db, entries, site) -> list:
     });
     var n = items.filter(function (li) { return done.has(li.getAttribute('data-slug')); }).length;
     document.getElementById('prog-fill').style.width = (100 * n / items.length) + '%';
-    document.getElementById('prog-txt').textContent = n + '/' + items.length + ' tappe' + (n === items.length ? ' – percorso completato!' : ' completate');
+    document.getElementById('prog-txt').textContent = n + '/' + items.length + ' tappe' + (n === items.length ? ': percorso completato!' : ' completate');
   }
   items.forEach(function (li) {
     li.querySelector('.step-check').addEventListener('change', function () {
@@ -864,7 +864,7 @@ TOOLS = [
   }
   function block(resolver, data) {
     var h = '<h3>' + resolver + '</h3>';
-    if (data.Status === 3) return h + '<p>NXDOMAIN – il dominio non esiste per questo resolver.</p>';
+    if (data.Status === 3) return h + '<p>NXDOMAIN: il dominio non esiste per questo resolver.</p>';
     if (data.Status !== 0) return h + '<p>Errore DNS (Status ' + esc(data.Status) + ').</p>';
     var ans = data.Answer || [];
     if (!ans.length) return h + '<p>Nessun record di questo tipo (NOERROR ma risposta vuota).</p>';
@@ -934,7 +934,7 @@ TOOLS = [
       });
       if (count > 0) {
         out.innerHTML = '<p class="dns-diff"><b>Compromessa</b>: questa password compare <b>' + count.toLocaleString('it-IT') +
-          '</b> volte nei data breach noti. Va cambiata OVUNQUE tu la usi, subito – e mai più riusata.</p>' +
+          '</b> volte nei data breach noti. Va cambiata OVUNQUE tu la usi, subito; e mai più riusata.</p>' +
           '<p>Il passo giusto: una password unica per servizio dentro un password manager, e MFA dove possibile.</p>';
       } else {
         out.innerHTML = '<p class="dns-ok">Non presente nei breach noti a Have I Been Pwned.</p>' +
@@ -1015,7 +1015,7 @@ def build_tools(db, entries, site) -> list:
             body = f"""<div class="tool-box">
   <input id="tool-in" type="text" placeholder="{html.escape(t["placeholder"])}" autocomplete="off" spellcheck="false" aria-label="Input dello strumento">
   <div class="tool-ex">{examples}</div>
-  <div id="tool-out" class="tool-out" aria-live="polite"><p class="tool-empty">Il risultato appare qui, calcolato in locale – digita o tocca un esempio.</p></div>
+  <div id="tool-out" class="tool-out" aria-live="polite"><p class="tool-empty">Il risultato appare qui, calcolato in locale: digita o tocca un esempio.</p></div>
 </div>"""
             script = f"""<script src="../../tools.js"></script>
 <script>
@@ -1026,7 +1026,7 @@ def build_tools(db, entries, site) -> list:
   var FN = '{t["fn"]}';
   function run() {{
     var v = input.value.trim();
-    if (!v) {{ out.innerHTML = '<p class="tool-empty">Il risultato appare qui, calcolato in locale – digita o tocca un esempio.</p>'; return; }}
+    if (!v) {{ out.innerHTML = '<p class="tool-empty">Il risultato appare qui, calcolato in locale: digita o tocca un esempio.</p>'; return; }}
     var md = null;
     try {{
       if (FN === 'subnet') {{
@@ -1176,7 +1176,7 @@ def build_ports(db, entries, site) -> list:
             jsonld=json.dumps(jsonld, ensure_ascii=False),
         )
         page += f"""<nav class="crumbs" aria-label="Percorso"><a href="../../">FabGPT-FAQ</a> › <a href="../">Porte</a> › <span>Porta {n}</span></nav>
-<h1>Porta {n}/{html.escape(p["proto"] if p["proto"] != "both" else "tcp+udp")} – {html.escape(p["service"])}</h1>
+<h1>Porta {n}/{html.escape(p["proto"] if p["proto"] != "both" else "tcp+udp")} : {html.escape(p["service"])}</h1>
 <p class="intro">Protocollo: <b>{proto}</b></p>
 <div class="answer">{render_md(p["desc"])}
 <h2 style="font-size:17px;margin:20px 0 8px">Nota di sicurezza</h2>{render_md(p["risk"])}
@@ -1223,7 +1223,7 @@ def build_ports(db, entries, site) -> list:
             "@context": "https://schema.org", "@type": "ItemList",
             "name": "Porte well-known",
             "itemListElement": [
-                {"@type": "ListItem", "position": i + 1, "name": f"Porta {p['port']} – {p['service']}", "url": f"{site}/porta/{p['port']}/"}
+                {"@type": "ListItem", "position": i + 1, "name": f"Porta {p['port']}: {p['service']}", "url": f"{site}/porta/{p['port']}/"}
                 for i, p in enumerate(ordered)
             ],
         }, ensure_ascii=False),
@@ -1292,15 +1292,15 @@ def build_transparency(site) -> list:
 <h1>Trasparenza</h1>
 <div class="answer">
 <h2>Un'AI che non c'è</h2>
-<p><b>FabGPT-FAQ non è un'intelligenza artificiale.</b> L'interfaccia imita un chatbot – input libero,
-risposta che scorre – ma dietro non c'è nessun modello: ogni risposta è <b>pre-scritta e verificata
+<p><b>FabGPT-FAQ non è un'intelligenza artificiale.</b> L'interfaccia imita un chatbot, input libero,
+risposta che scorre, ma dietro non c'è nessun modello: ogni risposta è <b>pre-scritta e verificata
 da una persona</b> (<a href="../q/chi-e-fabrizio-salmi/">Fabrizio Salmi</a>) e viene scelta da un
 motore deterministico a parole chiave, <a href="https://github.com/fabriziosalmi/fabgpt-faq"
 target="_blank" rel="noopener">open source</a> e ispezionabile riga per riga.</p>
 <p>In termini di legge: il Regolamento europeo sull'IA (Reg. UE 2024/1689) definisce «sistema di IA»
 un sistema che <i>inferisce</i> come generare i propri output; i sistemi basati su regole scritte
 unicamente da persone ne sono esclusi (considerando 12). Questo sito appartiene alla seconda
-categoria, quindi gli obblighi di trasparenza per i sistemi di IA non gli si applicano – ma lo
+categoria, quindi gli obblighi di trasparenza per i sistemi di IA non gli si applicano; ma lo
 scriviamo comunque, qui e sotto la casella di input, perché la parodia funziona solo se è dichiarata.
 Il vantaggio collaterale è concreto: niente modello, <b>niente allucinazioni</b>.</p>
 <h2>Dati e privacy</h2>
@@ -1320,7 +1320,7 @@ target="_blank" rel="noopener">privacy policy di GitHub</a>. Il titolare di ques
 né conserva alcun dato dei visitatori.</li>
 <li><b>Google Search Console, senza tracciamento.</b> Il sito è registrato su Search Console per
 sapere se e come Google lo indicizza. La registrazione è un file statico di verifica della
-proprietà: non aggiunge script, cookie o raccolta dati – Google scansiona le pagine pubbliche come
+proprietà: non aggiunge script, cookie o raccolta dati; Google scansiona le pagine pubbliche come
 farebbe comunque, e le statistiche che fornisce riguardano le ricerche su Google, non i visitatori
 di questo sito.</li>
 <li><b>Referrer: niente.</b> Ogni pagina dichiara <code>Referrer-Policy: no-referrer</code>: quando
@@ -1334,7 +1334,7 @@ esterni, <b>solo quando premi il bottone</b> e mai in automatico:</p>
 <li>il <a href="../tools/dns-lookup/">lookup DNS</a> invia il dominio che digiti ai resolver pubblici
 <code>cloudflare-dns.com</code> e <code>dns.google</code> in DNS-over-HTTPS;</li>
 <li>il <a href="../tools/password-compromessa/">check password</a> usa Have I Been Pwned in
-k-anonymity: il browser calcola l'hash SHA-1 in locale e trasmette solo i primi 5 caratteri –
+k-anonymity: il browser calcola l'hash SHA-1 in locale e trasmette solo i primi 5 caratteri:
 la password non lascia mai il tuo computer.</li>
 </ul>
 <p>I dettagli, con i limiti del caso, sono spiegati sulla pagina di ciascun tool.</p>
@@ -1414,7 +1414,7 @@ def build_commands(db, entries, site) -> list:
             },
         ]
         page = path_head(
-            title=html.escape(g["title"]) + " – comandi",
+            title=html.escape(g["title"]) + " | comandi",
             description=html.escape(g["tagline"]),
             canonical=f"{site}/comandi/{g['slug']}/",
             site=site,
@@ -1728,7 +1728,7 @@ def build() -> None:
         else:
             ogimg = f"{site}/og.svg"
         page = PAGE.format(
-            title=html.escape(e["question"]) + " – FabGPT-FAQ",
+            title=html.escape(e["question"]) + " | FabGPT-FAQ",
             ogtitle=html.escape(e["question"]),
             description=html.escape(meta_description(answer_md)),
             canonical=f"{site}/q/{e['slug']}/",
@@ -1893,12 +1893,12 @@ def build() -> None:
         _ports = json.loads((ROOT / "ports.json").read_text(encoding="utf-8"))["ports"]
         lt.append("\n## Porte well-known\n")
         for p in sorted(_ports.values(), key=lambda x: x["port"]):
-            lt.append(f"- [Porta {p['port']} – {p['service']}]({site}/porta/{p['port']}/): {meta_description(p['desc'], 110)}")
+            lt.append(f"- [Porta {p['port']}: {p['service']}]({site}/porta/{p['port']}/): {meta_description(p['desc'], 110)}")
     (ROOT / "llms.txt").write_text("\n".join(lt) + "\n", encoding="utf-8")
 
     # --- llms-full.txt: every Q&A as plain text (full corpus for citation) ---
     lf = [
-        "# FabGPT-FAQ – knowledge base completa\n",
+        "# FabGPT-FAQ: knowledge base completa\n",
         "Domande e risposte verificate. Fonte: https://github.com/fabriziosalmi\n",
     ]
     for vid, label in verticals.items():
@@ -1917,7 +1917,7 @@ def build() -> None:
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="referrer" content="no-referrer">
-<title>Pagina non trovata – FabGPT-FAQ</title>
+<title>Pagina non trovata | FabGPT-FAQ</title>
 <meta name="robots" content="noindex">
 <link rel="stylesheet" href="/style.css">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">

@@ -2,10 +2,10 @@
 <html lang="it">
 <head>
 <meta charset="UTF-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-pdc+8qjy/5N6V/Pp4F+9ChYGzS5loqX4/UgISR1zsKA='; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; base-uri 'none'; form-action 'self'; object-src 'none'; upgrade-insecure-requests">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-V0qjnX/XoZmKyBx1053oGQraClFYF9FnwkVU4IPpirA='; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; base-uri 'none'; form-action 'self'; object-src 'none'; upgrade-insecure-requests">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="referrer" content="no-referrer">
-<title>Diventare sysadmin partendo da zero – FabGPT-FAQ</title>
+<title>Diventare sysadmin partendo da zero | FabGPT-FAQ</title>
 <meta name="description" content="Il percorso in 17 tappe: reti, Linux, homelab, automazione, backup, cloud e il primo lavoro IT.">
 <meta name="robots" content="index,follow,max-image-preview:large">
 <link rel="canonical" href="https://fabriziosalmi.github.io/fabgpt-faq/percorsi/diventare-sysadmin/">
@@ -67,7 +67,7 @@
 <main class="page">
 <nav class="crumbs" aria-label="Percorso"><a href="../../">FabGPT-FAQ</a> › <a href="../">Percorsi</a> › <span>Diventare sysadmin partendo da zero</span></nav>
 <h1>Diventare sysadmin partendo da zero</h1>
-<p class="intro">Le tappe sono in ordine deliberato: prima le fondamenta di rete, poi Linux sul serio, poi un homelab dove rompere le cose senza conseguenze. Ogni tappa è una guida autonoma – ma la sequenza è il punto.</p>
+<p class="intro">Le tappe sono in ordine deliberato: prima le fondamenta di rete, poi Linux sul serio, poi un homelab dove rompere le cose senza conseguenze. Ogni tappa è una guida autonoma; ma la sequenza è il punto.</p>
 <div class="prog" hidden><div class="prog-track"><span class="prog-fill" id="prog-fill"></span></div><span class="prog-txt" id="prog-txt"></span><button type="button" id="prog-reset" class="prog-reset" aria-label="Azzera il progresso">azzera</button></div>
 <ol class="steps" id="steps">
 <li data-slug="cos-e-il-subnetting-e-il-cidr"><input type="checkbox" class="step-check" aria-label="Segna tappa completata"><a href="../../q/cos-e-il-subnetting-e-il-cidr/">Cos&#x27;è il subnetting (e come si legge un /24)?</a><p>Prima di tutto: capire come sono fatte le reti che amministrerai.</p></li>
@@ -108,7 +108,7 @@
     });
     var n = items.filter(function (li) { return done.has(li.getAttribute('data-slug')); }).length;
     document.getElementById('prog-fill').style.width = (100 * n / items.length) + '%';
-    document.getElementById('prog-txt').textContent = n + '/' + items.length + ' tappe' + (n === items.length ? ' – percorso completato!' : ' completate');
+    document.getElementById('prog-txt').textContent = n + '/' + items.length + ' tappe' + (n === items.length ? ': percorso completato!' : ' completate');
   }
   items.forEach(function (li) {
     li.querySelector('.step-check').addEventListener('change', function () {

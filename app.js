@@ -777,7 +777,7 @@
     let text = entry.answers[idx % n];
     // variants exhausted (or single answer): acknowledge instead of parroting
     if (seen && servedCount[entry.id] > n && (entry.slug || entry.kind === 'command' || entry.kind === 'ground')) {
-      text = "*Te l'avevo già raccontata – eccola di nuovo:*\n\n" + text;
+      text = "*Te l'avevo già raccontata: eccola di nuovo:*\n\n" + text;
     }
     return text;
   }
@@ -1118,7 +1118,7 @@
 
     const q = new URLSearchParams(location.search).get('q');
     const deepEntry = q && DB.entries.find(e => e.id === q || e.slug === q);
-    // Starter chips after the welcome — unless a deep link will drive the first ask.
+    // Starter chips after the welcome, unless a deep link will drive the first ask.
     streamAnswer(DB.config.welcome, () => {
       if (deepEntry) setTimeout(() => ask(deepEntry.question), 400);
     }, deepEntry ? null : DB.config.suggest);

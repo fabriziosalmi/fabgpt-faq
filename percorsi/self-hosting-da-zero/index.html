@@ -2,10 +2,10 @@
 <html lang="it">
 <head>
 <meta charset="UTF-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-c3RCUwp9XQ9DoKtQ8xOZkrBczOhIYMWyVZdR990K0dU='; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; base-uri 'none'; form-action 'self'; object-src 'none'; upgrade-insecure-requests">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-Tltzs8vwbeBdVfUmpATlsVHshImiDaKnMzKZ3zo6uUA='; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; base-uri 'none'; form-action 'self'; object-src 'none'; upgrade-insecure-requests">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="referrer" content="no-referrer">
-<title>Self-hosting da zero – FabGPT-FAQ</title>
+<title>Self-hosting da zero | FabGPT-FAQ</title>
 <meta name="description" content="Dodici tappe dal perché all&#x27;infrastruttura che si mantiene da sola: Proxmox, container, rete, backup e monitoraggio.">
 <meta name="robots" content="index,follow,max-image-preview:large">
 <link rel="canonical" href="https://fabriziosalmi.github.io/fabgpt-faq/percorsi/self-hosting-da-zero/">
@@ -103,7 +103,7 @@
     });
     var n = items.filter(function (li) { return done.has(li.getAttribute('data-slug')); }).length;
     document.getElementById('prog-fill').style.width = (100 * n / items.length) + '%';
-    document.getElementById('prog-txt').textContent = n + '/' + items.length + ' tappe' + (n === items.length ? ' – percorso completato!' : ' completate');
+    document.getElementById('prog-txt').textContent = n + '/' + items.length + ' tappe' + (n === items.length ? ': percorso completato!' : ' completate');
   }
   items.forEach(function (li) {
     li.querySelector('.step-check').addEventListener('change', function () {

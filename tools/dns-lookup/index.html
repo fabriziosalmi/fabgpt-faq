@@ -2,10 +2,10 @@
 <html lang="it">
 <head>
 <meta charset="UTF-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-RkIMW9i80CKNIh72JXtGHuEpZJn/SHK4z7CweM4w7/c='; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self' https://cloudflare-dns.com https://dns.google; base-uri 'none'; form-action 'self'; object-src 'none'; upgrade-insecure-requests">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-DmWzacL+Gc5FqOWPjzxBT2q42mpgdnIYOYB4Nq0hbiI='; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self' https://cloudflare-dns.com https://dns.google; base-uri 'none'; form-action 'self'; object-src 'none'; upgrade-insecure-requests">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="referrer" content="no-referrer">
-<title>Lookup DNS live – FabGPT-FAQ</title>
+<title>Lookup DNS live | FabGPT-FAQ</title>
 <meta name="description" content="Interroga in parallelo i resolver DoH di Cloudflare e Google e confronta le risposte: il test di propagazione in un click.">
 <meta name="robots" content="index,follow,max-image-preview:large">
 <link rel="canonical" href="https://fabriziosalmi.github.io/fabgpt-faq/tools/dns-lookup/">
@@ -123,7 +123,7 @@
   }
   function block(resolver, data) {
     var h = '<h3>' + resolver + '</h3>';
-    if (data.Status === 3) return h + '<p>NXDOMAIN – il dominio non esiste per questo resolver.</p>';
+    if (data.Status === 3) return h + '<p>NXDOMAIN: il dominio non esiste per questo resolver.</p>';
     if (data.Status !== 0) return h + '<p>Errore DNS (Status ' + esc(data.Status) + ').</p>';
     var ans = data.Answer || [];
     if (!ans.length) return h + '<p>Nessun record di questo tipo (NOERROR ma risposta vuota).</p>';
