@@ -1,0 +1,234 @@
+{
+  "config": {
+    "botName": "NIS2 Assistant",
+    "siteUrl": "https://nis2.example.com",
+    "welcome": "Benvenuto nell'assistente interattivo sulla **Direttiva NIS2** (D.Lgs. 138/2024). Qui trovi risposte verificate su ambito di applicazione, scadenze, obblighi di notifica 24h/72h, requisiti dell'Art. 21 e responsabilità del CdA.",
+    "placeholder": "Chiedi su soggetti essenziali, notifiche 24h, sanzioni, art. 21...",
+    "footerNote": "Assistente deterministico basato su **D.Lgs. 138/2024** e linee guida ACN · Zero allucinazioni",
+    "matchThreshold": 0.72,
+    "suggest": [
+      "chi-rientra-in-nis2",
+      "soggetti-essenziali-vs-importanti",
+      "obblighi-notifica-incidenti",
+      "misure-minime-articolo-21",
+      "sanzioni-e-responsabilita-cda"
+    ]
+  },
+  "verticals": [
+    { "id": "ambito", "label": "Ambito e Classificazione" },
+    { "id": "obblighi", "label": "Obblighi e Misure Minime" },
+    { "id": "incidenti", "label": "Gestione e Notifica Incidenti" },
+    { "id": "governance", "label": "Governance e Sanzioni" }
+  ],
+  "entries": [
+    {
+      "id": "chi-rientra-in-nis2",
+      "slug": "chi-rientra-in-nis2",
+      "question": "Chi rientra nell'ambito di applicazione della NIS2?",
+      "vertical": "ambito",
+      "keywords": [
+        "chi rientra", "ambito applicazione", "soggetti nis2", "criteri dimensionali",
+        "medie imprese", "grandi imprese", "fatturato nis2", "dipendenti nis2",
+        "requisiti dimensionali", "chi deve adeguarsi"
+      ],
+      "answers": [
+        "La Direttiva NIS2 (recepita in Italia con il **D.Lgs. 138/2024**) si applica alle organizzazioni pubbliche e private che operano in **18 settori critici** e soddisfano determinati criteri dimensionali:\n\n- **Criterio dimensionale base**: organizzazioni qualificate come **medie o grandi imprese** (almeno **50 dipendenti** oppure oltre **10 milioni di euro** di fatturato annuo o bilancio).\n- **Settori ad alta criticità** (Allegato I): energia, trasporti, banche, mercati finanziari, sanità, acqua potabile, acque reflue, infrastrutture digitali, gestione servizi TIC (MSP/MSSP), pubblica amministrazione, spazio.\n- **Altri settori critici** (Allegato II): servizi postali, gestione rifiuti, chimica, alimentari, fabbricazione/manifattura (dispositivi medici, elettronica, macchinari, autoveicoli), fornitori digitali (marketplace, motori di ricerca, social network), ricerca.\n\n*Nota:* Alcuni soggetti rientrano **a prescindere dalle dimensioni**, ad esempio fornitori di reti o servizi di comunicazione elettronica accessibili al pubblico, trust service provider, registri TLD e fornitori DNS."
+      ],
+      "suggest": ["soggetti-essenziali-vs-importanti", "linee-guida-per-le-pmi", "misure-minime-articolo-21"]
+    },
+    {
+      "id": "soggetti-essenziali-vs-importanti",
+      "slug": "soggetti-essenziali-vs-importanti",
+      "question": "Qual è la differenza tra Soggetti Essenziali e Soggetti Importanti?",
+      "vertical": "ambito",
+      "keywords": [
+        "soggetti essenziali", "soggetti importanti", "differenza essenziali importanti",
+        "vigilanza ex ante", "vigilanza ex post", "classificazione soggetti", "allegato 1", "allegato 2"
+      ],
+      "answers": [
+        "La NIS2 suddivide i soggetti obbligati in due categorie principali in base alla criticità del settore e alla dimensione aziendale:\n\n1. **Soggetti Essenziali (Essential Entities)**:\n   - Grandi imprese dei settori ad alta criticità (Allegato I), oltre ad alcuni attori strategici a prescindere dalla taglia (es. trust service provider, operatori TLD, PA centrale).\n   - Regime di vigilanza: **ex-ante e continua** (audit periodici, verifiche documentali, ispezioni in loco da parte dell'ACN anche in assenza di incidenti).\n   - Sanzioni: fino a **10 milioni di euro o 2% del fatturato mondiale**.\n\n2. **Soggetti Importanti (Important Entities)**:\n   - Medie imprese dei settori ad alta criticità (Allegato I) e medie/grandi imprese degli altri settori critici (Allegato II).\n   - Regime di vigilanza: **ex-post reattiva** (l'ACN interviene principalmente a seguito di incidenti, segnalazioni o prove di non conformità).\n   - Sanzioni: fino a **7 milioni di euro o 1,4% del fatturato mondiale**.\n\nEntrambe le categorie devono rispettare gli stessi obblighi di sicurezza dell'**Articolo 21** e le notifiche di incidente."
+      ],
+      "suggest": ["chi-rientra-in-nis2", "sanzioni-e-responsabilita-cda", "obblighi-notifica-incidenti"]
+    },
+    {
+      "id": "obblighi-notifica-incidenti",
+      "slug": "obblighi-notifica-incidenti",
+      "question": "Quali sono i tempi e le modalità per notificare un incidente informatico?",
+      "vertical": "incidenti",
+      "keywords": [
+        "notifica incidenti", "tempistiche notifica", "scadenze incidente", "24 ore", "72 ore",
+        "un mese", "early warning", "csirt italia", "acn notifica", "segnalazione incidente"
+      ],
+      "answers": [
+        "In caso di **incidente significativo**, il D.Lgs. 138/2024 stabilisce un processo di notifica a scaglioni temporali rigorosi verso il **CSIRT Italia** (presso l'ACN):\n\n1. **Early Warning (Pre-notifica) entro 24 ore**:\n   Dalla conoscenza dell'incidente. Indica se l'evento è causato da azioni illegali/malevole e se ha un potenziale impatto transfrontaliero.\n2. **Notifica formale dell'incidente entro 72 ore**:\n   Aggiorna la pre-notifica con una prima valutazione della gravità, dell'impatto e degli indicatori di compromissione (IoC).\n3. **Relazione intermedia (su richiesta)**:\n   Eventuali aggiornamenti sullo stato di avanzamento dell'analisi e contenimento.\n4. **Relazione finale entro 1 mese**:\n   Descrizione dettagliata dell'incidente, root cause analysis (causa scatenante), misure di mitigazione adottate e impatto effettivo."
+      ],
+      "suggest": ["definizione-incidente-significativo", "ruolo-csirt-italia", "misure-minime-articolo-21"]
+    },
+    {
+      "id": "definizione-incidente-significativo",
+      "slug": "definizione-incidente-significativo",
+      "question": "Che cosa si intende per 'incidente significativo' ai sensi della NIS2?",
+      "vertical": "incidenti",
+      "keywords": [
+        "incidente significativo", "definizione incidente", "quando notificare", "criteri gravita",
+        "impatto economico", "perturbazione del servizio", "soglie incidente"
+      ],
+      "answers": [
+        "Un incidente informatico è classificato come **significativo** (e fa scattare l'obbligo di notifica a 24h/72h) se presenta almeno una di queste condizioni stabilite dall'Articolo 23 della Direttiva (e recepite nel D.Lgs. 138/2024):\n\n- Ha causato o è suscettibile di causare una **grave perturbazione operativa** dei servizi forniti dall'entità o perdite finanziarie rilevanti per l'organizzazione.\n- Ha avuto o può avere un impatto su altre persone fisiche o giuridiche, provocando **danni materiali o immateriali considerevoli** (es. interruzione di servizi essenziali per i cittadini, violazione massiva di dati critici).\n\nL'ACN e la Commissione Europea definiscono le soglie quantitative e gli indicatori specifici per ciascun settore per valutare la significatività."
+      ],
+      "suggest": ["obblighi-notifica-incidenti", "ruolo-csirt-italia"]
+    },
+    {
+      "id": "misure-minime-articolo-21",
+      "slug": "misure-minime-articolo-21",
+      "question": "Quali sono le misure minime di sicurezza previste dall'Articolo 21?",
+      "vertical": "obblighi",
+      "keywords": [
+        "articolo 21", "art 21", "misure minime", "misure di sicurezza", "gestione del rischio",
+        "requisiti obbligatori", "mfa", "crittografia", "business continuity", "cyber hygiene"
+      ],
+      "answers": [
+        "L'Articolo 21 della NIS2 (Art. 24 del D.Lgs. 138/2024) impone un approccio basato sulla gestione del rischio multi-rischio (*all-hazards*). Le misure obbligatorie comprendono:\n\n1. **Politiche di analisi dei rischi** e sicurezza dei sistemi informativi.\n2. **Gestione degli incidenti** (prevenzione, rilevamento, contenimento e analisi post-evento).\n3. **Continuità operativa** (backup regolari, disaster recovery, gestione delle crisi).\n4. **Sicurezza della catena di approvvigionamento** (valutazione dei fornitori terzi e MSP).\n5. **Sicurezza dell'acquisizione, sviluppo e manutenzione** di reti e sistemi (inclusa la gestione e divulgazione delle vulnerabilità).\n6. **Politiche di efficacia** (valutazione e audit periodici delle misure di sicurezza).\n7. **Pratiche di igiene informatica di base** e formazione continua sulla cybersecurity per il personale.\n8. **Uso della crittografia** e di algoritmi robusti.\n9. **Sicurezza delle risorse umane**, controllo accessi e gestione degli asset.\n10. **Autenticazione a più fattori (MFA)** o soluzioni di autenticazione continua."
+      ],
+      "suggest": ["sicurezza-della-supply-chain", "autenticazione-mfa-e-crittografia", "piani-continuita-operativa-disaster-recovery"]
+    },
+    {
+      "id": "sanzioni-e-responsabilita-cda",
+      "slug": "sanzioni-e-responsabilita-cda",
+      "question": "Quali sono le responsabilità del CdA e le sanzioni per non conformità?",
+      "vertical": "governance",
+      "keywords": [
+        "sanzioni", "cda", "sanzioni cda", "sanzioni nis2", "responsabilita cda", "organi di amministrazione", "amministratori sanzioni",
+        "sanzioni pecuniarie", "responsabilita personale", "sospensione dirigenti", "multe nis2", "multe"
+      ],
+      "answers": [
+        "Una delle novità più incisive della NIS2 è la responsabilizzazione diretta dei vertici aziendali:\n\n- **Responsabilità del Consiglio di Amministrazione**:\n  Gli organi di governance devono approvare le misure di gestione del rischio, supervisionarne l'attuazione e seguire personalmente una **formazione obbligatoria** sulla sicurezza cibernetica. Rispondono direttamente e personalmente delle violazioni.\n- **Sospensione manageriale**:\n  Per i soggetti essenziali, l'autorità può richiedere la **sospensione temporanea** dei dirigenti con funzioni apicali (incluso l'amministratore delegato) fino al ripristino della conformità.\n- **Sanzioni pecuniarie amministrative**:\n  - *Soggetti Essenziali*: fino a **10.000.000 €** o al **2% del fatturato annuo globale** mondiale, se superiore.\n  - *Soggetti Importanti*: fino a **7.000.000 €** o all'**1,4% del fatturato annuo globale** mondiale, se superiore."
+      ],
+      "suggest": ["soggetti-essenziali-vs-importanti", "misure-minime-articolo-21"]
+    },
+    {
+      "id": "sicurezza-della-supply-chain",
+      "slug": "sicurezza-della-supply-chain",
+      "question": "Come funziona la sicurezza della catena di fornitura (Supply Chain Security)?",
+      "vertical": "obblighi",
+      "keywords": [
+        "supply chain", "catena fornitura", "fornitori nis2", "sicurezza fornitori",
+        "terze parti", "msp mssp", "valutazione fornitori", "pmi fornitrici"
+      ],
+      "answers": [
+        "La NIS2 richiede esplicitamente ai soggetti obbligati di valutare e gestire i rischi derivanti dai propri **fornitori terzi e partner IT**:\n\n- **Valutazione della postura di sicurezza dei vendor**: le aziende devono analizzare la maturità cyber dei fornitori di software, cloud e servizi gestiti (MSP/MSSP).\n- **Requisiti contrattuali**: inclusione di clausole contrattuali vincolanti su SLA di notifica vulnerabilità, test di sicurezza, certificazioni e audit.\n- **Effetto a cascata (Cascading Effect)**:\n  Anche se una **PMI** non rientra direttamente nella NIS2 per criteri dimensionali, si troverà comunque obbligata a implementare misure di sicurezza adeguate se intende mantenere contratti con clienti soggetti a NIS2."
+      ],
+      "suggest": ["misure-minime-articolo-21", "linee-guida-per-le-pmi"]
+    },
+    {
+      "id": "linee-guida-per-le-pmi",
+      "slug": "linee-guida-per-le-pmi",
+      "question": "Le Piccole e Micro Imprese sono escluse dalla NIS2?",
+      "vertical": "ambito",
+      "keywords": [
+        "pmi nis2", "piccole imprese", "microimprese", "esclusione pmi",
+        "eccezioni pmi", "quando una pmi rientra", "sotto 50 dipendenti"
+      ],
+      "answers": [
+        "In linea generale, le micro e piccole imprese (con **meno di 50 dipendenti** e fatturato/bilancio annuo inferiore a **10 milioni di euro**) sono **escluse** dal campo di applicazione standard della NIS2. Tuttavia, esistono rilevanti eccezioni:\n\n- **Rientrano a prescindere dalle dimensioni**:\n  1. Fornitori di reti o servizi pubblici di comunicazione elettronica.\n  2. Prestatori di servizi fiduciari qualificati (Trust Service Provider).\n  3. Registri dei nomi di dominio di primo livello (TLD) e fornitori di servizi DNS.\n  4. Fornitori unici di un servizio essenziale per l'economia o la società.\n  5. Entità la cui compromissione potrebbe generare un rischio sistemico.\n- **Impatto indiretto**: molte PMI fornitrici di soggetti essenziali o importanti dovranno comunque adeguarsi ai requisiti di sicurezza contrattuali imposti dalla catena di fornitura (Supply Chain Security)."
+      ],
+      "suggest": ["chi-rientra-in-nis2", "sicurezza-della-supply-chain"]
+    },
+    {
+      "id": "ruolo-csirt-italia",
+      "slug": "ruolo-csirt-italia",
+      "question": "Qual è il ruolo di ACN e CSIRT Italia nella gestione della NIS2?",
+      "vertical": "governance",
+      "keywords": [
+        "acn", "csirt italia", "autorita nazionale", "agenzia cybersicurezza nazionale",
+        "punto di contatto unico", "vigilanza acn", "chi controlla nis2"
+      ],
+      "answers": [
+        "In Italia, l'attuazione e la vigilanza sulla NIS2 fanno capo all'**ACN (Agenzia per la Cybersicurezza Nazionale)**:\n\n- **Autorità Nazionale Competente (ANC)**: l'ACN è responsabile della definizione delle linee guida attuative, della gestione della piattaforma di censimento e dei poteri sanzionatori e di ispezione.\n- **CSIRT Italia (Computer Security Incident Response Team)**:\n  È la struttura operativa nazionale istituita presso l'ACN che funge da punto di ricezione unico per le **notifiche di incidente a 24h e 72h**.\n- Fornisce supporto tecnico, coordina la risposta nazionale agli incidenti gravi e partecipa alla rete europea dei CSIRT per la condivisione tempestiva di IoC e alert transfrontalieri."
+      ],
+      "suggest": ["obblighi-notifica-incidenti", "piattaforma-digitale-acn"]
+    },
+    {
+      "id": "piattaforma-digitale-acn",
+      "slug": "piattaforma-digitale-acn",
+      "question": "Come avviene la registrazione sulla piattaforma digitale dell'ACN?",
+      "vertical": "ambito",
+      "keywords": [
+        "piattaforma acn", "registrazione acn", "censimento soggetti", "portale acn",
+        "come registrarsi", "scadenza registrazione", "dati da comunicare"
+      ],
+      "answers": [
+        "Tutti i soggetti essenziali e importanti individuati dal D.Lgs. 138/2024 hanno l'obbligo di registrarsi sulla **Piattaforma Digitale dell'ACN**:\n\n- **Informazioni da comunicare**:\n  1. Denominazione sociale, sede legale e identificativi fiscali.\n  2. Settore e sottosettore di attività secondo gli Allegati I e II.\n  3. Dati di contatto del punto di contatto unico (SPOC) e del referente per la sicurezza informatica (CISO/Security Manager).\n  4. Indirizzi IP pubblici, domini e classi di indirizzi pertinenti ai servizi erogati.\n- **Aggiornamento continuo**: qualsiasi variazione anagrafica o tecnica deve essere comunicata entro le finestre temporali stabilite dai decreti attuativi dell'ACN."
+      ],
+      "suggest": ["chi-rientra-in-nis2", "ruolo-csirt-italia"]
+    },
+    {
+      "id": "autenticazione-mfa-e-crittografia",
+      "slug": "autenticazione-mfa-e-crittografia",
+      "question": "Cosa richiede la NIS2 in materia di Crittografia e MFA?",
+      "vertical": "obblighi",
+      "keywords": [
+        "mfa obbligatoria", "crittografia nis2", "autenticazione a due fattori",
+        "multi factor authentication", "cifratura dati", "requisiti tecnici mfa"
+      ],
+      "answers": [
+        "L'Articolo 21, comma 2, lettere (h) e (j) della NIS2 impone requisiti stringenti su crittografia e controllo degli accessi:\n\n- **Autenticazione a più fattori (MFA)**:\n  È obbligatoria per tutti gli accessi amministrativi, per gli accessi remoti (VPN, portali cloud, gestione sistemica) e per l'accesso a sistemi che gestiscono dati o processi operativi critici. Sono raccomandate soluzioni *phishing-resistant* (FIDO2/WebAuthn).\n- **Crittografia avanzata**:\n  Obbligo di cifratura dei dati sia **in transito** (protocolli TLS 1.3 con cifrari moderni) sia **a riposo** (storage crittografato, database encryption).\n- Politiche di gestione sicura delle chiavi crittografiche (KMS/HSM) e tempestiva rotazione di chiavi e certificati."
+      ],
+      "suggest": ["misure-minime-articolo-21", "piani-continuita-operativa-disaster-recovery"]
+    },
+    {
+      "id": "differenza-nis1-e-nis2",
+      "slug": "differenza-nis1-e-nis2",
+      "question": "Quali sono le principali differenze tra NIS1 e NIS2?",
+      "vertical": "ambito",
+      "keywords": [
+        "differenza nis1 nis2", "novita nis2", "confronto nis1 e nis2", "cose cambia rispetto alla nis1",
+        "superamento ose fsd", "perche nis2"
+      ],
+      "answers": [
+        "La NIS2 introduce un cambio di paradigma radicale rispetto alla precedente Direttiva NIS (2016):\n\n1. **Superamento della discrezionalità nazionale**: nella NIS1 ogni Stato membro identificava soggettivamente gli 'Operatori di Servizi Essenziali' (OSE). La NIS2 introduce un criterio oggettivo dimensionale e settoriale applicabile in tutta l'UE.\n2. **Ampliamento settoriale**: si passa da 7 settori a **18 settori** (inclusi rifiuti, PA, manifattura, alimentari, cloud, MSP).\n3. **Catena di fornitura (Supply Chain)**: la NIS1 ignorava i vendor terzi; la NIS2 ne fa un pilastro centrale obbligatorio.\n4. **Responsabilità e Sanzioni**: le sanzioni della NIS1 erano modeste e disomogenee; la NIS2 introduce sanzioni fino al 2% del fatturato e la responsabilità personale per gli amministratori del CdA.\n5. **Tempistiche di notifica certe**: introduzione dell'early warning a 24 ore."
+      ],
+      "suggest": ["chi-rientra-in-nis2", "soggetti-essenziali-vs-importanti", "sanzioni-e-responsabilita-cda"]
+    },
+    {
+      "id": "piani-continuita-operativa-disaster-recovery",
+      "slug": "piani-continuita-operativa-disaster-recovery",
+      "question": "Come strutturare la Business Continuity e il Disaster Recovery secondo NIS2?",
+      "vertical": "obblighi",
+      "keywords": [
+        "business continuity", "disaster recovery", "continuita operativa", "backup nis2",
+        "resilienza operativa", "rto rpo", "ripristino dati", "piani di emergenza"
+      ],
+      "answers": [
+        "La continuità operativa (Art. 21, comma 2, lett. c) è un requisito irrinunciabile per garantire la resilienza dei servizi essenziali:\n\n- **Strategia di Backup 3-2-1 immutabile**: almeno tre copie dei dati, su due supporti differenti, di cui una remota (off-site o cloud) e protetta da immutabilità (WORM/Object Lock) contro ransomware.\n- **Piani di Disaster Recovery (DRP)**: definizione chiara di RTO (*Recovery Time Objective*) e RPO (*Recovery Point Objective*) per ogni servizio critico.\n- **Test periodici di ripristino**: non basta eseguire il backup; è obbligatorio testare periodicamente l'effettivo ripristino dei sistemi e documentare l'esito delle simulazioni.\n- **Crisis Management Plan**: procedure codificate per la gestione delle comunicazioni di emergenza con autorità, clienti e fornitori durante un disservizio."
+      ],
+      "suggest": ["misure-minime-articolo-21", "obblighi-notifica-incidenti"]
+    }
+  ],
+  "smalltalk": [
+    {
+      "id": "st-saluto",
+      "keywords": ["ciao", "buongiorno", "buonasera", "salve", "help", "aiuto"],
+      "answers": [
+        "Buongiorno! Sono l'assistente sulla conformità **NIS2** (D.Lgs. 138/2024). Puoi chiedermi se la tua azienda rientra nei requisiti, quali sono le sanzioni, i tempi di notifica incidenti a 24h/72h o le misure di sicurezza obbligatorie."
+      ]
+    },
+    {
+      "id": "st-grazie",
+      "keywords": ["grazie", "grazie mille", "perfetto", "ottimo"],
+      "answers": [
+        "Prego! La conformità NIS2 richiede un percorso strutturato. Se hai altri dubbi sui requisiti tecnici o normativi, chiedi pure."
+      ]
+    },
+    {
+      "id": "st-chi-sei",
+      "keywords": ["chi sei", "cosa fai", "come funzioni", "sei un ai"],
+      "answers": [
+        "Sono un assistente specialistico per la Direttiva NIS2 basato sul motore **ZeroGPT**: non genero testo casuale e non allucino. Ogni risposta è deterministica, verificata da esperti e ancorata al testo del D.Lgs. 138/2024 e alle linee guida dell'ACN."
+      ]
+    }
+  ],
+  "fallbacks": [
+    "Non ho trovato una risposta verificata per questa domanda specifica sulla NIS2. Prova a riformulare o chiedi informazioni su: **chi rientra in NIS2**, **notifica incidenti 24h**, **sanzioni del CdA**, **misure Articolo 21** o **supply chain**."
+  ]
+}

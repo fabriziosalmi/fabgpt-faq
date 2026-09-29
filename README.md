@@ -176,6 +176,30 @@ The engine is generic: swap `faq.json` (and optionally `commands.json`,
 fake-AI FAQ for anything else, with the whole gate suite ready to keep it
 honest.
 
+## Decoupled engine and embeddable widget (`engine/`)
+
+The core matching, computation and rendering logic is decoupled into a standalone, dependency-free toolkit under `engine/`:
+
+- **`engine/matcher.js`**: pure fuzzy matcher with Sørensen-Dice bigram similarity, Damerau-1 typo recovery, multi-turn conversational context carry-over and safe Markdown renderer. Works in Node.js, browsers, web workers and Shadow DOM.
+- **`engine/tools.js`**: deterministic computation fast-path (CIDR, cron, chmod, JWT decode, Unix timestamps, well-known ports) with an extensible custom tool registry (`registerTool`).
+- **`engine/widget.js`**: self-contained embeddable chat widget with complete Shadow DOM style isolation. Embeds into any website, SaaS or portal with a single `<script>` tag:
+  ```html
+  <script src="path/to/engine/widget.js"
+          data-faq="faq.json"
+          data-title="Help Assistant"
+          data-color="#0f172a"
+          data-position="bottom-right"></script>
+  ```
+- **`engine/app.js` & `engine/style.css`**: clean standalone chat application UI.
+- **`engine/build.py`**: generic static compiler generating `/q/<slug>/` pages with `FAQPage` JSON-LD schema, `sitemap.xml`, `robots.txt` and `llms.txt`.
+- **`engine/md_parser.py`**: CLI compiler to turn folders of plain Markdown files (with or without frontmatter) into a validated `faq.json`.
+
+## Vertical examples (`examples/`)
+
+The `examples/` directory demonstrates how to specialize the engine for high-stakes enterprise domains where hallucinations are unacceptable:
+
+- **`examples/nis2/`**: European NIS2 Directive compliance reference implementation (Italian D.Lgs. 138/2024). Features a data-driven enterprise light-mode dashboard, domain-specific calculators (entity classification and CSIRT incident notification timelines), verified Q&A knowledge base and embedded Shadow DOM widget.
+
 ## License
 
 [MIT](LICENSE)
