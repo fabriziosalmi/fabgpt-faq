@@ -4982,7 +4982,7 @@
     {
       "id": "parametri-modello",
       "slug": "parametri-7b-70b-cosa-significano",
-      "question": "Parametri di un modello: 7B, 70B: cosa significano?",
+      "question": "Parametri di un modello (7B, 70B): cosa significano?",
       "vertical": "ai",
       "keywords": [
         "parametri",
