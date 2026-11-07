@@ -319,8 +319,7 @@
       "suggest": [
         "cos-e-mcp-model-context-protocol",
         "cos-e-il-vibe-coding",
-        "allucinazioni-llm-dipendenze-inventate",
-        "cos-e-un-waf-web-application-firewall"
+        "allucinazioni-llm-dipendenze-inventate"
       ]
     },
     {
@@ -343,8 +342,7 @@
       "suggest": [
         "cos-e-la-prompt-injection",
         "cos-e-il-vibe-coding",
-        "allucinazioni-llm-dipendenze-inventate",
-        "cos-e-un-waf-web-application-firewall"
+        "allucinazioni-llm-dipendenze-inventate"
       ]
     },
     {
@@ -363,10 +361,9 @@
         "**Vibe coding**: descrivi quello che vuoi a un LLM, accetti il codice che propone, ripeti finché funziona; senza necessariamente leggere cosa è stato scritto. Per prototipi è una superpotenza; il rischio è mettere in produzione codice che *sembra* giusto ma nasconde bug, vulnerabilità e dipendenze inventate. Quel sedimento ha un nome: **slop**.\n\nLa risposta non è rinunciare all'AI, è **verificare a valle con strumenti deterministici**:\n\n- [slopless](q/slopless-analisi-statica-vibecoding/): analisi statica anti-slop con regole deterministiche (espressioni regolari e AST), da riga di comando, in CI come GitHub Action o nell'editor\n- [ai-dependency-guard](https://github.com/fabriziosalmi/ai-dependency-guard): blocca le dipendenze allucinate prima del merge"
       ],
       "suggest": [
+        "slopless-analisi-statica-vibecoding",
         "cos-e-mcp-model-context-protocol",
-        "allucinazioni-llm-dipendenze-inventate",
-        "cos-e-la-prompt-injection",
-        "cos-e-un-waf-web-application-firewall"
+        "allucinazioni-llm-dipendenze-inventate"
       ]
     },
     {
@@ -395,8 +392,7 @@
       "suggest": [
         "cos-e-il-vibe-coding",
         "cos-e-rag-retrieval-augmented-generation",
-        "cos-e-mcp-model-context-protocol",
-        "cos-e-un-waf-web-application-firewall"
+        "cos-e-mcp-model-context-protocol"
       ]
     },
     {
@@ -418,8 +414,7 @@
       "suggest": [
         "allucinazioni-llm-dipendenze-inventate",
         "cos-e-il-vibe-coding",
-        "cos-e-mcp-model-context-protocol",
-        "cos-e-un-waf-web-application-firewall"
+        "cos-e-mcp-model-context-protocol"
       ]
     },
     {
@@ -12478,9 +12473,9 @@
         "Si può; con la dovuta umiltà metodologica. [ethical-ai](https://github.com/fabriziosalmi/ethical-ai) automatizza l'assessment: sottopone ai modelli (OpenAI, Anthropic, Gemini, LM Studio e qualsiasi endpoint compatibile) un set fisso di domande etiche, raccoglie **auto-valutazioni 0–100** con multi-sampling a temperature casuali e aggregazione per mediana, e genera report comparativi in Markdown, HTML e PDF.\n\nLa storia dietro è raccontata in [You-Know-What-AI-Mean](https://github.com/fabriziosalmi/You-Know-What-AI-Mean): tutto è partito nell'ottobre 2023 da contenuti espliciti ricevuti **senza chiederli** da ChatGPT con un plugin; da lì una guida pratica all'etica AI e, negli anni, una serie di strumenti che applicano nel codice ciò che la guida argomenta in prosa: [aidlp](https://github.com/fabriziosalmi/aidlp), [ai-dependency-guard](https://github.com/fabriziosalmi/ai-dependency-guard), [slopless](q/slopless-analisi-statica-vibecoding/)."
       ],
       "suggest": [
+        "slopless-analisi-statica-vibecoding",
         "ridurre-token-agenti-ai",
-        "llm-e-matematica-benchmark",
-        "memoria-persistente-assistenti-ai"
+        "llm-e-matematica-benchmark"
       ]
     },
     {
@@ -18304,7 +18299,6 @@
       "suggest": [
         "caddyfile-minimo-per-servizi-docker",
         "nginx-caddy-o-traefik",
-        "ssh-connection-refused-dopo-riavvio",
         "cron-non-gira-ma-a-mano-funziona"
       ]
     },
@@ -18325,7 +18319,6 @@
       "suggest": [
         "mettere-in-sicurezza-ssh",
         "firewalld-o-iptables-chi-comanda",
-        "terminare-un-processo-linux",
         "fstab-sbagliato-emergency-mode"
       ]
     },
@@ -18358,8 +18351,503 @@
       "suggest": [
         "gestire-servizi-linux-con-systemctl",
         "mount-nfs-appeso-ls-bloccato",
-        "load-average-alto-cpu-scarica",
-        "oom-killer-ha-ucciso-un-processo"
+        "caddyfile-pattern-reverse-proxy-sicurezza-failover",
+        "load-average-alto-cpu-scarica"
+      ]
+    },
+    {
+      "id": "errore-520-cloudflare",
+      "slug": "errore-520-cloudflare-unknown-error-risoluzione",
+      "question": "Cos'è l'errore 520 (Web server is returning an unknown error) e come si risolve?",
+      "vertical": "cloudflare",
+      "keywords": [
+        "errore 520",
+        "errore 520 cloudflare",
+        "web server is returning an unknown error",
+        "cloudflare 520",
+        "risolvere errore 520",
+        "intestazioni troppo grandi cloudflare"
+      ],
+      "answers": [
+        "L'errore **520 Web Server is Returning an Unknown Error** compare quando il web server di origine restituisce a Cloudflare una risposta vuota, malformata o inaspettata. La causa piu comune e un crash improvviso del processo backend (come PHP-FPM, Node.js o Gunicorn) durante la generazione della pagina, oppure l'invio di intestazioni HTTP eccessivamente grandi (oltre i 16 KB supportati dall'edge di Cloudflare).\n\nPer diagnosticare il problema:\n- Esegui una richiesta diretta all'IP di origine bypassando Cloudflare: `curl -svo /dev/null http://ORIGIN_IP/ -H \"Host: tuo-dominio.it\"`\n- Ispeziona i log di errore del web server (Nginx o Apache) cercando segnali di crash o segmentation fault\n- Verifica la dimensione dei cookie e delle intestazioni di risposta, riducendo header di sessione ridondanti."
+      ],
+      "suggest": [
+        "errore-521-cloudflare-web-server-down-risoluzione",
+        "errore-522-cloudflare-connection-timed-out-risoluzione",
+        "errore-524-cloudflare-timeout-100-secondi-risoluzione",
+        "cos-e-un-waf-web-application-firewall"
+      ]
+    },
+    {
+      "id": "errore-521-cloudflare",
+      "slug": "errore-521-cloudflare-web-server-down-risoluzione",
+      "question": "Cos'è l'errore 521 (Web server is down) e come si corregge?",
+      "vertical": "cloudflare",
+      "keywords": [
+        "errore 521",
+        "errore 521 cloudflare",
+        "web server is down",
+        "cloudflare 521",
+        "server down cloudflare",
+        "risolvere errore 521"
+      ],
+      "answers": [
+        "L'errore **521 Web Server is Down** indica che i server edge di Cloudflare hanno tentato di stabilire una connessione TCP verso l'indirizzo IP di origine, ma il server ha rifiutato attivamente la connessione (invio di un pacchetto TCP RST o mancato ascolto sulla porta richiesta, tipicamente 80 o 443).\n\nPer risolvere l'errore:\n- Verifica che il servizio web (Caddy, Nginx, Apache) sia attivo sul server con `systemctl status nginx`\n- Controlla che le porte siano in ascolto locale con `ss -tulpn | grep -E ':(80|443)'`\n- Assicurati che il firewall di sistema (iptables, nftables, ufw) o del cloud provider non stia bloccando i range di indirizzi IP pubblici di Cloudflare; questi IP devono essere esplicitamente consentiti per permettere al proxy di raggiungere l'applicazione."
+      ],
+      "suggest": [
+        "errore-520-cloudflare-unknown-error-risoluzione",
+        "errore-522-cloudflare-connection-timed-out-risoluzione",
+        "errore-524-cloudflare-timeout-100-secondi-risoluzione",
+        "cos-e-un-waf-web-application-firewall"
+      ]
+    },
+    {
+      "id": "errore-522-cloudflare",
+      "slug": "errore-522-cloudflare-connection-timed-out-risoluzione",
+      "question": "Cos'è l'errore 522 (Connection timed out) e come si verifica?",
+      "vertical": "cloudflare",
+      "keywords": [
+        "errore 522",
+        "errore 522 cloudflare",
+        "connection timed out cloudflare",
+        "cloudflare 522",
+        "timeout handshake cloudflare",
+        "risolvere errore 522"
+      ],
+      "answers": [
+        "L'errore **522 Connection Timed Out** si verifica quando Cloudflare non riesce a completare l'handshake TCP con il server di origine entro il limite prestabilito (circa 15 secondi). A differenza del 521 in cui la connessione viene rifiutata subito, nel 522 i pacchetti TCP SYN inviati da Cloudflare cadono nel vuoto senza ricevere risposta TCP SYN-ACK.\n\nLe cause frequenti sono:\n- Routing di rete errato o congestione tra l'edge e il datacenter dell'origine\n- Rate limiting a livello di kernel o regole di firewalling (come fail2ban o moduli Anti-DDoS del provider) che silenziosamente scartano i pacchetti provenienti dagli IP di Cloudflare\n- Indirizzo IP di origine errato nei record DNS del pannello Cloudflare.\n\nControlla che i pacchetti SYN arrivino all'host analizzando il traffico con `tcpdump -ni any 'tcp[tcpflags] & tcp-syn != 0 and port 443'`."
+      ],
+      "suggest": [
+        "errore-521-cloudflare-web-server-down-risoluzione",
+        "errore-524-cloudflare-timeout-100-secondi-risoluzione",
+        "errore-520-cloudflare-unknown-error-risoluzione",
+        "cos-e-un-waf-web-application-firewall"
+      ]
+    },
+    {
+      "id": "errore-524-cloudflare",
+      "slug": "errore-524-cloudflare-timeout-100-secondi-risoluzione",
+      "question": "Cos'è l'errore 524 (A timeout occurred) e come si gestisce?",
+      "vertical": "cloudflare",
+      "keywords": [
+        "errore 524",
+        "errore 524 cloudflare",
+        "a timeout occurred",
+        "cloudflare 524",
+        "timeout 100 secondi cloudflare",
+        "risolvere errore 524"
+      ],
+      "answers": [
+        "L'errore **524 A Timeout Occurred** indica che la connessione TCP tra Cloudflare e il server di origine e avvenuta con successo, ma il server web non ha inviato una risposta HTTP valida entro 100 secondi. E il classico errore generato da script backend lenti, esportazioni di database pesanti, upload di file di grandi dimensioni o query SQL bloccanti.\n\nPer risolverlo in modo architetturale:\n- Sposta i task computazionali lunghi su worker asincroni in background (con code Celery, Redis o cron job) e rispondi subito al client con un identificativo per verificare lo stato\n- Se il processo deve rimanere sincrono, usa HTTP Server-Sent Events (SSE) o streaming HTTP per inviare frammenti di dati prima dei 100 secondi, mantenendo viva la connessione\n- Nei piani Cloudflare Enterprise e possibile estendere questo timeout fino a 6000 secondi, ma la soluzione corretta resta il disaccoppiamento asincrono del backend."
+      ],
+      "suggest": [
+        "errore-522-cloudflare-connection-timed-out-risoluzione",
+        "errore-525-cloudflare-ssl-handshake-failed-risoluzione",
+        "errore-521-cloudflare-web-server-down-risoluzione",
+        "cos-e-un-waf-web-application-firewall"
+      ]
+    },
+    {
+      "id": "errore-525-cloudflare",
+      "slug": "errore-525-cloudflare-ssl-handshake-failed-risoluzione",
+      "question": "Cos'è l'errore 525 (SSL handshake failed) e perché avviene?",
+      "vertical": "cloudflare",
+      "keywords": [
+        "errore 525",
+        "errore 525 cloudflare",
+        "ssl handshake failed",
+        "cloudflare 525",
+        "tls handshake fallito cloudflare",
+        "risolvere errore 525"
+      ],
+      "answers": [
+        "L'errore **525 SSL Handshake Failed** compare quando la modalita crittografica di Cloudflare e impostata su *Full* o *Full (Strict)* e l'handshake TLS tra l'edge di Cloudflare e il server di origine fallisce prima di poter scambiare dati applicativi.\n\nI motivi principali del fallimento sono:\n- Il certificato SSL sull'origine e scaduto, non valido, o non corrisponde al dominio richiesto (se in modalita Strict)\n- Mancata compatibilita tra le suite di cifratura (ciphers) configurate sull'origine e quelle negoziate da Cloudflare\n- Mancato supporto o configurazione errata del Server Name Indication (SNI) sul web server di origine\n- Il server web non ha TLS 1.2 o TLS 1.3 abilitato.\n\nPer testare la negoziazione TLS verso l'origine: `openssl s_client -connect ORIGIN_IP:443 -servername tuo-dominio.it`."
+      ],
+      "suggest": [
+        "errore-524-cloudflare-timeout-100-secondi-risoluzione",
+        "cloudflare-ssl-flexible-full-strict-differenze",
+        "errore-522-cloudflare-connection-timed-out-risoluzione",
+        "cos-e-un-waf-web-application-firewall"
+      ]
+    },
+    {
+      "id": "cloudflare-ssl-modes",
+      "slug": "cloudflare-ssl-flexible-full-strict-differenze",
+      "question": "Cloudflare SSL: che differenza c'è tra Flexible, Full e Full (Strict)?",
+      "vertical": "cloudflare",
+      "keywords": [
+        "cloudflare ssl",
+        "flexible vs full",
+        "full strict cloudflare",
+        "modalita ssl cloudflare",
+        "redirect loop cloudflare",
+        "differenza flexible full"
+      ],
+      "answers": [
+        "Le impostazioni SSL/TLS di Cloudflare definiscono come viene cifrato il traffico tra visitatore, edge e server di origine:\n\n- **Flexible**: la connessione tra visitatore e Cloudflare e cifrata in HTTPS, ma la tratta tra Cloudflare e il server di origine viaggia in HTTP in chiaro sulla porta 80. Genera spesso loop infiniti di reindirizzamento 301/302 se l'origine tenta di forzare HTTPS.\n- **Full**: cifra entrambe le tratte in HTTPS (porta 443), ma non verifica l'autenticita del certificato dell'origine (accetta certificati autofirmati o scaduti). E vulnerabile ad attacchi man-in-the-middle.\n- **Full (Strict)**: la configurazione corretta e sicura. Cifra la tratta fino all'origine e richiede un certificato TLS valido e rilasciato da una CA fidata (come Let's Encrypt o un certificato Cloudflare Origin CA).\n\nNon usare mai Flexible: configura sempre un certificato valido sull'origine con strumenti di automazione ACME e attiva Full (Strict)."
+      ],
+      "suggest": [
+        "errore-525-cloudflare-ssl-handshake-failed-risoluzione",
+        "cloudflare-waf-wirefilter-regole-personalizzate",
+        "errore-524-cloudflare-timeout-100-secondi-risoluzione",
+        "cos-e-un-waf-web-application-firewall"
+      ]
+    },
+    {
+      "id": "cloudflare-waf-wirefilter",
+      "slug": "cloudflare-waf-wirefilter-regole-personalizzate",
+      "question": "Come si scrivono le regole WAF personalizzate su Cloudflare con Wirefilter?",
+      "vertical": "cloudflare",
+      "keywords": [
+        "regole wirefilter",
+        "cloudflare custom rules",
+        "regole waf wirefilter",
+        "sintassi wirefilter",
+        "filtri wirefilter cloudflare"
+      ],
+      "answers": [
+        "Le regole WAF personalizzate di Cloudflare (Custom Rules) utilizzano il motore **Wirefilter**, basato sulla sintassi di Wireshark, per ispezionare il traffico Layer 7 e decidere se autorizzarlo, bloccarlo o sottoporlo a challenge.\n\nI campi piu usati nelle espressioni sono:\n- `http.request.uri.path`: percorso richiesto (es. `http.request.uri.path matches \"^/admin\"`)\n- `ip.src`: indirizzo IP di provenienza o range CIDR\n- `ip.geoip.country`: codice nazione ISO a due lettere del client\n- `cf.threat_score`: punteggio di reputazione IP da 0 a 100 calcolato dall'intelligence di Cloudflare\n- `cf.client.bot`: booleano che indica se la richiesta proviene da un bot verificato noto (come Googlebot).\n\nPuoi combinare i criteri con operatori logici `and`, `or`, `not` e impostare azioni graduate: *Block* per attacchi noti, *Managed Challenge* per traffico sospetto e *Bypass* per partner fidati."
+      ],
+      "suggest": [
+        "cloudflare-ssl-flexible-full-strict-differenze",
+        "cloudflare-rate-limiting-regole-falsi-positivi",
+        "errore-525-cloudflare-ssl-handshake-failed-risoluzione",
+        "cos-e-un-waf-web-application-firewall"
+      ]
+    },
+    {
+      "id": "cloudflare-rate-limiting",
+      "slug": "cloudflare-rate-limiting-regole-falsi-positivi",
+      "question": "Come funziona il Rate Limiting su Cloudflare e come evitare falsi positivi?",
+      "vertical": "cloudflare",
+      "keywords": [
+        "rate limiting cloudflare",
+        "rate limit cloudflare",
+        "soglie rate limit cloudflare",
+        "regole rate limit cloudflare",
+        "falsi positivi rate limit cloudflare"
+      ],
+      "answers": [
+        "Il **Rate Limiting** di Cloudflare conteggia il numero di richieste inviate da un singolo client verso un determinato percorso entro una finestra temporale definita (da 10 secondi a 1 ora), applicando una contromisura quando viene superata la soglia specificata.\n\nPer configurarlo riducendo al minimo i falsi positivi:\n- Isola endpoint sensibili ad alto rischio abuso, come `/login`, `/api/v1/auth` o percorsi di recupero password, anziche applicare soglie aggressive all'intero sito\n- Definisci la chiave di conteggio: per impostazione predefinita e l'IP del client (`ip.src`), ma per API autenticate e consigliabile aggregare per token o cookie di sessione per non penalizzare utenti dietro NAT o reti aziendali condivise\n- Come azione, prediligi la *Managed Challenge* rispetto al blocco secco (HTTP 429), permettendo a utenti legittimi di risolvere un controllo invisibile senza interrompere il servizio."
+      ],
+      "suggest": [
+        "cloudflare-waf-wirefilter-regole-personalizzate",
+        "cloudflare-cache-purge-url-tag-prefix",
+        "cloudflare-ssl-flexible-full-strict-differenze",
+        "cos-e-un-waf-web-application-firewall"
+      ]
+    },
+    {
+      "id": "cloudflare-cache-purge",
+      "slug": "cloudflare-cache-purge-url-tag-prefix",
+      "question": "Come funziona la cache di Cloudflare: Purge by URL, Tag e Prefix",
+      "vertical": "cloudflare",
+      "keywords": [
+        "cache purge cloudflare",
+        "svuotare cache cloudflare",
+        "purge by tag cloudflare",
+        "invalidation cache cdn",
+        "purge url cloudflare"
+      ],
+      "answers": [
+        "L'invalidation della cache di Cloudflare consente di eliminare asset archiviati nei nodi edge globali quando i contenuti di origine vengono aggiornati. Cloudflare supporta diverse modalita di purge:\n\n- **Purge by Single-File (URL)**: elimina uno o piu URL esatti specificati, inclusi o esclusi i parametri di query string. E disponibile su tutti i piani ed e ideale per aggiornamenti chirurgici di file CSS, JS o immagini.\n- **Purge by Cache-Tag**: permette di associare uno o piu identificativi alle risposte tramite l'intestazione HTTP `Cache-Tag: prodotto-123, catalogo` inviata dall'origine. In fase di aggiornamento, una singola chiamata API elimina tutti gli oggetti contrassegnati con quel tag.\n- **Purge Everything**: svuota l'intera cache del dominio in tutti i datacenter. Va usato con cautela perche provoca un picco immediato di traffico (cache stampede) direttamente sul server di origine."
+      ],
+      "suggest": [
+        "cloudflare-rate-limiting-regole-falsi-positivi",
+        "cloudflare-cache-control-stale-while-revalidate",
+        "cloudflare-waf-wirefilter-regole-personalizzate",
+        "cos-e-un-waf-web-application-firewall"
+      ]
+    },
+    {
+      "id": "cloudflare-stale-while-revalidate",
+      "slug": "cloudflare-cache-control-stale-while-revalidate",
+      "question": "Cos'è la direttiva stale-while-revalidate e come si usa con una CDN?",
+      "vertical": "cloudflare",
+      "keywords": [
+        "stale while revalidate",
+        "cache control stale while revalidate",
+        "caching cdn swr",
+        "direttiva stale while revalidate",
+        "stale content edge"
+      ],
+      "answers": [
+        "La direttiva **stale-while-revalidate** (RFC 5861) dell'intestazione HTTP `Cache-Control` indica alla CDN e al browser di servire immediatamente una risorsa memorizzata nella cache anche se il suo periodo di freschezza e scaduto, mentre in background viene effettuata una richiesta all'origine per rigenerare la cache.\n\nEsempio pratico di configurazione:\n`Cache-Control: max-age=60, stale-while-revalidate=300`\n\nQuesto comando dice all'edge che la risorsa e fresca per 60 secondi. Se una richiesta arriva tra il secondo 61 e il 360, il client riceve la versione salvata in cache senza attendere (latenza minima e zero caricamenti lenti); contemporaneamente l'edge scarica la nuova versione dall'origine per le richieste future.\n\nQuesto meccanismo elimina i rallentamenti per i visitatori e assorbe picchi di traffico su pagine generate dinamicamente."
+      ],
+      "suggest": [
+        "cloudflare-cache-purge-url-tag-prefix",
+        "cloudflare-rate-limiting-regole-falsi-positivi",
+        "cloudflare-waf-wirefilter-regole-personalizzate",
+        "cos-e-un-waf-web-application-firewall"
+      ]
+    },
+    {
+      "id": "ai-dependency-guard-supply-chain",
+      "slug": "protezione-package-hallucination-supply-chain-ai",
+      "question": "Come proteggersi dal package hallucination e dallo slopjecting?",
+      "vertical": "ai",
+      "keywords": [
+        "package hallucination",
+        "slopjecting",
+        "attacco slopjecting",
+        "verificare dipendenze allucinate"
+      ],
+      "answers": [
+        "Il fenomeno del **package hallucination** si verifica quando un LLM consiglia l'installazione di una libreria inventata o ne sbaglia il nome. I malintenzionati monitorano questi pattern e registrano i pacchetti fantasma sui repository pubblici (npm, PyPI, crates.io) inserendovi malware; un vettore di attacco noto come *slopjecting*.\n\nPer proteggere la supply chain dello sviluppo:\n- Non eseguire mai ciecamente comandi `npm install` o `pip install` suggeriti da un prompt senza aver prima verificato la data di pubblicazione, il sorgente e il numero di download del pacchetto\n- Blocca le nuove dipendenze nei processi di Continuous Integration eseguendo controlli automatici di autenticita\n- Integra strumenti come [ai-dependency-guard](https://github.com/fabriziosalmi/ai-dependency-guard), che controlla la reputazione e l'esistenza storica dei pacchetti proposti dagli assistenti AI prima del merge."
+      ],
+      "suggest": [
+        "mcp-architettura-host-client-server-stdio-sse",
+        "context-degradation-llm-compaction-lost-in-the-middle",
+        "evals-deterministici-vs-llm-as-a-judge",
+        "cos-e-un-waf-web-application-firewall"
+      ]
+    },
+    {
+      "id": "mcp-architettura-stdio-sse",
+      "slug": "mcp-architettura-host-client-server-stdio-sse",
+      "question": "Model Context Protocol (MCP): come funzionano i trasporti stdio e SSE?",
+      "vertical": "ai",
+      "keywords": [
+        "mcp stdio",
+        "mcp sse",
+        "trasporti stdio sse mcp",
+        "trasporto stdio model context protocol"
+      ],
+      "answers": [
+        "Il **Model Context Protocol (MCP)** e uno standard aperto promosso per collegare gli assistenti AI a strumenti esterni, repository di codice, database e ambienti operativi in modo sicuro e interoperabile.\n\nL'architettura si divide in tre componenti:\n- **Host**: l'applicazione con cui interagisce l'utente (ad esempio Claude Code, IDE o bot personalizzati) che governa il contesto\n- **Client**: il componente interno all'host che instaura una connessione 1:1 con ciascun server MCP\n- **Server**: un processo leggero e specializzato che espone Tool (funzioni eseguibili), Resource (dati in sola lettura) e Prompt tematici tramite JSON-RPC 2.0.\n\nLa comunicazione avviene tramite due trasporti primari: `stdio` (avvio di sottoprocessi locali con passaggio dati su standard input/output, ideale per desktop e CLI) oppure `SSE` (Server-Sent Events su HTTP, adatto a server remoti e cluster distribuiti)."
+      ],
+      "suggest": [
+        "protezione-package-hallucination-supply-chain-ai",
+        "context-degradation-llm-compaction-lost-in-the-middle",
+        "evals-deterministici-vs-llm-as-a-judge",
+        "cos-e-un-waf-web-application-firewall"
+      ]
+    },
+    {
+      "id": "context-compaction-degradazione",
+      "slug": "context-degradation-llm-compaction-lost-in-the-middle",
+      "question": "Cos'è la context degradation negli LLM e come funziona la compaction?",
+      "vertical": "ai",
+      "keywords": [
+        "context degradation",
+        "context compaction",
+        "lost in the middle",
+        "degrado contesto llm",
+        "compattazione contesto"
+      ],
+      "answers": [
+        "La **context degradation** e il fenomeno per cui le prestazioni di un LLM peggiorano all'aumentare della lunghezza della finestra di contesto. Anche se i modelli moderni supportano centinaia di migliaia di token, l'attenzione tende a perdersi al centro del testo (effetto *lost in the middle*) e aumenta la probabilita di ignorare vincoli o allucinare dettagli.\n\nLa **context compaction** contrasta questo degrado riducendo il payload informativo senza perdere lo stato:\n- Pota i turni di conversazione storici non piu rilevanti, conservando gli ultimi scambi operativi\n- Esegue sintesi deterministiche o estrazione di fatti chiave dai passaggi precedenti\n- Sostituisce output prolissi di comandi terminale con versioni compresse (come fa ad esempio `l0-compressor` per filtrare il rumore dai log prima di passarli all'agente).\n\nQuesto approccio riduce la latenza, taglia i costi dei token e mantiene il modello concentrato sull'obiettivo."
+      ],
+      "suggest": [
+        "mcp-architettura-host-client-server-stdio-sse",
+        "evals-deterministici-vs-llm-as-a-judge",
+        "protezione-package-hallucination-supply-chain-ai",
+        "cos-e-un-waf-web-application-firewall"
+      ]
+    },
+    {
+      "id": "evals-deterministici-vs-llm-judge",
+      "slug": "evals-deterministici-vs-llm-as-a-judge",
+      "question": "Perché i test deterministici battono gli LLM-as-a-judge?",
+      "vertical": "ai",
+      "keywords": [
+        "test deterministici",
+        "evals deterministici",
+        "eval deterministici",
+        "perche evitare llm as a judge",
+        "limiti llm as a judge",
+        "evals deterministici in ci cd",
+        "deterministici"
+      ],
+      "answers": [
+        "Valutare un modello linguistico usando un altro modello linguistico (*LLM-as-a-judge*) e una pratica comune ma fragile: il giudice soffre di allucinazioni, instabilita di scoring e pregiudizio verso risposte verbose.\n\nNei contesti di produzione e Continuous Integration, gli **eval deterministici** offrono affidabilita superiore:\n- **Asserzioni sintattiche**: validazione di schemi JSON rigidi tramite Pydantic, Zod o TypeScript per verificare che le chiavi e i tipi siano corretti\n- **Regex e inclusioni esatte**: controllo della presenza di token obbligatori o dell'assenza di stringhe vietate\n- **Esecuzione e test unitari**: far eseguire il codice generato in una sandbox isolata e verificare il codice di uscita (`exit code 0`) e il superamento dei test\n- **Break-test**: verificare che modifiche o input errati provochino il fallimento previsto del test, dimostrando che il test misura davvero una proprieta del sistema."
+      ],
+      "suggest": [
+        "context-degradation-llm-compaction-lost-in-the-middle",
+        "function-calling-error-recovery-retry-deterministici",
+        "mcp-architettura-host-client-server-stdio-sse",
+        "cos-e-un-waf-web-application-firewall"
+      ]
+    },
+    {
+      "id": "function-calling-error-recovery",
+      "slug": "function-calling-error-recovery-retry-deterministici",
+      "question": "Come gestire errori e retry deterministici nel function calling degli LLM?",
+      "vertical": "ai",
+      "keywords": [
+        "errori retry function calling",
+        "retry deterministici function calling",
+        "function calling retry",
+        "recupero errori tool calling",
+        "auto correzione function calling",
+        "tool call error feedback"
+      ],
+      "answers": [
+        "Quando un LLM invoca una funzione esterna (Tool Calling), l'esecuzione puo fallire per parametri errati, vincoli di schema violati o timeout dell'endpoint esterno. Invece di interrompere la sessione, si implementa un ciclo di recupero deterministico basato su feedback:\n\n- **Restituzione dell'errore nel contesto**: l'applicazione cattura l'eccezione e restituisce all'agente un messaggio di tipo `tool_result` o `tool_error` contenente il dettaglio dell'errore (ad esempio: `parametro 'porta' deve essere un numero intero tra 1 e 65535`)\n- **Correzione al turno successivo**: il modello analizza l'errore ricevuto e formula una nuova chiamata corretta nello step immediatamente successivo\n- **Guardie e contatori di retry**: imposta un limite massimo di tentativi (tipicamente 2 o 3) con backoff esponenziale per evitare loop infiniti in caso di guasti sistematici del backend."
+      ],
+      "suggest": [
+        "evals-deterministici-vs-llm-as-a-judge",
+        "orchestrazione-agenti-supervisor-vs-messaggi-reattivi",
+        "context-degradation-llm-compaction-lost-in-the-middle",
+        "cos-e-un-waf-web-application-firewall"
+      ]
+    },
+    {
+      "id": "supervisor-vs-messaggi-reattivi",
+      "slug": "orchestrazione-agenti-supervisor-vs-messaggi-reattivi",
+      "question": "Orchestrazione multi-agente: supervisor centralizzato vs architettura a messaggi reattivi",
+      "vertical": "ai",
+      "keywords": [
+        "supervisor centralizzato",
+        "messaggi reattivi agenti",
+        "orchestrazione supervisor vs reattiva",
+        "architettura multi agente reattiva"
+      ],
+      "answers": [
+        "La coordinazione tra piu agenti AI specializzati puo seguire due paradigmi architetturali principali:\n\n- **Supervisor centralizzato**: un agente coordinatore riceve l'obiettivo dell'utente, suddivide il compito in sotto-task, delega il lavoro a singoli agenti specialisti (ricercatore, sviluppatore, revisore) e aggrega i risultati. E semplice da tracciare ma crea un collo di bottiglia ed e vulnerabile al blocco se il supervisor sbaglia la pianificazione iniziale.\n- **Architettura a messaggi reattivi**: gli agenti operano in modo asincrono, inviandosi messaggi ed eventi attraverso una coda o un bus condiviso. L'agente genitore lancia task di background e viene risvegliato solo quando arriva un messaggio o il processo asincrono termina, senza costosi cicli di polling continuo.\n\nNei flussi ad alta complessita, il modello reattivo e superiore perche isola i contesti e previene la saturazione dei token."
+      ],
+      "suggest": [
+        "function-calling-error-recovery-retry-deterministici",
+        "evals-deterministici-vs-llm-as-a-judge",
+        "context-degradation-llm-compaction-lost-in-the-middle",
+        "cos-e-un-waf-web-application-firewall"
+      ]
+    },
+    {
+      "id": "zfs-arc-tuning-proxmox",
+      "slug": "zfs-arc-tuning-ram-proxmox-ve-guida",
+      "question": "Come limitare la RAM di ZFS con zfs_arc_max su Proxmox VE?",
+      "vertical": "proxmox",
+      "keywords": [
+        "zfs_arc_max",
+        "limitare zfs_arc_max",
+        "configurare zfs_arc_max proxmox",
+        "modprobe zfs arc max",
+        "zfs arc ram proxmox",
+        "limitare ram zfs arc"
+      ],
+      "answers": [
+        "Su Linux, l'Adaptive Replacement Cache (ARC) di ZFS per impostazione predefinita puo allocare fino al 50% della memoria RAM totale dell'host. Su un nodo Proxmox VE con 16 o 32 GB di RAM in cui devono girare macchine virtuali e container, una cache ARC troppo vorace puo innescare l'Out-Of-Memory (OOM) killer del kernel e causare il crash improvviso dei servizi.\n\nPer limitare la dimensione massima dell'ARC:\n1. Crea o modifica il file di configurazione `/etc/modprobe.d/zfs.conf`\n2. Inserisci il valore desiderato in byte (ad esempio per impostare un massimo di 4 GB: `4 * 1024^3 = 4294967296`):\n`options zfs zfs_arc_max=4294967296`\n3. Per applicare il limite immediatamente a caldo: `echo 4294967296 > /sys/module/zfs/parameters/zfs_arc_max`\n4. Aggiorna l'initramfs per rendere l'impostazione persistente al riavvio: `update-initramfs -u`."
+      ],
+      "suggest": [
+        "zfs-dataset-vs-zvol-differenze-e-scelta-proxmox",
+        "lxc-unprivileged-uid-gid-mapping-proxmox-guida",
+        "proxmox-backup-server-deduplicazione-chunk-verify",
+        "cos-e-un-waf-web-application-firewall"
+      ]
+    },
+    {
+      "id": "zfs-dataset-vs-zvol",
+      "slug": "zfs-dataset-vs-zvol-differenze-e-scelta-proxmox",
+      "question": "ZFS: che differenza c'è tra un dataset e uno ZVOL e quale scegliere su Proxmox?",
+      "vertical": "proxmox",
+      "keywords": [
+        "dataset vs zvol",
+        "differenza dataset zvol zfs",
+        "zvol proxmox",
+        "quando usare zvol",
+        "zfs block device"
+      ],
+      "answers": [
+        "In ZFS esistono due unita di storage distinte con proprieta e scopi differenti:\n\n- **Dataset**: e un filesystem POSIX montabile nel sistema operativo host. Supporta compressione trasparente, quote, snapshot gerarchici e cartelle condivise. Su Proxmox e la scelta perfetta per archiviare container LXC, cartelle multimediali o file condivisi via NFS e SMB.\n- **ZVOL (ZFS Volume)**: e un volume a blocchi virtuale (presentato al sistema come un device raw, tipo `/dev/zvol/rpool/data`). Non ha un filesystem interno nativo: viene formattato dal sistema guest (ad esempio con ext4 o NTFS). Su Proxmox viene utilizzato obbligatoriamente come disco virtuale per le macchine virtuali KVM.\n\nQuando crei uno ZVOL per una VM, allinea il parametro `volblocksize` (es. 16k o 64k) al workload del sistema operativo guest per evitare penalizzazioni di write amplification."
+      ],
+      "suggest": [
+        "zfs-arc-tuning-ram-proxmox-ve-guida",
+        "lxc-unprivileged-uid-gid-mapping-proxmox-guida",
+        "proxmox-backup-server-deduplicazione-chunk-verify",
+        "cos-e-un-waf-web-application-firewall"
+      ]
+    },
+    {
+      "id": "lxc-unprivileged-uid-mapping",
+      "slug": "lxc-unprivileged-uid-gid-mapping-proxmox-guida",
+      "question": "Come mappare subuid e subgid per montare cartelle su container LXC unprivileged in Proxmox?",
+      "vertical": "proxmox",
+      "keywords": [
+        "subuid subgid",
+        "lxc idmap",
+        "mappare uid subgid lxc",
+        "lxc.idmap proxmox",
+        "mappare subuid e subgid lxc",
+        "bind mount lxc unprivileged"
+      ],
+      "answers": [
+        "I container LXC *unprivileged* isolano la sicurezza mappando l'utente root (UID 0) del container su un utente privo di privilegi sull'host (in genere UID 100000). Questo meccanismo impedisce l'accesso in scrittura a cartelle locali condivise o dischi ZFS montati come bind mount.\n\nPer consentire al container di accedere a file di proprieta di un utente host (ad esempio UID 1000):\n1. Aggiungi il range nei file `/etc/subuid` e `/etc/subgid` dell'host:\n`root:1000:1`\n2. Modifica la configurazione del container `/etc/pve/lxc/<ID>.conf` definendo le regole `lxc.idmap`:\n`lxc.idmap = u 0 100000 1000`\n`lxc.idmap = u 1000 1000 1`\n`lxc.idmap = u 1001 101001 64535`\nRipeti la stessa terna per i gruppi (`g`). In questo modo l'utente 1000 del container coincide esattamente con l'utente 1000 dell'host senza compromettere l'isolamento del sistema."
+      ],
+      "suggest": [
+        "zfs-dataset-vs-zvol-differenze-e-scelta-proxmox",
+        "proxmox-backup-server-deduplicazione-chunk-verify",
+        "zfs-arc-tuning-ram-proxmox-ve-guida",
+        "cos-e-un-waf-web-application-firewall"
+      ]
+    },
+    {
+      "id": "pbs-deduplicazione-blocchi",
+      "slug": "proxmox-backup-server-deduplicazione-chunk-verify",
+      "question": "Come funziona la deduplica a blocchi in Proxmox Backup Server (PBS)?",
+      "vertical": "proxmox",
+      "keywords": [
+        "deduplica a blocchi",
+        "deduplica a blocchi pbs",
+        "deduplicazione chunk pbs",
+        "rolling hash buzhash",
+        "verify job pbs deduplica",
+        "garbage collection pbs",
+        "deduplica",
+        "rolling hash",
+        "deduplicazione a blocchi"
+      ],
+      "answers": [
+        "**Proxmox Backup Server (PBS)** supera i limiti dei backup tradizionali completi o incrementali grazie a una tecnologia di deduplicazione a blocchi a livello di chunk:\n\n- **Chunking variabile**: durante il backup di una VM o container, il flusso di dati viene suddiviso in blocchi di dimensione variabile (in media 4 MB) utilizzando un algoritmo di hashing rolling (Buzhash)\n- **Deduplicazione globale**: ogni blocco viene indicizzato in base al suo hash crittografico SHA-256. Se un blocco identico e gia presente nel datastore, non viene trasmesso ne duplicato su disco: PBS salva solo un puntatore nell'indice del backup\n- **Manutenzione e integrita**: i **Verify Jobs** controllano regolarmente la consistenza crittografica dei blocchi sul disco prevenendo il silent data corruption, mentre la combinazione di **Prune** (eliminazione degli indici obsoleti) e **Garbage Collection** (eliminazione fisica dei blocchi orfani) recupera spazio reale."
+      ],
+      "suggest": [
+        "lxc-unprivileged-uid-gid-mapping-proxmox-guida",
+        "tailscale-subnet-router-vs-exit-node-differenze",
+        "zfs-dataset-vs-zvol-differenze-e-scelta-proxmox",
+        "cos-e-un-waf-web-application-firewall"
+      ]
+    },
+    {
+      "id": "tailscale-subnet-router-vs-exit-node",
+      "slug": "tailscale-subnet-router-vs-exit-node-differenze",
+      "question": "Tailscale: che differenza c'è tra Subnet Router ed Exit Node?",
+      "vertical": "proxmox",
+      "keywords": [
+        "tailscale subnet router",
+        "tailscale exit node",
+        "differenza subnet router exit node",
+        "tailscale routing lan",
+        "vpn mesh tailscale"
+      ],
+      "answers": [
+        "In una rete mesh basata su Tailscale, un nodo Linux puo assumere due ruoli di instradamento differenti:\n\n- **Subnet Router**: annuncia alla rete tailnet una o piu sottoreti locali fisiche (ad esempio `192.168.1.0/24`). Consente ai client remoti di raggiungere stampanti, telecamere, switch o server locali su cui non e possibile o conveniente installare direttamente il client Tailscale. Il traffico internet normale continua a uscire dalla connessione locale del dispositivo.\n- **Exit Node**: agisce come un gateway VPN tradizionale. Reindirizza tutto il traffico del client (inclusa la navigazione internet globale `0.0.0.0/0`) attraverso il nodo scelto, oscurando l'IP pubblico del client e proteggendo la connessione su reti Wi-Fi pubbliche non fidate.\n\nPer abilitare il routing su Linux e necessario attivare il packet forwarding nel kernel con `sysctl -w net.ipv4.ip_forward=1`."
+      ],
+      "suggest": [
+        "proxmox-backup-server-deduplicazione-chunk-verify",
+        "lxc-unprivileged-uid-gid-mapping-proxmox-guida",
+        "zfs-dataset-vs-zvol-differenze-e-scelta-proxmox",
+        "cos-e-un-waf-web-application-firewall"
+      ]
+    },
+    {
+      "id": "caddyfile-reverse-proxy-patterns",
+      "slug": "caddyfile-pattern-reverse-proxy-sicurezza-failover",
+      "question": "Come configurare un Caddyfile per reverse proxy con health check e snippet?",
+      "vertical": "tools",
+      "keywords": [
+        "caddyfile snippet",
+        "caddyfile health check",
+        "caddy health check failover",
+        "caddyfile reverse proxy pattern",
+        "configurare caddyfile snippet health check"
+      ],
+      "answers": [
+        "Il server web Caddy permette di scrivere configurazioni di reverse proxy pulite ed estendibili grazie alla modularita dei blocchi e degli snippet riutilizzabili.\n\nPattern raccomandati per produzione:\n- **Snippet di sicurezza**: definisci un blocco `(tls-security)` contenente intestazioni HSTS, CSP e opzioni TLS, importandolo in ogni virtual host con `import tls-security`\n- **Health check e failover**: inoltra il traffico a piu backend con bilanciamento e controllo attivo di disponibilita:\n```caddy\nreverse_proxy backend1:8080 backend2:8080 {\n    lb_policy round_robin\n    health_uri /healthz\n    health_interval 5s\n    health_timeout 2s\n}\n```\n- **Ricarica senza disservizio**: applica ogni modifica con `caddy reload` anziche riavviare il demone; Caddy valida la sintassi ed esegue lo swap della configurazione in memoria con zero downtime e rilascio automatico dei certificati ACME."
+      ],
+      "suggest": [
+        "terminare-un-processo-linux",
+        "ssh-connection-refused-dopo-riavvio",
+        "address-already-in-use-chi-occupa-la-porta"
       ]
     }
   ],

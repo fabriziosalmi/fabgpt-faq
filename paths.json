@@ -347,6 +347,46 @@
      "why": "E come tutto il resto: tre copie, due supporti, una fuori sede."
     }
    ]
+  },
+  {
+   "slug": "risolvere-errori-cloudflare",
+   "title": "Risolvere gli errori di Cloudflare e dell'Edge",
+   "tagline": "Guida pratica per diagnosticare e correggere i codici 52x, problemi SSL e routing.",
+   "intro": "Gli errori edge tra Cloudflare e il server di origine bloccano il traffico prima che raggiunga l'applicazione. Questa guida ordina le diagnosi in sequenza logica: dalla configurazione crittografica TLS ai timeout TCP e HTTP fino ai controlli di routing e posta.",
+   "steps": [
+    {
+     "entry": "cloudflare-ssl-modes",
+     "why": "La configurazione crittografica di base: evitare i loop di redirect 301 di Flexible."
+    },
+    {
+     "entry": "errore-520-cloudflare",
+     "why": "Diagnosi di risposte vuote o intestazioni HTTP eccessive inviate dall'origine."
+    },
+    {
+     "entry": "errore-521-cloudflare",
+     "why": "Quando il server web di origine e spento o rifiuta attivamente la connessione."
+    },
+    {
+     "entry": "errore-522-cloudflare",
+     "why": "Timeout durante l'handshake TCP: problemi di routing o pacchetti SYN scartati."
+    },
+    {
+     "entry": "errore-524-cloudflare",
+     "why": "Quando il backend impiega oltre 100 secondi per elaborare la risposta HTTP."
+    },
+    {
+     "entry": "errore-525-cloudflare",
+     "why": "Fallimento dell'handshake TLS: ciphers incompatibili o certificati non validi."
+    },
+    {
+     "entry": "spf-dkim-dmarc",
+     "why": "Allineamento DNS fondamentale per garantire la corretta consegna dei messaggi email."
+    },
+    {
+     "entry": "flareover",
+     "why": "Il percorso di uscita controllato per migrare verso un'infrastruttura europea sovrana."
+    }
+   ]
   }
  ]
 }

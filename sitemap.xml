@@ -10,6 +10,7 @@
   <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/percorsi/llm-e-agenti-sicuri/</loc></url>
   <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/percorsi/agenti-ai-in-regola/</loc></url>
   <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/percorsi/email-che-arrivano/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/percorsi/risolvere-errori-cloudflare/</loc></url>
   <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/tools/</loc></url>
   <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/tools/calcolatore-subnet/</loc></url>
   <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/tools/spiega-cron/</loc></url>
@@ -50,11 +51,15 @@
   <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/porta/5900/</loc></url>
   <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/porta/6379/</loc></url>
   <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/porta/8006/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/porta/8007/</loc></url>
   <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/porta/8080/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/porta/8123/</loc></url>
   <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/porta/8443/</loc></url>
   <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/porta/9090/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/porta/9443/</loc></url>
   <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/porta/11434/</loc></url>
   <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/porta/27017/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/porta/41641/</loc></url>
   <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/porta/51820/</loc></url>
   <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/comandi/</loc></url>
   <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/comandi/docker-container/</loc></url>
@@ -831,4 +836,26 @@
   <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/address-already-in-use-chi-occupa-la-porta/</loc></url>
   <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/ssh-connection-refused-dopo-riavvio/</loc></url>
   <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/terminare-un-processo-linux/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/errore-520-cloudflare-unknown-error-risoluzione/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/errore-521-cloudflare-web-server-down-risoluzione/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/errore-522-cloudflare-connection-timed-out-risoluzione/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/errore-524-cloudflare-timeout-100-secondi-risoluzione/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/errore-525-cloudflare-ssl-handshake-failed-risoluzione/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/cloudflare-ssl-flexible-full-strict-differenze/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/cloudflare-waf-wirefilter-regole-personalizzate/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/cloudflare-rate-limiting-regole-falsi-positivi/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/cloudflare-cache-purge-url-tag-prefix/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/cloudflare-cache-control-stale-while-revalidate/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/protezione-package-hallucination-supply-chain-ai/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/mcp-architettura-host-client-server-stdio-sse/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/context-degradation-llm-compaction-lost-in-the-middle/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/evals-deterministici-vs-llm-as-a-judge/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/function-calling-error-recovery-retry-deterministici/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/orchestrazione-agenti-supervisor-vs-messaggi-reattivi/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/zfs-arc-tuning-ram-proxmox-ve-guida/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/zfs-dataset-vs-zvol-differenze-e-scelta-proxmox/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/lxc-unprivileged-uid-gid-mapping-proxmox-guida/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/proxmox-backup-server-deduplicazione-chunk-verify/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/tailscale-subnet-router-vs-exit-node-differenze/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/caddyfile-pattern-reverse-proxy-sicurezza-failover/</loc></url>
 </urlset>

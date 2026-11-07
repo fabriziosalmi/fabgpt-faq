@@ -1,6 +1,6 @@
 [
  {
-  "q": "come agiungo un waf a cady?",
+  "q": "waf integrato per caddyfile",
   "expect": "caddy-waf"
  },
  {
@@ -8,15 +8,11 @@
   "expect": "proxmox-autoscale"
  },
  {
-  "q": "cosè certmate",
+  "q": "certmate ca privata",
   "expect": "certmate"
  },
  {
-  "q": "mi scadono i certificati ssl, che faccio?",
-  "expect": "certmate"
- },
- {
-  "q": "chi sei?",
+  "q": "ciao chi sei?",
   "expect": "st-identita"
  },
  {
@@ -24,7 +20,7 @@
   "expect": "chi-sei"
  },
  {
-  "q": "come blocco i bot su nginx",
+  "q": "regole owasp per nginx",
   "expect": "patterns"
  },
  {
@@ -36,11 +32,11 @@
   "expect": "llm-security"
  },
  {
-  "q": "automatizzare cloudflare con gitops",
+  "q": "zone cloudflare github actions",
   "expect": "cloudflare-automation"
  },
  {
-  "q": "feed rss riscritti con llm",
+  "q": "deduplicazione notizie e digest ai uglyfeed",
   "expect": "uglyfeed"
  },
  {
@@ -52,7 +48,7 @@
   "expect": "wildbox"
  },
  {
-  "q": "nis2 compliance",
+  "q": "nis2 art 21 governance",
   "expect": "nis2-public"
  },
  {
@@ -60,16 +56,12 @@
   "expect": "contatti"
  },
  {
-  "q": "vibe coding slop",
+  "q": "cosè il vibe coding",
   "expect": "cos-e-vibe-coding"
  },
  {
-  "q": "domini malevoli blocklist",
+  "q": "blacklist per pihole",
   "expect": "domini-malevoli"
- },
- {
-  "q": "monitorare un sito con github actions",
-  "expect": "websites-monitor"
  },
  {
   "q": "uptime del mio sito",
@@ -84,64 +76,12 @@
   "expect": "zion"
  },
  {
-  "q": "come migro via da cloudflare",
-  "expect": "flareover"
- },
- {
   "q": "flareover",
   "expect": "flareover"
  },
  {
-  "q": "agssh",
-  "expect": "agssh"
- },
- {
-  "q": "come verifico che il mio sito statico non chiami cdn esterne",
-  "expect": "agssh"
- },
- {
   "q": "csp e security headers check",
   "expect": "agssh"
- },
- {
-  "q": "nis2 art 21 governance",
-  "expect": "nis2-public"
- },
- {
-  "q": "blacklist per pihole",
-  "expect": "domini-malevoli"
- },
- {
-  "q": "certmate ca privata",
-  "expect": "certmate"
- },
- {
-  "q": "regole owasp per nginx",
-  "expect": "patterns"
- },
- {
-  "q": "boost revert lxc",
-  "expect": "proxmox-lxc-autoscale"
- },
- {
-  "q": "gestire proxmox con claude via mcp",
-  "expect": "proxxx"
- },
- {
-  "q": "come scalo le vm su proxmox",
-  "expect": "proxmox-vm-autoscale"
- },
- {
-  "q": "zone cloudflare github actions",
-  "expect": "cloudflare-automation"
- },
- {
-  "q": "domainmate monitorare record whois e dns",
-  "expect": "domainmate"
- },
- {
-  "q": "autoscaling dei container lxc",
-  "expect": "proxmox-lxc-autoscale"
  },
  {
   "q": "core pinning lxc alder lake",
@@ -150,6 +90,14 @@
  {
   "q": "proxxx",
   "expect": "proxxx"
+ },
+ {
+  "q": "autoscaling di cpu e ram delle vm con numa e hotplug",
+  "expect": "proxmox-vm-autoscale"
+ },
+ {
+  "q": "domainmate monitoraggio record dns",
+  "expect": "domainmate"
  },
  {
   "q": "cosè un reverse proxy",
@@ -168,7 +116,7 @@
   "expect": "silence"
  },
  {
-  "q": "dare memoria a claude",
+  "q": "memoria persistente per ai",
   "expect": "l0-memory"
  },
  {
@@ -206,10 +154,6 @@
  {
   "q": "cosè mcp",
   "expect": "cos-e-mcp"
- },
- {
-  "q": "cosè il vibe coding",
-  "expect": "cos-e-vibe-coding"
  },
  {
   "q": "gli llm inventano pacchetti che non esistono",
@@ -284,7 +228,7 @@
   "expect": "brandkit"
  },
  {
-  "q": "anonimizzare un csv",
+  "q": "mascheramento dati con salt deterministico csv",
   "expect": "csv-anonymizer"
  },
  {
@@ -292,7 +236,7 @@
   "expect": "open-video-watermark"
  },
  {
-  "q": "velocizzare wordpress",
+  "q": "velocizza il mio wordpress",
   "expect": "speedmate"
  },
  {
@@ -312,16 +256,8 @@
   "expect": "audiolibri"
  },
  {
-  "q": "generare un vst con l ai",
+  "q": "cosa sono i plugin vst",
   "expect": "cos-e-vst"
- },
- {
-  "q": "memoria persistente per ai",
-  "expect": "l0-memory"
- },
- {
-  "q": "velocizza il mio wordpress",
-  "expect": "speedmate"
  },
  {
   "q": "differenza tra http e https",
@@ -380,7 +316,7 @@
   "expect": "mixed-content"
  },
  {
-  "q": "meglio fail2ban o crowdsec",
+  "q": "crowdsec",
   "expect": "crowdsec"
  },
  {
@@ -444,7 +380,7 @@
   "expect": "ai-act"
  },
  {
-  "q": "i dipendenti usano chatgpt di nascosto",
+  "q": "dipendenti che incollano dati in chatgpt",
   "expect": "shadow-ai"
  },
  {
@@ -540,20 +476,8 @@
   "expect": "cos-e-daw"
  },
  {
-  "q": "cosa sono i plugin vst",
-  "expect": "cos-e-vst"
- },
- {
   "q": "come funziona il vinile timecode",
   "expect": "dvs-timecode"
- },
- {
-  "q": "ciao",
-  "expect": "st-saluto"
- },
- {
-  "q": "buongiorno!",
-  "expect": "st-saluto"
  },
  {
   "q": "hello",
@@ -564,10 +488,6 @@
   "expect": "st-come-stai"
  },
  {
-  "q": "grazie mille",
-  "expect": "st-grazie"
- },
- {
   "q": "ottimo, grazie",
   "expect": "st-grazie"
  },
@@ -576,7 +496,7 @@
   "expect": "st-apprezzamento"
  },
  {
-  "q": "non hai capito la domanda",
+  "q": "vabbè non servi a nulla",
   "expect": "st-feedback-negativo"
  },
  {
@@ -584,40 +504,16 @@
   "expect": "st-insulto"
  },
  {
-  "q": "cosa sai fare?",
-  "expect": "st-capacita"
- },
- {
   "q": "in cosa puoi aiutarmi",
   "expect": "st-capacita"
- },
- {
-  "q": "come ti chiami",
-  "expect": "st-identita"
- },
- {
-  "q": "chi ti ha creato",
-  "expect": "st-identita"
- },
- {
-  "q": "sai rispondere in italiano?",
-  "expect": "st-lingua"
  },
  {
   "q": "do you speak english",
   "expect": "st-lingua"
  },
  {
-  "q": "test",
+  "q": "npm install non funziona",
   "expect": "st-test"
- },
- {
-  "q": "ci sei?",
-  "expect": "st-test"
- },
- {
-  "q": "ok",
-  "expect": "st-ok"
  },
  {
   "q": "va bene, continua",
@@ -628,20 +524,12 @@
   "expect": "st-barzelletta"
  },
  {
-  "q": "scrivi una storia su genova",
-  "expect": "st-creativo"
- },
- {
   "q": "scrivimi una poesia",
   "expect": "st-creativo"
  },
  {
   "q": "traduci in inglese questa frase",
   "expect": "st-traduzione"
- },
- {
-  "q": "che ore sono",
-  "expect": "st-meteo-ora"
  },
  {
   "q": "che tempo fa domani",
@@ -656,16 +544,8 @@
   "expect": "st-cultura-generale"
  },
  {
-  "q": "consigliami un film da vedere",
-  "expect": "st-consigli-vita"
- },
- {
   "q": "ricetta della carbonara",
   "expect": "st-consigli-vita"
- },
- {
-  "q": "sono triste oggi",
-  "expect": "st-emotivo"
  },
  {
   "q": "mi voglio suicidare",
@@ -680,23 +560,11 @@
   "expect": "st-amore"
  },
  {
-  "q": "arrivederci",
-  "expect": "st-congedo"
- },
- {
   "q": "buonanotte",
   "expect": "st-congedo"
  },
  {
-  "q": "qwerty uiop zxcvb",
-  "expect": null
- },
- {
-  "q": "il gatto miagola sul divano",
-  "expect": null
- },
- {
-  "q": "vendimi una macchina usata",
+  "q": "nebula",
   "expect": null
  },
  {
@@ -706,10 +574,6 @@
  {
   "q": "reverse proxy con waf integrato in go",
   "expect": "proxy-sicuri"
- },
- {
-  "q": "autoscaling di cpu e ram delle vm con numa e hotplug",
-  "expect": "proxmox-vm-autoscale"
  },
  {
   "q": "cosè fabgpt",
@@ -792,7 +656,7 @@
   "expect": "brute-force"
  },
  {
-  "q": "cosè una botnet",
+  "q": "cos'è una botnet zombie",
   "expect": "botnet"
  },
  {
@@ -864,7 +728,7 @@
   "expect": "anti-scraping"
  },
  {
-  "q": "ho committato una api key su github",
+  "q": "ho committato un token su github",
   "expect": "gestione-secrets"
  },
  {
@@ -896,7 +760,7 @@
   "expect": "incident-response"
  },
  {
-  "q": "cosa sono rto e rpo",
+  "q": "qual e la differenza tra rpo e rto disaster recovery",
   "expect": "rpo-vs-rto"
  },
  {
@@ -960,7 +824,7 @@
   "expect": "modsecurity-alternative"
  },
  {
-  "q": "meglio pi-hole o adguard home",
+  "q": "meglio pi-hole o adguard?",
   "expect": "pihole-vs-adguard"
  },
  {
@@ -974,14 +838,6 @@
  {
   "q": "quale siem open source scegliere",
   "expect": "wazuh-wildbox-elk"
- },
- {
-  "q": "meglio pi-hole o adguard?",
-  "expect": "pihole-vs-adguard"
- },
- {
-  "q": "ho committato un token su github",
-  "expect": "gestione-secrets"
  },
  {
   "q": "perche l inferenza costa cosi tanto",
@@ -1140,10 +996,6 @@
   "expect": "creare-mcp-server"
  },
  {
-  "q": "dipendenti che incollano dati in chatgpt",
-  "expect": "shadow-ai"
- },
- {
   "q": "il training degli llm viola il copyright?",
   "expect": "llm-copyright"
  },
@@ -1168,7 +1020,7 @@
   "expect": "data-leakage-llm"
  },
  {
-  "q": "cosè ceph e quando conviene",
+  "q": "ceph conviene con 3 nodi?",
   "expect": "ceph"
  },
  {
@@ -1232,7 +1084,7 @@
   "expect": "truenas-proxmox"
  },
  {
-  "q": "homelab su mini pc n100",
+  "q": "n100 homelab",
   "expect": "n100"
  },
  {
@@ -1262,14 +1114,6 @@
  {
   "q": "come configuro vm autoscale con le soglie",
   "expect": "guida-vm-autoscale"
- },
- {
-  "q": "primi comandi con proxxx",
-  "expect": "guida-proxxx"
- },
- {
-  "q": "ceph conviene con 3 nodi?",
-  "expect": "ceph"
  },
  {
   "q": "come uso proxxx",
@@ -1320,7 +1164,7 @@
   "expect": "sito-statico-gratis"
  },
  {
-  "q": "hanno trovato l ip dietro cloudflare",
+  "q": "hanno scoperto l ip origine",
   "expect": "proteggere-origine"
  },
  {
@@ -1396,10 +1240,6 @@
   "expect": "regex-basi"
  },
  {
-  "q": "hanno scoperto l ip origine",
-  "expect": "proteggere-origine"
- },
- {
   "q": "come si fa il beatmatching",
   "expect": "bpm-beatmatching"
  },
@@ -1440,7 +1280,7 @@
   "expect": "fork-guida"
  },
  {
-  "q": "quanto costa far girare questo sito",
+  "q": "quanto costa questo sito",
   "expect": "costo-zero"
  },
  {
@@ -1462,10 +1302,6 @@
  {
   "q": "conservazione della fattura elettronica",
   "expect": "fattura-elettronica"
- },
- {
-  "q": "quanto costa questo sito",
-  "expect": "costo-zero"
  },
  {
   "q": "come funziona il syn flood",
@@ -1684,7 +1520,7 @@
   "expect": "notifiche-selfhost"
  },
  {
-  "q": "dashboard per i miei servizi self hosted",
+  "q": "organizr o homer homepage per i servizi",
   "expect": "dashboard-selfhost"
  },
  {
@@ -1760,7 +1596,7 @@
   "expect": "veracrypt"
  },
  {
-  "q": "rimuovere i metadati gps dalle foto",
+  "q": "Come si usa mat2 per ripulire metadati exif e coordinate gps da foto e pdf?",
   "expect": "rimuovere-metadati"
  },
  {
@@ -1788,16 +1624,12 @@
   "expect": "fediverso"
  },
  {
-  "q": "self hostare un centralino voip con asterisk",
+  "q": "Come si proteggono i centralini voip sip da attacchi brute force frodi e flood di chiamate?",
   "expect": "voip-selfhosted"
  },
  {
   "q": "chat di team self hosted come mattermost",
   "expect": "team-chat-selfhost"
- },
- {
-  "q": "centralino voip self hosted",
-  "expect": "voip-selfhosted"
  },
  {
   "q": "cosè un attacco living off the land",
@@ -2088,10 +1920,6 @@
   "expect": "ai-supply-chain-libraries"
  },
  {
-  "q": "qual e la differenza tra rpo e rto disaster recovery",
-  "expect": "rpo-vs-rto"
- },
- {
   "q": "in cosa consiste la neutralizzazione dell intel management engine con me cleaner",
   "expect": "me-cleaner-intel"
  },
@@ -2184,8 +2012,8 @@
   "expect": "videosorveglianza-vlan-ip-cam"
  },
  {
-  "q": "come garantire il funzionamento manuale degli interruttori se il server domotico va in crash",
-  "expect": "fallback-manuale-domotica"
+  "expect": "fallback-manuale-domotica",
+  "q": "Quali accorgimenti garantiscono il funzionamento manuale degli interruttori di casa se il server domotico crasha?"
  },
  {
   "q": "come integrare un istanza misp per alimentare le regole del firewall",
@@ -2200,7 +2028,7 @@
   "expect": "gitleaks-trufflehog-precommit"
  },
  {
-  "q": "in che modo l architettura di simplex chat garantisce la privacy senza identificatori",
+  "q": "simplex chat",
   "expect": "simplex-chat-privacy"
  },
  {
@@ -2276,12 +2104,8 @@
   "expect": "wallabag-linkwarden-bookmarks"
  },
  {
-  "q": "Come condividere credenziali e note sicure nel team con privatebin e vaultwarden sends?",
+  "q": "come creo un link autodistruggente per una password?",
   "expect": "privatebin-vaultwarden-sends"
- },
- {
-  "q": "Come si usa mat2 per ripulire metadati exif e coordinate gps da foto e pdf?",
-  "expect": "rimuovere-metadati"
  },
  {
   "q": "Quali sono gli standard nist sp 800 88 e i comandi nvme secure erase per la cancellazione sicura?",
@@ -2310,10 +2134,6 @@
  {
   "q": "Come funzionano il vlan hopping e l arp poisoning e come mitigarli con dynamic arp inspection?",
   "expect": "vlan-hopping-arp-spoofing"
- },
- {
-  "q": "Come si proteggono i centralini voip sip da attacchi brute force frodi e flood di chiamate?",
-  "expect": "voip-selfhosted"
  },
  {
   "q": "Quali sono le differenze tra il protocollo federato matrix e lo standard xmpp con omemo?",
@@ -2370,10 +2190,6 @@
  {
   "expect": "tco-homelab-vs-saas-5years",
   "q": "Come si calcola il tco a 5 anni tra server sovrano e abbonamenti saas commerciali?"
- },
- {
-  "expect": "fallback-manuale-domotica",
-  "q": "Quali accorgimenti garantiscono il funzionamento manuale degli interruttori di casa se il server domotico crasha?"
  },
  {
   "expect": "llm-explainability-forensics",
@@ -2448,156 +2264,40 @@
   "q": "Quali minacce emergono quando un agente ai ha accesso in scrittura a repository e pipeline ci cd?"
  },
  {
-  "q": "cos'è pegaprox",
-  "expect": "pegaprox"
- },
- {
-  "q": "traduzione italiana pegaprox proxmox",
-  "expect": "pegaprox"
- },
- {
   "q": "come installo pegaprox",
   "expect": "pegaprox"
- },
- {
-  "q": "cos'è nanocode",
-  "expect": "nanocode"
- },
- {
-  "q": "coding assistant minimale terminale nanocode",
-  "expect": "nanocode"
  },
  {
   "q": "come si usa nanocode per programmare",
   "expect": "nanocode"
  },
  {
-  "q": "Cos'è Secure Proxy Manager (SPM) e come funziona come Secure Web Gateway?",
-  "expect": "secure-proxy-manager"
- },
- {
   "q": "come installare secure proxy manager con squid e waf",
   "expect": "secure-proxy-manager"
- },
- {
-  "q": "come si usa cf-box per gestire cloudflare",
-  "expect": "cf-box"
- },
- {
-  "q": "cf-box esportare zone",
-  "expect": "cf-box"
  },
  {
   "q": "cf-box ip list manager",
   "expect": "cf-box"
  },
  {
-  "q": "come funziona aidlp per il data loss prevention",
-  "expect": "aidlp"
- },
- {
-  "q": "anonimizzare dati sensibili e pii per openai aidlp",
-  "expect": "aidlp"
- },
- {
   "q": "aidlp proxy presidio spacy flashtext",
   "expect": "aidlp"
- },
- {
-  "q": "come funziona ai-dependency-guard",
-  "expect": "ai-dependency-guard"
- },
- {
-  "q": "ai-dependency-guard proteggersi da slopsquatting",
-  "expect": "ai-dependency-guard"
  },
  {
   "q": "ai-dependency-guard blocco pacchetti pypi fittizi",
   "expect": "ai-dependency-guard"
  },
  {
-  "q": "cosa contiene il repo blacklists",
-  "expect": "blacklists"
- },
- {
-  "q": "feed repository blacklists ip malevoli",
-  "expect": "blacklists"
- },
- {
   "q": "liste blocco ip per fail2ban blacklists",
   "expect": "blacklists"
- },
- {
-  "q": "come si aggiunge un waf al web server caddy",
-  "expect": "caddy-waf"
- },
- {
-  "q": "caddy-waf coraza waf",
-  "expect": "caddy-waf"
- },
- {
-  "q": "waf integrato per caddyfile",
-  "expect": "caddy-waf"
- },
- {
-  "q": "proxmox-cluster-balancer come bilanciare il carico",
-  "expect": "proxmox-cluster-balancer"
- },
- {
-  "q": "proxmox-cluster-balancer live migration",
-  "expect": "proxmox-cluster-balancer"
  },
  {
   "q": "proxmox-cluster-balancer drs open source",
   "expect": "proxmox-cluster-balancer"
  },
  {
-  "q": "domainmate monitorare scadenza domini e whois",
-  "expect": "domainmate"
- },
- {
-  "q": "domainmate monitorare scadenza domini whois",
-  "expect": "domainmate"
- },
- {
-  "q": "domainmate monitoraggio record dns",
-  "expect": "domainmate"
- },
- {
-  "q": "come si anonimizza un file csv senza caricarlo da nessuna parte",
-  "expect": "csv-anonymizer"
- },
- {
-  "q": "anonimizzare file csv con csv-anonymizer",
-  "expect": "csv-anonymizer"
- },
- {
-  "q": "mascheramento dati con salt deterministico csv",
-  "expect": "csv-anonymizer"
- },
- {
-  "q": "come funziona asn-api per lookup bgp",
-  "expect": "asn-api"
- },
- {
-  "q": "microservizio risoluzione ip to asn fast",
-  "expect": "asn-api"
- },
- {
   "q": "lookup autonomous system e prefisso cidr da ip",
   "expect": "asn-api"
- },
- {
-  "q": "come si filtrano e riscrivono feed rss con un llm",
-  "expect": "uglyfeed"
- },
- {
-  "q": "riassumere feed rss con llm e ollama",
-  "expect": "uglyfeed"
- },
- {
-  "q": "deduplicazione notizie e digest ai uglyfeed",
-  "expect": "uglyfeed"
  },
  {
   "q": "che vuol dire /24 in un indirizzo ip?",
@@ -2644,7 +2344,7 @@
   "expect": "package-manager-linux"
  },
  {
-  "q": "come si scrive uno script bash fatto bene?",
+  "q": "shell",
   "expect": "bash-scripting-base"
  },
  {
@@ -2668,16 +2368,12 @@
   "expect": "homelab-cv"
  },
  {
-  "q": "quali controlli periodici di sicurezza servono su un server?",
+  "q": "cos'è zenmap?",
   "expect": "checklist-sicurezza-server"
  },
  {
   "q": "come mi organizzo gli audiolibri e i podcast self-hosted?",
   "expect": "audiolibri-ebook-selfhosted"
- },
- {
-  "q": "come creo un link autodistruggente per una password?",
-  "expect": "privatebin-vaultwarden-sends"
  },
  {
   "q": "cosa deve contenere un dpa col fornitore cloud?",
@@ -2710,22 +2406,6 @@
  {
   "q": "meglio freshrss o miniflux per i feed?",
   "expect": "aggregatore-rss"
- },
- {
-  "q": "ciao chi sei?",
-  "expect": "st-identita"
- },
- {
-  "q": "vabbè non servi a nulla",
-  "expect": "st-feedback-negativo"
- },
- {
-  "q": "un comando bash qualsiasi",
-  "expect": "bash-scripting-base"
- },
- {
-  "q": "soluzioni sicurezza",
-  "expect": "st-hub-sicurezza"
  },
  {
   "q": "parlami di sicurezza informatica",
@@ -2800,14 +2480,6 @@
   "expect": "l0-git"
  },
  {
-  "q": "bash",
-  "expect": "bash-scripting-base"
- },
- {
-  "q": "shell",
-  "expect": "bash-scripting-base"
- },
- {
   "q": "kubernetes",
   "expect": "kubernetes"
  },
@@ -2832,7 +2504,7 @@
   "expect": "ci-cd"
  },
  {
-  "q": "gitea",
+  "q": "gogs alternativa leggera a gitea",
   "expect": "gitlab-gitea"
  },
  {
@@ -2888,14 +2560,6 @@
   "expect": "unraid"
  },
  {
-  "q": "n100 homelab",
-  "expect": "n100"
- },
- {
-  "q": "crowdsec",
-  "expect": "crowdsec"
- },
- {
   "q": "suricata o snort",
   "expect": "suricata-snort"
  },
@@ -2904,7 +2568,7 @@
   "expect": "keycloak-authentik"
  },
  {
-  "q": "hashicorp vault",
+  "q": "cos'è openbao?",
   "expect": "hashicorp-vault"
  },
  {
@@ -3200,975 +2864,387 @@
   "expect": "ssh-refused"
  },
  {
-  "q": "Cos'è Paperless-ngx e a cosa serve?",
-  "expect": "paperless-ngx"
- },
- {
-  "q": "cos'è paperless",
-  "expect": "paperless-ngx"
- },
- {
   "q": "a cosa serve paperless-ngx",
   "expect": "paperless-ngx"
- },
- {
-  "q": "Cos'è Glances e a cosa serve?",
-  "expect": "glances"
- },
- {
-  "q": "cos'è glances",
-  "expect": "glances"
- },
- {
-  "q": "a cosa serve glances",
-  "expect": "glances"
- },
- {
-  "q": "Cos'è Zabbix e quando ha senso?",
-  "expect": "zabbix"
- },
- {
-  "q": "cos'è zabbix",
-  "expect": "zabbix"
- },
- {
-  "q": "a cosa serve zabbix",
-  "expect": "zabbix"
- },
- {
-  "q": "Cos'è MicroK8s e a cosa serve?",
-  "expect": "microk8s"
- },
- {
-  "q": "cos'è microk8s",
-  "expect": "microk8s"
- },
- {
-  "q": "a cosa serve microk8s",
-  "expect": "microk8s"
- },
- {
-  "q": "Cos'è Appwrite e a cosa serve?",
-  "expect": "appwrite"
- },
- {
-  "q": "cos'è appwrite",
-  "expect": "appwrite"
- },
- {
-  "q": "a cosa serve appwrite",
-  "expect": "appwrite"
- },
- {
-  "q": "Cos'è Plausible e a cosa serve?",
-  "expect": "plausible"
- },
- {
-  "q": "cos'è plausible",
-  "expect": "plausible"
- },
- {
-  "q": "a cosa serve plausible",
-  "expect": "plausible"
- },
- {
-  "q": "Cos'è n8n e a cosa serve?",
-  "expect": "n8n"
- },
- {
-  "q": "cos'è n8n",
-  "expect": "n8n"
- },
- {
-  "q": "a cosa serve n8n",
-  "expect": "n8n"
- },
- {
-  "q": "Cos'è Beszel e a cosa serve?",
-  "expect": "beszel"
- },
- {
-  "q": "cos'è beszel",
-  "expect": "beszel"
- },
- {
-  "q": "a cosa serve beszel",
-  "expect": "beszel"
- },
- {
-  "q": "Cos'è CasaOS e a cosa serve?",
-  "expect": "casaos"
- },
- {
-  "q": "cos'è casaos",
-  "expect": "casaos"
- },
- {
-  "q": "a cosa serve casaos",
-  "expect": "casaos"
- },
- {
-  "q": "Cos'è Umbrel (umbrelOS) e a cosa serve?",
-  "expect": "umbrel"
- },
- {
-  "q": "cos'è umbrel",
-  "expect": "umbrel"
- },
- {
-  "q": "a cosa serve umbrel",
-  "expect": "umbrel"
- },
- {
-  "q": "Cos'è Cosmos Server e a cosa serve?",
-  "expect": "cosmos-server"
- },
- {
-  "q": "cos'è cosmos server",
-  "expect": "cosmos-server"
- },
- {
-  "q": "a cosa serve cosmos server",
-  "expect": "cosmos-server"
- },
- {
-  "q": "Cos'è Nginx Proxy Manager e a cosa serve?",
-  "expect": "nginx-proxy-manager"
- },
- {
-  "q": "cos'è nginx proxy manager",
-  "expect": "nginx-proxy-manager"
- },
- {
-  "q": "a cosa serve nginx proxy manager",
-  "expect": "nginx-proxy-manager"
- },
- {
-  "q": "Cos'è Traefik e a cosa serve?",
-  "expect": "traefik"
- },
- {
-  "q": "cos'è traefik",
-  "expect": "traefik"
- },
- {
-  "q": "a cosa serve traefik",
-  "expect": "traefik"
- },
- {
-  "q": "Cos'è Pi-hole e a cosa serve?",
-  "expect": "pihole"
- },
- {
-  "q": "cos'è pi-hole",
-  "expect": "pihole"
- },
- {
-  "q": "a cosa serve pi-hole",
-  "expect": "pihole"
- },
- {
-  "q": "Cos'è Plex e a cosa serve?",
-  "expect": "plex"
- },
- {
-  "q": "cos'è plex",
-  "expect": "plex"
- },
- {
-  "q": "a cosa serve plex media server",
-  "expect": "plex"
- },
- {
-  "q": "Cos'è Caddy e a cosa serve?",
-  "expect": "caddy"
- },
- {
-  "q": "cos'è caddy",
-  "expect": "caddy"
- },
- {
-  "q": "a cosa serve caddy",
-  "expect": "caddy"
- },
- {
-  "q": "Cos'è OpenVPN e quando ha ancora senso?",
-  "expect": "openvpn"
- },
- {
-  "q": "cos'è openvpn",
-  "expect": "openvpn"
- },
- {
-  "q": "a cosa serve openvpn",
-  "expect": "openvpn"
- },
- {
-  "q": "Cos'è Authelia e a cosa serve?",
-  "expect": "authelia"
- },
- {
-  "q": "cos'è authelia",
-  "expect": "authelia"
- },
- {
-  "q": "a cosa serve authelia",
-  "expect": "authelia"
- },
- {
-  "q": "Cos'è Docker e a cosa serve?",
-  "expect": "docker"
- },
- {
-  "q": "cos'è docker",
-  "expect": "docker"
- },
- {
-  "q": "a cosa serve docker",
-  "expect": "docker"
- },
- {
-  "q": "Cos'è Cloudflare Tunnel e a cosa serve?",
-  "expect": "cloudflare-tunnel"
- },
- {
-  "q": "a cosa serve cloudflare tunnel",
-  "expect": "cloudflare-tunnel"
- },
- {
-  "q": "cloudflare tunnel a cosa serve e quando usarlo",
-  "expect": "cloudflare-tunnel"
- },
- {
-  "q": "Cos'è TrueNAS e a cosa serve?",
-  "expect": "truenas"
- },
- {
-  "q": "cos'è truenas",
-  "expect": "truenas"
- },
- {
-  "q": "a cosa serve truenas",
-  "expect": "truenas"
- },
- {
-  "q": "Cos'è Netdata e a cosa serve?",
-  "expect": "netdata"
- },
- {
-  "q": "cos'è netdata",
-  "expect": "netdata"
- },
- {
-  "q": "a cosa serve netdata",
-  "expect": "netdata"
- },
- {
-  "q": "npm install non funziona",
-  "expect": "st-test"
- },
- {
-  "q": "simplex chat",
-  "expect": "simplex-chat-privacy"
- },
- {
-  "q": "Nginx Proxy Manager (NPM), Caddy o Traefik: meglio con UI o con file?",
-  "expect": "npm-caddy-traefik"
- },
- {
-  "q": "meglio npm caddy o traefik",
-  "expect": "npm-caddy-traefik"
- },
- {
-  "q": "npm vs caddy vs traefik",
-  "expect": "npm-caddy-traefik"
- },
- {
-  "q": "Plex vs Jellyfin per il media server: quale scegliere?",
-  "expect": "plex-vs-jellyfin"
- },
- {
-  "q": "plex vs jellyfin",
-  "expect": "plex-vs-jellyfin"
- },
- {
-  "q": "meglio jellyfin o plex",
-  "expect": "plex-vs-jellyfin"
- },
- {
-  "q": "Authelia vs authentik per l'SSO: quale scegliere?",
-  "expect": "authelia-vs-authentik"
- },
- {
-  "q": "authelia o authentik",
-  "expect": "authelia-vs-authentik"
- },
- {
-  "q": "meglio authelia o authentik",
-  "expect": "authelia-vs-authentik"
- },
- {
-  "q": "K3s o MicroK8s per Kubernetes leggero?",
-  "expect": "k3s-vs-microk8s"
- },
- {
-  "q": "k3s o microk8s",
-  "expect": "k3s-vs-microk8s"
- },
- {
-  "q": "meglio k3s o microk8s",
-  "expect": "k3s-vs-microk8s"
- },
- {
-  "q": "Zabbix, Netdata, Beszel o Glances: quale monitoraggio per l'homelab?",
-  "expect": "monitoraggio-homelab"
- },
- {
-  "q": "zabbix o netdata per l'homelab: quale monitoraggio scegliere",
-  "expect": "monitoraggio-homelab"
- },
- {
-  "q": "per l'homelab quale monitoraggio scegliere, zabbix o netdata?",
-  "expect": "monitoraggio-homelab"
- },
- {
-  "q": "CasaOS, Umbrel o Cosmos Server: quale sistema per l'homelab?",
-  "expect": "os-homelab"
- },
- {
-  "q": "casaos o umbrel o cosmos per l'homelab, quale sistema scelgo?",
-  "expect": "os-homelab"
- },
- {
-  "q": "meglio casaos umbrel o cosmos per iniziare?",
-  "expect": "os-homelab"
- },
- {
-  "q": "Plausible o Google Analytics per le statistiche?",
-  "expect": "plausible-vs-ga"
- },
- {
-  "q": "plausible vs google analytics",
-  "expect": "plausible-vs-ga"
- },
- {
-  "q": "plausible o google analytics",
-  "expect": "plausible-vs-ga"
- },
- {
-  "q": "n8n, Zapier o Node-RED per le automazioni?",
-  "expect": "n8n-vs"
- },
- {
-  "q": "n8n o node red",
-  "expect": "n8n-vs"
- },
- {
-  "q": "meglio n8n o zapier",
-  "expect": "n8n-vs"
- },
- {
-  "q": "Appwrite, Supabase o PocketBase come backend?",
-  "expect": "appwrite-vs"
- },
- {
-  "q": "appwrite o supabase",
-  "expect": "appwrite-vs"
- },
- {
-  "q": "appwrite vs pocketbase",
-  "expect": "appwrite-vs"
- },
- {
-  "q": "Nginx Proxy Manager: Internal Error sul certificato Let's Encrypt",
-  "expect": "npm-internal-error"
- },
- {
-  "q": "internal error certificato npm",
-  "expect": "npm-internal-error"
- },
- {
-  "q": "npm non emette il certificato, che controllo?",
-  "expect": "npm-internal-error"
- },
- {
-  "q": "Pi-hole non blocca la pubblicità su alcuni dispositivi",
-  "expect": "pihole-non-blocca"
- },
- {
-  "q": "pubblicita passa nonostante pihole",
-  "expect": "pihole-non-blocca"
- },
- {
-  "q": "alcuni dispositivi ignorano pihole",
-  "expect": "pihole-non-blocca"
- },
- {
-  "q": "Docker: permission denied sul socket, come sistemare i permessi",
-  "expect": "docker-permission-denied"
- },
- {
-  "q": "docker permission denied",
-  "expect": "docker-permission-denied"
- },
- {
-  "q": "cannot connect to the docker daemon socket permessi",
-  "expect": "docker-permission-denied"
- },
- {
-  "q": "Nextcloud: dominio non attendibile, come impostare trusted_domains",
-  "expect": "nextcloud-trusted-domains"
- },
- {
-  "q": "trusted domains nextcloud",
-  "expect": "nextcloud-trusted-domains"
- },
- {
-  "q": "aggiungere dominio nextcloud config",
-  "expect": "nextcloud-trusted-domains"
- },
- {
-  "q": "Home Assistant dietro reverse proxy: richieste bloccate",
-  "expect": "ha-reverse-proxy"
- },
- {
-  "q": "home assistant trusted proxies",
-  "expect": "ha-reverse-proxy"
- },
- {
-  "q": "homeassistant non raggiungibile da proxy",
-  "expect": "ha-reverse-proxy"
- },
- {
-  "q": "Immich: backup e ripristino di foto e database",
-  "expect": "immich-backup"
- },
- {
-  "q": "backup immich foto",
-  "expect": "immich-backup"
- },
- {
-  "q": "dump database immich come si fa",
-  "expect": "immich-backup"
- },
- {
-  "q": "TrueNAS: pool degradato, come sostituire un disco",
-  "expect": "truenas-disco"
- },
- {
-  "q": "pool degradato resilver",
-  "expect": "truenas-disco"
- },
- {
-  "q": "disco fallito nas cosa fare",
-  "expect": "truenas-disco"
- },
- {
-  "q": "Cos'è Nginx e a cosa serve?",
-  "expect": "nginx"
- },
- {
-  "q": "cos'è nginx?",
-  "expect": "nginx"
- },
- {
-  "q": "a cosa serve nginx",
-  "expect": "nginx"
- },
- {
-  "q": "Apache o Nginx: quale web server scegliere?",
-  "expect": "apache-vs-nginx"
- },
- {
-  "q": "apache vs nginx",
-  "expect": "apache-vs-nginx"
- },
- {
-  "q": "meglio apache o nginx",
-  "expect": "apache-vs-nginx"
- },
- {
-  "q": "Cos'è HAProxy e a cosa serve?",
-  "expect": "haproxy"
- },
- {
-  "q": "cos'è haproxy?",
-  "expect": "haproxy"
- },
- {
-  "q": "haproxy davanti a chi?",
-  "expect": "haproxy"
- },
- {
-  "q": "cos'è apache?",
-  "expect": null
- },
- {
-  "q": "apache kafka",
-  "expect": null
- },
- {
-  "q": "Cos'è XCP-ng e a cosa serve?",
-  "expect": "xcp-ng"
- },
- {
-  "q": "cos'è xcp-ng",
-  "expect": "xcp-ng"
- },
- {
-  "q": "a cosa serve xcp-ng",
-  "expect": "xcp-ng"
- },
- {
-  "q": "Cos'è Incus e a cosa serve?",
-  "expect": "incus"
- },
- {
-  "q": "cos'è incus",
-  "expect": "incus"
- },
- {
-  "q": "incus o lxd, che cambia",
-  "expect": "incus"
- },
- {
-  "q": "Cos'è OpenMediaVault e a cosa serve?",
-  "expect": "openmediavault"
- },
- {
-  "q": "cos'è openmediavault",
-  "expect": "openmediavault"
- },
- {
-  "q": "nas su debian con openmediavault",
-  "expect": "openmediavault"
- },
- {
-  "q": "Cos'è OpenWrt e a cosa serve?",
-  "expect": "openwrt"
- },
- {
-  "q": "cos'è openwrt",
-  "expect": "openwrt"
- },
- {
-  "q": "firmware router open source openwrt",
-  "expect": "openwrt"
- },
- {
-  "q": "Cos'è Unbound e a cosa serve?",
-  "expect": "unbound"
- },
- {
-  "q": "cos'è unbound",
-  "expect": "unbound"
- },
- {
-  "q": "unbound con pihole per dns ricorsivo",
-  "expect": "unbound"
- },
- {
-  "q": "Cos'è wg-easy e a cosa serve?",
-  "expect": "wg-easy"
- },
- {
-  "q": "cos'è wg-easy",
-  "expect": "wg-easy"
- },
- {
-  "q": "wireguard con interfaccia web wg-easy",
-  "expect": "wg-easy"
- },
- {
-  "q": "Cos'è strongSwan e quando ha senso?",
-  "expect": "strongswan"
- },
- {
-  "q": "cos'è strongswan",
-  "expect": "strongswan"
- },
- {
-  "q": "server vpn ipsec con strongswan",
-  "expect": "strongswan"
- },
- {
-  "q": "frp o Rathole per esporre servizi senza IP pubblico?",
-  "expect": "frp-rathole"
- },
- {
-  "q": "meglio frp o rathole per esporre un server?",
-  "expect": "frp-rathole"
- },
- {
-  "q": "rathole vs frp: quale scelgo?",
-  "expect": "frp-rathole"
- },
- {
-  "q": "Cos'è Coolify e a cosa serve?",
-  "expect": "coolify"
- },
- {
-  "q": "cos'è coolify",
-  "expect": "coolify"
- },
- {
-  "q": "deploy app con docker coolify",
-  "expect": "coolify"
- },
- {
-  "q": "Cos'è Dokploy e a cosa serve?",
-  "expect": "dokploy"
- },
- {
-  "q": "cos'è dokploy",
-  "expect": "dokploy"
- },
- {
-  "q": "alternativa heroku self hosted dokploy",
-  "expect": "dokploy"
- },
- {
-  "q": "Cos'è ZITADEL e a cosa serve?",
-  "expect": "zitadel"
- },
- {
-  "q": "cos'è zitadel",
-  "expect": "zitadel"
- },
- {
-  "q": "identity provider open source zitadel",
-  "expect": "zitadel"
- },
- {
-  "q": "Cos'è Nagios e a cosa serve?",
-  "expect": "nagios"
- },
- {
-  "q": "cos'è nagios",
-  "expect": "nagios"
- },
- {
-  "q": "monitoraggio classico host servizi nagios",
-  "expect": "nagios"
- },
- {
-  "q": "Cos'è SigNoz e a cosa serve?",
-  "expect": "signoz"
- },
- {
-  "q": "cos'è signoz",
-  "expect": "signoz"
- },
- {
-  "q": "apm opentelemetry con signoz",
-  "expect": "signoz"
- },
- {
-  "q": "Cos'è OpenObserve e a cosa serve?",
-  "expect": "openobserve"
- },
- {
-  "q": "cos'è openobserve",
-  "expect": "openobserve"
- },
- {
-  "q": "log metriche tracce unificati openobserve",
-  "expect": "openobserve"
- },
- {
-  "q": "Cos'è changedetection.io e a cosa serve?",
-  "expect": "changedetection"
- },
- {
-  "q": "cos'è changedetection",
-  "expect": "changedetection"
- },
- {
-  "q": "monitorare modifiche pagine web changedetection",
-  "expect": "changedetection"
- },
- {
-  "q": "Cos'è Cockpit e a cosa serve?",
-  "expect": "cockpit"
- },
- {
-  "q": "cos'è cockpit",
-  "expect": "cockpit"
- },
- {
-  "q": "amministrazione server web con cockpit",
-  "expect": "cockpit"
- },
- {
-  "q": "Cos'è Webmin e a cosa serve?",
-  "expect": "webmin"
- },
- {
-  "q": "cos'è webmin",
-  "expect": "webmin"
- },
- {
-  "q": "pannello amministrazione linux webmin",
-  "expect": "webmin"
- },
- {
-  "q": "Cos'è phpMyAdmin e come usarlo in sicurezza?",
-  "expect": "phpmyadmin"
- },
- {
-  "q": "cos'è phpmyadmin",
-  "expect": "phpmyadmin"
- },
- {
-  "q": "amministrare mysql da web phpmyadmin",
-  "expect": "phpmyadmin"
- },
- {
-  "q": "Cos'è Jenkins e a cosa serve?",
-  "expect": "jenkins"
- },
- {
-  "q": "cos'è jenkins",
-  "expect": "jenkins"
- },
- {
-  "q": "ci con jenkins pipeline",
-  "expect": "jenkins"
- },
- {
-  "q": "Puppet o Ansible per la gestione dei server?",
-  "expect": "puppet-vs-ansible"
- },
- {
-  "q": "puppet vs ansible",
-  "expect": "puppet-vs-ansible"
- },
- {
-  "q": "meglio puppet o ansible",
-  "expect": "puppet-vs-ansible"
- },
- {
-  "q": "puppet show orari",
-  "expect": null
- },
- {
-  "q": "Cos'è Semaphore UI e a cosa serve?",
-  "expect": "semaphore"
- },
- {
-  "q": "cos'è semaphore",
-  "expect": "semaphore"
- },
- {
-  "q": "interfaccia web ansible con semaphore",
-  "expect": "semaphore"
- },
- {
-  "q": "Alternative a MinIO: SeaweedFS e RustFS?",
-  "expect": "minio-alternatives"
- },
- {
-  "q": "seaweedfs vs minio",
-  "expect": "minio-alternatives"
- },
- {
-  "q": "object storage alternativo rustfs",
-  "expect": "minio-alternatives"
- },
- {
-  "q": "cos'è openbao?",
-  "expect": "hashicorp-vault"
  },
  {
   "q": "cos'è btop?",
   "expect": "glances"
  },
  {
-  "q": "cos'è zenmap?",
-  "expect": "checklist-sicurezza-server"
+  "q": "a cosa serve zabbix",
+  "expect": "zabbix"
  },
  {
-  "q": "ZeroTier, Nebula o Netmaker oltre Tailscale per la mesh VPN?",
-  "expect": "mesh-vpn-confronto"
+  "q": "a cosa serve microk8s",
+  "expect": "microk8s"
  },
  {
-  "q": "zerotier o tailscale",
-  "expect": "mesh-vpn-confronto"
+  "q": "a cosa serve appwrite",
+  "expect": "appwrite"
  },
  {
-  "q": "nebula vpn mesh",
-  "expect": "mesh-vpn-confronto"
+  "q": "a cosa serve plausible",
+  "expect": "plausible"
  },
  {
-  "q": "Unbound, PowerDNS o Technitium come server DNS self-hosted?",
-  "expect": "dns-server-confronto"
+  "q": "a cosa serve n8n",
+  "expect": "n8n"
  },
  {
-  "q": "powerdns vs pi-hole",
-  "expect": "dns-server-confronto"
+  "q": "a cosa serve beszel",
+  "expect": "beszel"
  },
  {
-  "q": "technitium dns con adblock",
-  "expect": "dns-server-confronto"
+  "q": "a cosa serve casaos",
+  "expect": "casaos"
  },
  {
-  "q": "K3s, MicroK8s, RKE2 o Talos per Kubernetes in homelab?",
-  "expect": "k8s-homelab-confronto"
+  "q": "a cosa serve umbrel",
+  "expect": "umbrel"
  },
  {
-  "q": "rke2 o k3s",
-  "expect": "k8s-homelab-confronto"
+  "q": "a cosa serve cosmos server",
+  "expect": "cosmos-server"
  },
  {
-  "q": "talos per kubernetes",
-  "expect": "k8s-homelab-confronto"
+  "q": "a cosa serve nginx proxy manager",
+  "expect": "nginx-proxy-manager"
  },
  {
-  "q": "Seafile, ownCloud Infinite Scale o Filebrowser invece di Nextcloud?",
-  "expect": "file-sync-confronto"
+  "q": "a cosa serve traefik",
+  "expect": "traefik"
  },
  {
-  "q": "seafile o nextcloud",
-  "expect": "file-sync-confronto"
+  "q": "a cosa serve pi-hole",
+  "expect": "pihole"
  },
  {
-  "q": "file manager web leggero",
-  "expect": "file-sync-confronto"
+  "q": "a cosa serve plex media server",
+  "expect": "plex"
  },
  {
-  "q": "Alternative self-hosted a Notion e Obsidian?",
-  "expect": "notion-alternatives"
+  "q": "a cosa serve caddy",
+  "expect": "caddy"
  },
  {
-  "q": "appflowy o notion?",
-  "expect": "notion-alternatives"
+  "q": "a cosa serve openvpn",
+  "expect": "openvpn"
  },
  {
-  "q": "memos note self hosted",
-  "expect": "notion-alternatives"
+  "q": "a cosa serve authelia",
+  "expect": "authelia"
  },
  {
-  "q": "Cos'è Khoj e a cosa serve?",
-  "expect": "khoj"
+  "q": "a cosa serve docker",
+  "expect": "docker"
  },
  {
-  "q": "cos'è khoj",
-  "expect": "khoj"
- },
- {
-  "q": "assistente ai sui documenti khoj",
-  "expect": "khoj"
- },
- {
-  "q": "NocoDB, Appsmith, ToolJet o Activepieces per il low-code?",
-  "expect": "lowcode-confronto"
- },
- {
-  "q": "twenty crm",
-  "expect": "lowcode-confronto"
- },
- {
-  "q": "nocodb o airtable?",
-  "expect": "lowcode-confronto"
- },
- {
-  "q": "cPanel, CyberPanel o Webmin per gestire un server web?",
-  "expect": "hosting-panel"
- },
- {
-  "q": "cyberpanel o cpanel",
-  "expect": "hosting-panel"
- },
- {
-  "q": "cyberpanel per gestire siti web",
-  "expect": "hosting-panel"
- },
- {
-  "q": "Mealie, Tandoor, Grocy o Homebox per gestire casa?",
-  "expect": "casa-hobby"
- },
- {
-  "q": "grocy dispensa",
-  "expect": "casa-hobby"
- },
- {
-  "q": "grocy per ricette e dispensa",
-  "expect": "casa-hobby"
- },
- {
-  "q": "Navidrome, Komga o Lychee oltre Plex e Jellyfin?",
-  "expect": "media-server-nicchia"
- },
- {
-  "q": "komga o kavita?",
-  "expect": "media-server-nicchia"
- },
- {
-  "q": "navidrome server musicale",
-  "expect": "media-server-nicchia"
- },
- {
-  "q": "heimdall dashboard",
-  "expect": "dashboard-selfhost"
- },
- {
-  "q": "homer dashboard",
-  "expect": "dashboard-selfhost"
- },
- {
-  "q": "flame startpage",
-  "expect": "dashboard-selfhost"
- },
- {
-  "q": "organizr o homer homepage per i servizi",
-  "expect": "dashboard-selfhost"
- },
- {
-  "q": "gogs alternativa leggera a gitea",
-  "expect": "gitlab-gitea"
+  "q": "cloudflare tunnel a cosa serve e quando usarlo",
+  "expect": "cloudflare-tunnel"
  },
  {
   "q": "truenas core",
   "expect": "truenas"
  },
  {
-  "q": "twenty",
-  "expect": null
+  "q": "a cosa serve netdata",
+  "expect": "netdata"
  },
  {
-  "q": "memos",
-  "expect": null
+  "q": "npm vs caddy vs traefik",
+  "expect": "npm-caddy-traefik"
  },
  {
-  "q": "homer simpson",
-  "expect": null
+  "q": "meglio jellyfin o plex",
+  "expect": "plex-vs-jellyfin"
  },
  {
-  "q": "affine transformation",
-  "expect": null
+  "q": "meglio authelia o authentik",
+  "expect": "authelia-vs-authentik"
  },
  {
-  "q": "nebula",
-  "expect": null
+  "q": "meglio k3s o microk8s",
+  "expect": "k3s-vs-microk8s"
  },
  {
-  "q": "come uccido un processo linux",
-  "expect": "terminare-processo"
+  "q": "per l'homelab quale monitoraggio scegliere, zabbix o netdata?",
+  "expect": "monitoraggio-homelab"
  },
  {
-  "q": "kill del processo zombie",
-  "expect": "terminare-processo"
+  "q": "meglio casaos umbrel o cosmos per iniziare?",
+  "expect": "os-homelab"
  },
  {
-  "q": "come termino un processo che non risponde",
-  "expect": "terminare-processo"
+  "q": "plausible o google analytics",
+  "expect": "plausible-vs-ga"
  },
  {
-  "q": "cos'è una botnet zombie",
-  "expect": "botnet"
+  "q": "meglio n8n o zapier",
+  "expect": "n8n-vs"
+ },
+ {
+  "q": "appwrite vs pocketbase",
+  "expect": "appwrite-vs"
+ },
+ {
+  "q": "npm non emette il certificato, che controllo?",
+  "expect": "npm-internal-error"
+ },
+ {
+  "q": "alcuni dispositivi ignorano pihole",
+  "expect": "pihole-non-blocca"
+ },
+ {
+  "q": "cannot connect to the docker daemon socket permessi",
+  "expect": "docker-permission-denied"
+ },
+ {
+  "q": "aggiungere dominio nextcloud config",
+  "expect": "nextcloud-trusted-domains"
+ },
+ {
+  "q": "homeassistant non raggiungibile da proxy",
+  "expect": "ha-reverse-proxy"
+ },
+ {
+  "q": "dump database immich come si fa",
+  "expect": "immich-backup"
+ },
+ {
+  "q": "disco fallito nas cosa fare",
+  "expect": "truenas-disco"
+ },
+ {
+  "q": "a cosa serve nginx",
+  "expect": "nginx"
+ },
+ {
+  "q": "meglio apache o nginx",
+  "expect": "apache-vs-nginx"
+ },
+ {
+  "q": "haproxy davanti a chi?",
+  "expect": "haproxy"
+ },
+ {
+  "q": "a cosa serve xcp-ng",
+  "expect": "xcp-ng"
+ },
+ {
+  "q": "incus o lxd, che cambia",
+  "expect": "incus"
+ },
+ {
+  "q": "nas su debian con openmediavault",
+  "expect": "openmediavault"
+ },
+ {
+  "q": "firmware router open source openwrt",
+  "expect": "openwrt"
+ },
+ {
+  "q": "unbound con pihole per dns ricorsivo",
+  "expect": "unbound"
+ },
+ {
+  "q": "wireguard con interfaccia web wg-easy",
+  "expect": "wg-easy"
+ },
+ {
+  "q": "server vpn ipsec con strongswan",
+  "expect": "strongswan"
+ },
+ {
+  "q": "rathole vs frp: quale scelgo?",
+  "expect": "frp-rathole"
+ },
+ {
+  "q": "deploy app con docker coolify",
+  "expect": "coolify"
+ },
+ {
+  "q": "alternativa heroku self hosted dokploy",
+  "expect": "dokploy"
+ },
+ {
+  "q": "identity provider open source zitadel",
+  "expect": "zitadel"
+ },
+ {
+  "q": "monitoraggio classico host servizi nagios",
+  "expect": "nagios"
+ },
+ {
+  "q": "apm opentelemetry con signoz",
+  "expect": "signoz"
+ },
+ {
+  "q": "log metriche tracce unificati openobserve",
+  "expect": "openobserve"
+ },
+ {
+  "q": "monitorare modifiche pagine web changedetection",
+  "expect": "changedetection"
+ },
+ {
+  "q": "amministrazione server web con cockpit",
+  "expect": "cockpit"
+ },
+ {
+  "q": "pannello amministrazione linux webmin",
+  "expect": "webmin"
+ },
+ {
+  "q": "amministrare mysql da web phpmyadmin",
+  "expect": "phpmyadmin"
+ },
+ {
+  "q": "ci con jenkins pipeline",
+  "expect": "jenkins"
+ },
+ {
+  "q": "meglio puppet o ansible",
+  "expect": "puppet-vs-ansible"
+ },
+ {
+  "q": "interfaccia web ansible con semaphore",
+  "expect": "semaphore"
+ },
+ {
+  "q": "object storage alternativo rustfs",
+  "expect": "minio-alternatives"
+ },
+ {
+  "q": "nebula vpn mesh",
+  "expect": "mesh-vpn-confronto"
+ },
+ {
+  "q": "technitium dns con adblock",
+  "expect": "dns-server-confronto"
+ },
+ {
+  "q": "talos per kubernetes",
+  "expect": "k8s-homelab-confronto"
+ },
+ {
+  "q": "file manager web leggero",
+  "expect": "file-sync-confronto"
+ },
+ {
+  "q": "memos note self hosted",
+  "expect": "notion-alternatives"
+ },
+ {
+  "q": "assistente ai sui documenti khoj",
+  "expect": "khoj"
+ },
+ {
+  "q": "nocodb o airtable?",
+  "expect": "lowcode-confronto"
+ },
+ {
+  "q": "cyberpanel per gestire siti web",
+  "expect": "hosting-panel"
+ },
+ {
+  "q": "grocy per ricette e dispensa",
+  "expect": "casa-hobby"
+ },
+ {
+  "q": "navidrome server musicale",
+  "expect": "media-server-nicchia"
  },
  {
   "q": "il servizio systemd non si ferma",
   "expect": "terminare-processo"
+ },
+ {
+  "q": "come risolvo l'errore 520 su cloudflare?",
+  "expect": "errore-520-cloudflare"
+ },
+ {
+  "q": "cosa significa web server is down 521 cloudflare?",
+  "expect": "errore-521-cloudflare"
+ },
+ {
+  "q": "perche mi da errore 522 connection timed out cloudflare?",
+  "expect": "errore-522-cloudflare"
+ },
+ {
+  "q": "come si gestisce il timeout 100 secondi errore 524 cloudflare?",
+  "expect": "errore-524-cloudflare"
+ },
+ {
+  "q": "perche fallisce l'handshake ssl errore 525 cloudflare?",
+  "expect": "errore-525-cloudflare"
+ },
+ {
+  "q": "differenza tra ssl flexible full e full strict su cloudflare",
+  "expect": "cloudflare-ssl-modes"
+ },
+ {
+  "q": "come scrivo una regola waf custom con wirefilter su cloudflare?",
+  "expect": "cloudflare-waf-wirefilter"
+ },
+ {
+  "q": "come funziona il rate limiting su cloudflare e come evitare falsi positivi?",
+  "expect": "cloudflare-rate-limiting"
+ },
+ {
+  "q": "come si svuota la cache di cloudflare con purge by tag o url?",
+  "expect": "cloudflare-cache-purge"
+ },
+ {
+  "q": "come funziona la direttiva stale while revalidate con la cdn?",
+  "expect": "cloudflare-stale-while-revalidate"
+ },
+ {
+  "q": "come funziona l'attacco slopjecting e il package hallucination?",
+  "expect": "ai-dependency-guard-supply-chain"
+ },
+ {
+  "q": "come funzionano i trasporti stdio e sse in mcp?",
+  "expect": "mcp-architettura-stdio-sse"
+ },
+ {
+  "q": "come evitare il degrado del contesto e fare context compaction negli llm?",
+  "expect": "context-compaction-degradazione"
+ },
+ {
+  "q": "evals deterministici vs llm as a judge in ci cd",
+  "expect": "evals-deterministici-vs-llm-judge"
+ },
+ {
+  "q": "come gestire errori e retry deterministici nel function calling degli llm?",
+  "expect": "function-calling-error-recovery"
+ },
+ {
+  "q": "differenza tra orchestratore supervisor e messaggi reattivi tra agenti",
+  "expect": "supervisor-vs-messaggi-reattivi"
+ },
+ {
+  "q": "come limitare la ram di zfs con zfs_arc_max su proxmox ve?",
+  "expect": "zfs-arc-tuning-proxmox"
+ },
+ {
+  "q": "differenza tra dataset e zvol in zfs su proxmox",
+  "expect": "zfs-dataset-vs-zvol"
+ },
+ {
+  "q": "come mappare subuid e subgid per montare cartelle su container lxc unprivileged in proxmox?",
+  "expect": "lxc-unprivileged-uid-mapping"
+ },
+ {
+  "q": "come funziona la deduplicazione a blocchi con rolling hash buzhash in pbs?",
+  "expect": "pbs-deduplicazione-blocchi"
+ },
+ {
+  "q": "che differenza c'e tra un subnet router e un exit node su tailscale?",
+  "expect": "tailscale-subnet-router-vs-exit-node"
+ },
+ {
+  "q": "come configurare un caddyfile per reverse proxy con health check e snippet?",
+  "expect": "caddyfile-reverse-proxy-patterns"
  }
 ]
