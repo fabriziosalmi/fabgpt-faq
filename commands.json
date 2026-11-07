@@ -2882,12 +2882,14 @@
    "keywords": [
     "subnet router tailscale",
     "advertise-routes",
-    "raggiungere la lan da fuori tailscale"
+    "raggiungere la lan da fuori tailscale",
+    "subnet router di tailscale"
    ],
    "cmd": "# sul nodo dentro la LAN:\ntailscale up --advertise-routes=192.168.1.0/24\n# sui client: tailscale up --accept-routes",
    "note": "Così vedi anche i dispositivi SENZA Tailscale (stampanti, NAS); la rotta va approvata nella console admin.",
    "related": [
-    "esporre-servizi-senza-aprire-porte"
+    "esporre-servizi-senza-aprire-porte",
+    "tailscale-subnet-router-vs-exit-node-differenze"
    ]
   },
   {

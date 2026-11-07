@@ -443,6 +443,51 @@
     "come-gestire-i-secrets",
     "segmentare-la-rete-con-vlan"
    ]
+  },
+  "8007": {
+   "port": 8007,
+   "proto": "tcp",
+   "service": "Proxmox Backup Server",
+   "desc": "L'interfaccia web e le API REST di **Proxmox Backup Server (PBS)** (HTTPS). Gestisce le comunicazioni con i client di backup, la verifica dei chunk e la deduplicazione.",
+   "risk": "Non esporla su internet pubblico: l'accesso deve essere confinato alla rete di gestione, a una VPN (WireGuard o Tailscale) o a un reverse proxy con autenticazione forte.",
+   "suggest": [
+    "cos-e-proxmox-backup-server",
+    "backup-automatici-verso-pbs",
+    "differenza-snapshot-e-backup"
+   ]
+  },
+  "8123": {
+   "port": 8123,
+   "proto": "tcp",
+   "service": "Home Assistant",
+   "desc": "L'interfaccia web e le connessioni WebSocket di **Home Assistant**, il sistema di domotica open source locale.",
+   "risk": "Esporre Home Assistant direttamente senza TLS espone token e credenziali di accesso ai dispositivi smart home. Usa un reverse proxy sicuro (Caddy o Nginx) o Cloudflare Tunnel / VPN.",
+   "suggest": [
+    "cos-e-caddy",
+    "cos-e-cloudflare-tunnel"
+   ]
+  },
+  "9443": {
+   "port": 9443,
+   "proto": "tcp",
+   "service": "Portainer HTTPS",
+   "desc": "L'interfaccia di gestione web cifrata in HTTPS di **Portainer**, usata per amministrare ambienti Docker, Swarm e cluster Kubernetes.",
+   "risk": "L'accesso a Portainer equivale a root sull'host tramite la socket Docker. Deve essere protetto da MFA e mai esposto liberamente su internet senza restrizioni IP o VPN.",
+   "suggest": [
+    "cos-e-docker",
+    "cos-e-docker-compose"
+   ]
+  },
+  "41641": {
+   "port": 41641,
+   "proto": "udp",
+   "service": "Tailscale WireGuard",
+   "desc": "La porta UDP predefinita usata dal demone **Tailscale** per stabilire connessioni peer-to-peer dirette tra i nodi della rete tailnet.",
+   "risk": "Essendo traffico WireGuard cifrato end-to-end, l'apertura della porta nel firewall facilita il NAT traversal ed evita il passaggio attraverso i relay lenti DERP.",
+   "suggest": [
+    "cos-e-tailscale-mesh-vpn",
+    "differenza-vpn-e-proxy"
+   ]
   }
  }
 }

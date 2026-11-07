@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-mt/h7tgaKPnmRQ5D9GDlYSmORaJ1uT6CiDATsvqcZR8='; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; base-uri 'none'; form-action 'self'; object-src 'none'; upgrade-insecure-requests">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="no-referrer">
+<title>Risolvere gli errori di Cloudflare e dell&#x27;Edge | FabGPT-FAQ</title>
+<meta name="description" content="Guida pratica per diagnosticare e correggere i codici 52x, problemi SSL e routing.">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="canonical" href="https://fabriziosalmi.github.io/fabgpt-faq/percorsi/risolvere-errori-cloudflare/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Risolvere gli errori di Cloudflare e dell&#x27;Edge">
+<meta property="og:description" content="Guida pratica per diagnosticare e correggere i codici 52x, problemi SSL e routing.">
+<meta property="og:url" content="https://fabriziosalmi.github.io/fabgpt-faq/percorsi/risolvere-errori-cloudflare/">
+<meta property="og:image" content="https://fabriziosalmi.github.io/fabgpt-faq/og.svg">
+<meta property="og:site_name" content="FabGPT-FAQ">
+<meta property="og:locale" content="it_IT">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://fabriziosalmi.github.io/fabgpt-faq/og.svg">
+<link rel="stylesheet" href="../../style.css?v=3956f8ff">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#212121" media="(prefers-color-scheme: dark)">
+<script type="application/ld+json">[{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "FabGPT-FAQ", "item": "https://fabriziosalmi.github.io/fabgpt-faq/"}, {"@type": "ListItem", "position": 2, "name": "Percorsi", "item": "https://fabriziosalmi.github.io/fabgpt-faq/percorsi/"}, {"@type": "ListItem", "position": 3, "name": "Risolvere gli errori di Cloudflare e dell'Edge", "item": "https://fabriziosalmi.github.io/fabgpt-faq/percorsi/risolvere-errori-cloudflare/"}]}, {"@context": "https://schema.org", "@type": "ItemList", "name": "Risolvere gli errori di Cloudflare e dell'Edge", "description": "Guida pratica per diagnosticare e correggere i codici 52x, problemi SSL e routing.", "itemListOrder": "https://schema.org/ItemListOrderAscending", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Cloudflare SSL: che differenza c'è tra Flexible, Full e Full (Strict)?", "url": "https://fabriziosalmi.github.io/fabgpt-faq/q/cloudflare-ssl-flexible-full-strict-differenze/"}, {"@type": "ListItem", "position": 2, "name": "Cos'è l'errore 520 (Web server is returning an unknown error) e come si risolve?", "url": "https://fabriziosalmi.github.io/fabgpt-faq/q/errore-520-cloudflare-unknown-error-risoluzione/"}, {"@type": "ListItem", "position": 3, "name": "Cos'è l'errore 521 (Web server is down) e come si corregge?", "url": "https://fabriziosalmi.github.io/fabgpt-faq/q/errore-521-cloudflare-web-server-down-risoluzione/"}, {"@type": "ListItem", "position": 4, "name": "Cos'è l'errore 522 (Connection timed out) e come si verifica?", "url": "https://fabriziosalmi.github.io/fabgpt-faq/q/errore-522-cloudflare-connection-timed-out-risoluzione/"}, {"@type": "ListItem", "position": 5, "name": "Cos'è l'errore 524 (A timeout occurred) e come si gestisce?", "url": "https://fabriziosalmi.github.io/fabgpt-faq/q/errore-524-cloudflare-timeout-100-secondi-risoluzione/"}, {"@type": "ListItem", "position": 6, "name": "Cos'è l'errore 525 (SSL handshake failed) e perché avviene?", "url": "https://fabriziosalmi.github.io/fabgpt-faq/q/errore-525-cloudflare-ssl-handshake-failed-risoluzione/"}, {"@type": "ListItem", "position": 7, "name": "Cosa sono SPF, DKIM e DMARC?", "url": "https://fabriziosalmi.github.io/fabgpt-faq/q/spf-dkim-dmarc/"}, {"@type": "ListItem", "position": 8, "name": "Come si migra un sito da Cloudflare a un'infrastruttura self-hosted europea?", "url": "https://fabriziosalmi.github.io/fabgpt-faq/q/migrare-da-cloudflare-self-hosted-eu/"}]}]</script>
+<style>
+  .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
+  .page h1 { font-size: clamp(22px, 4.5vw, 27px); line-height: 1.25; letter-spacing: -0.01em; margin: 6px 0 10px; }
+  .crumbs { font-size: 13px; color: var(--text-dim); margin-bottom: 6px; }
+  .crumbs a { color: var(--text-dim); text-decoration: none; }
+  .crumbs a:hover { color: var(--text); }
+  .page .intro { color: var(--text-dim); margin-bottom: 20px; }
+  .steps { list-style: none; counter-reset: step; padding: 0; margin: 0; }
+  .steps li { counter-increment: step; position: relative; padding: 14px 16px 14px 56px; border: 1px solid var(--border); border-radius: var(--r-md); background: var(--bg-raised); box-shadow: var(--elev); margin: 10px 0; }
+  .steps li::before { content: counter(step); position: absolute; left: 16px; top: 16px; width: 26px; height: 26px; border-radius: 50%; background: var(--accent); color: var(--accent-text); font-weight: 700; font-size: 13px; display: flex; align-items: center; justify-content: center; }
+  .steps a { color: var(--link); text-decoration: none; font-weight: 600; }
+  .steps a:hover { text-decoration: underline; }
+  .steps p { margin: 4px 0 0; font-size: 14px; color: var(--text-dim); }
+  .step-check { position: absolute; right: 14px; top: 16px; width: 18px; height: 18px; accent-color: var(--accent); cursor: pointer; }
+  .steps li { padding-right: 44px; }
+  .steps li.done { opacity: .55; }
+  .steps li.done a { text-decoration: line-through; }
+  .prog { display: flex; align-items: center; gap: 12px; margin: 4px 0 16px; }
+  .prog-track { flex: 1; height: 6px; border-radius: 999px; background: var(--bg-soft); border: 1px solid var(--border); overflow: hidden; }
+  .prog-fill { display: block; height: 100%; width: 0; background: var(--accent); border-radius: 999px; transition: width .25s ease; }
+  .prog-txt { font-size: 13px; color: var(--text-dim); white-space: nowrap; }
+  .prog-reset { font-size: 12px; color: var(--text-dim); background: none; border: none; cursor: pointer; text-decoration: underline; padding: 8px 6px; margin: -8px -6px; }
+  .path-prog { margin: 6px 0 0 !important; font-size: 12.5px !important; color: var(--accent) !important; font-weight: 600; }
+  .path-card { display: block; border: 1px solid var(--border); border-radius: var(--r-md); background: var(--bg-raised); box-shadow: var(--elev); padding: 16px 18px; margin: 12px 0; text-decoration: none; color: inherit; transition: border-color var(--t); }
+  .path-card:hover { border-color: var(--accent); }
+  .path-card b { color: var(--link); font-size: 17px; }
+  .path-card p { margin: 6px 0 0; font-size: 14px; color: var(--text-dim); }
+  .path-card .n { font-size: 12px; color: var(--text-dim); text-transform: uppercase; letter-spacing: .05em; }
+  .page .ask { display: inline-block; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 8px 16px; text-decoration: none; font-weight: 600; font-size: 13px; margin-top: 20px; transition: background var(--t); }
+  .page .ask:hover { background: var(--link); }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="../../" style="text-decoration:none;color:inherit">
+    <span class="brand-dot">F</span>
+    <span class="brand-name">FabGPT-FAQ</span>
+  </a>
+  <nav class="topnav"><a href="../../" title="Chat interattiva" aria-label="Chat interattiva"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></a></nav>
+</header>
+<div class="statbar"><nav class="statnav" aria-label="Sezioni"><a href="../../percorsi/" title="Percorsi" aria-label="Percorsi" class="on" aria-current="page"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-2px"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg></a><a href="../../comandi/" title="Comandi" aria-label="Comandi"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-2px"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg></a><a href="../../tools/" title="Tools" aria-label="Tools"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-2px"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></a><a href="../../porta/" title="Porte" aria-label="Porte"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-2px"><path d="M12 22v-5"/><path d="M9 8V2"/><path d="M15 8V2"/><path d="M18 8v5a4 4 0 0 1-4 4h-4a4 4 0 0 1-4-4V8Z"/></svg></a><a href="../../q/" title="Tutte le domande" aria-label="Tutte le domande"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-2px"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></a></nav></div>
+<main class="page">
+<nav class="crumbs" aria-label="Percorso"><a href="../../">FabGPT-FAQ</a> › <a href="../">Percorsi</a> › <span>Risolvere gli errori di Cloudflare e dell&#x27;Edge</span></nav>
+<h1>Risolvere gli errori di Cloudflare e dell&#x27;Edge</h1>
+<p class="intro">Gli errori edge tra Cloudflare e il server di origine bloccano il traffico prima che raggiunga l&#x27;applicazione. Questa guida ordina le diagnosi in sequenza logica: dalla configurazione crittografica TLS ai timeout TCP e HTTP fino ai controlli di routing e posta.</p>
+<div class="prog" hidden><div class="prog-track"><span class="prog-fill" id="prog-fill"></span></div><span class="prog-txt" id="prog-txt"></span><button type="button" id="prog-reset" class="prog-reset" aria-label="Azzera il progresso">azzera</button></div>
+<ol class="steps" id="steps">
+<li data-slug="cloudflare-ssl-flexible-full-strict-differenze"><input type="checkbox" class="step-check" aria-label="Segna tappa completata"><a href="../../q/cloudflare-ssl-flexible-full-strict-differenze/">Cloudflare SSL: che differenza c&#x27;è tra Flexible, Full e Full (Strict)?</a><p>La configurazione crittografica di base: evitare i loop di redirect 301 di Flexible.</p></li>
+<li data-slug="errore-520-cloudflare-unknown-error-risoluzione"><input type="checkbox" class="step-check" aria-label="Segna tappa completata"><a href="../../q/errore-520-cloudflare-unknown-error-risoluzione/">Cos&#x27;è l&#x27;errore 520 (Web server is returning an unknown error) e come si risolve?</a><p>Diagnosi di risposte vuote o intestazioni HTTP eccessive inviate dall&#x27;origine.</p></li>
+<li data-slug="errore-521-cloudflare-web-server-down-risoluzione"><input type="checkbox" class="step-check" aria-label="Segna tappa completata"><a href="../../q/errore-521-cloudflare-web-server-down-risoluzione/">Cos&#x27;è l&#x27;errore 521 (Web server is down) e come si corregge?</a><p>Quando il server web di origine e spento o rifiuta attivamente la connessione.</p></li>
+<li data-slug="errore-522-cloudflare-connection-timed-out-risoluzione"><input type="checkbox" class="step-check" aria-label="Segna tappa completata"><a href="../../q/errore-522-cloudflare-connection-timed-out-risoluzione/">Cos&#x27;è l&#x27;errore 522 (Connection timed out) e come si verifica?</a><p>Timeout durante l&#x27;handshake TCP: problemi di routing o pacchetti SYN scartati.</p></li>
+<li data-slug="errore-524-cloudflare-timeout-100-secondi-risoluzione"><input type="checkbox" class="step-check" aria-label="Segna tappa completata"><a href="../../q/errore-524-cloudflare-timeout-100-secondi-risoluzione/">Cos&#x27;è l&#x27;errore 524 (A timeout occurred) e come si gestisce?</a><p>Quando il backend impiega oltre 100 secondi per elaborare la risposta HTTP.</p></li>
+<li data-slug="errore-525-cloudflare-ssl-handshake-failed-risoluzione"><input type="checkbox" class="step-check" aria-label="Segna tappa completata"><a href="../../q/errore-525-cloudflare-ssl-handshake-failed-risoluzione/">Cos&#x27;è l&#x27;errore 525 (SSL handshake failed) e perché avviene?</a><p>Fallimento dell&#x27;handshake TLS: ciphers incompatibili o certificati non validi.</p></li>
+<li data-slug="spf-dkim-dmarc"><input type="checkbox" class="step-check" aria-label="Segna tappa completata"><a href="../../q/spf-dkim-dmarc/">Cosa sono SPF, DKIM e DMARC?</a><p>Allineamento DNS fondamentale per garantire la corretta consegna dei messaggi email.</p></li>
+<li data-slug="migrare-da-cloudflare-self-hosted-eu"><input type="checkbox" class="step-check" aria-label="Segna tappa completata"><a href="../../q/migrare-da-cloudflare-self-hosted-eu/">Come si migra un sito da Cloudflare a un&#x27;infrastruttura self-hosted europea?</a><p>Il percorso di uscita controllato per migrare verso un&#x27;infrastruttura europea sovrana.</p></li>
+</ol>
+<a class="ask" href="../../"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-2px"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg> Chiedi in chat</a>
+<script>
+(function () {
+  var KEY = 'fabgpt-percorso-risolvere-errori-cloudflare';
+  var items = Array.prototype.slice.call(document.querySelectorAll('#steps li'));
+  var wrap = document.querySelector('.prog');
+  var done;
+  try { done = new Set(JSON.parse(localStorage.getItem(KEY) || '[]')); } catch (e) { return; }
+  wrap.hidden = false;
+  function save() {
+    try { localStorage.setItem(KEY, JSON.stringify(Array.from(done))); } catch (e) {}
+  }
+  function render() {
+    items.forEach(function (li) {
+      var on = done.has(li.getAttribute('data-slug'));
+      li.querySelector('.step-check').checked = on;
+      li.classList.toggle('done', on);
+    });
+    var n = items.filter(function (li) { return done.has(li.getAttribute('data-slug')); }).length;
+    document.getElementById('prog-fill').style.width = (100 * n / items.length) + '%';
+    document.getElementById('prog-txt').textContent = n + '/' + items.length + ' tappe' + (n === items.length ? ': percorso completato!' : ' completate');
+  }
+  items.forEach(function (li) {
+    li.querySelector('.step-check').addEventListener('change', function () {
+      var slug = li.getAttribute('data-slug');
+      if (this.checked) done.add(slug); else done.delete(slug);
+      save(); render();
+    });
+  });
+  document.getElementById('prog-reset').addEventListener('click', function () {
+    if (!done.size) return;
+    done.clear(); save(); render();
+  });
+  render();
+})();
+</script>
+</main>
+<footer class="sitefoot"><div class="sitefoot-in"><span class="sitefoot-brand"><span class="foot-dot">F</span>FabGPT-FAQ <span class="sitefoot-dim">· risposte verificate, zero allucinazioni</span></span><nav class="sitefoot-nav" aria-label="Mappa del sito"><a href="../../">Chat</a><a href="../../percorsi/">Percorsi</a><a href="../../comandi/">Comandi</a><a href="../../tools/">Tools</a><a href="../../porta/">Porte</a><a href="../../q/">Tutte le domande</a><a href="../../trasparenza/">Trasparenza</a><a href="https://github.com/fabriziosalmi" target="_blank" rel="noopener">GitHub</a></nav></div></footer>
+</body>
+</html>
