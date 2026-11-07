@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-W1ahOJXCtQNDlLwDXWS8xMzN+oXFwwmuvlno8ZR5AjI='; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; base-uri 'none'; form-action 'self'; object-src 'none'; upgrade-insecure-requests">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="no-referrer">
+<title>DNS: diagnostica, record e DNSSEC | comandi | FabGPT-FAQ</title>
+<meta name="description" content="Tracciamento gerarchico, ispezione record crittografici, validazione DNSSEC e test di zona.">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="canonical" href="https://fabriziosalmi.github.io/fabgpt-faq/comandi/dns-diagnostica/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="DNS: diagnostica, record e DNSSEC | comandi">
+<meta property="og:description" content="Tracciamento gerarchico, ispezione record crittografici, validazione DNSSEC e test di zona.">
+<meta property="og:url" content="https://fabriziosalmi.github.io/fabgpt-faq/comandi/dns-diagnostica/">
+<meta property="og:image" content="https://fabriziosalmi.github.io/fabgpt-faq/og.svg">
+<meta property="og:site_name" content="FabGPT-FAQ">
+<meta property="og:locale" content="it_IT">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://fabriziosalmi.github.io/fabgpt-faq/og.svg">
+<link rel="stylesheet" href="../../style.css?v=3956f8ff">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%2310a37f'/><text x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='sans-serif'>F</text></svg>">
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#212121" media="(prefers-color-scheme: dark)">
+<script type="application/ld+json">[{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Come traccio la risoluzione DNS dai root server?", "acceptedAnswer": {"@type": "Answer", "text": "dig +trace +nodnssec <dominio>\nInterroga la catena completa partendo dai root server (a-m.root-servers.net), poi i TLD fino ai nameserver autoritativi."}}, {"@type": "Question", "name": "Come controllo le chiavi DNSSEC di un dominio?", "acceptedAnswer": {"@type": "Answer", "text": "dig +dnssec +multiline <dominio> DNSKEY\nMostra i record DNSKEY con flag 256 (ZSK) e 257 (KSK), inclusi algoritmi e chiavi pubbliche formattate su piu righe."}}, {"@type": "Question", "name": "Come valido la catena crittografica DNSSEC con delv?", "acceptedAnswer": {"@type": "Answer", "text": "delv @1.1.1.1 <dominio>\nStrumento BIND moderno che valida esplicitamente la catena di fiducia crittografica dalla root key fino al record finale."}}, {"@type": "Question", "name": "Come provo un trasferimento di zona AXFR?", "acceptedAnswer": {"@type": "Answer", "text": "dig @<nameserver> <dominio> axfr\nTenta il dump completo di tutti i record di zona. Se il nameserver risponde invece di restituire REFUSED, il server e vulnerabile a ricognizione."}}]}, {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "FabGPT-FAQ", "item": "https://fabriziosalmi.github.io/fabgpt-faq/"}, {"@type": "ListItem", "position": 2, "name": "Comandi", "item": "https://fabriziosalmi.github.io/fabgpt-faq/comandi/"}, {"@type": "ListItem", "position": 3, "name": "DNS: diagnostica, record e DNSSEC", "item": "https://fabriziosalmi.github.io/fabgpt-faq/comandi/dns-diagnostica/"}]}]</script>
+<style>
+  .page { max-width: 768px; margin: 0 auto; padding: 24px 16px 48px; }
+  .page h1 { font-size: clamp(22px, 4.5vw, 27px); line-height: 1.25; letter-spacing: -0.01em; margin: 6px 0 10px; }
+  .crumbs { font-size: 13px; color: var(--text-dim); margin-bottom: 6px; }
+  .crumbs a { color: var(--text-dim); text-decoration: none; }
+  .crumbs a:hover { color: var(--text); }
+  .page .intro { color: var(--text-dim); margin-bottom: 20px; }
+  .steps { list-style: none; counter-reset: step; padding: 0; margin: 0; }
+  .steps li { counter-increment: step; position: relative; padding: 14px 16px 14px 56px; border: 1px solid var(--border); border-radius: var(--r-md); background: var(--bg-raised); box-shadow: var(--elev); margin: 10px 0; }
+  .steps li::before { content: counter(step); position: absolute; left: 16px; top: 16px; width: 26px; height: 26px; border-radius: 50%; background: var(--accent); color: var(--accent-text); font-weight: 700; font-size: 13px; display: flex; align-items: center; justify-content: center; }
+  .steps a { color: var(--link); text-decoration: none; font-weight: 600; }
+  .steps a:hover { text-decoration: underline; }
+  .steps p { margin: 4px 0 0; font-size: 14px; color: var(--text-dim); }
+  .step-check { position: absolute; right: 14px; top: 16px; width: 18px; height: 18px; accent-color: var(--accent); cursor: pointer; }
+  .steps li { padding-right: 44px; }
+  .steps li.done { opacity: .55; }
+  .steps li.done a { text-decoration: line-through; }
+  .prog { display: flex; align-items: center; gap: 12px; margin: 4px 0 16px; }
+  .prog-track { flex: 1; height: 6px; border-radius: 999px; background: var(--bg-soft); border: 1px solid var(--border); overflow: hidden; }
+  .prog-fill { display: block; height: 100%; width: 0; background: var(--accent); border-radius: 999px; transition: width .25s ease; }
+  .prog-txt { font-size: 13px; color: var(--text-dim); white-space: nowrap; }
+  .prog-reset { font-size: 12px; color: var(--text-dim); background: none; border: none; cursor: pointer; text-decoration: underline; padding: 8px 6px; margin: -8px -6px; }
+  .path-prog { margin: 6px 0 0 !important; font-size: 12.5px !important; color: var(--accent) !important; font-weight: 600; }
+  .path-card { display: block; border: 1px solid var(--border); border-radius: var(--r-md); background: var(--bg-raised); box-shadow: var(--elev); padding: 16px 18px; margin: 12px 0; text-decoration: none; color: inherit; transition: border-color var(--t); }
+  .path-card:hover { border-color: var(--accent); }
+  .path-card b { color: var(--link); font-size: 17px; }
+  .path-card p { margin: 6px 0 0; font-size: 14px; color: var(--text-dim); }
+  .path-card .n { font-size: 12px; color: var(--text-dim); text-transform: uppercase; letter-spacing: .05em; }
+  .page .ask { display: inline-block; background: var(--accent); color: var(--accent-text); border-radius: 999px; padding: 8px 16px; text-decoration: none; font-weight: 600; font-size: 13px; margin-top: 20px; transition: background var(--t); }
+  .page .ask:hover { background: var(--link); }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="../../" style="text-decoration:none;color:inherit">
+    <span class="brand-dot">F</span>
+    <span class="brand-name">FabGPT-FAQ</span>
+  </a>
+  <nav class="topnav"><a href="../../" title="Chat interattiva" aria-label="Chat interattiva"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg></a></nav>
+</header>
+<div class="statbar"><nav class="statnav" aria-label="Sezioni"><a href="../../percorsi/" title="Percorsi" aria-label="Percorsi"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-2px"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg></a><a href="../../comandi/" title="Comandi" aria-label="Comandi" class="on" aria-current="page"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-2px"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg></a><a href="../../tools/" title="Tools" aria-label="Tools"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-2px"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></a><a href="../../porta/" title="Porte" aria-label="Porte"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-2px"><path d="M12 22v-5"/><path d="M9 8V2"/><path d="M15 8V2"/><path d="M18 8v5a4 4 0 0 1-4 4h-4a4 4 0 0 1-4-4V8Z"/></svg></a><a href="../../q/" title="Tutte le domande" aria-label="Tutte le domande"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-2px"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></a></nav></div>
+<main class="page">
+<nav class="crumbs" aria-label="Percorso"><a href="../../">FabGPT-FAQ</a> › <a href="../">Comandi</a> › <span>DNS: diagnostica, record e DNSSEC</span></nav>
+<h1>DNS: diagnostica, record e DNSSEC</h1>
+<p class="intro">Tracciamento gerarchico, ispezione record crittografici, validazione DNSSEC e test di zona. Ogni comando è verificato e copiabile; in <a href="../../">chat</a> basta descrivere cosa vuoi fare.</p>
+<details class="toc"><summary>4 comandi in questa pagina</summary><ul><li><a href="#dig_trace">Come traccio la risoluzione DNS dai root server?</a></li><li><a href="#dig_dnssec">Come controllo le chiavi DNSSEC di un dominio?</a></li><li><a href="#delv_validate">Come valido la catena crittografica DNSSEC con delv?</a></li><li><a href="#dig_axfr">Come provo un trasferimento di zona AXFR?</a></li></ul></details>
+<section class="cmd-card" id="dig_trace">
+<h2><a class="anchor" href="#dig_trace">#</a> Come traccio la risoluzione DNS dai root server?</h2>
+<pre><code>dig +trace +nodnssec &lt;dominio&gt;</code></pre>
+<p class="cmd-note">Interroga la catena completa partendo dai root server (a-m.root-servers.net), poi i TLD fino ai nameserver autoritativi.</p>
+<p class="cmd-rel">Approfondisci: <a href="../../q/come-funziona-la-risoluzione-dns/">Come funziona la risoluzione DNS (dal click alla risposta)?</a><a href="../../q/diagnosticare-la-propagazione-dns/">Come si diagnostica la propagazione DNS?</a></p>
+</section>
+<section class="cmd-card" id="dig_dnssec">
+<h2><a class="anchor" href="#dig_dnssec">#</a> Come controllo le chiavi DNSSEC di un dominio?</h2>
+<pre><code>dig +dnssec +multiline &lt;dominio&gt; DNSKEY</code></pre>
+<p class="cmd-note">Mostra i record DNSKEY con flag 256 (ZSK) e 257 (KSK), inclusi algoritmi e chiavi pubbliche formattate su piu righe.</p>
+<p class="cmd-rel">Approfondisci: <a href="../../q/cos-e-dnssec/">Cos&#x27;è DNSSEC?</a><a href="../../q/dnssec-bogus-servfail-debug/">Come si fa il debug di un errore DNSSEC bogus che causa SERVFAIL?</a></p>
+</section>
+<section class="cmd-card" id="delv_validate">
+<h2><a class="anchor" href="#delv_validate">#</a> Come valido la catena crittografica DNSSEC con delv?</h2>
+<pre><code>delv @1.1.1.1 &lt;dominio&gt;</code></pre>
+<p class="cmd-note">Strumento BIND moderno che valida esplicitamente la catena di fiducia crittografica dalla root key fino al record finale.</p>
+<p class="cmd-rel">Approfondisci: <a href="../../q/cos-e-dnssec/">Cos&#x27;è DNSSEC?</a><a href="../../q/dnssec-bogus-servfail-debug/">Come si fa il debug di un errore DNSSEC bogus che causa SERVFAIL?</a></p>
+</section>
+<section class="cmd-card" id="dig_axfr">
+<h2><a class="anchor" href="#dig_axfr">#</a> Come provo un trasferimento di zona AXFR?</h2>
+<pre><code>dig @&lt;nameserver&gt; &lt;dominio&gt; axfr</code></pre>
+<p class="cmd-note">Tenta il dump completo di tutti i record di zona. Se il nameserver risponde invece di restituire REFUSED, il server e vulnerabile a ricognizione.</p>
+<p class="cmd-rel">Approfondisci: <a href="../../q/dns-zone-transfer-axfr-sicurezza/">Cos&#x27;è il trasferimento di zona AXFR e perché va protetto con TSIG?</a><a href="../../q/tipi-di-record-dns/">Quali sono i tipi di record DNS (A, CNAME, MX, TXT)?</a></p>
+</section>
+
+<a class="ask" href="../../"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-2px"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg> Chiedi in chat</a>
+<style>
+  .toc { border: 1px solid var(--border); border-radius: var(--r-md); background: var(--bg-raised); box-shadow: var(--elev); padding: 10px 14px; margin-bottom: 8px; }
+  .toc summary { cursor: pointer; font-weight: 600; }
+  .toc a { color: var(--link); text-decoration: none; }
+  .cmd-card { border: 1px solid var(--border); border-radius: var(--r-md); background: var(--bg-raised); box-shadow: var(--elev); padding: 14px 16px; margin: 12px 0; }
+  .cmd-card h2 { font-size: 16px; margin: 0 0 8px; }
+  .cmd-card .anchor { color: var(--text-dim); text-decoration: none; margin-right: 2px; }
+  .cmd-card pre { background: var(--code-bg); border-radius: 8px; padding: 10px 12px; overflow-x: auto; margin: 0 0 8px; cursor: pointer; }
+  .cmd-card code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 13px; }
+  .cmd-note { font-size: 14px; margin: 0 0 6px; }
+  .cmd-note code { background: var(--code-bg); border-radius: 5px; padding: 1px 5px; overflow-wrap: anywhere; }
+  .cmd-note { overflow-wrap: anywhere; }
+  .cmd-rel { font-size: 13px; color: var(--text-dim); margin: 0; }
+  .cmd-rel a { color: var(--link); text-decoration: none; margin-right: 10px; }
+  .cmd-card:target { border-color: var(--accent); }
+</style>
+<script>
+document.addEventListener('click', function (e) {
+  var pre = e.target.closest('.cmd-card pre');
+  if (!pre || !navigator.clipboard) return;
+  navigator.clipboard.writeText(pre.innerText).then(function () {
+    pre.style.borderLeft = '3px solid var(--accent)';
+    setTimeout(function () { pre.style.borderLeft = ''; }, 800);
+  });
+});
+</script>
+</main>
+<footer class="sitefoot"><div class="sitefoot-in"><span class="sitefoot-brand"><span class="foot-dot">F</span>FabGPT-FAQ <span class="sitefoot-dim">· risposte verificate, zero allucinazioni</span></span><nav class="sitefoot-nav" aria-label="Mappa del sito"><a href="../../">Chat</a><a href="../../percorsi/">Percorsi</a><a href="../../comandi/">Comandi</a><a href="../../tools/">Tools</a><a href="../../porta/">Porte</a><a href="../../q/">Tutte le domande</a><a href="../../trasparenza/">Trasparenza</a><a href="https://github.com/fabriziosalmi" target="_blank" rel="noopener">GitHub</a></nav></div></footer>
+</body>
+</html>

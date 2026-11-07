@@ -1544,6 +1544,146 @@ https://fabriziosalmi.github.io/fabgpt-faq/q/vedere-chi-e-connesso-al-wifi/
 
 La lista dei presenti la tiene il router: entra nel pannello (l'indirizzo è sull'etichetta, tipicamente 192.168.1.1) e cerca dispositivi connessi o mappa di rete; o usa un'app come Fing dal telefono. Aspettati più voci di quante pensi: TV, stampante, prese smart hanno tutti un nome. Un dispositivo che non riconosci con segnale in orari sospetti è il tuo intruso. Come sbatterlo fuori per sempre (il blocco del singolo MAC è aggirabile): cambia la password del WiFi con una lunga e vera: [WPA2/WPA3, generata dal password manager](q/perche-usare-un-password-manager/); e tutti i dispositivi, intruso compreso, dovranno riautenticarsi; spegni il WPS (il tasto comodo è la porta comoda); aggiorna il firmware del router; e già che ci sei attiva la rete ospiti per visitatori e IoT, [separare è metà della sicurezza](q/segmentare-la-rete-con-vlan/). Se il router è dell'operatore e non ti fa fare nulla, chiedine uno in modem-mode e [metti il tuo dietro](q/cosa-sono-i-router-mikrotik/).
 
+## Cos'è il record CAA RFC 8659 e come impedisce certificati non autorizzati?
+https://fabriziosalmi.github.io/fabgpt-faq/q/record-caa-tls-rfc8659/
+
+Il record CAA (Certification Authority Authorization, standardizzato in RFC 8659) permette al proprietario di un dominio di dichiarare nei nameserver DNS quali Certificate Authority (CA) sono autorizzate a emettere certificati X.509 per quel dominio e i suoi sottodomini.
+
+## Come si fa il debug di un errore DNSSEC bogus che causa SERVFAIL?
+https://fabriziosalmi.github.io/fabgpt-faq/q/dnssec-bogus-servfail-debug/
+
+Quando un resolver DNS con convalida DNSSEC attiva riscontra una firma digitale non valida o una catena di trust rotta, rifiuta i dati e restituisce al client il codice SERVFAIL. Questo stato viene definito BOGUS.
+
+## Cos'è DANE TLSA RFC 6698 e in cosa si differenzia da CAA e certificati Web PKI?
+https://fabriziosalmi.github.io/fabgpt-faq/q/dane-tlsa-rfc6698-differenze/
+
+DANE (DNS-based Authentication of Named Entities, RFC 6698) permette di ancorare la validazione TLS direttamente al DNS tramite record TLSA, protetti crittograficamente da DNSSEC.
+
+## Cos'è un'architettura split-horizon DNS e come previene DNS leak interni?
+https://fabriziosalmi.github.io/fabgpt-faq/q/split-horizon-dns-architettura/
+
+Il pattern split-horizon DNS (o split-brain DNS) consiste nel configurare i server DNS in modo che restituiscano risposte diverse per lo stesso nome a dominio a seconda dell'indirizzo IP di provenienza della query.
+
+## Come funziona un attacco DDoS DNS amplification e come si mitiga con RRL?
+https://fabriziosalmi.github.io/fabgpt-faq/q/dns-amplification-ddos-rrl/
+
+L'attacco DNS amplification sfrutta due debolezze: l'assenza di handshake in UDP (che consente di falsificare l'IP sorgente della vittima tramite IP spoofing) e la sproporzione di dimensione tra query e risposta.
+
+## Cos'è EDNS0 e perché la dimensione del buffer UDP è stata abbassata a 1232 byte?
+https://fabriziosalmi.github.io/fabgpt-faq/q/edns0-buffer-size-packet-drop/
+
+L'estensione EDNS0 (RFC 6891) ha superato il limite storico di 512 byte per i messaggi DNS su UDP, consentendo ai resolver di negoziare buffer piu capienti, originariamente impostati a 4096 byte per supportare le risposte voluminose introdotte da DNSSEC.
+
+## Cos'è il trasferimento di zona AXFR e perché va protetto con TSIG?
+https://fabriziosalmi.github.io/fabgpt-faq/q/dns-zone-transfer-axfr-sicurezza/
+
+Il protocollo AXFR (Authoritative Transfer, RFC 5936) consente la sincronizzazione completa di una zona DNS tra server primario (primary/master) e server secondari (secondary/slave) attraverso una connessione TCP sulla porta 53.
+
+## Cos'è DNS-over-QUIC (DoQ) RFC 9250 e che vantaggi ha rispetto a DoH e DoT?
+https://fabriziosalmi.github.io/fabgpt-faq/q/dns-over-quic-doq-vs-doh-dot/
+
+DNS-over-QUIC (DoQ, standardizzato in RFC 9250) trasporta le query DNS crittografate su protocollo di trasporto QUIC (UDP sulla porta 853), superando i limiti storici di DoT (TCP/TLS) e DoH (HTTP/2 o HTTP/3).
+
+## Quali sono gli obblighi tecnici minimi dell'Articolo 21 NIS2 per l'infrastruttura IT?
+https://fabriziosalmi.github.io/fabgpt-faq/q/nis2-obblighi-tecnici-art21/
+
+L'Articolo 21 della Direttiva NIS2 (UE 2022/2555) impone ai soggetti essenziali e importanti l'adozione di misure tecniche, operative e organizzative proporzionate per gestire i rischi di sicurezza informatica.
+
+## Quali sono le tempistiche vincolanti di notifica degli incidenti secondo la NIS2?
+https://fabriziosalmi.github.io/fabgpt-faq/q/notifica-incidenti-nis2-tempistiche/
+
+La NIS2 introduce una procedura scaglionata e vincolante per la segnalazione di incidenti significativi al CSIRT nazionale o all'autorita competente.
+
+## Come si implementa un'architettura di log immutabili con WORM e hashing crittografico?
+https://fabriziosalmi.github.io/fabgpt-faq/q/log-immutabili-forensi-crittografia/
+
+In caso di violazione perimetrale con privilegi di root, la prima azione degli attaccanti e cancellare o manomettere /var/log per impedire l'attribuzione forense. Un'architettura di log immutabili neutralizza questa minaccia rendendo i dati non modificabili.
+
+## Quali sono i requisiti di conservazione dei log degli amministratori di sistema (Garante e NIS2)?
+https://fabriziosalmi.github.io/fabgpt-faq/q/log-retention-amministratori-sistema/
+
+Il Provvedimento del Garante per la Protezione dei Dati Personali del 27 novembre 2008 stabilisce che le registrazioni degli accessi (access log) dei soggetti con privilegi di amministratore di sistema devono essere conservate per almeno 6 mesi.
+
+## Come si progetta e si protegge un bastion host o jumpbox per l'accesso amministrativo?
+https://fabriziosalmi.github.io/fabgpt-faq/q/bastion-host-jumpbox-hardening/
+
+Un bastion host (o jumpbox) e l'unico punto di ingresso consentito per l'amministrazione dei server situati in reti private o DMZ, concentrando i controlli di sicurezza su una superficie ridotta.
+
+## Come si configura il sottosistema auditd su Linux per tracciare chiamate di sistema sospette?
+https://fabriziosalmi.github.io/fabgpt-faq/q/auditd-linux-regole-forensi/
+
+Il demone auditd interagisce con il framework di auditing del kernel Linux per registrare in modo attendibile gli eventi di sicurezza a livello di sistema operativo, indipendentemente dai log applicativi.
+
+## Come si organizza una PKI interna con Smallstep CLI o HashiCorp Vault?
+https://fabriziosalmi.github.io/fabgpt-faq/q/pki-interna-smallstep-vault/
+
+Una Public Key Infrastructure (PKI) privata consente di emettere certificati TLS per host interni, microservizi e VPN senza dipendere da CA pubbliche.
+
+## Cos'è il mutual TLS (mTLS) e come realizza l'autenticazione crittografica bidirezionale?
+https://fabriziosalmi.github.io/fabgpt-faq/q/mtls-zero-trust-service-to-service/
+
+Nel TLS convenzionale solo il server presenta un certificato crittografico per dimostrare la propria identita al client. Nel Mutual TLS (mTLS), durante l'handshake crittografico sia il client che il server presentano e verificano reciprocamente i rispettivi certificati digitali X.509.
+
+## Come opera la runtime security basata su eBPF (Tetragon, Falco) rispetto ai moduli kernel tradizionali?
+https://fabriziosalmi.github.io/fabgpt-faq/q/ebpf-tetragon-runtime-security/
+
+La tecnologia eBPF (extended Berkeley Packet Filter) consente di eseguire bytecode verificato e sicuro all'interno del kernel Linux senza modificare il codice sorgente o compilare moduli kernel esterni (LKM).
+
+## Come si configura PAM su Linux per imporre TOTP o YubiKey sull'accesso SSH?
+https://fabriziosalmi.github.io/fabgpt-faq/q/pam-totp-yubikey-ssh/
+
+Il framework PAM (Pluggable Authentication Modules) governa tutti i meccanismi di autenticazione interattiva su Linux, permettendo di combinare molteplici fattori indipendenti per le sessioni SSH.
+
+## Quali sono le differenze tra gli standard SBOM CycloneDX e SPDX per la compliance NIS2?
+https://fabriziosalmi.github.io/fabgpt-faq/q/supply-chain-sbom-cyclonedx-spdx/
+
+La Software Bill of Materials (SBOM) e l'inventario formale di tutti i componenti, librerie e dipendenze transitive utilizzati in un'applicazione o firmware, prescritto dai requisiti di supply chain security della NIS2.
+
+## Cosa sono gli honeytoken (canary tokens) e come rilevano intrusioni e credenziali violate?
+https://fabriziosalmi.github.io/fabgpt-faq/q/honeytoken-canary-tokens-trappole/
+
+Gli honeytoken (noti anche come canary tokens o chiavi esca) sono risorse digitali fittizie, prive di reale funzione operativa ma costantemente monitorate, inserite all'interno dell'infrastruttura come trappole per attaccanti.
+
+## Qual è la differenza tra git-crypt e SOPS con age per cifrare secrets nei repository Git?
+https://fabriziosalmi.github.io/fabgpt-faq/q/git-crypt-vs-sops-age/
+
+git-crypt e SOPS (Secrets OPerationS) sono due approcci distinti per custodire file contenenti credenziali all'interno di repository Git controllati (metodologia GitOps).
+
+## Cos'è il framework SLSA e come funzionano i livelli 1-3 per la supply chain?
+https://fabriziosalmi.github.io/fabgpt-faq/q/slsa-framework-livelli-sicurezza/
+
+Il framework SLSA (Supply-chain Levels for Software Artifacts, promosso dalla OpenSSF) definisce uno standard formale e verificabile a livelli incrementali per garantire l'integrita della filiera del software dai sorgenti al rilascio.
+
+## Come si usano Cosign e Sigstore per firmare e verificare immagini container in OCI registry?
+https://fabriziosalmi.github.io/fabgpt-faq/q/sigstore-cosign-firma-container/
+
+Il progetto open source Sigstore (fondazione Linux) fornisce uno standard aperto per firmare e verificare artefatti software senza l'onere della gestione manuale di chiavi crittografiche a lungo termine.
+
+## Come prevenire attacchi di dependency confusion e typosquatting su registry privati?
+https://fabriziosalmi.github.io/fabgpt-faq/q/dependency-confusion-squatting-npm-pypi/
+
+La Dependency Confusion sfrutta la configurazione predefinita di gestori di pacchetti (npm, pip, Gradle) configurati sia con un repository interno privato che con il registry pubblico ufficiale.
+
+## Qual è la differenza tra OPA (Open Policy Agent) e OpenFGA (Zanzibar) per l'autorizzazione?
+https://fabriziosalmi.github.io/fabgpt-faq/q/openfga-vs-opa-rego-autorizzazione/
+
+OPA (Open Policy Agent) e OpenFGA rappresentano due modelli architetturali distinti per disaccoppiare la logica di autorizzazione dal codice applicativo.
+
+## Come si esegue l'hardening di GitHub Actions per prevenire token leak e pwn requests?
+https://fabriziosalmi.github.io/fabgpt-faq/q/github-actions-security-hardening/
+
+Le pipeline CI/CD eseguono codice arbitrario e gestiscono credenziali perimetrali: se non isolate, espongono l'infrastruttura ad attacchi di supply chain (come le cosiddette pwn request, in cui codice malevolo in una PR forgiata estrae i segreti).
+
+## Cosa sono le reproducible builds e perché sono decisive contro attacchi alla supply chain?
+https://fabriziosalmi.github.io/fabgpt-faq/q/reproducible-builds-verifica-binari/
+
+Il concetto di Reproducible Builds (compilazioni riproducibili) certifica che, partendo dallo stesso codice sorgente, dallo stesso toolchain di compilazione e dallo stesso ambiente dichiarativo, chiunque possa ottenere un file binario eseguibile identico bit per bit (con lo stesso hash crittografico esatto).
+
+## Cosa sono le immagini scratch e distroless e come riducono la superficie di attacco dei container?
+https://fabriziosalmi.github.io/fabgpt-faq/q/distroless-scratch-container-hardening/
+
+Le immagini container tradizionali basate su distribuzioni complete (Ubuntu, Debian o persino Alpine) contengono centinaia di binari e utility non necessarie all'esecuzione dell'applicazione: shell (/bin/sh, /bin/bash), gestori di pacchetti (apt, apk) e strumenti di rete (curl, wget).
+
 # AI e LLM
 
 ## Cos'è la prompt injection e come ci si difende?
@@ -2933,6 +3073,21 @@ https://fabriziosalmi.github.io/fabgpt-faq/q/tailscale-subnet-router-vs-exit-nod
 
 In una rete mesh basata su Tailscale, un nodo Linux puo assumere due ruoli di instradamento differenti: Subnet Router: annuncia alla rete tailnet una o piu sottoreti locali fisiche (ad esempio 192.168.1.0/24). Consente ai client remoti di raggiungere stampanti, telecamere, switch o server locali su cui non e possibile o conveniente installare direttamente il client Tailscale. Il traffico internet normale continua a uscire dalla connessione locale del dispositivo. Exit Node: agisce come un gateway VPN tradizionale. Reindirizza tutto il traffico del client (inclusa la navigazione internet globale 0.0.0.0/0) attraverso il nodo scelto, oscurando l'IP pubblico del client e proteggendo la connessione su reti Wi-Fi pubbliche non fidate. Per abilitare il routing su Linux e necessario attivare il packet forwarding nel kernel con sysctl -w net.ipv4.ip_forward=1.
 
+## Come si scelgono ashift e recordsize in ZFS per evitare write amplification?
+https://fabriziosalmi.github.io/fabgpt-faq/q/zfs-ashift-recordsize-tuning/
+
+In ZFS il parametro ashift stabilisce la dimensione del blocco fisico del vdev (calcolato come 2 elevato ad ashift): ashift=9 corrisponde a 512 byte (settori legacy), ashift=12 a 4096 byte (standard per dischi Advanced Format ed SSD moderni), ashift=13 a 8192 byte (ottimale per alcuni flash drive aziendali). Poiche ashift e immutabile una volta creato il vdev, impostare erroneamente ashift=9 su dischi 4K causa una severa write amplification e degrado delle prestazioni.
+
+## Cos'è lo SLOG in ZFS e quando serve per accelerare le scritture sincrone?
+https://fabriziosalmi.github.io/fabgpt-faq/q/zfs-slog-optane-sync-writes/
+
+Lo SLOG (Separate Intent Log) e un dispositivo di memorizzazione dedicato e separato dal pool principale, impiegato esclusivamente per registrare il ZIL (ZFS Intent Log) durante operazioni di scrittura sincrona (O_SYNC).
+
+## Come funziona uno Special VDEV per metadati in ZFS e quando conviene aggiungerlo?
+https://fabriziosalmi.github.io/fabgpt-faq/q/zfs-special-vdev-metadata-tuning/
+
+La funzionalita Special Allocation Class (introdotta in OpenZFS 0.8) permette di creare vdev speciali ('special') dedicati all'archiviazione di tutti i metadati del filesystem e, opzionalmente, dei file di piccole dimensioni.
+
 # Cloudflare
 
 ## Cos'è GitOps e perché conviene?
@@ -3154,6 +3309,21 @@ L'invalidation della cache di Cloudflare consente di eliminare asset archiviati 
 https://fabriziosalmi.github.io/fabgpt-faq/q/cloudflare-cache-control-stale-while-revalidate/
 
 La direttiva stale-while-revalidate (RFC 5861) dell'intestazione HTTP Cache-Control indica alla CDN e al browser di servire immediatamente una risorsa memorizzata nella cache anche se il suo periodo di freschezza e scaduto, mentre in background viene effettuata una richiesta all'origine per rigenerare la cache. Esempio pratico di configurazione: Cache-Control: max-age=60, stale-while-revalidate=300 Questo comando dice all'edge che la risorsa e fresca per 60 secondi. Se una richiesta arriva tra il secondo 61 e il 360, il client riceve la versione salvata in cache senza attendere (latenza minima e zero caricamenti lenti); contemporaneamente l'edge scarica la nuova versione dall'origine per le richieste future. Questo meccanismo elimina i rallentamenti per i visitatori e assorbe picchi di traffico su pagine generate dinamicamente.
+
+## A cosa serve il record HTTPS RFC 9460 e come elimina il redirect HTTP iniziale?
+https://fabriziosalmi.github.io/fabgpt-faq/q/record-svcb-https-rfc9460/
+
+Il record DNS di tipo HTTPS (definito in RFC 9460 insieme al record generico SVCB, con codice RR 65) fornisce al browser i parametri operativi del server prima di aprire la connessione TCP/TLS.
+
+## Perché l'apex di zona non può essere un CNAME e cos'è il CNAME flattening?
+https://fabriziosalmi.github.io/fabgpt-faq/q/cname-flattening-apex-dominio/
+
+La specifica RFC 1034 stabilisce una regola ferrea: un nodo DNS che possiede un record CNAME non puo contenere nessun altro tipo di record. Sull'apex (o root del dominio, es. example.com), sono obbligatori per definizione i record SOA e NS: inserire un CNAME romperebbe la risoluzione della zona.
+
+## Come funziona l'Anycast BGP nei resolver DNS e quali vantaggi offre?
+https://fabriziosalmi.github.io/fabgpt-faq/q/anycast-bgp-dns-routing/
+
+Nell'Anycast BGP, lo stesso identico indirizzo IP (ad esempio 1.1.1.1 di Cloudflare o 8.8.8.8 di Google) viene annunciato tramite il protocollo BGP da decine o centinaia di data center (Point of Presence, PoP) distribuiti in tutto il mondo.
 
 # Strumenti e app
 
@@ -3776,6 +3946,116 @@ La scala giusta è: trovare il PID, chiedere la chiusura pulita, forzare solo al
 https://fabriziosalmi.github.io/fabgpt-faq/q/caddyfile-pattern-reverse-proxy-sicurezza-failover/
 
 Il server web Caddy permette di scrivere configurazioni di reverse proxy pulite ed estendibili grazie alla modularita dei blocchi e degli snippet riutilizzabili. Pattern raccomandati per produzione: Snippet di sicurezza: definisci un blocco (tls-security) contenente intestazioni HSTS, CSP e opzioni TLS, importandolo in ogni virtual host con import tls-security Health check e failover: inoltra il traffico a piu backend con bilanciamento e controllo attivo di disponibilita: reverse_proxy backend1:8080 backend2:8080 { lb_policy round_robin health_uri /healthz health_interval 5s health_timeout 2s } Ricarica senza disservizio: applica ogni modifica con caddy reload anziche riavviare il demone; Caddy valida la sintassi ed esegue lo swap della configurazione in memoria con zero downtime e rilascio automatico dei certificati ACME.
+
+## Quali sono le differenze tecniche tra i codici RCODE DNS (NOERROR, NXDOMAIN, SERVFAIL, REFUSED)?
+https://fabriziosalmi.github.io/fabgpt-faq/q/dns-rcode-differenze-tecniche/
+
+Ogni risposta DNS include nell'header un codice RCODE a 4 bit che comunica l'esito dell'interrogazione.
+
+## Come si configura il reverse DNS (PTR) e perché è obbligatorio per i server mail?
+https://fabriziosalmi.github.io/fabgpt-faq/q/ptr-rdns-configurazione-mail/
+
+Il record PTR (Pointer Record) esegue la risoluzione inversa, mappando un indirizzo IP numerico nel rispettivo nome a dominio canonico, operando sotto le zone speciali in-addr.arpa (per IPv4) e ip6.arpa (per IPv6).
+
+## Perché i record TXT nel DNS hanno il limite di 255 caratteri per stringa e come si spezzano?
+https://fabriziosalmi.github.io/fabgpt-faq/q/dns-txt-record-chunk-255/
+
+La specifica originale RFC 1035 definisce i dati dei record TXT come una o piu stringhe di testo con lunghezza prefissata da un singolo byte (da 0 a 255). Di conseguenza, una singola sottostringa non puo mai eccedere i 255 byte.
+
+## Come si configurano i log strutturati con RFC 5424 e payload JSON su rsyslog o vector?
+https://fabriziosalmi.github.io/fabgpt-faq/q/syslog-rfc5424-strutturato-json/
+
+Lo standard RFC 5424 supera le ambiguita storiche del protocollo RFC 3164 (BSD syslog), definendo una struttura formale a campi obbligatori: PRI, VERSION, TIMESTAMP con precisione al millisecondo e timezone esplicita (ISO 8601), HOSTNAME, APP-NAME, PROCID e MSGID.
+
+## Come si usa osquery per interrogare lo stato di sicurezza di una flotta Linux con SQL?
+https://fabriziosalmi.github.io/fabgpt-faq/q/edr-osquery-flotta-linux/
+
+Lo strumento open source osquery espone il sistema operativo sottostante sotto forma di un database relazionale ad alte prestazioni interrogabile tramite sintassi SQL standard.
+
+## Quali sono le differenze tra Tekton e Argo Workflows per pipeline CI/CD su Kubernetes?
+https://fabriziosalmi.github.io/fabgpt-faq/q/tekton-vs-argo-workflows-kubernetes/
+
+Tekton e Argo Workflows sono i due principali framework per eseguire pipeline CI/CD cloud-native dichiarative direttamente come risorse Custom Resource Definition (CRD) all'interno di Kubernetes.
+
+## In cosa differiscono Flux v2 e Argo CD nell'implementazione di GitOps per Kubernetes?
+https://fabriziosalmi.github.io/fabgpt-faq/q/flux2-vs-argocd-gitops-confronto/
+
+Flux v2 e Argo CD sono i due motori di riferimento per implementare il paradigma GitOps, garantendo che lo stato effettivo del cluster Kubernetes coincida costantemente con i manifest dichiarati in Git.
+
+## Come si configurano le branch protection rules per blindare main e impedire force push?
+https://fabriziosalmi.github.io/fabgpt-faq/q/branch-protection-rules-github-gitlab/
+
+Le regole di protezione dei branch su GitHub e GitLab sono la prima linea di difesa per impedire la manomissione della codebase o il rilascio accidentale di codice vulnerabile in produzione.
+
+## Come si configurano i commit firmati in Git con chiavi SSH invece di GPG?
+https://fabriziosalmi.github.io/fabgpt-faq/q/git-signed-commits-ssh-vs-gpg/
+
+A partire dalla versione 2.34, Git supporta nativamente la firma crittografica dei commit e dei tag utilizzando chiavi SSH (ED25519 o RSA), eliminando la complessita di configurazione e gestione del demone GnuPG.
+
+## Quali sono le differenze tra Trivy e Grype per la scansione delle vulnerabilità nei container?
+https://fabriziosalmi.github.io/fabgpt-faq/q/trivy-vs-grype-vulnerability-scanner/
+
+Trivy (sviluppato da Aqua Security) e Grype (sviluppato da Anchore) sono due tra i piu diffusi scanner open source per identificare vulnerabilita note (CVE) in immagini container e filesystem.
+
+## Come funziona Vault Agent Sidecar Injector per distribuire secrets dinamici nei Pod Kubernetes?
+https://fabriziosalmi.github.io/fabgpt-faq/q/vault-agent-sidecar-injector-kubernetes/
+
+Il Vault Agent Injector risolve il problema della gestione sicura delle credenziali su Kubernetes evitando di dover salvare secrets in formato statico all'interno dei manifest o in Secret etcd crittografati a riposo.
+
+## Cos'è NVMe-over-Fabrics (NVMe-oF) e quali sono le differenze tra NVMe/TCP e NVMe/RDMA?
+https://fabriziosalmi.github.io/fabgpt-faq/q/nvme-over-fabrics-tcp-rdma/
+
+NVMe-over-Fabrics (NVMe-oF) estende il protocollo di comando NVMe nativo attraverso reti fabric veloci (Ethernet, Fibre Channel, InfiniBand), consentendo a un server client di accedere a dischi NVMe remoti con prestazioni e latenze quasi identiche a un disco installato localmente sul bus PCIe.
+
+## Quale I/O scheduler scegliere su Linux tra none, mq-deadline e kyber per NVMe ed SSD?
+https://fabriziosalmi.github.io/fabgpt-faq/q/io-scheduler-mq-deadline-kyber/
+
+Con l'architettura multi-queue block layer (blk-mq) del kernel Linux, la gestione delle code di I/O e stata rivoluzionata per sfruttare le migliaia di code hardware parallele offerte dai moderni dischi a stato solido.
+
+## Come funziona l'algoritmo di congestione TCP BBR e perché supera Cubic su connessioni ad alta latenza?
+https://fabriziosalmi.github.io/fabgpt-faq/q/tcp-bbr-vs-cubic-latenza/
+
+Cubic (l'algoritmo di congestione tradizionale di Linux) e un meccanismo loss-based: assume erroneamente che ogni pacchetto scartato sia sinonimo di saturazione della rete. Aumenta la finestra di invio finche i buffer dei router si riempiono (generando bufferbloat) e, al primo pacchetto perso, dimezza bruscamente la velocita di trasmissione.
+
+## Cosa sono le HugePages e perché disabilitare Transparent HugePages (THP) per i database?
+https://fabriziosalmi.github.io/fabgpt-faq/q/hugepages-transparent-hugepages-db/
+
+L'architettura della memoria virtuale su x86_64 mappa gli indirizzi tramite pagine fisiche standard da 4KB. Per processi che allocano decine di gigabyte di RAM (come PostgreSQL, Redis o JVM), la tabella delle pagine (Translation Lookaside Buffer, TLB) satura la cache della CPU generando continui TLB miss e overhead di memory walk.
+
+## Come configurare vm.swappiness e vm.vfs_cache_pressure per carichi di lavoro server?
+https://fabriziosalmi.github.io/fabgpt-faq/q/vm-swappiness-vfs-cache-pressure/
+
+I parametri sysctl del sottosistema di memoria virtuale (vm) governano come il kernel Linux bilancia il recupero di RAM tra la page cache dei filesystem e le pagine di memoria anonima dei processi.
+
+## Come si gestisce l'architettura NUMA con CPU pinning e isolamento dei core su Linux?
+https://fabriziosalmi.github.io/fabgpt-faq/q/numa-pinning-core-isolation-linux/
+
+Nei server multi-socket (con due o piu processori fisici), l'architettura della memoria e di tipo NUMA (Non-Uniform Memory Access): ogni socket CPU possiede canali di memoria RAM locali ad accesso ultra-rapido, mentre l'accesso alla memoria del socket adiacente (cross-socket) attraversa interconnessioni hardware (UPI o Infinity Fabric) con latenza e contesa superiori.
+
+## Come si configura l'IRQ affinity per le schede di rete multi-coda su server ad alto traffico?
+https://fabriziosalmi.github.io/fabgpt-faq/q/irq-affinity-multiqueue-nic-tuning/
+
+Sotto carichi di traffico di rete intensi (da 10GbE a 100GbE), la generazione di interrupt hardware (IRQ) da parte della scheda di rete (NIC) puo saturare un singolo core della CPU (100% CPU in softirq), creando un collo di bottiglia che strozza il throughput complessivo dell'host.
+
+## Come si ottimizzano somaxconn e tcp_max_syn_backlog per server web e proxy ad alto carico?
+https://fabriziosalmi.github.io/fabgpt-faq/q/kernel-sysctl-somaxconn-backlog/
+
+I valori predefiniti del kernel Linux per le code di ascolto socket sono dimensionati per sistemi desktop o carichi modesti (es. net.core.somaxconn = 128 o 4096), causando il rifiuto silenzioso di connessioni TCP (SYN dropped) durante picchi improvvisi di traffico web.
+
+## Come funzionano i parametri di Memory QoS in cgroups v2 e come opera systemd-oomd?
+https://fabriziosalmi.github.io/fabgpt-faq/q/cgroups-v2-memory-qos-oomd/
+
+La transizione da cgroups v1 a cgroups v2 ha introdotto una gerarchia unificata e un controllo predittivo della memoria tramite quattro soglie distinte di Quality of Service (QoS):
+
+## Perché l'allineamento delle partizioni ai confini fisici di 4KB è vitale su dischi SSD e AF?
+https://fabriziosalmi.github.io/fabgpt-faq/q/block-size-align-4k-write-amplification/
+
+I moderni supporti di memorizzazione (dischi rigidi Advanced Format ed SSD basati su memorie flash NAND) organizzano i propri settori fisici interni in blocchi da 4096 byte (4KB) o multipli superiori (es. pagine da 8KB o 16KB).
+
+## Come si usa FIO per misurare IOPS reali, banda e latenza dello storage?
+https://fabriziosalmi.github.io/fabgpt-faq/q/benchmark-dischi-fio/
+
+FIO (Flexible I/O Tester) e lo standard industriale de facto per il benchmarking e la convalida delle prestazioni dei sottosistemi di archiviazione su Linux, superando i test ingenui basati su dd che misurano unicamente la velocita della RAM cache del kernel.
 
 # Musica e creatività
 

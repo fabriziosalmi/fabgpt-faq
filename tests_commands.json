@@ -1,858 +1,922 @@
 [
- {
-  "q": "che comando mi dice i container accesi?",
-  "expect": "cmd/docker_container_list_running"
- },
- {
-  "q": "come listo pure i container spenti?",
-  "expect": "cmd/docker_container_list_all"
- },
- {
-  "q": "ho un container fermo, come lo faccio ripartire?",
-  "expect": "cmd/docker_container_start"
- },
- {
-  "q": "come fermo un container docker senza ucciderlo?",
-  "expect": "cmd/docker_container_stop"
- },
- {
-  "q": "il container non risponde allo stop, come lo ammazzo?",
-  "expect": "cmd/docker_container_kill"
- },
- {
-  "q": "comando per riavviare un container",
-  "expect": "cmd/docker_container_restart"
- },
- {
-  "q": "posso ricreare il container senza perdere i dati?",
-  "expect": "cmd/docker_container_recreate"
- },
- {
-  "q": "come cancello un container che non uso?",
-  "expect": "cmd/docker_container_rm"
- },
- {
-  "q": "voglio eliminare tutti i container fermi in un colpo solo",
-  "expect": "cmd/docker_container_prune"
- },
- {
-  "q": "come ispeziono la config di un container?",
-  "expect": "cmd/docker_container_inspect"
- },
- {
-  "q": "il container risulta unhealthy, come vedo il perche?",
-  "expect": "cmd/docker_container_healthcheck"
- },
- {
-  "q": "come apro una shell dentro un container?",
-  "expect": "cmd/docker_container_exec"
- },
- {
-  "q": "mi serve estrarre un file dal container, come si fa?",
-  "expect": "cmd/docker_container_cp"
- },
- {
-  "q": "quanta memoria usa un container? che comando uso?",
-  "expect": "cmd/docker_container_stats"
- },
- {
-  "q": "come vedo i processi che girano nel container?",
-  "expect": "cmd/docker_container_top"
- },
- {
-  "q": "come limito la memoria di un container gia avviato?",
-  "expect": "cmd/docker_container_update_limits"
- },
- {
-  "q": "fammi vedere le ultime 100 righe di log del container",
-  "expect": "cmd/docker_logs_tail"
- },
- {
-  "q": "come seguo i log del container in tempo reale?",
-  "expect": "cmd/docker_logs_follow"
- },
- {
-  "q": "come filtro i log del container dell'ultima ora?",
-  "expect": "cmd/docker_logs_since"
- },
- {
-  "q": "il file di log del container e' enorme, come lo svuoto?",
-  "expect": "cmd/docker_logs_truncate"
- },
- {
-  "q": "il mio container e' in restart loop, che controllo?",
-  "expect": "cmd/docker_debug_crashloop"
- },
- {
-  "q": "il container muore con exit 137, e' oom killed?",
-  "expect": "cmd/docker_debug_oom"
- },
- {
-  "q": "che significano i codici di uscita dei container?",
-  "expect": "cmd/docker_debug_exit_codes"
- },
- {
-  "q": "come vedo la lista immagini scaricate?",
-  "expect": "cmd/docker_image_list"
- },
- {
-  "q": "come faccio il pull di un tag preciso di un'immagine?",
-  "expect": "cmd/docker_image_pull"
- },
- {
-  "q": "come si builda un'immagine dal dockerfile?",
-  "expect": "cmd/docker_image_build"
- },
- {
-  "q": "come rifaccio la build senza cache?",
-  "expect": "cmd/docker_image_build_nocache"
- },
- {
-  "q": "mi serve un'immagine multiarch per arm64, come la costruisco?",
-  "expect": "cmd/docker_image_multiarch"
- },
- {
-  "q": "come pubblico la mia immagine su un registry privato?",
-  "expect": "cmd/docker_image_tag_push"
- },
- {
-  "q": "perche l'immagine pesa cosi tanto? come vedo i layer?",
-  "expect": "cmd/docker_image_history"
- },
- {
-  "q": "come pulisco le immagini dangling?",
-  "expect": "cmd/docker_image_prune"
- },
- {
-  "q": "come faccio la scansione vulnerabilita di un'immagine con trivy?",
-  "expect": "cmd/docker_image_scan"
- },
- {
-  "q": "come esporto un'immagine in tar senza registry?",
-  "expect": "cmd/docker_image_save_load"
- },
- {
-  "q": "come uso il multi-stage per snellire l'immagine?",
-  "expect": "cmd/docker_dockerfile_multistage"
- },
- {
-  "q": "c'e' un linter per il dockerfile?",
-  "expect": "cmd/docker_dockerfile_lint"
- },
- {
-  "q": "come vedo quali reti docker esistono?",
-  "expect": "cmd/docker_network_ls"
- },
- {
-  "q": "come creo una rete bridge personalizzata?",
-  "expect": "cmd/docker_network_create"
- },
- {
-  "q": "voglio dare al container un ip della lan, macvlan?",
-  "expect": "cmd/docker_network_macvlan"
- },
- {
-  "q": "come collego un container a un'altra rete?",
-  "expect": "cmd/docker_network_connect"
- },
- {
-  "q": "i container non si vedono per nome, dns rotto?",
-  "expect": "cmd/docker_network_debug_dns"
- },
- {
-  "q": "errore port is already allocated, come lo risolvo?",
-  "expect": "cmd/docker_network_port_conflict"
- },
- {
-  "q": "come testo la connettivita tra due container?",
-  "expect": "cmd/docker_network_debug_connectivity"
- },
- {
-  "q": "come creo un volume nominato?",
-  "expect": "cmd/docker_volume_ls_create"
- },
- {
-  "q": "dove sono i dati del volume sul disco?",
-  "expect": "cmd/docker_volume_inspect"
- },
- {
-  "q": "come faccio il backup di un volume docker?",
-  "expect": "cmd/docker_volume_backup"
- },
- {
-  "q": "come ripristino il volume dal tar di backup?",
-  "expect": "cmd/docker_volume_restore"
- },
- {
-  "q": "permission denied sul volume, problema di uid gid?",
-  "expect": "cmd/docker_volume_permissions"
- },
- {
-  "q": "come cancello i volumi orfani?",
-  "expect": "cmd/docker_volume_prune"
- },
- {
-  "q": "come tiro su lo stack con compose in background?",
-  "expect": "cmd/docker_compose_up_down"
- },
- {
-  "q": "come forzo compose a ricreare tutti i servizi?",
-  "expect": "cmd/docker_compose_recreate"
- },
- {
-  "q": "come riavvio un solo servizio dello stack compose?",
-  "expect": "cmd/docker_compose_single_service"
- },
- {
-  "q": "come aggiorno le immagini dello stack compose?",
-  "expect": "cmd/docker_compose_update"
- },
- {
-  "q": "come vedo i log aggregati dello stack?",
-  "expect": "cmd/docker_compose_logs"
- },
- {
-  "q": "comando per lo stato dei servizi compose",
-  "expect": "cmd/docker_compose_ps"
- },
- {
-  "q": "come valido la sintassi del compose e le env?",
-  "expect": "cmd/docker_compose_validate"
- },
- {
-  "q": "come faccio un override locale del compose?",
-  "expect": "cmd/docker_compose_override"
- },
- {
-  "q": "ho un docker run lunghissimo, come lo converto in compose?",
-  "expect": "cmd/docker_compose_from_run"
- },
- {
-  "q": "come controllo se un servizio e' attivo?",
-  "expect": "cmd/systemd_status"
- },
- {
-  "q": "comando per riavviare un servizio systemd",
-  "expect": "cmd/systemd_restart"
- },
- {
-  "q": "posso ricaricare la config del servizio senza riavviarlo?",
-  "expect": "cmd/systemd_reload"
- },
- {
-  "q": "come abilito un servizio all'avvio del sistema?",
-  "expect": "cmd/systemd_enable"
- },
- {
-  "q": "come vedo le unit in failed?",
-  "expect": "cmd/systemd_failed"
- },
- {
-  "q": "che differenza fa systemctl mask rispetto a disable?",
-  "expect": "cmd/systemd_mask"
- },
- {
-  "q": "voglio creare un servizio systemd per il mio script",
-  "expect": "cmd/systemd_unit_create"
- },
- {
-  "q": "come faccio un override di un'unit senza toccare l'originale?",
-  "expect": "cmd/systemd_override"
- },
- {
-  "q": "come sostituisco cron con un timer systemd?",
-  "expect": "cmd/systemd_timer"
- },
- {
-  "q": "come leggo i log di un servizio con journalctl?",
-  "expect": "cmd/journal_service"
- },
- {
-  "q": "come vedo i log del boot precedente?",
-  "expect": "cmd/journal_boot"
- },
- {
-  "q": "journalctl solo con gli errori, come si fa?",
-  "expect": "cmd/journal_priority"
- },
- {
-  "q": "il journal occupa troppo spazio, come lo riduco?",
-  "expect": "cmd/journal_vacuum"
- },
- {
-  "q": "i log spariscono al riavvio, come rendo il journal persistente?",
-  "expect": "cmd/journal_persistent"
- },
- {
-  "q": "come leggo i messaggi del kernel con dmesg?",
-  "expect": "cmd/kernel_dmesg"
- },
- {
-  "q": "quanto spazio libero ho sul disco?",
-  "expect": "cmd/disk_df"
- },
- {
-  "q": "dice no space left on device ma lo spazio c'e, inode?",
-  "expect": "cmd/disk_inode"
- },
- {
-  "q": "come scopro cosa occupa spazio sul disco?",
-  "expect": "cmd/disk_du"
- },
- {
-  "q": "come elenco dischi e partizioni con lsblk?",
-  "expect": "cmd/disk_lsblk"
- },
- {
-  "q": "come monto al volo una partizione?",
-  "expect": "cmd/disk_mount"
- },
- {
-  "q": "umount dice target is busy, chi lo sta usando?",
-  "expect": "cmd/disk_umount_busy"
- },
- {
-  "q": "come aggiungo il disco a fstab con lo uuid?",
-  "expect": "cmd/disk_fstab"
- },
- {
-  "q": "filesystem corrotto, come lancio fsck?",
-  "expect": "cmd/disk_fsck"
- },
- {
-  "q": "come controllo lo smart del disco con smartctl?",
-  "expect": "cmd/disk_smart"
- },
- {
-  "q": "come faccio un benchmark della velocita del disco?",
-  "expect": "cmd/disk_bench"
- },
- {
-  "q": "come creo uno swapfile da 2 giga?",
-  "expect": "cmd/swap_create"
- },
- {
-  "q": "quanta swap sto usando?",
-  "expect": "cmd/swap_usage"
- },
- {
-  "q": "il raid mdadm e' degradato, come sostituisco il disco?",
-  "expect": "cmd/raid_mdadm"
- },
- {
-  "q": "come lancio lo scrub sul pool zfs?",
-  "expect": "cmd/zfs_status_scrub"
- },
- {
-  "q": "come faccio uno snapshot zfs e il rollback?",
-  "expect": "cmd/zfs_snapshot"
- },
- {
-  "q": "come creo un nuovo utente con la home?",
-  "expect": "cmd/user_create"
- },
- {
-  "q": "come elimino un utente e la sua home?",
-  "expect": "cmd/user_delete"
- },
- {
-  "q": "come aggiungo il mio utente al gruppo docker?",
-  "expect": "cmd/user_groups"
- },
- {
-  "q": "come abilito sudo per un utente?",
-  "expect": "cmd/user_sudo"
- },
- {
-  "q": "come rendo eseguibile uno script con chmod u+x?",
-  "expect": "cmd/perm_chmod_symbolic"
- },
- {
-  "q": "come cambio proprietario ricorsivamente con chown?",
-  "expect": "cmd/perm_chown"
- },
- {
-  "q": "come metto il setgid su una cartella condivisa del team?",
-  "expect": "cmd/perm_special_bits"
- },
- {
-  "q": "posso dare permessi a un solo utente extra con le acl?",
-  "expect": "cmd/perm_acl"
- },
- {
-  "q": "come cambio la umask di default?",
-  "expect": "cmd/perm_umask"
- },
- {
-  "q": "come trovo il pid di un processo per nome?",
-  "expect": "cmd/proc_find"
- },
- {
-  "q": "che tool uso per monitorare i processi in tempo reale?",
-  "expect": "cmd/proc_monitor"
- },
- {
-  "q": "chi sta mangiando la cpu al 100 per cento?",
-  "expect": "cmd/proc_top_cpu"
- },
- {
-  "q": "chi si sta mangiando tutta la ram?",
-  "expect": "cmd/proc_top_mem"
- },
- {
-  "q": "il processo non muore, kill -9?",
-  "expect": "cmd/proc_kill"
- },
- {
-  "q": "come abbasso la priorita di un processo pesante con renice?",
-  "expect": "cmd/proc_nice"
- },
- {
-  "q": "cosa significa il load average alto?",
-  "expect": "cmd/perf_load"
- },
- {
-  "q": "iowait alto e server lento, come indago con iostat?",
-  "expect": "cmd/perf_iowait"
- },
- {
-  "q": "free mostra poca ram libera ma e' cache, e' un problema?",
-  "expect": "cmd/perf_memcache"
- },
- {
-  "q": "come riavvio il server in modo pulito avvisando gli utenti?",
-  "expect": "cmd/sys_reboot"
- },
- {
-  "q": "comando per vedere il mio ip e le interfacce",
-  "expect": "cmd/net_ip"
- },
- {
-  "q": "come tiro giu e su un'interfaccia di rete?",
-  "expect": "cmd/net_updown"
- },
- {
-  "q": "come configuro un ip statico con netplan?",
-  "expect": "cmd/net_static_netplan"
- },
- {
-  "q": "ip fisso con nmcli su networkmanager, come si fa?",
-  "expect": "cmd/net_static_nmcli"
- },
- {
-  "q": "come vedo la tabella di routing e aggiungo una rotta?",
-  "expect": "cmd/net_route"
- },
- {
-  "q": "quali porte sono in ascolto sul server?",
-  "expect": "cmd/net_listening"
- },
- {
-  "q": "come scopro quale processo occupa la porta 8080?",
-  "expect": "cmd/net_port_process"
- },
- {
-  "q": "come testo se una porta remota e' raggiungibile con nc?",
-  "expect": "cmd/net_test_port"
- },
- {
-  "q": "come misuro perdita di pacchetti e latenza con mtr?",
-  "expect": "cmd/net_ping_mtr"
- },
- {
-  "q": "come faccio una query dns manuale con dig?",
-  "expect": "cmd/net_dig"
- },
- {
-  "q": "come svuoto la cache dns di systemd-resolved?",
-  "expect": "cmd/net_resolvectl"
- },
- {
-  "q": "come catturo il traffico con tcpdump?",
-  "expect": "cmd/net_tcpdump"
- },
- {
-  "q": "come vedo le regole attive di ufw?",
-  "expect": "cmd/ufw_status"
- },
- {
-  "q": "come attivo ufw senza tagliarmi fuori dalla ssh?",
-  "expect": "cmd/ufw_enable"
- },
- {
-  "q": "come apro la porta 5432 solo per un ip con ufw?",
-  "expect": "cmd/ufw_allow"
- },
- {
-  "q": "come cancello una regola di ufw?",
-  "expect": "cmd/ufw_delete"
- },
- {
-  "q": "come vedo il ruleset nftables attivo?",
-  "expect": "cmd/nft_list"
- },
- {
-  "q": "perche docker bypassa le regole di ufw?",
-  "expect": "cmd/iptables_docker"
- },
- {
-  "q": "come creo degli alias host nel config di ssh?",
-  "expect": "cmd/ssh_config"
- },
- {
-  "q": "ssh da permission denied publickey, come lo debuggo?",
-  "expect": "cmd/ssh_debug"
- },
- {
-  "q": "come riavvio sshd senza rischiare di chiudermi fuori?",
-  "expect": "cmd/sshd_reload_safe"
- },
- {
-  "q": "come vedo gli ip bannati da fail2ban?",
-  "expect": "cmd/fail2ban_status"
- },
- {
-  "q": "mi sono bannato da solo, come mi sbanno da fail2ban?",
-  "expect": "cmd/fail2ban_unban"
- },
- {
-  "q": "come aggiorno tutti i pacchetti del sistema?",
-  "expect": "cmd/pkg_update"
- },
- {
-  "q": "come installo un pacchetto e come lo rimuovo con le config?",
-  "expect": "cmd/pkg_install_remove"
- },
- {
-  "q": "come pulisco le dipendenze orfane con autoremove?",
-  "expect": "cmd/pkg_autoremove"
- },
- {
-  "q": "quale pacchetto fornisce il comando dig?",
-  "expect": "cmd/pkg_provides"
- },
- {
-  "q": "come blocco l'aggiornamento di un pacchetto con apt-mark hold?",
-  "expect": "cmd/pkg_hold"
- },
- {
-  "q": "come vedo i pacchetti installati e cerco tra loro?",
-  "expect": "cmd/pkg_installed"
- },
- {
-  "q": "apt si lamenta di dipendenze rotte, come sistemo?",
-  "expect": "cmd/pkg_fix_broken"
- },
- {
-  "q": "come aggiungo un repository di terze parti con signed-by?",
-  "expect": "cmd/pkg_repo_key"
- },
- {
-  "q": "come modifico il crontab del mio utente?",
-  "expect": "cmd/cron_edit"
- },
- {
-  "q": "come eseguo uno script a ogni avvio con cron?",
-  "expect": "cmd/cron_reboot"
- },
- {
-  "q": "come mando l'output del cron job in un file di log?",
-  "expect": "cmd/cron_output"
- },
- {
-  "q": "il cron job fallisce in silenzio, come lo debuggo?",
-  "expect": "cmd/cron_debug"
- },
- {
-  "q": "come inizio uno script bash con lo strict mode?",
-  "expect": "cmd/bash_strict"
- },
- {
-  "q": "come eseguo lo script con bash -x per il debug?",
-  "expect": "cmd/bash_debug"
- },
- {
-  "q": "lo script da bad interpreter con ^M, che faccio?",
-  "expect": "cmd/bash_dos2unix"
- },
- {
-  "q": "come rendo permanente una variabile d'ambiente?",
-  "expect": "cmd/env_vars"
- },
- {
-  "q": "come metto nginx come reverse proxy davanti alla mia app?",
-  "expect": "cmd/nginx_vhost"
- },
- {
-  "q": "come ricarico nginx dopo aver testato la config?",
-  "expect": "cmd/nginx_reload"
- },
- {
-  "q": "i websocket si staccano dietro nginx, che manca?",
-  "expect": "cmd/nginx_websocket"
- },
- {
-  "q": "errore 413 request entity too large in upload, come alzo il limite?",
-  "expect": "cmd/nginx_body_size"
- },
- {
-  "q": "come scrivo un caddyfile per fare da reverse proxy?",
-  "expect": "cmd/caddy_file"
- },
- {
-  "q": "come applico le modifiche al caddyfile?",
-  "expect": "cmd/caddy_reload"
- },
- {
-  "q": "che label traefik servono per esporre un container?",
-  "expect": "cmd/traefik_labels"
- },
- {
-  "q": "come richiedo un certificato con certbot standalone?",
-  "expect": "cmd/certbot_standalone"
- },
- {
-  "q": "posso chiedere il certificato senza fermare nginx? webroot?",
-  "expect": "cmd/certbot_webroot"
- },
- {
-  "q": "come faccio un certificato wildcard con la dns challenge?",
-  "expect": "cmd/certbot_wildcard"
- },
- {
-  "q": "come testo il rinnovo dei certificati con certbot renew?",
-  "expect": "cmd/certbot_renew"
- },
- {
-  "q": "come genero un certificato self-signed per un test?",
-  "expect": "cmd/openssl_selfsigned"
- },
- {
-  "q": "comando per vedere quando scade il certificato di un sito",
-  "expect": "cmd/ssl_inspect"
- },
- {
-  "q": "come genero chiavi e config del server wireguard?",
-  "expect": "cmd/wg_server"
- },
- {
-  "q": "come aggiungo un nuovo peer a wireguard?",
-  "expect": "cmd/wg_peer"
- },
- {
-  "q": "come attivo wireguard al boot con wg-quick?",
-  "expect": "cmd/wg_up"
- },
- {
-  "q": "wireguard non fa handshake, come lo debuggo?",
-  "expect": "cmd/wg_debug"
- },
- {
-  "q": "come faccio lo split tunnel con allowedips?",
-  "expect": "cmd/wg_allowedips"
- },
- {
-  "q": "come installo tailscale e lo collego?",
-  "expect": "cmd/tailscale_up"
- },
- {
-  "q": "come uso il server di casa come exit node tailscale?",
-  "expect": "cmd/tailscale_exit"
- },
- {
-  "q": "come raggiungo tutta la lan con il subnet router di tailscale?",
-  "expect": "cmd/tailscale_subnet"
- },
- {
-  "q": "come creo un tunnel cloudflared per esporre un servizio?",
-  "expect": "cmd/cloudflared_tunnel"
- },
- {
-  "q": "come aggiungo un record dns locale sul pihole?",
-  "expect": "cmd/pihole_local_dns"
- },
- {
-  "q": "come metto in whitelist un dominio bloccato dal pihole?",
-  "expect": "cmd/pihole_lists"
- },
- {
-  "q": "l'ip di casa cambia, come aggiorno il dns su cloudflare?",
-  "expect": "cmd/ddns_cloudflare"
- },
- {
-  "q": "come inizializzo il repository di restic?",
-  "expect": "cmd/restic_init"
- },
- {
-  "q": "comando per lanciare il backup con restic",
-  "expect": "cmd/restic_backup"
- },
- {
-  "q": "come recupero dei file da uno snapshot restic?",
-  "expect": "cmd/restic_restore"
- },
- {
-  "q": "come imposto la retention con restic forget e prune?",
-  "expect": "cmd/restic_prune"
- },
- {
-  "q": "come creo un archivio di backup con borg?",
-  "expect": "cmd/borg_create"
- },
- {
-  "q": "come faccio il prune degli archivi borg?",
-  "expect": "cmd/borg_prune"
- },
- {
-  "q": "come faccio il mirror di una cartella con rsync?",
-  "expect": "cmd/rsync_mirror"
- },
- {
-  "q": "come mando i file su un server remoto con rsync via ssh?",
-  "expect": "cmd/rsync_remote"
- },
- {
-  "q": "posso provare rsync in dry run prima del delete?",
-  "expect": "cmd/rsync_dryrun"
- },
- {
-  "q": "come sincronizzo una cartella sul cloud con rclone sync?",
-  "expect": "cmd/rclone_sync"
- },
- {
-  "q": "come monto un bucket cloud come disco con rclone mount?",
-  "expect": "cmd/rclone_mount"
- },
- {
-  "q": "come faccio un dump consistente di mariadb con mysqldump?",
-  "expect": "cmd/db_dump_mysql"
- },
- {
-  "q": "come faccio dump e restore di postgres con pg_dump?",
-  "expect": "cmd/db_dump_postgres"
- },
- {
-  "q": "come faccio il backup a caldo di un database sqlite?",
-  "expect": "cmd/db_backup_sqlite"
- },
- {
-  "q": "come aggiungo un nuovo target allo scrape di prometheus?",
-  "expect": "cmd/prom_target"
- },
- {
-  "q": "come installo node_exporter come servizio systemd?",
-  "expect": "cmd/node_exporter"
- },
- {
-  "q": "come collego grafana a prometheus e importo la dashboard 1860?",
-  "expect": "cmd/grafana_setup"
- },
- {
-  "q": "come monitoro le metriche dei container con cadvisor?",
-  "expect": "cmd/cadvisor"
- },
- {
-  "q": "come aggiungo un monitor http su uptime kuma?",
-  "expect": "cmd/kuma_monitor"
- },
- {
-  "q": "come collego uptime kuma alle notifiche telegram?",
-  "expect": "cmd/kuma_telegram"
- },
- {
-  "q": "come mando una notifica push con ntfy da uno script?",
-  "expect": "cmd/ntfy_send"
- },
- {
-  "q": "come invio un messaggio con gotify via curl?",
-  "expect": "cmd/gotify_send"
- },
- {
-  "q": "come faccio girare watchtower in dry run senza aggiornare?",
-  "expect": "cmd/watchtower_dryrun"
- },
- {
-  "q": "cosa fa rm -rf / ?",
-  "expect": "cmd/rm_rf_danger"
- },
- {
-  "q": "come scrivo una iso su usb con dd senza sbagliare disco?",
-  "expect": "cmd/dd_danger"
- },
- {
-  "q": "cos'e' una fork bomb?",
-  "expect": "cmd/forkbomb"
- },
- {
-  "q": "come installo paperless-ngx con lo script ufficiale?",
-  "expect": "cmd/paperless_install"
- },
- {
-  "q": "come avvio glances in docker con pid host?",
-  "expect": "cmd/glances_docker_web"
- },
- {
-  "q": "avvio zabbix compose da repo ufficiale",
-  "expect": "cmd/zabbix_compose"
- },
- {
-  "q": "come installo appwrite in self hosting con il wizard?",
-  "expect": "cmd/appwrite_install"
- },
- {
-  "q": "come installo plausible community edition con compose?",
-  "expect": "cmd/plausible_install"
- },
- {
-  "q": "avvio n8n docker con volume dedicato",
-  "expect": "cmd/n8n_docker"
- },
- {
-  "q": "come avvio beszel hub con compose?",
-  "expect": "cmd/beszel_hub"
- },
- {
-  "q": "come installo cosmos server, get.sh o docker?",
-  "expect": "cmd/cosmos_install"
- },
- {
-  "q": "come installo nginx proxy manager con compose?",
-  "expect": "cmd/npm_install"
- },
- {
-  "q": "avvio traefik docker con compose minimo",
-  "expect": "cmd/traefik_compose"
- },
- {
-  "q": "come imposto la password admin di pihole in docker?",
-  "expect": "cmd/pihole_password"
- },
- {
-  "q": "primo setup plex headless con ssh tunnel, come si fa?",
-  "expect": "cmd/plex_claim_headless"
- },
- {
-  "q": "reverse proxy al volo con caddy per provare un backend",
-  "expect": "cmd/caddy_reverseproxy_test"
- },
- {
-  "q": "come mi collego a openvpn da terminale con ovpn?",
-  "expect": "cmd/openvpn_connect"
- },
- {
-  "q": "come verifico che docker funziona con hello world?",
-  "expect": "cmd/docker_hello"
- },
- {
-  "q": "come installo netdata con kickstart?",
-  "expect": "cmd/netdata_install"
- },
- {
-  "q": "come vedo i processi con btop?",
-  "expect": "cmd/btop_proc"
- },
- {
-  "q": "come scansiono le porte aperte con nmap?",
-  "expect": "cmd/nmap_scan"
- }
+  {
+    "q": "che comando mi dice i container accesi?",
+    "expect": "cmd/docker_container_list_running"
+  },
+  {
+    "q": "come listo pure i container spenti?",
+    "expect": "cmd/docker_container_list_all"
+  },
+  {
+    "q": "ho un container fermo, come lo faccio ripartire?",
+    "expect": "cmd/docker_container_start"
+  },
+  {
+    "q": "come fermo un container docker senza ucciderlo?",
+    "expect": "cmd/docker_container_stop"
+  },
+  {
+    "q": "il container non risponde allo stop, come lo ammazzo?",
+    "expect": "cmd/docker_container_kill"
+  },
+  {
+    "q": "comando per riavviare un container",
+    "expect": "cmd/docker_container_restart"
+  },
+  {
+    "q": "posso ricreare il container senza perdere i dati?",
+    "expect": "cmd/docker_container_recreate"
+  },
+  {
+    "q": "come cancello un container che non uso?",
+    "expect": "cmd/docker_container_rm"
+  },
+  {
+    "q": "voglio eliminare tutti i container fermi in un colpo solo",
+    "expect": "cmd/docker_container_prune"
+  },
+  {
+    "q": "come ispeziono la config di un container?",
+    "expect": "cmd/docker_container_inspect"
+  },
+  {
+    "q": "il container risulta unhealthy, come vedo il perche?",
+    "expect": "cmd/docker_container_healthcheck"
+  },
+  {
+    "q": "come apro una shell dentro un container?",
+    "expect": "cmd/docker_container_exec"
+  },
+  {
+    "q": "mi serve estrarre un file dal container, come si fa?",
+    "expect": "cmd/docker_container_cp"
+  },
+  {
+    "q": "quanta memoria usa un container? che comando uso?",
+    "expect": "cmd/docker_container_stats"
+  },
+  {
+    "q": "come vedo i processi che girano nel container?",
+    "expect": "cmd/docker_container_top"
+  },
+  {
+    "q": "come limito la memoria di un container gia avviato?",
+    "expect": "cmd/docker_container_update_limits"
+  },
+  {
+    "q": "fammi vedere le ultime 100 righe di log del container",
+    "expect": "cmd/docker_logs_tail"
+  },
+  {
+    "q": "come seguo i log del container in tempo reale?",
+    "expect": "cmd/docker_logs_follow"
+  },
+  {
+    "q": "come filtro i log del container dell'ultima ora?",
+    "expect": "cmd/docker_logs_since"
+  },
+  {
+    "q": "il file di log del container e' enorme, come lo svuoto?",
+    "expect": "cmd/docker_logs_truncate"
+  },
+  {
+    "q": "il mio container e' in restart loop, che controllo?",
+    "expect": "cmd/docker_debug_crashloop"
+  },
+  {
+    "q": "il container muore con exit 137, e' oom killed?",
+    "expect": "cmd/docker_debug_oom"
+  },
+  {
+    "q": "che significano i codici di uscita dei container?",
+    "expect": "cmd/docker_debug_exit_codes"
+  },
+  {
+    "q": "come vedo la lista immagini scaricate?",
+    "expect": "cmd/docker_image_list"
+  },
+  {
+    "q": "come faccio il pull di un tag preciso di un'immagine?",
+    "expect": "cmd/docker_image_pull"
+  },
+  {
+    "q": "come si builda un'immagine dal dockerfile?",
+    "expect": "cmd/docker_image_build"
+  },
+  {
+    "q": "come rifaccio la build senza cache?",
+    "expect": "cmd/docker_image_build_nocache"
+  },
+  {
+    "q": "mi serve un'immagine multiarch per arm64, come la costruisco?",
+    "expect": "cmd/docker_image_multiarch"
+  },
+  {
+    "q": "come pubblico la mia immagine su un registry privato?",
+    "expect": "cmd/docker_image_tag_push"
+  },
+  {
+    "q": "perche l'immagine pesa cosi tanto? come vedo i layer?",
+    "expect": "cmd/docker_image_history"
+  },
+  {
+    "q": "come pulisco le immagini dangling?",
+    "expect": "cmd/docker_image_prune"
+  },
+  {
+    "q": "come faccio la scansione vulnerabilita di un'immagine con trivy?",
+    "expect": "cmd/docker_image_scan"
+  },
+  {
+    "q": "come esporto un'immagine in tar senza registry?",
+    "expect": "cmd/docker_image_save_load"
+  },
+  {
+    "q": "come uso il multi-stage per snellire l'immagine?",
+    "expect": "cmd/docker_dockerfile_multistage"
+  },
+  {
+    "q": "c'e' un linter per il dockerfile?",
+    "expect": "cmd/docker_dockerfile_lint"
+  },
+  {
+    "q": "come vedo quali reti docker esistono?",
+    "expect": "cmd/docker_network_ls"
+  },
+  {
+    "q": "come creo una rete bridge personalizzata?",
+    "expect": "cmd/docker_network_create"
+  },
+  {
+    "q": "voglio dare al container un ip della lan, macvlan?",
+    "expect": "cmd/docker_network_macvlan"
+  },
+  {
+    "q": "come collego un container a un'altra rete?",
+    "expect": "cmd/docker_network_connect"
+  },
+  {
+    "q": "i container non si vedono per nome, dns rotto?",
+    "expect": "cmd/docker_network_debug_dns"
+  },
+  {
+    "q": "errore port is already allocated, come lo risolvo?",
+    "expect": "cmd/docker_network_port_conflict"
+  },
+  {
+    "q": "come testo la connettivita tra due container?",
+    "expect": "cmd/docker_network_debug_connectivity"
+  },
+  {
+    "q": "come creo un volume nominato?",
+    "expect": "cmd/docker_volume_ls_create"
+  },
+  {
+    "q": "dove sono i dati del volume sul disco?",
+    "expect": "cmd/docker_volume_inspect"
+  },
+  {
+    "q": "come faccio il backup di un volume docker?",
+    "expect": "cmd/docker_volume_backup"
+  },
+  {
+    "q": "come ripristino il volume dal tar di backup?",
+    "expect": "cmd/docker_volume_restore"
+  },
+  {
+    "q": "permission denied sul volume, problema di uid gid?",
+    "expect": "cmd/docker_volume_permissions"
+  },
+  {
+    "q": "come cancello i volumi orfani?",
+    "expect": "cmd/docker_volume_prune"
+  },
+  {
+    "q": "come tiro su lo stack con compose in background?",
+    "expect": "cmd/docker_compose_up_down"
+  },
+  {
+    "q": "come forzo compose a ricreare tutti i servizi?",
+    "expect": "cmd/docker_compose_recreate"
+  },
+  {
+    "q": "come riavvio un solo servizio dello stack compose?",
+    "expect": "cmd/docker_compose_single_service"
+  },
+  {
+    "q": "come aggiorno le immagini dello stack compose?",
+    "expect": "cmd/docker_compose_update"
+  },
+  {
+    "q": "come vedo i log aggregati dello stack?",
+    "expect": "cmd/docker_compose_logs"
+  },
+  {
+    "q": "comando per lo stato dei servizi compose",
+    "expect": "cmd/docker_compose_ps"
+  },
+  {
+    "q": "come valido la sintassi del compose e le env?",
+    "expect": "cmd/docker_compose_validate"
+  },
+  {
+    "q": "come faccio un override locale del compose?",
+    "expect": "cmd/docker_compose_override"
+  },
+  {
+    "q": "ho un docker run lunghissimo, come lo converto in compose?",
+    "expect": "cmd/docker_compose_from_run"
+  },
+  {
+    "q": "come controllo se un servizio e' attivo?",
+    "expect": "cmd/systemd_status"
+  },
+  {
+    "q": "comando per riavviare un servizio systemd",
+    "expect": "cmd/systemd_restart"
+  },
+  {
+    "q": "posso ricaricare la config del servizio senza riavviarlo?",
+    "expect": "cmd/systemd_reload"
+  },
+  {
+    "q": "come abilito un servizio all'avvio del sistema?",
+    "expect": "cmd/systemd_enable"
+  },
+  {
+    "q": "come vedo le unit in failed?",
+    "expect": "cmd/systemd_failed"
+  },
+  {
+    "q": "che differenza fa systemctl mask rispetto a disable?",
+    "expect": "cmd/systemd_mask"
+  },
+  {
+    "q": "voglio creare un servizio systemd per il mio script",
+    "expect": "cmd/systemd_unit_create"
+  },
+  {
+    "q": "come faccio un override di un'unit senza toccare l'originale?",
+    "expect": "cmd/systemd_override"
+  },
+  {
+    "q": "come sostituisco cron con un timer systemd?",
+    "expect": "cmd/systemd_timer"
+  },
+  {
+    "q": "come leggo i log di un servizio con journalctl?",
+    "expect": "cmd/journal_service"
+  },
+  {
+    "q": "come vedo i log del boot precedente?",
+    "expect": "cmd/journal_boot"
+  },
+  {
+    "q": "journalctl solo con gli errori, come si fa?",
+    "expect": "cmd/journal_priority"
+  },
+  {
+    "q": "il journal occupa troppo spazio, come lo riduco?",
+    "expect": "cmd/journal_vacuum"
+  },
+  {
+    "q": "i log spariscono al riavvio, come rendo il journal persistente?",
+    "expect": "cmd/journal_persistent"
+  },
+  {
+    "q": "come leggo i messaggi del kernel con dmesg?",
+    "expect": "cmd/kernel_dmesg"
+  },
+  {
+    "q": "quanto spazio libero ho sul disco?",
+    "expect": "cmd/disk_df"
+  },
+  {
+    "q": "dice no space left on device ma lo spazio c'e, inode?",
+    "expect": "cmd/disk_inode"
+  },
+  {
+    "q": "come scopro cosa occupa spazio sul disco?",
+    "expect": "cmd/disk_du"
+  },
+  {
+    "q": "come elenco dischi e partizioni con lsblk?",
+    "expect": "cmd/disk_lsblk"
+  },
+  {
+    "q": "come monto al volo una partizione?",
+    "expect": "cmd/disk_mount"
+  },
+  {
+    "q": "umount dice target is busy, chi lo sta usando?",
+    "expect": "cmd/disk_umount_busy"
+  },
+  {
+    "q": "come aggiungo il disco a fstab con lo uuid?",
+    "expect": "cmd/disk_fstab"
+  },
+  {
+    "q": "filesystem corrotto, come lancio fsck?",
+    "expect": "cmd/disk_fsck"
+  },
+  {
+    "q": "come controllo lo smart del disco con smartctl?",
+    "expect": "cmd/disk_smart"
+  },
+  {
+    "q": "come faccio un benchmark della velocita del disco?",
+    "expect": "cmd/disk_bench"
+  },
+  {
+    "q": "come creo uno swapfile da 2 giga?",
+    "expect": "cmd/swap_create"
+  },
+  {
+    "q": "quanta swap sto usando?",
+    "expect": "cmd/swap_usage"
+  },
+  {
+    "q": "il raid mdadm e' degradato, come sostituisco il disco?",
+    "expect": "cmd/raid_mdadm"
+  },
+  {
+    "q": "come lancio lo scrub sul pool zfs?",
+    "expect": "cmd/zfs_status_scrub"
+  },
+  {
+    "q": "come faccio uno snapshot zfs e il rollback?",
+    "expect": "cmd/zfs_snapshot"
+  },
+  {
+    "q": "come creo un nuovo utente con la home?",
+    "expect": "cmd/user_create"
+  },
+  {
+    "q": "come elimino un utente e la sua home?",
+    "expect": "cmd/user_delete"
+  },
+  {
+    "q": "come aggiungo il mio utente al gruppo docker?",
+    "expect": "cmd/user_groups"
+  },
+  {
+    "q": "come abilito sudo per un utente?",
+    "expect": "cmd/user_sudo"
+  },
+  {
+    "q": "come rendo eseguibile uno script con chmod u+x?",
+    "expect": "cmd/perm_chmod_symbolic"
+  },
+  {
+    "q": "come cambio proprietario ricorsivamente con chown?",
+    "expect": "cmd/perm_chown"
+  },
+  {
+    "q": "come metto il setgid su una cartella condivisa del team?",
+    "expect": "cmd/perm_special_bits"
+  },
+  {
+    "q": "posso dare permessi a un solo utente extra con le acl?",
+    "expect": "cmd/perm_acl"
+  },
+  {
+    "q": "come cambio la umask di default?",
+    "expect": "cmd/perm_umask"
+  },
+  {
+    "q": "come trovo il pid di un processo per nome?",
+    "expect": "cmd/proc_find"
+  },
+  {
+    "q": "che tool uso per monitorare i processi in tempo reale?",
+    "expect": "cmd/proc_monitor"
+  },
+  {
+    "q": "chi sta mangiando la cpu al 100 per cento?",
+    "expect": "cmd/proc_top_cpu"
+  },
+  {
+    "q": "chi si sta mangiando tutta la ram?",
+    "expect": "cmd/proc_top_mem"
+  },
+  {
+    "q": "il processo non muore, kill -9?",
+    "expect": "cmd/proc_kill"
+  },
+  {
+    "q": "come abbasso la priorita di un processo pesante con renice?",
+    "expect": "cmd/proc_nice"
+  },
+  {
+    "q": "cosa significa il load average alto?",
+    "expect": "cmd/perf_load"
+  },
+  {
+    "q": "iowait alto e server lento, come indago con iostat?",
+    "expect": "cmd/perf_iowait"
+  },
+  {
+    "q": "free mostra poca ram libera ma e' cache, e' un problema?",
+    "expect": "cmd/perf_memcache"
+  },
+  {
+    "q": "come riavvio il server in modo pulito avvisando gli utenti?",
+    "expect": "cmd/sys_reboot"
+  },
+  {
+    "q": "comando per vedere il mio ip e le interfacce",
+    "expect": "cmd/net_ip"
+  },
+  {
+    "q": "come tiro giu e su un'interfaccia di rete?",
+    "expect": "cmd/net_updown"
+  },
+  {
+    "q": "come configuro un ip statico con netplan?",
+    "expect": "cmd/net_static_netplan"
+  },
+  {
+    "q": "ip fisso con nmcli su networkmanager, come si fa?",
+    "expect": "cmd/net_static_nmcli"
+  },
+  {
+    "q": "come vedo la tabella di routing e aggiungo una rotta?",
+    "expect": "cmd/net_route"
+  },
+  {
+    "q": "quali porte sono in ascolto sul server?",
+    "expect": "cmd/net_listening"
+  },
+  {
+    "q": "come scopro quale processo occupa la porta 8080?",
+    "expect": "cmd/net_port_process"
+  },
+  {
+    "q": "come testo se una porta remota e' raggiungibile con nc?",
+    "expect": "cmd/net_test_port"
+  },
+  {
+    "q": "come misuro perdita di pacchetti e latenza con mtr?",
+    "expect": "cmd/net_ping_mtr"
+  },
+  {
+    "q": "come faccio una query dns manuale con dig?",
+    "expect": "cmd/net_dig"
+  },
+  {
+    "q": "come svuoto la cache dns di systemd-resolved?",
+    "expect": "cmd/net_resolvectl"
+  },
+  {
+    "q": "come catturo il traffico con tcpdump?",
+    "expect": "cmd/net_tcpdump"
+  },
+  {
+    "q": "come vedo le regole attive di ufw?",
+    "expect": "cmd/ufw_status"
+  },
+  {
+    "q": "come attivo ufw senza tagliarmi fuori dalla ssh?",
+    "expect": "cmd/ufw_enable"
+  },
+  {
+    "q": "come apro la porta 5432 solo per un ip con ufw?",
+    "expect": "cmd/ufw_allow"
+  },
+  {
+    "q": "come cancello una regola di ufw?",
+    "expect": "cmd/ufw_delete"
+  },
+  {
+    "q": "come vedo il ruleset nftables attivo?",
+    "expect": "cmd/nft_list"
+  },
+  {
+    "q": "perche docker bypassa le regole di ufw?",
+    "expect": "cmd/iptables_docker"
+  },
+  {
+    "q": "come creo degli alias host nel config di ssh?",
+    "expect": "cmd/ssh_config"
+  },
+  {
+    "q": "ssh da permission denied publickey, come lo debuggo?",
+    "expect": "cmd/ssh_debug"
+  },
+  {
+    "q": "come riavvio sshd senza rischiare di chiudermi fuori?",
+    "expect": "cmd/sshd_reload_safe"
+  },
+  {
+    "q": "come vedo gli ip bannati da fail2ban?",
+    "expect": "cmd/fail2ban_status"
+  },
+  {
+    "q": "mi sono bannato da solo, come mi sbanno da fail2ban?",
+    "expect": "cmd/fail2ban_unban"
+  },
+  {
+    "q": "come aggiorno tutti i pacchetti del sistema?",
+    "expect": "cmd/pkg_update"
+  },
+  {
+    "q": "come installo un pacchetto e come lo rimuovo con le config?",
+    "expect": "cmd/pkg_install_remove"
+  },
+  {
+    "q": "come pulisco le dipendenze orfane con autoremove?",
+    "expect": "cmd/pkg_autoremove"
+  },
+  {
+    "q": "quale pacchetto fornisce il comando dig?",
+    "expect": "cmd/pkg_provides"
+  },
+  {
+    "q": "come blocco l'aggiornamento di un pacchetto con apt-mark hold?",
+    "expect": "cmd/pkg_hold"
+  },
+  {
+    "q": "come vedo i pacchetti installati e cerco tra loro?",
+    "expect": "cmd/pkg_installed"
+  },
+  {
+    "q": "apt si lamenta di dipendenze rotte, come sistemo?",
+    "expect": "cmd/pkg_fix_broken"
+  },
+  {
+    "q": "come aggiungo un repository di terze parti con signed-by?",
+    "expect": "cmd/pkg_repo_key"
+  },
+  {
+    "q": "come modifico il crontab del mio utente?",
+    "expect": "cmd/cron_edit"
+  },
+  {
+    "q": "come eseguo uno script a ogni avvio con cron?",
+    "expect": "cmd/cron_reboot"
+  },
+  {
+    "q": "come mando l'output del cron job in un file di log?",
+    "expect": "cmd/cron_output"
+  },
+  {
+    "q": "il cron job fallisce in silenzio, come lo debuggo?",
+    "expect": "cmd/cron_debug"
+  },
+  {
+    "q": "come inizio uno script bash con lo strict mode?",
+    "expect": "cmd/bash_strict"
+  },
+  {
+    "q": "come eseguo lo script con bash -x per il debug?",
+    "expect": "cmd/bash_debug"
+  },
+  {
+    "q": "lo script da bad interpreter con ^M, che faccio?",
+    "expect": "cmd/bash_dos2unix"
+  },
+  {
+    "q": "come rendo permanente una variabile d'ambiente?",
+    "expect": "cmd/env_vars"
+  },
+  {
+    "q": "come metto nginx come reverse proxy davanti alla mia app?",
+    "expect": "cmd/nginx_vhost"
+  },
+  {
+    "q": "come ricarico nginx dopo aver testato la config?",
+    "expect": "cmd/nginx_reload"
+  },
+  {
+    "q": "i websocket si staccano dietro nginx, che manca?",
+    "expect": "cmd/nginx_websocket"
+  },
+  {
+    "q": "errore 413 request entity too large in upload, come alzo il limite?",
+    "expect": "cmd/nginx_body_size"
+  },
+  {
+    "q": "come scrivo un caddyfile per fare da reverse proxy?",
+    "expect": "cmd/caddy_file"
+  },
+  {
+    "q": "come applico le modifiche al caddyfile?",
+    "expect": "cmd/caddy_reload"
+  },
+  {
+    "q": "che label traefik servono per esporre un container?",
+    "expect": "cmd/traefik_labels"
+  },
+  {
+    "q": "come richiedo un certificato con certbot standalone?",
+    "expect": "cmd/certbot_standalone"
+  },
+  {
+    "q": "posso chiedere il certificato senza fermare nginx? webroot?",
+    "expect": "cmd/certbot_webroot"
+  },
+  {
+    "q": "come faccio un certificato wildcard con la dns challenge?",
+    "expect": "cmd/certbot_wildcard"
+  },
+  {
+    "q": "come testo il rinnovo dei certificati con certbot renew?",
+    "expect": "cmd/certbot_renew"
+  },
+  {
+    "q": "come genero un certificato self-signed per un test?",
+    "expect": "cmd/openssl_selfsigned"
+  },
+  {
+    "q": "comando per vedere quando scade il certificato di un sito",
+    "expect": "cmd/ssl_inspect"
+  },
+  {
+    "q": "come genero chiavi e config del server wireguard?",
+    "expect": "cmd/wg_server"
+  },
+  {
+    "q": "come aggiungo un nuovo peer a wireguard?",
+    "expect": "cmd/wg_peer"
+  },
+  {
+    "q": "come attivo wireguard al boot con wg-quick?",
+    "expect": "cmd/wg_up"
+  },
+  {
+    "q": "wireguard non fa handshake, come lo debuggo?",
+    "expect": "cmd/wg_debug"
+  },
+  {
+    "q": "come faccio lo split tunnel con allowedips?",
+    "expect": "cmd/wg_allowedips"
+  },
+  {
+    "q": "come installo tailscale e lo collego?",
+    "expect": "cmd/tailscale_up"
+  },
+  {
+    "q": "come uso il server di casa come exit node tailscale?",
+    "expect": "cmd/tailscale_exit"
+  },
+  {
+    "q": "come raggiungo tutta la lan con il subnet router di tailscale?",
+    "expect": "cmd/tailscale_subnet"
+  },
+  {
+    "q": "come creo un tunnel cloudflared per esporre un servizio?",
+    "expect": "cmd/cloudflared_tunnel"
+  },
+  {
+    "q": "come aggiungo un record dns locale sul pihole?",
+    "expect": "cmd/pihole_local_dns"
+  },
+  {
+    "q": "come metto in whitelist un dominio bloccato dal pihole?",
+    "expect": "cmd/pihole_lists"
+  },
+  {
+    "q": "l'ip di casa cambia, come aggiorno il dns su cloudflare?",
+    "expect": "cmd/ddns_cloudflare"
+  },
+  {
+    "q": "come inizializzo il repository di restic?",
+    "expect": "cmd/restic_init"
+  },
+  {
+    "q": "comando per lanciare il backup con restic",
+    "expect": "cmd/restic_backup"
+  },
+  {
+    "q": "come recupero dei file da uno snapshot restic?",
+    "expect": "cmd/restic_restore"
+  },
+  {
+    "q": "come imposto la retention con restic forget e prune?",
+    "expect": "cmd/restic_prune"
+  },
+  {
+    "q": "come creo un archivio di backup con borg?",
+    "expect": "cmd/borg_create"
+  },
+  {
+    "q": "come faccio il prune degli archivi borg?",
+    "expect": "cmd/borg_prune"
+  },
+  {
+    "q": "come faccio il mirror di una cartella con rsync?",
+    "expect": "cmd/rsync_mirror"
+  },
+  {
+    "q": "come mando i file su un server remoto con rsync via ssh?",
+    "expect": "cmd/rsync_remote"
+  },
+  {
+    "q": "posso provare rsync in dry run prima del delete?",
+    "expect": "cmd/rsync_dryrun"
+  },
+  {
+    "q": "come sincronizzo una cartella sul cloud con rclone sync?",
+    "expect": "cmd/rclone_sync"
+  },
+  {
+    "q": "come monto un bucket cloud come disco con rclone mount?",
+    "expect": "cmd/rclone_mount"
+  },
+  {
+    "q": "come faccio un dump consistente di mariadb con mysqldump?",
+    "expect": "cmd/db_dump_mysql"
+  },
+  {
+    "q": "come faccio dump e restore di postgres con pg_dump?",
+    "expect": "cmd/db_dump_postgres"
+  },
+  {
+    "q": "come faccio il backup a caldo di un database sqlite?",
+    "expect": "cmd/db_backup_sqlite"
+  },
+  {
+    "q": "come aggiungo un nuovo target allo scrape di prometheus?",
+    "expect": "cmd/prom_target"
+  },
+  {
+    "q": "come installo node_exporter come servizio systemd?",
+    "expect": "cmd/node_exporter"
+  },
+  {
+    "q": "come collego grafana a prometheus e importo la dashboard 1860?",
+    "expect": "cmd/grafana_setup"
+  },
+  {
+    "q": "come monitoro le metriche dei container con cadvisor?",
+    "expect": "cmd/cadvisor"
+  },
+  {
+    "q": "come aggiungo un monitor http su uptime kuma?",
+    "expect": "cmd/kuma_monitor"
+  },
+  {
+    "q": "come collego uptime kuma alle notifiche telegram?",
+    "expect": "cmd/kuma_telegram"
+  },
+  {
+    "q": "come mando una notifica push con ntfy da uno script?",
+    "expect": "cmd/ntfy_send"
+  },
+  {
+    "q": "come invio un messaggio con gotify via curl?",
+    "expect": "cmd/gotify_send"
+  },
+  {
+    "q": "come faccio girare watchtower in dry run senza aggiornare?",
+    "expect": "cmd/watchtower_dryrun"
+  },
+  {
+    "q": "cosa fa rm -rf / ?",
+    "expect": "cmd/rm_rf_danger"
+  },
+  {
+    "q": "come scrivo una iso su usb con dd senza sbagliare disco?",
+    "expect": "cmd/dd_danger"
+  },
+  {
+    "q": "cos'e' una fork bomb?",
+    "expect": "cmd/forkbomb"
+  },
+  {
+    "q": "come installo paperless-ngx con lo script ufficiale?",
+    "expect": "cmd/paperless_install"
+  },
+  {
+    "q": "come avvio glances in docker con pid host?",
+    "expect": "cmd/glances_docker_web"
+  },
+  {
+    "q": "avvio zabbix compose da repo ufficiale",
+    "expect": "cmd/zabbix_compose"
+  },
+  {
+    "q": "come installo appwrite in self hosting con il wizard?",
+    "expect": "cmd/appwrite_install"
+  },
+  {
+    "q": "come installo plausible community edition con compose?",
+    "expect": "cmd/plausible_install"
+  },
+  {
+    "q": "avvio n8n docker con volume dedicato",
+    "expect": "cmd/n8n_docker"
+  },
+  {
+    "q": "come avvio beszel hub con compose?",
+    "expect": "cmd/beszel_hub"
+  },
+  {
+    "q": "come installo cosmos server, get.sh o docker?",
+    "expect": "cmd/cosmos_install"
+  },
+  {
+    "q": "come installo nginx proxy manager con compose?",
+    "expect": "cmd/npm_install"
+  },
+  {
+    "q": "avvio traefik docker con compose minimo",
+    "expect": "cmd/traefik_compose"
+  },
+  {
+    "q": "come imposto la password admin di pihole in docker?",
+    "expect": "cmd/pihole_password"
+  },
+  {
+    "q": "primo setup plex headless con ssh tunnel, come si fa?",
+    "expect": "cmd/plex_claim_headless"
+  },
+  {
+    "q": "reverse proxy al volo con caddy per provare un backend",
+    "expect": "cmd/caddy_reverseproxy_test"
+  },
+  {
+    "q": "come mi collego a openvpn da terminale con ovpn?",
+    "expect": "cmd/openvpn_connect"
+  },
+  {
+    "q": "come verifico che docker funziona con hello world?",
+    "expect": "cmd/docker_hello"
+  },
+  {
+    "q": "come installo netdata con kickstart?",
+    "expect": "cmd/netdata_install"
+  },
+  {
+    "q": "come vedo i processi con btop?",
+    "expect": "cmd/btop_proc"
+  },
+  {
+    "q": "come scansiono le porte aperte con nmap?",
+    "expect": "cmd/nmap_scan"
+  },
+  {
+    "q": "tracciare risoluzione con dig trace",
+    "expect": "cmd/dig_trace"
+  },
+  {
+    "q": "vedere chiavi dnskey con dig dnssec",
+    "expect": "cmd/dig_dnssec"
+  },
+  {
+    "q": "validare catena dnssec con delv",
+    "expect": "cmd/delv_validate"
+  },
+  {
+    "q": "testare trasferimento di zona con dig axfr",
+    "expect": "cmd/dig_axfr"
+  },
+  {
+    "q": "aureport riepilogo comandi",
+    "expect": "cmd/auditd_execve_search"
+  },
+  {
+    "q": "vedere pid connessione di rete",
+    "expect": "cmd/ss_process_pid"
+  },
+  {
+    "q": "filtrare errori boot journalctl",
+    "expect": "cmd/journalctl_boot_errors"
+  },
+  {
+    "q": "sha256 file sospetto",
+    "expect": "cmd/sha256sum_binary_check"
+  },
+  {
+    "q": "verifica firma commit git",
+    "expect": "cmd/git_verify_commit_signature"
+  },
+  {
+    "q": "gitleaks protect staged pre commit",
+    "expect": "cmd/gitleaks_detect_staged"
+  },
+  {
+    "q": "cifrare file con sops",
+    "expect": "cmd/sops_encrypt_file"
+  },
+  {
+    "q": "cosign verifica immagine container",
+    "expect": "cmd/cosign_verify_image"
+  },
+  {
+    "q": "statistiche cache arc",
+    "expect": "cmd/zfs_arc_summary"
+  },
+  {
+    "q": "usura disco nvme cli",
+    "expect": "cmd/nvme_smart_log"
+  },
+  {
+    "q": "misurare latenza dischi iostat",
+    "expect": "cmd/iostat_disk_latency"
+  },
+  {
+    "q": "controllo congestione tcp bbr",
+    "expect": "cmd/sysctl_tcp_bbr_status"
+  }
 ]

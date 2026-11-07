@@ -18299,6 +18299,7 @@
       "suggest": [
         "caddyfile-minimo-per-servizi-docker",
         "nginx-caddy-o-traefik",
+        "ssh-connection-refused-dopo-riavvio",
         "cron-non-gira-ma-a-mano-funziona"
       ]
     },
@@ -18319,6 +18320,7 @@
       "suggest": [
         "mettere-in-sicurezza-ssh",
         "firewalld-o-iptables-chi-comanda",
+        "terminare-un-processo-linux",
         "fstab-sbagliato-emergency-mode"
       ]
     },
@@ -18351,8 +18353,8 @@
       "suggest": [
         "gestire-servizi-linux-con-systemctl",
         "mount-nfs-appeso-ls-bloccato",
-        "caddyfile-pattern-reverse-proxy-sicurezza-failover",
-        "load-average-alto-cpu-scarica"
+        "load-average-alto-cpu-scarica",
+        "oom-killer-ha-ucciso-un-processo"
       ]
     },
     {
@@ -18845,9 +18847,1408 @@
         "Il server web Caddy permette di scrivere configurazioni di reverse proxy pulite ed estendibili grazie alla modularita dei blocchi e degli snippet riutilizzabili.\n\nPattern raccomandati per produzione:\n- **Snippet di sicurezza**: definisci un blocco `(tls-security)` contenente intestazioni HSTS, CSP e opzioni TLS, importandolo in ogni virtual host con `import tls-security`\n- **Health check e failover**: inoltra il traffico a piu backend con bilanciamento e controllo attivo di disponibilita:\n```caddy\nreverse_proxy backend1:8080 backend2:8080 {\n    lb_policy round_robin\n    health_uri /healthz\n    health_interval 5s\n    health_timeout 2s\n}\n```\n- **Ricarica senza disservizio**: applica ogni modifica con `caddy reload` anziche riavviare il demone; Caddy valida la sintassi ed esegue lo swap della configurazione in memoria con zero downtime e rilascio automatico dei certificati ACME."
       ],
       "suggest": [
-        "terminare-un-processo-linux",
-        "ssh-connection-refused-dopo-riavvio",
-        "address-already-in-use-chi-occupa-la-porta"
+        "dns-rcode-differenze-tecniche",
+        "ptr-rdns-configurazione-mail",
+        "dns-txt-record-chunk-255",
+        "cos-e-un-waf-web-application-firewall"
+      ]
+    },
+    {
+      "id": "record-caa-tls-rfc8659",
+      "slug": "record-caa-tls-rfc8659",
+      "question": "Cos'è il record CAA RFC 8659 e come impedisce certificati non autorizzati?",
+      "vertical": "security",
+      "keywords": [
+        "record caa",
+        "rfc 8659",
+        "certification authority authorization",
+        "issuewild",
+        "iodef"
+      ],
+      "answers": [
+        "Il record CAA (Certification Authority Authorization, standardizzato in RFC 8659) permette al proprietario di un dominio di dichiarare nei nameserver DNS quali Certificate Authority (CA) sono autorizzate a emettere certificati X.509 per quel dominio e i suoi sottodomini.",
+        "Prima di emettere un certificato pubblico, ogni CA accreditata nel CA/Browser Forum ha l'obbligo contrattuale di interrogare i record CAA del dominio. Se il record specifica ad esempio `issue letsencrypt.org`, nessun'altra CA (come DigiCert o Sectigo) emettera il certificato.",
+        "Il tag `issuewild` regola specificamente i certificati wildcard (`*.example.com`), mentre il tag `iodef` accetta un URL mailto o HTTPS verso cui le CA inviano notifiche in caso di tentativi di emissione non conformi."
+      ],
+      "suggest": [
+        "dnssec-bogus-servfail-debug",
+        "dane-tlsa-rfc6698-differenze",
+        "split-horizon-dns-architettura",
+        "cos-e-un-waf-web-application-firewall"
+      ]
+    },
+    {
+      "id": "dnssec-bogus-servfail-debug",
+      "slug": "dnssec-bogus-servfail-debug",
+      "question": "Come si fa il debug di un errore DNSSEC bogus che causa SERVFAIL?",
+      "vertical": "security",
+      "keywords": [
+        "dnssec bogus",
+        "servfail dnssec",
+        "debug dnssec bogus",
+        "cdflag",
+        "delv"
+      ],
+      "answers": [
+        "Quando un resolver DNS con convalida DNSSEC attiva riscontra una firma digitale non valida o una catena di trust rotta, rifiuta i dati e restituisce al client il codice `SERVFAIL`. Questo stato viene definito `BOGUS`.",
+        "Le cause operative piu frequenti sono tre: firma `RRSIG` scaduta per mancata rigenerazione automatica, record `DS` sul registro genitore (TLD) non allineato con la chiave `KSK` attiva, oppure clock disallineato sul resolver locale.",
+        "Per isolare il guasto si esegue `dig +cdflag <dominio>`: il Checking Disabled flag ordina al resolver di ignorare la validazione crittografica. Se con `+cdflag` la query riceve `NOERROR` e l'indirizzo IP, il problema e confermato su DNSSEC. Si usa quindi `delv @1.1.1.1 <dominio>` per localizzare l'anello esatto interrotto nella catena."
+      ],
+      "suggest": [
+        "record-caa-tls-rfc8659",
+        "dane-tlsa-rfc6698-differenze",
+        "split-horizon-dns-architettura",
+        "cos-e-un-waf-web-application-firewall"
+      ]
+    },
+    {
+      "id": "record-svcb-https-rfc9460",
+      "slug": "record-svcb-https-rfc9460",
+      "question": "A cosa serve il record HTTPS RFC 9460 e come elimina il redirect HTTP iniziale?",
+      "vertical": "cloudflare",
+      "keywords": [
+        "record https",
+        "rfc 9460",
+        "record svcb",
+        "alpn https",
+        "encrypted client hello"
+      ],
+      "answers": [
+        "Il record DNS di tipo HTTPS (definito in RFC 9460 insieme al record generico SVCB, con codice RR 65) fornisce al browser i parametri operativi del server prima di aprire la connessione TCP/TLS.",
+        "In assenza del record HTTPS, un client che digita un dominio invia una prima richiesta in chiaro sulla porta 80, riceve un redirect 301/308 verso HTTPS, e solo dopo avvia il TLS handshake. Il record HTTPS elimina questo round-trip superfluo comunicando subito la disponibilita di TLS e i protocolli supportati.",
+        "Il record include parametri fondamentali: `alpn` (per negoziare direttamente HTTP/2 o HTTP/3 su QUIC senza round-trip intermedio), `ipv4hint`/`ipv6hint` (indirizzi IP dell'endpoint) ed `ech` (la chiave pubblica per Encrypted Client Hello, che protegge il campo SNI da intercettazioni ISP)."
+      ],
+      "suggest": [
+        "cname-flattening-apex-dominio",
+        "anycast-bgp-dns-routing",
+        "cloudflare-cache-control-stale-while-revalidate",
+        "cos-e-un-waf-web-application-firewall"
+      ]
+    },
+    {
+      "id": "cname-flattening-apex-dominio",
+      "slug": "cname-flattening-apex-dominio",
+      "question": "Perché l'apex di zona non può essere un CNAME e cos'è il CNAME flattening?",
+      "vertical": "cloudflare",
+      "keywords": [
+        "cname flattening",
+        "apex cname",
+        "cname root domain",
+        "rfc 1034 cname",
+        "record alias dns"
+      ],
+      "answers": [
+        "La specifica RFC 1034 stabilisce una regola ferrea: un nodo DNS che possiede un record CNAME non puo contenere nessun altro tipo di record. Sull'apex (o root del dominio, es. `example.com`), sono obbligatori per definizione i record SOA e NS: inserire un CNAME romperebbe la risoluzione della zona.",
+        "Questo limite crea problemi quando si utilizzano servizi CDN o PaaS (come Cloudflare, AWS CloudFront o GitHub Pages) che forniscono un hostname dinamico e non un IP statico.",
+        "I provider DNS moderni risolvono il problema con il CNAME flattening (chiamato anche record ANAME o ALIAS): il nameserver autoritativo segue internamente il CNAME fino alla destinazione finale e restituisce al client direttamente i record A e AAAA sintetizzati, rispettando lo standard RFC."
+      ],
+      "suggest": [
+        "record-svcb-https-rfc9460",
+        "anycast-bgp-dns-routing",
+        "cloudflare-cache-control-stale-while-revalidate",
+        "cos-e-un-waf-web-application-firewall"
+      ]
+    },
+    {
+      "id": "dane-tlsa-rfc6698-differenze",
+      "slug": "dane-tlsa-rfc6698-differenze",
+      "question": "Cos'è DANE TLSA RFC 6698 e in cosa si differenzia da CAA e certificati Web PKI?",
+      "vertical": "security",
+      "keywords": [
+        "dane tlsa",
+        "rfc 6698",
+        "differenza dane caa",
+        "dane smtp",
+        "tlsa dnssec"
+      ],
+      "answers": [
+        "DANE (DNS-based Authentication of Named Entities, RFC 6698) permette di ancorare la validazione TLS direttamente al DNS tramite record TLSA, protetti crittograficamente da DNSSEC.",
+        "Mentre il modello Web PKI tradizionale si fida di centinaia di Certificate Authority mondiali e il record CAA si limita a dichiarare quali CA possono emettere il certificato, DANE consente di vincolare il certificato o la chiave pubblica specifica (pinning) direttamente nel record DNS.",
+        "Sul web pubblico dei browser DANE ha scarso supporto a causa della mancata adozione di DNSSEC nei client finali. Tuttavia, DANE e diventato fondamentale nella sicurezza della posta elettronica: protegge le connessioni SMTP tra server di posta (MTA-to-MTA sulla porta 25) impedendo attacchi di downgrade STARTTLS e man-in-the-middle."
+      ],
+      "suggest": [
+        "split-horizon-dns-architettura",
+        "dnssec-bogus-servfail-debug",
+        "dns-amplification-ddos-rrl",
+        "cos-e-un-waf-web-application-firewall"
+      ]
+    },
+    {
+      "id": "split-horizon-dns-architettura",
+      "slug": "split-horizon-dns-architettura",
+      "question": "Cos'è un'architettura split-horizon DNS e come previene DNS leak interni?",
+      "vertical": "security",
+      "keywords": [
+        "split horizon dns",
+        "split brain dns",
+        "view dns",
+        "dns leak interno",
+        "bind views"
+      ],
+      "answers": [
+        "Il pattern split-horizon DNS (o split-brain DNS) consiste nel configurare i server DNS in modo che restituiscano risposte diverse per lo stesso nome a dominio a seconda dell'indirizzo IP di provenienza della query.",
+        "Un client connesso alla LAN aziendale o via VPN che richiede `crm.azienda.it` riceve l'IP privato RFC 1918 (es. `10.10.0.50`), mentre un client su internet pubblico che risolve lo stesso nome riceve l'IP pubblico del reverse proxy o WAF perimetrale.",
+        "Questo isolamento si realizza con le `view` in server come BIND, CoreDNS o PowerDNS. Previene la divulgazione involontaria della topologia interna (DNS leak) e protegge i servizi interni evitando che il traffico LAN debba attraversare il router perimetrale in NAT hairpin."
+      ],
+      "suggest": [
+        "dane-tlsa-rfc6698-differenze",
+        "dns-amplification-ddos-rrl",
+        "edns0-buffer-size-packet-drop",
+        "cos-e-un-waf-web-application-firewall"
+      ]
+    },
+    {
+      "id": "dns-rcode-differenze-tecniche",
+      "slug": "dns-rcode-differenze-tecniche",
+      "question": "Quali sono le differenze tecniche tra i codici RCODE DNS (NOERROR, NXDOMAIN, SERVFAIL, REFUSED)?",
+      "vertical": "tools",
+      "keywords": [
+        "rcode dns",
+        "differenza noerror nxdomain",
+        "dns servfail",
+        "dns refused",
+        "formerr",
+        "codici rcode",
+        "differenze rcode",
+        "differenza nxdomain"
+      ],
+      "answers": [
+        "Ogni risposta DNS include nell'header un codice RCODE a 4 bit che comunica l'esito dell'interrogazione.",
+        "`NOERROR` (RCODE 0) indica che la query e stata elaborata con successo; se la sezione Answer e vuota, il nome esiste ma non possiede record del tipo richiesto (stato NODATA). `NXDOMAIN` (RCODE 3, Non-Existent Domain) certifica che il nome a dominio cercato non esiste nell'albero autoritativo.",
+        "`SERVFAIL` (RCODE 2) indica un fallimento interno del resolver, causato da timeout verso i server autoritativi o validazione DNSSEC fallita. `REFUSED` (RCODE 5) indica che il nameserver rifiuta intenzionalmente di rispondere per policy di sicurezza (es. query ricorsiva da IP esterno non autorizzato o zone transfer non abilitato)."
+      ],
+      "suggest": [
+        "ptr-rdns-configurazione-mail",
+        "dns-txt-record-chunk-255",
+        "caddyfile-pattern-reverse-proxy-sicurezza-failover",
+        "cos-e-un-waf-web-application-firewall"
+      ]
+    },
+    {
+      "id": "dns-amplification-ddos-rrl",
+      "slug": "dns-amplification-ddos-rrl",
+      "question": "Come funziona un attacco DDoS DNS amplification e come si mitiga con RRL?",
+      "vertical": "security",
+      "keywords": [
+        "dns amplification",
+        "ddos dns",
+        "response rate limiting",
+        "dns rrl",
+        "open resolver"
+      ],
+      "answers": [
+        "L'attacco DNS amplification sfrutta due debolezze: l'assenza di handshake in UDP (che consente di falsificare l'IP sorgente della vittima tramite IP spoofing) e la sproporzione di dimensione tra query e risposta.",
+        "L'attaccante invia piccole query da 60 byte (tipicamente di tipo `ANY` o con payload EDNS0 esteso) a resolver DNS ricorsivi aperti (open resolver), forgiando l'IP della vittima. Il server risponde con pacchetti fino a 3000 o 4000 byte, moltiplicando il volume di traffico di 40 o 50 volte contro il bersaglio.",
+        "La mitigazione lato autoritativo si attua configurando RRL (Response Rate Limiting): il nameserver limita la frequenza delle risposte identiche verso la stessa sottorete client, scartando i pacchetti in eccesso o restituendo risposte tronche (TC bit) che forzano il client legittimo a riconnettersi via TCP."
+      ],
+      "suggest": [
+        "edns0-buffer-size-packet-drop",
+        "split-horizon-dns-architettura",
+        "dane-tlsa-rfc6698-differenze",
+        "cos-e-un-waf-web-application-firewall"
+      ]
+    },
+    {
+      "id": "edns0-buffer-size-packet-drop",
+      "slug": "edns0-buffer-size-packet-drop",
+      "question": "Cos'è EDNS0 e perché la dimensione del buffer UDP è stata abbassata a 1232 byte?",
+      "vertical": "security",
+      "keywords": [
+        "edns0",
+        "buffer size dns",
+        "edns 1232 byte",
+        "frammentazione udp dns",
+        "dns flag day 2020"
+      ],
+      "answers": [
+        "L'estensione EDNS0 (RFC 6891) ha superato il limite storico di 512 byte per i messaggi DNS su UDP, consentendo ai resolver di negoziare buffer piu capienti, originariamente impostati a 4096 byte per supportare le risposte voluminose introdotte da DNSSEC.",
+        "Tuttavia, pacchetti UDP superiori all'MTU tipico di internet (1500 byte) subiscono la frammentazione IP a livello di rete. Molti firewall, router e NAT scartano i frammenti IP successivi al primo per motivi di sicurezza, provocando timeout e mancata risoluzione intermittente.",
+        "Con il DNS Flag Day 2020, tutti i principali vendor e gestori di resolver autoritativi hanno concordato di impostare il buffer EDNS0 predefinito a 1232 byte: questo valore garantisce che i pacchetti DNS non superino l'MTU minimo IPv6 (1280 byte) sottraendo gli header IPv6 (40 byte) e UDP (8 byte), eliminando la frammentazione."
+      ],
+      "suggest": [
+        "dns-amplification-ddos-rrl",
+        "split-horizon-dns-architettura",
+        "dane-tlsa-rfc6698-differenze",
+        "cos-e-un-waf-web-application-firewall"
+      ]
+    },
+    {
+      "id": "anycast-bgp-dns-routing",
+      "slug": "anycast-bgp-dns-routing",
+      "question": "Come funziona l'Anycast BGP nei resolver DNS e quali vantaggi offre?",
+      "vertical": "cloudflare",
+      "keywords": [
+        "anycast bgp",
+        "dns anycast",
+        "anycast routing",
+        "bgp resolver",
+        "pop anycast"
+      ],
+      "answers": [
+        "Nell'Anycast BGP, lo stesso identico indirizzo IP (ad esempio `1.1.1.1` di Cloudflare o `8.8.8.8` di Google) viene annunciato tramite il protocollo BGP da decine o centinaia di data center (Point of Presence, PoP) distribuiti in tutto il mondo.",
+        "I router dei vari provider internet instradano automaticamente i pacchetti del client verso il data center topologicamente piu vicino secondo le tabelle di routing BGP, riducendo drasticamente la latenza di risoluzione DNS a pochi millisecondi.",
+        "L'Anycast offre inoltre elevatissima resilienza: assorbe massicci attacchi DDoS disperdendo il traffico volumetrico su decine di sedi invece di concentrarlo su un singolo server. Se un data center ha un guasto, i suoi annunci BGP vengono ritirati e il traffico migra istantaneamente sui nodi limitrofi."
+      ],
+      "suggest": [
+        "cname-flattening-apex-dominio",
+        "record-svcb-https-rfc9460",
+        "cloudflare-cache-control-stale-while-revalidate",
+        "cos-e-un-waf-web-application-firewall"
+      ]
+    },
+    {
+      "id": "ptr-rdns-configurazione-mail",
+      "slug": "ptr-rdns-configurazione-mail",
+      "question": "Come si configura il reverse DNS (PTR) e perché è obbligatorio per i server mail?",
+      "vertical": "tools",
+      "keywords": [
+        "record ptr",
+        "reverse dns",
+        "fcrdns",
+        "configurazione ptr mail",
+        "in-addr arpa"
+      ],
+      "answers": [
+        "Il record PTR (Pointer Record) esegue la risoluzione inversa, mappando un indirizzo IP numerico nel rispettivo nome a dominio canonico, operando sotto le zone speciali `in-addr.arpa` (per IPv4) e `ip6.arpa` (per IPv6).",
+        "La configurazione del PTR non si effettua sul registrar del dominio, ma sul provider di hosting o ISP che delega l'indirizzo IP pubblico (es. Hetzner, OVH, AWS, DigitalOcean).",
+        "Nei server di posta SMTP, il reverse DNS e un requisito imprescindibile: i server riceventi verificano il meccanismo FCrDNS (Forward-Confirmed reverse DNS). Se l'IP del server che invia la mail non possiede un record PTR corrispondente, o se quel nome PTR non risolve a sua volta esattamente all'IP sorgente, la mail viene rifiutata all'istante o contrassegnata come spam."
+      ],
+      "suggest": [
+        "dns-txt-record-chunk-255",
+        "dns-rcode-differenze-tecniche",
+        "syslog-rfc5424-strutturato-json",
+        "cos-e-un-waf-web-application-firewall"
+      ]
+    },
+    {
+      "id": "dns-txt-record-chunk-255",
+      "slug": "dns-txt-record-chunk-255",
+      "question": "Perché i record TXT nel DNS hanno il limite di 255 caratteri per stringa e come si spezzano?",
+      "vertical": "tools",
+      "keywords": [
+        "record txt 255 caratteri",
+        "chunk stringa txt",
+        "spezzare record txt",
+        "dkim txt 255",
+        "rfc 1035 txt"
+      ],
+      "answers": [
+        "La specifica originale RFC 1035 definisce i dati dei record TXT come una o piu stringhe di testo con lunghezza prefissata da un singolo byte (da 0 a 255). Di conseguenza, una singola sottostringa non puo mai eccedere i 255 byte.",
+        "Questo limite viene superato frequentemente nei record di sicurezza moderni, come le chiavi pubbliche DKIM a 2048 bit o le policy SPF complesse che superano agevolmente i 300 o 400 caratteri.",
+        "La soluzione conforme allo standard consiste nel dividere il payload in piu stringhe racchiuse tra virgolette all'interno dello stesso record, ad esempio: `\"v=DKIM1; p=PARTE1...\" \"PARTE2...\"`. Il resolver DNS e le applicazioni riceventi concatenano automaticamente le singole stringhe senza inserire spazi aggiuntivi, ricomponendo la chiave originaria."
+      ],
+      "suggest": [
+        "ptr-rdns-configurazione-mail",
+        "dns-rcode-differenze-tecniche",
+        "syslog-rfc5424-strutturato-json",
+        "cos-e-un-waf-web-application-firewall"
+      ]
+    },
+    {
+      "id": "dns-zone-transfer-axfr-sicurezza",
+      "slug": "dns-zone-transfer-axfr-sicurezza",
+      "question": "Cos'è il trasferimento di zona AXFR e perché va protetto con TSIG?",
+      "vertical": "security",
+      "keywords": [
+        "trasferimento di zona",
+        "dns axfr",
+        "tsig dns",
+        "proteggere axfr",
+        "rfc 2845"
+      ],
+      "answers": [
+        "Il protocollo AXFR (Authoritative Transfer, RFC 5936) consente la sincronizzazione completa di una zona DNS tra server primario (primary/master) e server secondari (secondary/slave) attraverso una connessione TCP sulla porta 53.",
+        "Se il server primario non limita le richieste AXFR, un attaccante puo interrogare il nameserver con `dig @ns.example.com example.com axfr` e ottenere l'elenco integrale di tutti i record di zona: sottodomini nascosti, server di test, indirizzi IP privati e apparati interni, completando la ricognizione del perimetro senza scansioni brute-force.",
+        "La protezione richiede due livelli di difesa: limitare l'accesso mediante ACL basate su IP con la direttiva `allow-transfer`, e soprattutto implementare TSIG (Transaction Signature, RFC 2845), che firma crittograficamente ogni messaggio di sincronizzazione con una chiave segreta condivisa (HMAC-SHA256)."
+      ],
+      "suggest": [
+        "dns-over-quic-doq-vs-doh-dot",
+        "nis2-obblighi-tecnici-art21",
+        "notifica-incidenti-nis2-tempistiche",
+        "cos-e-un-waf-web-application-firewall"
+      ]
+    },
+    {
+      "id": "dns-over-quic-doq-vs-doh-dot",
+      "slug": "dns-over-quic-doq-vs-doh-dot",
+      "question": "Cos'è DNS-over-QUIC (DoQ) RFC 9250 e che vantaggi ha rispetto a DoH e DoT?",
+      "vertical": "security",
+      "keywords": [
+        "dns over quic",
+        "rfc 9250",
+        "differenza doq doh",
+        "doq porta 853",
+        "head of line blocking dns"
+      ],
+      "answers": [
+        "DNS-over-QUIC (DoQ, standardizzato in RFC 9250) trasporta le query DNS crittografate su protocollo di trasporto QUIC (UDP sulla porta 853), superando i limiti storici di DoT (TCP/TLS) e DoH (HTTP/2 o HTTP/3).",
+        "DoT su TCP soffre del fenomeno Head-of-Line (HoL) blocking a livello di trasporto: se un singolo pacchetto TCP va perso nella connessione, tutte le query successive rimangono bloccate in coda finche il pacchetto non viene ritrasmesso. DoQ gestisce stream multipli indipendenti all'interno dello stesso tunnel UDP, azzerando l'interferenza tra query parallele.",
+        "Inoltre, DoQ supporta la ripresa della connessione 0-RTT e il connection migration (il passaggio trasparente tra Wi-Fi e rete cellulare senza dover riaprire l'handshake crittografico), offrendo prestazioni nettamente superiori su reti mobili o ad alta perdita di pacchetti rispetto a DoH."
+      ],
+      "suggest": [
+        "dns-zone-transfer-axfr-sicurezza",
+        "nis2-obblighi-tecnici-art21",
+        "notifica-incidenti-nis2-tempistiche",
+        "cos-e-un-waf-web-application-firewall"
+      ]
+    },
+    {
+      "id": "nis2-obblighi-tecnici-art21",
+      "slug": "nis2-obblighi-tecnici-art21",
+      "question": "Quali sono gli obblighi tecnici minimi dell'Articolo 21 NIS2 per l'infrastruttura IT?",
+      "vertical": "security",
+      "keywords": [
+        "obblighi tecnici nis2",
+        "articolo 21 nis2",
+        "misure sicurezza nis2",
+        "compliance tecnica nis2",
+        "art 21 direttiva nis2"
+      ],
+      "answers": [
+        "L'Articolo 21 della Direttiva NIS2 (UE 2022/2555) impone ai soggetti essenziali e importanti l'adozione di misure tecniche, operative e organizzative proporzionate per gestire i rischi di sicurezza informatica.",
+        "I pilastri tecnici obbligatori comprendono: analisi dei rischi dei sistemi informativi, gestione e notifica degli incidenti, continuita operativa con piani di backup verificati e disaster recovery, sicurezza dell'intera catena di fornitura (supply chain), crittografia end-to-end dei dati a riposo e in transito.",
+        "Sono inoltre prescritti controlli rigorosi sull'accesso logico: autenticazione a piu fattori (MFA) o autenticazione continua, comunicazioni di emergenza protette e igiene informatica di base (patching tempestivo e segmentazione delle reti)."
+      ],
+      "suggest": [
+        "dns-over-quic-doq-vs-doh-dot",
+        "notifica-incidenti-nis2-tempistiche",
+        "dns-zone-transfer-axfr-sicurezza",
+        "cos-e-un-waf-web-application-firewall"
+      ]
+    },
+    {
+      "id": "notifica-incidenti-nis2-tempistiche",
+      "slug": "notifica-incidenti-nis2-tempistiche",
+      "question": "Quali sono le tempistiche vincolanti di notifica degli incidenti secondo la NIS2?",
+      "vertical": "security",
+      "keywords": [
+        "notifica incidenti nis2",
+        "tempistiche nis2",
+        "early warning 24 ore",
+        "csirt nis2",
+        "report finale un mese"
+      ],
+      "answers": [
+        "La NIS2 introduce una procedura scaglionata e vincolante per la segnalazione di incidenti significativi al CSIRT nazionale o all'autorita competente.",
+        "Entro 24 ore dalla consapevolezza dell'incidente deve essere inviato un preallarme (early warning), specificando se l'incidente sia causato da atti illeciti o ostili e se abbia un potenziale impatto transfrontaliero. Entro 72 ore segue la notifica formale dell'incidente, con una prima valutazione di gravita, impatto e indicatori di compromissione (IoC).",
+        "Su richiesta puo essere richiesta una relazione intermedia sullo stato di avanzamento; entro 1 mese dalla chiusura o dalla notifica iniziale e obbligatorio presentare la relazione finale, corredata da analisi dettagliata della causa radice (root cause), impatto economico e misure di mitigazione applicate."
+      ],
+      "suggest": [
+        "nis2-obblighi-tecnici-art21",
+        "log-immutabili-forensi-crittografia",
+        "dns-over-quic-doq-vs-doh-dot",
+        "cos-e-un-waf-web-application-firewall"
+      ]
+    },
+    {
+      "id": "log-immutabili-forensi-crittografia",
+      "slug": "log-immutabili-forensi-crittografia",
+      "question": "Come si implementa un'architettura di log immutabili con WORM e hashing crittografico?",
+      "vertical": "security",
+      "keywords": [
+        "log immutabili",
+        "conservazione forense log",
+        "worm log",
+        "catena di hash log",
+        "integrita log forense"
+      ],
+      "answers": [
+        "In caso di violazione perimetrale con privilegi di root, la prima azione degli attaccanti e cancellare o manomettere `/var/log` per impedire l'attribuzione forense. Un'architettura di log immutabili neutralizza questa minaccia rendendo i dati non modificabili.",
+        "L'implementazione combina due livelli: lo streaming immediato e unidirezionale degli eventi verso un log server isolato o object storage con policy WORM (Write Once, Read Many), ad esempio AWS S3 o MinIO con Object Lock in modalita Compliance, dove nemmeno l'amministratore puo eliminare i bucket prima del termine di retention.",
+        "A livello crittografico, i blocchi di log vengono sigillati tramite catene di digest (hash chaining SHA-256 o strutture Merkle Tree) o firme RFC 3161 con marca temporale certificata, garantendo il valore probatorio legale delle tracce."
+      ],
+      "suggest": [
+        "notifica-incidenti-nis2-tempistiche",
+        "log-retention-amministratori-sistema",
+        "nis2-obblighi-tecnici-art21",
+        "cos-e-un-waf-web-application-firewall"
+      ]
+    },
+    {
+      "id": "log-retention-amministratori-sistema",
+      "slug": "log-retention-amministratori-sistema",
+      "question": "Quali sono i requisiti di conservazione dei log degli amministratori di sistema (Garante e NIS2)?",
+      "vertical": "security",
+      "keywords": [
+        "log amministratori di sistema",
+        "garante privacy log 6 mesi",
+        "conservazione accessi admin",
+        "inalterabilita log admin",
+        "provvedimento garante 2008",
+        "conservazione dei log degli amministratori di sistema",
+        "requisiti di conservazione dei log",
+        "log degli amministratori"
+      ],
+      "answers": [
+        "Il Provvedimento del Garante per la Protezione dei Dati Personali del 27 novembre 2008 stabilisce che le registrazioni degli accessi (access log) dei soggetti con privilegi di amministratore di sistema devono essere conservate per almeno 6 mesi.",
+        "I log devono avere caratteristiche di completezza, inalterabilita e possibilita di verifica della loro integrita, documentando data, ora, identificativo dell'amministratore e natura dell'evento operativo (login, modifiche ai privilegi, tentativi falliti).",
+        "La Direttiva NIS2 rafforza questo requisito estendendo la conservazione e l'immutabilita all'intera catena forense: l'accesso ai log centralizzati deve essere segregato tramite audit trail indipendenti per prevenire la cancellazione o manipolazione da parte degli stessi amministratori."
+      ],
+      "suggest": [
+        "log-immutabili-forensi-crittografia",
+        "notifica-incidenti-nis2-tempistiche",
+        "bastion-host-jumpbox-hardening",
+        "cos-e-un-waf-web-application-firewall"
+      ]
+    },
+    {
+      "id": "syslog-rfc5424-strutturato-json",
+      "slug": "syslog-rfc5424-strutturato-json",
+      "question": "Come si configurano i log strutturati con RFC 5424 e payload JSON su rsyslog o vector?",
+      "vertical": "tools",
+      "keywords": [
+        "rfc 5424",
+        "syslog strutturato json",
+        "rsyslog template json",
+        "vector log collector",
+        "standard syslog rfc 5424"
+      ],
+      "answers": [
+        "Lo standard RFC 5424 supera le ambiguita storiche del protocollo RFC 3164 (BSD syslog), definendo una struttura formale a campi obbligatori: PRI, VERSION, TIMESTAMP con precisione al millisecondo e timezone esplicita (ISO 8601), HOSTNAME, APP-NAME, PROCID e MSGID.",
+        "La caratteristica fondamentale e il supporto ai dati strutturati (STRUCTURED-DATA) o l'inclusione di un payload JSON formattato all'interno del campo messaggio. Su collector moderni come Vector, Fluentbit o rsyslog, la configurazione di un template JSON permette l'ingestion diretta in database colonnari come ClickHouse o OpenSearch senza parsing a posteriori.",
+        "Questo standard elimina regex fragili nei parser centralizzati e garantisce la coerenza dei tipi di dato (indirizzi IP, codici di errore numerici, UUID di tracciamento)."
+      ],
+      "suggest": [
+        "dns-txt-record-chunk-255",
+        "ptr-rdns-configurazione-mail",
+        "edr-osquery-flotta-linux",
+        "cos-e-un-waf-web-application-firewall"
+      ]
+    },
+    {
+      "id": "bastion-host-jumpbox-hardening",
+      "slug": "bastion-host-jumpbox-hardening",
+      "question": "Come si progetta e si protegge un bastion host o jumpbox per l'accesso amministrativo?",
+      "vertical": "security",
+      "keywords": [
+        "bastion host",
+        "jumpbox ssh",
+        "hardening bastion host",
+        "ssh proxyjump",
+        "blindare bastion host"
+      ],
+      "answers": [
+        "Un bastion host (o jumpbox) e l'unico punto di ingresso consentito per l'amministrazione dei server situati in reti private o DMZ, concentrando i controlli di sicurezza su una superficie ridotta.",
+        "Per il suo hardening e necessario: disabilitare completamente qualsiasi password imponendo chiavi SSH hardware (FIDO2/U2F con `ed25519-sk`) o certificati a vita breve emessi da una SSH CA; limitare l'accesso alla porta SSH solo da IP fidati o da un tunnel VPN WireGuard/Tailscale; disattivare X11 forwarding e root login.",
+        "I client si collegano tramite la direttiva `ProxyJump` di OpenSSH, consentendo la cifratura end-to-end della sessione senza che la chiave privata del server di destinazione transiti mai decifrata sul bastion."
+      ],
+      "suggest": [
+        "auditd-linux-regole-forensi",
+        "log-retention-amministratori-sistema",
+        "pki-interna-smallstep-vault",
+        "cos-e-un-waf-web-application-firewall"
+      ]
+    },
+    {
+      "id": "auditd-linux-regole-forensi",
+      "slug": "auditd-linux-regole-forensi",
+      "question": "Come si configura il sottosistema auditd su Linux per tracciare chiamate di sistema sospette?",
+      "vertical": "security",
+      "keywords": [
+        "auditd linux",
+        "regole auditd",
+        "tracciare syscall",
+        "auditctl",
+        "configurare auditd forense"
+      ],
+      "answers": [
+        "Il demone `auditd` interagisce con il framework di auditing del kernel Linux per registrare in modo attendibile gli eventi di sicurezza a livello di sistema operativo, indipendentemente dai log applicativi.",
+        "Le regole forensi essenziali (definite in `/etc/audit/rules.d/audit.rules`) tracciano: l'esecuzione di comandi (`-a always,exit -F arch=b64 -S execve -k exec_monitor`), modifiche ai file di autenticazione e sudo (`-w /etc/pam.d/ -p wa -k pam_changes`, `-w /etc/sudoers -p wa -k sudo_changes`) e tentativi di caricamento di moduli kernel (`-a always,exit -F arch=b64 -S init_module,finit_module,delete_module -k kmod`).",
+        "La direttiva finale `-e 2` rende le regole immutabili: nessun utente, nemmeno root, puo disabilitare o alterare le regole fino al riavvio fisico dell'host."
+      ],
+      "suggest": [
+        "bastion-host-jumpbox-hardening",
+        "pki-interna-smallstep-vault",
+        "mtls-zero-trust-service-to-service",
+        "cos-e-un-waf-web-application-firewall"
+      ]
+    },
+    {
+      "id": "pki-interna-smallstep-vault",
+      "slug": "pki-interna-smallstep-vault",
+      "question": "Come si organizza una PKI interna con Smallstep CLI o HashiCorp Vault?",
+      "vertical": "security",
+      "keywords": [
+        "pki interna",
+        "smallstep ca",
+        "hashicorp vault pki",
+        "certificati mtls interni",
+        "gestire pki privata",
+        "organizzare una pki interna",
+        "pki interna con smallstep cli o hashicorp vault"
+      ],
+      "answers": [
+        "Una Public Key Infrastructure (PKI) privata consente di emettere certificati TLS per host interni, microservizi e VPN senza dipendere da CA pubbliche.",
+        "L'architettura corretta adotta un modello a due livelli: una Root CA mantenuta rigorosamente offline con chiave privata protetta in un HSM o storage crittografato, e una o piu Intermediate CA online caricate su motori dedicati come `step-ca` (Smallstep) o il secret engine PKI di HashiCorp Vault.",
+        "Grazie al supporto ACME interno integrato in Smallstep, i server interni possono rinnovare i propri certificati in modo automatico con Certbot o CertMate, impostando scadenze brevi (es. 7 o 24 ore per mTLS, 30 giorni per web server) per minimizzare l'impatto di una chiave compromessa senza necessita di complesse liste CRL."
+      ],
+      "suggest": [
+        "auditd-linux-regole-forensi",
+        "mtls-zero-trust-service-to-service",
+        "bastion-host-jumpbox-hardening",
+        "cos-e-un-waf-web-application-firewall"
+      ]
+    },
+    {
+      "id": "mtls-zero-trust-service-to-service",
+      "slug": "mtls-zero-trust-service-to-service",
+      "question": "Cos'è il mutual TLS (mTLS) e come realizza l'autenticazione crittografica bidirezionale?",
+      "vertical": "security",
+      "keywords": [
+        "mutual tls",
+        "mtls zero trust",
+        "autenticazione bidirezionale",
+        "service to service mtls",
+        "autenticazione mtls mutuale"
+      ],
+      "answers": [
+        "Nel TLS convenzionale solo il server presenta un certificato crittografico per dimostrare la propria identita al client. Nel Mutual TLS (mTLS), durante l'handshake crittografico sia il client che il server presentano e verificano reciprocamente i rispettivi certificati digitali X.509.",
+        "Entrambe le parti convalidano che il certificato della controparte sia firmato da una Certificate Authority interna condivisa, verificando la catena di fiducia e controllando che l'hostname o il Subject Alternative Name (SAN) corrisponda al servizio autorizzato.",
+        "mTLS elimina la necessita di trasmettere password statiche o token API che potrebbero essere intercettati, garantendo contemporaneamente riservatezza del payload, integrita e autenticazione forte e crittografica per ogni singola connessione service-to-service."
+      ],
+      "suggest": [
+        "pki-interna-smallstep-vault",
+        "ebpf-tetragon-runtime-security",
+        "auditd-linux-regole-forensi",
+        "cos-e-un-waf-web-application-firewall"
+      ]
+    },
+    {
+      "id": "ebpf-tetragon-runtime-security",
+      "slug": "ebpf-tetragon-runtime-security",
+      "question": "Come opera la runtime security basata su eBPF (Tetragon, Falco) rispetto ai moduli kernel tradizionali?",
+      "vertical": "security",
+      "keywords": [
+        "runtime security ebpf",
+        "tetragon ebpf",
+        "falco ebpf",
+        "kprobe tracepoint tetragon",
+        "sigkill syscall ebpf"
+      ],
+      "answers": [
+        "La tecnologia eBPF (extended Berkeley Packet Filter) consente di eseguire bytecode verificato e sicuro all'interno del kernel Linux senza modificare il codice sorgente o compilare moduli kernel esterni (LKM).",
+        "Gli strumenti di runtime security tradizionali basati su moduli kernel presentano rischi elevati di instabilita (kernel panic) e forte overhead prestazionale. Strumenti moderni come Cilium Tetragon o Falco agganciano sonde a tracepoint, kprobe e punti di controllo LSM (Linux Security Modules) direttamente all'interno dello spazio kernel.",
+        "Questo approccio permette di monitorare namespace, container e processi con latenza sub-millisecondo: Tetragon e in grado non solo di allertare, ma di applicare policy di enforcement immediato (es. inviando un segnale `SIGKILL` prima che una syscall malevola completi la sua esecuzione)."
+      ],
+      "suggest": [
+        "mtls-zero-trust-service-to-service",
+        "pam-totp-yubikey-ssh",
+        "pki-interna-smallstep-vault",
+        "cos-e-un-waf-web-application-firewall"
+      ]
+    },
+    {
+      "id": "pam-totp-yubikey-ssh",
+      "slug": "pam-totp-yubikey-ssh",
+      "question": "Come si configura PAM su Linux per imporre TOTP o YubiKey sull'accesso SSH?",
+      "vertical": "security",
+      "keywords": [
+        "pam ssh mfa",
+        "pam yubikey ssh",
+        "pam google authenticator ssh",
+        "modulo pam ssh",
+        "challenge response ssh pam",
+        "kbdinteractiveauthentication"
+      ],
+      "answers": [
+        "Il framework PAM (Pluggable Authentication Modules) governa tutti i meccanismi di autenticazione interattiva su Linux, permettendo di combinare molteplici fattori indipendenti per le sessioni SSH.",
+        "Per abilitare l'autenticazione a due fattori (MFA) si installa il modulo `libpam-google-authenticator` (per token OTP a tempo) oppure `pam_u2f` (per token hardware FIDO2 come YubiKey), referenziandolo nel file `/etc/pam.d/sshd` con la direttiva `auth required`.",
+        "Nel file `sshd_config` e necessario abilitare `KbdInteractiveAuthentication yes` e impostare `AuthenticationMethods publickey,keyboard-interactive`. Con questa direttiva OpenSSH richiede tassativamente entrambi i fattori: prima la convalida della chiave crittografica SSH e subito dopo la risposta al challenge del token MFA."
+      ],
+      "suggest": [
+        "ebpf-tetragon-runtime-security",
+        "supply-chain-sbom-cyclonedx-spdx",
+        "mtls-zero-trust-service-to-service",
+        "cos-e-un-waf-web-application-firewall"
+      ]
+    },
+    {
+      "id": "supply-chain-sbom-cyclonedx-spdx",
+      "slug": "supply-chain-sbom-cyclonedx-spdx",
+      "question": "Quali sono le differenze tra gli standard SBOM CycloneDX e SPDX per la compliance NIS2?",
+      "vertical": "security",
+      "keywords": [
+        "differenza cyclonedx spdx",
+        "standard sbom",
+        "software bill of materials",
+        "formato sbom",
+        "cyclonedx vs spdx"
+      ],
+      "answers": [
+        "La Software Bill of Materials (SBOM) e l'inventario formale di tutti i componenti, librerie e dipendenze transitive utilizzati in un'applicazione o firmware, prescritto dai requisiti di supply chain security della NIS2.",
+        "SPDX (Software Package Data Exchange, standard ISO/IEC 5962) e nato storicamente nell'ambito della Linux Foundation con un'enfasi primaria sulla conformita delle licenze open source e sulla provenienza del copyright, pur avendo aggiunto il supporto alla vulnerabilita.",
+        "CycloneDX (progetto della fondazione OWASP) e stato concepito specificamente per la sicurezza del software: include schemi avanzati per l'analisi di vulnerabilita, dipendenze crittografiche (CBOM), attestazioni di autenticita e supporto nativo per formati VEX (Vulnerability Exploitability eXchange), consentendo di dichiarare se una specifica CVE sia effettivamente sfruttabile nel contesto di deploy."
+      ],
+      "suggest": [
+        "pam-totp-yubikey-ssh",
+        "ebpf-tetragon-runtime-security",
+        "honeytoken-canary-tokens-trappole",
+        "cos-e-un-waf-web-application-firewall"
+      ]
+    },
+    {
+      "id": "edr-osquery-flotta-linux",
+      "slug": "edr-osquery-flotta-linux",
+      "question": "Come si usa osquery per interrogare lo stato di sicurezza di una flotta Linux con SQL?",
+      "vertical": "tools",
+      "keywords": [
+        "osquery linux",
+        "flotta osquery",
+        "query sql sicurezza linux",
+        "osqueryd",
+        "usare osquery linux"
+      ],
+      "answers": [
+        "Lo strumento open source `osquery` espone il sistema operativo sottostante sotto forma di un database relazionale ad alte prestazioni interrogabile tramite sintassi SQL standard.",
+        "Tabelle virtuali integrate mappano in tempo reale lo stato dell'host: `listening_ports` (processi e porte aperte), `logged_in_users` (sessioni utente attive), `suid_bin` (binari con bit SUID attivo), `crontab` e `kernel_modules`. Ad esempio, con `SELECT * FROM listening_ports WHERE port = 443;` si ottiene istantaneamente il PID del processo in ascolto.",
+        "In ambienti distribuiti su centinaia di nodi, il demone `osqueryd` viene orchestrato tramite piattaforme centralizzate come FleetDM o Kolide: permette di eseguire query sincrone (live threat hunting) o programmare controlli continui di conformita e integrita dei file (FIM)."
+      ],
+      "suggest": [
+        "tekton-vs-argo-workflows-kubernetes",
+        "flux2-vs-argocd-gitops-confronto",
+        "syslog-rfc5424-strutturato-json",
+        "cos-e-un-waf-web-application-firewall"
+      ]
+    },
+    {
+      "id": "honeytoken-canary-tokens-trappole",
+      "slug": "honeytoken-canary-tokens-trappole",
+      "question": "Cosa sono gli honeytoken (canary tokens) e come rilevano intrusioni e credenziali violate?",
+      "vertical": "security",
+      "keywords": [
+        "honeytoken",
+        "canary token",
+        "trappole intrusioni",
+        "credenziali esca",
+        "rilevare intrusioni canary token"
+      ],
+      "answers": [
+        "Gli honeytoken (noti anche come canary tokens o chiavi esca) sono risorse digitali fittizie, prive di reale funzione operativa ma costantemente monitorate, inserite all'interno dell'infrastruttura come trappole per attaccanti.",
+        "Possono assumere varie forme: chiavi API AWS o token GitHub apparentemente validi inseriti in file `.env`, credenziali di database fittizie in tabelle di test, documenti PDF con pixel di tracciamento o nomi a dominio DNS unici riservati esclusivamente al rilevamento.",
+        "Poiche nessun utente o applicazione legittima interagisce con tali elementi, qualsiasi tentativo di utilizzo o risoluzione DNS genera un alert immediato con probabilita di falsi positivi prossima allo zero, segnalando con precisione che una determinata macchina o repository e stata compromessa ed esfiltrata."
+      ],
+      "suggest": [
+        "git-crypt-vs-sops-age",
+        "supply-chain-sbom-cyclonedx-spdx",
+        "slsa-framework-livelli-sicurezza",
+        "cos-e-un-waf-web-application-firewall"
+      ]
+    },
+    {
+      "id": "git-crypt-vs-sops-age",
+      "slug": "git-crypt-vs-sops-age",
+      "question": "Qual è la differenza tra git-crypt e SOPS con age per cifrare secrets nei repository Git?",
+      "vertical": "security",
+      "keywords": [
+        "git crypt vs sops",
+        "cifrare secrets git",
+        "sops age",
+        "mozilla sops",
+        "differenza git crypt sops"
+      ],
+      "answers": [
+        "`git-crypt` e SOPS (Secrets OPerationS) sono due approcci distinti per custodire file contenenti credenziali all'interno di repository Git controllati (metodologia GitOps).",
+        "`git-crypt` applica una crittografia trasparente all'intero file tramite filtri git clean/smudge: il file su disco locale e in chiaro, ma su GitHub/GitLab viene memorizzato come blob binario opaco. Questo approccio rende impossibili i code review delle modifiche e, in caso di conflitti di merge Git, il file binario crittografato si corrompe irrimediabilmente.",
+        "SOPS di Mozilla supera questo limite: comprende la struttura di formati YAML, JSON ed ENV, cifrando unicamente i valori e lasciando le chiavi gerarchiche in chiaro. I revisori possono esaminare quali parametri sono cambiati senza decifrare i segreti, i conflitti di merge si risolvono normalmente e supporta chiavi `age` moderne, PGP e KMS cloud (AWS, GCP, Vault)."
+      ],
+      "suggest": [
+        "honeytoken-canary-tokens-trappole",
+        "slsa-framework-livelli-sicurezza",
+        "sigstore-cosign-firma-container",
+        "cos-e-un-waf-web-application-firewall"
+      ]
+    },
+    {
+      "id": "slsa-framework-livelli-sicurezza",
+      "slug": "slsa-framework-livelli-sicurezza",
+      "question": "Cos'è il framework SLSA e come funzionano i livelli 1-3 per la supply chain?",
+      "vertical": "security",
+      "keywords": [
+        "framework slsa",
+        "livelli slsa",
+        "supply chain artifacts",
+        "slsa build provenance",
+        "slsa livelli uno due tre"
+      ],
+      "answers": [
+        "Il framework SLSA (Supply-chain Levels for Software Artifacts, promosso dalla OpenSSF) definisce uno standard formale e verificabile a livelli incrementali per garantire l'integrita della filiera del software dai sorgenti al rilascio.",
+        "Il Livello 1 (SLSA Build L1) richiede un processo di compilazione completamente automatizzato (non eseguito manualmente sulla workstation dello sviluppatore) che genera metadati di provenienza (provenance) che descrivono come l'artefatto e stato costruito.",
+        "Il Livello 2 (SLSA Build L2) impone l'impiego di una piattaforma di build gestita e centralizzata (come GitHub Actions o GitLab CI) con provenienza firmata crittograficamente dal servizio di build, impedendo a utenti non autorizzati di manomettere i metadati. Il Livello 3 (SLSA Build L3) richiede ambienti di compilazione effimeri, ermetici e isolati, dove le dipendenze e i parametri sono congelati a monte, eliminando interferenze esterne."
+      ],
+      "suggest": [
+        "git-crypt-vs-sops-age",
+        "sigstore-cosign-firma-container",
+        "honeytoken-canary-tokens-trappole",
+        "cos-e-un-waf-web-application-firewall"
+      ]
+    },
+    {
+      "id": "sigstore-cosign-firma-container",
+      "slug": "sigstore-cosign-firma-container",
+      "question": "Come si usano Cosign e Sigstore per firmare e verificare immagini container in OCI registry?",
+      "vertical": "security",
+      "keywords": [
+        "sigstore cosign",
+        "firmare immagini container",
+        "cosign verify",
+        "firma crittografica oci",
+        "sigstore keyless"
+      ],
+      "answers": [
+        "Il progetto open source Sigstore (fondazione Linux) fornisce uno standard aperto per firmare e verificare artefatti software senza l'onere della gestione manuale di chiavi crittografiche a lungo termine.",
+        "Con la CLI `cosign`, la firma crittografica viene salvata direttamente nel registry OCI accanto all'immagine (`.sig`), senza richiedere database ausiliari o sistemi proprietari. In modalita keyless, Cosign si interfaccia con l'identita OIDC della pipeline CI/CD (GitHub Actions, GitLab CI), ottiene un certificato a vita brevissima emesso dalla CA Fulcio e pubblica l'attestazione sul registro di trasparenza immutabile Rekor.",
+        "In fase di deploy sul cluster Kubernetes, admission controller come Kyverno o OPA Gatekeeper eseguono `cosign verify`, rifiutando istantaneamente qualsiasi container sprovvisto di firma valida emessa dal repository ufficiale."
+      ],
+      "suggest": [
+        "slsa-framework-livelli-sicurezza",
+        "dependency-confusion-squatting-npm-pypi",
+        "git-crypt-vs-sops-age",
+        "cos-e-un-waf-web-application-firewall"
+      ]
+    },
+    {
+      "id": "dependency-confusion-squatting-npm-pypi",
+      "slug": "dependency-confusion-squatting-npm-pypi",
+      "question": "Come prevenire attacchi di dependency confusion e typosquatting su registry privati?",
+      "vertical": "security",
+      "keywords": [
+        "dependency confusion",
+        "typosquatting npm pypi",
+        "registry privato dipendenze",
+        "scoped packages",
+        "difesa dependency confusion",
+        "prevenire attacchi di dependency confusion",
+        "dependency confusion e typosquatting su registry privati"
+      ],
+      "answers": [
+        "La Dependency Confusion sfrutta la configurazione predefinita di gestori di pacchetti (npm, pip, Gradle) configurati sia con un repository interno privato che con il registry pubblico ufficiale.",
+        "Se un attaccante registra sul repository pubblico (es. npmjs.com o pypi.org) un pacchetto con lo stesso identico nome di una libreria proprietaria interna dell'azienda (es. `auth-helper`) ma con un numero di versione superiore (es. `99.0.0`), il package manager privilegia automaticamente la versione pubblica, eseguendo il codice dell'attaccante all'interno della pipeline di build.",
+        "Le contromisure definitive sono tre: imporre l'uso di namespace con scope obbligatori riservati sul registry pubblico (es. `@azienda/auth-helper`), configurare il proxy del repository aziendale (Nexus, Artifactory) per bloccare a monte qualsiasi instradamento verso l'esterno per i prefissi aziendali, e congelare i file di lock (`package-lock.json`, `poetry.lock`) con hash di integrita SHA-512."
+      ],
+      "suggest": [
+        "sigstore-cosign-firma-container",
+        "slsa-framework-livelli-sicurezza",
+        "git-crypt-vs-sops-age",
+        "cos-e-un-waf-web-application-firewall"
+      ]
+    },
+    {
+      "id": "tekton-vs-argo-workflows-kubernetes",
+      "slug": "tekton-vs-argo-workflows-kubernetes",
+      "question": "Quali sono le differenze tra Tekton e Argo Workflows per pipeline CI/CD su Kubernetes?",
+      "vertical": "tools",
+      "keywords": [
+        "differenza tekton argo workflows",
+        "pipeline kubernetes native",
+        "tekton crd",
+        "argo ci cd",
+        "confronto tekton argo",
+        "differenze tra tekton e argo workflows",
+        "tekton e argo workflows per pipeline"
+      ],
+      "answers": [
+        "Tekton e Argo Workflows sono i due principali framework per eseguire pipeline CI/CD cloud-native dichiarative direttamente come risorse Custom Resource Definition (CRD) all'interno di Kubernetes.",
+        "Tekton (Continuous Delivery Foundation) e concepito come standard modulare di basso livello per architetti di piattaforma: definisce primitive riutilizzabili (`Step`, `Task`, `Pipeline`, `Trigger`). Ogni step e un container eseguito nello stesso Pod condividendo un volume `/workspace`. E ideale per costruire piattaforme CI personalizzate integrate nell'ecosistema Red Hat OpenShift o Google Cloud Build.",
+        "Argo Workflows (CNCF Graduated) e un motore di orchestrazione DAG (Directed Acyclic Graph) generico ad altissime prestazioni, non limitato alla CI/CD ma diffusissimo nel calcolo scientifico, data pipelines e machine learning. Si distingue per una ricca interfaccia grafica (UI) nativa e una perfetta sinergia con Argo CD."
+      ],
+      "suggest": [
+        "flux2-vs-argocd-gitops-confronto",
+        "branch-protection-rules-github-gitlab",
+        "edr-osquery-flotta-linux",
+        "cos-e-un-waf-web-application-firewall"
+      ]
+    },
+    {
+      "id": "flux2-vs-argocd-gitops-confronto",
+      "slug": "flux2-vs-argocd-gitops-confronto",
+      "question": "In cosa differiscono Flux v2 e Argo CD nell'implementazione di GitOps per Kubernetes?",
+      "vertical": "tools",
+      "keywords": [
+        "differenza flux argocd",
+        "gitops kubernetes",
+        "flux v2 vs argo cd",
+        "controller gitops",
+        "confronto flux argocd",
+        "differiscono flux v2 e argo cd",
+        "flux v2 e argo cd implementazione gitops"
+      ],
+      "answers": [
+        "Flux v2 e Argo CD sono i due motori di riferimento per implementare il paradigma GitOps, garantendo che lo stato effettivo del cluster Kubernetes coincida costantemente con i manifest dichiarati in Git.",
+        "Argo CD adotta un modello centrato sull'applicazione e orientato all'esperienza enterprise: fornisce una dashboard web ricca che consente di visualizzare lo stato di salute dei Pod, sincronizzare manualmente o automaticamente e gestire permessi RBAC granulari con Single Sign-On (SSO).",
+        "Flux v2 abbraccia la filosofia Unix: e un insieme modulare di micro-controller indipendenti (Source Controller, Kustomize Controller, Helm Controller, Notification Controller), privo di interfaccia grafica obbligatoria (headless). Risulta architetturalmente piu leggero, puramente orientato al codice e nativamente predisposto per scenari edge e multi-cluster automatizzati via CLI."
+      ],
+      "suggest": [
+        "tekton-vs-argo-workflows-kubernetes",
+        "branch-protection-rules-github-gitlab",
+        "git-signed-commits-ssh-vs-gpg",
+        "cos-e-un-waf-web-application-firewall"
+      ]
+    },
+    {
+      "id": "openfga-vs-opa-rego-autorizzazione",
+      "slug": "openfga-vs-opa-rego-autorizzazione",
+      "question": "Qual è la differenza tra OPA (Open Policy Agent) e OpenFGA (Zanzibar) per l'autorizzazione?",
+      "vertical": "security",
+      "keywords": [
+        "differenza opa openfga",
+        "confronto opa zanzibar",
+        "rego open policy agent",
+        "relationship based access control",
+        "rebac vs abac"
+      ],
+      "answers": [
+        "OPA (Open Policy Agent) e OpenFGA rappresentano due modelli architetturali distinti per disaccoppiare la logica di autorizzazione dal codice applicativo.",
+        "OPA e un motore di policy generico basato su ABAC (Attribute-Based Access Control): valuta query espresse nel linguaggio logico-dichiarativo Rego confrontando documenti JSON contestuali (es. 'l'utente ha il ruolo manager e l'ora attuale e compresa tra le 9 e le 18?'). E la soluzione ideale per ammettere risorse in Kubernetes (Gatekeeper) o verificare policy di rete.",
+        "OpenFGA (ispirato a Google Zanzibar e donato alla CNCF) implementa il modello ReBAC (Relationship-Based Access Control): mappa permessi complessi sotto forma di relazioni dirette o ereditate in un grafo (es. 'l'utente e membro del team che possiede la cartella che contiene il documento'). E progettato per scalare a miliardi di tuple di autorizzazione con latenze di risposta sub-millisecondo."
+      ],
+      "suggest": [
+        "github-actions-security-hardening",
+        "dependency-confusion-squatting-npm-pypi",
+        "reproducible-builds-verifica-binari",
+        "cos-e-un-waf-web-application-firewall"
+      ]
+    },
+    {
+      "id": "branch-protection-rules-github-gitlab",
+      "slug": "branch-protection-rules-github-gitlab",
+      "question": "Come si configurano le branch protection rules per blindare main e impedire force push?",
+      "vertical": "tools",
+      "keywords": [
+        "branch protection rules",
+        "proteggere branch main",
+        "impedire force push",
+        "require pull request",
+        "blindare branch git"
+      ],
+      "answers": [
+        "Le regole di protezione dei branch su GitHub e GitLab sono la prima linea di difesa per impedire la manomissione della codebase o il rilascio accidentale di codice vulnerabile in produzione.",
+        "Una configurazione perimetrale solida sul branch principale (`main`) richiede: l'obbligo di modifiche esclusivamente tramite Pull Request (`Require a pull request before merging`) con approvazione formale di almeno 1 o 2 revisori indipendenti (`Require approvals`), il divieto esplicito di push diretto anche per gli amministratori di progetto (`Do not allow bypassing the above settings`).",
+        "Devono inoltre essere imposti status check vincolanti della pipeline CI (`Require status checks to pass before merging`), il riallineamento obbligatorio con il branch target (`Require branches to be up to date`), il blocco categorico dei force push (`Do not allow force pushes`) e la firma crittografica verificata di ogni commit (`Require signed commits`)."
+      ],
+      "suggest": [
+        "flux2-vs-argocd-gitops-confronto",
+        "tekton-vs-argo-workflows-kubernetes",
+        "git-signed-commits-ssh-vs-gpg",
+        "cos-e-un-waf-web-application-firewall"
+      ]
+    },
+    {
+      "id": "github-actions-security-hardening",
+      "slug": "github-actions-security-hardening",
+      "question": "Come si esegue l'hardening di GitHub Actions per prevenire token leak e pwn requests?",
+      "vertical": "security",
+      "keywords": [
+        "hardening github actions",
+        "sicurezza github actions",
+        "pwn request",
+        "pin commit sha action",
+        "mettere in sicurezza github actions"
+      ],
+      "answers": [
+        "Le pipeline CI/CD eseguono codice arbitrario e gestiscono credenziali perimetrali: se non isolate, espongono l'infrastruttura ad attacchi di supply chain (come le cosiddette pwn request, in cui codice malevolo in una PR forgiata estrae i segreti).",
+        "I principi essenziali di hardening includono: impostare permessi minimi predefiniti nel workflow con `permissions: read-all` o `contents: read`, assegnando permessi di scrittura (`id-token: write`) solo ai singoli job che ne hanno reale necessita.",
+        "Tutte le Action di terze parti devono essere tassativamente pinnate all'hash crittografico completo del commit SHA (es. `actions/checkout@b4ffde...`), mai a tag volatili come `@v4` che l'autore o un attaccante possono sovrascrivere. Infine, per l'autenticazione verso provider cloud (AWS, GCP, Azure) va utilizzato esclusivamente OIDC (OpenID Connect), eliminando token statici a lungo termine dai secrets del repository."
+      ],
+      "suggest": [
+        "reproducible-builds-verifica-binari",
+        "openfga-vs-opa-rego-autorizzazione",
+        "dependency-confusion-squatting-npm-pypi",
+        "cos-e-un-waf-web-application-firewall"
+      ]
+    },
+    {
+      "id": "reproducible-builds-verifica-binari",
+      "slug": "reproducible-builds-verifica-binari",
+      "question": "Cosa sono le reproducible builds e perché sono decisive contro attacchi alla supply chain?",
+      "vertical": "security",
+      "keywords": [
+        "reproducible builds",
+        "build riproducibili",
+        "verifica binari indipendenti",
+        "determinismo compilazione",
+        "concetto reproducible builds",
+        "decisive supply chain",
+        "reproducible builds decisive supply chain"
+      ],
+      "answers": [
+        "Il concetto di Reproducible Builds (compilazioni riproducibili) certifica che, partendo dallo stesso codice sorgente, dallo stesso toolchain di compilazione e dallo stesso ambiente dichiarativo, chiunque possa ottenere un file binario eseguibile identico bit per bit (con lo stesso hash crittografico esatto).",
+        "Nei processi di compilazione ordinari intervengono fattori non deterministici: timestamp inseriti nei binari, percorsi assoluti del filesystem locale, ordine arbitrario dei file nel filesystem o variabili di localizzazione geografica.",
+        "Rendere le build deterministiche e l'unico metodo scientifico per verificare in modo indipendente che i binari distribuiti (es. pacchetti Debian, firmware o immagini container) non contengano backdoor furtive o trojan introdotti durante la fase di compilazione all'insaputa degli autori del codice."
+      ],
+      "suggest": [
+        "github-actions-security-hardening",
+        "openfga-vs-opa-rego-autorizzazione",
+        "distroless-scratch-container-hardening",
+        "cos-e-un-waf-web-application-firewall"
+      ]
+    },
+    {
+      "id": "git-signed-commits-ssh-vs-gpg",
+      "slug": "git-signed-commits-ssh-vs-gpg",
+      "question": "Come si configurano i commit firmati in Git con chiavi SSH invece di GPG?",
+      "vertical": "tools",
+      "keywords": [
+        "firmare commit con ssh",
+        "git commit firma ssh",
+        "gpg format ssh",
+        "allowed_signers git",
+        "commit firmati senza gpg",
+        "configurare commit firmati con chiavi ssh",
+        "configurare commit firmati ssh",
+        "firmare commit git con chiavi ssh",
+        "gpg format ssh commit"
+      ],
+      "answers": [
+        "A partire dalla versione 2.34, Git supporta nativamente la firma crittografica dei commit e dei tag utilizzando chiavi SSH (ED25519 o RSA), eliminando la complessita di configurazione e gestione del demone GnuPG.",
+        "La configurazione si abilita con tre comandi globali: ,  e . Da questo momento ogni nuovo commit conterra una firma crittografica verificabile.",
+        "Per consentire a Git di convalidare le firme localmente, si definisce un file di firmatari autorizzati (): . Anche GitHub e GitLab riconoscono nativamente le chiavi SSH di firma contrassegnando i commit con il badge verde 'Verified'."
+      ],
+      "suggest": [
+        "trivy-vs-grype-vulnerability-scanner",
+        "vault-agent-sidecar-injector-kubernetes",
+        "branch-protection-rules-github-gitlab",
+        "cos-e-un-waf-web-application-firewall"
+      ]
+    },
+    {
+      "id": "trivy-vs-grype-vulnerability-scanner",
+      "slug": "trivy-vs-grype-vulnerability-scanner",
+      "question": "Quali sono le differenze tra Trivy e Grype per la scansione delle vulnerabilità nei container?",
+      "vertical": "tools",
+      "keywords": [
+        "differenza trivy grype",
+        "confronto vulnerabilita scanner",
+        "scansione container trivy",
+        "anchore grype",
+        "scanner trivy vs grype"
+      ],
+      "answers": [
+        "Trivy (sviluppato da Aqua Security) e Grype (sviluppato da Anchore) sono due tra i piu diffusi scanner open source per identificare vulnerabilita note (CVE) in immagini container e filesystem.",
+        "Trivy e uno strumento polifunzionale ad ampio spettro: non analizza solo i pacchetti del sistema operativo e le librerie applicative, ma scansiona anche repository Git alla ricerca di secrets esposti, file IaC (Terraform, Dockerfile, Helm) per misconfiguration di sicurezza e manifest Kubernetes in esecuzione.",
+        "Grype e progettato secondo il principio di singola responsabilita: e ottimizzato specificamente per lavorare in combinazione con `syft` (il generatore di SBOM di Anchore). Grype eccelle per la velocita di scansione, l'accuratezza nell'abbinamento delle CVE nei database dei linguaggi di programmazione e il footprint ridotto, risultando ideale in pipeline CI ad alta frequenza."
+      ],
+      "suggest": [
+        "git-signed-commits-ssh-vs-gpg",
+        "vault-agent-sidecar-injector-kubernetes",
+        "branch-protection-rules-github-gitlab",
+        "cos-e-un-waf-web-application-firewall"
+      ]
+    },
+    {
+      "id": "vault-agent-sidecar-injector-kubernetes",
+      "slug": "vault-agent-sidecar-injector-kubernetes",
+      "question": "Come funziona Vault Agent Sidecar Injector per distribuire secrets dinamici nei Pod Kubernetes?",
+      "vertical": "tools",
+      "keywords": [
+        "vault agent sidecar",
+        "iniettare secrets kubernetes",
+        "hashicorp vault injector",
+        "secrets dinamici k8s",
+        "funzionamento vault agent sidecar"
+      ],
+      "answers": [
+        "Il Vault Agent Injector risolve il problema della gestione sicura delle credenziali su Kubernetes evitando di dover salvare secrets in formato statico all'interno dei manifest o in Secret etcd crittografati a riposo.",
+        "Il componente opera come Admission Webhook (Mutating Webhook): quando un Pod viene schedulato con annotazioni dedicate (es. `vault.hashicorp.com/agent-inject: 'true'`), il webhook inietta automaticamente due container nel Pod: un container Init per recuperare i segreti prima dell'avvio dell'app e un container sidecar `vault-agent`.",
+        "Il sidecar si autentica a Vault tramite il token del ServiceAccount del Pod (Kubernetes Auth Method), estrae i segreti e li scrive su un volume in memoria condiviso `tmpfs` (RAM pura, mai su disco). Il sidecar gestisce autonomamente il rinnovo dei lease e la rotazione dinamica dei certificati e credenziali del database."
+      ],
+      "suggest": [
+        "trivy-vs-grype-vulnerability-scanner",
+        "git-signed-commits-ssh-vs-gpg",
+        "branch-protection-rules-github-gitlab",
+        "cos-e-un-waf-web-application-firewall"
+      ]
+    },
+    {
+      "id": "distroless-scratch-container-hardening",
+      "slug": "distroless-scratch-container-hardening",
+      "question": "Cosa sono le immagini scratch e distroless e come riducono la superficie di attacco dei container?",
+      "vertical": "security",
+      "keywords": [
+        "distroless scratch",
+        "immagini distroless",
+        "container scratch",
+        "ridurre superficie attacco container",
+        "container distroless sicurezza"
+      ],
+      "answers": [
+        "Le immagini container tradizionali basate su distribuzioni complete (Ubuntu, Debian o persino Alpine) contengono centinaia di binari e utility non necessarie all'esecuzione dell'applicazione: shell (/bin/sh, /bin/bash), gestori di pacchetti (apt, apk) e strumenti di rete (curl, wget).",
+        "Le immagini `scratch` rappresentano un filesystem completamente vuoto (0 byte), su cui viene copiato unicamente il singolo binario compilato staticamente (in Go, Rust o C++). Le immagini `distroless` (mantenute da Google) contengono esclusivamente l'applicazione e le minime librerie di runtime necessarie (es. glibc, certificati CA e timezone per Python o Node.js), senza alcuna shell o gestore di pacchetti.",
+        "Questo approccio riduce drasticamente il numero di CVE segnalate dagli scanner e neutralizza la stragrande maggioranza degli exploit: se un attaccante sfrutta una falla applicativa (RCE), non trova shell o comandi di sistema per avviare processi figli, scaricare malware o condurre movimenti laterali."
+      ],
+      "suggest": [
+        "reproducible-builds-verifica-binari",
+        "github-actions-security-hardening",
+        "openfga-vs-opa-rego-autorizzazione",
+        "cos-e-un-waf-web-application-firewall"
+      ]
+    },
+    {
+      "id": "zfs-ashift-recordsize-tuning",
+      "slug": "zfs-ashift-recordsize-tuning",
+      "question": "Come si scelgono ashift e recordsize in ZFS per evitare write amplification?",
+      "vertical": "proxmox",
+      "keywords": [
+        "zfs ashift recordsize",
+        "ashift 12 4k zfs",
+        "recordsize database zfs",
+        "write amplification zfs",
+        "tuning ashift recordsize",
+        "tuning ashift recordsize zfs",
+        "evitare write amplification zfs"
+      ],
+      "answers": [
+        "In ZFS il parametro `ashift` stabilisce la dimensione del blocco fisico del vdev (calcolato come 2 elevato ad ashift): `ashift=9` corrisponde a 512 byte (settori legacy), `ashift=12` a 4096 byte (standard per dischi Advanced Format ed SSD moderni), `ashift=13` a 8192 byte (ottimale per alcuni flash drive aziendali). Poiche `ashift` e immutabile una volta creato il vdev, impostare erroneamente `ashift=9` su dischi 4K causa una severa write amplification e degrado delle prestazioni.",
+        "`recordsize` definisce la dimensione massima dei blocchi logici per i file nel dataset (predefinito a 128KB). Per carichi sequenziali e streaming multimediale e raccomandato aumentarlo a `1M` per massimizzare il throughput e l'efficienza della compressione zstd.",
+        "Per database relazionali a blocchi casuali (come PostgreSQL o MySQL InnoDB), `recordsize` deve essere allineato esattamente alla pagina del database (8KB per Postgres, 16KB per MySQL): impostare un recordsize superiore costringerebbe ZFS a leggere e riscrivere 128KB per ogni singola modifica di una riga da 8KB."
+      ],
+      "suggest": [
+        "zfs-slog-optane-sync-writes",
+        "zfs-special-vdev-metadata-tuning",
+        "tailscale-subnet-router-vs-exit-node-differenze",
+        "cos-e-un-waf-web-application-firewall"
+      ]
+    },
+    {
+      "id": "zfs-slog-optane-sync-writes",
+      "slug": "zfs-slog-optane-sync-writes",
+      "question": "Cos'è lo SLOG in ZFS e quando serve per accelerare le scritture sincrone?",
+      "vertical": "proxmox",
+      "keywords": [
+        "zfs slog optane",
+        "separate log zfs",
+        "scritture sincrone zfs",
+        "zil zfs",
+        "slog ssd plp",
+        "slog ssd plp optane",
+        "slog scritture sincrone zil",
+        "scritture sincrone zil optane"
+      ],
+      "answers": [
+        "Lo SLOG (Separate Intent Log) e un dispositivo di memorizzazione dedicato e separato dal pool principale, impiegato esclusivamente per registrare il ZIL (ZFS Intent Log) durante operazioni di scrittura sincrona (`O_SYNC`).",
+        "Le scritture sincrone (generate tipicamente da macchine virtuali su Proxmox con cache `writethrough` o `directsync`, database e condivisioni NFS) richiedono la conferma di commit immediato su supporto non volatile prima di restituire il controllo all'applicazione. Senza SLOG, il ZIL risiede sullo stesso pool dei dati, frammentando le scritture e crollando gli IOPS.",
+        "Uno SLOG non serve per le scritture asincrone (che vengono accumulate in RAM nella Transaction Group e scritte ogni 5 secondi). Inoltre, utilizzare un normale SSD consumer come SLOG e inutile e rischioso: sono indispensabili dispositivi con bassissima latenza di scrittura e protezione da interruzione di alimentazione (Power Loss Protection, PLP), come Intel Optane o dischi Enterprise SLC."
+      ],
+      "suggest": [
+        "zfs-ashift-recordsize-tuning",
+        "zfs-special-vdev-metadata-tuning",
+        "tailscale-subnet-router-vs-exit-node-differenze",
+        "cos-e-un-waf-web-application-firewall"
+      ]
+    },
+    {
+      "id": "zfs-special-vdev-metadata-tuning",
+      "slug": "zfs-special-vdev-metadata-tuning",
+      "question": "Come funziona uno Special VDEV per metadati in ZFS e quando conviene aggiungerlo?",
+      "vertical": "proxmox",
+      "keywords": [
+        "zfs special vdev",
+        "metadata special allocation",
+        "mirror nvme metadata",
+        "special_small_blocks",
+        "special vdev zfs metadati",
+        "mirror nvme special vdev",
+        "special vdev metadati mirror nvme"
+      ],
+      "answers": [
+        "La funzionalita Special Allocation Class (introdotta in OpenZFS 0.8) permette di creare vdev speciali ('special') dedicati all'archiviazione di tutti i metadati del filesystem e, opzionalmente, dei file di piccole dimensioni.",
+        "In un pool ZFS composto da dischi meccanici (HDD) capienti ma lenti nell'accesso casuale, operazioni come `ls -la`, scansioni `find`, traversal di directory e deduplica richiedono la lettura di migliaia di blocchi di metadati sparsi. Con uno Special VDEV in mirror di SSD NVMe ultra-rapidi, tutte le operazioni sui metadati avvengono istantaneamente a latenze di microsecondi.",
+        "Configurando il parametro `special_small_blocks=16k` o `32k` sul dataset, ZFS memorizza sullo Special VDEV non solo i metadati, ma anche tutti i file e blocchi inferiori a tale soglia. Attenzione all'affidabilita: se lo Special VDEV fallisce, l'intero pool ZFS e irrecuperabile; va quindi sempre configurato in mirror a 2 o 3 vie con dischi enterprise."
+      ],
+      "suggest": [
+        "zfs-slog-optane-sync-writes",
+        "zfs-ashift-recordsize-tuning",
+        "tailscale-subnet-router-vs-exit-node-differenze",
+        "cos-e-un-waf-web-application-firewall"
+      ]
+    },
+    {
+      "id": "nvme-over-fabrics-tcp-rdma",
+      "slug": "nvme-over-fabrics-tcp-rdma",
+      "question": "Cos'è NVMe-over-Fabrics (NVMe-oF) e quali sono le differenze tra NVMe/TCP e NVMe/RDMA?",
+      "vertical": "tools",
+      "keywords": [
+        "nvme over fabrics",
+        "nvme of tcp",
+        "nvme rdma rocev2",
+        "storage disaggregato",
+        "differenza nvme tcp rdma",
+        "nvme tcp rdma rocev2",
+        "storage disaggregato nvme of"
+      ],
+      "answers": [
+        "NVMe-over-Fabrics (NVMe-oF) estende il protocollo di comando NVMe nativo attraverso reti fabric veloci (Ethernet, Fibre Channel, InfiniBand), consentendo a un server client di accedere a dischi NVMe remoti con prestazioni e latenze quasi identiche a un disco installato localmente sul bus PCIe.",
+        "NVMe/TCP incapsula i comandi NVMe su normali pacchetti TCP/IP standard: non richiede hardware di rete specializzato, funziona su qualsiasi switch e scheda di rete Ethernet (es. 25GbE o 100GbE) ed e ideale per storage disaggregato cloud e cluster Proxmox o Kubernetes.",
+        "NVMe/RDMA sfrutta tecnologie come RoCEv2 (RDMA over Converged Ethernet) o InfiniBand per trasferire i dati direttamente tra le memorie RAM dei due nodi (Remote Direct Memory Access) bypassando completamente lo stack TCP del kernel e la CPU dell'host. Garantisce latenze inferiori a 10 microsecondi ma richiede switch di rete dedicati con configurazione PFC (Priority Flow Control) e ECN lossless."
+      ],
+      "suggest": [
+        "io-scheduler-mq-deadline-kyber",
+        "tcp-bbr-vs-cubic-latenza",
+        "hugepages-transparent-hugepages-db",
+        "cos-e-un-waf-web-application-firewall"
+      ]
+    },
+    {
+      "id": "io-scheduler-mq-deadline-kyber",
+      "slug": "io-scheduler-mq-deadline-kyber",
+      "question": "Quale I/O scheduler scegliere su Linux tra none, mq-deadline e kyber per NVMe ed SSD?",
+      "vertical": "tools",
+      "keywords": [
+        "io scheduler linux",
+        "mq deadline kyber",
+        "scheduler none nvme",
+        "blk mq linux",
+        "scelta io scheduler ssd",
+        "io scheduler nvme none deadline kyber",
+        "scheduler mq deadline kyber"
+      ],
+      "answers": [
+        "Con l'architettura multi-queue block layer (`blk-mq`) del kernel Linux, la gestione delle code di I/O e stata rivoluzionata per sfruttare le migliaia di code hardware parallele offerte dai moderni dischi a stato solido.",
+        "Per dischi NVMe ad altissime prestazioni lo scheduler raccomandato e `none`: l'hardware gestisce nativamente decine di migliaia di code concorrenti, e qualsiasi scheduler software interposto nel kernel consuma cicli CPU e introduce overhead e latenza superflua senza benefici tangibili.",
+        "Per SSD SATA o array SAN condivisi, lo scheduler `mq-deadline` e ideale perche garantisce un tetto massimo di latenza (deadline) sia in lettura che in scrittura, prevenendo lo starvation di richieste concorrenti. Lo scheduler `kyber` (progettato da Meta) monitora attivamente la latenza di round-trip di ogni operazione regolando dinamicamente la profondita delle code (queue depth) per garantire un tempo di risposta prevedibile sotto carichi interattivi."
+      ],
+      "suggest": [
+        "nvme-over-fabrics-tcp-rdma",
+        "tcp-bbr-vs-cubic-latenza",
+        "hugepages-transparent-hugepages-db",
+        "cos-e-un-waf-web-application-firewall"
+      ]
+    },
+    {
+      "id": "tcp-bbr-vs-cubic-latenza",
+      "slug": "tcp-bbr-vs-cubic-latenza",
+      "question": "Come funziona l'algoritmo di congestione TCP BBR e perché supera Cubic su connessioni ad alta latenza?",
+      "vertical": "tools",
+      "keywords": [
+        "tcp bbr vs cubic",
+        "algoritmo congestione bbr",
+        "bbr google tcp",
+        "bufferbloat tcp bbr",
+        "latenza tcp bbr",
+        "bbr supera cubic",
+        "bbr supera cubic alta latenza"
+      ],
+      "answers": [
+        "Cubic (l'algoritmo di congestione tradizionale di Linux) e un meccanismo loss-based: assume erroneamente che ogni pacchetto scartato sia sinonimo di saturazione della rete. Aumenta la finestra di invio finche i buffer dei router si riempiono (generando bufferbloat) e, al primo pacchetto perso, dimezza bruscamente la velocita di trasmissione.",
+        "BBR (Bottleneck Bandwidth and Round-trip propagation time, sviluppato da Google) e un modello model-based: misura continuamente la reale larghezza di banda del collo di bottiglia e il tempo minimo di round-trip (min RTT), mantenendo la quantita di dati in volo esattamente al livello ottimale.",
+        "Su collegamenti geografici a lunga distanza con alto prodotto banda-latenza (BDP) o su reti con pacchetti persi per rumore radio (Wi-Fi, 5G, satellitare), BBR garantisce throughput da 2 a 10 volte superiore rispetto a Cubic e riduce drasticamente la latenza di navigazione eliminando le code nei buffer di rete."
+      ],
+      "suggest": [
+        "io-scheduler-mq-deadline-kyber",
+        "hugepages-transparent-hugepages-db",
+        "nvme-over-fabrics-tcp-rdma",
+        "cos-e-un-waf-web-application-firewall"
+      ]
+    },
+    {
+      "id": "hugepages-transparent-hugepages-db",
+      "slug": "hugepages-transparent-hugepages-db",
+      "question": "Cosa sono le HugePages e perché disabilitare Transparent HugePages (THP) per i database?",
+      "vertical": "tools",
+      "keywords": [
+        "hugepages linux",
+        "transparent hugepages thp",
+        "disabilitare thp postgres",
+        "tlb miss hugepages",
+        "thp defrag latency",
+        "disabilitare thp postgres redis",
+        "transparent hugepages defrag",
+        "thp defrag latency postgres"
+      ],
+      "answers": [
+        "L'architettura della memoria virtuale su x86_64 mappa gli indirizzi tramite pagine fisiche standard da 4KB. Per processi che allocano decine di gigabyte di RAM (come PostgreSQL, Redis o JVM), la tabella delle pagine (Translation Lookaside Buffer, TLB) satura la cache della CPU generando continui TLB miss e overhead di memory walk.",
+        "Le HugePages configurate staticamente (2MB o 1GB) riducono il numero di voci nella tabella delle pagine di 512 o 262.144 volte, accelerando sensibilmente l'accesso alla memoria.",
+        "Tuttavia, il meccanismo automatico del kernel Transparent HugePages (THP) e deleterio per database OLTP e motori NoSQL: il demone in background `khugepaged` tenta di accorpare dinamicamente pagine da 4KB frammentate in blocchi continui da 2MB bloccando i thread applicativi con improvvisi picchi di latenza di decine di millisecondi. Per questo motivo documentazioni ufficiali di PostgreSQL, MongoDB e Redis impongono la disabilitazione di THP (`echo never > /sys/kernel/mm/transparent_hugepage/enabled`)."
+      ],
+      "suggest": [
+        "tcp-bbr-vs-cubic-latenza",
+        "vm-swappiness-vfs-cache-pressure",
+        "io-scheduler-mq-deadline-kyber",
+        "cos-e-un-waf-web-application-firewall"
+      ]
+    },
+    {
+      "id": "vm-swappiness-vfs-cache-pressure",
+      "slug": "vm-swappiness-vfs-cache-pressure",
+      "question": "Come configurare vm.swappiness e vm.vfs_cache_pressure per carichi di lavoro server?",
+      "vertical": "tools",
+      "keywords": [
+        "vm swappiness",
+        "vfs_cache_pressure",
+        "tuning memoria kernel",
+        "swappiness server",
+        "liberare page cache sysctl",
+        "swappiness server vfs_cache_pressure",
+        "vfs_cache_pressure tuning memoria",
+        "tuning swappiness server"
+      ],
+      "answers": [
+        "I parametri sysctl del sottosistema di memoria virtuale (`vm`) governano come il kernel Linux bilancia il recupero di RAM tra la page cache dei filesystem e le pagine di memoria anonima dei processi.",
+        "`vm.swappiness` (valore da 0 a 200, predefinito a 60): definisce la propensione del kernel a spostare pagine anonime nello spazio di swap su disco rispetto alla liberazione di page cache. Su server con RAM abbondante e carichi database o hypervisor Proxmox, impostare `vm.swappiness = 10` (o `1`) impedisce che la memoria applicativa attiva venga scritta su swap quando la page cache cresce.",
+        "`vm.vfs_cache_pressure` (predefinito a 100): controlla con quale aggressivita il kernel recupera la memoria occupata dalla cache di inode e dentry (metadati di directory). Con carichi intensivi di milioni di piccoli file (mail server, git server), impostare `vm.vfs_cache_pressure = 50` mantiene piu a lungo i metadati in RAM velocizzando drasticamente le operazioni di navigazione filesystem."
+      ],
+      "suggest": [
+        "hugepages-transparent-hugepages-db",
+        "numa-pinning-core-isolation-linux",
+        "tcp-bbr-vs-cubic-latenza",
+        "cos-e-un-waf-web-application-firewall"
+      ]
+    },
+    {
+      "id": "numa-pinning-core-isolation-linux",
+      "slug": "numa-pinning-core-isolation-linux",
+      "question": "Come si gestisce l'architettura NUMA con CPU pinning e isolamento dei core su Linux?",
+      "vertical": "tools",
+      "keywords": [
+        "numa pinning linux",
+        "numactl cpu pinning",
+        "core isolation isolcpus",
+        "cross socket latency numa",
+        "taskset affinita cpu",
+        "gestione architettura numa",
+        "architettura numa cpu pinning",
+        "numactl isolcpus numa",
+        "architettura numa",
+        "gestire architettura numa",
+        "isolamento dei core"
+      ],
+      "answers": [
+        "Nei server multi-socket (con due o piu processori fisici), l'architettura della memoria e di tipo NUMA (Non-Uniform Memory Access): ogni socket CPU possiede canali di memoria RAM locali ad accesso ultra-rapido, mentre l'accesso alla memoria del socket adiacente (cross-socket) attraversa interconnessioni hardware (UPI o Infinity Fabric) con latenza e contesa superiori.",
+        "Quando un processo o una macchina virtuale alloca memoria sul nodo NUMA 0 ma il kernel schedula il thread sul nodo NUMA 1, le prestazioni subiscono degradazioni sensibili.",
+        "Per carichi a bassa latenza (audio DSP, database critici, VM ad alte prestazioni) si applica il pinning NUMA con `numactl --cpunodebind=0 --membind=0 <comando>` o tramite CPU pinning nei manifest Proxmox/KVM (`taskset -c 0-7`). Con il parametro kernel `isolcpus=2-7` si isolano core dedicati sottraendoli allo scheduler ordinario del kernel, azzerando context switch non pianificati."
+      ],
+      "suggest": [
+        "vm-swappiness-vfs-cache-pressure",
+        "irq-affinity-multiqueue-nic-tuning",
+        "hugepages-transparent-hugepages-db",
+        "cos-e-un-waf-web-application-firewall"
+      ]
+    },
+    {
+      "id": "irq-affinity-multiqueue-nic-tuning",
+      "slug": "irq-affinity-multiqueue-nic-tuning",
+      "question": "Come si configura l'IRQ affinity per le schede di rete multi-coda su server ad alto traffico?",
+      "vertical": "tools",
+      "keywords": [
+        "irq affinity nic",
+        "receive side scaling rss",
+        "smp_affinity rete",
+        "interrupt rete multi queue",
+        "tuning irq rete linux",
+        "configurare irq affinity",
+        "irq affinity schede di rete",
+        "schede di rete multi coda",
+        "server ad alto traffico"
+      ],
+      "answers": [
+        "Sotto carichi di traffico di rete intensi (da 10GbE a 100GbE), la generazione di interrupt hardware (IRQ) da parte della scheda di rete (NIC) puo saturare un singolo core della CPU (100% CPU in softirq), creando un collo di bottiglia che strozza il throughput complessivo dell'host.",
+        "Le schede di rete moderne implementano code multiple hardware parallele (RX/TX queues) con meccanismo RSS (Receive Side Scaling), distribuendo i flussi TCP/UDP su code indipendenti tramite hash a 4 tuple.",
+        "Per sfruttare questa architettura e necessario mappare ogni coda IRQ su uno specifico core della CPU scrivendo la maschera esadecimale nel file `/proc/irq/<num>/smp_affinity`. In alternativa, si disabilita il demone generico `irqbalance` e si impiegano script dedicati forniti dai vendor (come Intel o Mellanox) per ancorare le code RX ai core NUMA piu vicini alla scheda PCIe."
+      ],
+      "suggest": [
+        "numa-pinning-core-isolation-linux",
+        "kernel-sysctl-somaxconn-backlog",
+        "vm-swappiness-vfs-cache-pressure",
+        "cos-e-un-waf-web-application-firewall"
+      ]
+    },
+    {
+      "id": "kernel-sysctl-somaxconn-backlog",
+      "slug": "kernel-sysctl-somaxconn-backlog",
+      "question": "Come si ottimizzano somaxconn e tcp_max_syn_backlog per server web e proxy ad alto carico?",
+      "vertical": "tools",
+      "keywords": [
+        "somaxconn backlog",
+        "tcp_max_syn_backlog",
+        "netdev_max_backlog",
+        "tuning sysctl rete alto carico",
+        "connection refused alto carico"
+      ],
+      "answers": [
+        "I valori predefiniti del kernel Linux per le code di ascolto socket sono dimensionati per sistemi desktop o carichi modesti (es. `net.core.somaxconn = 128` o `4096`), causando il rifiuto silenzioso di connessioni TCP (SYN dropped) durante picchi improvvisi di traffico web.",
+        "Per server web, reverse proxy (Nginx, Caddy, Envoy) o broker di messaggi ad alta concorrenza, e indispensabile incrementare tre code fondamentali in `/etc/sysctl.d/99-network.conf`:",
+        "`net.core.somaxconn = 65535` (dimensione massima della coda di connessioni completamente aperte in attesa di essere accettate dall'applicazione con `accept()`), `net.ipv4.tcp_max_syn_backlog = 65535` (coda delle connessioni semi-aperte in attesa di completare il 3-way handshake TCP) e `net.core.netdev_max_backlog = 10000` (buffer dei pacchetti in ingresso dal driver di rete prima della gestione da parte dello stack kernel)."
+      ],
+      "suggest": [
+        "irq-affinity-multiqueue-nic-tuning",
+        "cgroups-v2-memory-qos-oomd",
+        "numa-pinning-core-isolation-linux",
+        "cos-e-un-waf-web-application-firewall"
+      ]
+    },
+    {
+      "id": "cgroups-v2-memory-qos-oomd",
+      "slug": "cgroups-v2-memory-qos-oomd",
+      "question": "Come funzionano i parametri di Memory QoS in cgroups v2 e come opera systemd-oomd?",
+      "vertical": "tools",
+      "keywords": [
+        "cgroups v2 memory qos",
+        "systemd oomd",
+        "memory min low high max",
+        "control groups v2",
+        "proteggere memoria container cgroups"
+      ],
+      "answers": [
+        "La transizione da cgroups v1 a cgroups v2 ha introdotto una gerarchia unificata e un controllo predittivo della memoria tramite quattro soglie distinte di Quality of Service (QoS):",
+        "`memory.min` (garanzia ferrea di RAM che il kernel non puo reclamare per nessun motivo, nemmeno sotto pressione estrema), `memory.low` (garanzia flessibile reclamata solo se non vi sono alternative), `memory.high` (soglia di throttling in cui i processi vengono rallentati per limitare l'allocazione) e `memory.max` (limite rigido assoluto che attiva l'Out-Of-Memory killer se superato).",
+        "A differenza del vecchio OOM killer del kernel che interveniva tardivamente quando l'host era gia congelato da thrashing della memoria, `systemd-oomd` e un demone in user-space che monitora la metrica PSI (Pressure Stall Information): interviene proattivamente terminando l'intero cgroup del servizio problematico prima che l'host smetta di rispondere."
+      ],
+      "suggest": [
+        "kernel-sysctl-somaxconn-backlog",
+        "block-size-align-4k-write-amplification",
+        "irq-affinity-multiqueue-nic-tuning",
+        "cos-e-un-waf-web-application-firewall"
+      ]
+    },
+    {
+      "id": "block-size-align-4k-write-amplification",
+      "slug": "block-size-align-4k-write-amplification",
+      "question": "Perché l'allineamento delle partizioni ai confini fisici di 4KB è vitale su dischi SSD e AF?",
+      "vertical": "tools",
+      "keywords": [
+        "allineamento partizioni 4k",
+        "write amplification ssd",
+        "advanced format 4096",
+        "read modify write dischi",
+        "allineare partizioni fdisk",
+        "allineamento delle partizioni",
+        "confini fisici di 4kb",
+        "allineamento partizioni 4kb",
+        "dischi ssd e af"
+      ],
+      "answers": [
+        "I moderni supporti di memorizzazione (dischi rigidi Advanced Format ed SSD basati su memorie flash NAND) organizzano i propri settori fisici interni in blocchi da 4096 byte (4KB) o multipli superiori (es. pagine da 8KB o 16KB).",
+        "Se una tabella delle partizioni (MBR o GPT) non e perfettamente allineata a un multiplo di 4096 byte (ad esempio avviando una partizione al settore 63 anziche 2048, come accadeva nei vecchi installer), ogni singolo blocco logico del filesystem cadra a cavallo di due blocchi fisici distinti del disco.",
+        "Questo disallineamento costringe il controller del disco a un fenomeno devastante noto come Read-Modify-Write: per scrivere un semplice blocco da 4KB, il drive deve leggere due blocchi fisici contigui, modificarne le meta e riscriverli entrambi. Il risultato e il dimezzamento degli IOPS casuali in scrittura e una massiccia write amplification che consuma prematuramente i cicli di vita della memoria flash."
+      ],
+      "suggest": [
+        "cgroups-v2-memory-qos-oomd",
+        "benchmark-dischi-fio",
+        "kernel-sysctl-somaxconn-backlog",
+        "cos-e-un-waf-web-application-firewall"
+      ]
+    },
+    {
+      "id": "benchmark-dischi-fio",
+      "slug": "benchmark-dischi-fio",
+      "question": "Come si usa FIO per misurare IOPS reali, banda e latenza dello storage?",
+      "vertical": "tools",
+      "keywords": [
+        "benchmark dischi fio",
+        "misurare iops fio",
+        "fio storage testing",
+        "latenza dischi fio",
+        "comando fio benchmark"
+      ],
+      "answers": [
+        "FIO (Flexible I/O Tester) e lo standard industriale de facto per il benchmarking e la convalida delle prestazioni dei sottosistemi di archiviazione su Linux, superando i test ingenui basati su `dd` che misurano unicamente la velocita della RAM cache del kernel.",
+        "Un test rappresentativo per database OLTP misura gli accessi casuali a blocchi 4KB con profondita di coda e lettura diretta (`direct=1` per bypassare la page cache): `fio --name=randwrite --ioengine=libaio --iodepth=16 --rw=randwrite --bs=4k --direct=1 --size=4G --numjobs=4 --runtime=60 --group_reporting`.",
+        "Le metriche decisive fornite nel report finale sono tre: gli IOPS sostenuti, il throughput effettivo in MB/s e soprattutto la distribuzione della latenza (clat percentiles), verificando i valori al 99° e 99.9° percentile per garantire che nessuna transazione subisca ritardi anomali."
+      ],
+      "suggest": [
+        "block-size-align-4k-write-amplification",
+        "cgroups-v2-memory-qos-oomd",
+        "kernel-sysctl-somaxconn-backlog",
+        "cos-e-un-waf-web-application-firewall"
       ]
     }
   ],
