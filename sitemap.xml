@@ -11,6 +11,10 @@
   <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/percorsi/agenti-ai-in-regola/</loc></url>
   <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/percorsi/email-che-arrivano/</loc></url>
   <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/percorsi/risolvere-errori-cloudflare/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/percorsi/architettura-dns-e-diagnostica/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/percorsi/adeguamento-tecnico-nis2/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/percorsi/supply-chain-e-gitops-security/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/percorsi/storage-ad-alte-prestazioni-e-tuning/</loc></url>
   <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/tools/</loc></url>
   <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/tools/calcolatore-subnet/</loc></url>
   <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/tools/spiega-cron/</loc></url>
@@ -45,17 +49,23 @@
   <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/porta/2049/</loc></url>
   <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/porta/2375/</loc></url>
   <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/porta/2376/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/porta/2379/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/porta/3000/</loc></url>
   <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/porta/3306/</loc></url>
   <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/porta/3389/</loc></url>
   <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/porta/5432/</loc></url>
   <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/porta/5900/</loc></url>
   <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/porta/6379/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/porta/6443/</loc></url>
   <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/porta/8006/</loc></url>
   <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/porta/8007/</loc></url>
   <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/porta/8080/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/porta/8086/</loc></url>
   <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/porta/8123/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/porta/8200/</loc></url>
   <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/porta/8443/</loc></url>
   <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/porta/9090/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/porta/9100/</loc></url>
   <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/porta/9443/</loc></url>
   <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/porta/11434/</loc></url>
   <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/porta/27017/</loc></url>
@@ -78,6 +88,10 @@
   <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/comandi/vpn-dns/</loc></url>
   <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/comandi/backup-sync/</loc></url>
   <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/comandi/monitoraggio-notifiche/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/comandi/dns-diagnostica/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/comandi/incident-response/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/comandi/git-security/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/comandi/linux-performance-storage/</loc></url>
   <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/trasparenza/</loc></url>
   <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/chi-e-fabrizio-salmi/</loc></url>
   <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/progetti-open-source-fabrizio-salmi/</loc></url>
@@ -858,4 +872,60 @@
   <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/proxmox-backup-server-deduplicazione-chunk-verify/</loc></url>
   <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/tailscale-subnet-router-vs-exit-node-differenze/</loc></url>
   <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/caddyfile-pattern-reverse-proxy-sicurezza-failover/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/record-caa-tls-rfc8659/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/dnssec-bogus-servfail-debug/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/record-svcb-https-rfc9460/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/cname-flattening-apex-dominio/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/dane-tlsa-rfc6698-differenze/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/split-horizon-dns-architettura/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/dns-rcode-differenze-tecniche/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/dns-amplification-ddos-rrl/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/edns0-buffer-size-packet-drop/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/anycast-bgp-dns-routing/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/ptr-rdns-configurazione-mail/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/dns-txt-record-chunk-255/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/dns-zone-transfer-axfr-sicurezza/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/dns-over-quic-doq-vs-doh-dot/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/nis2-obblighi-tecnici-art21/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/notifica-incidenti-nis2-tempistiche/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/log-immutabili-forensi-crittografia/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/log-retention-amministratori-sistema/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/syslog-rfc5424-strutturato-json/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/bastion-host-jumpbox-hardening/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/auditd-linux-regole-forensi/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/pki-interna-smallstep-vault/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/mtls-zero-trust-service-to-service/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/ebpf-tetragon-runtime-security/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/pam-totp-yubikey-ssh/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/supply-chain-sbom-cyclonedx-spdx/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/edr-osquery-flotta-linux/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/honeytoken-canary-tokens-trappole/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/git-crypt-vs-sops-age/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/slsa-framework-livelli-sicurezza/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/sigstore-cosign-firma-container/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/dependency-confusion-squatting-npm-pypi/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/tekton-vs-argo-workflows-kubernetes/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/flux2-vs-argocd-gitops-confronto/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/openfga-vs-opa-rego-autorizzazione/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/branch-protection-rules-github-gitlab/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/github-actions-security-hardening/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/reproducible-builds-verifica-binari/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/git-signed-commits-ssh-vs-gpg/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/trivy-vs-grype-vulnerability-scanner/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/vault-agent-sidecar-injector-kubernetes/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/distroless-scratch-container-hardening/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/zfs-ashift-recordsize-tuning/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/zfs-slog-optane-sync-writes/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/zfs-special-vdev-metadata-tuning/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/nvme-over-fabrics-tcp-rdma/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/io-scheduler-mq-deadline-kyber/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/tcp-bbr-vs-cubic-latenza/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/hugepages-transparent-hugepages-db/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/vm-swappiness-vfs-cache-pressure/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/numa-pinning-core-isolation-linux/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/irq-affinity-multiqueue-nic-tuning/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/kernel-sysctl-somaxconn-backlog/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/cgroups-v2-memory-qos-oomd/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/block-size-align-4k-write-amplification/</loc></url>
+  <url><loc>https://fabriziosalmi.github.io/fabgpt-faq/q/benchmark-dischi-fio/</loc></url>
 </urlset>

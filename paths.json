@@ -1,392 +1,552 @@
 {
- "paths": [
-  {
-   "slug": "diventare-sysadmin",
-   "title": "Diventare sysadmin partendo da zero",
-   "tagline": "Il percorso in 17 tappe: reti, Linux, homelab, automazione, backup, cloud e il primo lavoro IT.",
-   "intro": "Le tappe sono in ordine deliberato: prima le fondamenta di rete, poi Linux sul serio, poi un homelab dove rompere le cose senza conseguenze. Ogni tappa è una guida autonoma; ma la sequenza è il punto.",
-   "steps": [
+  "paths": [
     {
-     "entry": "subnetting-cidr",
-     "why": "Prima di tutto: capire come sono fatte le reti che amministrerai."
+      "slug": "diventare-sysadmin",
+      "title": "Diventare sysadmin partendo da zero",
+      "tagline": "Il percorso in 17 tappe: reti, Linux, homelab, automazione, backup, cloud e il primo lavoro IT.",
+      "intro": "Le tappe sono in ordine deliberato: prima le fondamenta di rete, poi Linux sul serio, poi un homelab dove rompere le cose senza conseguenze. Ogni tappa è una guida autonoma; ma la sequenza è il punto.",
+      "steps": [
+        {
+          "entry": "subnetting-cidr",
+          "why": "Prima di tutto: capire come sono fatte le reti che amministrerai."
+        },
+        {
+          "entry": "dns-risoluzione",
+          "why": "Il servizio che tocca ogni ticket: metà dei \"non funziona internet\" è DNS."
+        },
+        {
+          "entry": "porte-tcp-udp",
+          "why": "Il vocabolario di firewall e troubleshooting."
+        },
+        {
+          "entry": "permessi-linux",
+          "why": "Il primo muro contro cui sbatte chi arriva su Linux."
+        },
+        {
+          "entry": "utenti-gruppi-sudo",
+          "why": "Chi può fare cosa: la base di ogni server condiviso."
+        },
+        {
+          "entry": "systemd-servizi",
+          "why": "Avviare, fermare e diagnosticare i servizi: il pane quotidiano."
+        },
+        {
+          "entry": "log-linux",
+          "why": "Dove guardare quando qualcosa si rompe (cioè sempre)."
+        },
+        {
+          "entry": "cos-e-proxmox",
+          "why": "Il laboratorio: un hypervisor gratuito dove sbagliare in pace."
+        },
+        {
+          "entry": "lxc-vs-vm",
+          "why": "La prima scelta di design di ogni lab."
+        },
+        {
+          "entry": "homelab-low-power",
+          "why": "L'hardware giusto costa poco e consuma meno."
+        },
+        {
+          "entry": "bash-scripting-base",
+          "why": "Tutto ciò che fai due volte va automatizzato."
+        },
+        {
+          "entry": "cron-sintassi",
+          "why": "L'automazione che gira mentre dormi."
+        },
+        {
+          "entry": "backup-321",
+          "why": "Nessuno viene licenziato per un server lento; per un backup mancante sì."
+        },
+        {
+          "entry": "monitoring-stack",
+          "why": "Accorgersi dei problemi prima degli utenti."
+        },
+        {
+          "entry": "aws-o-azure",
+          "why": "Il cloud: impara i concetti su un provider, valgono ovunque."
+        },
+        {
+          "entry": "certificazioni-it",
+          "why": "Il pezzo di carta che apre i colloqui."
+        },
+        {
+          "entry": "homelab-cv",
+          "why": "Trasformare il lab in esperienza spendibile."
+        }
+      ]
     },
     {
-     "entry": "dns-risoluzione",
-     "why": "Il servizio che tocca ogni ticket: metà dei \"non funziona internet\" è DNS."
+      "slug": "mettere-in-sicurezza-un-server",
+      "title": "Mettere in sicurezza un server esposto",
+      "tagline": "Dodici tappe in ordine di impatto: dall'hardening iniziale alla checklist mensile che mantiene tutto vero.",
+      "intro": "L'ordine segue l'impatto: prima si chiude la superficie d'attacco, poi si blinda l'accesso, poi si costruiscono visibilità e resilienza. Ogni tappa è operativa, con i comandi.",
+      "steps": [
+        {
+          "entry": "hardening-linux",
+          "why": "La baseline: chiudere ciò che non serve appena il server esiste."
+        },
+        {
+          "entry": "hardening-ssh",
+          "why": "SSH è la porta principale: è qui che bussano tutti."
+        },
+        {
+          "entry": "chiavi-ssh",
+          "why": "Le chiavi al posto delle password: il singolo upgrade più efficace."
+        },
+        {
+          "entry": "host-default-deny-nftables",
+          "why": "Default deny: tutto chiuso, si apre solo il necessario."
+        },
+        {
+          "entry": "fail2ban",
+          "why": "Ban automatico di chi insiste."
+        },
+        {
+          "entry": "come-funziona-acme",
+          "why": "HTTPS automatico, senza scadenze dimenticate."
+        },
+        {
+          "entry": "security-headers",
+          "why": "Gli header che il browser rispetta e gli scanner cercano."
+        },
+        {
+          "entry": "cos-e-un-waf",
+          "why": "Lo strato che filtra le richieste applicative cattive."
+        },
+        {
+          "entry": "security-logging",
+          "why": "Se non è loggato, non è successo: la scatola nera dell'incidente."
+        },
+        {
+          "entry": "backup-321",
+          "why": "Il paracadute: tre copie, due supporti, una fuori sede."
+        },
+        {
+          "entry": "disaster-recovery",
+          "why": "Sapere già cosa fare quando andrà male."
+        },
+        {
+          "entry": "checklist-sicurezza-server",
+          "why": "La mezz'ora al mese che mantiene vero tutto il lavoro fatto sopra."
+        }
+      ]
     },
     {
-     "entry": "porte-tcp-udp",
-     "why": "Il vocabolario di firewall e troubleshooting."
+      "slug": "self-hosting-da-zero",
+      "title": "Self-hosting da zero",
+      "tagline": "Dodici tappe dal perché all'infrastruttura che si mantiene da sola: Proxmox, container, rete, backup e monitoraggio.",
+      "intro": "Dal capire se il self-hosting fa per te fino a un lab che ti avvisa invece di sorprenderti. Le tappe centrali (rete, backup) sono quelle che separano un hobby fragile da un'infrastruttura di cui fidarsi.",
+      "steps": [
+        {
+          "entry": "perche-self-hosting",
+          "why": "Capire pro, contro e costi reali prima di iniziare."
+        },
+        {
+          "entry": "homelab-low-power",
+          "why": "Un mini PC basta, e non pesa in bolletta."
+        },
+        {
+          "entry": "cos-e-proxmox",
+          "why": "La base di tutto: l'hypervisor."
+        },
+        {
+          "entry": "lxc-vs-vm",
+          "why": "Container o VM: la scelta da fare per ogni servizio."
+        },
+        {
+          "entry": "docker-compose",
+          "why": "Il formato in cui il mondo self-hosted distribuisce il software."
+        },
+        {
+          "entry": "vlan-segmentazione",
+          "why": "L'IoT non deve parlare col NAS dei backup."
+        },
+        {
+          "entry": "tunnel-senza-porte",
+          "why": "Raggiungere i servizi da fuori senza esporli."
+        },
+        {
+          "entry": "snapshot-vs-backup",
+          "why": "Capire la differenza prima di averne bisogno."
+        },
+        {
+          "entry": "pbs",
+          "why": "Backup deduplicati e verificati per VM e container."
+        },
+        {
+          "entry": "monitoring-stack",
+          "why": "Il lab che ti avvisa invece di sorprenderti."
+        },
+        {
+          "entry": "aggregatore-rss",
+          "why": "Il primo servizio davvero tuo: le notizie senza algoritmi."
+        },
+        {
+          "entry": "checklist-sicurezza-server",
+          "why": "La manutenzione mensile che tiene tutto in salute."
+        }
+      ]
     },
     {
-     "entry": "permessi-linux",
-     "why": "Il primo muro contro cui sbatte chi arriva su Linux."
+      "slug": "docker-solido",
+      "title": "Docker solido in produzione",
+      "tagline": "Nove tappe per uno stack Docker che non sorprende: Compose, sicurezza, volumi, log, aggiornamenti e backup.",
+      "intro": "Docker \"che funziona\" e Docker \"di cui fidarsi\" sono due mestieri diversi. Queste tappe coprono il secondo: come si compone uno stack, come si isola, dove vivono i dati e come si aggiorna senza incidenti.",
+      "steps": [
+        {
+          "entry": "docker-compose",
+          "why": "Il formato in cui tutto si distribuisce: da qui si parte."
+        },
+        {
+          "entry": "docker-volumes-vs-bindmounts",
+          "why": "I container sono usa-e-getta, i dati no: la scelta che decide i backup."
+        },
+        {
+          "entry": "container-security",
+          "why": "Immagini fidate, pinnate e scansionate: la supply chain dello stack."
+        },
+        {
+          "entry": "container-privilegiati",
+          "why": "Il flag --privileged è quasi sempre la risposta sbagliata."
+        },
+        {
+          "entry": "container-breakout",
+          "why": "Sapere cosa può andare storto per capire perché isolare."
+        },
+        {
+          "entry": "docker-log-rotation-limits",
+          "why": "I log che riempiono il disco sono l'incidente Docker più banale."
+        },
+        {
+          "entry": "docker-gluetun-vpn",
+          "why": "Instradare un container in VPN: il pattern fatto bene."
+        },
+        {
+          "entry": "watchtower",
+          "why": "Aggiornare in automatico: quando conviene e quando no."
+        },
+        {
+          "entry": "backup-321",
+          "why": "Volumi inclusi nel piano 3-2-1, o non è un piano."
+        }
+      ]
     },
     {
-     "entry": "utenti-gruppi-sudo",
-     "why": "Chi può fare cosa: la base di ogni server condiviso."
+      "slug": "llm-e-agenti-sicuri",
+      "title": "Mettere in sicurezza LLM e agenti",
+      "tagline": "Dieci tappe dal prompt injection alla supply chain dei modelli: la sicurezza AI per chi la implementa.",
+      "intro": "L'ordine segue l'architettura: prima gli attacchi al modello via input, poi i confini di ciò che un agente può fare, infine la filiera dei pesi e delle dipendenze. Ogni tappa è operativa.",
+      "steps": [
+        {
+          "entry": "cos-e-prompt-injection",
+          "why": "L'attacco fondante: non esiste escaping per il linguaggio naturale."
+        },
+        {
+          "entry": "guardrail",
+          "why": "I filtri attorno al modello: cosa fermano e cosa no."
+        },
+        {
+          "entry": "llm-security",
+          "why": "L'endpoint LLM è un endpoint: superficie, quote, abusi."
+        },
+        {
+          "entry": "rag-security",
+          "why": "I documenti indicizzati sono input non fidato a tutti gli effetti."
+        },
+        {
+          "entry": "mcp-tool-security",
+          "why": "Tool e plugin: il confused deputy è dietro l'angolo."
+        },
+        {
+          "entry": "limitare-agente",
+          "why": "Permessi minimi e HITL: l'agente propone, l'umano dispone."
+        },
+        {
+          "entry": "sandboxing-agenti",
+          "why": "Dove l'agente esegue: isolamento vero, non promesse."
+        },
+        {
+          "entry": "model-signing-sigstore-tuf",
+          "why": "Da dove arrivano i pesi: firma e provenienza."
+        },
+        {
+          "entry": "weight-poisoning",
+          "why": "Le backdoor nei modelli non si vedono nei benchmark."
+        },
+        {
+          "entry": "aibom-ai-bill-of-materials",
+          "why": "L'inventario che tiene insieme tutto: dataset, pesi, dipendenze."
+        }
+      ]
     },
     {
-     "entry": "systemd-servizi",
-     "why": "Avviare, fermare e diagnosticare i servizi: il pane quotidiano."
+      "slug": "agenti-ai-in-regola",
+      "title": "Agenti AI in azienda, in regola",
+      "tagline": "Sette tappe di governance: AI Act, responsabilità, registro, limiti settoriali, supervisione e audit trail.",
+      "intro": "La parte normativa dell'AI, messa in fila per chi deve deciderla e documentarla: cosa impone l'AI Act, chi risponde di cosa, e quali pezzi tecnici (registro, audit trail, fallback umano) trasformano la conformità in pratica.",
+      "steps": [
+        {
+          "entry": "ai-act",
+          "why": "La cornice: livelli di rischio e scadenze già in vigore."
+        },
+        {
+          "entry": "ai-deployer-vs-provider-liability",
+          "why": "Chi risponde di cosa: usare un sistema oltre le istruzioni ti cambia ruolo."
+        },
+        {
+          "entry": "ai-agent-corporate-registry",
+          "why": "Il censimento degli agenti attivi: si governa solo ciò che si conosce."
+        },
+        {
+          "entry": "agenti-settori-regolamentati",
+          "why": "Credito, sanità, HR: dove l'autonomia trova i limiti di legge."
+        },
+        {
+          "entry": "agent-human-fallback-protocol",
+          "why": "Il passaggio di controllo all'umano, deciso prima della crisi."
+        },
+        {
+          "entry": "audit-trail-agenti",
+          "why": "Log firmati e non ripudio: \"l'ha deciso l'AI\" non è una difesa."
+        },
+        {
+          "entry": "diritto-oblio-ai",
+          "why": "La cancellabilità come requisito architetturale, non come emergenza."
+        }
+      ]
     },
     {
-     "entry": "log-linux",
-     "why": "Dove guardare quando qualcosa si rompe (cioè sempre)."
+      "slug": "email-che-arrivano",
+      "title": "Email che arrivano (e restano tue)",
+      "tagline": "Sei tappe sulla posta: autenticazione SPF/DKIM/DMARC, reputazione, relay cifrato, cifratura a riposo e migrazione.",
+      "intro": "La posta è il self-hosting più punitivo: tecnicamente semplice, ma la deliverability è un mestiere. Queste tappe partono da ciò che ti fa finire in spam e arrivano alla casella sovrana cifrata.",
+      "steps": [
+        {
+          "entry": "spf-dkim-dmarc",
+          "why": "I tre record senza i quali oggi non si consegna nulla."
+        },
+        {
+          "entry": "email-spam",
+          "why": "Perché si finisce in spam: reputazione, contenuti e infrastruttura."
+        },
+        {
+          "entry": "smart-host-relay-smtp",
+          "why": "L'IP residenziale non consegna: il relay cifrato è la via."
+        },
+        {
+          "entry": "dovecot-maildir-encryption",
+          "why": "Cifratura a riposo delle caselle: la posta è il dato più sensibile."
+        },
+        {
+          "entry": "imapsync-migrazione-email",
+          "why": "Migrare anni di caselle senza perdere nulla."
+        },
+        {
+          "entry": "backup-321",
+          "why": "E come tutto il resto: tre copie, due supporti, una fuori sede."
+        }
+      ]
     },
     {
-     "entry": "cos-e-proxmox",
-     "why": "Il laboratorio: un hypervisor gratuito dove sbagliare in pace."
+      "slug": "risolvere-errori-cloudflare",
+      "title": "Risolvere gli errori di Cloudflare e dell'Edge",
+      "tagline": "Guida pratica per diagnosticare e correggere i codici 52x, problemi SSL e routing.",
+      "intro": "Gli errori edge tra Cloudflare e il server di origine bloccano il traffico prima che raggiunga l'applicazione. Questa guida ordina le diagnosi in sequenza logica: dalla configurazione crittografica TLS ai timeout TCP e HTTP fino ai controlli di routing e posta.",
+      "steps": [
+        {
+          "entry": "cloudflare-ssl-modes",
+          "why": "La configurazione crittografica di base: evitare i loop di redirect 301 di Flexible."
+        },
+        {
+          "entry": "errore-520-cloudflare",
+          "why": "Diagnosi di risposte vuote o intestazioni HTTP eccessive inviate dall'origine."
+        },
+        {
+          "entry": "errore-521-cloudflare",
+          "why": "Quando il server web di origine e spento o rifiuta attivamente la connessione."
+        },
+        {
+          "entry": "errore-522-cloudflare",
+          "why": "Timeout durante l'handshake TCP: problemi di routing o pacchetti SYN scartati."
+        },
+        {
+          "entry": "errore-524-cloudflare",
+          "why": "Quando il backend impiega oltre 100 secondi per elaborare la risposta HTTP."
+        },
+        {
+          "entry": "errore-525-cloudflare",
+          "why": "Fallimento dell'handshake TLS: ciphers incompatibili o certificati non validi."
+        },
+        {
+          "entry": "spf-dkim-dmarc",
+          "why": "Allineamento DNS fondamentale per garantire la corretta consegna dei messaggi email."
+        },
+        {
+          "entry": "flareover",
+          "why": "Il percorso di uscita controllato per migrare verso un'infrastruttura europea sovrana."
+        }
+      ]
     },
     {
-     "entry": "lxc-vs-vm",
-     "why": "La prima scelta di design di ogni lab."
+      "slug": "architettura-dns-e-diagnostica",
+      "title": "Architettura DNS moderna, sicurezza e diagnostica",
+      "tagline": "Dalla risoluzione fondamentale ai record avanzati (CAA, HTTPS, rDNS), protezione DNSSEC e mitigazione DDoS.",
+      "intro": "Il DNS è il cuore dell'infrastruttura di rete. Questo percorso guida alla comprensione dei meccanismi avanzati: come funzionano i codici di errore, come prevenire hijack ed emissioni abusive di certificati, come configurare DNSSEC senza rompere la risoluzione e come diagnosticare con precisione ogni anello della catena.",
+      "steps": [
+        {
+          "entry": "record-dns",
+          "why": "I mattoni fondamentali del DNS: record A, AAAA, CNAME, MX e TXT."
+        },
+        {
+          "entry": "dns-risoluzione",
+          "why": "Il viaggio di una query dai client ai resolver ricorsivi e autoritativi."
+        },
+        {
+          "entry": "dns-rcode-differenze-tecniche",
+          "why": "Interpretare con certezza NOERROR, NXDOMAIN, SERVFAIL e REFUSED."
+        },
+        {
+          "entry": "cname-flattening-apex-dominio",
+          "why": "Superare il limite RFC dell'apex con le tecniche dei nameserver moderni."
+        },
+        {
+          "entry": "record-caa-tls-rfc8659",
+          "why": "Blindare l'emissione di certificati TLS autorizzando solo le CA designate."
+        },
+        {
+          "entry": "dnssec-bogus-servfail-debug",
+          "why": "Diagnosticare gli errori di convalida crittografica e catena di trust DNSSEC."
+        },
+        {
+          "entry": "dns-amplification-ddos-rrl",
+          "why": "Comprendere i rischi di amplificazione e configurare Response Rate Limiting."
+        },
+        {
+          "entry": "dns-zone-transfer-axfr-sicurezza",
+          "why": "Proteggere la sincronizzazione di zona con TSIG ed evitare reconnaissance esterne."
+        }
+      ]
     },
     {
-     "entry": "homelab-low-power",
-     "why": "L'hardware giusto costa poco e consuma meno."
+      "slug": "adeguamento-tecnico-nis2",
+      "title": "Adeguamento tecnico alla direttiva NIS2",
+      "tagline": "Dalla gestione del perimetro e autenticazione forte ai log immutabili e notifica incidenti.",
+      "intro": "La conformità alla NIS2 (Direttiva UE 2022/2555) non è un esercizio burocratico ma un insieme di requisiti ingegneristici precisi. Questo percorso delinea le difese tecniche obbligatorie: governance del rischio, blindatura dell'accesso, tracciamento forense non manipolabile e risposta rapida agli incidenti.",
+      "steps": [
+        {
+          "entry": "nis2-chi-deve",
+          "why": "Inquadrare l'ambito di applicazione tra soggetti essenziali e importanti."
+        },
+        {
+          "entry": "nis2-obblighi-tecnici-art21",
+          "why": "I requisiti tecnici minimi vincolanti stabiliti dall'Articolo 21."
+        },
+        {
+          "entry": "log-immutabili-forensi-crittografia",
+          "why": "Garantire l'integrità probatoria dei log con WORM e hashing."
+        },
+        {
+          "entry": "auditd-linux-regole-forensi",
+          "why": "Tracciare le chiamate di sistema sospette ed escalation di privilegi."
+        },
+        {
+          "entry": "bastion-host-jumpbox-hardening",
+          "why": "Isolare e proteggere il canale di accesso amministrativo perimetrale."
+        },
+        {
+          "entry": "mtls-zero-trust-service-to-service",
+          "why": "Eliminare credenziali statiche con autenticazione crittografica reciproca."
+        },
+        {
+          "entry": "notifica-incidenti-nis2-tempistiche",
+          "why": "Rispettare le scadenze legali di early warning e relazione formale CSIRT."
+        },
+        {
+          "entry": "supply-chain-sbom-cyclonedx-spdx",
+          "why": "Mappare e verificare i rischi nelle dipendenze software esterne."
+        }
+      ]
     },
     {
-     "entry": "bash-scripting-base",
-     "why": "Tutto ciò che fai due volte va automatizzato."
+      "slug": "supply-chain-e-gitops-security",
+      "title": "Supply chain security e automazione GitOps",
+      "tagline": "Dalla gestione dei secrets con SOPS alla verifica crittografica di commit, immagini OCI e policy Kubernetes.",
+      "intro": "Distribuire software in modo continuo richiede che ogni anello della catena (sorgenti, pipeline CI, registry e cluster) sia crittograficamente verificabile. Questo percorso illustra come proteggere l'infrastruttura di build e deploy da attacchi di dependency confusion, segreti esposti e container compromessi.",
+      "steps": [
+        {
+          "entry": "supply-chain-security",
+          "why": "I vettori di attacco lungo la filiera del software moderno."
+        },
+        {
+          "entry": "branch-protection-rules-github-gitlab",
+          "why": "Blindare il ramo principale con review obbligatorie e commit firmati."
+        },
+        {
+          "entry": "gitleaks-trufflehog-precommit",
+          "why": "Intercettare credenziali e token prima che entrino nella storia Git."
+        },
+        {
+          "entry": "git-crypt-vs-sops-age",
+          "why": "Cifrare i file di configurazione senza sacrificare i diff collaborativi."
+        },
+        {
+          "entry": "sigstore-cosign-firma-container",
+          "why": "Attestare l'autenticità e l'integrità delle immagini nei registry OCI."
+        },
+        {
+          "entry": "slsa-framework-livelli-sicurezza",
+          "why": "Raggiungere livelli formali di build provenance non manipolabile."
+        },
+        {
+          "entry": "trivy-vs-grype-vulnerability-scanner",
+          "why": "Identificare CVE e configurazioni errate nei container e nelle SBOM."
+        },
+        {
+          "entry": "flux2-vs-argocd-gitops-confronto",
+          "why": "Riconciliare lo stato del cluster Kubernetes da sorgenti Git controllate."
+        }
+      ]
     },
     {
-     "entry": "cron-sintassi",
-     "why": "L'automazione che gira mentre dormi."
-    },
-    {
-     "entry": "backup-321",
-     "why": "Nessuno viene licenziato per un server lento; per un backup mancante sì."
-    },
-    {
-     "entry": "monitoring-stack",
-     "why": "Accorgersi dei problemi prima degli utenti."
-    },
-    {
-     "entry": "aws-o-azure",
-     "why": "Il cloud: impara i concetti su un provider, valgono ovunque."
-    },
-    {
-     "entry": "certificazioni-it",
-     "why": "Il pezzo di carta che apre i colloqui."
-    },
-    {
-     "entry": "homelab-cv",
-     "why": "Trasformare il lab in esperienza spendibile."
+      "slug": "storage-ad-alte-prestazioni-e-tuning",
+      "title": "Storage ad alte prestazioni, ZFS e kernel tuning",
+      "tagline": "Dalla geometria dei dischi (ashift, recordsize) e NVMe-oF al tuning di ARC, IO scheduler e buffer di rete.",
+      "intro": "I colli di bottiglia nei server moderni non risiedono nella CPU ma nella latenza I/O e nei buffer di memoria. Questo percorso guida alla configurazione estrema di sistemi storage: come evitare la write amplification su ZFS, ottimizzare le code NVMe, scegliere lo scheduler I/O per flash storage e sbloccare la banda con il tuning sysctl del kernel.",
+      "steps": [
+        {
+          "entry": "zfs-proxmox",
+          "why": "I fondamenti del filesystem ZFS: pool, vdev e ridondanza."
+        },
+        {
+          "entry": "zfs-ashift-recordsize-tuning",
+          "why": "Allineare ashift ai blocchi fisici 4K ed evitare write amplification."
+        },
+        {
+          "entry": "zfs-slog-optane-sync-writes",
+          "why": "Valutare con rigore l'aggiunta di SSD dedicati per scritture sincrone ZIL."
+        },
+        {
+          "entry": "zfs-special-vdev-metadata-tuning",
+          "why": "Accelerare metadati e piccoli blocchi su mirror NVMe veloce."
+        },
+        {
+          "entry": "io-scheduler-mq-deadline-kyber",
+          "why": "Configurare multi-queue scheduler su NVMe ultra-rapidi."
+        },
+        {
+          "entry": "benchmark-dischi-fio",
+          "why": "Misurare IOPS reali e latenza con pattern I/O sintetici prima della produzione."
+        },
+        {
+          "entry": "nvme-over-fabrics-tcp-rdma",
+          "why": "Disaggregare lo storage su rete 100GbE con latenze locali."
+        },
+        {
+          "entry": "tcp-bbr-vs-cubic-latenza",
+          "why": "Sostituire Cubic con BBR per saturare link ad alto prodotto banda-latenza."
+        }
+      ]
     }
-   ]
-  },
-  {
-   "slug": "mettere-in-sicurezza-un-server",
-   "title": "Mettere in sicurezza un server esposto",
-   "tagline": "Dodici tappe in ordine di impatto: dall'hardening iniziale alla checklist mensile che mantiene tutto vero.",
-   "intro": "L'ordine segue l'impatto: prima si chiude la superficie d'attacco, poi si blinda l'accesso, poi si costruiscono visibilità e resilienza. Ogni tappa è operativa, con i comandi.",
-   "steps": [
-    {
-     "entry": "hardening-linux",
-     "why": "La baseline: chiudere ciò che non serve appena il server esiste."
-    },
-    {
-     "entry": "hardening-ssh",
-     "why": "SSH è la porta principale: è qui che bussano tutti."
-    },
-    {
-     "entry": "chiavi-ssh",
-     "why": "Le chiavi al posto delle password: il singolo upgrade più efficace."
-    },
-    {
-     "entry": "host-default-deny-nftables",
-     "why": "Default deny: tutto chiuso, si apre solo il necessario."
-    },
-    {
-     "entry": "fail2ban",
-     "why": "Ban automatico di chi insiste."
-    },
-    {
-     "entry": "come-funziona-acme",
-     "why": "HTTPS automatico, senza scadenze dimenticate."
-    },
-    {
-     "entry": "security-headers",
-     "why": "Gli header che il browser rispetta e gli scanner cercano."
-    },
-    {
-     "entry": "cos-e-un-waf",
-     "why": "Lo strato che filtra le richieste applicative cattive."
-    },
-    {
-     "entry": "security-logging",
-     "why": "Se non è loggato, non è successo: la scatola nera dell'incidente."
-    },
-    {
-     "entry": "backup-321",
-     "why": "Il paracadute: tre copie, due supporti, una fuori sede."
-    },
-    {
-     "entry": "disaster-recovery",
-     "why": "Sapere già cosa fare quando andrà male."
-    },
-    {
-     "entry": "checklist-sicurezza-server",
-     "why": "La mezz'ora al mese che mantiene vero tutto il lavoro fatto sopra."
-    }
-   ]
-  },
-  {
-   "slug": "self-hosting-da-zero",
-   "title": "Self-hosting da zero",
-   "tagline": "Dodici tappe dal perché all'infrastruttura che si mantiene da sola: Proxmox, container, rete, backup e monitoraggio.",
-   "intro": "Dal capire se il self-hosting fa per te fino a un lab che ti avvisa invece di sorprenderti. Le tappe centrali (rete, backup) sono quelle che separano un hobby fragile da un'infrastruttura di cui fidarsi.",
-   "steps": [
-    {
-     "entry": "perche-self-hosting",
-     "why": "Capire pro, contro e costi reali prima di iniziare."
-    },
-    {
-     "entry": "homelab-low-power",
-     "why": "Un mini PC basta, e non pesa in bolletta."
-    },
-    {
-     "entry": "cos-e-proxmox",
-     "why": "La base di tutto: l'hypervisor."
-    },
-    {
-     "entry": "lxc-vs-vm",
-     "why": "Container o VM: la scelta da fare per ogni servizio."
-    },
-    {
-     "entry": "docker-compose",
-     "why": "Il formato in cui il mondo self-hosted distribuisce il software."
-    },
-    {
-     "entry": "vlan-segmentazione",
-     "why": "L'IoT non deve parlare col NAS dei backup."
-    },
-    {
-     "entry": "tunnel-senza-porte",
-     "why": "Raggiungere i servizi da fuori senza esporli."
-    },
-    {
-     "entry": "snapshot-vs-backup",
-     "why": "Capire la differenza prima di averne bisogno."
-    },
-    {
-     "entry": "pbs",
-     "why": "Backup deduplicati e verificati per VM e container."
-    },
-    {
-     "entry": "monitoring-stack",
-     "why": "Il lab che ti avvisa invece di sorprenderti."
-    },
-    {
-     "entry": "aggregatore-rss",
-     "why": "Il primo servizio davvero tuo: le notizie senza algoritmi."
-    },
-    {
-     "entry": "checklist-sicurezza-server",
-     "why": "La manutenzione mensile che tiene tutto in salute."
-    }
-   ]
-  },
-  {
-   "slug": "docker-solido",
-   "title": "Docker solido in produzione",
-   "tagline": "Nove tappe per uno stack Docker che non sorprende: Compose, sicurezza, volumi, log, aggiornamenti e backup.",
-   "intro": "Docker \"che funziona\" e Docker \"di cui fidarsi\" sono due mestieri diversi. Queste tappe coprono il secondo: come si compone uno stack, come si isola, dove vivono i dati e come si aggiorna senza incidenti.",
-   "steps": [
-    {
-     "entry": "docker-compose",
-     "why": "Il formato in cui tutto si distribuisce: da qui si parte."
-    },
-    {
-     "entry": "docker-volumes-vs-bindmounts",
-     "why": "I container sono usa-e-getta, i dati no: la scelta che decide i backup."
-    },
-    {
-     "entry": "container-security",
-     "why": "Immagini fidate, pinnate e scansionate: la supply chain dello stack."
-    },
-    {
-     "entry": "container-privilegiati",
-     "why": "Il flag --privileged è quasi sempre la risposta sbagliata."
-    },
-    {
-     "entry": "container-breakout",
-     "why": "Sapere cosa può andare storto per capire perché isolare."
-    },
-    {
-     "entry": "docker-log-rotation-limits",
-     "why": "I log che riempiono il disco sono l'incidente Docker più banale."
-    },
-    {
-     "entry": "docker-gluetun-vpn",
-     "why": "Instradare un container in VPN: il pattern fatto bene."
-    },
-    {
-     "entry": "watchtower",
-     "why": "Aggiornare in automatico: quando conviene e quando no."
-    },
-    {
-     "entry": "backup-321",
-     "why": "Volumi inclusi nel piano 3-2-1, o non è un piano."
-    }
-   ]
-  },
-  {
-   "slug": "llm-e-agenti-sicuri",
-   "title": "Mettere in sicurezza LLM e agenti",
-   "tagline": "Dieci tappe dal prompt injection alla supply chain dei modelli: la sicurezza AI per chi la implementa.",
-   "intro": "L'ordine segue l'architettura: prima gli attacchi al modello via input, poi i confini di ciò che un agente può fare, infine la filiera dei pesi e delle dipendenze. Ogni tappa è operativa.",
-   "steps": [
-    {
-     "entry": "cos-e-prompt-injection",
-     "why": "L'attacco fondante: non esiste escaping per il linguaggio naturale."
-    },
-    {
-     "entry": "guardrail",
-     "why": "I filtri attorno al modello: cosa fermano e cosa no."
-    },
-    {
-     "entry": "llm-security",
-     "why": "L'endpoint LLM è un endpoint: superficie, quote, abusi."
-    },
-    {
-     "entry": "rag-security",
-     "why": "I documenti indicizzati sono input non fidato a tutti gli effetti."
-    },
-    {
-     "entry": "mcp-tool-security",
-     "why": "Tool e plugin: il confused deputy è dietro l'angolo."
-    },
-    {
-     "entry": "limitare-agente",
-     "why": "Permessi minimi e HITL: l'agente propone, l'umano dispone."
-    },
-    {
-     "entry": "sandboxing-agenti",
-     "why": "Dove l'agente esegue: isolamento vero, non promesse."
-    },
-    {
-     "entry": "model-signing-sigstore-tuf",
-     "why": "Da dove arrivano i pesi: firma e provenienza."
-    },
-    {
-     "entry": "weight-poisoning",
-     "why": "Le backdoor nei modelli non si vedono nei benchmark."
-    },
-    {
-     "entry": "aibom-ai-bill-of-materials",
-     "why": "L'inventario che tiene insieme tutto: dataset, pesi, dipendenze."
-    }
-   ]
-  },
-  {
-   "slug": "agenti-ai-in-regola",
-   "title": "Agenti AI in azienda, in regola",
-   "tagline": "Sette tappe di governance: AI Act, responsabilità, registro, limiti settoriali, supervisione e audit trail.",
-   "intro": "La parte normativa dell'AI, messa in fila per chi deve deciderla e documentarla: cosa impone l'AI Act, chi risponde di cosa, e quali pezzi tecnici (registro, audit trail, fallback umano) trasformano la conformità in pratica.",
-   "steps": [
-    {
-     "entry": "ai-act",
-     "why": "La cornice: livelli di rischio e scadenze già in vigore."
-    },
-    {
-     "entry": "ai-deployer-vs-provider-liability",
-     "why": "Chi risponde di cosa: usare un sistema oltre le istruzioni ti cambia ruolo."
-    },
-    {
-     "entry": "ai-agent-corporate-registry",
-     "why": "Il censimento degli agenti attivi: si governa solo ciò che si conosce."
-    },
-    {
-     "entry": "agenti-settori-regolamentati",
-     "why": "Credito, sanità, HR: dove l'autonomia trova i limiti di legge."
-    },
-    {
-     "entry": "agent-human-fallback-protocol",
-     "why": "Il passaggio di controllo all'umano, deciso prima della crisi."
-    },
-    {
-     "entry": "audit-trail-agenti",
-     "why": "Log firmati e non ripudio: \"l'ha deciso l'AI\" non è una difesa."
-    },
-    {
-     "entry": "diritto-oblio-ai",
-     "why": "La cancellabilità come requisito architetturale, non come emergenza."
-    }
-   ]
-  },
-  {
-   "slug": "email-che-arrivano",
-   "title": "Email che arrivano (e restano tue)",
-   "tagline": "Sei tappe sulla posta: autenticazione SPF/DKIM/DMARC, reputazione, relay cifrato, cifratura a riposo e migrazione.",
-   "intro": "La posta è il self-hosting più punitivo: tecnicamente semplice, ma la deliverability è un mestiere. Queste tappe partono da ciò che ti fa finire in spam e arrivano alla casella sovrana cifrata.",
-   "steps": [
-    {
-     "entry": "spf-dkim-dmarc",
-     "why": "I tre record senza i quali oggi non si consegna nulla."
-    },
-    {
-     "entry": "email-spam",
-     "why": "Perché si finisce in spam: reputazione, contenuti e infrastruttura."
-    },
-    {
-     "entry": "smart-host-relay-smtp",
-     "why": "L'IP residenziale non consegna: il relay cifrato è la via."
-    },
-    {
-     "entry": "dovecot-maildir-encryption",
-     "why": "Cifratura a riposo delle caselle: la posta è il dato più sensibile."
-    },
-    {
-     "entry": "imapsync-migrazione-email",
-     "why": "Migrare anni di caselle senza perdere nulla."
-    },
-    {
-     "entry": "backup-321",
-     "why": "E come tutto il resto: tre copie, due supporti, una fuori sede."
-    }
-   ]
-  },
-  {
-   "slug": "risolvere-errori-cloudflare",
-   "title": "Risolvere gli errori di Cloudflare e dell'Edge",
-   "tagline": "Guida pratica per diagnosticare e correggere i codici 52x, problemi SSL e routing.",
-   "intro": "Gli errori edge tra Cloudflare e il server di origine bloccano il traffico prima che raggiunga l'applicazione. Questa guida ordina le diagnosi in sequenza logica: dalla configurazione crittografica TLS ai timeout TCP e HTTP fino ai controlli di routing e posta.",
-   "steps": [
-    {
-     "entry": "cloudflare-ssl-modes",
-     "why": "La configurazione crittografica di base: evitare i loop di redirect 301 di Flexible."
-    },
-    {
-     "entry": "errore-520-cloudflare",
-     "why": "Diagnosi di risposte vuote o intestazioni HTTP eccessive inviate dall'origine."
-    },
-    {
-     "entry": "errore-521-cloudflare",
-     "why": "Quando il server web di origine e spento o rifiuta attivamente la connessione."
-    },
-    {
-     "entry": "errore-522-cloudflare",
-     "why": "Timeout durante l'handshake TCP: problemi di routing o pacchetti SYN scartati."
-    },
-    {
-     "entry": "errore-524-cloudflare",
-     "why": "Quando il backend impiega oltre 100 secondi per elaborare la risposta HTTP."
-    },
-    {
-     "entry": "errore-525-cloudflare",
-     "why": "Fallimento dell'handshake TLS: ciphers incompatibili o certificati non validi."
-    },
-    {
-     "entry": "spf-dkim-dmarc",
-     "why": "Allineamento DNS fondamentale per garantire la corretta consegna dei messaggi email."
-    },
-    {
-     "entry": "flareover",
-     "why": "Il percorso di uscita controllato per migrare verso un'infrastruttura europea sovrana."
-    }
-   ]
-  }
- ]
+  ]
 }
